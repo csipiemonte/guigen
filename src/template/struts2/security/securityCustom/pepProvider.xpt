@@ -69,8 +69,8 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 	«ENDLET»
 	«ENDIF»
 
-	public Actor[] findActorsForPersonaInApplication(Identita arg0,
-			Application arg1) throws UnrecoverableException, SystemException,
+	public Actor[] findActorsForPersonaInApplication(Identita identita,
+			Application app) throws UnrecoverableException, SystemException,
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		Actor[] res = null;
@@ -80,7 +80,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public Actor[] findActorsForPersonaInUseCase(Identita arg0, UseCase arg1)
+	public Actor[] findActorsForPersonaInUseCase(Identita identita, UseCase useCase)
 			throws UnrecoverableException, SystemException, InternalException,
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
@@ -91,8 +91,8 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public Ruolo[] findRuoliForPersonaInApplication(Identita arg0,
-			Application arg1) throws UnrecoverableException, SystemException,
+	public Ruolo[] findRuoliForPersonaInApplication(Identita identita,
+			Application app) throws UnrecoverableException, SystemException,
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		Ruolo[] res = null;
@@ -102,7 +102,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public Ruolo[] findRuoliForPersonaInUseCase(Identita arg0, UseCase arg1)
+	public Ruolo[] findRuoliForPersonaInUseCase(Identita identita, UseCase useCase)
 			throws UnrecoverableException, SystemException, InternalException,
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
@@ -113,8 +113,8 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public UseCase[] findUseCasesForPersonaInApplication(Identita arg0,
-			Application arg1) throws UnrecoverableException, SystemException,
+	public UseCase[] findUseCasesForPersonaInApplication(Identita identita,
+			Application app) throws UnrecoverableException, SystemException,
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		UseCase[] res = null;
@@ -124,7 +124,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public String getInfoPersonaInUseCase(Identita arg0, UseCase arg1)
+	public String getInfoPersonaInUseCase(Identita identita, UseCase useCase)
 			throws UnrecoverableException, SystemException, InternalException,
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
@@ -135,7 +135,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public String getInfoPersonaSchema(Ruolo arg0)
+	public String getInfoPersonaSchema(Ruolo ruolo)
 			throws UnrecoverableException, SystemException, InternalException,
 			BadRuoloException {
 		String res = null;
@@ -156,7 +156,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return i;
 	}
 
-	public Identita identificaUserPassword(String arg0, String arg1)
+	public Identita identificaUserPassword(String user, String password)
 			throws UnrecoverableException, SystemException, InternalException,
 			AuthException, IdProviderNotFoundException,
 			MalformedUsernameException {
@@ -168,8 +168,8 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return i;
 	}
 
-	public Identita identificaUserPasswordPIN(String arg0, String arg1,
-			String arg2) throws UnrecoverableException, SystemException,
+	public Identita identificaUserPasswordPIN(String user, String password,
+			String pin) throws UnrecoverableException, SystemException,
 			InternalException, AuthException, IdProviderNotFoundException,
 			MalformedUsernameException {
 				Identita i = new Identita();
@@ -179,7 +179,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return i;
 	}
 
-	public boolean isIdentitaAutentica(Identita arg0)
+	public boolean isIdentitaAutentica(Identita identita)
 			throws UnrecoverableException, SystemException, InternalException {
 		boolean res = false;
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".isIdentitaAutentica")»
@@ -188,7 +188,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public boolean isPersonaAutorizzataInUseCase(Identita arg0, UseCase arg1)
+	public boolean isPersonaAutorizzataInUseCase(Identita identita, UseCase useCase)
 			throws UnrecoverableException, SystemException, InternalException,
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
@@ -199,7 +199,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 
-	public boolean isPersonaInRuolo(Identita arg0, Ruolo arg1)
+	public boolean isPersonaInRuolo(Identita identita, Ruolo ruolo)
 			throws UnrecoverableException, SystemException, InternalException,
 			BadRuoloException, IdentitaNonAutenticaException {
 		boolean res = false;
@@ -209,7 +209,9 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 		return res;
 	}
 	
-
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".methodPrivate")»
+	
+	«ENDPROTECT»
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -582,9 +584,7 @@ public class SpringPD extends AbstractPortaDelegata {
 	public String getAppContextName(){return null;}
 }
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".methodPrivate")»
 
-«ENDPROTECT»
 
 «ENDFILE»
 «ENDDEFINE»
