@@ -378,101 +378,13 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 	«ENDLET-»
 	«ENDLET-»
 	«IF this.targetPlatform.securityProfile != null && this.targetPlatform.securityProfile.pepImpl.custom == true»
-	public Identita identificaUserPasswordPIN(String arg0, String arg1, String arg2) throws BEException{
-		Identita i= null;
-		try {
-			i = getIridePEP().identificaUserPasswordPIN(arg0, arg1, arg2);
-		} catch (InternalException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPasswordPIN] Errore interno in identificaUserPasswordPIN:"
-							+ e, e);
-			throw new BEException("Errore interno in identificaUserPasswordPIN:"
-					+ e, e);
-		} catch (AuthException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPasswordPIN] Errore autorizzativo in identificaUserPasswordPIN:"
-							+ e, e);
-			throw new BEException("Errore autorizzativo in identificaUserPasswordPIN:"
-					+ e, e);
-		} catch (IdProviderNotFoundException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPasswordPIN] Errore idProvider in identificaUserPasswordPIN:"
-							+ e, e);
-			throw new BEException(
-					"Errore idProvider in identificaUserPasswordPIN:" + e,
-					e);
-		} catch (MalformedUsernameException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPasswordPIN] Errore MalformedUsernameException in identificaUserPasswordPIN:"
-							+ e, e);
-			throw new BEException(
-					"Errore MalformedUsernameException in identificaUserPasswordPIN:" + e,
-					e);
-		} catch (UnrecoverableException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPasswordPIN] Errore non recuperabile in identificaUserPasswordPIN:"
-							+ e, e);
-			throw new BEException(
-					"Errore non recuperabile in identificaUserPasswordPIN:" + e,
-					e);
-		}
-		 catch (SystemException e) {
-				log.error(
-						"[SecurityHelper::identificaUserPasswordPIN] Errore di sistema in identificaUserPasswordPIN:"
-								+ e, e);
-				throw new BEException(
-						"Errore di sistema in identificaUserPasswordPIN:" + e, e);
-		} 
-		return i;
+	public Identita identificaUserPasswordPIN(String user, String password, String pin) throws BEException, InternalException, AuthException, IdProviderNotFoundException, MalformedUsernameException, UnrecoverableException, SystemException {
+		return getIridePEP().identificaUserPasswordPIN(user, password, pin);
 	}
 
 	
-	public Identita identificaUserPassword(String arg0, String arg1) throws BEException{
-		Identita i= null;
-		try {
-			i = getIridePEP().identificaUserPassword(arg0, arg1);
-		} catch (InternalException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPassword] Errore interno in identificaUserPassword:"
-							+ e, e);
-			throw new BEException("Errore interno in identificaUserPassword:"
-					+ e, e);
-		} catch (AuthException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPassword] Errore autorizzativo in identificaUserPassword:"
-							+ e, e);
-			throw new BEException("Errore autorizzativo in identificaUserPassword:"
-					+ e, e);
-		} catch (IdProviderNotFoundException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPassword] Errore idProvider in identificaUserPassword:"
-							+ e, e);
-			throw new BEException(
-					"Errore idProvider in identificaUserPassword:" + e,
-					e);
-		} catch (MalformedUsernameException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPassword] Errore MalformedUsernameException in identificaUserPassword:"
-							+ e, e);
-			throw new BEException(
-					"Errore MalformedUsernameException in identificaUserPassword:" + e,
-					e);
-		} catch (UnrecoverableException e) {
-			log.error(
-					"[SecurityHelper::identificaUserPassword] Errore non recuperabile in identificaUserPassword:"
-							+ e, e);
-			throw new BEException(
-					"Errore non recuperabile in identificaUserPassword:" + e,
-					e);
-		}
-		 catch (SystemException e) {
-				log.error(
-						"[SecurityHelper::identificaUserPassword] Errore di sistema in identificaUserPassword:"
-								+ e, e);
-				throw new BEException(
-						"Errore di sistema in identificaUserPassword:" + e, e);
-		} 
-		return i;
+	public Identita identificaUserPassword(String user, String password) throws BEException, InternalException, AuthException, IdProviderNotFoundException, MalformedUsernameException, UnrecoverableException, SystemException {
+		return getIridePEP().identificaUserPassword(user, password);
 	}
 «ENDIF»
 «ENDDEFINE»

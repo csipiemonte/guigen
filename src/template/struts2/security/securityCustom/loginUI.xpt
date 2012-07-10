@@ -23,9 +23,15 @@ e le limitazioni secondo i termini della Licenza.
 «FILE getLocalLoginUIActionJavaFile(model, true)»package «getPresentationJavaPackage(model)»;
 
 import it.csi.iride2.policy.entity.Identita;
+
+import it.csi.csi.wrapper.SystemException;
+import it.csi.csi.wrapper.UnrecoverableException;
+import it.csi.iride2.policy.exceptions.AuthException;
+import it.csi.iride2.policy.exceptions.IdProviderNotFoundException;
+import it.csi.iride2.policy.exceptions.InternalException;
+import it.csi.iride2.policy.exceptions.MalformedUsernameException;
 import it.csi.«model.codProdotto».«model.codComponente».business.BEException;
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getLocalLoginUIActionClassName()+".import")»
-import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 «ENDPROTECT»
 
 public class «getLocalLoginUIActionClassName()» extends BaseAction {
@@ -54,11 +60,40 @@ public final static String TICKET = "«model.targetPlatform.securityProfile.idAd
 				getSession().put(TICKET, i.toString());
 			} catch (BEException e) {
 				log.error(
-					"[«getLocalLoginUIActionClassName()»::validaLogin] Errore validazione Login:"
-							+ e, e);
+						"[LocalLoginUIAction::validaLogin] Errore validazione Login:"
+								+ e, e);
+				throw new BEException("Errore validazione Login:" + e, e);
+			} catch (InternalException e) {
+				log.error(
+						"[LocalLoginUIAction::validaLogin] InternalException Login:"
+								+ e, e);
+				throw new BEException("Errore validazione Login:" + e, e);
+			} catch (AuthException e) {
+				log.error(
+						"[LocalLoginUIAction::validaLogin] AuthException Login:"
+								+ e, e);
+				return "autorizzazioneFallita";
+			} catch (IdProviderNotFoundException e) {
+				log.error(
+						"[LocalLoginUIAction::validaLogin] IdProviderNotFoundException Login:"
+								+ e, e);
+				return "autorizzazioneFallita";
+			} catch (MalformedUsernameException e) {
+				log.error(
+						"[LocalLoginUIAction::validaLogin] MalformedUsernameException Login:"
+								+ e, e);
+				return "autorizzazioneFallita";
+			} catch (UnrecoverableException e) {
+				log.error(
+						"[LocalLoginUIAction::validaLogin] UnrecoverableException Login:"
+								+ e, e);
+				throw new BEException("Errore validazione Login:" + e, e);
+			} catch (SystemException e) {
+				log.error(
+						"[LocalLoginUIAction::validaLogin] SystemException Login:"
+								+ e, e);
 				throw new BEException("Errore validazione Login:" + e, e);
 			}
-
 			return "GO_TO_HomePage";
 		}
 		return "autorizzazioneFallita";
