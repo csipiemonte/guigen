@@ -23,7 +23,7 @@ e le limitazioni secondo i termini della Licenza.
 «FILE getLocalLoginUIActionJavaFile(model, true)»package «getPresentationJavaPackage(model)»;
 
 import it.csi.iride2.policy.entity.Identita;
-import it.csi.myprod.mycomp.business.BEException;
+import it.csi.«model.codProdotto».«model.codComponente».business.BEException;
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getLocalLoginUIActionClassName()+".import")»
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 «ENDPROTECT»
@@ -177,18 +177,18 @@ localLogin.btnConfirm.label=LOGIN
 							«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0»
 								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPass.label')}" labelFor="widg_txtPass" errorFor="widg_txtPass" labelId="txtPassLbl" >
 								<!-- widget txtPass -->
-								<s:textfield name="password" id="widg_txtPass" size="15" />
+								<s:password name="password" id="widg_txtPass" size="15" />
 								</customtag:widgetsPanelColumn>
 							«ENDIF»
 
 							«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD_PIN)==0).size>0»
 								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPass.label')}" labelFor="widg_txtPass" errorFor="widg_txtPass" labelId="txtPassLbl" >
 								<!-- widget txtPass -->
-								<s:textfield name="password" id="widg_txtPass" size="15" />
+								<s:password name="password" id="widg_txtPass" size="15" />
 								</customtag:widgetsPanelColumn>
 								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPin.label')}" labelFor="widg_txtPin" errorFor="widg_txtPin" labelId="txtPinLbl" >
 								<!-- widget txtPin -->
-								<s:textfield name="pin" id="widg_txtPin" size="15" />
+								<s:password name="pin" id="widg_txtPin" size="15" />
 								</customtag:widgetsPanelColumn>
 							«ENDIF»
 							</customtag:widgetsPanel>
@@ -256,7 +256,7 @@ localLogin.btnConfirm.label=LOGIN
 
 <struts>
 	<package name="localLoginUI" extends="jsp-package" namespace="/secure">
-		<action name="localLoginUI" class="it.csi.myprod.mycomp.presentation.mycomp.action.LocalLoginUIAction">
+		<action name="localLoginUI" class="it.csi.«model.codProdotto».«model.codComponente».presentation.«model.codComponente».action.LocalLoginUIAction">
 			<result name="input">/jsp/localLoginUI.jsp</result>
 			<result name="success">/jsp/localLoginUI.jsp</result>
 			<result name="autorizzazioneFallita">/jsp/error/autorizzazioneFallita.jsp</result>
