@@ -839,7 +839,16 @@ int getStepNumber(Panel step, WizardPanel wiz) :
 String getIvyRepositoryHost() :
 	getProperty("guigen.ivyRepositoryHost")==null||getProperty("guigen.ivyRepositoryHost").length==0?
 	"repart.csi.it":
-	getProperty("guigen.ivyRepositoryHost");		
+	getProperty("guigen.ivyRepositoryHost");
+	
+	
+// restituisce la molteplicità della selezione di un treeview
+String getTreeSelectionMultiplicity(TreeView t) :
+ if(t.databinding!= null) then
+ 	(t.databinding.appData.type.metaType == SimpleType?"simple":"multiple")
+ else
+ 	"none";
+ 			
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
