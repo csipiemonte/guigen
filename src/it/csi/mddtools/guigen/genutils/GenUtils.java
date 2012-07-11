@@ -98,11 +98,9 @@ import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
 import it.csi.mddtools.guigen.WizardPanel;
-import it.csi.mddtools.guigen.impl.CPCommandsImpl;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -328,6 +326,17 @@ public class GenUtils {
 			return findParentContentPanel((Panel)parent);
 		}
 	}
+	/**
+	 * Risale la gerarchia dei pannelli fino ad arrivare al ContentPanel che contiene
+	 * (direttamente o indirettamente) il pannello in questione.
+	 * 
+	 * @param p Il Panel di cui si vuole conoscere il ContentPanel.
+	 * @return Il ContentPanel che contiene il Panel.
+	 */
+	public static ContentPanel findParentContentPanel(Column c) {
+		EObject parent = c.eContainer().eContainer().eContainer();
+		return findParentContentPanel((Panel)parent);
+	}
 
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -396,6 +405,19 @@ public class GenUtils {
 
 	/**
 	 * Risale la gerarchia dei pannelli fino ad arrivare al PanelDef che contiene
+	 * (direttamente o indirettamente) il widget in questione. Vale nel caso in cui
+	 * il widget sia contenuto in un frammento riusabile
+	 * 
+	 * @param w Il Widget di cui si vuole conoscere il PanelDef.
+	 * @return Il PanelDef che contiene il Widget.
+	 */
+	public static PanelDef findParentPanelDef(Column c) {
+		EObject parent = c.eContainer().eContainer().eContainer();
+		return findParentPanelDef((Panel)parent);
+	}
+	
+	/**
+	 * Risale la gerarchia dei pannelli fino ad arrivare al PanelDef che contiene
 	 * (direttamente o indirettamente) il pannello in questione.
 	 * vale per pannelli contenuti in frammenti riusabili. 
 	 * 
@@ -414,6 +436,7 @@ public class GenUtils {
 			return findParentPanelDef((Panel)parent);
 		}
 	}	
+	
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////
