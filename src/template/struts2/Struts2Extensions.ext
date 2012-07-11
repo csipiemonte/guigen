@@ -572,7 +572,8 @@ String getTableDecoratorClassName(Table tbl) :
 	
 String getTableDecoratorFQN(GUIModel model, Table tbl) :
 	getPresentationRootJavaPackage(model)+".decorator."+getAppModuleAsPkg(findParentContentPanel(tbl), false,true)+getTableDecoratorClassName(tbl);
-	
+
+
 String getTableDecoratorJavaFile(GUIModel model, Table tbl) :
 	getPresentationRootJavaSrcDir(model, true) + "/decorator/" + getAppModuleAsFolder(findParentContentPanel(tbl),false,true)+ getTableDecoratorClassName(tbl) + ".java";
 
@@ -594,9 +595,15 @@ String getColumnComparator(GUIModel model, Column col, Table t) :
 		"comparator=\"" + getComparatorJavaPackage(model) + "." + comparator + "\""
 	else
 		"";
+		
+String getColumnDecoratorClassName(Table tbl, Column col) :
+	tbl.name.toFirstUpper()+col.selector.toFirstUpper()+"ColDecorator";		
 
-
-
+String getColumnDecoratorFQN(GUIModel model, Table tbl, Column col) :
+	getPresentationRootJavaPackage(model)+".decorator."+getAppModuleAsPkg(findParentContentPanel(tbl), false,true)+getColumnDecoratorClassName(tbl, col);
+		
+String getColumnDecoratorJavaFile(GUIModel model, Table tbl, Column col) :
+	getPresentationRootJavaSrcDir(model, true) + "/decorator/" + getAppModuleAsFolder(findParentContentPanel(tbl),false,true)+ getColumnDecoratorClassName(tbl, col) + ".java";
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Type Mapping
 
