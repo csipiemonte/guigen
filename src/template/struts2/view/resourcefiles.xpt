@@ -1078,7 +1078,8 @@ come target di refresh.
 		«ELSE-»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, model, cp, contextPrefix)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
-			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)»  media="html" />
+			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)»  media="html"
+			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-» />
 		«ENDIF-»
 		«IF enableExport-»«REM»STDMDD-694«ENDREM»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».export.label"
