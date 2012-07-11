@@ -89,6 +89,7 @@ public class ColumnItemProvider
 			addTooltipPropertyDescriptor(object);
 			addActiveFlagSelectorPropertyDescriptor(object);
 			addFieldMaxLengthPropertyDescriptor(object);
+			addCustomDecoratorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -358,6 +359,28 @@ public class ColumnItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Custom Decorator feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCustomDecoratorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Column_customDecorator_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_customDecorator_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__CUSTOM_DECORATOR,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -436,6 +459,7 @@ public class ColumnItemProvider
 			case GuigenPackage.COLUMN__TOOLTIP:
 			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
+			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:

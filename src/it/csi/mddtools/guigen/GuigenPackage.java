@@ -3738,13 +3738,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__FIELD_MAX_LENGTH = 12;
 
 	/**
+	 * The feature id for the '<em><b>Custom Decorator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__CUSTOM_DECORATOR = 13;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 13;
+	int COLUMN_FEATURE_COUNT = 14;
 
 	/**
 	 * The number of structural features of the '<em>Command</em>' class.
@@ -8423,6 +8432,15 @@ public interface GuigenPackage extends EPackage {
 	int EXTRA_COLUMN__FIELD_MAX_LENGTH = COLUMN__FIELD_MAX_LENGTH;
 
 	/**
+	 * The feature id for the '<em><b>Custom Decorator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__CUSTOM_DECORATOR = COLUMN__CUSTOM_DECORATOR;
+
+	/**
 	 * The feature id for the '<em><b>Insert After</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11654,6 +11672,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_FieldMaxLength();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#isCustomDecorator <em>Custom Decorator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Decorator</em>'.
+	 * @see it.csi.mddtools.guigen.Column#isCustomDecorator()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_CustomDecorator();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
@@ -17189,6 +17218,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__FIELD_MAX_LENGTH = eINSTANCE.getColumn_FieldMaxLength();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom Decorator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__CUSTOM_DECORATOR = eINSTANCE.getColumn_CustomDecorator();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

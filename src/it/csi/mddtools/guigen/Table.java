@@ -177,7 +177,7 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Se impostato a true abilita la definizione di un CustomDecorator, 
-	 * per impostazioni grafiche particolari.
+	 * per impostazioni grafiche particolari a livello di intera riga
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Custom Decorator</em>' attribute.
 	 * @see #setCustomDecorator(boolean)

@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getTooltip <em>Tooltip</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getFieldMaxLength <em>Field Max Length</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#isCustomDecorator <em>Custom Decorator</em>}</li>
  * </ul>
  * </p>
  *
@@ -457,5 +458,31 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setFieldMaxLength(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Custom Decorator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a true abilita la definizione di un CustomDecorator, 
+	 * per impostazioni grafiche particolari da effettuarsi a livello della singola colonna.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Custom Decorator</em>' attribute.
+	 * @see #setCustomDecorator(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_CustomDecorator()
+	 * @model
+	 * @generated
+	 */
+	boolean isCustomDecorator();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#isCustomDecorator <em>Custom Decorator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Custom Decorator</em>' attribute.
+	 * @see #isCustomDecorator()
+	 * @generated
+	 */
+	void setCustomDecorator(boolean value);
 
 } // Column

@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getTooltip <em>Tooltip</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getFieldMaxLength <em>Field Max Length</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isCustomDecorator <em>Custom Decorator</em>}</li>
  * </ul>
  * </p>
  *
@@ -308,6 +309,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected int fieldMaxLength = FIELD_MAX_LENGTH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isCustomDecorator() <em>Custom Decorator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCustomDecorator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean CUSTOM_DECORATOR_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isCustomDecorator() <em>Custom Decorator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCustomDecorator()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean customDecorator = CUSTOM_DECORATOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -628,6 +649,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isCustomDecorator() {
+		return customDecorator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCustomDecorator(boolean newCustomDecorator) {
+		boolean oldCustomDecorator = customDecorator;
+		customDecorator = newCustomDecorator;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__CUSTOM_DECORATOR, oldCustomDecorator, customDecorator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -671,6 +713,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return getActiveFlagSelector();
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
 				return getFieldMaxLength();
+			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
+				return isCustomDecorator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -721,6 +765,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
 				setFieldMaxLength((Integer)newValue);
+				return;
+			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
+				setCustomDecorator((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -773,6 +820,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
 				setFieldMaxLength(FIELD_MAX_LENGTH_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
+				setCustomDecorator(CUSTOM_DECORATOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -811,6 +861,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return ACTIVE_FLAG_SELECTOR_EDEFAULT == null ? activeFlagSelector != null : !ACTIVE_FLAG_SELECTOR_EDEFAULT.equals(activeFlagSelector);
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
 				return fieldMaxLength != FIELD_MAX_LENGTH_EDEFAULT;
+			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
+				return customDecorator != CUSTOM_DECORATOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -849,6 +901,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(activeFlagSelector);
 		result.append(", fieldMaxLength: ");
 		result.append(fieldMaxLength);
+		result.append(", customDecorator: ");
+		result.append(customDecorator);
 		result.append(')');
 		return result.toString();
 	}
