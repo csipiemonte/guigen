@@ -842,14 +842,16 @@ String getIvyRepositoryHost() :
 	getProperty("guigen.ivyRepositoryHost");
 	
 	
-// restituisce la molteplicità della selezione di un treeview
+// restituisce la molteplicitï¿½ della selezione di un treeview
 String getTreeSelectionMultiplicity(TreeView t) :
  if(t.databinding!= null) then
- 	(t.databinding.appData.type.metaType == SimpleType?"single":"multiple")
+ 	(t.databinding.isBoundToArray() ? "multiple" : "single")
  else
  	"none";
  			
-		
+
+
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
