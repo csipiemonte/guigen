@@ -399,7 +399,9 @@ context Column if (!editable) WARNING "La colonna "+this.label+" non � editabi
 " verr� ignorato; "+loc() :
 	fieldMaxLength == 0;
 
-
+context Column ERROR "Una colonna appartenente ad una tabella inclusa in un PanelDef non puo' avere un custom decorator:"+loc() :
+	findParentPanelDef()==null || this.customDecorator == false;
+	
 /// questi check non vanno bene: da rivedere in seguito gestendo tutte le casistiche
 //context Column if !isNullOrEmpty(this.multidataKeySelector) && !isNullOrEmpty(this.multidataPropertySelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataKeySelector '"+this.multidataKeySelector+"'" +loc():
 //	let tableElType = getTableElementsType(getOwnerTable(this)):
