@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,59 +13,102 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
+Â«IMPORT guigenÂ»
 
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 CUSTOM DECORATORS CLASSES
 ===========================================================================================================================
-«ENDREM»
-«DEFINE strutsCustomDecoratorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModel»
+Â«ENDREMÂ»
+Â«DEFINE strutsCustomDecoratorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
 
-	«REM»Validatori custom definiti dal generatore«ENDREM»
-	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP»
-		«LET findAllWidgetsInContentPanel(currCP).typeSelect(Table) AS allTables»
-			«EXPAND tableDecoratorJavaFile(this) FOREACH allTables»
-		«ENDLET»
-	«ENDFOREACH»
-«ENDDEFINE»
+	Â«REMÂ»Validatori custom definiti dal generatoreÂ«ENDREMÂ»
+	Â«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCPÂ»
+		Â«LET findAllWidgetsInContentPanel(currCP).typeSelect(Table) AS allTablesÂ»
+			Â«EXPAND tableDecoratorJavaFile(this) FOREACH allTablesÂ»
+		Â«ENDLETÂ»
+	Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE tableDecoratorJavaFile(GUIModel model) FOR Table»
-«IF customDecorator»
-«FILE getTableDecoratorJavaFile(model, this)»package «getPresentationRootJavaPackage(model)+".decorator"+getAppModuleAsPkg(findParentContentPanel(this),true,false)»;
+Â«DEFINE tableDecoratorJavaFile(GUIModel model) FOR TableÂ»
+Â«IF customDecoratorÂ»
+Â«FILE getTableDecoratorJavaFile(model, this)Â»package Â«getPresentationRootJavaPackage(model)+".decorator"+getAppModuleAsPkg(findParentContentPanel(this),true,false)Â»;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.import")»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.import")Â»
 /// inserire qui eventuali import aggiuntive
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
 import org.displaytag.decorator.TableDecorator;
 
-public class «getTableDecoratorClassName(this)» extends TableDecorator {
+public class Â«getTableDecoratorClassName(this)Â» extends TableDecorator {
 
 	
-	public «getTableDecoratorClassName(this)»() {
+	public Â«getTableDecoratorClassName(this)Â»() {
 		super();
 		
 	}
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.body")»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.body")Â»
     /// Questo spazio e' destinato alla definizione del Decorator.
     /// La documentazione sull'utilizzo dei decoratori della display tag e' disponibile all'url:
     /// http://displaytag.sourceforge.net/1.2  
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
 }
 
-«ENDFILE»
-«ENDIF»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDIFÂ»
+
+Â«FOREACH this.columnModel.columns AS colCurrÂ»
+Â«IF colCurr.customDecoratorÂ»
+Â«EXPAND columnDecoratorJavaFile(model, this) FOR colCurrÂ»
+Â«ENDIFÂ»
+Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«DEFINE columnDecoratorJavaFile(GUIModel model, Table tb) FOR ColumnÂ»
+Â«FILE getColumnDecoratorJavaFile(model,tb, this)Â»package Â«getPresentationRootJavaPackage(model)+".decorator"+getAppModuleAsPkg(findParentContentPanel(this),true,false)Â»;
+import javax.servlet.jsp.PageContext;
+
+import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.properties.MediaTypeEnum;
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getColumnDecoratorClassName(tb, this)+"ColumnDecorator.import")Â»
+/// inserire qui eventuali import aggiuntive
+Â«ENDPROTECTÂ»
+
+public class Â«getColumnDecoratorClassName(tb, this)Â» implements DisplaytagColumnDecorator {
+
+public Â«getColumnDecoratorClassName(tb, this)Â»() {
+		super();
+		
+	}
+
+
+public Object decorate(Object arg0, PageContext arg1, MediaTypeEnum arg2)
+			throws DecoratorException {
+		Object res = arg0;
+		Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getColumnDecoratorClassName(tb, this)+"Decorator.body")Â»
+		  /// Questo spazio e' destinato alla definizione del Decorator.
+ 		  /// La documentazione sull'utilizzo dei decoratori della display tag e' disponibile all'url:
+  		  /// http://displaytag.sourceforge.net/1.2 
+  		  //res =  "<b>" + arg0 + "</b>";
+		Â«ENDPROTECTÂ»
+		return res;
+	}
+
+}
+
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
