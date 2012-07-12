@@ -1046,19 +1046,22 @@ come target di refresh.
 		«IF currCol.editable-»
 			«IF currCol.editableFlagSelector != null-»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, model, cp, contextPrefix)»
-			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html"
+			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-»>
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
 		</display:column>
 			«ELSE-»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnComparator(model, currCol, this)»
-			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html"
+			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-»>
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
 		</display:column>
 			«ENDIF-»
 		«REM»[SC] Jira STDMDD-536 Introdotta gestione dell'Active Flag Selector «ENDREM»
 		«ELSEIF currCol.eventActive && currCol.activeFlagSelector!=null -»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
-						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
+						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html"
+						«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-»>
 				<s:if test="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.activeFlagSelector» == true}">
 					<s:url id="targetUrlLinkableCell"						   
 						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»"
