@@ -146,21 +146,6 @@ e le limitazioni secondo i termini della Licenza.
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model before");
 				dumpModel(false);
 		}
-		«IF proceedToJSon(currEventHandler, currEventWidget)-»
-		//***se javascript e'abilitato esiste il cookie iniettato nella home
-		boolean javascriptabilitato = false;
-		javax.servlet.http.Cookie[] cookie = org.apache.struts2.ServletActionContext.getRequest().getCookies();
-		if (cookie != null) {
-			for (javax.servlet.http.Cookie cookie2 : cookie) {
-				String nome = cookie2.getName();
-				if (nome.equalsIgnoreCase("javascriptAbilitato")) {
-					javascriptabilitato = true;
-
-					break;
-				}
-			}
-		}
-		«ENDIF»
     	
     	«IF cp.cpCommands!=null»
 			«IF !cp.cpCommands.commands.isEmpty»
@@ -187,12 +172,7 @@ e le limitazioni secondo i termini della Licenza.
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning result [" + result + "]");
 			}
 			«IF proceedToJSon(currEventHandler, currEventWidget)-»
-			if(javascriptabilitato){
-				// procedi con la serializzazione JSON del risultato
 				return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
-			}else{
-				return result;
-			}
 			«ELSE-»
 			
 			return result;
@@ -205,12 +185,7 @@ e le limitazioni secondo i termini della Licenza.
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning default result [SUCCESS]");
 			}
 			«IF proceedToJSon(currEventHandler, currEventWidget)-»
-			if(javascriptabilitato){
-				// procedi con la serializzazione JSON del risultato
-				return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
-			}else{
-				return SUCCESS;
-			}
+			return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
 			«ELSE-»
 			return SUCCESS;
 			«ENDIF-»
