@@ -1134,6 +1134,12 @@ come target di refresh.
         cssRootClass="treeRoot" cssFolderOpenClass="treeFolderOpen"
         cssFolderClosedClass="treeFolderClosed" cssDotClass="treeDot"
 		linkOnTree="true" id="«name»"
+		selectionMultiplicity="«getTreeSelectionMultiplicity(this)»"
+		«IF this.databinding!=null»selectionType="«this.nodeSelectionType.toString().toLowerCase()-»" 
+		«IF getTreeSelectionMultiplicity(this)=="single"»selectionName="appDatatreeSingleSelection"
+		«ELSEIF getTreeSelectionMultiplicity(this)=="multiple"»selectionName="appDatatreeMultipleSelection"
+		«ENDIF-»
+		«ENDIF-»
 		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
 		requestURI="«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»"
 		«ELSE-»
