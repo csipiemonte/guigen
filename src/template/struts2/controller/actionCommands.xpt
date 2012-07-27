@@ -520,9 +520,15 @@ package «getPresentationJavaPackage()»;
 import java.util.*;
 import com.opensymphony.xwork2.ActionSupport;
 import «getDTOBaseJavaPackage()».*;
+import «getSpringBEFQN(this)»;
+import java.lang.reflect.Method;
+import «getSpringBEExcFQN(this)»;
+import java.lang.reflect.InvocationTargetException;
+
+
 
 ////ExecCommand
-public abstract class ExecCommand implements ICommand {
+public class ExecCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
 	// solo per poter essere inserita in sessione web e non viene scambiata con altre
@@ -531,11 +537,15 @@ public abstract class ExecCommand implements ICommand {
 	
 	String _esiti[] = null;
 	ICommand _azioni[] = null;
+	String _nomeMetodo = null;
+	String _appDataToStore[] = null;
 	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
 
-	public ExecCommand(String esiti[], ICommand[] azioni) {
+	public ExecCommand(String esiti[], ICommand[] azioni, String nomeMetodo, String appDataToStore[]) {
 		_esiti = esiti;
 		_azioni = azioni;
+		_nomeMetodo = nomeMetodo;
+		_appDataToStore = appDataToStore;
 		if (_esiti != null) {
 			for (int i = 0; i < _esiti.length; i++)
 				_resultAzioni.put(_esiti[i], _azioni[i]);
@@ -549,7 +559,7 @@ public abstract class ExecCommand implements ICommand {
 		// action --> model
 		Object theModel = strutsAction.toModel();
 		// esecuzione azione
-		ExecResults execResults = doLogic(theModel); 
+		ExecResults execResults = doLogic(theModel, strutsAction.getSpringBackEnd()); 
 		String result = execResults.getResultCode();
 		Object outModel = execResults.getModel();
 		// model --> action
@@ -603,15 +613,84 @@ public abstract class ExecCommand implements ICommand {
 	}
 	
 	/**
-	 * Deve essere implamentata nella sottoclasse in modo da impostare in sessione o action i valori
+	 * Imposta in sessione o action i valori
 	 * degli app data previsti dalla exec action
 	 */
-	public abstract void storeAppData(ExecResults res, BaseAction strutsAction);
+	public void storeAppData(ExecResults res, BaseAction strutsAction) throws CommandExecutionException {
+		for (int i = 0; i < _appDataToStore.length; i++) {
+				storeSpecificAppData(_appDataToStore[i], res.getModel(), strutsAction);
+			}
+	}
 	
-	
-	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
-	// corretto
-	public abstract ExecResults doLogic(Object theModel) throws CommandExecutionException;
+	/**
+	 * Imposta in sessione o action il valore
+	 * dell'app data previsto dalla exec action
+	 */
+	private void storeSpecificAppData(String nomeAppData, Object sourceModel, BaseAction targetAction) throws CommandExecutionException {
+		
+		try {
+				java.lang.reflect.Method srcReadMethod = targetAction.findReadMethod(nomeAppData, sourceModel.getClass());
+				if (srcReadMethod != null) {
+					Object srcVal = srcReadMethod.invoke(sourceModel, new Object[]{});
+					java.lang.reflect.Method currWriteMethod = targetAction.findWriteMethod(nomeAppData, targetAction.getClass());
+					if (currWriteMethod != null) {
+						currWriteMethod.invoke(targetAction, new Object[]{srcVal});
+					}
+				}
+			} catch (Exception ioe){
+				throw new CommandExecutionException(
+						"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+								+ ioe.getMessage(), ioe);
+		      } 
+	}
+		
+	/**	
+	 * Esegue la logica e restituisce il result_code corretto
+	 */ 
+	public  ExecResults doLogic(Object theModel, BackEndFacade backEnd )
+			throws CommandExecutionException {
+
+		
+		it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch(«getBaseJavaPackage(this)».util.Constants.APPLICATION_CODE);
+		ExecResults result = null;
+
+		try {
+		
+			watcher.start();
+			Class cl = backEnd.getClass();
+			Method m = cl.getMethod(_nomeMetodo, new Class[]{theModel.getClass()});
+			result = (ExecResults) m.invoke(backEnd, new Object[]{theModel});
+			
+
+			watcher.stop();
+			watcher.dumpElapsed("ExecCommand", "readOne()",
+					"chiamata verso BackEnd", _nomeMetodo);
+			return result;
+
+		} catch (NoSuchMethodException ensm){
+			throw new CommandExecutionException(
+					"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+							+ ensm.getMessage(), ensm);
+		} catch (IllegalAccessException eiacc){
+			throw new CommandExecutionException(
+					"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+							+ eiacc.getMessage(), eiacc);
+		} catch (IllegalArgumentException eiarg){
+			throw new CommandExecutionException(
+					"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+							+ eiarg.getMessage(), eiarg);
+		} catch (InvocationTargetException einvoc){
+			if (einvoc.getTargetException() instanceof BEException ) {
+				throw new CommandExecutionException(
+						"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+								+ einvoc.getMessage(), einvoc);
+			} else {
+				throw new CommandExecutionException(
+						"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+								+ einvoc.getMessage(), einvoc);
+			}
+		}
+	}
 }
 «ENDFILE»
 

@@ -216,11 +216,7 @@ e le limitazioni secondo i termini della Licenza.
 		if (ris != null)
 			return ris;
 		else
-			return new ICommand(){ // NOP..
-				public String doCommand(BaseAction strutsAction)throws CommandExecutionException{
-			   		return null;
-				}
-			};
+			return new  NOPCommand();
 	}
 	
 	«EXPAND initCommandForEventHandler(model, this, "") FOR this.panels-»
@@ -335,9 +331,7 @@ e le limitazioni secondo i termini della Licenza.
 		«IF getAllEventSourceMenus().size>0-»
 		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE-»
-		return new ICommand(){
-			public String doCommand(BaseAction strutsAction){return null;}
-		};
+		return new NOPCommand();
 		«ENDIF-»
 	}
 	
@@ -619,6 +613,11 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
       "«currRes.resultCode»"
       «ENDFOREACH-»
     };
+    String [] appDataToStore4«getFullExecCmdMethodName(methodName, contextPrefix)»=new String []{
+      «FOREACH this.postExecData AS currApp SEPARATOR ","-»
+      "«currApp.getAppDataKey()»"
+      «ENDFOREACH-»
+    };
     
     ICommand [] actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)» = new ICommand[«this.results.size»];
     «FOREACH results AS currRes-»
@@ -627,73 +626,7 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
     «ENDFOREACH-»
     
     
-	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames4«getFullExecCmdMethodName(methodName, contextPrefix)», actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)»){
-		public ExecResults doLogic(Object theModel) throws CommandExecutionException{
-			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch(«getBaseJavaPackage(model)».util.Constants.APPLICATION_CODE);
-			ExecResults result = null;
-			try{
-				watcher.start();
-			«LET cp AS parentCP-»
-			«IF parentCP != null-»
-				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
-			«ELSEIF isInMenuBranch(this)-»
-				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
-			«ELSE-»
-				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
-			«ENDIF-»
-			«ENDLET-»
-				watcher.stop();
-				watcher.dumpElapsed("«getStrutsActionClassName(cp)»", "readOne()", "chiamata verso BackEnd", "«getFullExecCmdMethodName(methodName, contextPrefix)»");
-				return result;
-			}
-			catch(BEException e){
-				throw new CommandExecutionException("errore non gestito nell'esecuzione del metodo [«getFullExecCmdMethodName(methodName, contextPrefix)»]:"+
-				e.getMessage(), e);
-			}
-		
-		}
-		
-		public void storeAppData(ExecResults res, BaseAction strutsAction){
-	«IF this.postExecData.size>0-»
-			// cast della action al tipo specifico per poter utilizzare direttamente
-			// le property
-			«LET cp AS parentCP-»
-			«IF parentCP != null-»
-			«getStrutsActionClassName(cp)» specificAction = 
-			  («getStrutsActionClassName(cp)») strutsAction;
-			«ELSEIF getCmdChainContainer(this).metaType == ApplicationArea-»
-			«getStrutsHomeClassName(model)» specificAction = 
-			  («getStrutsHomeClassName(model)») strutsAction;
-			«ELSEIF getCmdChainContainer(this).metaType == Menu-»
-			«getStrutsMenuClassName(model)» specificAction = 
-			  («getStrutsMenuClassName(model)») strutsAction;
-			«ELSEIF getCmdChainContainer(this).metaType == PanelDef-»
-				«ERROR "Comando su PanelDef non ancora gestito"»
-			«ELSE»	
-				«ERROR "Parent di cmd chain non gestito:"+getCmdChainContainer(this)»
-			«ENDIF-»
-			«ENDLET-»
-			
-			  
-		«FOREACH this.postExecData AS currAppData-»
-			// store del dato «currAppData.name»
-			//«toJavaType(currAppData.type,model)» _«getAppDataPropertyName(currAppData)» = 
-			//	(«toJavaType(currAppData.type,model)»)res.get«getAppDataPropertyName(currAppData).toFirstUpper()»();
-			// il dato «currAppData.name» e' salvato in un attributo della action corrente
-			//specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
-			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION-»
-			// il dato «currAppData.name» e' salvato in sessione
-			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
-			«ELSEIF currAppData.lifetimeExtent==DataLifetimeType::SAME_PAGE-»
-			// il dato «currAppData.name» e' salvato temporaneamente in sessione
-			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
-			«ENDIF-»
-		«ENDFOREACH-»
-	«ELSE-»
-		// nothing to store...
-	«ENDIF-»
-		}
-	};
+	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames4«getFullExecCmdMethodName(methodName, contextPrefix)», actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)»,"«getFullExecCmdMethodName(methodName, contextPrefix)»", appDataToStore4«getFullExecCmdMethodName(methodName, contextPrefix)» );
 	// Exec Action end
 «ENDDEFINE»
 
