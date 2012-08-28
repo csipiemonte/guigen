@@ -21,11 +21,13 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -33,6 +35,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -44,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.RadioButtonsImpl#getRadio <em>Radio</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.RadioButtonsImpl#getLayout <em>Layout</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +63,16 @@ public class RadioButtonsImpl extends DataWidgetImpl implements RadioButtons {
 	 * @ordered
 	 */
 	protected EList<RadioButton> radio;
+
+	/**
+	 * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLayout()
+	 * @generated
+	 * @ordered
+	 */
+	protected PanelLayout layout;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -96,11 +110,56 @@ public class RadioButtonsImpl extends DataWidgetImpl implements RadioButtons {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PanelLayout getLayout() {
+		return layout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLayout(PanelLayout newLayout, NotificationChain msgs) {
+		PanelLayout oldLayout = layout;
+		layout = newLayout;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.RADIO_BUTTONS__LAYOUT, oldLayout, newLayout);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLayout(PanelLayout newLayout) {
+		if (newLayout != layout) {
+			NotificationChain msgs = null;
+			if (layout != null)
+				msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.RADIO_BUTTONS__LAYOUT, null, msgs);
+			if (newLayout != null)
+				msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.RADIO_BUTTONS__LAYOUT, null, msgs);
+			msgs = basicSetLayout(newLayout, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.RADIO_BUTTONS__LAYOUT, newLayout, newLayout));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GuigenPackage.RADIO_BUTTONS__RADIO:
 				return ((InternalEList<?>)getRadio()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.RADIO_BUTTONS__LAYOUT:
+				return basicSetLayout(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -115,6 +174,8 @@ public class RadioButtonsImpl extends DataWidgetImpl implements RadioButtons {
 		switch (featureID) {
 			case GuigenPackage.RADIO_BUTTONS__RADIO:
 				return getRadio();
+			case GuigenPackage.RADIO_BUTTONS__LAYOUT:
+				return getLayout();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -132,6 +193,9 @@ public class RadioButtonsImpl extends DataWidgetImpl implements RadioButtons {
 				getRadio().clear();
 				getRadio().addAll((Collection<? extends RadioButton>)newValue);
 				return;
+			case GuigenPackage.RADIO_BUTTONS__LAYOUT:
+				setLayout((PanelLayout)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -147,6 +211,9 @@ public class RadioButtonsImpl extends DataWidgetImpl implements RadioButtons {
 			case GuigenPackage.RADIO_BUTTONS__RADIO:
 				getRadio().clear();
 				return;
+			case GuigenPackage.RADIO_BUTTONS__LAYOUT:
+				setLayout((PanelLayout)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -161,6 +228,8 @@ public class RadioButtonsImpl extends DataWidgetImpl implements RadioButtons {
 		switch (featureID) {
 			case GuigenPackage.RADIO_BUTTONS__RADIO:
 				return radio != null && !radio.isEmpty();
+			case GuigenPackage.RADIO_BUTTONS__LAYOUT:
+				return layout != null;
 		}
 		return super.eIsSet(featureID);
 	}

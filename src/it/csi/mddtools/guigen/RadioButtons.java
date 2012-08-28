@@ -35,6 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.RadioButtons#getRadio <em>Radio</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.RadioButtons#getLayout <em>Layout</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,5 +63,34 @@ public interface RadioButtons extends DataWidget {
 	 * @generated
 	 */
 	EList<RadioButton> getRadio();
+
+	/**
+	 * Returns the value of the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Orientamento dei singoli <b>Radiobutton</b>. Valori ammessi:
+	 * <ul>
+	 * <li>Vertical</li>
+	 * <li>Horizontal</li>
+	 * </ul>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Layout</em>' containment reference.
+	 * @see #setLayout(PanelLayout)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getRadioButtons_Layout()
+	 * @model containment="true"
+	 * @generated
+	 */
+	PanelLayout getLayout();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.RadioButtons#getLayout <em>Layout</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Layout</em>' containment reference.
+	 * @see #getLayout()
+	 * @generated
+	 */
+	void setLayout(PanelLayout value);
 
 } // RadioButtons

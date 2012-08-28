@@ -2955,13 +2955,22 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTONS__RADIO = DATA_WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTONS__LAYOUT = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Radio Buttons</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RADIO_BUTTONS_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+	int RADIO_BUTTONS_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -11205,6 +11214,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getRadioButtons_Radio();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.RadioButtons#getLayout <em>Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Layout</em>'.
+	 * @see it.csi.mddtools.guigen.RadioButtons#getLayout()
+	 * @see #getRadioButtons()
+	 * @generated
+	 */
+	EReference getRadioButtons_Layout();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RadioButton <em>Radio Button</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16836,6 +16856,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference RADIO_BUTTONS__RADIO = eINSTANCE.getRadioButtons_Radio();
+
+		/**
+		 * The meta object literal for the '<em><b>Layout</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RADIO_BUTTONS__LAYOUT = eINSTANCE.getRadioButtons_Layout();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RadioButtonImpl <em>Radio Button</em>}' class.

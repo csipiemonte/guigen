@@ -91,6 +91,7 @@ public class RadioButtonsItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.RADIO_BUTTONS__RADIO);
+			childrenFeatures.add(GuigenPackage.Literals.RADIO_BUTTONS__LAYOUT);
 		}
 		return childrenFeatures;
 	}
@@ -146,6 +147,7 @@ public class RadioButtonsItemProvider
 
 		switch (notification.getFeatureID(RadioButtons.class)) {
 			case GuigenPackage.RADIO_BUTTONS__RADIO:
+			case GuigenPackage.RADIO_BUTTONS__LAYOUT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -167,6 +169,26 @@ public class RadioButtonsItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.RADIO_BUTTONS__RADIO,
 				 GuigenFactory.eINSTANCE.createRadioButton()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.RADIO_BUTTONS__LAYOUT,
+				 GuigenFactory.eINSTANCE.createHorizontalFlowPanelLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.RADIO_BUTTONS__LAYOUT,
+				 GuigenFactory.eINSTANCE.createVerticalFlowPanelLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.RADIO_BUTTONS__LAYOUT,
+				 GuigenFactory.eINSTANCE.createUDLRCPanelLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.RADIO_BUTTONS__LAYOUT,
+				 GuigenFactory.eINSTANCE.createGridPanelLayout()));
 	}
 
 }
