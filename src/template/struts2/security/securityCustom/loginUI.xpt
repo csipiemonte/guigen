@@ -206,24 +206,24 @@ localLogin.btnConfirm.label=LOGIN
 							
 							<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtUser.label')}" labelFor="widg_txtUser" errorFor="widg_txtUser" labelId="txtUserLbl" >
 								<!-- widget txtUser -->
-								<s:textfield name="username" id="widg_txtUser" size="15" />
+								<s:textfield name="username" id="widg_txtUser" size="45" maxlength="100" />
 								</customtag:widgetsPanelColumn>
 								
 							«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0»
 								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPass.label')}" labelFor="widg_txtPass" errorFor="widg_txtPass" labelId="txtPassLbl" >
 								<!-- widget txtPass -->
-								<s:password name="password" id="widg_txtPass" size="15" />
+								<s:password name="password" id="widg_txtPass"  size="30" maxlength="40"  />
 								</customtag:widgetsPanelColumn>
 							«ENDIF»
 
 							«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD_PIN)==0).size>0»
 								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPass.label')}" labelFor="widg_txtPass" errorFor="widg_txtPass" labelId="txtPassLbl" >
 								<!-- widget txtPass -->
-								<s:password name="password" id="widg_txtPass" size="15" />
+								<s:password name="password" id="widg_txtPass"  size="30" maxlength="40"  />
 								</customtag:widgetsPanelColumn>
 								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPin.label')}" labelFor="widg_txtPin" errorFor="widg_txtPin" labelId="txtPinLbl" >
 								<!-- widget txtPin -->
-								<s:password name="pin" id="widg_txtPin" size="15" />
+								<s:password name="pin" id="widg_txtPin"  size="30" maxlength="30"  />
 								</customtag:widgetsPanelColumn>
 							«ENDIF»
 							</customtag:widgetsPanel>
