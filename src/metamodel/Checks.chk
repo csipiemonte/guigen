@@ -449,6 +449,9 @@ context MapView ERROR "Ad una mappa si pu� associare un solo evento di tipo CL
 
 context MapView ERROR "E' necessario specificare il value-binding per la mappa:"+loc() :
 	this.databinding != null;	
+	
+context RadioButtons if (this.layout!=null) ERROR "I radiobutton possono essere orientati esclusivamente in verticale e orizzontale" + loc() :
+	this.layout.metaType == VerticalFlowPanelLayout || this.layout.metaType == HorizontalFlowPanelLayout;
 	 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener

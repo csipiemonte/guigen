@@ -834,6 +834,9 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf) FOR RadioButton»
+
+«LET ((RadioButtons)this.eContainer).layout!=null AS writeDiv»
+«IF writeDiv»<div>«ENDIF»
 <s:radio
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -844,6 +847,8 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 	«getRadioPortalStyle(model)»
 	«getRadioButtonsValueChangedHandlerJS(parent, model, cp, contextPrefix)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
 	/> «REM»[LC] stdmdd-xxxx: cambio tipo di tooltip su label (faccio scrivere il tooltip sulla label del radio - le altre sono scritte con il customtag)«ENDREM»<label «!isNullOrEmpty(this.tooltip)?"title=\""+this.tooltip+"\"":""» for="«getWidgetName(this, contextPrefix)»«this.value»"><s:text name="«cp.name».«getFullID(parent, contextPrefix)».«name».label" /></label>
+«IF writeDiv»</div>«ENDIF»
+«ENDLET»
 «ENDDEFINE»
 
 
