@@ -204,6 +204,20 @@ Ext.onReady( function() {
 «ENDIF-»
 «ENDDEFINE»
 
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TextArea-»
+	«IF isEnrichmentEnabled()-»
+	/// arricchimento editor per «this.metaType.name» [«name»]
+	var addEditorEnrichmentTo«name.toFirstUpper()» =  
+		function(){uiNRichLib.editorTextAreaNRich(
+			'«getWidgetName(this, contextPrefix)»',
+			 «required ? "true" : "false"», 
+			 '«toJavaType(this.dataType,model)»', 
+			 null)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addEditorEnrichmentTo«name.toFirstUpper()»);
+	«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ComboBox-»
 «IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
