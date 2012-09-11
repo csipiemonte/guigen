@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,26 +13,26 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
+Â«IMPORT guigenÂ»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT template::struts2::actionImplJavaFilesÂ»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«REM»deve essere chiamato solo se richBehavior == true«ENDREM»
-«DEFINE dataProviderMethods(GUIModel model) FOR ContentPanel-»
+Â«REMÂ»deve essere chiamato solo se richBehavior == trueÂ«ENDREMÂ»
+Â«DEFINE dataProviderMethods(GUIModel model) FOR ContentPanel-Â»
 	//////////////////////////////////////////////////////////////////////////////////
 	/// metodo di data providing sull'intero ContentPanel
 	/// metodo: provide_CPDATA
 	//////////////////////////////////////////////////////////////////////////////////
-	«IF model.targetPlatform.enableFatClient-»
-	«EXPAND dataProvider::formDataProviderMethod FOR this»
-	«EXPAND provideWidgetsStatus FOR this»
-	«ENDIF-»
+	Â«IF model.targetPlatform.enableFatClient-Â»
+	Â«EXPAND dataProvider::formDataProviderMethod FOR thisÂ»
+	Â«EXPAND provideWidgetsStatus FOR thisÂ»
+	Â«ENDIF-Â»
 	//////////////////////////////////////////////////////////////////////////////////
 	/// metodi di data providing sui widget dotati di multi data binding
 	/// contenuti nel contentPanel
@@ -40,88 +40,88 @@ e le limitazioni secondo i termini della Licenza.
 	/// es: provideCbComuni_DATASET
 	//////////////////////////////////////////////////////////////////////////////////
 	
-	«EXPAND dataProviderMethods(model, this, "", null) FOR this.panels-»
-«ENDDEFINE»
+	Â«EXPAND dataProviderMethods(model, this, "", null) FOR this.panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
-	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.subpanels-»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-Â»
+	Â«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.subpanels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
-	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets -»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-Â»
+	Â«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets -Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
-	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets-»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-Â»
+	Â«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
-	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-Â»
+	Â«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
-	«EXPAND dataProviderMethods(model, cp, getChainedContext(contextPrefix, name), this.config) FOR this.panelDef.panel-»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-Â»
+	Â«EXPAND dataProviderMethods(model, cp, getChainedContext(contextPrefix, name), this.config) FOR this.panelDef.panel-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
-«IF MultiDataWidget.isAssignableFrom(this.metaType)-»
-	«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOR (MultiDataWidget)this-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-Â»
+Â«IF MultiDataWidget.isAssignableFrom(this.metaType)-Â»
+	Â«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOR (MultiDataWidget)this-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jsonSerializerInstantiation(String varName, boolean jtsAware) FOR GUIModel-»
-«IF jtsAware-»
+Â«DEFINE jsonSerializerInstantiation(String varName, boolean jtsAware) FOR GUIModel-Â»
+Â«IF jtsAware-Â»
 		GeometryTransformer geoTransformer = new GeometryTransformer();
-		flexjson.JSONSerializer «varName» = new flexjson.JSONSerializer().transform(geoTransformer, Geometry.class);
-«ELSE-»
-		flexjson.JSONSerializer «varName» = new flexjson.JSONSerializer();
-«ENDIF-»
-«ENDDEFINE»
+		flexjson.JSONSerializer Â«varNameÂ» = new flexjson.JSONSerializer().transform(geoTransformer, Geometry.class);
+Â«ELSE-Â»
+		flexjson.JSONSerializer Â«varNameÂ» = new flexjson.JSONSerializer();
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«REM»deve essere chiamato solo se è specificato il collection-binding«ENDREM»
-«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-»
-«IF this.multiDataBinding!=null-»
-	«EXPAND dataProviderMethod(model, cp, this, "DATASET", contextPrefix, pduc) FOR this.multiDataBinding»
-«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»deve essere chiamato solo se Ã¨ specificato il collection-bindingÂ«ENDREMÂ»
+Â«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-Â»
+Â«IF this.multiDataBinding!=null-Â»
+	Â«EXPAND dataProviderMethod(model, cp, this, "DATASET", contextPrefix, pduc) FOR this.multiDataBindingÂ»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MapView-»
-«IF this.multiDataBinding!=null-»
-	«EXPAND dataProviderMethod(model, cp, this, "ACETATELAYER", contextPrefix, pduc) FOR this.multiDataBinding»
-«ENDIF-»
-«IF this.editDataBinding!=null-»
-	«EXPAND dataProviderMethod(model, cp, this, "EDITINGLAYER", contextPrefix, pduc) FOR this.editDataBinding»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MapView-Â»
+Â«IF this.multiDataBinding!=null-Â»
+	Â«EXPAND dataProviderMethod(model, cp, this, "ACETATELAYER", contextPrefix, pduc) FOR this.multiDataBindingÂ»
+Â«ENDIF-Â»
+Â«IF this.editDataBinding!=null-Â»
+	Â«EXPAND dataProviderMethod(model, cp, this, "EDITINGLAYER", contextPrefix, pduc) FOR this.editDataBindingÂ»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, MultiDataWidget widget, String datasetCode, String contextPrefix, PDefUseConfig pduc) FOR AppDataBinding-»
+Â«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, MultiDataWidget widget, String datasetCode, String contextPrefix, PDefUseConfig pduc) FOR AppDataBinding-Â»
 	/**
 	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi 
-	 * al data-binding relativo al dataset «datasetCode» del widget «getFullID(widget, contextPrefix)».
+	 * al data-binding relativo al dataset Â«datasetCodeÂ» del widget Â«getFullID(widget, contextPrefix)Â».
 	 * @return sempre il result "provideData"
 	 */
 	@SkipValidation 
 	@FatClientOnly
-	public String «getDataProviderMethodName(widget, datasetCode, contextPrefix)» () throws CommandExecutionException {
-	«LET this.appData.type AS appdataType-»
+	public String Â«getDataProviderMethodName(widget, datasetCode, contextPrefix)Â» () throws CommandExecutionException {
+	Â«LET this.appData.type AS appdataType-Â»
 	
 		// reperisce il dato da serializzare
 		com.opensymphony.xwork2.ActionContext ctx = 
 			com.opensymphony.xwork2.ActionContext.getContext();
-		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(widget, contextPrefix, pduc)»");
-		«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR widget»
+		Object dataToProvide = ctx.getValueStack().findValue("Â«getOGNLForWidgetMultiValue(widget, contextPrefix, pduc)Â»");
+		Â«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR widgetÂ»
 		// serializza
-		«EXPAND jsonSerializerInstantiation("serializer", (widget.metaType==MapView ? true : false)) FOR model»
-		«IF widget.metaType == TreeView»
+		Â«EXPAND jsonSerializerInstantiation("serializer", (widget.metaType==MapView ? true : false)) FOR modelÂ»
+		Â«IF widget.metaType == TreeViewÂ»
 		String response = serializer.exclude("*.class").deepSerialize(((it.csi.custom.component.tree.base.TreeNodeBase) dataToProvide).getChildren());
-		«ELSE-»
+		Â«ELSE-Â»
 		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
-		«ENDIF-»
+		Â«ENDIF-Â»
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {
@@ -135,32 +135,32 @@ e le limitazioni secondo i termini della Licenza.
 			e.printStackTrace();
 			throw new CommandExecutionException("errore provide Data",e);
 		}
-	«ENDLET-»
+	Â«ENDLET-Â»
 	}
-	«IF widget.metaType == Table»
-		«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOREACH ((Table) widget).columnModel.columns.select(c | c.multiDataBinding != null)»
-	«ENDIF»
-«ENDDEFINE»
+	Â«IF widget.metaType == TableÂ»
+		Â«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOREACH ((Table) widget).columnModel.columns.select(c | c.multiDataBinding != null)Â»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Column-»
-«LET (Table)this.eContainer.eContainer AS table»
-«IF this.multiDataBinding!=null-»
+Â«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Column-Â»
+Â«LET (Table)this.eContainer.eContainer AS tableÂ»
+Â«IF this.multiDataBinding!=null-Â»
 	/**
 	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
-	 * al multi-data-binding relativo al widget «getFullID(table, contextPrefix)».
+	 * al multi-data-binding relativo al widget Â«getFullID(table, contextPrefix)Â».
 	 * @return sempre il result "provideData"
 	 */
 	@SkipValidation
 	@FatClientOnly
-	public String «getDataProviderMethodName(table, this.selector+"_DATASET", contextPrefix)» () throws CommandExecutionException {
-	«LET multiDataBinding.appData.type AS appdataType-»
+	public String Â«getDataProviderMethodName(table, this.selector+"_DATASET", contextPrefix)Â» () throws CommandExecutionException {
+	Â«LET multiDataBinding.appData.type AS appdataType-Â»
 	
 		// reperisce il dato da serializzare
 		com.opensymphony.xwork2.ActionContext ctx = 
 			com.opensymphony.xwork2.ActionContext.getContext();
-		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForColumnMultiValue(this, pduc)»");
+		Object dataToProvide = ctx.getValueStack().findValue("Â«getOGNLForColumnMultiValue(this, pduc)Â»");
 		// serializza
-		«EXPAND jsonSerializerInstantiation("serializer", false) FOR model»
+		Â«EXPAND jsonSerializerInstantiation("serializer", false) FOR modelÂ»
 		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
@@ -175,27 +175,27 @@ e le limitazioni secondo i termini della Licenza.
 			e.printStackTrace();
 			throw new CommandExecutionException("errore provide Data",e);
 		}
-	«ENDLET-»
+	Â«ENDLET-Â»
 	}
-«ENDIF-»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«REM»parte specifica di aggiustamento dei dati per i vari widget«ENDREM»
-«DEFINE arrangeDataToProvide(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiDataWidget»
-«ENDDEFINE»
+Â«REMÂ»parte specifica di aggiustamento dei dati per i vari widgetÂ«ENDREMÂ»
+Â«DEFINE arrangeDataToProvide(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiDataWidgetÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE arrangeDataToProvide(GUIModel model, ContentPanel cp, String contextPrefix) FOR Table»
-		if(isTableClearStatus("«cp.name»_«getFullID(this, contextPrefix)»")){
-			tableStatus.setClearStatus(true);
+Â«DEFINE arrangeDataToProvide(GUIModel model, ContentPanel cp, String contextPrefix) FOR TableÂ»
+		if(isTableClearStatus("Â«cp.nameÂ»_Â«getFullID(this, contextPrefix)Â»")){
+			getModel().getTableStatus().setClearStatus(true);
 		}
 		TableDataArranger arranger = new TableDataArranger();
 		if(dataToProvide != null){
-			dataToProvide = arranger.arrange((List)dataToProvide, tableStatus, filter);
+			dataToProvide = arranger.arrange((List)dataToProvide, getModel().getTableStatus(), getModel().getFilter());
 		}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE formDataProviderMethod FOR ContentPanel-»
+Â«DEFINE formDataProviderMethod FOR ContentPanel-Â»
 	/**
 	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
 	 * a tutti gli application data di tipo non collection referenziati nel ContentPanel.
@@ -203,18 +203,18 @@ e le limitazioni secondo i termini della Licenza.
 	 */
 	@SkipValidation
 	@FatClientOnly
-	public String «getFormDataProviderMethodName()» () throws CommandExecutionException {
+	public String Â«getFormDataProviderMethodName()Â» () throws CommandExecutionException {
 		// costruzione struttura dati di 1' livello (esclusi gli appdata di tipo collection)
 		Object dataToProvide = toModel();
 		Map<String, Object> cpData = new HashMap<String, Object>();
 		cpData.put("cpData", dataToProvide);
 		cpData.put("menuStatus", getMenuStatus());
-		cpData.put("widgetsStatus", getWidgetsStatus(getListaWidgets(), "«this.name»"));
-		cpData.put("multiPanelStatus", getMultiPanelStatus(getListaMultiPanels(), "«this.name»"));
+		cpData.put("widgetsStatus", getWidgetsStatus(getListaWidgets(), "Â«this.nameÂ»"));
+		cpData.put("multiPanelStatus", getMultiPanelStatus(getListaMultiPanels(), "Â«this.nameÂ»"));
 		
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
-		String response = serializer.exclude("*.class", "*.session" «EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(cpData);
+		String response = serializer.exclude("*.class", "*.session" Â«EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)Â»).deepSerialize(cpData);
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {
@@ -229,9 +229,9 @@ e le limitazioni secondo i termini della Licenza.
 			throw new CommandExecutionException("errore provide Data",e);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE provideWidgetsStatus FOR ContentPanel-»
+Â«DEFINE provideWidgetsStatus FOR ContentPanel-Â»
 	//***esecuzione della logica di abilitazione visibilita' widgets del cp
 	private String enableWidget;
 	private List<String> nomiWidgets;
@@ -264,14 +264,14 @@ e le limitazioni secondo i termini della Licenza.
 	@FatClientOnly
 	public void execSetWidgetsOnOffStatus() throws CommandExecutionException{
 		
-		super.setWidgetsOnOffStatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(enableWidget).booleanValue());
+		super.setWidgetsOnOffStatus("Â«this.nameÂ»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(enableWidget).booleanValue());
 	}
 	//***setta in sessione lo stato di visibilita' dei widgets
 	@SkipValidation
 	@FatClientOnly
 	public void execSetWidgetsVisibilityStatus() throws CommandExecutionException{
 		
-		super.setWidgetsVisibilitytatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(showWidget).booleanValue());
+		super.setWidgetsVisibilitytatus("Â«this.nameÂ»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(showWidget).booleanValue());
 	}
 	//***setta in sessione il tab corrente
 	@SkipValidation
@@ -333,6 +333,6 @@ e le limitazioni secondo i termini della Licenza.
 			throw new CommandExecutionException("errore provide Data", e);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE jsonExcludeAppdata FOR ApplicationData-», "*.«getAppDataKey()»"«ENDDEFINE»
+Â«DEFINE jsonExcludeAppdata FOR ApplicationData-Â», "*.Â«getAppDataKey()Â»"Â«ENDDEFINEÂ»
