@@ -506,7 +506,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<constant name="struts.ui.theme" value="«getStrutsThemeByPortal(this)»" />
 	<constant name="struts.action.extension" value="do" />
 	<constant name="struts.i18n.reload" value="false" />
-	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
+		«LET getPresentationJavaPath(this)+getAppModuleAsFolder(currCP, true, true)+getStrutsActionClassName(currCP) AS propertiesName-»
+			,«propertiesName.subString(1, propertiesName.length)»
+		«ENDLET-» 
+	«ENDFOREACH-»
+	" />
 	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
 	<!-- costanti per il fileUpload interceptor: settare solo se necessarie -->
 	«IF isNullOrEmpty(getProperty("guigen.fileUpload.totalMaximumFileSize"))-»
@@ -537,10 +543,12 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="exception" />
 				<interceptor-ref name="i18n" />
 				<interceptor-ref name="chain" />
+				<interceptor-ref name="servlet-config" />
+			 	<interceptor-ref name="scopedModelDriven"/> 
+				<interceptor-ref name="modelDriven"/>
 				<interceptor-ref name="checkbox" />
 				<interceptor-ref name="tableSelection" />
 				<interceptor-ref name="static-params" />
-				<interceptor-ref name="servlet-config" />
 				«IF isNullOrEmpty(getProperty("guigen.fileUpload.maximumFileSize"))-»
 				<interceptor-ref name="fileUpload"/>
 				«ELSE-»

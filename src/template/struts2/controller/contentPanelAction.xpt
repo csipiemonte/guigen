@@ -43,12 +43,14 @@ import java.beans.IntrospectionException;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.validator.annotations.*;
 import com.opensymphony.xwork2.conversion.annotations.*;
 import com.opensymphony.xwork2.ActionContext;
 
 import «getDTOBaseJavaPackage(model)».*;
+import «getModelDTOFQN(this, false, false, model)»;
 «IF hasGisMap()»
 import «getDTOBaseJavaPackage(model)».greasemapfacade.*;
 import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
@@ -81,16 +83,31 @@ import flexjson.JSON;
  */
 @Validation()
 @Conversion()
-public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» 
-	implements Preparable{
-
-    «EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR this»
-	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR this»
-	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» <«getModelDTOClassName(this,false,false,model)»>
+	implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model)»> {
 	
-	«IF model.targetPlatform.enableRichUIBehavior-»
-	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
-	«ENDIF-»
+	private «getModelDTOClassName(this,false,false,model)» model;	
+
+
+	public «getModelDTOClassName(this,false,false,model)» getModel() {
+		return model;
+	}
+	
+	@VisitorFieldValidator (message ="", appendPrefix = false)
+	public  void setModel(«getModelDTOClassName(this,false,false,model)» modello) {
+		this.model = modello;
+	}
+	
+	@Override
+	public void setSession(Map session) {
+		// TODO Auto-generated method stub
+		super.setSession(session);
+		if(model == null) {
+			 model = new «getModelDTOClassName(this,false,false,model)»();	 
+		}
+		model.setSession(session);
+	}
+	
 	private static final String CP_NAME= "«this.name»";
 	
 	private static final String URL_BACK_COMMAND = "«getContentPanelNamespace(this, false)»/"+CP_NAME;	
@@ -841,7 +858,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		if (this.hasActionErrors() || this.hasFieldErrors() || this.hasErrors())
 			return INPUT;
 		else{
-			session.put(selectedTabKey, selectedTabValue);
+			session.put(getModel().getSelectedTabKey(), getModel().getSelectedTabValue());
 			return SUCCESS;
 		}
 	}

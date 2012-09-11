@@ -561,7 +561,8 @@ public class ExecCommand implements ICommand {
 		// esecuzione azione
 		ExecResults execResults = doLogic(theModel, strutsAction.getSpringBackEnd()); 
 		String result = execResults.getResultCode();
-		Object outModel = execResults.getModel();
+		BaseSessionAwareDTO outModel = (BaseSessionAwareDTO)execResults.getModel();
+		
 		// model --> action
 		strutsAction.fromModel(outModel);
 		// impostazione degli appData

@@ -73,7 +73,7 @@ import «getSecurityJavaPackage(this)».*;
  * 
  * @author GuiGen
  */
-public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware, Preparable {
+public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSessionAwareDTO> extends ActionSupport implements SessionAware, Preparable {
 
 	/**  */
 	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
@@ -156,6 +156,18 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
     ////////////////////////////////////////////////////////////////////////
     public abstract Class modelClass();
     
+    public abstract T getModel() ;
+	
+	public abstract void setModel(T t);
+	
+	public T toModel()  {
+		return getModel();
+	}
+
+	public void fromModel(T t) {
+		setModel(t);	
+	}
+    
 	protected java.lang.reflect.Method findReadMethod(String name, Class cl)
 			throws IntrospectionException {
 		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
@@ -186,67 +198,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
 		return null;
 	}
 
-	public Object toModel() {
-		try {
-			Object modelObj = modelClass().newInstance();
-			// imposto prima di tutto la session per evitare errori nei setter
-			// degli oggetti a scope Session
-			((BaseSessionAwareDTO)modelObj).setSession(this.getSession());
-			BeanInfo targetBI = java.beans.Introspector
-					.getBeanInfo(modelClass());
-			PropertyDescriptor[] targetPds = targetBI.getPropertyDescriptors();
-			for (int i = 0; i < targetPds.length; i++) {
-				PropertyDescriptor currTargetPD = targetPds[i];
-				java.lang.reflect.Method srcReadMethod = findReadMethod(currTargetPD.getReadMethod().getName(),this.getClass());
-				if (srcReadMethod != null) {
-					Object srcVal = srcReadMethod.invoke(this, new Object[]{});
-					java.lang.reflect.Method currWriteMethod = currTargetPD.getWriteMethod();
-					if (currWriteMethod!=null){
-						currTargetPD.getWriteMethod().invoke(modelObj,
-								new Object[]{srcVal});
-					}
-				}
-			}
-			return modelObj;
-		} catch (Exception e) {
-			log.error("[«getStrutsBaseActionClassName(this)»::toModel] Errore interno nella costruzione del modello, classe:"
-							+ modelClass() + ": " + e, e);
-			throw new IllegalArgumentException(
-					"Errore interno nella costruzione del modello, classe:"
-							+ modelClass() + ": " + e);
-
-		}
-	}
-    
-    public void fromModel(Object modelObj) {
-		try {
-			BeanInfo srcBI = java.beans.Introspector.getBeanInfo(modelClass());
-			PropertyDescriptor[] srcPds = srcBI.getPropertyDescriptors();
-			for (int i = 0; i < srcPds.length; i++) {
-				PropertyDescriptor currSrcPD = srcPds[i];
-				java.lang.reflect.Method srcReadMethod = currSrcPD
-						.getReadMethod();
-				if (srcReadMethod != null) {
-					Object srcVal = srcReadMethod.invoke(modelObj,
-							new Object[]{});
-					java.lang.reflect.Method targetWriteMethod = findWriteMethod(
-							currSrcPD.getReadMethod().getName(), this
-									.getClass());
-					if (targetWriteMethod!=null){
-						targetWriteMethod.invoke(this, new Object[]{srcVal});
-					}
-				}
-			}
-		} catch (Exception e) {
-			log.error("[«getStrutsBaseActionClassName(this)»::fromModel] Errore interno nella costruzione del modello, classe:"
-							+ modelClass() + ": " + e, e);
-			throw new IllegalArgumentException(
-					"Errore interno nella costruzione del modello, classe:"
-							+ modelClass() + ": " + e);
-
-		}
-	}
-    
+	
     
 	///////////////////////////////////
 	/**

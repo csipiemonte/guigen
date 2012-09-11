@@ -522,11 +522,13 @@ import «getDTOBaseJavaPackage(model)».*;
 import «getUIUtilsJavaPackage(model)».*;
 import flexjson.JSON;
 import com.opensymphony.xwork2.conversion.annotations.*;
+import com.opensymphony.xwork2.validator.annotations.*;
 «ENDIF-»
 /**
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
  * logica di business associata alla Schermata [«this.name»]
  */
+@Validation
 public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionAwareDTO {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -538,12 +540,12 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessio
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, false) FOR this»
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR this»
 	
 	////////////////////////////////////////////////////////////////////
 	/// campi per widget semplici
 	////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, false) FOR this»
+	«EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR this»
 	
 	////////////////////////////////////////////////////////////////////
 	/// ulteriori campi comuni 

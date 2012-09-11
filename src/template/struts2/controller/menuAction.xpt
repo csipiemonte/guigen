@@ -39,6 +39,7 @@ import java.util.*;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(this)».*;
@@ -51,10 +52,27 @@ import «getInterceptorsJavaPackage(this)».FatClientOnly;
  * @author GuiGen
  */
 @Validation()
-public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» {
-
-	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.menubar»
+public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» <«getModelDTOClassName(null,true,false,this)»>  implements ModelDriven<«getModelDTOClassName(null,true,false,this)»> {
 	
+	private «getModelDTOClassName(null,true,false,this)» model;	
+
+	public «getModelDTOClassName(null,true,false,this)» getModel()   {
+		return model;
+	}
+	
+	public  void setModel(«getModelDTOClassName(null,true,false,this)» modello) {
+		this.model = modello;
+	}
+	
+	@Override
+	public void setSession(Map session) {
+		// TODO Auto-generated method stub
+		super.setSession(session);
+		if(model == null) {
+			 model = new «getModelDTOClassName(null,true,false,this)»();	 
+		}
+		model.setSession(session);
+	}
 	
 	/**
 	 * classe model associata

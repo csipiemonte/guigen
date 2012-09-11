@@ -40,6 +40,7 @@ import java.util.*;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(this)».*;
@@ -52,16 +53,28 @@ import «getBaseJavaPackage(this)».business.*;
  * @author GuiGen
  */
 @Validation()
-public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» <«getModelDTOClassName(null,false,true,this)»>  implements ModelDriven<«getModelDTOClassName(null,false,true,this)»> {
 
-	«IF this.structure.appWindow.appArea.onInitCommand != null»
-    «EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitCommand»
-    «ENDIF»
-    
-    «IF this.activationModel!=null-»
-    «EXPAND template::struts2::model::modelJavaFiles::activationParamProperty(this) FOREACH this.activationModel.activationParams-»
-    «ENDIF-»
-    
+	private «getModelDTOClassName(null,false,true,this)» model;	
+
+	public «getModelDTOClassName(null,false,true,this)» getModel()   {
+		return model;
+	}
+	
+	public  void setModel(«getModelDTOClassName(null,false,true,this)» modello) {
+		this.model = modello;
+	}
+
+	@Override
+	public void setSession(Map session) {
+		// TODO Auto-generated method stub
+		super.setSession(session);
+		if(model == null) {
+			 model = new «getModelDTOClassName(null,false,true,this)»();	 
+		}
+		model.setSession(session);
+	}
+	
     /**
 	 * classe model associata
 	 */

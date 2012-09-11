@@ -32,8 +32,8 @@ e le limitazioni secondo i termini della Licenza.
 	public String «getTabItemHandlerMethodName(cp ,currTabSet, currTab, contextPrefix)»() throws CommandExecutionException {
 	
 	 	// impostazione dei parametri di selezione tab
-	 	setSelectedTabKey("«cp.name»_«getFullID(currTabSet, contextPrefix)»_selectedMultiPanel");
-	 	setSelectedTabValue("«cp.name»_«getFullID(currTabSet, contextPrefix)»_«getFullID(currTab, contextPrefix)»");
+	 	getModel().setSelectedTabKey("«cp.name»_«getFullID(currTabSet, contextPrefix)»_selectedMultiPanel");
+	 	getModel().setSelectedTabValue("«cp.name»_«getFullID(currTabSet, contextPrefix)»_«getFullID(currTab, contextPrefix)»");
 	 	«IF currTabSet.switcher!=null && currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0 -»
 	 	// richiamo della logica associata al tab-switcher
 	 	String tempResult = «getHandlerMethodName(currTabSet.switcher, currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»();
@@ -53,8 +53,8 @@ e le limitazioni secondo i termini della Licenza.
 	public String «getTabItemHandlerMethodName(cp ,currWizard, currTab, contextPrefix)»() throws CommandExecutionException {
 	
 	 	// impostazione dei parametri di selezione tab
-	 	setSelectedTabKey("«cp.name»_«getFullID(currWizard, contextPrefix)»_selectedMultiPanel");
-	 	setSelectedTabValue("«cp.name»_«getFullID(currWizard, contextPrefix)»_«getFullID(currTab, contextPrefix)»");
+	 	getModel().setSelectedTabKey("«cp.name»_«getFullID(currWizard, contextPrefix)»_selectedMultiPanel");
+	 	getModel().setSelectedTabValue("«cp.name»_«getFullID(currWizard, contextPrefix)»_«getFullID(currTab, contextPrefix)»");
 	 	«IF currWizard.switcher!=null && currWizard.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0 -»
 	 	// richiamo della logica associata al tab-switcher
 	 	String tempResult = «getHandlerMethodName(currWizard.switcher, currWizard.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»();
