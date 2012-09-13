@@ -21,6 +21,7 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT template::struts2::security»
 «IMPORT template::struts2::typeConversion»
 «IMPORT template::struts2::eventHandlers»
+«IMPORT template::struts2::controller::dataProvider»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -59,6 +60,19 @@ import «getBaseJavaPackage()».business.*;
 
 import «getSecurityJavaPackage(this)».*;
 
+«IF this.targetPlatform.enableRichUIBehavior-»
+import «getInterceptorsJavaPackage(this)».FatClientOnly;
+import «getUIUtilsJavaPackage(this)».*;
+import flexjson.JSON;
+«ENDIF-»
+
+«IF hasGisMap()»
+import «getDTOBaseJavaPackage(this)».greasemapfacade.*;
+import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+import com.vividsolutions.jts.geom.*;
+«ENDIF»
+
 /**
  * Base Action che contiene gli elementi comuni all'applicazione.
  * Tutte le altre Action dell'applicazione dovranno ereditare da questa
@@ -76,7 +90,8 @@ import «getSecurityJavaPackage(this)».*;
 public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSessionAwareDTO> extends ActionSupport implements SessionAware, Preparable {
 
 	/**  */
-	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
+	protected static final Logger log =								«noSonarTag("EIAS")» 
+	Logger.getLogger(Constants.APPLICATION_CODE + ".presentation"); «noSonarTag("EIAS")»
 
 	/** Riferimento alla sessione corrente */
 	protected Map session;
@@ -433,6 +448,76 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	«ENDIF-»
 
 	/**
+	 * metodo astratto per il dump visivo del model (da riscrivere nelle action dei singoli
+	 * ContentPanel
+	 */
+	abstract protected void dumpModel(boolean pre);
+	
+	/**
+	 * deve essere ridefinito nelle action relative ai ContentPanel
+	 */
+	abstract protected void doBeforeEventCommand();
+	
+	/**
+	 * deve essere ridefinito nelle action relative ai ContentPanel
+	 */
+	abstract protected void doAfterEventCommand();
+	
+	/**
+	 * metodo astratto che deve essere sovrascritto nelle action dei singoli ContentPanel per
+	 * l'inizializzazione dei vari comandi presenti nella schermata
+	 * @param widgName il nome del widget a cui e' associato l'evento
+	 * @param eventName il nome dell'evento (es. CLICKED)
+	 */
+	abstract protected ICommand initCommand(String widgName, String eventName);
+	
+	«EXPAND getJSONSerializerMethod FOR this»
+	
+	/**
+	 * Metodo generico per l'esecuzione della logica associata ad un evento
+	 * @param widgName il nome del widget a cui e' associato l'evento
+	 * @param eventName il nome dell'evento (es. CLICKED)
+	 */
+	protected String handleEventInternal(String widgName, String eventName)
+			throws CommandExecutionException {
+		ICommand action = initCommand(widgName, eventName);
+		if (log.isDebugEnabled()) {
+			log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model before");
+			dumpModel(false);
+		}
+		
+		// Before event commands...
+		doBeforeEventCommand();
+		// event commands
+		String result = action.doCommand(this);
+		// After event commands...
+		doAfterEventCommand();
+
+		if (result != null) {
+			if (log.isDebugEnabled()) {
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
+				dumpModel(false);
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning result ["
+						+ result + "]");
+			}
+
+			return result;
+
+		} else {
+			if (log.isDebugEnabled()) {
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
+				dumpModel(false);
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning default result [SUCCESS]");
+			}
+			return SUCCESS;
+
+		}
+	}
+
+
+	«EXPAND dataProvider::dataProviderInternalMethod FOR this»
+
+	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
 	 *  SAME_PAGE. Deve essere implementato in tutte le sottoclassi associate
 	 *  ad un content panel. 
@@ -487,6 +572,24 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	«ENDIF»
 }
 «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE getJSONSerializerMethod FOR GUIModel-»
+	protected flexjson.JSONSerializer getJSONSerializer(boolean jtsAware){
+		flexjson.JSONSerializer serializer = null;
+«IF hasGisMap()-»
+		if (jtsAware){
+			GeometryTransformer geoTransformer = new GeometryTransformer();
+			serializer = new flexjson.JSONSerializer().transform(geoTransformer, Geometry.class);
+		}
+		else{
+			serializer = new flexjson.JSONSerializer();
+		}
+«ELSE-»
+		serializer = new flexjson.JSONSerializer();
+«ENDIF-»
+		return serializer;
+	}
 «ENDDEFINE»
 
 «DEFINE springBEProperties FOR GUIModel»

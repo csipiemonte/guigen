@@ -172,8 +172,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	
 	public String map«map.mapId.toFirstUpper()»Setup() throws Exception {
 
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
-
+		flexjson.JSONSerializer serializer = getJSONSerializer(true);
 		MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 		
 		OpenLayerMapConfig mapCfg=new OpenLayerMapConfig();
@@ -220,8 +219,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	
 	public String refreshMap«map.mapId.toFirstUpper()»SingleService() throws Exception {
 
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
-		
+		flextjson.JSONSerializer serializer = getJSONSerializer(true);
 		try {
 			int indice = -1;
 			
@@ -297,8 +295,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	}
 	
 	public String calcolaStartEnvelope«map.mapId.toFirstUpper()»() throws Exception {
-
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		flexjson.JSONSerializer serializer = getJSONSerialzier(true);
 		try {
 
 			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
@@ -336,8 +333,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	}
 	
 	public String calcolaMaxEnvelope«map.mapId.toFirstUpper()»() throws Exception {
-
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		flexjson.JSONSerializer serializer = getJSONSerialzier(true);
 		try {
 			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 			
@@ -785,9 +781,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	
 	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
 	
+	«EXPAND template::struts2::controller::eventHandlers::beforeAndAfterEventCommandsMethods(model) FOR this»
 	
 	/**  */
-	void dumpModel(boolean pre) {
+	protected void dumpModel(boolean pre) {
 		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] START");
 			
 		

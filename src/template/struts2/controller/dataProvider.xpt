@@ -73,15 +73,6 @@ e le limitazioni secondo i termini della Licenza.
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE jsonSerializerInstantiation(String varName, boolean jtsAware) FOR GUIModel-»
-«IF jtsAware-»
-		GeometryTransformer geoTransformer = new GeometryTransformer();
-		flexjson.JSONSerializer «varName» = new flexjson.JSONSerializer().transform(geoTransformer, Geometry.class);
-«ELSE-»
-		flexjson.JSONSerializer «varName» = new flexjson.JSONSerializer();
-«ENDIF-»
-«ENDDEFINE»
-
 «REM»deve essere chiamato solo se è specificato il collection-binding«ENDREM»
 «DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-»
 «IF this.multiDataBinding!=null-»
@@ -99,29 +90,31 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 
-«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, MultiDataWidget widget, String datasetCode, String contextPrefix, PDefUseConfig pduc) FOR AppDataBinding-»
+«DEFINE dataProviderInternalMethod FOR GUIModel-»
 	/**
 	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi 
-	 * al data-binding relativo al dataset «datasetCode» del widget «getFullID(widget, contextPrefix)».
+	 * al data-binding relativo al dataset 'datasetCode' del widget 'widget'.
 	 * @return sempre il result "provideData"
 	 */
 	@SkipValidation 
 	@FatClientOnly
-	public String «getDataProviderMethodName(widget, datasetCode, contextPrefix)» () throws CommandExecutionException {
-	«LET this.appData.type AS appdataType-»
+	public String provideDataInternal(String widgetOGNLName, String contextPrefix, boolean jtsData, boolean isTreeView) throws CommandExecutionException {
 	
 		// reperisce il dato da serializzare
 		com.opensymphony.xwork2.ActionContext ctx = 
 			com.opensymphony.xwork2.ActionContext.getContext();
-		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(widget, contextPrefix, pduc)»");
-		«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR widget»
+		Object dataToProvide = ctx.getValueStack().findValue(widgetOGNLName);
+		«REM»«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR widget»«ENDREM»
+		// TODO !!! qui manca l'arrangeDataToProvide (serve solo per fatclient)
 		// serializza
-		«EXPAND jsonSerializerInstantiation("serializer", (widget.metaType==MapView ? true : false)) FOR model»
-		«IF widget.metaType == TreeView»
-		String response = serializer.exclude("*.class").deepSerialize(((it.csi.custom.component.tree.base.TreeNodeBase) dataToProvide).getChildren());
-		«ELSE-»
-		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
-		«ENDIF-»
+		flexjson.JSONSerializer serializer = getJSONSerializer(jtsData);
+		String response = "";
+		if (isTreeView){
+			response = serializer.exclude("*.class").deepSerialize(((it.csi.custom.component.tree.base.TreeNodeBase) dataToProvide).getChildren());
+		}
+		else{
+			response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		}
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {
@@ -131,11 +124,26 @@ e le limitazioni secondo i termini della Licenza.
 			// risposta
 			return "provideData";
 		} catch (java.io.UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			throw new CommandExecutionException("errore provide Data",e);
 		}
-	«ENDLET-»
+	}
+«ENDDEFINE»
+
+
+«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, MultiDataWidget widget, String datasetCode, String contextPrefix, PDefUseConfig pduc) FOR AppDataBinding-»
+	/**
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi 
+	 * al data-binding relativo al dataset «datasetCode» del widget «getFullID(widget, contextPrefix)».
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation 
+	@FatClientOnly
+	public String «getDataProviderMethodName(widget, datasetCode, contextPrefix)» () throws CommandExecutionException {
+		return provideDataInternal(
+			"«getOGNLForWidgetMultiValue(widget, contextPrefix, pduc)»",  
+			"«contextPrefix»", 
+			«(widget.metaType==MapView ? true : false)», 
+			«widget.metaType == TreeView»);
 	}
 	«IF widget.metaType == Table»
 		«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOREACH ((Table) widget).columnModel.columns.select(c | c.multiDataBinding != null)»
@@ -154,27 +162,10 @@ e le limitazioni secondo i termini della Licenza.
 	@FatClientOnly
 	public String «getDataProviderMethodName(table, this.selector+"_DATASET", contextPrefix)» () throws CommandExecutionException {
 	«LET multiDataBinding.appData.type AS appdataType-»
-	
-		// reperisce il dato da serializzare
-		com.opensymphony.xwork2.ActionContext ctx = 
-			com.opensymphony.xwork2.ActionContext.getContext();
-		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForColumnMultiValue(this, pduc)»");
-		// serializza
-		«EXPAND jsonSerializerInstantiation("serializer", false) FOR model»
-		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
-		// imposta l'input stream di risposta
-		java.io.ByteArrayInputStream bais;
-		try {
-			bais = new java.io.ByteArrayInputStream(
-					response.getBytes("UTF-8"));
-			dataProviderStream = bais;
-			// risposta
-			return "provideData";
-		} catch (java.io.UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new CommandExecutionException("errore provide Data",e);
-		}
+		return provideDataInternal(
+			"«getOGNLForWidgetMultiValue(table, contextPrefix, pduc)»",  
+			"«contextPrefix»", 
+			false, false);
 	«ENDLET-»
 	}
 «ENDIF-»

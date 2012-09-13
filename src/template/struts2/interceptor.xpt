@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,34 +13,34 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
+Â«IMPORT guigenÂ»
 
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 CUSTOM INTERCEPTOR CLASSES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»Genera le classi dei convertitori«ENDREM»
-«DEFINE interceptorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND tableSelectionInterceptor(skip_component_dir_creation) FOR this»
-	«EXPAND methodProtectionInterceptor(skip_component_dir_creation) FOR this»
-	«EXPAND paramsInterceptor(skip_component_dir_creation) FOR this»
-	«IF targetPlatform.enableFatClient»
-	«EXPAND preserveUploadInterceptor(skip_component_dir_creation) FOR this»
-	«EXPAND fatClientValidatorInterceptor(skip_component_dir_creation) FOR this»
-	«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»Genera le classi dei convertitoriÂ«ENDREMÂ»
+Â«DEFINE interceptorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND tableSelectionInterceptor(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND methodProtectionInterceptor(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND paramsInterceptor(skip_component_dir_creation) FOR thisÂ»
+	Â«IF targetPlatform.enableFatClientÂ»
+	Â«EXPAND preserveUploadInterceptor(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND fatClientValidatorInterceptor(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE methodProtectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtectionInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+Â«DEFINE methodProtectionInterceptor(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtectionInterceptor.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -211,10 +211,10 @@ public class MethodProtectionInterceptor extends MethodFilterInterceptor {
 }
 
 
-«ENDFILE»
+Â«ENDFILEÂ»
 
 
-«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtection.java"»package «getInterceptorsJavaPackage(this)»;
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtection.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -231,9 +231,9 @@ public @interface MethodProtection {
 }
 
 
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientOnly.java"»package «getInterceptorsJavaPackage(this)»;
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientOnly.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 
 import static java.lang.annotation.ElementType.METHOD; 
 import java.lang.annotation.Retention;
@@ -246,12 +246,12 @@ import java.lang.annotation.Target;
 @Target(METHOD)
 public @interface FatClientOnly {
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»comment«ENDREM»
-«DEFINE tableSelectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getInterceptorsJavaSrcDir(this, true)+"/TableSelectionInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+Â«REMÂ»commentÂ«ENDREMÂ»
+Â«DEFINE tableSelectionInterceptor(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/TableSelectionInterceptor.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
@@ -314,11 +314,11 @@ public class TableSelectionInterceptor implements Interceptor {
     }
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE paramsInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getInterceptorsJavaSrcDir(this, true)+"/ParametersInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+Â«DEFINE paramsInterceptor(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/ParametersInterceptor.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -631,9 +631,9 @@ public class ParametersInterceptor extends MethodFilterInterceptor {
         return TextParseUtil.commaDelimitedStringToSet(commaDelim);
     }
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodFilterInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodFilterInterceptor.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 import java.util.Collections;
 import java.util.Set;
 
@@ -699,11 +699,11 @@ public abstract class MethodFilterInterceptor extends AbstractInterceptor {
     protected abstract String doIntercept(ActionInvocation invocation) throws Exception;
     
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE preserveUploadInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getInterceptorsJavaSrcDir(this, true)+"/PreserveUploadInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+Â«DEFINE preserveUploadInterceptor(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/PreserveUploadInterceptor.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -743,8 +743,8 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 		this.endMethod = endMethod;
 	}
 
-	protected static final Logger log = Logger
-			.getLogger(PreserveUploadInterceptor.class);
+	protected static final Logger log = Logger				Â«noSonarTag("EIAS")Â»
+			.getLogger(PreserveUploadInterceptor.class);	Â«noSonarTag("EIAS")Â»
 
 	@SuppressWarnings("unchecked")
 	public String intercept(ActionInvocation invocation) throws Exception {
@@ -843,11 +843,11 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 		return invocation.invoke();
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE fatClientValidatorInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientValidatorInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+Â«DEFINE fatClientValidatorInterceptor(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientValidatorInterceptor.java"Â»package Â«getInterceptorsJavaPackage(this)Â»;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
@@ -866,8 +866,8 @@ import org.apache.log4j.Logger;
  */
 public class FatClientValidatorInterceptor extends AbstractInterceptor {
 
-	protected static final Logger log = Logger
-			.getLogger(FatClientValidatorInterceptor.class);
+	protected static final Logger log = Logger						Â«noSonarTag("EIAS")Â»
+			.getLogger(FatClientValidatorInterceptor.class);		Â«noSonarTag("EIAS")Â»
 	
 	public static final String ACTION_ERRORS = "fatClient_actionErrors";
 	public static final String FIELD_ERRORS = "fatClient_fieldErrors";
@@ -919,5 +919,5 @@ public class FatClientValidatorInterceptor extends AbstractInterceptor {
 		return method;
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

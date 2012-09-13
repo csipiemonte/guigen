@@ -422,7 +422,15 @@ SecurityModel getActualSecurityModel(GUIModel model) :
 		model.extSecurityModel
 	else
 		model.securityModel;
-			
+
+
+String noSonarTag(String reason) :
+	let noNoSonar = getProperty("guigen.noNOSONAR"):
+	if (noNoSonar == null || noNoSonar != "true") then
+	"//NOSONAR  Reason:"+reason
+	else
+	"";
+
 ////////////////////////////////////////////////////////////
 /// Estensioni java                                       //
 ////////////////////////////////////////////////////////////

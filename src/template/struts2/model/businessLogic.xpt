@@ -40,7 +40,8 @@ import «getBaseJavaPackage()».util.*;
 public class «getSpringBEClassName()»{
 
 	/**  */
-	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
+	protected static final Logger log =							«noSonarTag("EIAS")» 
+	Logger.getLogger(Constants.APPLICATION_CODE + ".business"); «noSonarTag("EIAS")»
 	
     //////////////////////////////////////////////////////////////////////////////
 	/// Costanti identificative degli Application Data
@@ -125,7 +126,8 @@ import «getBaseJavaPackage(model)».presentation.uiutils.GreaseDTOMapper;
 public class «getSpringCPBEClassName()»{
 
 	/**  */
-	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
+	protected static final Logger log =								«noSonarTag("EIAS")» 
+		Logger.getLogger(Constants.APPLICATION_CODE + ".business"); «noSonarTag("EIAS")»
 	
     //////////////////////////////////////////////////////////////////////////////
 	/// Costanti identificative degli Application Data
@@ -453,7 +455,8 @@ public class «getSpringCPBEClassName()»{
 	{
 	    /// definizione costanti di outcome
 	    «FOREACH this.results AS currRes-»
-		final String «getFullExecCmdMethodName(this.methodName, contextPrefix).toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
+		final String «getFullExecCmdMethodName(this.methodName, contextPrefix).toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = «noSonarTag("EIAS")»
+			 "«currRes.resultCode»"; «noSonarTag("EIAS")»
 		«ENDFOREACH-»
 	    ///
 		try{

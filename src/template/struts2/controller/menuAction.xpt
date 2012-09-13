@@ -177,13 +177,25 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClass
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
 	 *  SAME_PAGE. 
 	 */
-	 public void clearPageScopedAppData(String targetContentPanelName){
+	public void clearPageScopedAppData(String targetContentPanelName){
 	 	// non sapendo quale content panel si sta abbandonando vengono rimossi tutti
 	 	// gli appdata a scope PAGE
 	 	«FOREACH this.structure.appWindow.appArea.contentPanels.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAD»
 	 	getSession().remove("«getAppDataKey(currAD)»");
 	 	«ENDFOREACH»
-	 }
+	}
+	 
+	protected void dumpModel(boolean pre){
+	  // metodo intenzionalmente vuoto
+	}
+	 
+	protected void doBeforeEventCommand(){
+		// il menu e' globale: non sono previsti before/after event commands
+	}
+	
+	protected void doAfterEventCommand(){
+		// il menu e' globale: non sono previsti before/after event commands
+	}
 }
 «ENDFILE»
 «ENDDEFINE»

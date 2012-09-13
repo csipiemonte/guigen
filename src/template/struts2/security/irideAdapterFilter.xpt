@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,14 +13,14 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«DEFINE IrideIdMaterializerFilter(GUIModel model) FOR AutenticationMethod»
-«FILE getIrideIdAdapterFilterJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+Â«DEFINE IrideIdMaterializerFilter(GUIModel model) FOR AutenticationMethodÂ»
+Â«FILE getIrideIdAdapterFilterJavaFile(model, true)Â»package Â«getFiltersJavaPackage(model)Â»;
 
 import it.csi.iride2.policy.entity.Identita;
 import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
@@ -36,9 +36,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import «getBaseJavaPackage(model)+".business.*;"»
+import Â«getBaseJavaPackage(model)+".business.*;"Â»
 import org.apache.log4j.*;
-import «getBaseJavaPackage(model)».util.*;
+import Â«getBaseJavaPackage(model)Â».util.*;
 
 /**
  * Inserisce in sessione:
@@ -51,20 +51,21 @@ import «getBaseJavaPackage(model)».util.*;
  *
  * @author CSIPiemonte
  */
-public class «getIrideIdAdapterFilterClassName()» implements Filter{
+public class Â«getIrideIdAdapterFilterClassName()Â» implements Filter{
 
 	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
 	
-	«EXPAND authMarkerConstDef FOR this»
+	Â«EXPAND authMarkerConstDef FOR thisÂ»
 	
-	«LET model.appDataDefs AS appDataDefs-»
-	«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
-	public static final String USERINFO_SESSIONATTR = "«getAppDataKey(currentUserAD)»";
-	«ENDLET-»
-	«ENDLET-»
+	Â«LET model.appDataDefs AS appDataDefs-Â»
+	Â«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-Â»
+	public static final String USERINFO_SESSIONATTR = "Â«getAppDataKey(currentUserAD)Â»";
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
 	
 	/**  */
-	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".security");
+	protected static final Logger log =								Â«noSonarTag("EIAS")Â» 
+		Logger.getLogger(Constants.APPLICATION_CODE + ".security"); Â«noSonarTag("EIAS")Â»
 	
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain fchn) throws IOException, ServletException {
@@ -76,9 +77,9 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 					Identita identita = new Identita(normalizeToken(marker));
 					log.debug("[IrideIdAdapterFilter::doFilter] Inserito in sessione marcatore IRIDE:"+identita);
 					hreq.getSession().setAttribute(IRIDE_ID_SESSIONATTR, identita);
-					«LET ((List[Type])getAllTypes((GUIModel)model)).selectFirst(t | t.name=="UserInfo") AS userInfoType-»
-					«toJavaType(userInfoType, model)» userInfo = new «toJavaType(userInfoType, model)»();
-					«ENDLET-»
+					Â«LET ((List[Type])getAllTypes((GUIModel)model)).selectFirst(t | t.name=="UserInfo") AS userInfoType-Â»
+					Â«toJavaType(userInfoType, model)Â» userInfo = new Â«toJavaType(userInfoType, model)Â»();
+					Â«ENDLET-Â»
 					userInfo.setNome(identita.getNome());
 					userInfo.setCognome(identita.getCognome());
 					userInfo.setEnte("--");
@@ -106,8 +107,8 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 
 	
     private boolean mustCheckPage(String requestURI) {
-		if (requestURI.indexOf("«getHomePageActionName()»«getStrutsActionCompleteExtension()»") > -1
-				|| requestURI.indexOf("sessionExpired«getStrutsActionCompleteExtension()»") > -1
+		if (requestURI.indexOf("Â«getHomePageActionName()Â»Â«getStrutsActionCompleteExtension()Â»") > -1
+				|| requestURI.indexOf("sessionExpiredÂ«getStrutsActionCompleteExtension()Â»") > -1
 				|| requestURI.indexOf("fatalError") > -1
 				|| requestURI.indexOf("notFoundError") > -1
 				|| requestURI.indexOf("sessionExpired.jsp") > -1
@@ -125,65 +126,65 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 		// NOP
 	}
 
-	«EXPAND getSecurityToken FOR this»
+	Â«EXPAND getSecurityToken FOR thisÂ»
 	
-	«EXPAND normalizeToken FOR this»
+	Â«EXPAND normalizeToken FOR thisÂ»
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE authMarkerConstDef FOR AutenticationMethod»
-«ERROR ""+this+ " non supportato"»
-«ENDDEFINE»
+Â«DEFINE authMarkerConstDef FOR AutenticationMethodÂ»
+Â«ERROR ""+this+ " non supportato"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE authMarkerConstDef FOR OPAUTHSSO»
+Â«DEFINE authMarkerConstDef FOR OPAUTHSSOÂ»
 	public final static String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE authMarkerConstDef FOR SSOBARTSSO»
+Â«DEFINE authMarkerConstDef FOR SSOBARTSSOÂ»
 	public final static String AUTH_ID_MARKER = "edu.yale.its.tp.cas.client.filter.user";
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE authMarkerConstDef FOR ShibbolethSSO»
+Â«DEFINE authMarkerConstDef FOR ShibbolethSSOÂ»
 	public final static String AUTH_ID_MARKER = "Shib-Iride-IdentitaDigitale";
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSecurityToken FOR AutenticationMethod»
-«ERROR ""+this+" non supportato"»
-«ENDDEFINE»
+Â«DEFINE getSecurityToken FOR AutenticationMethodÂ»
+Â«ERROR ""+this+" non supportato"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSecurityToken FOR SSOBARTSSO»
+Â«DEFINE getSecurityToken FOR SSOBARTSSOÂ»
 	public String getToken(HttpServletRequest httpreq){	
 		String marker = (String)httpreq.getSession().getAttribute(AUTH_ID_MARKER);
 		return marker;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSecurityToken FOR CustomAuthentication»
-«ERROR ""+this+" non supportato"»
-«ENDDEFINE»
+Â«DEFINE getSecurityToken FOR CustomAuthenticationÂ»
+Â«ERROR ""+this+" non supportato"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSecurityToken FOR OPAUTHSSO»
+Â«DEFINE getSecurityToken FOR OPAUTHSSOÂ»
 	public String getToken(HttpServletRequest httpreq){	
 		String marker = (String)httpreq.getSession().getAttribute(AUTH_ID_MARKER);
 		return marker;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSecurityToken FOR ShibbolethSSO»
+Â«DEFINE getSecurityToken FOR ShibbolethSSOÂ»
 	public String getToken(HttpServletRequest httpreq){
 		String marker = (String)httpreq.getHeader(AUTH_ID_MARKER);
 		return marker;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE normalizeToken FOR AutenticationMethod»
+Â«DEFINE normalizeToken FOR AutenticationMethodÂ»
 	private String normalizeToken(String token){
 		return token;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE normalizeToken FOR OPAUTHSSO»
+Â«DEFINE normalizeToken FOR OPAUTHSSOÂ»
 	private String normalizeToken(String token){
 		String tmp = null;
 		
@@ -196,4 +197,4 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 				
 		return tmp;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

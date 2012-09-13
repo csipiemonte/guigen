@@ -122,6 +122,39 @@ e le limitazioni secondo i termini della Licenza.
 		«EXPAND handlerMethod(model, this, cp, contextPrefix) FOREACH this.eventHandlers-»
 «ENDDEFINE»
 
+«REM»crea i metodi con la logica di before/after events da richiamare all'interno dei metodi handler«ENDREM»
+«DEFINE beforeAndAfterEventCommandsMethods(GUIModel model) FOR ContentPanel»
+	/**
+	 * comandi da eseguire prima di ciascun evento
+	 */
+	protected void doBeforeEventCommand() {
+		// comandi da eseguire prima dei comandi associati ad ogni evento
+		«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::BEFORE_EVENTS) AS cpBeforeEvent»
+		ICommand cmdBeforeEvent = initBeforeEventCPCommand();
+		cmdBeforeEvent.doCommand(this);
+				«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»
+	}
+	
+	/**
+	 * comandi da eseguire dopo ciascun evento
+	 */
+	protected void doAfterEventCommand() {
+		// comandi da eseguire prima dei comandi associati ad ogni evento
+	«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::AFTER_EVENTS) AS cpBeforeEvent»
+		ICommand cmdAfterEvent = initAfterEventCPCommand();
+		cmdAfterEvent.doCommand(this);
+				«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»
+	}
+		
+«ENDDEFINE»
 
 «REM»
 	gestisce eventi di due tipi:
@@ -141,56 +174,12 @@ e le limitazioni secondo i termini della Licenza.
 	public String «getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»()
 		throws CommandExecutionException
 	{
-		ICommand action = initCommand("«getFullID(currEventWidget, contextPrefix)»","«currEventHandler.eventType»");
-		if (log.isDebugEnabled()){
-				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model before");
-				dumpModel(false);
-		}
-    	
-    	«IF cp.cpCommands!=null»
-			«IF !cp.cpCommands.commands.isEmpty»
-				«FOREACH cp.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::BEFORE_EVENTS) AS cpBeforeEvent»
-						ICommand cmdBeforeEvent = initBeforeEventCPCommand();
-						cmdBeforeEvent.doCommand(this);
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
-    	
-		String result = action.doCommand(this);
-		«IF cp.cpCommands!=null»
-			«IF !cp.cpCommands.commands.isEmpty»
-				«FOREACH cp.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::AFTER_EVENTS) AS cpBeforeEvent»
-						ICommand cmdAfterEvent = initAfterEventCPCommand();
-						cmdAfterEvent.doCommand(this);
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
-		if (result != null) {
-			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model after");
-				dumpModel(false);
-				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning result [" + result + "]");
-			}
-			«IF proceedToJSon(currEventHandler, currEventWidget)-»
-				return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
-			«ELSE-»
-			
-			return result;
-			«ENDIF-»
-			
-		} else {
-			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model after");
-				dumpModel(false);
-				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning default result [SUCCESS]");
-			}
-			«IF proceedToJSon(currEventHandler, currEventWidget)-»
-			return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
-			«ELSE-»
-			return SUCCESS;
-			«ENDIF-»
-			
-		}
+	«IF proceedToJSon(currEventHandler, currEventWidget)-»
+		handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
+		return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+	«ELSE-»
+		return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
+	«ENDIF-»
 	}
 «ENDLET»
 «ENDDEFINE»
@@ -206,7 +195,7 @@ e le limitazioni secondo i termini della Licenza.
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	private ICommand initCommand(String sourceWidget, String eventType) {
+	protected final ICommand initCommand(String sourceWidget, String eventType) {
 		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
 	«EXPAND commandMapForEventSource(model, this, "") FOR this.panels-»
@@ -307,7 +296,7 @@ e le limitazioni secondo i termini della Licenza.
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	private ICommand initCommand(String sourceWidget, String eventType) {
+	protected ICommand initCommand(String sourceWidget, String eventType) {
 		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
 		«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
