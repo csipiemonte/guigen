@@ -193,6 +193,10 @@ package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
 «IF isValidatorAnnotationRequired(this)-»
 import com.opensymphony.xwork2.validator.annotations.*;
 
+/**
+ * DTO relativo al ComplexType «name».
+ * @generated 
+ */
 @Validation
 «ENDIF-»
 public class «getDTOClassName(this)» «IF extends!=null» extends «extends.toJavaType(model)» «ENDIF»implements java.io.Serializable {
@@ -205,6 +209,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 
 	/**
 	 * Costruttore vuoto del DTO.
+	 * @generated
 	 */
 	public «getDTOClassName(this)»() {
 		super();
@@ -222,6 +227,9 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 	«ENDIF»
 	}
 	
+	/**
+	 * @generated
+	 */
 	public String toString(){
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTypeNSAsPkg(this,true,false)+this.name+"toString")»
 		/// inserire qui la logica desiderata per la rappresenatazione a stringa
@@ -241,11 +249,20 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
 	
 	«REM»STDMDD-159: visitor validator.«ENDREM»
+	/**
+	 * imposta il valore del campo [«name»]
+	 * @param val
+	 * @generated
+	 */
 	«getValidatorFieldAnnotationForDTO(this)»
 	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
 		_«this.name» = val;
 	}
 	
+	/**
+	 * legge il valore del campo [«name»]
+	 * @generated
+	 */
 	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
 		return _«this.name»;
 	}
@@ -253,13 +270,25 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 
 «DEFINE activationParamProperty(GUIModel model) FOR ActivationParam»
 
-	/// Activation Param [«name»]
+	/**
+	 * Activation Param [«name»]
+	 * @generated
+	 */
 	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
 	
+	/**
+	 * imposta il valore dell' Activation Param [«name»]
+	 * @praram val
+	 * @generated
+	 */
 	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
 		_«this.name» = val;
 	}
 	
+	/**
+	 * legge il valore dell' Activation Param [«name»]
+	 * @generated
+	 */
 	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
 		return _«this.name»;
 	}
@@ -279,23 +308,41 @@ import java.util.Map;
 import org.apache.log4j.*;
 import «getBaseJavaPackage()».util.*;
 
+/**
+ * Superclasse astratta di tutti i DTO associati ai ContentPanel. 
+ * I DTO associati ai content panel utilizzano la sessione applicativa per
+ * la memorizzazione degli ApplicationData a scope 'session' o 'page'
+ * @generated
+ */
 public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 	protected Map session;
 	
+	/**
+	 * imposta un riferimento alla sessioen applicativa. Deve essere impostato in modo
+	 * da condividere la sessione con la action
+	 * @generated
+	 */
 	public void setSession(Map session){
 		this.session = session;
 	}
 	
+	/**
+	 * restituisce la sessione
+	 * @generated
+	 */
 	public Map getSession(){
 		return this.session;
 	}
 	
-	/**  */
+	/**  
+	 * @generated
+	 */
 	protected static final Logger log =							«noSonarTag("EIAS")» 
 		Logger.getLogger(Constants.APPLICATION_CODE + ".dto");  «noSonarTag("EIAS")»
 	
 	/**
 	 * dump di debug dello stato interno del DTO
+	 * @generated
 	 */
 	public String dump() {
 		StringBuffer sb = new StringBuffer();
@@ -316,16 +363,16 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 						sb.append("\t\t" + currPD.getName() + "=" + srcVal
 								+ "\n");
 					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
+						//
 					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+						//
 					} catch (java.lang.reflect.InvocationTargetException e) {
-						e.printStackTrace();
+						//
 					}
 				}
 			}
 		} catch (java.beans.IntrospectionException e) {
-			e.printStackTrace();
+			//
 		}
 
 		sb.append("\t\t");
@@ -341,23 +388,47 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 
 «DEFINE multiPanelStructure(GUIModel model) FOR GUIModel»
 «FILE getDTOBaseSrcDir()+"/MultiPanelStructure.java"»package «getDTOBaseJavaPackage()»;
+
+/**
+ * contiene la struttura del singolo multipanel
+ * @generated
+ */
 public class MultiPanelStructure implements java.io.Serializable{
 	private String selectedPanelKey;
 	private String selectedPanelValue;
 	public String getSelectedPanelKey() {
 		return selectedPanelKey;
 	}
+	
+	/**
+	 * @generated
+	 */
 	public void setSelectedPanelKey(String selectedPanelKey) {
 		this.selectedPanelKey = selectedPanelKey;
 	}
+	/**
+	 * @generated
+	 */
 	public String getSelectedPanelValue() {
 		return selectedPanelValue;
 	}
+	/**
+	 * @generated
+	 */
 	public void setSelectedPanelValue(String selectedPanelValue) {
 		this.selectedPanelValue = selectedPanelValue;
 	}
+	/**
+	 * costruttore
+	 * @generated
+	 */
 	public MultiPanelStructure() {
 	}
+	
+	/**
+	 * costruttore
+	 * @generated
+	 */
 	public MultiPanelStructure(String selectedPanelKey,
 			String selectedPanelValue) {
 		this.selectedPanelKey = selectedPanelKey;
@@ -369,34 +440,65 @@ public class MultiPanelStructure implements java.io.Serializable{
 
 «DEFINE widgetsStructurefile(GUIModel model) FOR GUIModel»
 «FILE getDTOBaseSrcDir()+"/WidgetsStructure.java"»package «getDTOBaseJavaPackage()»;
+
+/**
+ * Contiene informazioni relative al singolo widget
+ * @generated
+ */
 public class WidgetsStructure implements java.io.Serializable{
 
 	private String widgetName;
 	private boolean visible;
 	private boolean disabled;
 	
+	/**
+	 * @generated
+	 */
 	public String getWidgetName() {
 		return widgetName;
 	}
+	/**
+	 * @generated
+	 */
 	public void setWidgetName(String widgetName) {
 		this.widgetName = widgetName;
 	}
+	/**
+	 * @generated
+	 */
 	public boolean isVisible() {
 		return visible;
 	}
+	/**
+	 * @generated
+	 */
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	/**
+	 * @generated
+	 */
 	public boolean isDisabled() {
 		return disabled;
 	}
+	/**
+	 * @generated
+	 */
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
 	
+	/**
+	 * costruttore
+	 * @generated
+	 */
 	public WidgetsStructure() {
 	}
 	
+	/**
+	 * costruttore
+	 * @generated
+	 */
 	public WidgetsStructure(String widgetName, boolean visible,
 			boolean disabled) {
 		this.widgetName = widgetName;
@@ -414,17 +516,47 @@ import java.util.*;
 import flexjson.JSON;
 «ENDIF-»
 
+/**
+ * contiene la struttura della singola voce di menu dell'applicazione
+ * @generated
+ */
 public class MenuStructure implements java.io.Serializable{
 
+	/**
+	 * nome del menu
+	 * @generated
+	 */
 	private String menuName;
+	
+	/**
+	 * lista dei sottomenu
+	 * @generated
+	 */
 	private List<MenuStructure> submenus = new ArrayList<MenuStructure>();
 
+	/**
+	 * @generated
+	 */
 	private boolean visible;
+	
+	/**
+	 * @generated
+	 */
 	private boolean enabled;
 
+	/**
+	 * restutuisce il nome della voce di menu
+	 * @generated
+	 */
 	public String getMenuName() {
 		return menuName;
 	}
+	
+	/**
+	 * imposta il nome della voce di menu
+	 * @param menuName
+	 * @generated
+	 */
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
@@ -432,30 +564,68 @@ public class MenuStructure implements java.io.Serializable{
 «IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 «ENDIF-»
+	/**
+	 * restituisce la lista dei sottomenu 
+	 * @generated
+	 */
 	public List<MenuStructure> getSubmenus() {
 		return submenus;
 	}
 
+	/**
+	 * il menu e' visibile?
+	 * @generated
+	 */
 	public boolean isVisible() {
 		return visible;
 	}
+	
+	/**
+	 * @generated
+	 */
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	/**
+	 * il menu e' abilitato?
+	 * @generated
+	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
+	
+	/**
+	 * @generated
+	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
+	/**
+	 * costruttore
+	 * @generated
+	 */
 	public MenuStructure() {
 	}
 
+	/**
+	 * costruttore
+	 * @param manuName
+	 * @generated
+	 */
 	public MenuStructure(String menuName) {
 		this.menuName = menuName;
 	}
 
+	/**
+	 * costruttore
+	 * @param manuName
+	 * @param visible
+	 * @param enabled
+	 * @param active
+	 * @generated
+	 */
 	public MenuStructure(String menuName, boolean visible, boolean enabled,
 			boolean active) {
 		this.menuName = menuName;
@@ -466,6 +636,12 @@ public class MenuStructure implements java.io.Serializable{
 «IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 «ENDIF-»
+
+	/**
+	 * restituisce la lista di tutte le voci di menu nel sottoalbero dei submenu
+	 * di questa voce di menu
+	 * @generated
+	 */
 	public List<String> getAllSubMenu() {
 		List<String> allSubMenu = new ArrayList<String>();
 
@@ -475,6 +651,13 @@ public class MenuStructure implements java.io.Serializable{
 «IF model.targetPlatform.enableRichUIBehavior-»	
 	@JSON(include = false)
 «ENDIF-»
+
+	/**
+	 * restituisce il sottomenu a partire dal nodo di nome 'menuName'
+	 * @param mn il menu in cui cercare
+	 * @param menuName il menu da cercare
+	 * @generated
+	 */
 	public MenuStructure getSubMenu(MenuStructure mn, String menuName){
 		for (MenuStructure menuStructure : mn.getSubmenus()) {
 			if(menuStructure.getMenuName().equalsIgnoreCase(menuName)){
@@ -489,6 +672,13 @@ public class MenuStructure implements java.io.Serializable{
 «IF model.targetPlatform.enableRichUIBehavior-»	
 	@JSON(include = false)
 «ENDIF-»
+
+	/**
+	 * restituisce la lista piatta dei sottomenu
+	 * @param mn il menu in cui cercare
+	 * @param menuName il menu da cercare
+	 * @generated
+	 */
 	public List<MenuStructure> getSubMenuFlattenList(MenuStructure mn, String menuName) {
 		List<MenuStructure> res = new ArrayList<MenuStructure>();
 		res.addAll(mn.getSubmenus());
@@ -498,6 +688,7 @@ public class MenuStructure implements java.io.Serializable{
 		return res;
 	}
 
+	
 	private List<String> addSubMenu(List<String> allSubMenu,
 			List<MenuStructure> submenus) {
 		for (MenuStructure menuStructure : submenus) {

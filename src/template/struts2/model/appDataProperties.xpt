@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,78 +13,99 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions »
-«EXTENSION template::struts2::Struts2Extensions»
-
-
-«DEFINE storedAppDataProperties(GUIModel model, boolean expandVisitorFieldValidator) FOR ContentPanel»
-«LET findAllActionScopedAppDataInContentPanel(this) AS allAD»
-«LET (List[ApplicationData])allAD AS allAppData»
-	«EXPAND appDataProperty(model, this, expandVisitorFieldValidator) FOREACH allAppData»
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
-
-«REM»serve per la on-init action: non usare altrove«ENDREM»
-«DEFINE storedAppDataProperties(GUIModel model) FOR Command»
-«LET findAllActionScopedAppData(this) AS allAD»
-«LET (List[ApplicationData])allAD AS allAppData»
-	«EXPAND appDataProperty(model, null, false) FOREACH allAppData»
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
-
-«DEFINE storedAppDataProperties(GUIModel model) FOR Menubar»
-«LET findAllActionScopedAppDataInMenubar(this) AS allAD»
-«LET (List[ApplicationData])allAD AS allAppData»
-	«EXPAND appDataProperty(model, null, false) FOREACH allAppData»
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
+Â«EXTENSION template::GenericExtensions Â»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«DEFINE appDataProperty(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationData»
-«EXPAND propertyConversion(model, cp) FOR this»
-«IF this.lifetimeExtent==DataLifetimeType::USER_ACTION-»
-«EXPAND appDataPropertyActionScoped(model, cp, expandVisitorFieldValidator) FOR this-»
-«ELSE-»
-«EXPAND appDataPropertySessionScoped(model, cp, expandVisitorFieldValidator) FOR this-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE storedAppDataProperties(GUIModel model, boolean expandVisitorFieldValidator) FOR ContentPanelÂ»
+Â«LET findAllActionScopedAppDataInContentPanel(this) AS allADÂ»
+Â«LET (List[ApplicationData])allAD AS allAppDataÂ»
+	Â«EXPAND appDataProperty(model, this, expandVisitorFieldValidator) FOREACH allAppDataÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE appDataPropertyActionScoped(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationData»
-	private «toJavaType(this.type, model)» _«getAppDataPropertyName(this)» = «defaultInitVal(this.type,model)»;
+Â«REMÂ»serve per la on-init action: non usare altroveÂ«ENDREMÂ»
+Â«DEFINE storedAppDataProperties(GUIModel model) FOR CommandÂ»
+Â«LET findAllActionScopedAppData(this) AS allADÂ»
+Â«LET (List[ApplicationData])allAD AS allAppDataÂ»
+	Â«EXPAND appDataProperty(model, null, false) FOREACH allAppDataÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE storedAppDataProperties(GUIModel model) FOR MenubarÂ»
+Â«LET findAllActionScopedAppDataInMenubar(this) AS allADÂ»
+Â«LET (List[ApplicationData])allAD AS allAppDataÂ»
+	Â«EXPAND appDataProperty(model, null, false) FOREACH allAppDataÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«DEFINE appDataProperty(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationDataÂ»
+Â«EXPAND propertyConversion(model, cp) FOR thisÂ»
+Â«IF this.lifetimeExtent==DataLifetimeType::USER_ACTION-Â»
+Â«EXPAND appDataPropertyActionScoped(model, cp, expandVisitorFieldValidator) FOR this-Â»
+Â«ELSE-Â»
+Â«EXPAND appDataPropertySessionScoped(model, cp, expandVisitorFieldValidator) FOR this-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE appDataPropertyActionScoped(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationDataÂ»
+	/**
+	 * @generated
+	 */
+	private Â«toJavaType(this.type, model)Â» _Â«getAppDataPropertyName(this)Â» = Â«defaultInitVal(this.type,model)Â»;
 	
-	«REM»STDMDD-159: visitor validator.«ENDREM»
-	«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)»
-	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
-		_«getAppDataPropertyName(this)» = value;
+	Â«REMÂ»STDMDD-159: visitor validator.Â«ENDREMÂ»
+	/**
+	 * imposta il valore dell' ApplicationData 'Â«getAppDataPropertyName(this)Â»'
+	 * @param value
+	 * @generated
+	 */
+	Â«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)Â»
+	public void setÂ«getAppDataPropertyName(this).toFirstUpper()Â»(Â«toJavaType(this.type, model)Â» value){
+		_Â«getAppDataPropertyName(this)Â» = value;
 	}
 	
-	public «toJavaType(this.type, model)» get«getAppDataPropertyName(this).toFirstUpper()»(){
-		return _«getAppDataPropertyName(this)»;
+	/**
+	 * legge il valore dell' ApplicationData 'Â«getAppDataPropertyName(this)Â»'
+	 * @generated
+	 */
+	public Â«toJavaType(this.type, model)Â» getÂ«getAppDataPropertyName(this).toFirstUpper()Â»(){
+		return _Â«getAppDataPropertyName(this)Â»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE appDataPropertySessionScoped(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationData»
+Â«DEFINE appDataPropertySessionScoped(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationDataÂ»
 	
-	«REM»STDMDD-159: visitor validator.«ENDREM»
-	«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)»
-	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
-		getSession().put("«getAppDataKey(this)»", value);
+	Â«REMÂ»STDMDD-159: visitor validator.Â«ENDREMÂ»
+	/**
+	 * imposta il valore dell' ApplicationData 'Â«getAppDataPropertyName(this)Â»'
+	 * @param value
+	 * @generated
+	 */
+	Â«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)Â»
+	public void setÂ«getAppDataPropertyName(this).toFirstUpper()Â»(Â«toJavaType(this.type, model)Â» value){
+		getSession().put("Â«getAppDataKey(this)Â»", value);
 	}
 	
-	public «toJavaType(this.type, model)» get«getAppDataPropertyName(this).toFirstUpper()»(){
-		return («toJavaType(this.type, model)»)(getSession().get("«getAppDataKey(this)»"));
+	/**
+	 * legge il valore dell' ApplicationData 'Â«getAppDataPropertyName(this)Â»'
+	 * @generated
+	 */
+	public Â«toJavaType(this.type, model)Â» getÂ«getAppDataPropertyName(this).toFirstUpper()Â»(){
+		return (Â«toJavaType(this.type, model)Â»)(getSession().get("Â«getAppDataKey(this)Â»"));
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE propertyConversion(GUIModel model, ContentPanel cp) FOR ApplicationData-»
-«IF jsonBasedType(type)-»
-	@TypeConversion(rule = ConversionRule.COLLECTION, converter = "«getTypeConverterJavaPackage(model)».JSONConverter")
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE propertyConversion(GUIModel model, ContentPanel cp) FOR ApplicationData-Â»
+Â«IF jsonBasedType(type)-Â»
+	@TypeConversion(rule = ConversionRule.COLLECTION, converter = "Â«getTypeConverterJavaPackage(model)Â».JSONConverter")
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

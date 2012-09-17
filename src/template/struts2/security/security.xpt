@@ -462,10 +462,31 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 import java.util.Map;
 import «getBaseJavaPackage(this)+".business.*;"»
 
+/**
+ * Interfaccia dei security constraints
+ * @generated
+ */
 public interface UISecConstraint {
 
+	/**
+	 * 1=il comportamento vincolato e' l'abilitazione
+	 * @generated
+	 */
 	public static final int ONOFF_CONSTRAINED_BEHAVIOR = 1;
+	
+	/**
+	 * 1=il comportamento vincolato e' la visibilita'
+	 * @generated
+	 */
 	public static final int VISIB_CONSTRAINED_BEHAVIOR = 2;
+	
+	/**
+	 * metodo che deve essere implementato dalle classi dei constraint specifici.
+	 * @param session la sessione applicativa
+	 * @param checkedBehavior il comportamento vincolato (visibilita'/abilitazione)
+	 * @param sh il security helper a cui e' possibile delegare le richieste specifiche
+	 * @generated
+	 */
 	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException;
 }
 «ENDFILE»
@@ -474,13 +495,44 @@ public interface UISecConstraint {
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
 
+/**
+ * Classe astratta superclasse di tutti i constraint di sicurezza
+ * @generated
+ */
 public abstract class AbstractUISecConstraint implements UISecConstraint{
 
+/**
+ * il comportamento oggetto di constraint (default = abilitazione)
+ * @generated
+ */
 protected int constrainedBehavior = UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR;
+
+/**
+ * lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ * @generated
+ */
 protected final boolean defaultState;
+
+/**
+ * nome del content panel che contiene il widget oggetto di constraint
+ * @param
+ */
 protected final String nomeContainer;
+
+/**
+ * nome del widget oggetto di constraint
+ * @generated
+ */
 protected final String nomeWidget;
 
+/**
+ * costruttore
+ * @param nomeContainer il nome del content panel che contiene il widget oggetto di constraint
+ * @param nomeWidget il nome del widget oggetto di constraint
+ * @param constrainedBehavior il comportamento da vincolare (abilitazione/visibilita')
+ * @param default state lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ * @generated
+ */
 public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int constrainedBehavior, boolean defaultState) {
 	if (nomeContainer==null||nomeWidget==null)
 		throw new IllegalArgumentException("Errore interno: nome container e nome widget obbligatori per constraint");
@@ -510,6 +562,8 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 *     ON (visibile o abilitato) se il check specifico &egrave; verificato, OFF altrimenti.
 	 * </ul>
 	 * @param session mantiene lo stato corrente del widget
+	 * @param checkedBehavior il comportamento da vincolare (abilitazione/visibilita')
+	 * @param sh il security constraint
 	 * @return
 	 */
 	protected boolean combineAll(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
@@ -528,6 +582,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 
 	/**
 	 * Cerca in sessione lo stato corrente.
+	 * @param session la sessione applicativa
 	 * @return null se lo stato (per il comportamento in osservazione) non &egrave; impostato oppure
 	 * il valore effettivo se questo &egrave; impostato.
 	 */
@@ -555,6 +610,13 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 			return null; // unspecified current state
 	}
 	
+	/**
+	 * implementazione specifica della verifica del constraint
+	 * @param session la sessione applicativa
+	 * @param checkedBehavior il comportamento da vincolare
+	 * @param sh il security helper a cui delegare parte delle verifiche
+	 * @generated
+	 */
 	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
 		
 		return combineAll(session, checkedBehavior, sh);
@@ -564,6 +626,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * Questo metodo &egrave;ridefinito nelle varie tipologie di constraint e implementa
 	 * i check specifici
 	 * @param session
+	 * @param sh il security helper
 	 * @return
 	 */
 	public abstract boolean specificCheck(Map session, SecurityHelper sh) throws BEException;
@@ -576,12 +639,28 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
 
+/**
+ * Superclasse di tutti i custom security Constraints.
+ * @param
+ */
 public class CustomUISecConstraint extends AbstractUISecConstraint {
 
+	/**
+	 * costruttore
+     * @param nomeContainer il nome del content panel che contiene il widget oggetto di constraint
+     * @param nomeWidget il nome del widget oggetto di constraint
+     * @param constraintedBehavior il comportamento vincolato (visibilita'/abilitazione)
+     * @param defaultState lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+	 * @generated
+	 */
 	public CustomUISecConstraint(String nomeContainer, String nomeWidget, int constrainedBehavior, boolean defaultState) {
 		super(nomeContainer,nomeWidget,constrainedBehavior,defaultState);
 	}
 	
+	/**
+	 * Implementazione da ridefinire nelle sottoclassi specifiche. Se non ridefinito restutuisce sempre true
+	 * @generated
+	 */
 	@Override
 	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
 		// viene sempre ridefinito
@@ -595,16 +674,40 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
 
+/**
+ * Security constraint basato sull'impersonificazione dell'utente corrente 
+ * di uno specifico actor
+ * @generated
+ */
 public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 
+	/**
+	 * il codice dell'actor di cui verificare l'impersonificazione
+	 * @generated
+	 */
 	private final String actorCode;
 	
+	/**
+	 * costruttore
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param actorCode il codice dell'actor di cui verificare l'impersonificazione
+	 * @generated
+	 */
 	public ActorBasedUISecConstraint(String nomeContainer, String nomeWidget,
 			int constrainedBehavior, boolean defaultState, String actorCode) {
 		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
 		this.actorCode=actorCode;
 	}
 	
+	/**
+	 * realizza la verifica specifica (delegandola al security helper
+	 * @param session la sessione applicativa
+	 * @param sh il security helper
+	 * @generated
+	 */
 	@Override
 	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForActor(session, actorCode);
@@ -617,11 +720,35 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
 
+/**
+ * Security constraint basato sull'abilitazione dell'utente corrente 
+ * ad uno specifico ruolo (identificato dalla coppia codice ruolo / dominio)
+ * @generated
+ */
 public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 
+	/**
+	 * il codice del ruolo da verificare
+	 * @generated
+	 */
 	private final String roleCode;
+	
+	/**
+	 * il codice del dominio a cui appartiene il ruolo da verificare
+	 * @generated
+	 */
 	private final String domainCode;
 	
+	/**
+	 * costruttore
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param roleCode il codice del ruolo da verificare
+	 * @param domainCode il codice del dominio di appartenenza del ruolo da verificare
+	 * @generated
+	 */
 	public RoleBasedUISecConstraint(String nomeContainer, String nomeWidget,
 			int constrainedBehavior, boolean defaultState, String roleCode, String domainCode) {
 		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
@@ -629,6 +756,10 @@ public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 		this.domainCode=domainCode;
 	}
 	
+	/**
+	 * realizza la verifica specifica
+	 * @generated
+	 */
 	@Override
 	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForRole(session, roleCode, domainCode);
@@ -642,16 +773,40 @@ public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
 
+/**
+ * Security constraint basato sull'abilitazione dell'utente corrente 
+ * ad uno specifico use-case
+ * @generated
+ */
 public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 
+	/**
+	 * il codice dello use case di cui verificare l'abilitazione
+	 * @generated
+	 */
 	private final String useCaseCode;
 	
+	/**
+	 * costruttore.
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param useCaseCode codice dello use case di cui deve essere verificata l'abilitazione
+	 * @generated
+	 */
 	public UCBasedUISecConstraint(String nomeContainer, String nomeWidget,
 			int constrainedBehavior, boolean defaultState, String useCaseCode) {
 		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
 		this.useCaseCode=useCaseCode;
 	}
 	
+	/**
+	 * implementazione della verifica specifica (delegata al security helper)
+	 * @param session la sessione applicativa
+	 * @param sh il security helper
+	 * @generated
+	 */
 	@Override
 	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForUC(session, useCaseCode);
@@ -665,16 +820,34 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
 
+
+/**
+ * Security constraint composito. La composizione avviene in OR. 
+ * @generated
+ */
 public class ComplexUISecConstraint implements UISecConstraint {
 
+	/**
+	 * i constraint da verificare
+	 * @generated
+	 */
 	protected UISecConstraint [] constraints = null;
 	
+	/**
+	 * costruttore
+	 * @param constraints i constraint da verificare
+	 * @generated
+	 */
 	public ComplexUISecConstraint(UISecConstraint [] constraints) {
 		this.constraints=constraints;
 	}
 	
 	/**
 	 * Verifica se almeno uno dei constraints &egrave; soddisfatto.
+	 * @param session la sessioen applicativa
+	 * @param checkedBehavior il comportamento oggetto di vincolo (visibilita'/abilitazione)
+	 * @param sh il security helper
+	 * @generated
 	 */
 	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
 		if (constraints!=null && constraints.length>0){
@@ -697,16 +870,36 @@ public class ComplexUISecConstraint implements UISecConstraint {
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
 
+/**
+ * Security constraint fittizio ad effetto null (always on/off a seconda del valore di inizializzazione)
+ * @generated
+ */
 public class DummyUISecConstraint extends AbstractUISecConstraint {
 
+	/**
+	 * @generated
+	 */
 	private final boolean _fixedValue;
 
+	/**
+	 * costruttore
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param fixedValue il valore fisso restituito dal constraint (true/false)
+	 * @generated
+	 */
 	public DummyUISecConstraint(String nomeContainer, String nomeWidget,
 			int constrainedBehavior, boolean defaultState, boolean fixedValue) {
 		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
 		_fixedValue = fixedValue;
 	}
 
+	/**
+	 * restituisce il valore fisso fornito nel costruttore
+	 * @generated
+	 */
 	@Override
 	public boolean specificCheck(Map session, SecurityHelper sh)
 			throws BEException {

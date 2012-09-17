@@ -52,10 +52,30 @@ import com.opensymphony.xwork2.ValidationAware;
 import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 import com.opensymphony.xwork2.util.LocalizedTextUtil;
 
+
+/**
+ * Interceptor che gestisce il problmea del 'doppio click', o meglio dell'accavallarsi 
+ * ilegale di due richieste al server dallo stesso client.
+ * Si basa su una annotazione da mettere sui metodi di struts che dichiara il livello di 
+ * isolamento dei singoli metodi.
+ * L'obiettivo e' quello di prevenire l'esecuzione contemporanea di metodi che non siano 
+ * compatibili dal punto di vista della parallelizzazione.
+ * Dato un metodo m1 e' possibile annotarlo in modo che, data una esecuzione concorrente
+ * (ovvero iniziata prima che m1 abbia teminato la sua esecuzione):
+ * <ul>
+ * <li>l'esecuzione del nuovo metodo venga accettata in ogni caso (ALLOW_ALL)</li>
+ * <li>l'esecuzione del nuovo metodo venga rigettata solo se si tratta dello stesso metodo m1 (REJECT_SAME)</li>
+ * <li>l'esecuzione del nuovo metodo venga sempre rigettata (REJECT_ALL)</li>
+ * </ul>
+ * @generated
+ */
 public class MethodProtectionInterceptor extends MethodFilterInterceptor {
 
 	private static final long serialVersionUID = -6680894220590585506L;
 
+	/**
+	 * @generated
+	 */
 	public static final String INVALID_TOKEN_CODE = "invalid.token";
 
 	/**
@@ -221,12 +241,38 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
+/**
+ * Annotazione utilizzata dal MethodProtectionInterceptor. Se impostata su un metodo permette di 
+ * configurarne il comportamento relativamente alla contemporanea esecuzione di altri metodi
+ * @generated
+ */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MethodProtection {
+
+	/**
+	 * Permette l'esecuzione contemporanea di qualsiasi metodo
+	 * @generated
+	 */
 	public final static String ALLOW_ALL = "ALLOW_ALL";
+	
+	/**
+	 * Permette l'esecuzione contemporanea di qualsiasi metodo tranne lo stesso metodo
+	 * @generated
+	 */
 	public final static String REJECT_SAME = "REJECT_SAME";
+	
+	/**
+	 * Non permette l'esecuzione contemporanea di nessun metodo
+	 * @generated
+	 */
 	public final static String REJECT_ALL = "REJECT_ALL";
+	
+	/**
+	 * il livello di protezione
+	 * @generated
+	 */
 	String level();
 }
 
