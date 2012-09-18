@@ -471,8 +471,10 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	 */
 	abstract protected ICommand initCommand(String widgName, String eventName);
 	
+«IF targetPlatform.enableRichUIBehavior-»
 	«EXPAND getJSONSerializerMethod FOR this»
-	
+«ENDIF-»
+
 	/**
 	 * Metodo generico per l'esecuzione della logica associata ad un evento
 	 * @param widgName il nome del widget a cui e' associato l'evento
@@ -514,8 +516,9 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		}
 	}
 
-
+«IF targetPlatform.enableRichUIBehavior-»
 	«EXPAND dataProvider::dataProviderInternalMethod FOR this»
+«ENDIF»	
 
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
