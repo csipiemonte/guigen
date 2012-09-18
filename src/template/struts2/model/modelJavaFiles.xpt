@@ -711,9 +711,10 @@ import «getDTOBaseJavaPackage(model)».*;
 «IF model.targetPlatform.enableRichUIBehavior-»
 import «getUIUtilsJavaPackage(model)».*;
 import flexjson.JSON;
+«ENDIF-»
 import com.opensymphony.xwork2.conversion.annotations.*;
 import com.opensymphony.xwork2.validator.annotations.*;
-«ENDIF-»
+
 /**
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
  * logica di business associata alla Schermata [«this.name»]
@@ -771,6 +772,7 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessio
 package «getDTOBaseJavaPackage(model)»;
 
 import java.util.*;
+import com.opensymphony.xwork2.validator.annotations.*;
 «EXPAND importAllNamespaces(model) FOR model.typedefs»
 
 /**
@@ -800,6 +802,7 @@ public class «getModelDTOClassName(null,true,false,model)» extends BaseSession
 package «getDTOBaseJavaPackage(model)»;
 
 import java.util.*;
+import com.opensymphony.xwork2.validator.annotations.*;
 «EXPAND importAllNamespaces(model) FOR model.typedefs»
 
 /**
