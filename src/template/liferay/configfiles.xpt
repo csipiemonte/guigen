@@ -1,0 +1,131 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;
+
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+E' possibile ottenere una copia della Licenza al seguente indirizzo:
+
+http://www.eupl.it/opensource/eupl-1-1
+
+Salvo diversamente indicato dalla legge applicabile o concordato per
+iscritto, il software distribuito secondo i termini della Licenza e'
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+esplicite o implicite.
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+e le limitazioni secondo i termini della Licenza.
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::liferay::liferayExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE configfilesLiferay(boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
+	«EXPAND portletConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND liferayportletConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND liferayDisplayConfigFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+«DEFINE portletConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getPortletConfigFile(this, skip_component_dir_creation)»<?xml version="1.0"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+
+	<portlet id="mdd-struts-2">
+		<portlet-name>mdd-struts-2</portlet-name>
+		<display-name xml:lang="EN">mdd Struts 2</display-name>
+		<portlet-class>org.apache.struts2.portlet.dispatcher.Jsr168Dispatcher</portlet-class>
+ 		<!-- The view mode namespace. Maps to a namespace in the Struts 2 config file. -->
+        <!-- The view mode namespace. Maps to a namespace in the Struts 2 config file. -->
+        <!-- The default action to invoke in view mode. -->
+        
+        <init-param>
+             <name>defaultViewAction</name>
+             <value>secure/HomePage</value>
+        </init-param>
+
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+            <supported-locale>en</supported-locale>
+		<portlet-info>
+			<title>Mdd Struts 2</title>
+			<short-title>Mdd Struts2</short-title>
+			<keywords>struts2,sample,Mdd</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+</portlet-app>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE liferayportletConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getLiferayPortletConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.0.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_0_0.dtd">
+
+<liferay-portlet-app>
+    <portlet>
+        <portlet-name>mdd-struts-2</portlet-name>
+        <use-default-template>true</use-default-template>
+        <restore-current-view>true</restore-current-view>
+		<instanceable>true</instanceable>
+		<private-request-attributes>true</private-request-attributes>
+    </portlet>
+    <role-mapper>
+        <role-name>administrator</role-name>
+        <role-link>Administrator</role-link>
+    </role-mapper>
+    <role-mapper>
+        <role-name>guest</role-name>
+        <role-link>Guest</role-link>
+    </role-mapper>
+    <role-mapper>
+        <role-name>power-user</role-name>
+        <role-link>Power User</role-link>
+    </role-mapper>
+    <role-mapper>
+        <role-name>user</role-name>
+        <role-link>User</role-link>
+    </role-mapper>
+</liferay-portlet-app>
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE liferayDisplayConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getLiferayDisplayConfigFile(this, skip_component_dir_creation)»<?xml version="1.0"?>
+<!DOCTYPE display PUBLIC "-//Liferay//DTD Display 6.0.0//EN" "http://www.liferay.com/dtd/liferay-display_6_0_0.dtd">
+
+<display>
+	<category name="category.sample">
+		<portlet id="csi-struts-2" />
+	</category>
+</display>
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»///////////////////DEFINIZIONI AOP ////////////////////////////////////////////////////////////«ENDREM»
+«DEFINE includeStruts FOR GUIModel»
+	<include file="struts-portlet-default.xml" />
+«ENDDEFINE»
+
+«DEFINE interceptorStackPortlet FOR GUIModel»
+			<interceptor-stack name="jsp-portlet-Stack">
+				<interceptor-ref name="portletState"/>
+				<interceptor-ref name="jsp-stack"/>
+				<interceptor-ref name="portletAware"/>
+			 </interceptor-stack>
+«ENDDEFINE»
