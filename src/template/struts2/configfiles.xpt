@@ -17,9 +17,6 @@ e le limitazioni secondo i termini della Licenza.
 
 «IMPORT guigen»
 
-«IMPORT template::struts2::remoteResources»
-«IMPORT template::struts2::appResources»
-«IMPORT template::struts2::typeConversion»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
@@ -472,6 +469,8 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
   "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+
+	«EXPAND template::common::includeStruts FOR this-»
 	<include file="struts-global.xml" />
 
 	<include file="struts-1-base.xml" />
@@ -524,7 +523,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 
 	<!-- jsp-package: TUTTI I PACKAGE DEVONO DERIVARE DA QUESTO -->
-	<package name="jsp-package" extends="struts-default">
+	<package name="jsp-package" extends="«getJspPackageExt(this)»">
 		<interceptors>
 			<interceptor name="tableSelection" class="«getInterceptorsJavaPackage(this)».TableSelectionInterceptor"/>
 			<interceptor name="methodProtection" class="«getInterceptorsJavaPackage(this)».MethodProtectionInterceptor">
@@ -570,9 +569,10 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="workflow" />
 				<interceptor-ref name="methodProtection" />
 			</interceptor-stack>
+			«EXPAND template::common::interceptorStackPortlet FOR this-»
 		</interceptors>
 
-		<default-interceptor-ref name="jsp-stack"/>
+		<default-interceptor-ref name="«getDefaultInterceptorRef(this)»"/>
 
 		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
 		<global-results>
@@ -1209,4 +1209,11 @@ save.excel.filename=export.xls
 «REM»Proprieta' della DisplayTag che possono variare a seconda del portale (messaggi, stili, ecc)«ENDREM»
 «EXPAND template::struts2::view::remoteResources::displayTagConfigurationFile FOR this-»
 «ENDFILE»
+«ENDDEFINE»
+
+«REM»///////////////////DEFINIZIONI AOP ////////////////////////////////////////////////////////////«ENDREM»
+«DEFINE interceptorStackPortlet FOR GUIModel»
+«ENDDEFINE»
+
+«DEFINE includeStruts FOR GUIModel»
 «ENDDEFINE»
