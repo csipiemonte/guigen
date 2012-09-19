@@ -22,7 +22,6 @@
 import guigen;
 import ecore;
 
-
 ////////////////////////////////////////////////////////////
 /// Estensioni java indipendenti dalla piattaforma target //
 ////////////////////////////////////////////////////////////
@@ -524,3 +523,14 @@ boolean applicationDataNamesAreAllUnambiguous(List appDataList) : JAVA
 	
 Void setProperty(String name, String val) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.setProperty(java.lang.String, java.lang.String);
+  
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
+/// Estensioni ridefinite per i portali specifici mediante AOP                               //
+///******************************************************************************************//
+///////////////////////////////////////////////////////////////////////////////////////////////  
+//////////////////////PORTLET - Liferay//////////////////////////////////////////////////////////
+String getJspPackageExt(GUIModel model) :
+	"struts-default";
+String getDefaultInterceptorRef(GUIModel model) :
+	"jsp-stack";
