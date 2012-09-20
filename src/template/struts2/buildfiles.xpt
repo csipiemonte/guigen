@@ -635,8 +635,10 @@ ear-custom-libs-filter =
   war-exclude-libs-filter = servlet*.jar,                  \
                             csi-tools*.jar,                \
                             log4j*.jar,                    \
-                            «getAppServerLib(this)»*.jar   «IF targetPlatform.code == TargetPlatformCodes::JBoss43-»\
-                            weblogic-7*.jar                \
+                            xerces-*.jar,                \
+                            jaxp-*.jar,	                \
+                            «getAppServerLib(this)»*.jar«IF targetPlatform.code == TargetPlatformCodes::JBoss43-», \
+                            weblogic-7*.jar,                \
                             weblogic-9*.jar                \
                             «ENDIF-»
 
@@ -954,4 +956,3 @@ NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«EN
 «DEFINE strutsThemeIvy FOR GUIModel»
 	«EXPAND template::struts2::view::remoteResources::strutsThemeIvy FOR this»
 «ENDDEFINE»
-

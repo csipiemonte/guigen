@@ -22,12 +22,19 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 **************************************************************************************************************************
 «ENDREM»
 
-«REM»Genera un FormPanel con Layout UDLRC.«ENDREM»
 «AROUND template::common::interceptorStackPortlet FOR GUIModel»
 	«EXPAND template::liferay::configfiles::interceptorStackPortlet FOR this»
 «ENDAROUND»
 
-«REM»Genera un FormPanel con Layout UDLRC.«ENDREM»
 «AROUND template::common::includeStruts FOR GUIModel»
 	«EXPAND template::liferay::configfiles::includeStruts FOR this»
+«ENDAROUND»
+
+
+«AROUND template::common::getHeaderMarkupAOP(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+«EXPAND template::liferay::resourcefiles::getHeaderMarkup(model,skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+«AROUND template::common::getFooterMarkupAOP(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«EXPAND template::liferay::resourcefiles::getFooterMarkup(model,skip_component_dir_creation) FOR this»
 «ENDAROUND»

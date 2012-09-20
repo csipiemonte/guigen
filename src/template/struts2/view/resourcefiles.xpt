@@ -25,7 +25,7 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND indexJspFile(skip_component_dir_creation) FOR this»
 	«EXPAND jspFragmentsFile(skip_component_dir_creation) FOR this»
 	«EXPAND jspErrorFiles(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+«ENDDEFINE»				
 
 
 «REM»Genera un file di index con la redirect alla welcome action.«ENDREM»
@@ -51,7 +51,7 @@ e le limitazioni secondo i termini della Licenza.
 	«REM»Genera la HEADER«ENDREM»
 	«LET this.structure.appWindow.header AS header-»
 		«IF header != null-»
-			«EXPAND getHeaderMarkup(this, skip_component_dir_creation) FOR header-»
+			«EXPAND template::common::getHeaderMarkupAOP(this, skip_component_dir_creation) FOR header-»
 		«ENDIF-»
 	«ENDLET-»
 
@@ -65,7 +65,7 @@ e le limitazioni secondo i termini della Licenza.
 	«REM»Genera la FOOTER«ENDREM»
 	«LET this.structure.appWindow.footer AS footer-»
 		«IF footer != null-»
-			«EXPAND getFooterMarkup(this, skip_component_dir_creation) FOR footer-»
+			«EXPAND  template::common::getFooterMarkupAOP(this, skip_component_dir_creation) FOR footer-»
 		«ENDIF-»
 	«ENDLET-»
 

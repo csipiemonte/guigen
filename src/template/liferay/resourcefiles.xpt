@@ -1,0 +1,51 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="/customtag" prefix="customtag" %>
+«IF model.targetPlatform.enableRichUIBehavior-»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF-»
+«REM»«EXPAND remoteResources::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
+comment«ENDREM»
+«ENDFILE»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/headerNoStruts.jsp"»<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setBundle basename="globalMessages" />
+«REM»
+«EXPAND remoteResources::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
+«ENDREM»
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+«REM»
+«EXPAND remoteResources::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+«ENDREM»
+«ENDFILE»
+«ENDDEFINE»
