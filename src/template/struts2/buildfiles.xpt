@@ -626,32 +626,7 @@ ANT FILES
 ear-custom-libs-filter =
 
 «ENDPROTECT»
-
-# - [war-exclude-libs-filter] ------------------------------------------------
-# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
-# venire inclusi all'interno del WAR.
-# ----------------------------------------------------------------------------
-«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
-  war-exclude-libs-filter = servlet*.jar,                  \
-                            csi-tools*.jar,                \
-                            log4j*.jar,                    \
-                            xerces-*.jar,                \
-                            jaxp-*.jar,	                \
-                            «getAppServerLib(this)»*.jar«IF targetPlatform.code == TargetPlatformCodes::JBoss43-», \
-                            weblogic-7*.jar,                \
-                            weblogic-9*.jar                \
-                            «ENDIF-»
-
-# - [war-exclude-custom-libs-filter] ------------------------------------------------
-# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
-# venire inclusi all'interno del WAR.
-# ----------------------------------------------------------------------------
-«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
-war-exclude-custom-libs-filter =
-
-«ENDPROTECT»
-
-
+«EXPAND template::common::warExcludeLibsFilte FOR this-»
 # ----------------------------------------------------------------------------
   package.prefix = «getOrganizationNamePkgPrefix()».${prodotto}.${componente}
 
@@ -955,4 +930,29 @@ IVY FILES (gestione delle dipendenze)
 NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
 	«EXPAND template::struts2::view::remoteResources::strutsThemeIvy FOR this»
+«ENDDEFINE»
+
+«DEFINE warExcludeLibsFilte FOR GUIModel-»
+# - [war-exclude-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
+  war-exclude-libs-filter = servlet*.jar,                  \
+                            csi-tools*.jar,                \
+                            log4j*.jar,                    \
+                            xerces-*.jar,                \
+                            jaxp-*.jar,	                \
+                            «getAppServerLib(this)»*.jar«IF targetPlatform.code == TargetPlatformCodes::JBoss43-», \
+                            weblogic-7*.jar,                \
+                            weblogic-9*.jar                \
+                            «ENDIF-»
+
+# - [war-exclude-custom-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
+war-exclude-custom-libs-filter =
+«ENDPROTECT»
 «ENDDEFINE»

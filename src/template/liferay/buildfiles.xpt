@@ -1,0 +1,45 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«DEFINE warExcludeLibsFilte FOR GUIModel-»
+# - [war-exclude-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
+  war-exclude-libs-filter = servlet*.jar,                  \
+                            csi-tools*.jar,                \
+                            xerces-*.jar,                \
+                            jaxp-*.jar,	                \
+                            «getAppServerLib(this)»*.jar«IF targetPlatform.code == TargetPlatformCodes::JBoss43-», \
+                            weblogic-7*.jar,                \
+                            weblogic-9*.jar                \
+                            «ENDIF-»
+
+# - [war-exclude-custom-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
+war-exclude-custom-libs-filter =
+«ENDPROTECT»
+«ENDDEFINE»
