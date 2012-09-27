@@ -1101,6 +1101,7 @@ come target di refresh.
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
 			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)»  media="html"
 			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-» >
+			«IF currCol.eventActive-»
 			<s:url id="targetUrlLinkableCell"						   
 					action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»"
 					namespace="«getContentPanelNamespace(cp, false)»"
@@ -1111,6 +1112,7 @@ come target di refresh.
 			<s:a href="%{targetUrlLinkableCell}" id="id_linkable_cell">
 				<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
 			</s:a>
+			«ENDIF»
 		</display:column>
 		«ENDIF-»
 		«IF enableExport-»«REM»STDMDD-694«ENDREM»
