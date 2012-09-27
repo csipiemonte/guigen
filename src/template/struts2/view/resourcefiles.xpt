@@ -1017,13 +1017,16 @@ come target di refresh.
 «ENDIF-»
 «LET this.enableExport ? "true" : "false" AS exportEnabled-»
 <s:set name="«cp.name»_«getFullID(this, contextPrefix)»_clearStatus" value="isTableClearStatus('«cp.name»_«getFullID(this, contextPrefix)»')" />
-<display:table name="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
-               excludedParams="*"
-               export="«enableExport»"
+<s:url id="«getStrutsActionConfigName(cp)»ViewUrl"						   
+					   action="«getStrutsActionConfigName(cp)»"
+					   namespace="«getContentPanelNamespace(cp, false)»"/>
+<display:table name="«getNameDisplayTable(this, contextPrefix, pduConf)»"  				
+			   «excludeParamas()-»
+			   export="«enableExport»"
                id="«getWidgetName(this, contextPrefix)»"
                pagesize="«this.pageSize»"
-               requestURI="«getStrutsActionCompleteURL(cp, model)»"
                keepStatus="true"
+               requestURI="${«getStrutsActionConfigName(cp)»ViewUrl}"  
                clearStatus="${«cp.name»_«getFullID(this, contextPrefix)»_clearStatus}"
                uid="row_«getFullID(this, contextPrefix)»"
                summary="«this.summary»" «REM»STDMDD-332«ENDREM»
@@ -1050,9 +1053,19 @@ come target di refresh.
 	«FOREACH getCustomizedColumnsList(this, pduConf) AS currCol-»
 		«IF currCol.editable-»
 			«IF currCol.editableFlagSelector != null-»
-		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, model, cp, contextPrefix)»
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" 
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html"
 			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-»>
+				<s:url id="targetUrlLinkableCell"						   
+						action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»"
+						namespace="«getContentPanelNamespace(cp, false)»"
+						includeParams="none">
+					<s:param name="idRiga"  value="%{#attr.row_«getFullID(this, contextPrefix)».«this.columnModel.valueSelector»}"/>
+					<s:param name="idColonna">«currCol.selector»</s:param>
+				</s:url>
+				<s:a href="%{targetUrlLinkableCell}" id="id_linkable_cell">
+					<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
+				</s:a>
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
 		</display:column>
 			«ELSE-»
@@ -1084,10 +1097,21 @@ come target di refresh.
 				</s:else>
 		</display:column>
 		«ELSE-»
-		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, model, cp, contextPrefix)»
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" 
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
 			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)»  media="html"
-			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-» />
+			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-» >
+			<s:url id="targetUrlLinkableCell"						   
+					action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»"
+					namespace="«getContentPanelNamespace(cp, false)»"
+					includeParams="none">
+				<s:param name="idRiga"  value="%{#attr.row_«getFullID(this, contextPrefix)».«this.columnModel.valueSelector»}"/>
+				<s:param name="idColonna">«currCol.selector»</s:param>
+			</s:url>
+			<s:a href="%{targetUrlLinkableCell}" id="id_linkable_cell">
+				<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
+			</s:a>
+		</display:column>
 		«ENDIF-»
 		«IF enableExport-»«REM»STDMDD-694«ENDREM»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».export.label"
