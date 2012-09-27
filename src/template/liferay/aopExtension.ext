@@ -37,3 +37,11 @@ around template::GenericExtensions::getDefaultInterceptorRef(GUIModel model) :
 	
 around template::GenericExtensions::insertStrutsExt() :
 	false;		
+
+around template::struts2::Struts2Extensions::getNameDisplayTable(MultiDataWidget w, String contextPrefix, PDefUseConfig pduConf) : 
+	"${portletSessionScope."+getOGNLForWidgetMultiValue(w, contextPrefix, pduConf)+"}";		
+	
+around template::struts2::Struts2Extensions::getFactoryRequestHelper() :
+    "org.displaytag.portlet.PortletRequestHelperFactory";
+around template::struts2::Struts2Extensions::excludeParamas():
+	"";
