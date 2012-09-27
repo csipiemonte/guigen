@@ -49,3 +49,32 @@ comment«ENDREM»
 «ENDREM»
 «ENDFILE»
 «ENDDEFINE»
+
+
+
+
+«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
+«DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)-»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@taglib uri="/customtag" prefix="customtag" %>
+«IF model.targetPlatform.enableRichUIBehavior-»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF-»
+«IF hasTable(this) -»
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
+<fmt:setBundle basename="«getStrutsActionPath(this, model)»" />
+<portlet:defineObjects />
+«ENDIF-»
+
+«REM»Genera la HEADER«ENDREM»
+«EXPAND template::struts2::view::resourcefiles::setupHeader(model, skip_component_dir_creation) FOR this-»
+
+«REM»Genera il corpo della Pagina«ENDREM»
+«EXPAND template::struts2::view::resourcefiles::setupContentPanel(model, skip_component_dir_creation) FOR this-»
+
+«REM»Genera la FOOTER«ENDREM»
+«EXPAND template::struts2::view::resourcefiles::setupFooter(model, skip_component_dir_creation) FOR this-»
+«ENDFILE-»
+«EXPAND template::struts2::view::resourcefiles::createUserDefinedWidgetJspFiles(model, skip_component_dir_creation) FOR this-»
+«EXPAND template::struts2::view::resourcefiles::createDialogPanelJspFiles(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»

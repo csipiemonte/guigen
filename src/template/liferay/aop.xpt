@@ -41,3 +41,11 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 «AROUND template::common::warExcludeLibsFilte FOR GUIModel»
 	«EXPAND template::liferay::buildfiles::warExcludeLibsFilte FOR this-»
 «ENDAROUND»
+
+«AROUND template::struts2::view::resourcefiles::actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+	«EXPAND template::liferay::resourcefiles::actionJspFile(model, skip_component_dir_creation) FOR this-»
+«ENDAROUND»
+
+«AROUND template::struts2::buildfiles::ivyDependencyDisplaytag FOR GUIModel»
+	«EXPAND template::liferay::buildfiles::ivyDependencyDisplaytag FOR this-»
+«ENDAROUND»
