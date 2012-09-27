@@ -781,8 +781,7 @@ IVY FILES (gestione delle dipendenze)
 		<dependency org="csipiemonte" name="util-perf" rev="1.0.1"/>
 		<dependency org="csipiemonte" name="remincl" rev="1.0.2" />
 
-		<dependency org="others" name="displaytag" rev="1.2" />
-		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
+		«EXPAND ivyDependencyDisplaytag FOR this»
 		<dependency org="others" name="itext" rev="1.3" />
 
 		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
@@ -872,7 +871,7 @@ IVY FILES (gestione delle dipendenze)
 		
 		<!-- Gestori dei confilitti Ivy 2.0 (vanno lasciati al fondo DOPO le dipendenze) -->
 		<conflict org="csipiemonte" module="util-struts2-csitemplate" manager="all" />
-		
+
 	</dependencies>
 
 </ivy-module>
@@ -955,4 +954,9 @@ NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«EN
 «PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
 war-exclude-custom-libs-filter =
 «ENDPROTECT»
+«ENDDEFINE»
+
+«DEFINE ivyDependencyDisplaytag FOR GUIModel»
+		<dependency org="others" name="displaytag" rev="1.2" />
+		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
 «ENDDEFINE»

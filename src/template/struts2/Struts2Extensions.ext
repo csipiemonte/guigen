@@ -763,7 +763,7 @@ String getExecCommandMethodName(ExecCommand cmd, String contextPrefix) :
 
 
 // [DM] restituisce l'azione relativa ad una colonna di una Table
-String getColumnAction(Column currCol, Table table, GUIModel model, ContentPanel cp, String contextPrefix) : 
+String getColumnAction(Column currCol, Table table, GUIModel model, ContentPanel cp, String contextPrefix, boolean test) : 
 	if (currCol.eventActive) then
 		"href=\"" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix) + 
 			getStrutsActionCompleteExtension() + "?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
@@ -1248,7 +1248,14 @@ String getToggleHandleHtml(WidgetsPanel fp, String contextPrefix) :
 String getEventSpecifierValue(EventHandler evh, String specifierCode) :
 	let targetSpec = evh.eventSpecifiers.selectFirst(e|e.startsWith(specifierCode)) :
 	targetSpec != null ? targetSpec.subString(specifierCode.length+1,targetSpec.length) : "null";
-
+	
+String getNameDisplayTable(MultiDataWidget w, String contextPrefix, PDefUseConfig pduConf) : 
+	getOGNLForWidgetMultiValue(w, contextPrefix, pduConf);	
+	
+String getFactoryRequestHelper():
+	"org.displaytag.util.DefaultRequestHelperFactory";
+String	excludeParamas():
+	"excludedParams=\"*\"";
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//
 /// Estensioni ridefinite per i portali specifici mediante AOP                               //
