@@ -1176,6 +1176,7 @@ come target di refresh.
 		«ELSE-»
 		requestURI="«getStrutsActionCompleteURL(cp, model)»"
 		«ENDIF-»
+		nameSpace="«getContentPanelNamespace(cp, false)»"
 		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::NODE_EXPANDED).size==1-»
 		nodeExpandedRequestURI="«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::NODE_EXPANDED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»"
 		«ENDIF-»
