@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#getParams <em>Params</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#isCustom <em>Custom</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,5 +70,21 @@ public interface PEPImplementation extends EObject {
 	 * @generated
 	 */
 	void setCustom(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Inline Code Snippets</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.InlineCodeSnippet}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Inline Code Snippets</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Inline Code Snippets</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPEPImplementation_InlineCodeSnippets()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<InlineCodeSnippet> getInlineCodeSnippets();
 
 } // PEPImplementation

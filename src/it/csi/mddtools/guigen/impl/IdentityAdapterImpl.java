@@ -10,13 +10,20 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.IdentityAdapter;
 import it.csi.mddtools.guigen.InfoSourceTypes;
 
+import it.csi.mddtools.guigen.InlineCodeSnippet;
 import it.csi.mddtools.guigen.TicketVerifyMethod;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +35,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getInfoSourceName <em>Info Source Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
  * </p>
  *
@@ -93,6 +101,16 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	 * @ordered
 	 */
 	protected TicketVerifyMethod ticketVerifyMethod = TICKET_VERIFY_METHOD_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getInlineCodeSnippets() <em>Inline Code Snippets</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInlineCodeSnippets()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<InlineCodeSnippet> inlineCodeSnippets;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -181,6 +199,32 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<InlineCodeSnippet> getInlineCodeSnippets() {
+		if (inlineCodeSnippets == null) {
+			inlineCodeSnippets = new EObjectContainmentEList<InlineCodeSnippet>(InlineCodeSnippet.class, this, GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS);
+		}
+		return inlineCodeSnippets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
+				return ((InternalEList<?>)getInlineCodeSnippets()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -190,6 +234,8 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return getInfoSourceName();
 			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
 				return getTicketVerifyMethod();
+			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
+				return getInlineCodeSnippets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -199,6 +245,7 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -210,6 +257,10 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return;
 			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
 				setTicketVerifyMethod((TicketVerifyMethod)newValue);
+				return;
+			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
+				getInlineCodeSnippets().clear();
+				getInlineCodeSnippets().addAll((Collection<? extends InlineCodeSnippet>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -232,6 +283,9 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
 				setTicketVerifyMethod(TICKET_VERIFY_METHOD_EDEFAULT);
 				return;
+			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
+				getInlineCodeSnippets().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -250,6 +304,8 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return INFO_SOURCE_NAME_EDEFAULT == null ? infoSourceName != null : !INFO_SOURCE_NAME_EDEFAULT.equals(infoSourceName);
 			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
 				return ticketVerifyMethod != TICKET_VERIFY_METHOD_EDEFAULT;
+			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
+				return inlineCodeSnippets != null && !inlineCodeSnippets.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -7,9 +7,8 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.IdentityAdapter;
+import it.csi.mddtools.guigen.InlineCodeSnippet;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +18,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -32,12 +30,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.IdentityAdapter} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.InlineCodeSnippet} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class IdentityAdapterItemProvider
+public class InlineCodeSnippetItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -51,7 +49,7 @@ public class IdentityAdapterItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IdentityAdapterItemProvider(AdapterFactory adapterFactory) {
+	public InlineCodeSnippetItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,27 +64,27 @@ public class IdentityAdapterItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSourceTypePropertyDescriptor(object);
-			addInfoSourceNamePropertyDescriptor(object);
-			addTicketVerifyMethodPropertyDescriptor(object);
+			addSnippetNamePropertyDescriptor(object);
+			addSnippetCodePropertyDescriptor(object);
+			addLangPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Source Type feature.
+	 * This adds a property descriptor for the Snippet Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSourceTypePropertyDescriptor(Object object) {
+	protected void addSnippetNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_IdentityAdapter_sourceType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IdentityAdapter_sourceType_feature", "_UI_IdentityAdapter_type"),
-				 GuigenPackage.Literals.IDENTITY_ADAPTER__SOURCE_TYPE,
+				 getString("_UI_InlineCodeSnippet_snippetName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InlineCodeSnippet_snippetName_feature", "_UI_InlineCodeSnippet_type"),
+				 GuigenPackage.Literals.INLINE_CODE_SNIPPET__SNIPPET_NAME,
 				 true,
 				 false,
 				 false,
@@ -96,19 +94,19 @@ public class IdentityAdapterItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Info Source Name feature.
+	 * This adds a property descriptor for the Snippet Code feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInfoSourceNamePropertyDescriptor(Object object) {
+	protected void addSnippetCodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_IdentityAdapter_infoSourceName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IdentityAdapter_infoSourceName_feature", "_UI_IdentityAdapter_type"),
-				 GuigenPackage.Literals.IDENTITY_ADAPTER__INFO_SOURCE_NAME,
+				 getString("_UI_InlineCodeSnippet_snippetCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InlineCodeSnippet_snippetCode_feature", "_UI_InlineCodeSnippet_type"),
+				 GuigenPackage.Literals.INLINE_CODE_SNIPPET__SNIPPET_CODE,
 				 true,
 				 false,
 				 false,
@@ -118,19 +116,19 @@ public class IdentityAdapterItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Ticket Verify Method feature.
+	 * This adds a property descriptor for the Lang feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTicketVerifyMethodPropertyDescriptor(Object object) {
+	protected void addLangPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_IdentityAdapter_ticketVerifyMethod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IdentityAdapter_ticketVerifyMethod_feature", "_UI_IdentityAdapter_type"),
-				 GuigenPackage.Literals.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD,
+				 getString("_UI_InlineCodeSnippet_lang_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InlineCodeSnippet_lang_feature", "_UI_InlineCodeSnippet_type"),
+				 GuigenPackage.Literals.INLINE_CODE_SNIPPET__LANG,
 				 true,
 				 false,
 				 false,
@@ -140,44 +138,14 @@ public class IdentityAdapterItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns IdentityAdapter.gif.
+	 * This returns InlineCodeSnippet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/IdentityAdapter"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/InlineCodeSnippet"));
 	}
 
 	/**
@@ -188,10 +156,10 @@ public class IdentityAdapterItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((IdentityAdapter)object).getInfoSourceName();
+		String label = ((InlineCodeSnippet)object).getSnippetName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_IdentityAdapter_type") :
-			getString("_UI_IdentityAdapter_type") + " " + label;
+			getString("_UI_InlineCodeSnippet_type") :
+			getString("_UI_InlineCodeSnippet_type") + " " + label;
 	}
 
 	/**
@@ -205,14 +173,11 @@ public class IdentityAdapterItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(IdentityAdapter.class)) {
-			case GuigenPackage.IDENTITY_ADAPTER__SOURCE_TYPE:
-			case GuigenPackage.IDENTITY_ADAPTER__INFO_SOURCE_NAME:
-			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
+		switch (notification.getFeatureID(InlineCodeSnippet.class)) {
+			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_NAME:
+			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_CODE:
+			case GuigenPackage.INLINE_CODE_SNIPPET__LANG:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -228,11 +193,6 @@ public class IdentityAdapterItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS,
-				 GuigenFactory.eINSTANCE.createInlineCodeSnippet()));
 	}
 
 	/**

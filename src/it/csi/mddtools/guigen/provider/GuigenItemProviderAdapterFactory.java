@@ -3610,6 +3610,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.InlineCodeSnippet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InlineCodeSnippetItemProvider inlineCodeSnippetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.InlineCodeSnippet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInlineCodeSnippetAdapter() {
+		if (inlineCodeSnippetItemProvider == null) {
+			inlineCodeSnippetItemProvider = new InlineCodeSnippetItemProvider(this);
+		}
+
+		return inlineCodeSnippetItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3861,6 +3884,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (envConfigParamItemProvider != null) envConfigParamItemProvider.dispose();
 		if (envConfigParamsItemProvider != null) envConfigParamsItemProvider.dispose();
 		if (pepImplementationItemProvider != null) pepImplementationItemProvider.dispose();
+		if (inlineCodeSnippetItemProvider != null) inlineCodeSnippetItemProvider.dispose();
 	}
 
 }

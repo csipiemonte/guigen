@@ -1417,6 +1417,15 @@ public interface GuigenFactory extends EFactory {
 	PEPImplementation createPEPImplementation();
 
 	/**
+	 * Returns a new object of class '<em>Inline Code Snippet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Inline Code Snippet</em>'.
+	 * @generated
+	 */
+	InlineCodeSnippet createInlineCodeSnippet();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

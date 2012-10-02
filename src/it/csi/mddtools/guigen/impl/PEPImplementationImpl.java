@@ -8,6 +8,7 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.EnvConfigParam;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.InlineCodeSnippet;
 import it.csi.mddtools.guigen.PEPImplementation;
 
 import java.util.Collection;
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#getParams <em>Params</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#isCustom <em>Custom</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +71,16 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 	 * @ordered
 	 */
 	protected boolean custom = CUSTOM_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getInlineCodeSnippets() <em>Inline Code Snippets</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInlineCodeSnippets()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<InlineCodeSnippet> inlineCodeSnippets;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,11 +139,25 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<InlineCodeSnippet> getInlineCodeSnippets() {
+		if (inlineCodeSnippets == null) {
+			inlineCodeSnippets = new EObjectContainmentEList<InlineCodeSnippet>(InlineCodeSnippet.class, this, GuigenPackage.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS);
+		}
+		return inlineCodeSnippets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GuigenPackage.PEP_IMPLEMENTATION__PARAMS:
 				return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS:
+				return ((InternalEList<?>)getInlineCodeSnippets()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -148,6 +174,8 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 				return getParams();
 			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
 				return isCustom();
+			case GuigenPackage.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS:
+				return getInlineCodeSnippets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -168,6 +196,10 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
 				setCustom((Boolean)newValue);
 				return;
+			case GuigenPackage.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS:
+				getInlineCodeSnippets().clear();
+				getInlineCodeSnippets().addAll((Collection<? extends InlineCodeSnippet>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -186,6 +218,9 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
 				setCustom(CUSTOM_EDEFAULT);
 				return;
+			case GuigenPackage.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS:
+				getInlineCodeSnippets().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -202,6 +237,8 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 				return params != null && !params.isEmpty();
 			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
 				return custom != CUSTOM_EDEFAULT;
+			case GuigenPackage.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS:
+				return inlineCodeSnippets != null && !inlineCodeSnippets.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

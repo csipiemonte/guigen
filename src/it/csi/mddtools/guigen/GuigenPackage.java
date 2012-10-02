@@ -9854,13 +9854,22 @@ public interface GuigenPackage extends EPackage {
 	int IDENTITY_ADAPTER__TICKET_VERIFY_METHOD = 2;
 
 	/**
+	 * The feature id for the '<em><b>Inline Code Snippets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS = 3;
+
+	/**
 	 * The number of structural features of the '<em>Identity Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTITY_ADAPTER_FEATURE_COUNT = 3;
+	int IDENTITY_ADAPTER_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.EnvConfigParamImpl <em>Env Config Param</em>}' class.
@@ -9947,13 +9956,68 @@ public interface GuigenPackage extends EPackage {
 	int PEP_IMPLEMENTATION__CUSTOM = 1;
 
 	/**
+	 * The feature id for the '<em><b>Inline Code Snippets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS = 2;
+
+	/**
 	 * The number of structural features of the '<em>PEP Implementation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PEP_IMPLEMENTATION_FEATURE_COUNT = 2;
+	int PEP_IMPLEMENTATION_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl <em>Inline Code Snippet</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInlineCodeSnippet()
+	 * @generated
+	 */
+	int INLINE_CODE_SNIPPET = 167;
+
+	/**
+	 * The feature id for the '<em><b>Snippet Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INLINE_CODE_SNIPPET__SNIPPET_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Snippet Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INLINE_CODE_SNIPPET__SNIPPET_CODE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Lang</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INLINE_CODE_SNIPPET__LANG = 2;
+
+	/**
+	 * The number of structural features of the '<em>Inline Code Snippet</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INLINE_CODE_SNIPPET_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -9963,7 +10027,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 167;
+	int WIDGET_DATA_TYPE = 168;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -9973,7 +10037,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 168;
+	int UDLRC_SPEC_CONSTANTS = 169;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -9983,7 +10047,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 169;
+	int METHOD_PROTECTION_TYPES = 170;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -9993,7 +10057,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 170;
+	int EVENT_TYPES = 171;
 
 
 	/**
@@ -10004,7 +10068,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 171;
+	int DATA_LIFETIME_TYPE = 172;
 
 
 	/**
@@ -10015,7 +10079,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 172;
+	int SIMPLE_TYPE_CODES = 173;
 
 
 	/**
@@ -10026,7 +10090,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 173;
+	int PORTAL_NAMES = 174;
 
 
 	/**
@@ -10037,7 +10101,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
 	 * @generated
 	 */
-	int LOGOUT_ACTION_TYPES = 174;
+	int LOGOUT_ACTION_TYPES = 175;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
@@ -10047,7 +10111,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 175;
+	int TARGET_PLATFORM_CODES = 176;
 
 
 	/**
@@ -10058,7 +10122,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 176;
+	int MESSAGE_SEVERITY = 177;
 
 
 	/**
@@ -10069,7 +10133,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 177;
+	int COMMAND_STYLES = 178;
 
 
 	/**
@@ -10080,7 +10144,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 178;
+	int LOGIC_AGGREGATION_TYPES = 179;
 
 
 	/**
@@ -10091,7 +10155,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 179;
+	int CUSTOM_CARTRIDGE_ID = 180;
 
 
 	/**
@@ -10102,7 +10166,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 180;
+	int COMMAND_FUNCTIONS = 181;
 
 
 	/**
@@ -10113,7 +10177,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 181;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 182;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -10123,7 +10187,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 182;
+	int STD_WEB_RES_MODULE_NAMES = 183;
 
 
 	/**
@@ -10134,7 +10198,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 183;
+	int REPART_MODULE_TYPES = 184;
 
 
 	/**
@@ -10145,7 +10209,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 184;
+	int WIZARD_NUMBERING_TYPES = 185;
 
 
 	/**
@@ -10156,7 +10220,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
 	 * @generated
 	 */
-	int CP_COMMAND_EXECUTION_TYPES = 185;
+	int CP_COMMAND_EXECUTION_TYPES = 186;
 
 
 	/**
@@ -10167,7 +10231,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTicketVerifyMethod()
 	 * @generated
 	 */
-	int TICKET_VERIFY_METHOD = 186;
+	int TICKET_VERIFY_METHOD = 187;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}' enum.
@@ -10177,7 +10241,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUITypes()
 	 * @generated
 	 */
-	int LOGIN_UI_TYPES = 187;
+	int LOGIN_UI_TYPES = 188;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.InfoSourceTypes <em>Info Source Types</em>}' enum.
@@ -10187,7 +10251,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInfoSourceTypes()
 	 * @generated
 	 */
-	int INFO_SOURCE_TYPES = 188;
+	int INFO_SOURCE_TYPES = 189;
 
 
 	/**
@@ -10198,7 +10262,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeSelectionTypes()
 	 * @generated
 	 */
-	int TREE_SELECTION_TYPES = 189;
+	int TREE_SELECTION_TYPES = 190;
 
 
 	/**
@@ -15736,6 +15800,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getIdentityAdapter_TicketVerifyMethod();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.IdentityAdapter#getInlineCodeSnippets <em>Inline Code Snippets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Inline Code Snippets</em>'.
+	 * @see it.csi.mddtools.guigen.IdentityAdapter#getInlineCodeSnippets()
+	 * @see #getIdentityAdapter()
+	 * @generated
+	 */
+	EReference getIdentityAdapter_InlineCodeSnippets();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EnvConfigParam <em>Env Config Param</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15808,6 +15883,60 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPEPImplementation_Custom();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PEPImplementation#getInlineCodeSnippets <em>Inline Code Snippets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Inline Code Snippets</em>'.
+	 * @see it.csi.mddtools.guigen.PEPImplementation#getInlineCodeSnippets()
+	 * @see #getPEPImplementation()
+	 * @generated
+	 */
+	EReference getPEPImplementation_InlineCodeSnippets();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.InlineCodeSnippet <em>Inline Code Snippet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Inline Code Snippet</em>'.
+	 * @see it.csi.mddtools.guigen.InlineCodeSnippet
+	 * @generated
+	 */
+	EClass getInlineCodeSnippet();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetName <em>Snippet Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Snippet Name</em>'.
+	 * @see it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetName()
+	 * @see #getInlineCodeSnippet()
+	 * @generated
+	 */
+	EAttribute getInlineCodeSnippet_SnippetName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetCode <em>Snippet Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Snippet Code</em>'.
+	 * @see it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetCode()
+	 * @see #getInlineCodeSnippet()
+	 * @generated
+	 */
+	EAttribute getInlineCodeSnippet_SnippetCode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.InlineCodeSnippet#getLang <em>Lang</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lang</em>'.
+	 * @see it.csi.mddtools.guigen.InlineCodeSnippet#getLang()
+	 * @see #getInlineCodeSnippet()
+	 * @generated
+	 */
+	EAttribute getInlineCodeSnippet_Lang();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -20534,6 +20663,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute IDENTITY_ADAPTER__TICKET_VERIFY_METHOD = eINSTANCE.getIdentityAdapter_TicketVerifyMethod();
 
 		/**
+		 * The meta object literal for the '<em><b>Inline Code Snippets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS = eINSTANCE.getIdentityAdapter_InlineCodeSnippets();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EnvConfigParamImpl <em>Env Config Param</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -20594,6 +20731,48 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PEP_IMPLEMENTATION__CUSTOM = eINSTANCE.getPEPImplementation_Custom();
+
+		/**
+		 * The meta object literal for the '<em><b>Inline Code Snippets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS = eINSTANCE.getPEPImplementation_InlineCodeSnippets();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl <em>Inline Code Snippet</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInlineCodeSnippet()
+		 * @generated
+		 */
+		EClass INLINE_CODE_SNIPPET = eINSTANCE.getInlineCodeSnippet();
+
+		/**
+		 * The meta object literal for the '<em><b>Snippet Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INLINE_CODE_SNIPPET__SNIPPET_NAME = eINSTANCE.getInlineCodeSnippet_SnippetName();
+
+		/**
+		 * The meta object literal for the '<em><b>Snippet Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INLINE_CODE_SNIPPET__SNIPPET_CODE = eINSTANCE.getInlineCodeSnippet_SnippetCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Lang</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INLINE_CODE_SNIPPET__LANG = eINSTANCE.getInlineCodeSnippet_Lang();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

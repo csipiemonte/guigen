@@ -107,6 +107,7 @@ public class PEPImplementationItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.PEP_IMPLEMENTATION__PARAMS);
+			childrenFeatures.add(GuigenPackage.Literals.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS);
 		}
 		return childrenFeatures;
 	}
@@ -163,6 +164,7 @@ public class PEPImplementationItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.PEP_IMPLEMENTATION__PARAMS:
+			case GuigenPackage.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -184,6 +186,11 @@ public class PEPImplementationItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.PEP_IMPLEMENTATION__PARAMS,
 				 GuigenFactory.eINSTANCE.createEnvConfigParam()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS,
+				 GuigenFactory.eINSTANCE.createInlineCodeSnippet()));
 	}
 
 	/**

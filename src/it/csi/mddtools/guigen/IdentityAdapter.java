@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -19,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getInfoSourceName <em>Info Source Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
  * </p>
  *
@@ -111,5 +113,21 @@ public interface IdentityAdapter extends EObject {
 	 * @generated
 	 */
 	void setTicketVerifyMethod(TicketVerifyMethod value);
+
+	/**
+	 * Returns the value of the '<em><b>Inline Code Snippets</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.InlineCodeSnippet}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Inline Code Snippets</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Inline Code Snippets</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getIdentityAdapter_InlineCodeSnippets()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<InlineCodeSnippet> getInlineCodeSnippets();
 
 } // IdentityAdapter

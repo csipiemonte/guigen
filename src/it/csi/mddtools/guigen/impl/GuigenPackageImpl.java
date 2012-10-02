@@ -99,6 +99,7 @@ import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.IdentityAdapter;
 import it.csi.mddtools.guigen.Image;
 import it.csi.mddtools.guigen.InfoSourceTypes;
+import it.csi.mddtools.guigen.InlineCodeSnippet;
 import it.csi.mddtools.guigen.InternalAuthenticationGuard;
 import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
@@ -1395,6 +1396,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass pepImplementationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass inlineCodeSnippetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -6285,6 +6293,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getIdentityAdapter_InlineCodeSnippets() {
+		return (EReference)identityAdapterEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEnvConfigParam() {
 		return envConfigParamEClass;
 	}
@@ -6341,6 +6358,51 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EAttribute getPEPImplementation_Custom() {
 		return (EAttribute)pepImplementationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPEPImplementation_InlineCodeSnippets() {
+		return (EReference)pepImplementationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInlineCodeSnippet() {
+		return inlineCodeSnippetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInlineCodeSnippet_SnippetName() {
+		return (EAttribute)inlineCodeSnippetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInlineCodeSnippet_SnippetCode() {
+		return (EAttribute)inlineCodeSnippetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInlineCodeSnippet_Lang() {
+		return (EAttribute)inlineCodeSnippetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -7259,6 +7321,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__SOURCE_TYPE);
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__INFO_SOURCE_NAME);
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__TICKET_VERIFY_METHOD);
+		createEReference(identityAdapterEClass, IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS);
 
 		envConfigParamEClass = createEClass(ENV_CONFIG_PARAM);
 		createEAttribute(envConfigParamEClass, ENV_CONFIG_PARAM__NAME);
@@ -7269,6 +7332,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		pepImplementationEClass = createEClass(PEP_IMPLEMENTATION);
 		createEReference(pepImplementationEClass, PEP_IMPLEMENTATION__PARAMS);
 		createEAttribute(pepImplementationEClass, PEP_IMPLEMENTATION__CUSTOM);
+		createEReference(pepImplementationEClass, PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS);
+
+		inlineCodeSnippetEClass = createEClass(INLINE_CODE_SNIPPET);
+		createEAttribute(inlineCodeSnippetEClass, INLINE_CODE_SNIPPET__SNIPPET_NAME);
+		createEAttribute(inlineCodeSnippetEClass, INLINE_CODE_SNIPPET__SNIPPET_CODE);
+		createEAttribute(inlineCodeSnippetEClass, INLINE_CODE_SNIPPET__LANG);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -8106,6 +8175,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getIdentityAdapter_SourceType(), this.getInfoSourceTypes(), "sourceType", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIdentityAdapter_InfoSourceName(), ecorePackage.getEString(), "infoSourceName", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIdentityAdapter_TicketVerifyMethod(), this.getTicketVerifyMethod(), "ticketVerifyMethod", "LOCAL", 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIdentityAdapter_InlineCodeSnippets(), this.getInlineCodeSnippet(), null, "inlineCodeSnippets", null, 0, -1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(envConfigParamEClass, EnvConfigParam.class, "EnvConfigParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEnvConfigParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnvConfigParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8116,6 +8186,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(pepImplementationEClass, PEPImplementation.class, "PEPImplementation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPEPImplementation_Params(), this.getEnvConfigParam(), null, "params", null, 0, -1, PEPImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPEPImplementation_Custom(), ecorePackage.getEBoolean(), "custom", null, 0, 1, PEPImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPEPImplementation_InlineCodeSnippets(), this.getInlineCodeSnippet(), null, "inlineCodeSnippets", null, 0, -1, PEPImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(inlineCodeSnippetEClass, InlineCodeSnippet.class, "InlineCodeSnippet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInlineCodeSnippet_SnippetName(), ecorePackage.getEString(), "snippetName", null, 0, 1, InlineCodeSnippet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInlineCodeSnippet_SnippetCode(), ecorePackage.getEString(), "snippetCode", null, 0, 1, InlineCodeSnippet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInlineCodeSnippet_Lang(), ecorePackage.getEString(), "lang", null, 0, 1, InlineCodeSnippet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
