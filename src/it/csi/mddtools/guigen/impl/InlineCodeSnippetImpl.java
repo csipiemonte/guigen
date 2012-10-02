@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getSnippetPosition <em>Snippet Position</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getSnippetName <em>Snippet Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getSnippetCode <em>Snippet Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getLang <em>Lang</em>}</li>
@@ -32,6 +33,26 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * @generated
  */
 public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnippet {
+	/**
+	 * The default value of the '{@link #getSnippetPosition() <em>Snippet Position</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSnippetPosition()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SNIPPET_POSITION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSnippetPosition() <em>Snippet Position</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSnippetPosition()
+	 * @generated
+	 * @ordered
+	 */
+	protected String snippetPosition = SNIPPET_POSITION_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getSnippetName() <em>Snippet Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -116,6 +137,27 @@ public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnip
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSnippetPosition() {
+		return snippetPosition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSnippetPosition(String newSnippetPosition) {
+		String oldSnippetPosition = snippetPosition;
+		snippetPosition = newSnippetPosition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_POSITION, oldSnippetPosition, snippetPosition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getSnippetName() {
 		return snippetName;
 	}
@@ -182,6 +224,8 @@ public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnip
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_POSITION:
+				return getSnippetPosition();
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_NAME:
 				return getSnippetName();
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_CODE:
@@ -200,6 +244,9 @@ public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnip
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_POSITION:
+				setSnippetPosition((String)newValue);
+				return;
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_NAME:
 				setSnippetName((String)newValue);
 				return;
@@ -221,6 +268,9 @@ public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnip
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_POSITION:
+				setSnippetPosition(SNIPPET_POSITION_EDEFAULT);
+				return;
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_NAME:
 				setSnippetName(SNIPPET_NAME_EDEFAULT);
 				return;
@@ -242,6 +292,8 @@ public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnip
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_POSITION:
+				return SNIPPET_POSITION_EDEFAULT == null ? snippetPosition != null : !SNIPPET_POSITION_EDEFAULT.equals(snippetPosition);
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_NAME:
 				return SNIPPET_NAME_EDEFAULT == null ? snippetName != null : !SNIPPET_NAME_EDEFAULT.equals(snippetName);
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_CODE:
@@ -262,7 +314,9 @@ public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnip
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (snippetName: ");
+		result.append(" (snippetPosition: ");
+		result.append(snippetPosition);
+		result.append(", snippetName: ");
 		result.append(snippetName);
 		result.append(", snippetCode: ");
 		result.append(snippetCode);

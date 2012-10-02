@@ -9984,13 +9984,22 @@ public interface GuigenPackage extends EPackage {
 	int INLINE_CODE_SNIPPET = 167;
 
 	/**
+	 * The feature id for the '<em><b>Snippet Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INLINE_CODE_SNIPPET__SNIPPET_POSITION = 0;
+
+	/**
 	 * The feature id for the '<em><b>Snippet Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INLINE_CODE_SNIPPET__SNIPPET_NAME = 0;
+	int INLINE_CODE_SNIPPET__SNIPPET_NAME = 1;
 
 	/**
 	 * The feature id for the '<em><b>Snippet Code</b></em>' attribute.
@@ -9999,7 +10008,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INLINE_CODE_SNIPPET__SNIPPET_CODE = 1;
+	int INLINE_CODE_SNIPPET__SNIPPET_CODE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Lang</b></em>' attribute.
@@ -10008,7 +10017,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INLINE_CODE_SNIPPET__LANG = 2;
+	int INLINE_CODE_SNIPPET__LANG = 3;
 
 	/**
 	 * The number of structural features of the '<em>Inline Code Snippet</em>' class.
@@ -10017,7 +10026,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INLINE_CODE_SNIPPET_FEATURE_COUNT = 3;
+	int INLINE_CODE_SNIPPET_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -15906,6 +15915,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getInlineCodeSnippet();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetPosition <em>Snippet Position</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Snippet Position</em>'.
+	 * @see it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetPosition()
+	 * @see #getInlineCodeSnippet()
+	 * @generated
+	 */
+	EAttribute getInlineCodeSnippet_SnippetPosition();
+
+	/**
 	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetName <em>Snippet Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -20749,6 +20769,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass INLINE_CODE_SNIPPET = eINSTANCE.getInlineCodeSnippet();
+
+		/**
+		 * The meta object literal for the '<em><b>Snippet Position</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INLINE_CODE_SNIPPET__SNIPPET_POSITION = eINSTANCE.getInlineCodeSnippet_SnippetPosition();
 
 		/**
 		 * The meta object literal for the '<em><b>Snippet Name</b></em>' attribute feature.

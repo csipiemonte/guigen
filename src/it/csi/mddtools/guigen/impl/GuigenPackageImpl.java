@@ -6383,7 +6383,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getInlineCodeSnippet_SnippetName() {
+	public EAttribute getInlineCodeSnippet_SnippetPosition() {
 		return (EAttribute)inlineCodeSnippetEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -6392,7 +6392,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getInlineCodeSnippet_SnippetCode() {
+	public EAttribute getInlineCodeSnippet_SnippetName() {
 		return (EAttribute)inlineCodeSnippetEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -6401,8 +6401,17 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getInlineCodeSnippet_Lang() {
+	public EAttribute getInlineCodeSnippet_SnippetCode() {
 		return (EAttribute)inlineCodeSnippetEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInlineCodeSnippet_Lang() {
+		return (EAttribute)inlineCodeSnippetEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -7335,6 +7344,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(pepImplementationEClass, PEP_IMPLEMENTATION__INLINE_CODE_SNIPPETS);
 
 		inlineCodeSnippetEClass = createEClass(INLINE_CODE_SNIPPET);
+		createEAttribute(inlineCodeSnippetEClass, INLINE_CODE_SNIPPET__SNIPPET_POSITION);
 		createEAttribute(inlineCodeSnippetEClass, INLINE_CODE_SNIPPET__SNIPPET_NAME);
 		createEAttribute(inlineCodeSnippetEClass, INLINE_CODE_SNIPPET__SNIPPET_CODE);
 		createEAttribute(inlineCodeSnippetEClass, INLINE_CODE_SNIPPET__LANG);
@@ -8189,6 +8199,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getPEPImplementation_InlineCodeSnippets(), this.getInlineCodeSnippet(), null, "inlineCodeSnippets", null, 0, -1, PEPImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inlineCodeSnippetEClass, InlineCodeSnippet.class, "InlineCodeSnippet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInlineCodeSnippet_SnippetPosition(), ecorePackage.getEString(), "snippetPosition", null, 0, 1, InlineCodeSnippet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInlineCodeSnippet_SnippetName(), ecorePackage.getEString(), "snippetName", null, 0, 1, InlineCodeSnippet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInlineCodeSnippet_SnippetCode(), ecorePackage.getEString(), "snippetCode", null, 0, 1, InlineCodeSnippet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInlineCodeSnippet_Lang(), ecorePackage.getEString(), "lang", null, 0, 1, InlineCodeSnippet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

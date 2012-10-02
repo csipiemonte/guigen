@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetPosition <em>Snippet Position</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetName <em>Snippet Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetCode <em>Snippet Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getLang <em>Lang</em>}</li>
@@ -27,6 +28,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface InlineCodeSnippet extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Snippet Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Snippet Position</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Snippet Position</em>' attribute.
+	 * @see #setSnippetPosition(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getInlineCodeSnippet_SnippetPosition()
+	 * @model
+	 * @generated
+	 */
+	String getSnippetPosition();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetPosition <em>Snippet Position</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Snippet Position</em>' attribute.
+	 * @see #getSnippetPosition()
+	 * @generated
+	 */
+	void setSnippetPosition(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Snippet Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

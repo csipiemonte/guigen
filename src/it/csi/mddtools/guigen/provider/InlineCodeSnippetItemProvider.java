@@ -64,11 +64,34 @@ public class InlineCodeSnippetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addSnippetPositionPropertyDescriptor(object);
 			addSnippetNamePropertyDescriptor(object);
 			addSnippetCodePropertyDescriptor(object);
 			addLangPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Snippet Position feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSnippetPositionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_InlineCodeSnippet_snippetPosition_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InlineCodeSnippet_snippetPosition_feature", "_UI_InlineCodeSnippet_type"),
+				 GuigenPackage.Literals.INLINE_CODE_SNIPPET__SNIPPET_POSITION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -174,6 +197,7 @@ public class InlineCodeSnippetItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(InlineCodeSnippet.class)) {
+			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_POSITION:
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_NAME:
 			case GuigenPackage.INLINE_CODE_SNIPPET__SNIPPET_CODE:
 			case GuigenPackage.INLINE_CODE_SNIPPET__LANG:
