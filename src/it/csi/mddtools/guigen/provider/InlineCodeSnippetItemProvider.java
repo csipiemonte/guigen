@@ -108,7 +108,7 @@ public class InlineCodeSnippetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_InlineCodeSnippet_snippetCode_feature", "_UI_InlineCodeSnippet_type"),
 				 GuigenPackage.Literals.INLINE_CODE_SNIPPET__SNIPPET_CODE,
 				 true,
-				 false,
+				 true,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
