@@ -475,7 +475,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 	<include file="struts-1-base.xml" />
 
-	«FOREACH this.structure.appWindow.appArea.extModules AS appModule-»
+	«FOREACH this.getAllAppMudule() AS appModule-»
 	<include file="struts-«appModule.name».xml" />
 	«ENDFOREACH-»
 	
@@ -753,7 +753,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «REM»[DM] STDMDD-1100: Crea i file di configurazione di Struts2«ENDREM»
 «DEFINE strutsPackagesConfigFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND strutsBaseConfigFile(skip_component_dir_creation) FOR this»
-	«EXPAND strutsAppModuleConfigFile(this, skip_component_dir_creation) FOREACH this.structure.appWindow.appArea.extModules»
+	«EXPAND strutsAppModuleConfigFile(this, skip_component_dir_creation) FOREACH this.getAllAppMudule()»
 «ENDDEFINE»
 
 
