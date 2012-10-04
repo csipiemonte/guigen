@@ -49,9 +49,7 @@ import it.csi.iride2.policy.exceptions.NoSuchApplicationException;
 import it.csi.iride2.policy.exceptions.NoSuchUseCaseException;
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".import")»
-
-«ENDPROTECT»
+«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("import","methodPrivate") FOREACH this.pepImpl.inlineCodeSnippets-»
 public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService {
 
 	«IF this.pepImpl !=null»
@@ -74,9 +72,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		Actor[] res = null;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findActorsForPersonaInApplication")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findActorsForPersonaInApplication") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -85,9 +81,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		Actor[] res = null;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findActorsForPersonaInUseCase")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findActorsForPersonaInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -96,9 +90,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		Ruolo[] res = null;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findRuoliForPersonaInApplication")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findRuoliForPersonaInApplication") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -107,9 +99,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		Ruolo[] res = null;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findRuoliForPersonaInUseCase")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findRuoliForPersonaInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -118,9 +108,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		UseCase[] res = null;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findUseCasesForPersonaInApplication")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findUseCasesForPersonaInApplication") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -129,9 +117,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		String res = null;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".getInfoPersonaInUseCase")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","getInfoPersonaInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -139,9 +125,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			throws UnrecoverableException, SystemException, InternalException,
 			BadRuoloException {
 		String res = null;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".getInfoPersonaSchema")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","getInfoPersonaSchema") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -150,9 +134,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			CertOutsideValidityException, CertRevokedException,
 			IdProviderNotFoundException {
 		Identita i = new Identita();
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".identificaCertificato")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaCertificato") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return i;
 	}
 
@@ -162,9 +144,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			MalformedUsernameException {
 			
 		Identita i = new Identita();
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".identificaUserPassword")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaUserPassword") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return i;
 	}
 
@@ -172,19 +152,15 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			String pin) throws UnrecoverableException, SystemException,
 			InternalException, AuthException, IdProviderNotFoundException,
 			MalformedUsernameException {
-				Identita i = new Identita();
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".identificaUserPasswordPIN")»
-
-		«ENDPROTECT»
+		Identita i = new Identita();
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaUserPasswordPIN") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return i;
 	}
 
 	public boolean isIdentitaAutentica(Identita identita)
 			throws UnrecoverableException, SystemException, InternalException {
 		boolean res = false;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".isIdentitaAutentica")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isIdentitaAutentica") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -193,9 +169,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		boolean res = false;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".isPersonaAutorizzataInUseCase")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isPersonaAutorizzataInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
 
@@ -203,15 +177,10 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			throws UnrecoverableException, SystemException, InternalException,
 			BadRuoloException, IdentitaNonAutenticaException {
 		boolean res = false;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".isPersonaInRuolo")»
-
-		«ENDPROTECT»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isPersonaInRuolo") FOREACH this.pepImpl.inlineCodeSnippets-»
 		return res;
 	}
-	
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".methodPrivate")»
-	
-	«ENDPROTECT»
+	«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","methodPrivate") FOREACH this.pepImpl.inlineCodeSnippets-»
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -588,3 +557,4 @@ public class SpringPD extends AbstractPortaDelegata {
 
 «ENDFILE»
 «ENDDEFINE»
+
