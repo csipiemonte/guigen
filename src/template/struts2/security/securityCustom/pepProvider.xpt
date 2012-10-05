@@ -49,7 +49,7 @@ import it.csi.iride2.policy.exceptions.NoSuchApplicationException;
 import it.csi.iride2.policy.exceptions.NoSuchUseCaseException;
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 
-«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("import","methodPrivate") FOREACH this.pepImpl.inlineCodeSnippets-»
+«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("import","methodPrivate") FOR this.pepImpl-»
 public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService {
 
 	«IF this.pepImpl !=null»
@@ -72,7 +72,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		Actor[] res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findActorsForPersonaInApplication") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findActorsForPersonaInApplication") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -81,7 +81,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		Actor[] res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findActorsForPersonaInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findActorsForPersonaInUseCase") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -90,7 +90,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		Ruolo[] res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findRuoliForPersonaInApplication") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findRuoliForPersonaInApplication") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -99,7 +99,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		Ruolo[] res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findRuoliForPersonaInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findRuoliForPersonaInUseCase") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -108,7 +108,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
 		UseCase[] res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findUseCasesForPersonaInApplication") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","findUseCasesForPersonaInApplication") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -117,7 +117,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		String res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","getInfoPersonaInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","getInfoPersonaInUseCase") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -125,7 +125,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			throws UnrecoverableException, SystemException, InternalException,
 			BadRuoloException {
 		String res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","getInfoPersonaSchema") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","getInfoPersonaSchema") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -134,7 +134,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			CertOutsideValidityException, CertRevokedException,
 			IdProviderNotFoundException {
 		Identita i = new Identita();
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaCertificato") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaCertificato") FOR this.pepImpl-»
 		return i;
 	}
 
@@ -144,7 +144,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			MalformedUsernameException {
 			
 		Identita i = new Identita();
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaUserPassword") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaUserPassword") FOR this.pepImpl-»
 		return i;
 	}
 
@@ -153,14 +153,14 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			InternalException, AuthException, IdProviderNotFoundException,
 			MalformedUsernameException {
 		Identita i = new Identita();
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaUserPasswordPIN") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","identificaUserPasswordPIN") FOR this.pepImpl-»
 		return i;
 	}
 
 	public boolean isIdentitaAutentica(Identita identita)
 			throws UnrecoverableException, SystemException, InternalException {
 		boolean res = false;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isIdentitaAutentica") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isIdentitaAutentica") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -169,7 +169,7 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
 		boolean res = false;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isPersonaAutorizzataInUseCase") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isPersonaAutorizzataInUseCase") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -177,10 +177,10 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			throws UnrecoverableException, SystemException, InternalException,
 			BadRuoloException, IdentitaNonAutenticaException {
 		boolean res = false;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isPersonaInRuolo") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","isPersonaInRuolo") FOR this.pepImpl-»
 		return res;
 	}
-	«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","methodPrivate") FOREACH this.pepImpl.inlineCodeSnippets-»
+	«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","methodPrivate") FOR this.pepImpl-»
 }
 «ENDFILE»
 «ENDDEFINE»

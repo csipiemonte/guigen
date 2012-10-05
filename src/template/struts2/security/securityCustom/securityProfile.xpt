@@ -361,7 +361,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		userInfo.setCognome(identita.getCognome());
 		userInfo.setCodFisc(identita.getCodFiscale());
 		userInfo.setIdIride(identita.toString());
-		«EXPAND inlineDef("body","createCurrentUser") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND inlineDef("body","createCurrentUser") FOR this.pepImpl-»
 		hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
 
 	}
@@ -374,7 +374,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	 */
 	private String normalizeEncodedUserInfo(String encodedUserInfo) {
 		String res = encodedUserInfo;
-		«EXPAND inlineDef("body","normalizeEncodedUserInfo") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND inlineDef("body","normalizeEncodedUserInfo") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -388,7 +388,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	 */
 	private String prepareTicketValidationCall(Object ticket) {
 		String res = remoteValidationUrl;
-		«EXPAND inlineDef("body","prepareTicketValidationCall") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND inlineDef("body","prepareTicketValidationCall") FOR this.pepImpl-»
 		return res;
 	}
 
@@ -428,7 +428,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	 */
 	private String extractEncodedUserInfo(byte[] response){
 		String res = null;
-		«EXPAND inlineDef("body","extractEncodedUserInfo") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND inlineDef("body","extractEncodedUserInfo") FOR this.pepImpl-»
 		return res;
 	}
 	
@@ -436,7 +436,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 
 	private String extractEncodedUserInfo(Object ticket){
 		String res = null;
-		«EXPAND inlineDef("body","extractEncodedUserInfo") FOREACH this.pepImpl.inlineCodeSnippets-»
+		«EXPAND inlineDef("body","extractEncodedUserInfo") FOR this.pepImpl-»
 		return res;
 	}
 «ENDIF»
@@ -471,15 +471,24 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE inlineDef(String code, String position) FOR InlineCodeSnippet »
-	«IF this.lang == "JAVA"-»
-	«IF this!=null && this.snippetName == code && this.snippetPosition == position-»
-			«this.snippetCode-»
+«DEFINE inlineDef(String code, String position) FOR PEPImplementation »
+
+	«REM»
+	«IF this.inlineCodeSnippets.size >0 »
+	
+		«LET this.inlineCodeSnippets.select(e|e.snippetName == code && e.snippetPosition == position && e.lang == "JAVA") AS inlineSnippet»
+			«IF inlineSnippet !=null»
+			«inlineSnippet.snippetCode»
+			«ENDIF»
+		«ENDLET»
 	«ELSE-»
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+"."+position+"."+code)-»
 
-		«ENDPROTECT-»
+		«ENDPROTECT»
 	«ENDIF-»
-	«ENDIF-»
+	«ENDREM»
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+"."+position+"."+code)-»
+
+	«ENDPROTECT»
 «ENDDEFINE»
 
