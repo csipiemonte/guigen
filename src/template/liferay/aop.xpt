@@ -49,3 +49,14 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 «AROUND template::struts2::buildfiles::ivyDependencyDisplaytag FOR GUIModel»
 	«EXPAND template::liferay::buildfiles::ivyDependencyDisplaytag FOR this-»
 «ENDAROUND»
+
+«AROUND template::struts2::security::securityCustom::securityProfile::idAdapterCustomFilter(GUIModel model)FOR SecurityProfile»
+	«EXPAND template::liferay::securityProfile::idAdapterCustomFilter(model) FOR this-»
+«ENDAROUND»
+
+«AROUND template::struts2::security::security::authenticationFilterDefAndMapping(GUIModel model)FOR CustomAuthentication»
+	«EXPAND template::liferay::securityProfile::authenticationFilterDefAndMapping(model) FOR this-»
+«ENDAROUND»
+«AROUND template::struts2::security::security::ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
+	«EXPAND template::liferay::buildfiles::ivyDependenciesForAuthentication(model) FOR this-»
+«ENDAROUND»
