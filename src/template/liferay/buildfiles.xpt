@@ -30,6 +30,7 @@ e le limitazioni secondo i termini della Licenza.
                             csi-tools*.jar,                \
                             xerces-*.jar,                \
                             jaxp-*.jar,	                \
+                            portlet-api*.jar,				\
                             «getAppServerLib(this)»*.jar«IF targetPlatform.code == TargetPlatformCodes::JBoss43-», \
                             weblogic-7*.jar,                \
                             weblogic-9*.jar                \
@@ -44,9 +45,11 @@ war-exclude-custom-libs-filter =
 «ENDPROTECT»
 «ENDDEFINE»
 
-
 «DEFINE ivyDependencyDisplaytag FOR GUIModel»
 		<dependency org="others" name="displaytag" rev="1.2" />
 		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
 		<dependency org="others" name="displaytag-portlet" rev="1.2" />
+«ENDDEFINE»
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
+	<dependency org="sun" name="portlet-api" rev="2.0" />
 «ENDDEFINE»
