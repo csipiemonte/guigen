@@ -1006,6 +1006,7 @@ cose tipo la "todo list"«ENDREM»
 	
 	
 	«IF this.targetPlatform.securityProfile!=null»
+	«IF this.targetPlatform.securityProfile.pepImpl.custom»
 	<bean id="pepProviderFacadeBeanId" class="«getPEPProviderJavaPackage(this)».PEPProviderFacade">
 	«IF this.targetPlatform.securityProfile.pepImpl !=null»
 	«LET this.targetPlatform.securityProfile.pepImpl.params AS envConfigParams-»
@@ -1018,6 +1019,8 @@ cose tipo la "todo list"«ENDREM»
 	«ENDPROTECT»
 	</bean>
 	«ENDIF»
+	«ENDIF»
+	
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("applicationContext.beans")»
 		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
 	«ENDPROTECT»
