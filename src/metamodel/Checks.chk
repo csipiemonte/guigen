@@ -953,3 +953,20 @@ context InlineCodeSnippet if this!=null ERROR "E' necessario valorizzare la prop
 	!this.snippetName.isNullOrEmpty();
 context InlineCodeSnippet if this!=null ERROR "E' necessario valorizzare la property snippetPosition"+loc() :
 	!this.snippetPosition.isNullOrEmpty();
+
+context InlineCodeSnippet if (this!=null && !this.lang.isNullOrEmpty()) ERROR "Il valore lang "+this.lang+" non e' valido. Lista valori ammessi "+ getListLangSnippet()+loc():
+	!getListLangSnippet().select(e|e == this.lang).isEmpty;
+	
+context InlineCodeSnippet if (this!=null && !this.snippetPosition.isNullOrEmpty()&& this.eContainer.metaType == IdentityAdapter) ERROR "Il valore snippetPosition "+this.snippetPosition+" non e' valido. Lista valori ammessi per IdentityAdapter"+ getListPositionSnippetIdentityAdapter()+loc():
+	!getListPositionSnippetIdentityAdapter().select(e|e == this.snippetPosition).isEmpty;
+	
+context InlineCodeSnippet if (this!=null && !this.snippetName.isNullOrEmpty() && this.eContainer.metaType == IdentityAdapter) ERROR "Il valore snippetName "+this.snippetName+" non e' valido. Lista valori ammessi per IdentityAdapter"+ getListNameSnippetIdentityAdapter()+loc() :
+	!getListNameSnippetIdentityAdapter().select(e|e == this.snippetName).isEmpty;
+
+
+context InlineCodeSnippet if (this!=null && !this.snippetPosition.isNullOrEmpty()&& this.eContainer.metaType == PEPImplementation) ERROR "Il valore snippetPosition "+this.snippetPosition+" non e' valido. Lista valori ammessi per PEP "+ getListPositionSnippetPEP()+loc():
+	!getListPositionSnippetPEP().select(e|e == this.snippetPosition).isEmpty;
+	
+context InlineCodeSnippet if (this!=null && !this.snippetName.isNullOrEmpty() && this.eContainer.metaType == PEPImplementation) ERROR "Il valore snippetName "+this.snippetName+" non e' valido. Lista valori ammessi per PEP "+ getListNameSnippetPEP()+loc() :
+	!getListNameSnippetPEP().select(e|e == this.snippetName).isEmpty;
+	
