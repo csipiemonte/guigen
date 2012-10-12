@@ -130,7 +130,8 @@ public class «getIdAdapterCustomFilterClassName()» implements RenderFilter{
 		userInfo.setCognome(identita.getCognome());
 		userInfo.setCodFisc(identita.getCodFiscale());
 		userInfo.setIdIride(identita.toString());
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","createCurrentUser") FOR this.idAdapter-»
+		
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","createCurrentUser") FOR this.idAdapter-»
 		hreq.getPortletSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
 
 	}
@@ -143,14 +144,14 @@ public class «getIdAdapterCustomFilterClassName()» implements RenderFilter{
 	 */
 	private String normalizeEncodedUserInfo(String encodedUserInfo) {
 		String res = encodedUserInfo;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","normalizeEncodedUserInfo") FOR this.idAdapter-»
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","normalizeEncodedUserInfo") FOR this.idAdapter-»
 		return res;
 	}
 
 
 	private String extractEncodedUserInfo(Object ticket){
 		String res = null;
-		«EXPAND template::struts2::security::securityCustom::securityProfile::inlineDef("body","extractEncodedUserInfo") FOR this.idAdapter-»
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","extractEncodedUserInfo") FOR this.idAdapter-»
 		return res;
 	}
 	
