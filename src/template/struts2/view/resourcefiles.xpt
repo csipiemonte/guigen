@@ -90,6 +90,10 @@ e le limitazioni secondo i termini della Licenza.
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE getScriptJsFunction(GUIModel model) FOR ContentPanel»
+<%-- NO SCRIPT --%>
+«ENDDEFINE»
+
 
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
@@ -272,6 +276,7 @@ Gestione dei pannelli
 «appmoduelIdMarker()»
 «pageIdMarker()»
 <s:form id="«this.name»" action="«getStrutsActionConfigName(this)»" namespace="«getContentPanelNamespace(this, false)»" method="post"«getFormEnctype(this)»>
+«EXPAND template::common::getScriptJsFunction(model) FOR this-»
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this, "", (PDefUseConfig)null) FOR currP»
 	«ENDLET-»
@@ -821,8 +826,8 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
 «ENDIF-»
 «EXPAND remoteResources::widgetMarkupHeader(model, cp, contextPrefix, pduConf) FOR this»
-«FOREACH this.radio AS currRadio-»
-«EXPAND createWidgetMarkup(model, cp, this, contextPrefix, pduConf) FOR currRadio»
+«FOREACH this.radio AS currRadio ITERATOR iter-»
+«EXPAND createWidgetMarkup(model, cp, this, contextPrefix, pduConf,iter.counter1) FOR currRadio»
 «ENDFOREACH-»
 «getRadioButtonsValueChangedHandlerNoScript(this, model, cp, contextPrefix)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
 «EXPAND remoteResources::widgetMarkupFooter(model, cp, contextPrefix) FOR this»
@@ -833,10 +838,16 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf) FOR RadioButton»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf,Integer cont) FOR RadioButton»
 
 «LET ((RadioButtons)this.eContainer).layout!=null AS writeDiv»
 «IF writeDiv»<div>«ENDIF»
+«IF cont==1 && parent.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1»
+<s:url id="«getWidgetName(parent, contextPrefix)»urlRadioButtonValueChange"
+   «getUrlParentWidgetValueChange(parent, model, cp, contextPrefix)» 
+   includeParams="all" portletUrlType="action" 
+/>
+«ENDIF»
 <s:radio
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -897,6 +908,10 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
 «ENDIF-»
+<s:url id="«getWidgetName(this, contextPrefix)»urlComboBoxValueChange"
+   «getUrlWidgetValueChange(this, model, cp, contextPrefix)» 
+   includeParams="all" portletUrlType="action" 
+/>
 <s:select name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
