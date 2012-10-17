@@ -463,6 +463,10 @@ String getFormEnctype(ContentPanel cp) :
 String getStrutsActionCompleteConfigName(ContentPanel panel, GUIModel model) :
 	"/" + model.codComponente + getContentPanelNamespace(panel, false) + "/" + getStrutsActionConfigName(panel);
 
+String getStrutsActionNotNameSpaceConfigName(ContentPanel panel, GUIModel model) :
+	"/" + model.codComponente + "/" + getStrutsActionConfigName(panel);	
+
+
 String getStrutsActionCompleteURL(ContentPanel panel, GUIModel model) :
 	getStrutsActionCompleteConfigName(panel, model) + getStrutsActionCompleteExtension();
 
@@ -1348,12 +1352,25 @@ String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) : JAVA
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS
 
+String getUrlWidgetValueChange(Widget cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"action=\""+getStrutsActionNotNameSpaceConfigName(cp, model)+ "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) +"\" " +
+		"namespace=\""+getContentPanelNamespace(cp, false)+"\" ";
+		
+String getUrlParentWidgetValueChange(Widget cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"action=\""+getStrutsActionNotNameSpaceConfigName(findParentContentPanel(cb), model)+ "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) +"\" " +
+		"namespace=\""+getContentPanelNamespace(cp, false)+"\" ";
+   
+
 // [DM] genera il codice che gestise l'evento change sulla ComboBox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
 String getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
+		//"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" " +
 		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		//"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
 // [DM] STDMDD-1084: rimozione noscript
@@ -1368,6 +1385,8 @@ String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, Conte
 String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
+		//"onclick=\"onRBClick('%{" + getWidgetName(rb, contextPrefix)+"urlRadioButtonValueChange}" + "')\" ";
+		
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
 // [DM] STDMDD-1084: rimozione noscript
