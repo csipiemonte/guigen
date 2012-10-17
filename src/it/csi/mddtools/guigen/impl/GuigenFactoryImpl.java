@@ -229,6 +229,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.ENV_CONFIG_PARAMS: return createEnvConfigParams();
 			case GuigenPackage.PEP_IMPLEMENTATION: return createPEPImplementation();
 			case GuigenPackage.INLINE_CODE_SNIPPET: return createInlineCodeSnippet();
+			case GuigenPackage.ANNOTATION: return createAnnotation();
+			case GuigenPackage.ANNOTATION_DETAIL: return createAnnotationDetail();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1890,6 +1892,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public InlineCodeSnippet createInlineCodeSnippet() {
 		InlineCodeSnippetImpl inlineCodeSnippet = new InlineCodeSnippetImpl();
 		return inlineCodeSnippet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Annotation createAnnotation() {
+		AnnotationImpl annotation = new AnnotationImpl();
+		return annotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnnotationDetail createAnnotationDetail() {
+		AnnotationDetailImpl annotationDetail = new AnnotationDetailImpl();
+		return annotationDetail;
 	}
 
 	/**

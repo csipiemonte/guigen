@@ -45,7 +45,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
-public interface Field extends EObject {
+public interface Field extends AnnotatedElement {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

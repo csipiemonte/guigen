@@ -1426,6 +1426,24 @@ public interface GuigenFactory extends EFactory {
 	InlineCodeSnippet createInlineCodeSnippet();
 
 	/**
+	 * Returns a new object of class '<em>Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotation</em>'.
+	 * @generated
+	 */
+	Annotation createAnnotation();
+
+	/**
+	 * Returns a new object of class '<em>Annotation Detail</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotation Detail</em>'.
+	 * @generated
+	 */
+	AnnotationDetail createAnnotationDetail();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

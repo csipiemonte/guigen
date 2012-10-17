@@ -4603,13 +4603,50 @@ public interface GuigenPackage extends EPackage {
 	int TYPEDEFS_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.AnnotatedElement <em>Annotated Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.AnnotatedElement
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotatedElement()
+	 * @generated
+	 */
+	int ANNOTATED_ELEMENT = 168;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATED_ELEMENT__ANNOTATIONS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Annotated Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATED_ELEMENT_FEATURE_COUNT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__ANNOTATIONS = ANNOTATED_ELEMENT__ANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE__NAME = 0;
+	int TYPE__NAME = ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Type</em>' class.
@@ -4618,7 +4655,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FEATURE_COUNT = 1;
+	int TYPE_FEATURE_COUNT = ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4682,6 +4728,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int SIMPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4775,6 +4830,15 @@ public interface GuigenPackage extends EPackage {
 	int TYPE_ANNOTATION_FEATURE_COUNT = 2;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4802,13 +4866,22 @@ public interface GuigenPackage extends EPackage {
 	int TYPED_ARRAY_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__ANNOTATIONS = ANNOTATED_ELEMENT__ANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__NAME = 0;
+	int FIELD__NAME = ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -4817,7 +4890,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__TYPE = 1;
+	int FIELD__TYPE = ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -4826,7 +4899,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__REQUIRED = 2;
+	int FIELD__REQUIRED = ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -4835,7 +4908,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__DATA_TYPE_MODIFIER = 3;
+	int FIELD__DATA_TYPE_MODIFIER = ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Field</em>' class.
@@ -4844,7 +4917,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD_FEATURE_COUNT = 4;
+	int FIELD_FEATURE_COUNT = ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>App Data</b></em>' containment reference list.
@@ -10029,6 +10102,80 @@ public interface GuigenPackage extends EPackage {
 	int INLINE_CODE_SNIPPET_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AnnotationImpl <em>Annotation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.AnnotationImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotation()
+	 * @generated
+	 */
+	int ANNOTATION = 169;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION__SOURCE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Details</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION__DETAILS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Annotation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AnnotationDetailImpl <em>Annotation Detail</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.AnnotationDetailImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotationDetail()
+	 * @generated
+	 */
+	int ANNOTATION_DETAIL = 170;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_DETAIL__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_DETAIL__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Annotation Detail</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_DETAIL_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10036,7 +10183,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 168;
+	int WIDGET_DATA_TYPE = 171;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -10046,7 +10193,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 169;
+	int UDLRC_SPEC_CONSTANTS = 172;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -10056,7 +10203,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 170;
+	int METHOD_PROTECTION_TYPES = 173;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -10066,7 +10213,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 171;
+	int EVENT_TYPES = 174;
 
 
 	/**
@@ -10077,7 +10224,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 172;
+	int DATA_LIFETIME_TYPE = 175;
 
 
 	/**
@@ -10088,7 +10235,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 173;
+	int SIMPLE_TYPE_CODES = 176;
 
 
 	/**
@@ -10099,7 +10246,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 174;
+	int PORTAL_NAMES = 177;
 
 
 	/**
@@ -10110,7 +10257,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
 	 * @generated
 	 */
-	int LOGOUT_ACTION_TYPES = 175;
+	int LOGOUT_ACTION_TYPES = 178;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
@@ -10120,7 +10267,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 176;
+	int TARGET_PLATFORM_CODES = 179;
 
 
 	/**
@@ -10131,7 +10278,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 177;
+	int MESSAGE_SEVERITY = 180;
 
 
 	/**
@@ -10142,7 +10289,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 178;
+	int COMMAND_STYLES = 181;
 
 
 	/**
@@ -10153,7 +10300,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 179;
+	int LOGIC_AGGREGATION_TYPES = 182;
 
 
 	/**
@@ -10164,7 +10311,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 180;
+	int CUSTOM_CARTRIDGE_ID = 183;
 
 
 	/**
@@ -10175,7 +10322,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 181;
+	int COMMAND_FUNCTIONS = 184;
 
 
 	/**
@@ -10186,7 +10333,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 182;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 185;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -10196,7 +10343,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 183;
+	int STD_WEB_RES_MODULE_NAMES = 186;
 
 
 	/**
@@ -10207,7 +10354,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 184;
+	int REPART_MODULE_TYPES = 187;
 
 
 	/**
@@ -10218,7 +10365,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 185;
+	int WIZARD_NUMBERING_TYPES = 188;
 
 
 	/**
@@ -10229,7 +10376,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
 	 * @generated
 	 */
-	int CP_COMMAND_EXECUTION_TYPES = 186;
+	int CP_COMMAND_EXECUTION_TYPES = 189;
 
 
 	/**
@@ -10240,7 +10387,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTicketVerifyMethod()
 	 * @generated
 	 */
-	int TICKET_VERIFY_METHOD = 187;
+	int TICKET_VERIFY_METHOD = 190;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}' enum.
@@ -10250,7 +10397,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUITypes()
 	 * @generated
 	 */
-	int LOGIN_UI_TYPES = 188;
+	int LOGIN_UI_TYPES = 191;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.InfoSourceTypes <em>Info Source Types</em>}' enum.
@@ -10260,7 +10407,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInfoSourceTypes()
 	 * @generated
 	 */
-	int INFO_SOURCE_TYPES = 189;
+	int INFO_SOURCE_TYPES = 192;
 
 
 	/**
@@ -10271,7 +10418,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeSelectionTypes()
 	 * @generated
 	 */
-	int TREE_SELECTION_TYPES = 190;
+	int TREE_SELECTION_TYPES = 193;
 
 
 	/**
@@ -15959,6 +16106,91 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getInlineCodeSnippet_Lang();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AnnotatedElement <em>Annotated Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotated Element</em>'.
+	 * @see it.csi.mddtools.guigen.AnnotatedElement
+	 * @generated
+	 */
+	EClass getAnnotatedElement();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.AnnotatedElement#getAnnotations <em>Annotations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
+	 * @see it.csi.mddtools.guigen.AnnotatedElement#getAnnotations()
+	 * @see #getAnnotatedElement()
+	 * @generated
+	 */
+	EReference getAnnotatedElement_Annotations();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Annotation <em>Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotation</em>'.
+	 * @see it.csi.mddtools.guigen.Annotation
+	 * @generated
+	 */
+	EClass getAnnotation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Annotation#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source</em>'.
+	 * @see it.csi.mddtools.guigen.Annotation#getSource()
+	 * @see #getAnnotation()
+	 * @generated
+	 */
+	EAttribute getAnnotation_Source();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.Annotation#getDetails <em>Details</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Details</em>'.
+	 * @see it.csi.mddtools.guigen.Annotation#getDetails()
+	 * @see #getAnnotation()
+	 * @generated
+	 */
+	EReference getAnnotation_Details();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AnnotationDetail <em>Annotation Detail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotation Detail</em>'.
+	 * @see it.csi.mddtools.guigen.AnnotationDetail
+	 * @generated
+	 */
+	EClass getAnnotationDetail();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.AnnotationDetail#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see it.csi.mddtools.guigen.AnnotationDetail#getKey()
+	 * @see #getAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getAnnotationDetail_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.AnnotationDetail#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.csi.mddtools.guigen.AnnotationDetail#getValue()
+	 * @see #getAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getAnnotationDetail_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -20801,6 +21033,76 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INLINE_CODE_SNIPPET__LANG = eINSTANCE.getInlineCodeSnippet_Lang();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.AnnotatedElement <em>Annotated Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.AnnotatedElement
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotatedElement()
+		 * @generated
+		 */
+		EClass ANNOTATED_ELEMENT = eINSTANCE.getAnnotatedElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNOTATED_ELEMENT__ANNOTATIONS = eINSTANCE.getAnnotatedElement_Annotations();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AnnotationImpl <em>Annotation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.AnnotationImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotation()
+		 * @generated
+		 */
+		EClass ANNOTATION = eINSTANCE.getAnnotation();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANNOTATION__SOURCE = eINSTANCE.getAnnotation_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Details</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNOTATION__DETAILS = eINSTANCE.getAnnotation_Details();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AnnotationDetailImpl <em>Annotation Detail</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.AnnotationDetailImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotationDetail()
+		 * @generated
+		 */
+		EClass ANNOTATION_DETAIL = eINSTANCE.getAnnotationDetail();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANNOTATION_DETAIL__KEY = eINSTANCE.getAnnotationDetail_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANNOTATION_DETAIL__VALUE = eINSTANCE.getAnnotationDetail_Value();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

@@ -3633,6 +3633,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Annotation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnnotationItemProvider annotationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Annotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAnnotationAdapter() {
+		if (annotationItemProvider == null) {
+			annotationItemProvider = new AnnotationItemProvider(this);
+		}
+
+		return annotationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.AnnotationDetail} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnnotationDetailItemProvider annotationDetailItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.AnnotationDetail}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAnnotationDetailAdapter() {
+		if (annotationDetailItemProvider == null) {
+			annotationDetailItemProvider = new AnnotationDetailItemProvider(this);
+		}
+
+		return annotationDetailItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3885,6 +3931,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (envConfigParamsItemProvider != null) envConfigParamsItemProvider.dispose();
 		if (pepImplementationItemProvider != null) pepImplementationItemProvider.dispose();
 		if (inlineCodeSnippetItemProvider != null) inlineCodeSnippetItemProvider.dispose();
+		if (annotationItemProvider != null) annotationItemProvider.dispose();
+		if (annotationDetailItemProvider != null) annotationDetailItemProvider.dispose();
 	}
 
 }
