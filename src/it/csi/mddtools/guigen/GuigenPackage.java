@@ -4613,40 +4613,13 @@ public interface GuigenPackage extends EPackage {
 	int ANNOTATED_ELEMENT = 168;
 
 	/**
-	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATED_ELEMENT__ANNOTATIONS = 0;
-
-	/**
-	 * The number of structural features of the '<em>Annotated Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATED_ELEMENT_FEATURE_COUNT = 1;
-
-	/**
-	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE__ANNOTATIONS = ANNOTATED_ELEMENT__ANNOTATIONS;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE__NAME = ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+	int TYPE__NAME = 0;
 
 	/**
 	 * The number of structural features of the '<em>Type</em>' class.
@@ -4655,16 +4628,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FEATURE_COUNT = ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
+	int TYPE_FEATURE_COUNT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4728,15 +4692,6 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int SIMPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPLEX_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4830,15 +4785,6 @@ public interface GuigenPackage extends EPackage {
 	int TYPE_ANNOTATION_FEATURE_COUNT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPED_ARRAY__ANNOTATIONS = TYPE__ANNOTATIONS;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4866,22 +4812,13 @@ public interface GuigenPackage extends EPackage {
 	int TYPED_ARRAY_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__ANNOTATIONS = ANNOTATED_ELEMENT__ANNOTATIONS;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__NAME = ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
+	int FIELD__NAME = 0;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -4890,7 +4827,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__TYPE = ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
+	int FIELD__TYPE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -4899,7 +4836,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__REQUIRED = ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
+	int FIELD__REQUIRED = 2;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -4908,7 +4845,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__DATA_TYPE_MODIFIER = ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
+	int FIELD__DATA_TYPE_MODIFIER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__ANNOTATIONS = 4;
 
 	/**
 	 * The number of structural features of the '<em>Field</em>' class.
@@ -4917,7 +4863,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD_FEATURE_COUNT = ANNOTATED_ELEMENT_FEATURE_COUNT + 4;
+	int FIELD_FEATURE_COUNT = 5;
 
 	/**
 	 * The feature id for the '<em><b>App Data</b></em>' containment reference list.
@@ -10102,6 +10048,24 @@ public interface GuigenPackage extends EPackage {
 	int INLINE_CODE_SNIPPET_FEATURE_COUNT = 4;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATED_ELEMENT__ANNOTATIONS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Annotated Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATED_ELEMENT_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AnnotationImpl <em>Annotation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12925,6 +12889,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getField_DataTypeModifier();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.Field#getAnnotations <em>Annotations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
+	 * @see it.csi.mddtools.guigen.Field#getAnnotations()
+	 * @see #getField()
+	 * @generated
+	 */
+	EReference getField_Annotations();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationDataDefs <em>Application Data Defs</em>}'.
@@ -18451,6 +18426,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FIELD__DATA_TYPE_MODIFIER = eINSTANCE.getField_DataTypeModifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FIELD__ANNOTATIONS = eINSTANCE.getField_Annotations();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl <em>Application Data Defs</em>}' class.

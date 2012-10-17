@@ -3761,6 +3761,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getField_Annotations() {
+		return (EReference)fieldEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getApplicationDataDefs() {
 		return applicationDataDefsEClass;
 	}
@@ -7050,6 +7059,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(fieldEClass, FIELD__TYPE);
 		createEAttribute(fieldEClass, FIELD__REQUIRED);
 		createEAttribute(fieldEClass, FIELD__DATA_TYPE_MODIFIER);
+		createEReference(fieldEClass, FIELD__ANNOTATIONS);
 
 		applicationDataDefsEClass = createEClass(APPLICATION_DATA_DEFS);
 		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__APP_DATA);
@@ -7551,11 +7561,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		sequenceCommandEClass.getESuperTypes().add(this.getCommand());
 		jumpBackCommandEClass.getESuperTypes().add(this.getCommand());
 		multiDataWidgetEClass.getESuperTypes().add(this.getWidget());
-		typeEClass.getESuperTypes().add(this.getAnnotatedElement());
 		simpleTypeEClass.getESuperTypes().add(this.getType());
 		complexTypeEClass.getESuperTypes().add(this.getType());
 		typedArrayEClass.getESuperTypes().add(this.getType());
-		fieldEClass.getESuperTypes().add(this.getAnnotatedElement());
 		treeViewEClass.getESuperTypes().add(this.getDataWidget());
 		treeViewEClass.getESuperTypes().add(this.getMultiDataWidget());
 		plainTextEClass.getESuperTypes().add(this.getDataWidget());
@@ -7918,6 +7926,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getField_Type(), this.getType(), null, "type", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getField_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getField_DataTypeModifier(), ecorePackage.getEString(), "dataTypeModifier", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getField_Annotations(), this.getAnnotation(), null, "annotations", null, 0, -1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(applicationDataDefsEClass, ApplicationDataDefs.class, "ApplicationDataDefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getApplicationDataDefs_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

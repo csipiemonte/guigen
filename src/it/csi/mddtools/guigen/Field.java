@@ -20,6 +20,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Field#getType <em>Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Field#isRequired <em>Required</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Field#getDataTypeModifier <em>Data Type Modifier</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Field#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,7 +47,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
-public interface Field extends AnnotatedElement {
+public interface Field extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -165,5 +167,21 @@ public interface Field extends AnnotatedElement {
 	 * @generated
 	 */
 	void setDataTypeModifier(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Annotation}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Annotations</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Annotations</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getField_Annotations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Annotation> getAnnotations();
 
 } // Field

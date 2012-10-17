@@ -45,27 +45,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getType <em>Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#isRequired <em>Required</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getDataTypeModifier <em>Data Type Modifier</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class FieldImpl extends EObjectImpl implements Field {
-	/**
-	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAnnotations()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Annotation> annotations;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -137,6 +127,16 @@ public class FieldImpl extends EObjectImpl implements Field {
 	protected String dataTypeModifier = DATA_TYPE_MODIFIER_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnotations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Annotation> annotations;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -153,18 +153,6 @@ public class FieldImpl extends EObjectImpl implements Field {
 	@Override
 	protected EClass eStaticClass() {
 		return GuigenPackage.Literals.FIELD;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Annotation> getAnnotations() {
-		if (annotations == null) {
-			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, GuigenPackage.FIELD__ANNOTATIONS);
-		}
-		return annotations;
 	}
 
 	/**
@@ -273,6 +261,18 @@ public class FieldImpl extends EObjectImpl implements Field {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Annotation> getAnnotations() {
+		if (annotations == null) {
+			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, GuigenPackage.FIELD__ANNOTATIONS);
+		}
+		return annotations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -290,8 +290,6 @@ public class FieldImpl extends EObjectImpl implements Field {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.FIELD__ANNOTATIONS:
-				return getAnnotations();
 			case GuigenPackage.FIELD__NAME:
 				return getName();
 			case GuigenPackage.FIELD__TYPE:
@@ -301,6 +299,8 @@ public class FieldImpl extends EObjectImpl implements Field {
 				return isRequired();
 			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
 				return getDataTypeModifier();
+			case GuigenPackage.FIELD__ANNOTATIONS:
+				return getAnnotations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -314,10 +314,6 @@ public class FieldImpl extends EObjectImpl implements Field {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.FIELD__ANNOTATIONS:
-				getAnnotations().clear();
-				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
-				return;
 			case GuigenPackage.FIELD__NAME:
 				setName((String)newValue);
 				return;
@@ -329,6 +325,10 @@ public class FieldImpl extends EObjectImpl implements Field {
 				return;
 			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
 				setDataTypeModifier((String)newValue);
+				return;
+			case GuigenPackage.FIELD__ANNOTATIONS:
+				getAnnotations().clear();
+				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -342,9 +342,6 @@ public class FieldImpl extends EObjectImpl implements Field {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.FIELD__ANNOTATIONS:
-				getAnnotations().clear();
-				return;
 			case GuigenPackage.FIELD__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -356,6 +353,9 @@ public class FieldImpl extends EObjectImpl implements Field {
 				return;
 			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
 				setDataTypeModifier(DATA_TYPE_MODIFIER_EDEFAULT);
+				return;
+			case GuigenPackage.FIELD__ANNOTATIONS:
+				getAnnotations().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -369,8 +369,6 @@ public class FieldImpl extends EObjectImpl implements Field {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.FIELD__ANNOTATIONS:
-				return annotations != null && !annotations.isEmpty();
 			case GuigenPackage.FIELD__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GuigenPackage.FIELD__TYPE:
@@ -379,6 +377,8 @@ public class FieldImpl extends EObjectImpl implements Field {
 				return required != REQUIRED_EDEFAULT;
 			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
 				return DATA_TYPE_MODIFIER_EDEFAULT == null ? dataTypeModifier != null : !DATA_TYPE_MODIFIER_EDEFAULT.equals(dataTypeModifier);
+			case GuigenPackage.FIELD__ANNOTATIONS:
+				return annotations != null && !annotations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

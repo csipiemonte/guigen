@@ -44,7 +44,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.TypeImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TypeImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
@@ -52,16 +51,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public abstract class TypeImpl extends EObjectImpl implements Type {
-	/**
-	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAnnotations()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Annotation> annotations;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -106,18 +95,6 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Annotation> getAnnotations() {
-		if (annotations == null) {
-			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, GuigenPackage.TYPE__ANNOTATIONS);
-		}
-		return annotations;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getName() {
 		return name;
 	}
@@ -140,24 +117,8 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GuigenPackage.TYPE__ANNOTATIONS:
-				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.TYPE__ANNOTATIONS:
-				return getAnnotations();
 			case GuigenPackage.TYPE__NAME:
 				return getName();
 		}
@@ -173,10 +134,6 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.TYPE__ANNOTATIONS:
-				getAnnotations().clear();
-				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
-				return;
 			case GuigenPackage.TYPE__NAME:
 				setName((String)newValue);
 				return;
@@ -192,9 +149,6 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.TYPE__ANNOTATIONS:
-				getAnnotations().clear();
-				return;
 			case GuigenPackage.TYPE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -210,8 +164,6 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.TYPE__ANNOTATIONS:
-				return annotations != null && !annotations.isEmpty();
 			case GuigenPackage.TYPE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}

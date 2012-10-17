@@ -185,7 +185,7 @@ public class FieldItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.ANNOTATED_ELEMENT__ANNOTATIONS);
+			childrenFeatures.add(GuigenPackage.Literals.FIELD__ANNOTATIONS);
 		}
 		return childrenFeatures;
 	}
@@ -268,7 +268,7 @@ public class FieldItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.ANNOTATED_ELEMENT__ANNOTATIONS,
+				(GuigenPackage.Literals.FIELD__ANNOTATIONS,
 				 GuigenFactory.eINSTANCE.createAnnotation()));
 	}
 

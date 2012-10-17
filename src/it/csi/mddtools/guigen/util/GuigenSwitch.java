@@ -527,7 +527,6 @@ public class GuigenSwitch<T> extends Switch<T> {
 			case GuigenPackage.TYPE: {
 				Type type = (Type)theEObject;
 				T result = caseType(type);
-				if (result == null) result = caseAnnotatedElement(type);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -535,7 +534,6 @@ public class GuigenSwitch<T> extends Switch<T> {
 				SimpleType simpleType = (SimpleType)theEObject;
 				T result = caseSimpleType(simpleType);
 				if (result == null) result = caseType(simpleType);
-				if (result == null) result = caseAnnotatedElement(simpleType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -543,7 +541,6 @@ public class GuigenSwitch<T> extends Switch<T> {
 				ComplexType complexType = (ComplexType)theEObject;
 				T result = caseComplexType(complexType);
 				if (result == null) result = caseType(complexType);
-				if (result == null) result = caseAnnotatedElement(complexType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -557,14 +554,12 @@ public class GuigenSwitch<T> extends Switch<T> {
 				TypedArray typedArray = (TypedArray)theEObject;
 				T result = caseTypedArray(typedArray);
 				if (result == null) result = caseType(typedArray);
-				if (result == null) result = caseAnnotatedElement(typedArray);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GuigenPackage.FIELD: {
 				Field field = (Field)theEObject;
 				T result = caseField(field);
-				if (result == null) result = caseAnnotatedElement(field);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
