@@ -89,9 +89,11 @@ String getLogoutActionType(GUIModel model) :
 // [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
 String getComboBoxValueChangedHandlerJSNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
+		//"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " +
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" " + 
 		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		//"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 //String getComboBoxValueChangedHandlerNoScriptNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
@@ -103,7 +105,8 @@ String getComboBoxValueChangedHandlerJSNeutral(ComboBox cb, GUIModel model, Cont
 // [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
 String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		//"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onclick=\"onRBClick('%{" + getWidgetName(rb, contextPrefix)+"urlRadioButtonValueChange}" + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
 //String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
