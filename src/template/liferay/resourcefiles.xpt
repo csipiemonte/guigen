@@ -39,6 +39,93 @@ comment«ENDREM»
 «ENDFILE»
 «ENDDEFINE»
 
+«REM»
+Genera SELECT A CASCATA per gestire relazione tra due select
+estratto dal file pulsantiPadreFiglio.js di SISP
+Viene referenziato il form della portlet Liferay, passato come 
+parametrro
+«ENDREM»
+«DEFINE getScriptJsFunction(GUIModel model) FOR ContentPanel»
+<script src="/«model.codComponente»/ris/js/enrichments/«this.name».js" type="text/javascript"></script>	
+<script type="text/javascript">
+///////////////////////////////////////////////////////////////////////////////
+//*********** SELECT A CASCATA ************************************************
+//Funzione javascript per gestire relazione tra due select
+//estratto dal file pulsantiPadreFiglio.js di SISP
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+var old_value_combobox  = "";
+
+
+var old_name_combobox   = "";
+
+
+var is_onclick_combobox = false;
+
+
+/**
+* Funzione che viene eseguita all'acquisizione del focus da parte del combobox
+*/
+function inFocus(oggetto)
+{
+  old_value_combobox = oggetto.value;
+  old_name_combobox  = oggetto.name;
+}
+
+
+/**
+* Funzione che viene eseguita alla perdita del focus da parte del combobox
+* e simula il comportamento del click sul pulsante submit del form
+*/
+function lostFocus(oggetto,Submit_name,Submit_value,url)
+{
+  
+  if(old_value_combobox!=oggetto.value && old_name_combobox==oggetto.name)
+  {
+      document.getElementById("«this.name»").action=url+"?"+Submit_name+"="+Submit_value;
+      document.getElementById("«this.name»").submit();
+  }
+}
+
+
+/**
+* Funzione che viene eseguita al click sul combobox
+*/
+function onCBClick(oggetto,Submit_name,Submit_value,url)
+{
+  
+  if(is_onclick_combobox==true)
+  {
+      // mi comporto come se la combobox perda il fuoco
+      is_onclick_combobox=false;
+      lostFocus(oggetto,Submit_name,Submit_value,url)
+      old_value_combobox=oggetto.value;
+      old_name_combobox=oggetto.name;
+  }
+  else {
+  	
+      is_onclick_combobox=true;
+  }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+//*********** RADIOBUTTONS ****************************************************
+//Funzione javascript per gestire l'evento di change su un radiobutton
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+*
+*/
+function onRBClick(url) {
+  document.getElementById("«this.name»").action = url;
+  document.getElementById("«this.name»").submit();
+}
+</script>
+«ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
