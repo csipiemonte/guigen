@@ -26,6 +26,7 @@ import it.csi.mddtools.guigen.CustomTemplate;
 import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import it.csi.mddtools.guigen.InlineCodeSnippet;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -55,6 +56,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getPostExecData <em>Post Exec Data</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getCustomTemplate <em>Custom Template</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getExtraModels <em>Extra Models</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
  * </p>
  *
@@ -120,6 +122,16 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 	 * @ordered
 	 */
 	protected EList<EObject> extraModels;
+
+	/**
+	 * The cached value of the '{@link #getInlineCodeSnippets() <em>Inline Code Snippets</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInlineCodeSnippets()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<InlineCodeSnippet> inlineCodeSnippets;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -240,11 +252,25 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<InlineCodeSnippet> getInlineCodeSnippets() {
+		if (inlineCodeSnippets == null) {
+			inlineCodeSnippets = new EObjectContainmentEList<InlineCodeSnippet>(InlineCodeSnippet.class, this, GuigenPackage.EXEC_COMMAND__INLINE_CODE_SNIPPETS);
+		}
+		return inlineCodeSnippets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GuigenPackage.EXEC_COMMAND__RESULTS:
 				return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.EXEC_COMMAND__INLINE_CODE_SNIPPETS:
+				return ((InternalEList<?>)getInlineCodeSnippets()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -268,6 +294,8 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 				return basicGetCustomTemplate();
 			case GuigenPackage.EXEC_COMMAND__EXTRA_MODELS:
 				return getExtraModels();
+			case GuigenPackage.EXEC_COMMAND__INLINE_CODE_SNIPPETS:
+				return getInlineCodeSnippets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -299,6 +327,10 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 				getExtraModels().clear();
 				getExtraModels().addAll((Collection<? extends EObject>)newValue);
 				return;
+			case GuigenPackage.EXEC_COMMAND__INLINE_CODE_SNIPPETS:
+				getInlineCodeSnippets().clear();
+				getInlineCodeSnippets().addAll((Collection<? extends InlineCodeSnippet>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -326,6 +358,9 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 			case GuigenPackage.EXEC_COMMAND__EXTRA_MODELS:
 				getExtraModels().clear();
 				return;
+			case GuigenPackage.EXEC_COMMAND__INLINE_CODE_SNIPPETS:
+				getInlineCodeSnippets().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -348,6 +383,8 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 				return customTemplate != null;
 			case GuigenPackage.EXEC_COMMAND__EXTRA_MODELS:
 				return extraModels != null && !extraModels.isEmpty();
+			case GuigenPackage.EXEC_COMMAND__INLINE_CODE_SNIPPETS:
+				return inlineCodeSnippets != null && !inlineCodeSnippets.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

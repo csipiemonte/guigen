@@ -3972,13 +3972,22 @@ public interface GuigenPackage extends EPackage {
 	int EXEC_COMMAND__EXTRA_MODELS = COMMAND_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Inline Code Snippets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXEC_COMMAND__INLINE_CODE_SNIPPETS = COMMAND_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Exec Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 5;
+	int EXEC_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Command</b></em>' containment reference.
@@ -12068,6 +12077,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getExecCommand_ExtraModels();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ExecCommand#getInlineCodeSnippets <em>Inline Code Snippets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Inline Code Snippets</em>'.
+	 * @see it.csi.mddtools.guigen.ExecCommand#getInlineCodeSnippets()
+	 * @see #getExecCommand()
+	 * @generated
+	 */
+	EReference getExecCommand_InlineCodeSnippets();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EventHandler <em>Event Handler</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17762,6 +17782,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXEC_COMMAND__EXTRA_MODELS = eINSTANCE.getExecCommand_ExtraModels();
+
+		/**
+		 * The meta object literal for the '<em><b>Inline Code Snippets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXEC_COMMAND__INLINE_CODE_SNIPPETS = eINSTANCE.getExecCommand_InlineCodeSnippets();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.

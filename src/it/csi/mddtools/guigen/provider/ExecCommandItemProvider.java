@@ -186,6 +186,7 @@ public class ExecCommandItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.EXEC_COMMAND__RESULTS);
+			childrenFeatures.add(GuigenPackage.Literals.EXEC_COMMAND__INLINE_CODE_SNIPPETS);
 		}
 		return childrenFeatures;
 	}
@@ -273,6 +274,11 @@ public class ExecCommandItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.EXEC_COMMAND__RESULTS,
 				 GuigenFactory.eINSTANCE.createCommandOutcome()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.EXEC_COMMAND__INLINE_CODE_SNIPPETS,
+				 GuigenFactory.eINSTANCE.createInlineCodeSnippet()));
 	}
 
 }
