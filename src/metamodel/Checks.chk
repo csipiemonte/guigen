@@ -969,4 +969,11 @@ context InlineCodeSnippet if (this!=null && !this.snippetPosition.isNullOrEmpty(
 	
 context InlineCodeSnippet if (this!=null && !this.snippetName.isNullOrEmpty() && this.eContainer.metaType == PEPImplementation) ERROR "Il valore snippetName "+this.snippetName+" non e' valido. Lista valori ammessi per PEP "+ getListNameSnippetPEP()+loc() :
 	!getListNameSnippetPEP().select(e|e == this.snippetName).isEmpty;
+
+
+context InlineCodeSnippet if (this!=null && !this.snippetName.isNullOrEmpty() && this.eContainer.metaType == ExecCommand) ERROR "Il valore snippetName "+this.snippetName+" non e' valido. Lista valori ammessi per ExecCommand "+ getListNameSnippetExecCmd()+loc() :
+	!getListNameSnippetExecCmd().select(e|e == this.snippetName).isEmpty;
+
+context InlineCodeSnippet if (this!=null && !this.snippetPosition.isNullOrEmpty()&& this.eContainer.metaType == ExecCommand) ERROR "Il valore snippetPosition "+this.snippetPosition+" non e' valido. Lista valori ammessi per ExecCommnad "+ getListPositionSnippetExecCmd()+loc():
+	!getListPositionSnippetExecCmd().select(e|e == this.snippetPosition).isEmpty;
 	

@@ -513,6 +513,16 @@ public class «getSpringCPBEClassName()»{
 «REM»implementazione di default«ENDREM»
 «DEFINE springBEMethodCore_CRT_default(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
 			ExecResults result = new ExecResults();
+	«LET this.inlineCodeSnippets.select(ics|ics.lang=="JAVA" && ics.snippetName=="body" && ics.snippetPosition=="executedMethod").first().snippetCode AS bodySnippet-»
+		«IF !isNullOrEmpty(bodySnippet)-»
+			/////////////////////////////
+			//// InlineCodeSnippet[START]
+			/////////////////////////////
+			«bodySnippet»
+			/////////////////////////////
+			//// InlineCodeSnippet[END]
+			/////////////////////////////
+		«ELSE-»
 			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(contextID+"springBE_"+getFullExecCmdMethodName(this.methodName, contextPrefix)+"_code")»
 			// inserire qui la logica applicativa da eseguire:
 			
@@ -525,6 +535,8 @@ public class «getSpringCPBEClassName()»{
 			result.setModel(theModel);
 			return result;
 			«ENDPROTECT»
+		«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE springBEMethodCore_CRT_PLATF1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
