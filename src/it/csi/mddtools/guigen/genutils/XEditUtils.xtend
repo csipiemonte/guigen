@@ -83,6 +83,7 @@ class XEditUtils {
 //			(actTD != null? formatType(actTD) : "???");
 //}
 	///
+	def dummy2(){}
 
 	def String formatPDefParamVal(TableCustomizationPDefVal pdv){
 		val param = pdv.param as TableCustomizationParam
