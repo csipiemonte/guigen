@@ -82,6 +82,18 @@ nella directory src/web/
 	«ENDFILE-»
 «ENDDEFINE»
 
+«REM»
+Crea i file JS di arricchimento delle pagine web basate su liferay
+[DM] STDMDD-621: i files JS degli arricchimenti verranno creati SEMPRE in LOCALE all'applicativo 
+nella directory src/web/
+«ENDREM»
+«DEFINE enrichmentDefsPortal(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+	«FILE getLocalJsDir(model, true) + "/" + getEnrichmentFileWebRootRelative(this, model)»
+		«EXPAND template::struts2::view::enrichmentsPortal::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+	«ENDFILE-»
+«ENDDEFINE»
+
+
 
 «REM»
 ==========================================================================================================================
