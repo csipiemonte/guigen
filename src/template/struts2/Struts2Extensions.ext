@@ -73,6 +73,12 @@ String getInterceptorsJavaSrcDir(GUIModel model, boolean omit_root) :
 String getInterceptorsJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".interceptor";
 
+String getServletsJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/servlet";
+	
+String getServletsJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".servlet";	
+
 String getUIUtilsJavaSrcDir(GUIModel model, boolean omit_root) :
 	getPresentationRootJavaSrcDir(model, omit_root) + "/uiutils";
 
@@ -464,8 +470,13 @@ String getStrutsActionCompleteConfigName(ContentPanel panel, GUIModel model) :
 	"/" + model.codComponente + getContentPanelNamespace(panel, false) + "/" + getStrutsActionConfigName(panel);
 
 String getStrutsActionNotNameSpaceConfigName(ContentPanel panel, GUIModel model) :
-	"/" + model.codComponente + "/" + getStrutsActionConfigName(panel);	
+	"/" + model.codComponente + "/" + getStrutsActionConfigName(panel);
+	
+String getPortalStrutsActionCompleteConfigName(ContentPanel panel, GUIModel model) :
+	getContentPanelNamespace(panel, false) + "/" + model.codComponente + "/" + getStrutsActionConfigName(panel);	
 
+String getPortalActionCompleteConfigName(ContentPanel panel) :
+	getContentPanelNamespace(panel, false) + "/" + getStrutsActionConfigName(panel);
 
 String getStrutsActionCompleteURL(ContentPanel panel, GUIModel model) :
 	getStrutsActionCompleteConfigName(panel, model) + getStrutsActionCompleteExtension();
