@@ -117,6 +117,16 @@ ENRICHMENTS
 «ENDIF»
 «ENDDEFINE»
 
+«REM»crea i file JS di arricchimento delle pagine web basate su liferay«ENDREM»
+«DEFINE enrichmentDefsPortal(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+«IF !isRemote()»
+	«FILE getEnrichmentFile(this, model, skip_component_dir_creation)-»
+		«EXPAND template::struts2::view::enrichmentsPortal::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+	«ENDFILE-»
+«ENDIF»
+«ENDDEFINE»
+
+
 
 «REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
 «DEFINE staticResourcesXML FOR GUIModel-»
