@@ -201,6 +201,21 @@ public interface ExecCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>Sono disponibili le seguenti chiavi:</p>
+	 * <table border="1"><tbody>
+	 * <tr>
+	 * <th><b>Name</b></th>
+	 * <th><b>Position</b></th>
+	 * <th><b>Descrizione</b></th>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>executedMethod</td>
+	 * <td>si sostituisce alla regione protetta del body del metodo associato al comando</td>
+	 * </tr>
+	 * </tbody></table>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inline Code Snippets</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_InlineCodeSnippets()
 	 * @model containment="true"

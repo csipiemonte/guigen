@@ -36,6 +36,7 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getStaticUrl <em>Static Url</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getRuntimeUrlProvider <em>Runtime Url Provider</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getLocationCode <em>Location Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#isBinaryStream <em>Binary Stream</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,5 +131,36 @@ public interface JumpExtCommand extends Command {
 	 * @generated
 	 */
 	void setLocationCode(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Binary Stream</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>
+	 * Se impostato a <i>true</i> indica che l'url referenziato produce uno stream
+	 * binario.
+	 * Utilizzato solo da alcune cartucce. 
+	 * Default=<i>false</i>.
+	 * </p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Binary Stream</em>' attribute.
+	 * @see #setBinaryStream(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getJumpExtCommand_BinaryStream()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isBinaryStream();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.JumpExtCommand#isBinaryStream <em>Binary Stream</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Binary Stream</em>' attribute.
+	 * @see #isBinaryStream()
+	 * @generated
+	 */
+	void setBinaryStream(boolean value);
 
 } // JumpExtCommand

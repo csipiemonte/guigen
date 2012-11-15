@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getStaticUrl <em>Static Url</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getRuntimeUrlProvider <em>Runtime Url Provider</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getLocationCode <em>Location Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#isBinaryStream <em>Binary Stream</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,6 +97,26 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 	 * @ordered
 	 */
 	protected String locationCode = LOCATION_CODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isBinaryStream() <em>Binary Stream</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBinaryStream()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean BINARY_STREAM_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isBinaryStream() <em>Binary Stream</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBinaryStream()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean binaryStream = BINARY_STREAM_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -201,6 +222,27 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isBinaryStream() {
+		return binaryStream;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBinaryStream(boolean newBinaryStream) {
+		boolean oldBinaryStream = binaryStream;
+		binaryStream = newBinaryStream;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.JUMP_EXT_COMMAND__BINARY_STREAM, oldBinaryStream, binaryStream));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -211,6 +253,8 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 				return basicGetRuntimeUrlProvider();
 			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
 				return getLocationCode();
+			case GuigenPackage.JUMP_EXT_COMMAND__BINARY_STREAM:
+				return isBinaryStream();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -231,6 +275,9 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 				return;
 			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
 				setLocationCode((String)newValue);
+				return;
+			case GuigenPackage.JUMP_EXT_COMMAND__BINARY_STREAM:
+				setBinaryStream((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -253,6 +300,9 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
 				setLocationCode(LOCATION_CODE_EDEFAULT);
 				return;
+			case GuigenPackage.JUMP_EXT_COMMAND__BINARY_STREAM:
+				setBinaryStream(BINARY_STREAM_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -271,6 +321,8 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 				return runtimeUrlProvider != null;
 			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
 				return LOCATION_CODE_EDEFAULT == null ? locationCode != null : !LOCATION_CODE_EDEFAULT.equals(locationCode);
+			case GuigenPackage.JUMP_EXT_COMMAND__BINARY_STREAM:
+				return binaryStream != BINARY_STREAM_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -289,6 +341,8 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 		result.append(staticUrl);
 		result.append(", locationCode: ");
 		result.append(locationCode);
+		result.append(", binaryStream: ");
+		result.append(binaryStream);
 		result.append(')');
 		return result.toString();
 	}

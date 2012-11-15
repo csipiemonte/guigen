@@ -6302,13 +6302,22 @@ public interface GuigenPackage extends EPackage {
 	int JUMP_EXT_COMMAND__LOCATION_CODE = COMMAND_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Binary Stream</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JUMP_EXT_COMMAND__BINARY_STREAM = COMMAND_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Jump Ext Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JUMP_EXT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
+	int JUMP_EXT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl <em>Target Platform</em>}' class.
@@ -13612,6 +13621,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getJumpExtCommand_LocationCode();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.JumpExtCommand#isBinaryStream <em>Binary Stream</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Binary Stream</em>'.
+	 * @see it.csi.mddtools.guigen.JumpExtCommand#isBinaryStream()
+	 * @see #getJumpExtCommand()
+	 * @generated
+	 */
+	EAttribute getJumpExtCommand_BinaryStream();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TargetPlatform <em>Target Platform</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -19032,6 +19052,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute JUMP_EXT_COMMAND__LOCATION_CODE = eINSTANCE.getJumpExtCommand_LocationCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Binary Stream</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JUMP_EXT_COMMAND__BINARY_STREAM = eINSTANCE.getJumpExtCommand_BinaryStream();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl <em>Target Platform</em>}' class.

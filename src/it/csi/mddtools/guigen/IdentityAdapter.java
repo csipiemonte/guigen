@@ -123,6 +123,41 @@ public interface IdentityAdapter extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>Sono disponibili le seguenti chiavi:</p>
+	 * <table border="1"><tbody>
+	 * <tr>
+	 * <th><b>Name</b></th>
+	 * <th><b>Position</b></th>
+	 * <th><b>Descrizione</b></th>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>createCurrentUser</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>normalizeEncodedUserInfo</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>prepareTicketValidationCall</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>extractEncodedUserInfo</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>extractEncodedUserInfo</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * </tbody></table>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inline Code Snippets</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getIdentityAdapter_InlineCodeSnippets()
 	 * @model containment="true"

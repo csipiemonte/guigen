@@ -4364,6 +4364,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getJumpExtCommand_BinaryStream() {
+		return (EAttribute)jumpExtCommandEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTargetPlatform() {
 		return targetPlatformEClass;
 	}
@@ -7157,6 +7166,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(jumpExtCommandEClass, JUMP_EXT_COMMAND__STATIC_URL);
 		createEReference(jumpExtCommandEClass, JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER);
 		createEAttribute(jumpExtCommandEClass, JUMP_EXT_COMMAND__LOCATION_CODE);
+		createEAttribute(jumpExtCommandEClass, JUMP_EXT_COMMAND__BINARY_STREAM);
 
 		targetPlatformEClass = createEClass(TARGET_PLATFORM);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__CODE);
@@ -8025,6 +8035,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getJumpExtCommand_StaticUrl(), ecorePackage.getEString(), "staticUrl", null, 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getJumpExtCommand_RuntimeUrlProvider(), this.getApplicationData(), null, "runtimeUrlProvider", null, 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJumpExtCommand_LocationCode(), ecorePackage.getEString(), "locationCode", null, 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJumpExtCommand_BinaryStream(), ecorePackage.getEBoolean(), "binaryStream", "false", 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(targetPlatformEClass, TargetPlatform.class, "TargetPlatform", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTargetPlatform_Code(), this.getTargetPlatformCodes(), "code", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8777,7 +8788,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "cmd"
-		   });							
+		   });								
 		addAnnotation
 		  (eventHandlerEClass, 
 		   source, 
@@ -9047,7 +9058,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "cmd"
-		   });													
+		   });														
 		addAnnotation
 		  (userInfoPanelEClass, 
 		   source, 
@@ -9209,7 +9220,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "ui.widgets.mapview"
-		   });												
+		   });														
 	}
 
 	/**
@@ -9237,7 +9248,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>TabSetPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate\r\na <i>tab</i>. Prevede due sezioni visibili:\r\n<ol>\r\n<li>la lista di &quot; linguette &quot; che servono per attivare i vari <i>tab</i> \r\n(con evidenza visiva del tab correntemente selezionato)</li>\r\n<li>la sezione in cui viene visualizzato il contenuto del <i>tab</i> correntemente selezionato.</li>\r\n</ol>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n</p>"
-		   });																																																																																																																																																																																													
+		   });																																																																																																																																																																																														
 		addAnnotation
 		  (dialogPanelEClass, 
 		   source, 
@@ -9261,7 +9272,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nLo <b>stdMessagePanel</b> &egrave; un pannello di tipo informativo utilizzato per mostrare \r\nall\'utente eventuali messaggi di errore o informativi.\r\nSe, durante l\'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi\r\ninformativi il pannello mostra tali messaggi.\r\nSe invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza\r\ngrafica.\r\nLe tipologie di messaggio visualizzabili sono:\r\n<ul>\r\n<li>messaggi informativi</li>\r\n<li>messaggi di errore globali</li>\r\n<li>messaggi di errore relativi a campi specifici</li>\r\n</ul>\r\n<br/>\r\n</p>"
-		   });																		
+		   });																			
 		addAnnotation
 		  (userInfoPanelEClass, 
 		   source, 
@@ -9285,7 +9296,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>widgetsPanel</b> &egrave; il pannello principale utilizzabile per la realizzazione di\r\n<i>form</i> di immissione/visualizzazione dati. Al suo interno &egrave; possibile inserire, secondo\r\ni vari layout disponibili, praticamente tutti i <b>Widget</b>. L\'effetto grafico &egrave; quello di un\r\ninsieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun\r\nwidget &egrave; dotato di label. Il pannello stesso pu&ograve;, opzionalmente, essere dotato di\r\n&quot;titolo&quot; che viene visualzzato in testa al pannello.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione\r\ndel <b>MenuView</b> che deve invece essere obbligatoriamente inserito in un <b>MenuPanel</b>.\r\n</p>"
-		   });																																																																																																																																																						
+		   });																																																																																																																																																								
 	}
 
 	/**
@@ -9355,7 +9366,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   new String[] {
 			 "description", "E\' il classico pulsante di reset utilizzabile per ripulire la forma utente, riportandola allo stato \r\niniziale.\r\nIl <b>ResetButton</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n<li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario\r\nrealizzare una \"pulsantiera\" costituita da soli <b>Button</b></li>\r\n</ul>\r\nPrevede una sola modalit&agrave; di funzionamento: <i>standard</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del ResetButton prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la possibilit&agrave; di associare al pulsante uno <i>specificatore di funzione</i>,\r\nche pu&ograve; essere utilizzato per connotare la funzione che eseguir&agrave;\r\ntale pulsante, con l\'effetto, ad esempio di permettere l\'associazione di uno\r\nstile specifico o di un\'icona rappresentativa della funzone stessa.\r\nL\'elenco delle funzioni specificabili &egrave il seguente:\r\n\t<ul>\r\n\t<li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella</li>\r\n\t<li>BACK: ritorno ad una schermata precedente</li>\r\n\t<li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella</li>\r\n\t<li>DETAIL: visualizzazione del dettaglio di una entit&agrave;</li>\r\n\t<li>EDIT_ITEM: inizio delle attivit&agrave; di modifica di un\'entit&agrave;</li>\r\n\t<li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati</li>\r\n\t<li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati</li>\r\n\t<li>LAST_ITEM: posizionamento sull\'ultimo elemento di un elenco di dati</li>\r\n\t<li>LOAD: caricamento di un record</li>\r\n\t<li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati</li>\r\n\t<li>PREVIOUS_ITEM: posizionamento sull\'elemento precedente a quello corrente\r\n\t\t all\'interno di un elenco di dati</li>\r\n\t<li>SAVE: salvataggio dei dati immessi</li>\r\n\t<li>SEARCH: effettuazione della ricerca</li>\r\n\t<li>SEND_MESSAGE: invio di un messaggio (es. email)</li>\r\n\t<li>SHOW_HELP: visualizzazione di una pagina di aiuto</li>\r\n\t<li>SHOW_REPORT: visualizzazione di un report</li>\r\n\t<li>UNSPECIFIED: funzione generica</li>\r\n\t</ul>\r\n</li>\r\n</ul>\r\n",
 			 "event-clicked", "<p>Il pulsante pu&ograve; ricevere un evento di pressione da parte \r\ndell\'utente che scatena il reset della schermata.\r\nQuesto evento &egrave; implicito (non occorre definire un <b>EventHandler</b>\r\nper attivarlo). A fronte di questo evento <b>non</b> &egrave; perci&ograve; \r\npossibile eseguire logica di business. \r\n</p>"
-		   });																																																																																																																																																																																																
+		   });																																																																																																																																																																																																	
 		addAnnotation
 		  (treeViewEClass, 
 		   source, 
@@ -9375,14 +9386,14 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   new String[] {
 			 "description", "Questo widget &egrave; un segnaposto utilizzabile per la visualizzazione della struttura\r\ndel menu. \r\nIl <b>MenuView</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>MenuPanel, con layout Verticale</li>\r\n</ul>\r\nPrevede una sola modalit&agrave; di funzionamento: <i>standard</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TreeView prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\nPer ciascuna voce di menu, inoltre &egrave; possibile replicare gli stessi comportamenti di \r\nvisibilit&agrave;/abilitazione.\r\n",
 			 "event-clicked", "<p>Il <b>MenuView</b> pu&ograve; ricevere un evento di selezione della voce\r\ndi menu corrispondente, alla quale &egrave, possibile associare una logica\r\ndi business da eseguire.\r\n</p>"
-		   });																																																																																																																																												
+		   });																																																																																																																																													
 		addAnnotation
 		  (fileUploadEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico widget utilizzabile per la selezione di un <i>file</i> che dovr&agrave; essere inviato\r\nal server (funzione di <i>file upload</i>).\r\nIl <b>FileUpload</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del FileUpload prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di selezionare da file system un file mediante <i>browsing</i> sulle cartelle\r\nlocali alla postazione client</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>",
 			 "event-clicked", "<p>Il widget <b>FileUpload</b> contiene un pulsante che pu&ograve; ricevere un evento di pressione \r\nda parte dell\'utente a fronte del quale viene visualizzato il <i>dialog</i> di selezione del file da sottomettere al\r\nserver. \r\nQuesto evento &egrave; implicito (non occorre definire un <b>EventHandler</b> per attivarlo). \r\nA fronte di questo evento <b>non</b> &egrave; per&ograve; possibile eseguire logica di business. \r\n</p>"
-		   });																																																																																																																														
+		   });																																																																																																																																
 	}
 
 	/**
@@ -9410,13 +9421,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nL\' <b>UDLRCPanelLayout</b> (layout a cinque quadranti Up, Down, Left,\r\nRight, Center)  prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati in uno dei quadranti. realizzando in questo modo\r\nstutture di posizionamento relativo molto flessibili.\r\nTipicamente questo layout &egrave; utilizzato nella disposizione di sotto-pannelli.\r\nIl layout pu&ograve; anche essere utilizzato per la disposizione di pulsanti all\'interno\r\ndi un <b>CommandPanel</b>.\r\n</p>"
-		   });																																																																																																																																																																																													
+		   });																																																																																																																																																																																														
 		addAnnotation
 		  (gridPanelLayoutEClass, 
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>GridPanelLayout</b> (layout a grigia) &egrave; applicabile esclusivamente\r\nal pannello <b>WidgetsPanel</b> e prevede che gli elementi contenuti nel pannello\r\nche possiede questo layout (widget) siano visualizzati in una struttura a griglia.\r\nE\' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella\r\ndella griglia pu&ograve; contenere al massimo un solo <b>Widget</b>.\r\nIn aggiunta un widget pu&ograve; estendersi orizzontalmente per pi&ugrave; di una cella\r\n(<i>hspan</i>),\r\nDi fatto, se il numero di colonne previste dal layout  &egrave; <i>n</i>, \r\noccorre tenere in considerazione una struttura costituita da <i>n</i> colonne logiche\r\ne <i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, \r\nil tutto moltiplicato per il numero colonne logiche).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget di ciascuna delle colonne logiche. \r\nLe percentuali sono relative allo spazio a disposizione dell\'interno pannello.\r\nNel clacolo occorre inoltre tenere in considerazione anche casi &quot; degeneri &quot; quali:\r\n<ul>\r\n<li>label non valorizzate</li>\r\n<li>span orizzontali maggiori di 1</li>\r\n</ul>\r\n</p>"
-		   });																																																																																																																																																																																																																																																																						
+		   });																																																																																																																																																																																																																																																																									
 	}
 
 } //GuigenPackageImpl

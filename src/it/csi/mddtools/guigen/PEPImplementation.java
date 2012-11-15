@@ -80,6 +80,91 @@ public interface PEPImplementation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>Sono disponibili le seguenti chiavi:</p>
+	 * <table border="1"><tbody>
+	 * <tr>
+	 * <th><b>Name</b></th>
+	 * <th><b>Position</b></th>
+	 * <th><b>Descrizione</b></th>
+	 * </tr>
+	 * <tr>
+	 * <td>import</td>
+	 * <td>methodPrivate</td>
+	 * <td>definizione import custom</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>findActorsForPersonaInApplication</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>findActorsForPersonaInUseCase</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>findRuoliForPersonaInApplication</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>findRuoliForPersonaInUseCase</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>findUseCasesForPersonaInApplication</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>getInfoPersonaInUseCase</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>getInfoPersonaSchema</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>identificaCertificato</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>identificaUserPassword</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>identificaUserPasswordPIN</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>isIdentitaAutentica</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>isPersonaAutorizzataInUseCase</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>isPersonaInRuolo</td>
+	 * <td>regione protetta metodo omonimo</td>
+	 * </tr>
+	 * <tr>
+	 * <td>body</td>
+	 * <td>methodPrivate</td>
+	 * <td>introduzione eventuali metodi custom private aggiuntivi</td>
+	 * </tr>
+	 * </tbody></table>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inline Code Snippets</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPEPImplementation_InlineCodeSnippets()
 	 * @model containment="true"

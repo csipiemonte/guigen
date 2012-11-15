@@ -75,6 +75,7 @@ public class JumpExtCommandItemProvider
 			addStaticUrlPropertyDescriptor(object);
 			addRuntimeUrlProviderPropertyDescriptor(object);
 			addLocationCodePropertyDescriptor(object);
+			addBinaryStreamPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -146,6 +147,28 @@ public class JumpExtCommandItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Binary Stream feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBinaryStreamPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_JumpExtCommand_binaryStream_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_JumpExtCommand_binaryStream_feature", "_UI_JumpExtCommand_type"),
+				 GuigenPackage.Literals.JUMP_EXT_COMMAND__BINARY_STREAM,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns JumpExtCommand.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -186,6 +209,7 @@ public class JumpExtCommandItemProvider
 		switch (notification.getFeatureID(JumpExtCommand.class)) {
 			case GuigenPackage.JUMP_EXT_COMMAND__STATIC_URL:
 			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
+			case GuigenPackage.JUMP_EXT_COMMAND__BINARY_STREAM:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
