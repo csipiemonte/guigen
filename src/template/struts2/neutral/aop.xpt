@@ -32,14 +32,14 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 «ENDREM»
 
 «REM»Genera un FormPanel con Layout UDLRC.«ENDREM»
-«AROUND template::struts2::view::resourcefiles::setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
-	«EXPAND template::struts2::neutral::resourcefilesNeutral::setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix, pduConf) FOR this»
+«AROUND template::struts2::view::resourcefiles::setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR FormPanel»
+	«EXPAND template::struts2::neutral::resourcefilesNeutral::setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix, pduConf, isPortlet) FOR this»
 «ENDAROUND»
 
 
 «REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
-«AROUND template::struts2::view::resourcefiles::createWidgets(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel»
-	«EXPAND template::struts2::neutral::resourcefilesNeutral::createWidgets(model, cp, contextPrefix, pduConf) FOR this»
+«AROUND template::struts2::view::resourcefiles::createWidgets(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR CommandPanel»
+	«EXPAND template::struts2::neutral::resourcefilesNeutral::createWidgets(model, cp, contextPrefix, pduConf, isPortlet) FOR this»
 «ENDAROUND»
 
 
@@ -143,8 +143,8 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
-«AROUND template::struts2::view::remoteResources::setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
+«AROUND template::struts2::view::remoteResources::setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf,boolean isPortlet) FOR FormPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp, contextPrefix, pduConf, isPortlet) FOR this»
 «ENDAROUND»
 
 
