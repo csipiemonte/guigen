@@ -3786,6 +3786,18 @@ public class GenUtils {
 	public static boolean isNullOrEmpty(String s) {
 		return (s == null || s.trim().length() == 0);
 	}
+	
+	public static String upperInitial(String s) {
+		StringBuffer sUpper = new StringBuffer("");
+		if(s!=null)
+		{
+			sUpper.append(s.substring(0,1).toUpperCase());
+			sUpper.append(s.substring(1));
+		}
+		
+		return sUpper.toString();
+			
+	}
 
 
 
