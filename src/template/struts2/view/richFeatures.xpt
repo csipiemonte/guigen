@@ -30,11 +30,15 @@ e le limitazioni secondo i termini della Licenza.
 	«ERROR "widget "+this+" non ajaxificabile"»
 «ENDDEFINE»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR Button-»
+«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix, boolean isPortlet) FOR Button-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
 	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
-		widgetType="button" 
+		widgetType="button"
+		«IF isPortlet»
+		requestUri="«getPortalStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(clickHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
+		«ELSE» 
 		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(clickHandler, contextPrefix)»«getStrutsActionCompleteExtension()»" 
+		«ENDIF»
 		pageId="«parentCP.name»" 
 		formName="«parentCP.name»"
 		javascriptDetection="false">
