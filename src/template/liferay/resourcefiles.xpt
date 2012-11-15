@@ -148,11 +148,11 @@ function onRBClick(url) {
 «IF model.targetPlatform.enableRichUIBehavior-»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF-»
 «IF hasTable(this) -»
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 <fmt:setBundle basename="«getStrutsActionPath(this, model)»" />
-<portlet:defineObjects />
 «ENDIF-»
 
+<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
+<portlet:defineObjects />
 «REM»Genera la HEADER«ENDREM»
 «EXPAND template::struts2::view::resourcefiles::setupHeader(model, skip_component_dir_creation) FOR this-»
 
