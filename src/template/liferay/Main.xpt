@@ -32,8 +32,8 @@ e le limitazioni secondo i termini della Licenza.
 		«IF !checkValidMode(staticResourcesSchemaVersion)»
 			«ERROR "ERRORE: modalità staticResourcesSchemaVersion " + staticResourcesSchemaVersion + " non valida: impossibile proseguire nella generazione "»
 		«ELSE»
-			«EXPAND template::struts2::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
-			«EXPAND template::struts2::configfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
+			«EXPAND template::struts2::buildfiles::buildPortalFiles(skip_component_dir_creation) FOR this»
+			«EXPAND template::struts2::portalconfigfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
 			«EXPAND template::liferay::configfiles::configfilesLiferay(skip_component_dir_creation, useExternalDaoBeans) FOR this»
 			«EXPAND template::struts2::view::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»
 			«EXPAND template::struts2::i18n::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this»
@@ -58,11 +58,11 @@ e le limitazioni secondo i termini della Licenza.
 
 «REM»Genera le componenti di una Action Struts2 (classe Java, file JSP, definizione XML, resource bundle)«ENDREM»
 «DEFINE contentPanelFiles(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-	«EXPAND template::struts2::controller::contentPanelAction::actionJavaFile(model, skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::view::resourcefiles::actionJspFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::controller::contentPortalPanelAction::actionJavaFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::view::resourcefiles::actionJspFile(model, skip_component_dir_creation,true) FOR this»
 	«EXPAND template::struts2::i18n::i18nfiles::actionPropertiesFile(model, skip_component_dir_creation) FOR this»
 	«IF model.targetPlatform.enableRichUIBehavior-»
-		«EXPAND template::struts2::view::enrichments::enrichmentDefs(model, skip_component_dir_creation) FOR this»
+		«EXPAND template::struts2::view::enrichmentsPortal::enrichmentDefs(model, skip_component_dir_creation) FOR this»
 	«ENDIF-»
 «ENDDEFINE»
 
