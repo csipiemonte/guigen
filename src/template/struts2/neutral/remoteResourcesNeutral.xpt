@@ -471,11 +471,11 @@ Gestione dei PANNELLI
 
 
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
-«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
+«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR FormPanel»
 	«IF this.layout.metaType == VerticalFlowPanelLayout-»
-		«EXPAND setupVFL(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
+		«EXPAND setupVFL(model, skip_component_dir_creation, cp, contextPrefix, pduConf, isPortlet) FOR this»
 	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
-		«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
+		«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp, contextPrefix, pduConf, isPortlet) FOR this»
 	«ELSE-»
 		«ERROR "Layout " + this.layout.metaType + " non gestito al primo livello per portale " + getPortalName()»
 	«ENDIF-»
@@ -483,7 +483,7 @@ Gestione dei PANNELLI
 
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
-«DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
+«DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 <div id="contentPanel">
 	<div id="centerWrapper" class="floatWrapper">
@@ -499,7 +499,7 @@ Gestione dei PANNELLI
 
 				«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
 				«FOREACH this.subpanels AS subpanel»
-					«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::CENTER, contextPrefix, pduConf) FOR subpanel»
+					«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::CENTER, contextPrefix, pduConf, isPortlet) FOR subpanel»
 				«ENDFOREACH»
 
 			</div>
@@ -511,7 +511,7 @@ Gestione dei PANNELLI
 
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
-«DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
+«DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 <div id="contentPanel">
 
@@ -520,7 +520,7 @@ Gestione dei PANNELLI
 	<!-- ================ UDLRC Layout UP PANEL ================ -->
 	<div id="northPanel">
 		<div class="wrapper">
-		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP, contextPrefix, pduConf) FOR upPanel»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP, contextPrefix, pduConf, isPortlet) FOR upPanel»
 		</div>
 	</div>
 	<!-- ================ FINE UDLRC Layout UP PANEL ================ -->
@@ -536,7 +536,7 @@ Gestione dei PANNELLI
 		<!-- ***** UDLRC Layout LEFT PANEL ***** -->
 		<div id="westPanel">
 			<div class="wrapper">
-			«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT, contextPrefix, pduConf) FOR leftPanel»
+			«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT, contextPrefix, pduConf, isPortlet) FOR leftPanel»
 			</div>
 		</div>
 		<!-- ***** FINE UDLRC Layout LEFT PANEL ***** -->
@@ -554,7 +554,7 @@ Gestione dei PANNELLI
 				«ENDIF-»
 
 				«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-					«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix, pduConf) FOR centerPanel»
+					«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix, pduConf, isPortlet) FOR centerPanel»
 				«ENDLET-»
 			</div>
 		</div>
@@ -565,7 +565,7 @@ Gestione dei PANNELLI
 		<!-- ***** UDLRC Layout RIGHT PANEL ***** -->
 		<div id="eastPanel">
 			<div class="wrapper">
-			«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT, contextPrefix, pduConf) FOR rightPanel»
+			«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT, contextPrefix, pduConf, isPortlet) FOR rightPanel»
 			</div>
 		</div>
 		<!-- ***** FINE UDLRC Layout RIGHT PANEL ***** -->
@@ -582,7 +582,7 @@ Gestione dei PANNELLI
 	<!-- ================ UDLRC Layout DOWN PANEL ================ -->
 	<div id="southPanel">
 		<div class="wrapper">
-		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN, contextPrefix, pduConf) FOR downPanel»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN, contextPrefix, pduConf, isPortlet) FOR downPanel»
 		</div>
 	</div>
 	<!-- ================ FINE UDLRC Layout DOWN PANEL ================ -->
@@ -928,6 +928,14 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
+ «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero un campo hidden per la gestione delle suggestion«ENDREM»
+ «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
+	<input type="hidden" id="«getWidgetName(contextPrefix)»UrlId" name="«getWidgetName(contextPrefix)»Url" value="<portlet:renderURL windowState='exclusive'><portlet:param name="struts.portlet.action" value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»' /></portlet:renderURL>" />
+ «IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
+ 	<input type="hidden" id="«getWidgetName(contextPrefix)»VCUrlId" name="«getWidgetName(contextPrefix)»Url" value="<portlet:renderURL windowState='exclusive'><portlet:param name="struts.portlet.action" value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»' /></portlet:renderURL>" />
+ «ENDIF»
+ «ENDLET»
+ «ENDIF»
 <customtag:widgetsPanelColumn «IF this.label != null» «!isNullOrEmpty(this.tooltip)?"tooltip=\""+this.tooltip+"\"":""» labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF»
 	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
