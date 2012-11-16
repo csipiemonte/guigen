@@ -230,6 +230,15 @@ e le limitazioni secondo i termini della Licenza.
 		<url-pattern>/baseServletStream</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>resourceServletStream</servlet-name>
+		<servlet-class>it.csi.testmdd.testskin.presentation.testskin.servlet.ResourceServletStream</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>resourceServletStream</servlet-name>
+		<url-pattern>/resourceServletStream</url-pattern>
+	</servlet-mapping>
+	
 	
 <!-- DEFINIZIONE SERVLET DISPATCHER PER LA GESTIONE DEI DATI DI TIPO STREAM (PDF,EXCEL,JSON,.....) -->
 
@@ -546,6 +555,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		
 			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
 			<result name="successStream">/baseServletStream</result>
+			<result name="successResourceStream">/resourceServletStream</result>
 			«IF targetPlatform.enableRichUIBehavior-»
 			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
 			<result name="provideData" type="stream">
@@ -612,7 +622,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			«ENDLET-»
 			«LET (List[JumpExtCommand])getAllPossibleExtJumps(onInitAction) AS allExtJumps-»
 			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH-»
@@ -671,7 +681,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			«ENDLET-»
 			«LET (List[JumpExtCommand])getAllPossibleExtJumps(tlmenu) AS allExtJumps-»
 			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH-»
@@ -694,7 +704,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			«ENDLET-»
 			«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenu) AS allExtJumps-»
 			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH-»
@@ -854,7 +864,7 @@ cose tipo la "todo list"«ENDREM»
 
 «DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
 	«LET getAdjustedJumpExtCommand(this) AS currExtJump-»
-	<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+	<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 		<param name="location">«currExtJump.staticUrl»</param>
 	</result>
 	«ENDLET-»

@@ -165,3 +165,92 @@ function onRBClick(url) {
 «EXPAND template::struts2::view::resourcefiles::createUserDefinedWidgetJspFiles(model, skip_component_dir_creation) FOR this-»
 «EXPAND template::struts2::view::resourcefiles::createDialogPanelJspFiles(model, skip_component_dir_creation,true) FOR this-»
 «ENDDEFINE»
+
+«REM»Crea la servlet stream dati«ENDREM»
+«DEFINE resourceStreamJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getServletsJavaSrcDir(this, skip_component_dir_creation) + "/ResourceServletStream.java" »package «getServletsJavaPackage(this)»;
+
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+import it.csi.testmdd.testskin.dto.regione.Regione;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+
+import javax.portlet.MimeResponse;
+import javax.portlet.PortletResponse;
+import javax.portlet.RenderResponse;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.portlet.context.PortletActionContext;
+
+import com.liferay.portal.kernel.portlet.PortletResponseUtil;
+import com.liferay.portal.kernel.servlet.HttpHeaders;
+import com.liferay.portlet.PortletResponseImpl;
+import com.liferay.portlet.RenderResponseFactory;
+import com.vividsolutions.jts.geom.Geometry;
+
+/**
+ * <p>Classe per la gestione dello stream dati su liferay portal.</p>
+ *
+ * @author GuiGen
+ */
+public class ResourceServletStream extends HttpServlet {
+
+	
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		
+		String contentTypeStream = (String) request
+				.getAttribute("contentTypeStream");
+		
+		ByteArrayOutputStream bos = (ByteArrayOutputStream) request
+						.getAttribute("bosFileStream");
+		String contentDisposition = (String) request
+						.getAttribute("contentDisposition");
+				
+				
+		RenderResponse renderResponse = PortletActionContext.getRenderResponse();
+		
+		renderResponse.setContentType(contentTypeStream);
+		renderResponse.addProperty(HttpHeaders.CACHE_CONTROL, "max-age=3600, must-revalidate");                
+		renderResponse.setBufferSize(bos.size());
+				
+		OutputStream out =  renderResponse.getPortletOutputStream();
+				
+				
+				
+				bos.writeTo(out);
+				out.flush();
+				out.close();
+			
+		
+
+		System.out.println("doPost" + "END");
+
+	}
+
+	public void destroy() {
+
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»

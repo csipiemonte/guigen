@@ -163,6 +163,7 @@ e le limitazioni secondo i termini della Licenza.
 «ENDREM»
 «DEFINE handlerMethod(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
 
+
 «LET this AS currEventHandler»
 	/**
 	 * Gestione dell'evento «currEventHandler.eventType.toString()» sul widget [«getFullID(currEventWidget, contextPrefix)»]
@@ -177,12 +178,31 @@ e le limitazioni secondo i termini della Licenza.
 	«IF proceedToJSon(currEventHandler, currEventWidget)-»
 		handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
 		return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+		}
 	«ELSE-»
+	«REM»
 		return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
+	«ENDREM»
+	«EXPAND template::common::handleEventInternal(model,currEventWidget,cp,contextPrefix) FOR this-»
 	«ENDIF-»
-	}
+	
+	
+	
+«ENDLET»
+
+
+
+«ENDDEFINE»
+
+«DEFINE handleEventInternal(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
+«LET this AS currEventHandler»
+return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
+
+}
 «ENDLET»
 «ENDDEFINE»
+
+
 
 
 «REM»STRUTTURA «ENDREM»
@@ -411,7 +431,8 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere dell
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
 	/// Jump Ext Command begin
-	JumpExtCommand act_«actionsVarName»_«actionNumber» = new JumpExtCommand("«this.locationCode»");
+	JumpExtCommand act_«actionsVarName»_«actionNumber» = new JumpExtCommand("«this.locationCode»","«this.staticUrl»", "«this.runtimeUrlProvider.name»", «this.binaryStream»);
+	jumpExtCommands.put("«this.locationCode»", act_«actionsVarName»_«actionNumber»);
 	/// Jump Ext Command end
 «ENDDEFINE»
 

@@ -77,6 +77,22 @@ import «getUIUtilsJavaPackage(model)».*;
 import flexjson.JSON;
 «ENDIF-»
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
+import javax.portlet.PortletRequest;
+
+import org.apache.struts2.portlet.context.PortletActionContext;
+import org.apache.commons.lang.StringUtils;
+
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.util.PortalUtil;
+
+import java.lang.reflect.Method;
+
 /**
  * «getStrutsActionClassName(this)» Action Class.
  *
@@ -107,6 +123,17 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 			 model = new «getModelDTOClassName(this,false,false,model)»();	 
 		}
 		model.setSession(session);
+	}
+	
+	
+	private HashMap<String, JumpExtCommand> jumpExtCommands = new HashMap<String, JumpExtCommand>();
+
+	public HashMap<String, JumpExtCommand> getJumpExtCommands() {
+		return jumpExtCommands;
+	}
+
+	public void setJumpExtCommands(HashMap<String, JumpExtCommand> jumpExtCommands) {
+		this.jumpExtCommands = jumpExtCommands;
 	}
 	
 	private static final String CP_NAME= "«this.name»";
@@ -149,6 +176,77 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		
 		setCurrentContentPanel(CP_NAME);
 		return SUCCESS;
+	}
+	
+	
+	private String performJumpExt(String result)
+	{
+		
+		String locationCode = result.substring(9);
+		
+		JumpExtCommand jECommand = (JumpExtCommand)jumpExtCommands.get(locationCode);
+		
+		String staticUrl = jECommand.getStaticUrl();
+		String runTimeUrlProviderAppaData = jECommand.getRuntimeUrlProviderAppaData();
+		boolean binaryStream = jECommand.isBinaryStream();
+		
+		ActionResponse actionResponse = PortletActionContext.getActionResponse();
+		
+		try
+		{
+			
+		if(StringUtils.isNotEmpty(staticUrl))
+		{
+			//Controllo se url applicativo oppure esterno
+			if(StringUtils.contains(staticUrl, "http:") ||
+					StringUtils.contains(staticUrl, "https:"))
+			{
+				//esterno
+				actionResponse.sendRedirect(staticUrl);
+			}
+			else
+			{
+				//interno
+				
+				ActionRequest actionRequest = PortletActionContext.getActionRequest();
+				ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
+					    .getAttribute(WebKeys.THEME_DISPLAY);
+				
+				String portletName=(String) actionRequest.getAttribute(WebKeys.PORTLET_ID);
+				
+				PortletURL portletURL = PortletURLFactoryUtil
+					    .create(PortalUtil.getHttpServletRequest(actionRequest), portletName,
+					      themeDisplay.getLayout().getPlid(),
+					      PortletRequest.RENDER_PHASE);
+				
+			    portletURL.setWindowState(binaryStream ?LiferayWindowState.EXCLUSIVE : LiferayWindowState.NORMAL);				
+				portletURL.setParameter("struts.portlet.action",staticUrl);
+				
+				actionResponse.sendRedirect(portletURL.toString());
+				
+			}
+		}
+		else if(StringUtils.isNotEmpty(runTimeUrlProviderAppaData))
+		{
+		    //Implementazione url dinamico a partire da un appData specifico
+		    Class classModel = getModel().getClass();
+				//no paramater
+				Class noparams[] = {};
+				Object modelInstance = getModel();
+				Method methodAppaData =
+						classModel.getDeclaredMethod("getAppData"+runTimeUrlProviderAppaData, noparams);
+				
+				actionResponse.sendRedirect((String)methodAppaData.invoke(modelInstance, null));
+		}
+		
+		}
+		catch (Exception e) {
+			   log.error(e);
+			   return "input" ;
+			  }
+		  
+		return "input";
+		
 	}
 	
 	«IF hasGisMap(this)»

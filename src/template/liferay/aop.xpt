@@ -64,3 +64,12 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 «AROUND template::struts2::security::security::ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
 	«EXPAND template::liferay::buildfiles::ivyDependenciesForAuthentication(model) FOR this-»
 «ENDAROUND»
+
+«AROUND template::common::handleEventInternal(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
+«EXPAND template::liferay::controller::eventHandlers::handleEventInternal(model,currEventWidget,cp,contextPrefix) FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::resourceStreamJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«EXPAND template::liferay::resourcefiles::resourceStreamJavaFile(skip_component_dir_creation) FOR this-»
+«ENDAROUND»
+

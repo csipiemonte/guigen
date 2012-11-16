@@ -44,3 +44,11 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 «AROUND template::common::getScriptJsFunction(GUIModel model) FOR ContentPanel»
 «EXPAND template::struts2::view::resourcefiles::getScriptJsFunction(model) FOR this-»
 «ENDAROUND»
+
+«AROUND template::common::handleEventInternal(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
+«EXPAND template::struts2::controller::eventHandlers::handleEventInternal(model,currEventWidget,cp,contextPrefix) FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::resourceStreamJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«EXPAND template::struts2::javafiles::resourceStreamJavaFile(skip_component_dir_creation) FOR this-»
+«ENDAROUND»

@@ -651,7 +651,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			«ENDLET-»
 			«LET (List[JumpExtCommand])getAllPossibleExtJumps(onInitAction) AS allExtJumps-»
 			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH-»
@@ -710,7 +710,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			«ENDLET-»
 			«LET (List[JumpExtCommand])getAllPossibleExtJumps(tlmenu) AS allExtJumps-»
 			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH-»
@@ -733,7 +733,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			«ENDLET-»
 			«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenu) AS allExtJumps-»
 			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH-»
@@ -893,7 +893,7 @@ cose tipo la "todo list"«ENDREM»
 
 «DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
 	«LET getAdjustedJumpExtCommand(this) AS currExtJump-»
-	<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+	<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
 		<param name="location">«currExtJump.staticUrl»</param>
 	</result>
 	«ENDLET-»

@@ -206,13 +206,44 @@ public class JumpExtCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 
 	String locationCode;
-	public JumpExtCommand(String locationCode) {
+	String staticUrl;
+	String runtimeUrlProviderAppaData;
+	boolean binaryStream;
+	public JumpExtCommand(String locationCode, String staticUrl, String runtimeUrlProviderAppaData, boolean binaryStream) {
 		this.locationCode = locationCode;
+		this.staticUrl = staticUrl;
+		this.runtimeUrlProviderAppaData = runtimeUrlProviderAppaData;
+		this.binaryStream = binaryStream;
 	}
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		// clear page scoped appdata
 		strutsAction.clearPageScopedAppData(null);
-		return "GO_TO_"+locationCode;
+		return "GO_TO_EX_"+locationCode;
+	}
+	
+	public String getLocationCode() {
+		return locationCode;
+	}
+	public void setLocationCode(String locationCode) {
+		this.locationCode = locationCode;
+	}
+	public String getStaticUrl() {
+		return staticUrl;
+	}
+	public void setStaticUrl(String staticUrl) {
+		this.staticUrl = staticUrl;
+	}
+	public String getRuntimeUrlProviderAppaData() {
+		return runtimeUrlProviderAppaData;
+	}
+	public void setRuntimeUrlProviderAppaData(String runtimeUrlProviderAppaData) {
+		this.runtimeUrlProviderAppaData = runtimeUrlProviderAppaData;
+	}
+	public boolean isBinaryStream() {
+		return binaryStream;
+	}
+	public void setBinaryStream(boolean binaryStream) {
+		this.binaryStream = binaryStream;
 	}
 };
 «ENDFILE»
