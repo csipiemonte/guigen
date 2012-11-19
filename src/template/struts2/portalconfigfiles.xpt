@@ -28,21 +28,21 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND ejbManifestFile(skip_component_dir_creation) FOR this»
 	«EXPAND ejbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 	«EXPAND jarManifestFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::configfiles::webManifestFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::configfiles::webXmlFile(skip_component_dir_creation) FOR this»
+	«EXPAND webManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND webXmlFile(skip_component_dir_creation) FOR this»
 
 	«REM»Generazione dei files di configurazione specifici degli application servers«ENDREM»
-	«EXPAND template::struts2::configfiles::appServerConfigurationFiles(skip_component_dir_creation) FOR this»
+	«EXPAND appServerConfigurationFiles(skip_component_dir_creation) FOR this»
 
 	«REM»Generazione dei files di Struts2«ENDREM»
-	«EXPAND template::struts2::configfiles::strutsConfigFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::configfiles::strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::configfiles::strutsPackagesConfigFiles(skip_component_dir_creation) FOR this»«REM»[DM] STDMDD-1100«ENDREM»
-	«EXPAND template::struts2::configfiles::strutsValidationConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsPackagesConfigFiles(skip_component_dir_creation) FOR this»«REM»[DM] STDMDD-1100«ENDREM»
+	«EXPAND strutsValidationConfigFile(skip_component_dir_creation) FOR this»
 
 	«REM»Generazione dei files di Spring«ENDREM»
-	«EXPAND template::struts2::configfiles::ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::configfiles::webSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::appResources::daoSpringConfigurationFile(skip_component_dir_creation, useExternalDaoBeans) FOR this»
 	«IF hasGisMap()»
 		«EXPAND template::struts2::appResources::gisMapSpringConfigurationFile(skip_component_dir_creation) FOR this»
@@ -182,7 +182,7 @@ e le limitazioni secondo i termini della Licenza.
 
 
 «REM»Genera il file MANIFEST del modulo WEB«ENDREM»
-«DEFINEDEFINE webManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+«DEFINE webManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND manifestFile(getWebModuleManifestFile(this, skip_component_dir_creation)) FOR this»
 «ENDDEFINE»
 
@@ -1007,7 +1007,7 @@ CONFIGURAZIONE SERVIZIO MAPPE
 «ENDREM»
 «REM»Genera il file di configurazione del servizio mappe«ENDREM»
 «DEFINE getMapPdConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getGisMapPdPropertiesFile(this, skip_component_dir_creation)«caller=«this.codComponente»
+«FILE getGisMapPdPropertiesFile(this, skip_component_dir_creation)»caller=«this.codComponente»
 gosgisso.delegate.classname=
 «ENDFILE»
 «FILE getGisMapPdConfigurationFile(this, skip_component_dir_creation)»<porta-delegata name="GosgisGosgissoPD">
