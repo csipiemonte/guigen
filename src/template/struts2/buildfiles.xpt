@@ -29,7 +29,7 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE buildPortalFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
 	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
 	«EXPAND buildPortalPropertiesFiles(skip_component_dir_creation) FOR this»
-	«EXPAND ivyFiles(skip_component_dir_creation) FOR this»
+	«EXPAND ivyPortalFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
@@ -966,6 +966,196 @@ IVY FILES (gestione delle dipendenze)
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
 		«ENDIF»
 		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" transitive="false" />
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
+		<!-- Inserire qui le dipendenze aggiuntive -->
+		«ENDPROTECT»
+		
+		<!-- Gestori dei confilitti Ivy 2.0 (vanno lasciati al fondo DOPO le dipendenze) -->
+		<conflict org="csipiemonte" module="util-struts2-csitemplate" manager="all" />
+
+	</dependencies>
+
+</ivy-module>
+«ENDFILE»
+
+«REM»[DM] STDMDD-101: passaggio alla versione 2.0 di Ivy«ENDREM»
+«FILE getIvyConfFileName(skip_component_dir_creation)»<ivysettings>
+	<settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
+	<resolvers>
+		<url name="myUrlResolver">
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/lib/[artifact].[type]" />
+
+			<ivy pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/ivy-[module].xml" />
+			
+			«IF targetPlatform.enableRichUIBehavior-»
+			<!-- Aggiunta per extjs e reperimento risorse statiche -->
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/lib/[artifact].[type]" />
+
+			<ivy pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/ivy-[module].xml" />
+			«ENDIF-»
+
+			«REM»[DM] STDMDD-670: Reperimento risorse statiche (necessario?)«ENDREM»
+			«EXPAND template::struts2::view::staticResources::ivyIvyConfFileStaticResources FOR this»
+
+		</url>
+	</resolvers>
+</ivysettings>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE ivyPortalFiles(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getIvyFileName(skip_component_dir_creation)»<ivy-module version="1.0">
+	<info organisation="csipiemonte" module="«codProdotto»" />
+	<dependencies>
+		<dependency org="apache" name="commons-beanutils" rev="1.7.0"/>
+		<dependency org="apache" name="commons-collections" rev="3.2"/>
+		<dependency org="apache" name="commons-digester" rev="1.8"/>
+		<dependency org="apache" name="commons-logging" rev="1.1"/>
+		<dependency org="apache" name="log4j" rev="1.2.8"/>
+		<dependency org="apache" name="commons-lang" rev="2.2" />
+		<dependency org="apache" name="poi" rev="3.2" />
+        
+        <!-- Dipendenze per file upload -->
+        <dependency org="apache" name="commons-fileupload" rev="1.2"/>
+        <dependency org="apache" name="commons-io" rev="1.3.1"/>
+
+		<dependency org="others" name="freemarker" rev="2.3.8"/>
+		<dependency org="apache" name="jstl" rev="1.2"/>
+		<dependency org="opensymphony" name="ognl" rev="2.6.10"/>
+
+		<!-- si utilizza la versione "csipiemonte" di struts2-core per poter
+		     utilizzare ognl-2.6.10 -->
+		<dependency org="csipiemonte" name="struts2-core" rev="2.0.11.2"/>
+		<dependency org="apache" name="struts2-spring-plugin" rev="2.0.11.2"/>
+		<dependency org="opensymphony" name="xwork" rev="2.0.5"/>
+
+		<dependency org="sun" name="servlet" rev="2.4"/>
+		<dependency org="sun" name="servlet-jsp" rev="2.0"/>
+
+		<dependency org="others" name="spring" rev="2.0.7">
+			<artifact name="aopalliance-1.0" type="jar" />
+			<artifact name="spring-beans-2.0.7" type="jar" />
+			<artifact name="spring-context-2.0.7" type="jar" />
+			<artifact name="spring-core-2.0.7" type="jar" />
+			<artifact name="spring-web-2.0.7" type="jar" />
+			<artifact name="spring-aop-2.0.7" type="jar" />
+			<artifact name="spring-remoting-2.0.7" type="jar" />
+			<artifact name="spring-support-2.0.7" type="jar" />
+			<artifact name="spring-jdbc-2.0.7" type="jar" />
+			<artifact name="spring-dao-2.0.7" type="jar" />
+		</dependency>
+
+		«REM»DIFFERENZIAZIONE LIBRERIE WEBLOGIC-JBOSS«ENDREM»
+		«EXPAND appServerLibsIvy FOR this»
+
+		<dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
+		<dependency org="csipiemonte" name="util-perf" rev="1.0.1"/>
+		<dependency org="csipiemonte" name="remincl" rev="1.0.2" />
+
+		«EXPAND ivyDependencyDisplaytag FOR this»
+		<dependency org="others" name="itext" rev="1.3" />
+
+		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
+		«EXPAND strutsThemeIvy FOR this»
+
+		«REM»[DM] STDMDD-670: Dipendenze per risorse statiche«ENDREM»
+		«EXPAND template::struts2::view::staticResources::ivyFileStaticResources FOR this»
+		«IF targetPlatform.enableRichUIBehavior-»
+		<dependency org="others" name="flexjson" rev="2.1" />
+		<dependency org="csipiemonte" name="csiui" rev="1.3.0" />
+		«ENDIF»		
+		
+		«IF getActualSecurityModel(this).autenticationMethod!=null-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
+		«ENDIF-»
+
+		«IF getActualSecurityModel(this)!=null-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR getActualSecurityModel(this)-»
+		«ENDIF-»
+
+		«IF hasGisMap(this)»
+		<dependency org="csipiemonte" name="csi" rev="1.4.5">
+			<artifact name="csi-apachesoap-1.4.5" type="jar" />
+      		<artifact name="csi-core-1.4.5" type="jar" />
+      		<artifact name="csi-ejb-1.4.5" type="jar" />
+      		<artifact name="csi-rmi-1.4.5" type="jar" />
+      		<artifact name="csi-stadapter-1.4.5" type="jar" />
+      		<artifact name="csi-ejb-weblogic-1.4.5" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="coop-diag" rev="1.2.1" transitive="false">
+      		<artifact name="coop-diag-1.2.1" type="jar" />
+    	</dependency>
+    	<dependency org="csipiemonte" name="msgadp" rev="1.0.1" transitive="false">
+			<artifact name="msgadp-jaxb-1.0.1" type="jar"/>
+			<artifact name="msgadp-jaxb-tools-1.0.1" type="jar"/>
+		</dependency>
+		<dependency org="sun" name="jaxb" rev="1.0">
+			<artifact name="jaxb-api-1.0" type="jar"/>
+			<artifact name="jaxb-libs-1.0" type="jar"/>
+			<artifact name="jaxb-ri-1.0" type="jar"/>
+			<artifact name="jaxb-xjc-1.0" type="jar"/>
+		</dependency>
+    	
+    	<dependency org="csipiemonte" name="coop-trace" rev="1.1.0" transitive="false">
+      		<artifact name="coop-trace-1.1.0" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="apache" name="commons-lang" rev="2.2" >
+      		<artifact name="commons-lang-2.2" type="jar" />
+    	</dependency>
+    	
+    	<!-- librerie per funzioni GIS -->
+    	<dependency org="csipiemonte" name="grease-jeegfw" rev="2.4.0" transitive="false">
+      		<artifact name="jeegfw-2.4.0" type="jar" />
+    	</dependency>
+    	<dependency org="apache" name="commons-codec" rev="1.2">
+			<artifact name="commons-codec-1.2" type="jar"/>
+		</dependency>
+		<dependency org="others" name="jts" rev="1.9">
+			<artifact name="jts-1.9" type="jar"/>
+		</dependency>
+		
+    	<dependency org="csipiemonte" name="gosgisso" rev="1.2.0" transitive="false">
+      		<artifact name="gosgisso-gosgisgosgisso-client-1.2.0" type="jar" />
+    	</dependency>
+    	<dependency org="csipiemonte" name="splugesf-giscommon" rev="1.2.0">
+      		<artifact name="splugesf-giscommon-1.2.0" type="jar" />
+    	</dependency>
+	
+		<dependency org="csipiemonte" name="splugesf-jtsutil" rev="2.0.0">
+      		<artifact name="splugesf-jtsutil-2.0.0" type="jar" />
+    	</dependency>
+    	
+		<dependency org="csipiemonte" name="grease-jeegri" rev="1.0.1" >
+      		<artifact name="jeegri-1.0.1" type="jar" />
+    	</dependency>
+    	
+		«ELSE»
+		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
+		<dependency org="others" name="jts" rev="1.9">
+			<artifact name="jts-1.9" type="jar"/>
+		</dependency>
+		<dependency org="csipiemonte" name="splugesf-jtsutil" rev="2.0.0">
+      		<artifact name="splugesf-jtsutil-2.0.0" type="jar" />
+    	</dependency>
+		«ENDIF»
+		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" transitive="false" />
+		
+		<dependency org="liferay" name="liferayportal" rev="6.1.10-ee" >
+		<artifact name="portal-service-6.1.10" type="jar" />
+		<artifact name="portlet-6.1.10" type="jar" />	
+    	</dependency>
 
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
 		<!-- Inserire qui le dipendenze aggiuntive -->
