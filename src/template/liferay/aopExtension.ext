@@ -45,3 +45,5 @@ around template::struts2::Struts2Extensions::getFactoryRequestHelper() :
     "org.displaytag.portlet.PortletRequestHelperFactory";
 around template::struts2::Struts2Extensions::excludeParamas():
 	"";
+around template::struts2::Struts2Extensions::pageUrlMaker(ContentPanel cp) : 
+	"<!-- pageUrl:<portlet:renderURL windowState='normal'><portlet:param name='struts.portlet.action' value='/"+appmoduleIdMarkerNoComm(cp)+"/"+cp.name+"' /></portlet:renderURL>:endpageUrl -->";
