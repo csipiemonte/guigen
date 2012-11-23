@@ -1246,6 +1246,14 @@ String appmoduelIdMarker(ContentPanel cp):
 let appmodule = (AppModule)(cp.eContainer.metaType==AppModule ? ((AppModule)cp.eContainer) : null) :
 let baseOrSecure = (appmodule != null ? baseOrSecure(appmodule) : "base") :
 	"<!-- appmoduleId:"+getContentPanelNamespace(cp, true)+" -->";
+	
+String pageUrlMaker(ContentPanel cp):
+	"";
+	
+String appmoduleIdMarkerNoComm(ContentPanel cp):
+let appmodule = (AppModule)(cp.eContainer.metaType==AppModule ? ((AppModule)cp.eContainer) : null) :
+let baseOrSecure = (appmodule != null ? baseOrSecure(appmodule) : "base") :
+	getContentPanelNamespace(cp, true);
 
 String baseOrSecure(AppModule m):
  if m.secure then "secure" else "base";	
