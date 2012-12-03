@@ -520,6 +520,28 @@ String getJavascriptErrorActionURL(boolean omitRoot) :
 	"<%=request.getContextPath()%>" + getBaseNamespace(false) + "/javascriptError" + getStrutsActionCompleteExtension(); 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Screen States per content panel
+String getScreenStatesClassName(ContentPanel cp) :
+	cp.name.toFirstUpper()+"ScreenStates";
+
+String getScreenStateInnerClassName(ScreenState state) :
+//	let states = (ScreenStates)state.eContainer :
+//	let cp = (ContentPanel)states.eContainer :
+	state.name.toFirstUpper()+"ScreenState";
+
+String getScreenStatesPkgAsPkg(ContentPanel panel, GUIModel model) :
+	getPresentationJavaPackage(model) + getAppModuleAsPkg(panel,true, false) + ".states";
+
+String getScreenStatesPkgAsPath(ContentPanel panel, GUIModel model) :
+	getPresentationJavaSrcDir(model, true) + "/" +getAppModuleAsFolder(panel, false, true) + "states/";
+
+String getScreenStatesClassFQN(ContentPanel panel, GUIModel model) :
+	getScreenStatesPkgAsPkg(panel, model) + "."+getScreenStatesClassName(panel);
+	
+String getScreenStatesClassPath(ContentPanel panel, GUIModel model) :
+	getScreenStatesPkgAsPath(panel, model) + getScreenStatesClassName(panel)+".java";	
+	
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Validatori e convertitori Struts2

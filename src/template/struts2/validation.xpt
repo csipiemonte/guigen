@@ -77,7 +77,11 @@ import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
  * @author GuiGen
  */
 public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
-
+	
+	/**
+	 * il metodo che realizza la validazione
+	 * @param object
+	 */
 	@Override
 	public void validate (Object object) throws ValidationException {
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".validate")»
@@ -120,15 +124,24 @@ public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
 	/** Formato atteso della data (obbligatorio) */
 	private String format;
 
-
+	/**
+	 * formato
+	 */
 	public String getFormat() {
 		return format;
 	}
+	
+	/**
+	 * formato
+	 */
 	public void setFormat(String format) {
 		this.format = format;
 	}
 
-
+	/**
+	 * effettua la validazione.
+	 * @param object
+	 */
 	public void validate(Object object) throws ValidationException {
 		// nome del campo
 		String fieldName = getFieldName();
@@ -141,14 +154,21 @@ public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
 		}
 	}
 
+	/**
+	 * logica di validazione delle date sotto forma di stringa
+	 * @param value
+	 */
 	public boolean validateStringDate(String value) throws ValidationException {
 		if (format == null || format.trim().length() == 0 || "gg/mm/aaaa".equals(format)) {
+			// caso: formato non specificato o di default
+			// (gg/mm/aaa)
 			if (value != null && value.trim().length() > 0) {
 				if (!checkValideDate(value))
 					return false;
 			}
 		} else {
 			if (value != null && value.trim().length() > 0) {
+				// e' stato specificato un formato
 				SimpleDateFormat sdf = new SimpleDateFormat(format);
 				try {
 					sdf.parse(value);
@@ -160,6 +180,12 @@ public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
 		return true;
 	}
 
+	/**
+	 * la verifica di validita' di default e' relaizzata tramite una regular expression 
+	 * piuttosto complessa che tiene conto anche della correttezza sostanziale delle date
+	 * (es. anni bisestili, ...).
+	 * @param date
+	 */
 	public boolean checkValideDate(String date) {
 		if (!isNullOrEmpty(date)) {
 			if (date.matches("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$"))
@@ -196,35 +222,64 @@ import com.opensymphony.xwork2.validator.validators.AbstractRangeValidator;
  */
 public class «validatorName.toFirstUpper()» extends AbstractRangeValidator {
 
+	/**
+	 * max
+	 */
 	private Long max = null;
+	
+	/**
+	 * min
+	 */
 	private Long min = null;
 
+	/**
+	 * max
+	 */
 	public void setMax(Long max) {
 		this.max = max;
 	}
 
+	/**
+	 * max
+	 */
 	public Long getMax() {
 		return max;
 	}
 
+	/**
+	 * maxComparatorValue
+	 */
 	@SuppressWarnings("unchecked")
 	public Comparable getMaxComparatorValue() {
 		return max;
 	}
 
+	/**
+	 * min
+	 */
 	public void setMin(Long min) {
 		this.min = min;
 	}
 
+	/**
+	 * min
+	 */
 	public Long getMin() {
 		return min;
 	}
 
+	/**
+	 * minComparatorValue
+	 */
 	@SuppressWarnings("unchecked")
 	public Comparable getMinComparatorValue() {
 		return min;
 	}
 	
+	/**
+	 * validazione effettiva
+	 * @param object
+	 */
 	@Override
 	public void validate(Object object) throws ValidationException {
 		String fieldName = getFieldName();
@@ -267,6 +322,10 @@ public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedType
 	protected static final Logger log =												«noSonarTag("EIAS")»
 		Logger.getLogger(Constants.APPLICATION_CODE + ".presentation.validator");   «noSonarTag("EIAS")»
 
+	/**
+	 * validazione effettiva
+	 * @param object
+	 */
 	@Override
 	public void validate (Object object) throws ValidationException {
 		// nome del campo da validare
@@ -304,16 +363,31 @@ public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedType
 	// INTROSPECTION METHODS
 	////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * objClass
+	 */
 	private Class objClass;
 
+	/**
+	 * objClass
+	 */
 	private Class getObjClass() {
 		return objClass;
 	}
 
+	/**
+	 * objClass
+	 */
 	private void setObjClass(Class cl) {
 		objClass = cl;
 	}
 
+	/**
+	 * reperisce il metodo di read nella classe
+	 * @param name
+	 * @param cl
+	 * @throws IntrospectionException
+	 */
 	private Method findReadMethod(String name, Class cl) throws IntrospectionException {
 		name = (name.startsWith("get") || name.startsWith("set") ? name
 				.substring(3) : name.startsWith("is")
@@ -329,6 +403,12 @@ public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedType
 		return null;
 	}
 
+	/**
+	 * reperisce il metodo di write nella classe
+	 * @param name
+	 * @param cl
+	 * @throws IntrospectionException
+	 */
 	private Method findWriteMethod(String name, Class cl) throws IntrospectionException {
 		name = (name.startsWith("get") || name.startsWith("set") ? name
 				.substring(3) : name.startsWith("is")

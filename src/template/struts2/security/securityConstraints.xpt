@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,338 +13,348 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«REM»
+Â«REMÂ»
 #################################################################
     constraints di sicurezza per Widget
 #################################################################
-«ENDREM»
-«DEFINE getPageUIConstraintDef(GUIModel model) FOR ContentPanel»
+Â«ENDREMÂ»
+Â«DEFINE getPageUIConstraintDef(GUIModel model) FOR ContentPanelÂ»
 	protected Map<String, UISecConstraint> getPageVisibilityUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
-		«EXPAND getPageUIConstraintDef(model, "VISIB", this, "", (PDefUseConfig)null) FOR panels-»
+		Â«EXPAND getPageUIConstraintDef(model, "VISIB", this, "", (PDefUseConfig)null) FOR panels-Â»
 		return allConstraints;
 	}
 	
 	protected Map<String, UISecConstraint> getPageONOFFUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
-		«EXPAND getPageUIConstraintDef(model, "ONOFF", this, "", (PDefUseConfig)null) FOR panels-»
+		Â«EXPAND getPageUIConstraintDef(model, "ONOFF", this, "", (PDefUseConfig)null) FOR panels-Â»
 		return allConstraints;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Panel-»
-«ENDDEFINE»
+Â«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Panel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel-»
-	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH subpanels-»
-«ENDDEFINE»
+Â«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel-Â»
+	Â«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH subpanels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR WidgetsPanel-»
-	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR WidgetsPanel-Â»
+	Â«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuPanel-»
-	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuPanel-Â»
+	Â«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel-»
-	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel-Â»
+	Â«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MultiPanel-»
-	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MultiPanel-Â»
+	Â«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PanelDefUse-»
-	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, getChainedContext(contextPrefix, name), this.config) FOR panelDef.panel-»
-«ENDDEFINE»
-
-
-«REM»#################«ENDREM»
+Â«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PanelDefUse-Â»
+	Â«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, getChainedContext(contextPrefix, name), this.config) FOR panelDef.panel-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE uiConstraint(GUIModel model, String behavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget-»
-«IF securityConstraints.size>0-»
-		// constraints per «getFullID(this, contextPrefix)»
-«FOREACH this.securityConstraints AS currConstraint-»
-		UISecConstraint «getFullID(this, contextPrefix)»_«securityConstraints.indexOf(currConstraint)»_ctr =
-		«EXPAND uiConstraintNew(model, cp, contextPrefix, pduConf) FOR currConstraint-» 
-«ENDFOREACH-»
-		UISecConstraint [] «getFullID(this, contextPrefix)»_constraints = new UISecConstraint[]{
-		«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-»
-			«FOREACH selectedConstraints AS currConstraint-»
-			«getFullID(this, contextPrefix)»_«securityConstraints.indexOf(currConstraint)»_ctr«IF securityConstraints.last()!=currConstraint»,«ENDIF»
-			«ENDFOREACH-»
-		«ENDLET-»
+Â«REMÂ»#################Â«ENDREMÂ»
+
+
+Â«DEFINE uiConstraint(GUIModel model, String behavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget-Â»
+Â«IF securityConstraints.size>0-Â»
+		// constraints per Â«getFullID(this, contextPrefix)Â»
+Â«FOREACH this.securityConstraints AS currConstraint-Â»
+		//// constraint #Â«securityConstraints.indexOf(currConstraint)Â»
+		UISecConstraint Â«getFullID(this, contextPrefix)Â»_Â«securityConstraints.indexOf(currConstraint)Â»_ctr =
+		Â«EXPAND uiConstraintNew(model, cp, contextPrefix, pduConf) FOR currConstraint-Â» 
+Â«ENDFOREACH-Â»
+		//// elenco di tutti i constraint dell'elemento
+		UISecConstraint [] Â«getFullID(this, contextPrefix)Â»_constraints = new UISecConstraint[]{
+		Â«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-Â»
+			Â«FOREACH selectedConstraints AS currConstraint-Â»
+			Â«getFullID(this, contextPrefix)Â»_Â«securityConstraints.indexOf(currConstraint)Â»_ctrÂ«IF securityConstraints.last()!=currConstraintÂ»,Â«ENDIFÂ»
+			Â«ENDFOREACH-Â»
+		Â«ENDLET-Â»
 		};
-		UISecConstraint «getFullID(this, contextPrefix)»_ctr = new ComplexUISecConstraint(«getFullID(this,contextPrefix)»_constraints);
-		allConstraints.put("«getFullID(this, contextPrefix)»", «getFullID(this, contextPrefix)»_ctr);
-«ELSE»
-		// constraint fittizio per «getFullID(this, contextPrefix)»
-		UISecConstraint «getFullID(this, contextPrefix)»_default«behavior.toLowerCase().toFirstUpper()»_ctr =
-		«EXPAND uiDummyConstraintNew(model, behavior, cp, contextPrefix) FOR this-»
-		 
-		UISecConstraint [] «getFullID(this, contextPrefix)»_constraints = new UISecConstraint[]{
-			«getFullID(this, contextPrefix)»_default«behavior.toLowerCase().toFirstUpper()»_ctr
+		//// constraint complessivo che racchiude ricorsivamente i singoli constraints
+		UISecConstraint Â«getFullID(this, contextPrefix)Â»_ctr = new ComplexUISecConstraint(Â«getFullID(this,contextPrefix)Â»_constraints);
+		//// inserisco il constraint complessivo nella mappa <nome elemento, constraints dell'elemento>
+		allConstraints.put("Â«getFullID(this, contextPrefix)Â»", Â«getFullID(this, contextPrefix)Â»_ctr);
+Â«ELSEÂ»
+		// constraint fittizio per Â«getFullID(this, contextPrefix)Â»
+		UISecConstraint Â«getFullID(this, contextPrefix)Â»_defaultÂ«behavior.toLowerCase().toFirstUpper()Â»_ctr =
+		Â«EXPAND uiDummyConstraintNew(model, behavior, cp, contextPrefix) FOR this-Â»
+		//// ele nco di tutti i constraint dell'elemento 
+		UISecConstraint [] Â«getFullID(this, contextPrefix)Â»_constraints = new UISecConstraint[]{
+			Â«getFullID(this, contextPrefix)Â»_defaultÂ«behavior.toLowerCase().toFirstUpper()Â»_ctr
 		};
-		UISecConstraint «getFullID(this, contextPrefix)»_ctr = new ComplexUISecConstraint(«getFullID(this, contextPrefix)»_constraints);
-		allConstraints.put("«getFullID(this, contextPrefix)»", «getFullID(this, contextPrefix)»_ctr);
-«ENDIF-»
-«ENDDEFINE»
+		//// constraint complessivo che racchiude ricorsivamente i singoli constraints
+		UISecConstraint Â«getFullID(this, contextPrefix)Â»_ctr = new ComplexUISecConstraint(Â«getFullID(this, contextPrefix)Â»_constraints);
+		//// inserisco il constraint complessivo nella mappa <nome elemento, constraints dell'elemento>
+		allConstraints.put("Â«getFullID(this, contextPrefix)Â»", Â«getFullID(this, contextPrefix)Â»_ctr);
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UISecurityConstraint»
- 			null; /// ERRORE: constraint non gestito «this.metaType»
-«ENDDEFINE»
+Â«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UISecurityConstraintÂ»
+ 			null; /// ERRORE: constraint non gestito Â«this.metaTypeÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiDummyConstraintNew(GUIModel model, String pBehavior, ContentPanel cp, String contextPrefix) FOR Widget-»
-«LET this AS parent»
-«REM»«IF parent.metaType.(Widget)»«ENDREM»
-«LET (Widget)parent AS parentWidget»
-«LET pBehavior!="VISIB" ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
-«LET pBehavior!="VISIB" ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+Â«DEFINE uiDummyConstraintNew(GUIModel model, String pBehavior, ContentPanel cp, String contextPrefix) FOR Widget-Â»
+Â«LET this AS parentÂ»
+Â«REMÂ»Â«IF parent.metaType.(Widget)Â»Â«ENDREMÂ»
+Â«LET (Widget)parent AS parentWidgetÂ»
+Â«LET pBehavior!="VISIB" ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
+Â«LET pBehavior!="VISIB" ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehaviorÂ»
  			new DummyUISecConstraint(
- 				"«cp.name»",
- 				"«getFullID(parentWidget, contextPrefix)»",
- 				UISecConstraint.«behavior»,
- 				«defaultBehavior»,
+ 				"Â«cp.nameÂ»",
+ 				"Â«getFullID(parentWidget, contextPrefix)Â»",
+ 				UISecConstraint.Â«behaviorÂ»,
+ 				Â«defaultBehaviorÂ»,
  				true
  			);
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«REM»«ENDIF»«ENDREM»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«REMÂ»Â«ENDIFÂ»Â«ENDREMÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CustomSecurityConstraint»
-«LET this.eContainer AS parent»
-«REM»«IF parent.metaType.(Widget)»«ENDREM»
-«LET (Widget)parent AS parentWidget»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
-«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+Â«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CustomSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«REMÂ»Â«IF parent.metaType.(Widget)Â»Â«ENDREMÂ»
+Â«LET (Widget)parent AS parentWidgetÂ»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
+Â«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehaviorÂ»
  			new CustomUISecConstraint(
- 				"«cp.name»",
- 				"«getFullID(parentWidget, contextPrefix)»",
- 				UISecConstraint.«behavior»,
- 				«defaultBehavior»
+ 				"Â«cp.nameÂ»",
+ 				"Â«getFullID(parentWidget, contextPrefix)Â»",
+ 				UISecConstraint.Â«behaviorÂ»,
+ 				Â«defaultBehaviorÂ»
  			){
  				@Override
 					public boolean specificCheck(Map session, SecurityHelper sh) throws BEException{
-						return getSpringSecurityHelper().customCheck«contextPrefix+methodNameSuffix.toFirstUpper()»(session);
+						return getSpringSecurityHelper().customCheckÂ«contextPrefix+methodNameSuffix.toFirstUpper()Â»(session);
 					}
  			};
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«REM»«ENDIF»«ENDREM»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«REMÂ»Â«ENDIFÂ»Â«ENDREMÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UCBasedSecurityConstraint»
-«LET this.eContainer AS parent»
-«REM»«IF parent.metaType.(Widget)»«ENDREM»
-«LET (Widget)parent AS parentWidget»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
-«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+Â«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UCBasedSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«REMÂ»Â«IF parent.metaType.(Widget)Â»Â«ENDREMÂ»
+Â«LET (Widget)parent AS parentWidgetÂ»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
+Â«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehaviorÂ»
  			new UCBasedUISecConstraint(
- 				"«cp.name»",
- 				"«getFullID(parentWidget, contextPrefix)»",
- 				UISecConstraint.«behavior»,
- 				«defaultBehavior»,
- 				"«getResolvedUseCase(this.useCase, pduConf).code»"
+ 				"Â«cp.nameÂ»",
+ 				"Â«getFullID(parentWidget, contextPrefix)Â»",
+ 				UISecConstraint.Â«behaviorÂ»,
+ 				Â«defaultBehaviorÂ»,
+ 				"Â«getResolvedUseCase(this.useCase, pduConf).codeÂ»"
  			);
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«REM»«ENDIF»«ENDREM»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«REMÂ»Â«ENDIFÂ»Â«ENDREMÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ActorBasedSecurityConstraint»
-«LET this.eContainer AS parent»
-«REM»«IF parent.metaType.(Widget)»«ENDREM»
-«LET (Widget)parent AS parentWidget-»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior-»
-«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior-»
+Â«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ActorBasedSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«REMÂ»Â«IF parent.metaType.(Widget)Â»Â«ENDREMÂ»
+Â«LET (Widget)parent AS parentWidget-Â»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior-Â»
+Â«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior-Â»
  			new ActorBasedUISecConstraint(
- 				"«cp.name»",
- 				"«getFullID(parentWidget, contextPrefix)»",
- 				UISecConstraint.«behavior»,
- 				«defaultBehavior»,
- 				"«getResolvedActor(this.actor,pduConf).code»"
+ 				"Â«cp.nameÂ»",
+ 				"Â«getFullID(parentWidget, contextPrefix)Â»",
+ 				UISecConstraint.Â«behaviorÂ»,
+ 				Â«defaultBehaviorÂ»,
+ 				"Â«getResolvedActor(this.actor,pduConf).codeÂ»"
  			);
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
-«REM»«ENDIF»«ENDREM»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«REMÂ»Â«ENDIFÂ»Â«ENDREMÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR RoleBasedSecurityConstraint»
-«LET this.eContainer AS parent»
-«REM»«IF parent.metaType.(Widget)»«ENDREM»
-«LET (Widget)parent AS parentWidget»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
-«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+Â«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR RoleBasedSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«REMÂ»Â«IF parent.metaType.(Widget)Â»Â«ENDREMÂ»
+Â«LET (Widget)parent AS parentWidgetÂ»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
+Â«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehaviorÂ»
  			new RoleBasedUISecConstraint(
- 				"«cp.name»",
- 				"«getFullID(parentWidget, contextPrefix)»",
- 				UISecConstraint.«behavior»,
- 				«defaultBehavior»,
- 				"«getResolvedRole(this.role, pduConf).code»",
- 				"«getResolvedRole(this.role, pduConf).domainCode»"
+ 				"Â«cp.nameÂ»",
+ 				"Â«getFullID(parentWidget, contextPrefix)Â»",
+ 				UISecConstraint.Â«behaviorÂ»,
+ 				Â«defaultBehaviorÂ»,
+ 				"Â«getResolvedRole(this.role, pduConf).codeÂ»",
+ 				"Â«getResolvedRole(this.role, pduConf).domainCodeÂ»"
  			);
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«REM»«ENDIF»«ENDREM»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«REMÂ»Â«ENDIFÂ»Â«ENDREMÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 #################################################################
     constraints di sicurezza per Menu
 #################################################################
-«ENDREM»
-«DEFINE getMenuUIConstraintDef(GUIModel model) FOR Menubar»
+Â«ENDREMÂ»
+Â«DEFINE getMenuUIConstraintDef(GUIModel model) FOR MenubarÂ»
 	protected Map<String, UISecConstraint> getMenuVisibilityUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
-		«EXPAND uiConstraint(model, "VISIB") FOREACH topLevelMenu-» 
+		Â«EXPAND uiConstraint(model, "VISIB") FOREACH topLevelMenu-Â» 
 		return allConstraints;
 	}
 	
 	protected Map<String, UISecConstraint> getMenuONOFFUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
-		«EXPAND uiConstraint(model, "ONOFF") FOREACH topLevelMenu-» 
+		Â«EXPAND uiConstraint(model, "ONOFF") FOREACH topLevelMenu-Â» 
 		return allConstraints;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConstraint(GUIModel model, String behavior) FOR Menu-»
-«IF securityConstraints.size>0-»
-		// constraints per «this.name»
-«FOREACH this.securityConstraints AS currConstraint-»
-		UISecConstraint «name»_«securityConstraints.indexOf(currConstraint)»_ctr =
-		«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-» 
-«ENDFOREACH-»
-		UISecConstraint [] «name»_constraints = new UISecConstraint[]{
-		«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-»
-			«FOREACH selectedConstraints AS currConstraint-»
-			«name»_«securityConstraints.indexOf(currConstraint)»_ctr«IF securityConstraints.last()!=currConstraint»,«ENDIF»
-			«ENDFOREACH-»
-		«ENDLET-»
+Â«DEFINE uiConstraint(GUIModel model, String behavior) FOR Menu-Â»
+Â«IF securityConstraints.size>0-Â»
+		// constraints per Â«this.nameÂ»
+Â«FOREACH this.securityConstraints AS currConstraint-Â»
+		//// constraint #Â«securityConstraints.indexOf(currConstraint)Â»
+		UISecConstraint Â«nameÂ»_Â«securityConstraints.indexOf(currConstraint)Â»_ctr =
+		Â«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-Â» 
+Â«ENDFOREACH-Â»
+		//// elenco di tutti i constraints
+		UISecConstraint [] Â«nameÂ»_constraints = new UISecConstraint[]{
+		Â«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-Â»
+			Â«FOREACH selectedConstraints AS currConstraint-Â»
+			Â«nameÂ»_Â«securityConstraints.indexOf(currConstraint)Â»_ctrÂ«IF securityConstraints.last()!=currConstraintÂ»,Â«ENDIFÂ»
+			Â«ENDFOREACH-Â»
+		Â«ENDLET-Â»
 		};
-		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
-		allConstraints.put("«name»", «name»_ctr);
-«ENDIF-»
-	«EXPAND uiConstraint(model, behavior) FOREACH this.submenu»
-	«REM»MenuItem è DEPRECATO
-	«EXPAND uiConstraint(model, behavior) FOREACH this.item»
-	«ENDREM»
-«ENDDEFINE»
+		//// coinstraint complessivo che racchiude ricorsivamente i singoli constraint
+		UISecConstraint Â«nameÂ»_ctr = new ComplexUISecConstraint(Â«nameÂ»_constraints);
+		//// il constraint complessivo e' inserito nella mappa <nome menu, constraint dell'elemento>
+		allConstraints.put("Â«nameÂ»", Â«nameÂ»_ctr);
+Â«ENDIF-Â»
+	Â«EXPAND uiConstraint(model, behavior) FOREACH this.submenuÂ»
+	Â«REMÂ»MenuItem Ã¨ DEPRECATO
+	Â«EXPAND uiConstraint(model, behavior) FOREACH this.itemÂ»
+	Â«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
-«REM»MenuItem è DEPRECATO
-«DEFINE uiConstraint(GUIModel model, String behavior) FOR MenuItem-»
-«IF securityConstraints.size>0-»
-		// constraints per «this.name»
-«FOREACH this.securityConstraints AS currConstraint-»
-		UISecConstraint «name»_«securityConstraints.indexOf(currConstraint)»_ctr =
-		«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-» 
-«ENDFOREACH-»
-		UISecConstraint [] «name»_constraints = new UISecConstraint[]{
-		«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-»
-			«FOREACH selectedConstraints AS currConstraint-»
-			«name»_«securityConstraints.indexOf(currConstraint)»_ctr«IF securityConstraints.last()!=currConstraint»,«ENDIF»
-			«ENDFOREACH-»
-		«ENDLET-»
+Â«REMÂ»MenuItem Ã¨ DEPRECATO
+Â«DEFINE uiConstraint(GUIModel model, String behavior) FOR MenuItem-Â»
+Â«IF securityConstraints.size>0-Â»
+		// constraints per Â«this.nameÂ»
+Â«FOREACH this.securityConstraints AS currConstraint-Â»
+		UISecConstraint Â«nameÂ»_Â«securityConstraints.indexOf(currConstraint)Â»_ctr =
+		Â«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-Â» 
+Â«ENDFOREACH-Â»
+		UISecConstraint [] Â«nameÂ»_constraints = new UISecConstraint[]{
+		Â«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-Â»
+			Â«FOREACH selectedConstraints AS currConstraint-Â»
+			Â«nameÂ»_Â«securityConstraints.indexOf(currConstraint)Â»_ctrÂ«IF securityConstraints.last()!=currConstraintÂ»,Â«ENDIFÂ»
+			Â«ENDFOREACH-Â»
+		Â«ENDLET-Â»
 		};
-		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
-		allConstraints.put("«name»", «name»_ctr);
-«ENDIF-»
-«ENDDEFINE»
-«ENDREM»
+		UISecConstraint Â«nameÂ»_ctr = new ComplexUISecConstraint(Â«nameÂ»_constraints);
+		allConstraints.put("Â«nameÂ»", Â«nameÂ»_ctr);
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
+Â«ENDREMÂ»
 
 
 
-«DEFINE uiConstraintNew4Menu(GUIModel model) FOR UISecurityConstraint»
- 			null; /// ERRORE: constraint non gestito «this.metaType»
-«ENDDEFINE»
+Â«DEFINE uiConstraintNew4Menu(GUIModel model) FOR UISecurityConstraintÂ»
+ 			null; /// ERRORE: constraint non gestito Â«this.metaTypeÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConstraintNew4Menu(GUIModel model) FOR CustomSecurityConstraint»
-«LET this.eContainer AS parent»
-«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+Â«DEFINE uiConstraintNew4Menu(GUIModel model) FOR CustomSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemNameÂ»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
  			new CustomUISecConstraint(
  				"_menu",
- 				"«itemName»",
- 				UISecConstraint.«behavior»,
+ 				"Â«itemNameÂ»",
+ 				UISecConstraint.Â«behaviorÂ»,
  				true
  			){
  				@Override
 					public boolean specificCheck(Map session, SecurityHelper sh) throws BEException{
-						return getSpringSecurityHelper().customCheck«methodNameSuffix.toFirstUpper()»(session);
+						return getSpringSecurityHelper().customCheckÂ«methodNameSuffix.toFirstUpper()Â»(session);
 					}
  			};
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE uiConstraintNew4Menu(GUIModel model) FOR UCBasedSecurityConstraint»
-«LET this.eContainer AS parent»
-«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+Â«DEFINE uiConstraintNew4Menu(GUIModel model) FOR UCBasedSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemNameÂ»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
  			new UCBasedUISecConstraint(
  				"_menu",
- 				"«itemName»",
- 				UISecConstraint.«behavior»,
+ 				"Â«itemNameÂ»",
+ 				UISecConstraint.Â«behaviorÂ»,
  				true,
- 				"«this.useCase.code»"
+ 				"Â«this.useCase.codeÂ»"
  			);
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConstraintNew4Menu(GUIModel model) FOR ActorBasedSecurityConstraint»
-«LET this.eContainer AS parent»
-«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+Â«DEFINE uiConstraintNew4Menu(GUIModel model) FOR ActorBasedSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemNameÂ»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
  			new ActorBasedUISecConstraint(
  				"_menu",
- 				"«itemName»",
- 				UISecConstraint.«behavior»,
+ 				"Â«itemNameÂ»",
+ 				UISecConstraint.Â«behaviorÂ»,
  				true,
- 				"«this.actor.code»"
+ 				"Â«this.actor.codeÂ»"
  			);
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE uiConstraintNew4Menu(GUIModel model) FOR RoleBasedSecurityConstraint»
-«LET this.eContainer AS parent»
-«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+Â«DEFINE uiConstraintNew4Menu(GUIModel model) FOR RoleBasedSecurityConstraintÂ»
+Â«LET this.eContainer AS parentÂ»
+Â«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemNameÂ»
+Â«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behaviorÂ»
  			new RoleBasedUISecConstraint(
  				"_menu",
- 				"«itemName»",
- 				UISecConstraint.«behavior»,
+ 				"Â«itemNameÂ»",
+ 				UISecConstraint.Â«behaviorÂ»,
  				true,
- 				"«this.role.code»",
- 				"«this.role.domainCode»"
+ 				"Â«this.role.codeÂ»",
+ 				"Â«this.role.domainCodeÂ»"
  			);
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»

@@ -361,16 +361,23 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 						sb.append("\t\t" + currPD.getName() + "=" + srcVal
 								+ "\n");
 					} catch (IllegalArgumentException e) {
-						//
+						// questo caso non dovrebbe mai presentarsi
+						sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
+								+ "\n");
 					} catch (IllegalAccessException e) {
-						//
+						// questo caso non dovrebbe mai presentarsi
+						sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
+								+ "\n");
 					} catch (java.lang.reflect.InvocationTargetException e) {
-						//
+						// questo caso non dovrebbe mai presentarsi
+						sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
+								+ "\n");
 					}
 				}
 			}
 		} catch (java.beans.IntrospectionException e) {
-			//
+			// questo caso non dovrebbe mai presentarsi
+			sb.append("<errore nell accesso ai campi>");
 		}
 
 		sb.append("\t\t");

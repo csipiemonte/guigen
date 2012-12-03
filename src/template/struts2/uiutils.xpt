@@ -114,28 +114,64 @@ public class DataPosition {
 «FILE getUIUtilsJavaSrcDir(this, true)+"/DataFilter.java"»package «getUIUtilsJavaPackage(this)»;
 
 /**
+ * Utilizzata per le funzioni di filtro del widget della cartuccia "fat"
  * @generated
  */
  
 public class DataFilter {
+
+	/**
+	 * type
+	 */
 	private String type;
+	
+	/**
+	 * value
+	 */
 	private String value;
+	
+	/**
+	 * comparison
+	 */
 	private String comparison;
+	
+	/**
+	 * type
+	 */
 	public String getType() {
 		return type;
 	}
+	
+	/**
+	 * type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	/**
+	 * value
+	 */
 	public String getValue() {
 		return value;
 	}
+	
+	/**
+	 * value
+	 */
 	public void setValue(String value) {
 		this.value = value;
 	}
+	/**
+	 * comparison
+	 */
 	public String getComparison() {
 		return comparison;
 	}
+	
+	/**
+	 * comparison
+	 */
 	public void setComparison(String comparison) {
 		this.comparison = comparison;
 	}
@@ -157,56 +193,135 @@ public class DataFilter {
  */
 public class TableStatus {
 
+
+	/**
+	 * callback
+	 */
 	private String callback;
+	
+	/**
+	 * start
+	 */
 	private String start;
+	
+	/**
+	 * limit
+	 */
 	private String limit;
+	
+	/**
+	 * sort
+	 */
 	private String sort;
+	
+	/**
+	 * dir
+	 */
 	private String dir;
-	//***parametro che contiene il nome dell'id del record
+	/**
+	 * parametro che contiene il nome dell'id del record
+	 */
 	private String valueSelector;
-	//***parametro che contiene lo stato della tabella
-	//***se impostato a true allora rimuove il relativo cookie dello stato.
+	/**
+	 * parametro che contiene lo stato della tabella
+	 * se impostato a true allora rimuove il relativo cookie dello stato.
+	 */
 	private boolean clearStatus;
 	
+	/**
+	 * callback
+	 */
 	public String getCallback() {
 		return callback;
 	}
+	
+	/**
+	 * callback
+	 */
 	public void setCallback(String callback) {
 		this.callback = callback;
 	}
+	
+	/**
+	 * start
+	 */
 	public String getStart() {
 		return start;
 	}
+	
+	/**
+	 * start
+	 */
 	public void setStart(String start) {
 		this.start = start;
 	}
+	
+	/**
+	 * limit
+	 */
 	public String getLimit() {
 		return limit;
 	}
+	
+	/**
+	 * limit
+	 */
 	public void setLimit(String limit) {
 		this.limit = limit;
 	}
+	
+	/**
+	 * sort
+	 */
 	public String getSort() {
 		return sort;
 	}
+	
+	/**
+	 * sort
+	 */
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+	
+	/**
+	 * dir
+	 */
 	public String getDir() {
 		return dir;
 	}
+	
+	/**
+	 * dir
+	 */
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
+	
+	/**
+	 * valueSelector
+	 */
 	public String getValueSelector() {
 		return valueSelector;
 	}
+	
+	/**
+	 * valueSelector
+	 */
 	public void setValueSelector(String valueSelector) {
 		this.valueSelector = valueSelector;
 	}
+	
+	/**
+	 * isClearStatus
+	 */
 	public boolean isClearStatus() {
 		return clearStatus;
 	}
+	
+	/**
+	 * setClearStatus
+	 */
 	public void setClearStatus(boolean clearStatus) {
 		this.clearStatus = clearStatus;
 	}
@@ -226,6 +341,11 @@ import java.lang.reflect.Method;
 
 public class TableDataArranger {
 
+	/**
+	 * @param listaOggetti
+	 * @param tableStatus
+	 * @param filter
+	 */
 	@SuppressWarnings("unchecked")
 	public TableArrangedData arrange(List listaOggetti,
 			TableStatus tableStatus, List<TableFilter> filter) {
@@ -544,22 +664,35 @@ public class TableDataArranger {
 public class TableDataArrangerException  extends RuntimeException{
 
 	/**
-	 * 
+	 * serialveruid
 	 */
 	private static final long serialVersionUID = 1230490300627824754L;
 
+	/**
+	 * costruttore vuoto
+	 */
 	public TableDataArrangerException() {
 		super();
 	}
 
+	/**
+	 * @param message
+	 * @param cause
+	 */
 	public TableDataArrangerException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * @param message
+	 */
 	public TableDataArrangerException(String message) {
 		super(message);
 	}
 
+	/**
+	 * @param cause
+	 */
 	public TableDataArrangerException(Throwable cause) {
 		super(cause);
 	}
@@ -585,16 +718,43 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public final class DynamicComparator implements Comparator {
 	// Class Members
+	
+	/**
+	 * EQUAL
+	 */
 	public static final int EQUAL = 0;
+	
+	/**
+	 * LESS_THAN
+	 */
 	public static final int LESS_THAN = -1;
+	
+	/**
+	 * GREATER_THAN
+	 */
 	public static final int GREATER_THAN = 1;
 
-	
+	/**
+	 * collection
+	 */
 	@SuppressWarnings("unused")
 	private Collection collection;
+	
+	/**
+	 * methodName
+	 */
 	private String methodName;
+	
+	/**
+	 * sortAsc
+	 */
 	private boolean sortAsc;
 
+	/**
+	 * @param collection
+	 * @param methodName
+	 * @param sortAsc
+	 */
 	private DynamicComparator(Collection collection, String methodName,
 			boolean sortAsc) {
 		this.collection = collection;
@@ -689,22 +849,35 @@ public final class DynamicComparator implements Comparator {
 public class DynamicComparatorException  extends RuntimeException{
 
 	/**
-	 * 
+	 *  serialveruid
 	 */
 	private static final long serialVersionUID = -2329268720665818420L;
 
+	/**
+	 * costruttore vuoto
+	 */
 	public DynamicComparatorException() {
 		super();
 	}
 
+	/**
+	 * @param message
+	 * @param cause
+	 */
 	public DynamicComparatorException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * @param message
+	 */
 	public DynamicComparatorException(String message) {
 		super(message);
 	}
 
+	/**
+	 * @param cause
+	 */
 	public DynamicComparatorException(Throwable cause) {
 		super(cause);
 	}
@@ -733,27 +906,58 @@ public class TableArrangedData {
 	//***parametro che indica se deve essere resettato lo stato della tabella
 	private boolean clearStatus;
 	
+	/**
+	 * numTot
+	 */
 	public int getNumtot() {
 		return numtot;
 	}
+	
+	/**
+	 * numTot
+	 */
 	public void setNumtot(int numtot) {
 		this.numtot = numtot;
 	}
+	
+	/**
+	 * elenco
+	 */
 	public List<Object> getElenco() {
 		return elenco;
 	}
+	
+	/**
+	 * elenco
+	 */
 	public void setElenco(List<Object> elenco) {
 		this.elenco = elenco;
 	}
+	
+	/**
+	 * positions
+	 */
 	public List<DataPosition> getPositions() {
 		return positions;
 	}
+	
+	/**
+	 * positions
+	 */
 	public void setPositions(List<DataPosition> positions) {
 		this.positions = positions;
 	}
+	
+	/**
+	 * isClearStatus
+	 */
 	public boolean isClearStatus() {
 		return clearStatus;
 	}
+	
+	/**
+	 * setclearStatus
+	 */
 	public void setClearStatus(boolean clearStatus) {
 		this.clearStatus = clearStatus;
 	}
@@ -902,16 +1106,31 @@ import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 
+/**
+ * Effettua il mapping con i DTO del framework GREASE
+ */
 public class GreaseDTOMapper {	
 
+	/**
+	 * mapManager
+	 */
 	private MapInterface mapManager;
 
+	/**
+	 * mapManager
+	 */
 	public void setMapManager(MapInterface mapManager) {
 		this.mapManager = mapManager;
 	}
 
+	/**
+	 * imageManager
+	 */
 	private GetImageManager imageManager;
 
+	/**
+	 * imageManager
+	 */
 	public void setImageManager(GetImageManager imageManager) {
 		this.imageManager = imageManager;
 	}
@@ -978,6 +1197,17 @@ public class GreaseDTOMapper {
 		return ret;
 	}
 
+	/** 
+	 * @param mappa
+	 * @param toolbar
+	 * @throws JeegfwBaseException,
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 */
 	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb calcolaNavigazione(
 			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa,
 			ToolbarWeb toolbar) throws JeegfwBaseException,
@@ -990,6 +1220,16 @@ public class GreaseDTOMapper {
 
 	}
 
+	/**
+	 * @param mappa
+	 * @throws JeegfwBaseException
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException 
+	 */
 	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb getRefreshIMages(
 			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa)
 			throws JeegfwBaseException, IntrospectionException,
@@ -1001,6 +1241,15 @@ public class GreaseDTOMapper {
 
 	}
 
+	/**
+	 * @param mappa
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 */
 	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb fromGrease(
 			MappaWeb mappa) throws IntrospectionException,
 			ClassNotFoundException, InstantiationException,
@@ -1035,6 +1284,15 @@ public class GreaseDTOMapper {
 
 	}
 
+	/**
+	 * @param mappa 
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 */
 	public MappaWeb toGrease(
 			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa)
 			throws IntrospectionException, ClassNotFoundException,

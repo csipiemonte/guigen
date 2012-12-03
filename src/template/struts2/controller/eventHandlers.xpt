@@ -497,39 +497,8 @@ quelli esterni!!! «ENDREM»
 	«LET cp AS parentCP-»
 	«LET parentCP.name AS containerName-»
 	// Screen State Command begin
-    //prepara i nomi dei componenti target da abilitare/disabilitare
-    String[] act_«actionsVarName»_«actionNumber»_on = new String[]{
-    «FOREACH this.goTo.widgetsOn AS currWidgOn SEPARATOR ","-»
-    "«getFullID(currWidgOn, contextPrefix)»"
-    «ENDFOREACH-»
-    };
-    
-    String[] act_«actionsVarName»_«actionNumber»_off = new String[]{
-    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
-    "«getFullID((Widget)currWidgOff,contextPrefix)»"
-    «ENDFOREACH-»
-    };
-    
-    String[] act_«actionsVarName»_«actionNumber»_show = new String[]{
-    «FOREACH this.goTo.widgetsVisible AS currWidgVisible SEPARATOR ","-»
-    "«getFullID(currWidgVisible, contextPrefix)»"
-    «ENDFOREACH-»
-    };
-    
-    String[] act_«actionsVarName»_«actionNumber»_hide = new String[]{
-    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
-    "«getFullID((Widget)currWidgHidden, contextPrefix)»"
-    «ENDFOREACH-»
-    };
-    
-	ScreenStateCommand act_«actionsVarName»_«actionNumber» = new ScreenStateCommand(
-	    «LET goTo!=null ? goTo.name : "??" AS stateName-»
-		"«containerName»","«stateName»", 
-		act_«actionsVarName»_«actionNumber»_on,
-		act_«actionsVarName»_«actionNumber»_off,
-		act_«actionsVarName»_«actionNumber»_show,
-		act_«actionsVarName»_«actionNumber»_hide);
-		«ENDLET-»
+	ScreenStateCommand act_«actionsVarName»_«actionNumber» = 
+ 		«getScreenStatesClassName(cp)».«getScreenStateInnerClassName(this.goTo)».COMMAND;
 	//Screen State Command end
 	«ENDLET-»
 	«ENDLET-»

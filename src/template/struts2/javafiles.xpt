@@ -147,14 +147,27 @@ import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
 import it.csi.jeegia.jeegfw.util.managers.ScalePredefiniteDefinitionImpl;
 
+/**
+ * Classe di utilita' utilizzata dalle funzionalita' GIS
+ */
 public class GisMapScaleDefinition extends ScalePredefiniteDefinitionImpl {
 
+	/**
+	 * @param logger
+	 * @param numLivelli
+	 * @param scaleEnvelopeSudOvestX
+	 * @param scaleEnvelopeSudOvestY
+	 * @param scaleEnvelopeNordEstX
+	 * @param scaleEnvelopeNordEstY
+	 */
 	public GisMapScaleDefinition(String logger, String numLivelli, String scaleEnvelopeSudOvestX, 
 			String scaleEnvelopeSudOvestY, String scaleEnvelopeNordEstX, String scaleEnvelopeNordEstY) {
 		super(logger);
 		log
 				.debug("[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] BEGIN");
 		try {
+			// effettua i calcoli necessari a determinare correttamente la
+			// definizione di scala utilizzata per la visualizzazione della mappa
 			numLevels = Integer.parseInt(numLivelli);
 			envelopeLivZero = new EnvelopeWeb();
 			envelopeLivZero.setSudovest(new PuntoWeb(new Double(
@@ -192,12 +205,19 @@ import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
 import it.csi.jeegia.jeegfw.presentation.managers.helper.MapManager;
 
+/**
+ * Classe di utilita' utilizzata dal framework GREASE, per la visualizzaizone di mappe GIS.
+ * 
+ */
 public class GisMapManager extends MapManager {
 
+	/**
+	 * @param rootLogger
+	 */
 	public GisMapManager(String rootLogger) {
 		super(rootLogger);
 	}
-
+	
 	private String startEnvelopeSudOvestX;
 	private String startEnvelopeSudOvestY;
 	private String startEnvelopeNordEstX;
@@ -207,51 +227,84 @@ public class GisMapManager extends MapManager {
 	private String maxEnvelopeNordEstX;
 	private String maxEnvelopeNordEstY;
 
+	/**
+	 * coordinata X dell'angolo sud/ovest dell'envelope della mappa
+	 */
 	public void setStartEnvelopeSudOvestX(String startEnvelopeSudOvestX) {
 		this.startEnvelopeSudOvestX = startEnvelopeSudOvestX;
 	}
-
+	
+	/**
+	 * coordinata Y dell'angolo sud/ovest dell'envelope della mappa
+	 */
 	public void setStartEnvelopeSudOvestY(String startEnvelopeSudOvestY) {
 		this.startEnvelopeSudOvestY = startEnvelopeSudOvestY;
 	}
 
+	/**
+	 * coordinata X dell'angolo nord/est dell'envelope della mappa
+	 */
 	public void setStartEnvelopeNordEstX(String startEnvelopeNordEstX) {
 		this.startEnvelopeNordEstX = startEnvelopeNordEstX;
 	}
 
+	/**
+	 * coordinata Y dell'angolo nord/est dell'envelope della mappa
+	 */
 	public void setStartEnvelopeNordEstY(String startEnvelopeNordEstY) {
 		this.startEnvelopeNordEstY = startEnvelopeNordEstY;
 	}
-
+	/**
+	 * coordinata X dell'angolo sud/ovest dell'envelope massimo della mappa
+	 */
 	public void setMaxEnvelopeSudOvestX(String maxEnvelopeSudOvestX) {
 		this.maxEnvelopeSudOvestX = maxEnvelopeSudOvestX;
 	}
 
+	/**
+	 * coordinata Y dell'angolo sud/ovest dell'envelope massimo della mappa
+	 */
 	public void setMaxEnvelopeSudOvestY(String maxEnvelopeSudOvestY) {
 		this.maxEnvelopeSudOvestY = maxEnvelopeSudOvestY;
 	}
 
+	/**
+	 * coordinata X dell'angolo nord/est dell'envelope massimo della mappa
+	 */
 	public void setMaxEnvelopeNordEstX(String maxEnvelopeNordEstX) {
 		this.maxEnvelopeNordEstX = maxEnvelopeNordEstX;
 	}
 
+	/**
+	 * coordinata Y dell'angolo nord/est dell'envelope massimo della mappa
+	 */
 	public void setMaxEnvelopeNordEstY(String maxEnvelopeNordEstY) {
 		this.maxEnvelopeNordEstY = maxEnvelopeNordEstY;
 	}
 
+	/**
+	 * Costruisce l'envelope iniziale a partire dai punti forniti
+	 */
 	protected EnvelopeWeb getStartEnvelope() throws Exception {
 		EnvelopeWeb envelopeLivZero = new EnvelopeWeb();
+		// ppunto sud/ovest
 		envelopeLivZero.setSudovest(new PuntoWeb(new Double(this.startEnvelopeSudOvestX),
 				new Double(this.startEnvelopeSudOvestY)));
+		// punto nord/est
 		envelopeLivZero.setNordest(new PuntoWeb(new Double(this.startEnvelopeNordEstX), new Double(
 				this.startEnvelopeNordEstY)));
 		return cloneEnvelope(envelopeLivZero);
 	}
 
+	/**
+	 * costruisce l'envelope massimo a partire dai punti forniti
+	 */
 	protected EnvelopeWeb getMaxEnvelope() throws Exception {
 		EnvelopeWeb envelopeLivZero = new EnvelopeWeb();
+		// punto sud/ovest
 		envelopeLivZero.setSudovest(new PuntoWeb(new Double(this.maxEnvelopeSudOvestX),
 				new Double(this.maxEnvelopeSudOvestY)));
+		// punto nord/est
 		envelopeLivZero.setNordest(new PuntoWeb(new Double(this.maxEnvelopeNordEstX), new Double(
 				this.maxEnvelopeNordEstY)));
 		return cloneEnvelope(envelopeLivZero);
@@ -306,6 +359,9 @@ import java.util.Map.Entry;
  */
 public class BeanMapping {
 
+	/**
+	 * Elenco dei nomi dei tipi base gestiti
+	 */
 	@SuppressWarnings("unchecked")
 	static final Class[] BASE_TYPES = { java.lang.Integer.class,
 			java.lang.Long.class, java.lang.Byte.class,
@@ -313,6 +369,10 @@ public class BeanMapping {
 			java.lang.Double.class, java.lang.Float.class,
 			java.lang.String.class, java.lang.Number.class,
 			java.lang.CharSequence.class };
+			
+	/**
+	 * Elenco dei tipi base gestiti
+	 */		
 	@SuppressWarnings("unchecked")
 	private static final HashMap<Class, HashMap<String, Object>> inspections = new HashMap<Class, HashMap<String, Object>>();
 
@@ -345,12 +405,23 @@ public class BeanMapping {
 		return convertInternal(instances, mappings, bean);
 	}
 
+	/**
+	 * restituisce true se le due classi coincidono oppure se check contiene
+	 * interfaceClass tra le sue interfacce
+	 * @param interfaceClass
+	 * @param check
+	 */
 	@SuppressWarnings("unchecked")
 	private static boolean isInterface(Class interfaceClass, Class check) {
 		return check.equals(interfaceClass)
 				|| arrayContains(check.getInterfaces(), interfaceClass);
 	}
 
+	/**
+	 * verifica se "find" e' contenuto in "array"
+	 * @param array
+	 * @param find 
+	 */
 	private static boolean arrayContains(Object[] array, Object find) {
 		for (Object match : array) {
 			if ((match == find) || match.equals(find)) {
@@ -361,6 +432,13 @@ public class BeanMapping {
 		return false;
 	}
 
+	/**
+	 * converte una collezione
+	 * @param instances l'elenco delgi oggetti gia' convertiti (per evitare loop)
+	 * @param mappings la descrizione dei mapping classe-classe
+	 * @param source la collezione da convertire
+	 * @param destination la collezione da riempire cpon gli elementi convertiti
+	 */
 	@SuppressWarnings("unchecked")
 	private static void convertCollection(
 			IdentityHashMap<Object, Object> instances, Properties mappings,
@@ -383,6 +461,12 @@ public class BeanMapping {
 		}
 	}
 
+	/**
+	 * metodo intero per la conversione degli oggetti
+	 * @param instances
+	 * @param mappings
+	 * @param bean il bean da convertire
+	 */
 	@SuppressWarnings("unchecked")
 	private static Object convertInternal(
 			IdentityHashMap<Object, Object> instances, Properties mappings,
@@ -660,7 +744,14 @@ public class BeanMapping {
 
 		return dest;
 	}
-
+	
+	/**
+	 * Converte una mappa di elementi
+	 * @param instances
+	 * @param mappings
+	 * @param source
+	 * @param destination
+	 */
 	@SuppressWarnings("unchecked")
 	private static void convertMap(IdentityHashMap<Object, Object> instances,
 			Properties mappings, Map source, Map destination)
@@ -690,8 +781,9 @@ public class BeanMapping {
 		}
 	}
 
+	
 	private static HashMap<String, Object> inspectObject(Object o)
-			throws IntrospectionException {
+			throws IntrospectionException { 
 		if (inspections.containsKey(o.getClass())) {
 			return inspections.get(o.getClass());
 		}
@@ -855,26 +947,38 @@ public class BeanMapping {
 «ENDFILE»
 «FILE getDTOBaseSrcDir()+"/MappingException.java"»package «getDTOBaseJavaPackage()»;
 
+/**
+ * Classe di eccezione sollevata in caso di problemi di mapping
+ */
 public class MappingException extends Exception{
 
+	/**
+	 * costruttore vuoto
+	 */
 	public MappingException() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
+    
+    /**
+     * @param message
+     * @param cause
+     */
 	public MappingException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+     * @param message
+     */
 	public MappingException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
+    /**
+     * @param cause
+     */
 	public MappingException(Throwable cause) {
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 
 }
@@ -901,22 +1005,30 @@ import javax.servlet.ServletResponse;
  */
 public class «getEncodingFixFilterClassName()» implements Filter {
 
-	
+	/**
+	 * Imposta l'encoding della richiesta e della risposta a UTF-8
+	 */	
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain fchn) throws IOException, ServletException {
+		// imposta gli encoding
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8"); 
+		// continua con gli altri filtri...
 		fchn.doFilter(req, resp);
 		return;
 	}
 
+	/**
+	 * non fa nulla alla distruzione del filter
+	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * non fa nulla all'inizializzazione del filter
+	 */
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -93,73 +93,137 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	protected static final Logger log =								«noSonarTag("EIAS")» 
 	Logger.getLogger(Constants.APPLICATION_CODE + ".presentation"); «noSonarTag("EIAS")»
 
-	/** Riferimento alla sessione corrente */
+	/** 
+	 * Riferimento alla sessione corrente
+	 */
 	protected Map session;
-
+	
+	/** 
+	 * Riferimento alla sessione corrente
+	 */
 	public void setSession(Map session) {
 		this.session = session;
 	}
+	
+	/** 
+	 * Riferimento alla sessione corrente
+	 */
 	public Map getSession() {
 		return this.session;
 	}
 	
+	/**
+	 * backActionName
+	 */
 	private String backActionName;
 	
+	/**
+	 * backNamespace
+	 */
 	private String backNamespace;
 
-	
+	/**
+	 * backActionName
+	 */	
 	public void setBackActionName(String value) {
 		this.backActionName = value;
 	}
+	
+	/**
+	 * backActionName
+	 */
 	public String getBackActionName() {
 		return this.backActionName;
 	}
 
+	/**
+	 * backNamespace
+	 */
 	public void setBackNamespace(String value) {
 		this.backNamespace = value;
 	}
+	
+	/**
+	 * backNamespace
+	 */
 	public String getBackNamespace() {
 		return this.backNamespace;
 	}
 	
+	/**
+	 * stack di navigazione utilizzato dal JumpBackCommand
+	 */
 	public void setAppDataNavigationQueue(
 			java.util.LinkedList<java.lang.String> value) {
 		getSession().put("appDataNavigationQueue", value);
 	}
 
+	/**
+	 * stack di navigazione utilizzato dal JumpBackCommand
+	 */
 	public java.util.LinkedList<java.lang.String> getAppDataNavigationQueue() {
 		return (java.util.LinkedList<java.lang.String>) (getSession()
 				.get("appDataNavigationQueue"));
 	}
 	
+	/**
+	 * nome del content panel corrente
+	 */
 	public void setCurrentContentPanel(java.lang.String value) {
 		getSession().put("currentContentPanel", value);
 	}
 
+	/**
+	 * nome del content panel corrente
+	 */
 	public java.lang.String getCurrentContentPanel() {
 		return (java.lang.String) (getSession()
 				.get("currentContentPanel"));
 	}
 	
 	«IF hasGisMap(this)»
+	/**
+	 * codice di errore a livello warning per funzioni GIS
+	 */
 	public static int ERROR_LEVEL_WARNING = 0;
+	
+	/**
+	 * codice di errore a livello error per funzioni GIS
+	 */
 	public static int ERROR_LEVEL_ERROR = 1;
+	
+	/**
+	 * codice di errore a livello fatal per funzioni GIS
+	 */
 	public static int ERROR_LEVEL_FATAL = 2;
+	
+	/**
+	 * codice di errore a livello no-error per funzioni GIS
+	 */
 	public static int ERROR_LEVEL_NO_ERROR = -1;
 	«ENDIF»
 
-	
+	/**
+	 * mappa <menu,constraints di visibilita'>
+	 */
 	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;
+	
+	/**
+	 * mappa <menu,constraints di abilitazione>
+	 */
 	protected Map<String, UISecConstraint> allMenuOnOffConstraints = null;
 	
 	
-	
+	/**
+	 * metodo di preparazioen della action.
+	 */
 	public void prepare() throws CommandExecutionException{
 	
 		«IF getActualSecurityModel(this)!=null»
-	    // caricamento struttura di constraints
+	    // caricamento struttura di constraints di visibilita' del menu
 	    if (allMenuVisibilityConstraints==null)
 	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
+	    // caricamento struttura di constraints di abilitazione del menu
 	    if (allMenuOnOffConstraints==null)
 	    	allMenuOnOffConstraints = getMenuONOFFUIConstraints();
 	
@@ -169,20 +233,42 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
     ////////////////////////////////////////////////////////////////////////
     //// costruzione/lettura strato model da passare allo strato di logica
     ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * la classe del modello del content panel
+     */
     public abstract Class modelClass();
     
+    /**
+     * il modello del content panel
+     */
     public abstract T getModel() ;
 	
+	/**
+     * il modello del content panel
+     */
 	public abstract void setModel(T t);
 	
+	/**
+	 * prepara il modello del content panel per passarlo alla business logic
+	 */
 	public T toModel()  {
 		return getModel();
 	}
 
+	/**
+	 * incorpora nella action il modello del content panel ricevuto
+	 * a fronte dell'esecuzione della business logic
+	 */
 	public void fromModel(T t) {
 		setModel(t);	
 	}
     
+    /**
+     * metodo di utilita' per effettuare introspection.
+     * @param name nome della property
+     * @param cl classe in cui cercare
+     */
 	protected java.lang.reflect.Method findReadMethod(String name, Class cl)
 			throws IntrospectionException {
 		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
@@ -198,6 +284,11 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		return null;
 	}
 
+	/**
+     * metodo di utilita' per effettuare introspection.
+     * @param name nome della property
+     * @param cl classe in cui cercare
+     */
 	protected java.lang.reflect.Method findWriteMethod(String name, Class cl)
 			throws IntrospectionException {
 		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
@@ -222,37 +313,57 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	
 	/**
 	 * @return true se il widget deve essere reso visibile
+	 * @param cpName nome del ContentPanel
+	 * @param widgShortName nome del widget
 	 */
 	public boolean isWidgetVisible(String cpName, String widgShortName){
+		// lo stato di visibilita' del widget e' mantenuto in sessione, in una mappa a due
+		// livelli:
+		// - il primo livello contiene coppie <nome cp, mappa widget del cp>
+		// - il secondo livello contiene coppie <[nome widget]_visible, true|false> 
 		Map cpData = (Map)session.get(cpName);
 		if (cpData!=null){
 			Boolean visibleFlag=(Boolean)cpData.get(widgShortName+"_visible");
 			if (visibleFlag!=null){
 				return visibleFlag.booleanValue();
 			}
-			else
+			else {
+				// se non ho trovato niente forzo a true
 				return true;
+			}
 		}
-		else
+		else {
+			// se non ho trovato niente forzo a true
 			return true;
+		}
 		
 	}
 	
 	/**
 	 * @return true se il widget deve essere disabilitato
+	 * @param cpName nome del ContentPanel
+	 * @param widgShortName nome del widget
 	 */
 	public boolean isWidgetDisabled(String cpName, String widgShortName){
+		// lo stato di abbilitazione del widget e' mantenuto in sessione, in una mappa a due
+		// livelli:
+		// - il primo livello contiene coppie <nome cp, mappa widget del cp>
+		// - il secondo livello contiene coppie <[nome widget]_enabled, true|false>
 		Map cpData = (Map)session.get(cpName);
 		if (cpData!=null){
 			Boolean enabledFlag=(Boolean)cpData.get(widgShortName+"_enabled");
 			if (enabledFlag!=null){
 				return !enabledFlag.booleanValue();
 			}
-			else
+			else {
+				// se non ho trovato nulla forzo a true
 				return false;
+			}
 		}
-		else
+		else {
+			// se non ho trovaot nulla forzo a true
 			return false;
+		}
 		
 	}
 
@@ -277,13 +388,17 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		
 	/**
 	 * @return true se il menu deve essere reso visibile
+	 * @param menuName il nome del menu
 	 */
 	public boolean isMenuVisible(String menuName) {
 	«IF getActualSecurityModel(this)!=null-»
+		// recupero l'elenco di security constraints associati al menu
+		// preparati in precedenza
 		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
 		boolean status;
 		if (ctr!=null){
 			try{
+				// eseguo la valutazione dei constraints
 				status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
@@ -291,42 +406,57 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 				return false;
 			}
 		}
-		else
+		else {
+			// se non ci sono constraint valuto solo la visibilita' dell'elemento
 			status = isMenuElementVisible(menuName);
+		}
 		return status;
 	«ELSE-»
+		// vlauto la visibilita' dell'elemento
 		return isMenuElementVisible(menuName);
 	«ENDIF-»
 	}
 
-	/**
-	 * @return true se il MenuElement deve essere reso visibile
-	 */
+	
 	
 	private static final String SESSION_MENU_VISIBILITY = "menuVisibilityMap";
 	
+	/**
+	 * @return true se il MenuElement deve essere reso visibile
+	 * @param menuName il nome del menu
+	 */
 	public boolean isMenuElementVisible(String menuName) {
+		// i dati di visibilita' sono conservati in sessione in una mappa
 		Map cpData = (Map) session.get(SESSION_MENU_VISIBILITY);
 		if (cpData != null) {
 			Boolean visibleFlag = (Boolean) cpData.get(menuName
 					+ "_visible");
 			if (visibleFlag != null) {
 				return visibleFlag.booleanValue();
-			} else
+			} else {
+				// se non ho trovato nulla forzo a true
 				return true;
-		} else
+			}
+		} else {
+			// se non ho trovato nulla forzo a true
 			return true;
+		}
 
 	}
 	
 	/**
 	 * @return true se almeno uno dei sottomenu del menu dato &egrave; vissibile, false altrimenti
+	 * @param menuName il nome del menu
 	 */
 	public boolean isAtLeastOneSubMenuVisible(String menuName) {
 		«IF getActualSecurityModel(this) != null»
+		// ricerco il sottoalbero di menu a partire dal menu in esame
 		MenuStructure menuStructure = searchMenuItem(menuName, menuMap, null);
+		// quindi i suoi sottomenu
 		List<MenuStructure> mstr = menuStructure.getSubmenus();
 		for (MenuStructure subMenu : mstr) {
+			// se almeno uno dei sottomenu e' visibile allora anche il menu padre deve 
+			// essere visibile
 			if (isMenuVisible(subMenu.getMenuName())) {
 				return true;
 			}
@@ -337,6 +467,13 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		«ENDIF»
 	}
 	«IF getActualSecurityModel(this) != null»
+	/**
+	 * ricerca nella struttura dei menu il sottoalbero relativo al menu passato
+	 * in input
+	 * @param menuName il menu da cercare
+	 * @param la struttura di menu (per ricorsione)
+	 * @param la struttura di menu corrente
+	 */
 	private MenuStructure searchMenuItem(String menuName,
 			List<MenuStructure> menuTmp, MenuStructure menuStructureCurr) {
 		MenuStructure res = menuStructureCurr;
@@ -352,13 +489,16 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	«ENDIF»
 	/**
 	 * @return true se il menu deve essere reso abilitato
+	 * @param menuName
 	 */
 	public boolean isMenuEnabled(String menuName) {
 	«IF getActualSecurityModel(this)!=null-»
+		// recupero i constraint preparati in precedenza
 		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
 		boolean status;
 		if (ctr!=null){
 			try{
+				// valuto i constraint per veirifcare lo stato di abilitazione
 				status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
@@ -366,44 +506,62 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 				return false;
 			}
 		}
-		else
+		else {
+			// se non vi sono constraints allora e' sufficiente valutare lo stato di
+			// abilitazione dell'elemento
 			status = isMenuElementEnabled(menuName);
+		}
 		return status;
 	«ELSE»
+		// valuto lo stato di abilitazione dell'elemento
 		return isMenuElementEnabled(menuName);
 	«ENDIF»
 	}
 	
 	
+	/**
+	 * nome dell'attributo di sessione che contiene la mappa di abilitazione dei menu
+	 */
 	private static String SESSION_MENU_ONOFF = "menuOnOffMap";
 	
 	/**
 	 * @return true se il menuElement deve essere disabilitato
+	 * @param menuName
 	 */
 	public boolean isMenuElementEnabled(String menuName) {
+		// le informazioni di abilitazione sono contenute in una mappa 
+		// in sessione
 		Map cpData = (Map) session.get(SESSION_MENU_ONOFF);
 		if (cpData != null) {
 			Boolean enabledFlag = (Boolean) cpData.get(menuName
 					+ "_enabled");
 			if (enabledFlag != null) {
 				return enabledFlag.booleanValue();
-			} else
+			} else {
+				// se non trovo nulla forzo a true
 				return true;
-		} else
+			}
+		} else {
+			// se non trovo nulla forzo a true
 			return true;
+		}
 
 	}
 	
 	/**
 	 * @return true se il menu deve essere reso attivo (ovvero &grave; stato cliccato)
+	 * @param menuName
 	 */
 	public boolean isMenuActive(String menuName) {
+		// il menu corrente e' mantenuto in sessione
 		String menu = "menu_items_" + menuName;
 		return menu.equals((String)session.get("active_menu"));
 	}
 
 	/**
-	 * @return true se un sottomenu del menu dato (a qualunque livello) &egrave; attivo (ovvero &grave; stato cliccato)
+	 * @return true se un sottomenu del menu dato (a qualunque livello) &egrave; attivo 
+	 * (ovvero &grave; stato cliccato)
+	 * @param menuName
 	 */
 	public boolean isSubMenuActive(String menuName) {
 		for (MenuStructure menuStructure : menuMap) {

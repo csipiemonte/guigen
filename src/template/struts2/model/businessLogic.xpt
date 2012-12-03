@@ -47,6 +47,7 @@ public class «getSpringBEClassName()»{
 	/// Costanti identificative degli Application Data
 	//////////////////////////////////////////////////////////////////////////////
     «FOREACH (List[ApplicationData])getAllApplicationData(this) AS currAD»
+    // ApplicationData: [«currAD.name», scope:«currAD.lifetimeExtent.toString()»]
     public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
     «ENDFOREACH» 
    
@@ -65,12 +66,21 @@ public class «getSpringBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
 	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
 	
+	/**
+	 * riferimento al CPBE del content panel «currCP.name»
+	 */
 	private «getSpringCPBEFQN(currCP)» _«getSpringCPBEClassName(currCP)» = null;
 	
+	/**
+	 * riferimento al CPBE del content panel «currCP.name»
+	 */
 	public void set«getSpringCPBEClassName(currCP)»(«getSpringCPBEFQN(currCP)» bean){
 		_«getSpringCPBEClassName(currCP)» = bean;
 	}
 	
+	/**
+	 * riferimento al CPBE del content panel «currCP.name»
+	 */
 	public «getSpringCPBEFQN(currCP)» get«getSpringCPBEClassName(currCP)»(){
 		return _«getSpringCPBEClassName(currCP)»;
 	}
@@ -133,6 +143,7 @@ public class «getSpringCPBEClassName()»{
 	/// Costanti identificative degli Application Data
 	//////////////////////////////////////////////////////////////////////////////
     «FOREACH this.appData AS currAD»
+    // ApplicationData: [«currAD.name», scope:«currAD.lifetimeExtent.toString()»]
     public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
     «ENDFOREACH» 
    
@@ -155,8 +166,14 @@ public class «getSpringCPBEClassName()»{
 	//*********************bean di iniezione delle mappe
 	«LET (List[MapView])getMapsInContentPanel() AS maps-»
 	«FOREACH maps AS map-»
+	/**
+	 * utilizzato dalle funzionalita' GIS
+	 */
 	private GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()»;
 
+	/**
+	 * utilizzato dalle funzionalita' GIS
+	 */
 	public void setMapAdapter«map.mapId.toFirstUpper()»(GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()») {
 		this.mapAdapter«map.mapId.toFirstUpper()» = mapAdapter«map.mapId.toFirstUpper()»;
 	}
@@ -209,6 +226,9 @@ public class «getSpringCPBEClassName()»{
 
 
 «DEFINE resetTableMethod(ContentPanel cp, String contextPrefix) FOR Table»
+	/**
+	 * permette di resettare lo stato di paginazione della tabella «getWidgetName(this, contextPrefix)»
+	 */
 	public static void resetClearStatus_«getWidgetName(this, contextPrefix)»(java.util.Map session) {
     	session.put("«cp.name»_«getFullID(this, contextPrefix)»_clearStatus", Boolean.TRUE);
     }
@@ -317,7 +337,11 @@ public class «getSpringCPBEClassName()»{
 
 «DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand»
 	////////////////////////////////////////////////////////////////////////////////////
-			
+	
+	/**
+	 * richiama il metodo «this.methodName» utilizzato in un ExecCommand
+	 * del ContentPanel «cp.name»
+	 */ 		
 	public ExecResults «getFullExecCmdMethodName(this.methodName, contextPrefix)» (
 	«IF cp != null»
 		«getModelDTOFQN(cp, false, false, model)» theModel
@@ -330,6 +354,7 @@ public class «getSpringCPBEClassName()»{
 	)
 	throws BEException
 	{
+		// l'esecuzione viene delegata al bean corrispondente al ContentPanel «cp.name»
 	    return get«getSpringCPBEClassName(cp)»().«getFullExecCmdMethodName(this.methodName, contextPrefix)»(theModel);
 	}
 	
@@ -441,6 +466,10 @@ public class «getSpringCPBEClassName()»{
 	////////////////////////////////////////////////////////////////////////////////////
 	
 	«LET cp AS parentCP-»		
+	/**
+	 * Implementazione del metodo «methodName» definito in un ExecCommand del
+	 * ContentPanel «cp.name»
+	 */
 	public ExecResults «getFullExecCmdMethodName(this.methodName, contextPrefix)» (
 	«IF parentCP != null»
 		«getModelDTOFQN(parentCP, false, false, model)» theModel

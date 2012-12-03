@@ -1023,11 +1023,25 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 «DEFINE securedWidgetCheck(GUIModel model) FOR ContentPanel»
 // ridefinizione dei metodi di verifica visibilita'/validazione
 // per supportare i security check
-
+	
+	/**
+	 * Restituisce true se il widget e' abilitato.
+	 * Il risultato e' condizionato da:
+	 * - stato di default
+	 * - stato comandato da OnOffCommand
+	 * - stato comandato da ScreenStateCommand
+	 * - security constraint
+	 * @param cpName nome del content panel
+	 * @param widgShortName nome del widget 
+	 */
 	public boolean isWidgetDisabled(String cpName, String widgShortName) {
+		// recupero l'elenco del security constraint preparati in fase di
+		// inizializzazione del pannello
 		UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
 		if (ctr!=null){
 			try{
+				// se sono presenti dei constraint, li eseguo per conoscere lo stato
+				// di abilitazione del widget
 				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
@@ -1035,14 +1049,31 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return true; // forzo la DISABILITAZIONE
 			}
 		}
-		else
+		else {
+			// se non sono presenti constraint vale l'implementazione di default
 			return super.isWidgetDisabled(cpName, widgShortName);
+		}
 	}
 	
+	
+	/**
+	 * Restituisce true se il widget e' visibile.
+	 * Il risultato e' condizionato da:
+	 * - stato di default
+	 * - stato comandato da VisibilityCommand
+	 * - stato comandato da ScreenStateCommand
+	 * - security constraint
+	 * @param cpName nome del content panel
+	 * @param widgShortName nome del widget 
+	 */
 	public boolean isWidgetVisible(String cpName, String widgShortName) {
+		// recupero l'elenco del security constraint preparati in fase di
+		// inizializzazione del pannello
 		UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
 		if (ctr!=null){
 			try{
+				// se sono presenti dei constraint, li eseguo per conoscere lo stato
+				// di visibilita' del widget
 				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
@@ -1050,8 +1081,10 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return false; // forzo l'invisibilita'
 			}
 		}
-		else
+		else {
+			// se non sono presenti constraint vale l'implementazione di default
 			return super.isWidgetVisible(cpName, widgShortName);
+		}
 	}
 
 «ENDDEFINE»

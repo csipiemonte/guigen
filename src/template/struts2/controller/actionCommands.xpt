@@ -74,6 +74,10 @@ public class NOPCommand implements ICommand {
 	public NOPCommand() {
 		
 	}
+	
+	/**
+	 * @return null. In questo modo il NOPCommand ha effetto nullo sull'esecuzione 
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		return null;
 	}
@@ -83,7 +87,9 @@ public class NOPCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/JumpCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// JUMP_ACTION
+/**
+ * Implementazione del comando JumpCommand
+ */
 public class JumpCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -91,15 +97,44 @@ public class JumpCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * nome del ContentPanel target del salto
+	 */
 	String name;
+	
+	/**
+	 * nome del contnetPanel di partenza (serve in caso di pushCurrentPage)
+	 */
 	String _currentPageName = null;
+	
+	/**
+	 * se impostato a true, verra' inserita la pagina (content panel) corrente nello 
+	 * stack
+	 */
 	boolean _pushCurrent;
+	
+	/**
+	 * @param panelName il nome del contentPanel a cui saltare
+	 * @param currentPageName il nome del contentPanel di partenza (serve in 
+	 * caso di pushCurrentPage
+	 * @param pushCurrentPage se impostato a true viene inserito il nome del contentPanel
+     * corrente nello stack
+	 */
 	public JumpCommand(String panelName, String currentPageName,
 			boolean pushCurrent) {
 		name = panelName;
 		_pushCurrent = pushCurrent;
 		_currentPageName = currentPageName;
 	}
+	
+	/**
+	 * Esecuzione del salto. L'esecuzione del jump command si concretizza con la restituzione
+	 * al workflow di struts del result corrispondente alla action associata al
+	 * ContentPanel target. 
+	 * Nel caso sia specificato pushCurrentPage=true, verra' inserito nello stack delle pagine
+	 * il nome del contentPanel di partenza, contenuto in currentPageName.
+	 * Inoltre viene eseguita la pulizia degli application data di scope SAME_PAGE.
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 	//se prevista modalità PUSH_PAGE_CURRENT --> inserisci in queque currentPage 
 		if (_pushCurrent && (null!=_currentPageName && !"".equalsIgnoreCase(_currentPageName))) {
@@ -120,7 +155,9 @@ public class JumpCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/JumpBackCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// JUMP_BACK_ACTION
+/**
+ * Implementazione del comando JumpBackCommand
+ */
 public class JumpBackCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -131,12 +168,28 @@ public class JumpBackCommand implements ICommand {
 	private java.util.LinkedList<java.lang.String> navigationQueue;
 	private String currentCPName;
 
+	/**
+	 * @param currentCPName il nome del ContentPanel di partenza
+	 * @param navigationQueue la coda (stack) di navigazione, necessaria per capire a
+	 * che contentPanel tornare
+	 */
 	public JumpBackCommand(String currentCPName,
 			java.util.LinkedList<java.lang.String> navigationQueue) {
 		this.currentCPName = currentCPName;
 		this.navigationQueue = navigationQueue;
 
 	}
+	
+	/**
+	 * Esecuzione del comando JumpBackCommand. L'esecuzione di questo comando consiste nella restituzione
+	 * al workflow di struts del result GO_TO_BackPage, che tutte le action asosciate ai ContnetPanel
+	 * possiedono, e che a runtime ridirige il flusso al content panel sul top dello stack.
+	 * Il result GO_TO_BackPage prende le info circa namespace e action a cui saltare dalle property
+	 * backNamespace e backActionName contenute nella action. questo comando pertanto, oltre a restituire
+	 * il result GO_TO_BackPage, imposta anche tale coppia di proprieta'.
+	 * Nel caso in cui lo stack sia vuoto il comando resittuisce il result BACK_TO_HOME che fa ritornare il
+	 * flusso di esecuzione alla home page applicativa.
+	 */
 	public String doCommand(BaseAction strutsAction)
 			throws CommandExecutionException {
 		// clear page scoped appdata
@@ -153,8 +206,6 @@ public class JumpBackCommand implements ICommand {
 				return "GO_TO_BackPage";
 			}
 		}
-
-
 		return "BACK_TO_HOME";
 
 	}
@@ -167,7 +218,9 @@ public class JumpBackCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/RefreshViewCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// REFRESHVIEW_ACTION
+/**
+ * Implementazione del comando RefreshViewCommand.
+ */
 public class RefreshViewCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -179,6 +232,11 @@ public class RefreshViewCommand implements ICommand {
 	String [] _targetPanels=null;
 	String [] _targetWidgets=null;
 	
+	/**
+	 * @param currentPanelName il nome del ContentPanel su cui deve essere effettuato il refresh
+	 * @param targetPanelNames l'elenco dei nomi dei pannelli da rinfrescare
+	 * @param targetWidgetNames l'elenco dei nomi dei widget da rinfrescare
+	 */
 	public RefreshViewCommand(String currentPanelName, String [] targetPanelNames,
 			String  [] targetWidgetNames) {
 		_currentPanelName = currentPanelName;
@@ -187,6 +245,13 @@ public class RefreshViewCommand implements ICommand {
 	}
 	
 	
+	/**
+	 * Nell'implementazione struts l'esecuzione di questo comando e' completamente a carico dello 
+	 * strato javascript.
+	 * Pertanto l'unico effetto di questo comando e' quello di comandare al workflow di struts la
+	 * restituizione della pagina completa. La parte client ritagliera' le parti a seconda di 
+	 * quali pannelli target sono stati modellati. 
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		return null;
 	}
@@ -197,7 +262,9 @@ public class RefreshViewCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/JumpExtCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// JUMP_ACTION
+/**
+ * Implementazione del comando JumpExtCommnad.
+ */
 public class JumpExtCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -209,39 +276,88 @@ public class JumpExtCommand implements ICommand {
 	String staticUrl;
 	String runtimeUrlProviderAppaData;
 	boolean binaryStream;
+	
+	/**
+	 * @param locationCode codice univoco identificativo della location a cui saltare.
+	 * e' referenziato nel result di struts
+	 * @param staticUrl se il comandoprevede il salto ad un url fisso, questo e' contenuto
+	 * in tale parametro
+	 * @param runtimeUrlProviderAppData nome dell'ApplicationData che contiene il valore dell'url a cui
+	 * saltare (in caso di url dinamicamente determinato)
+	 * @param binaryStream se impostato a true indica che l'url a cui si comanda il salto produrra'
+	 * uno stream binario. Alcune cartuccie potrebbero sfruttare questa informazione per ottimizzare
+	 * il comportamento.
+	 */
 	public JumpExtCommand(String locationCode, String staticUrl, String runtimeUrlProviderAppaData, boolean binaryStream) {
 		this.locationCode = locationCode;
 		this.staticUrl = staticUrl;
 		this.runtimeUrlProviderAppaData = runtimeUrlProviderAppaData;
 		this.binaryStream = binaryStream;
 	}
+	
+	/**
+	 * Esecuzione del comando JumpExtCommand. L'esecuzione si concretizza con la restituzione
+	 * al workflow di struts del result GO_TO_EX_<codice della location>.
+	 * sara' poi il result (di tipo redirect) a ridirigere il flusso all'url corretto.
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		// clear page scoped appdata
 		strutsAction.clearPageScopedAppData(null);
 		return "GO_TO_EX_"+locationCode;
 	}
 	
+	/**
+	 * codice della location a cui saltare
+	 */
 	public String getLocationCode() {
 		return locationCode;
 	}
+	
+	/**
+	 * codice della location a cui saltare
+	 */
 	public void setLocationCode(String locationCode) {
 		this.locationCode = locationCode;
 	}
+	
+	/**
+	 * url statico a cui saltare
+	 */
 	public String getStaticUrl() {
 		return staticUrl;
 	}
+	
+	/**
+	 * url statico a cui saltare
+	 */
 	public void setStaticUrl(String staticUrl) {
 		this.staticUrl = staticUrl;
 	}
+	
+	/**
+	 * nome dell'appdata contnenente l'url a cui saltare
+	 */
 	public String getRuntimeUrlProviderAppaData() {
 		return runtimeUrlProviderAppaData;
 	}
+	
+	/**
+	 * nome dell'appdata contnenente l'url a cui saltare
+	 */
 	public void setRuntimeUrlProviderAppaData(String runtimeUrlProviderAppaData) {
 		this.runtimeUrlProviderAppaData = runtimeUrlProviderAppaData;
 	}
+	
+	/**
+	 * l'url a cui saltare produrra' uno stream binario?
+	 */
 	public boolean isBinaryStream() {
 		return binaryStream;
 	}
+	
+	/**
+	 * l'url a cui saltare produrra' uno stream binario?
+	 */
 	public void setBinaryStream(boolean binaryStream) {
 		this.binaryStream = binaryStream;
 	}
@@ -251,7 +367,9 @@ public class JumpExtCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/ActivateMultiPanelItemCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// ActivateMultiPanelItemCommand
+/**
+ * Implementazione del comnado ActivateMultiPanelItemCommand
+ */
 public class ActivateMultiPanelItemCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -278,6 +396,14 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 		this.containerName = containerName;
 		this.itemName = itemName;
 	}
+	
+	/**
+	 * Esecuzione del comando ActivateMultiPanelItem. L'indicazione del nome dell'item 
+	 * correntemente attivo e' mantenuta in sessione: 
+	 * - chiave: <contentPanelName>_<containerName>_selectedMultiPanel" 
+	 * - valore: <contentPanelName>_<containerName>_<itemName> oppure null per disattivare 
+	 * tutti gli item
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (itemName!=null){
 			strutsAction.getSession().put(
@@ -299,6 +425,9 @@ package «getPresentationJavaPackage()»;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * Implementazione del comando ScreenStateCommand
+ */
 public class ScreenStateCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -313,6 +442,15 @@ public class ScreenStateCommand implements ICommand {
 	String[] _widgetsShown = null;
 	String[] _widgetsHidden = null;
 
+
+	/**
+	 * @param containerName nome del content panel a cui fanno riferimento gli screen state
+	 * @param stateName nome dello ScreenState da attivare
+	 * @param widgetsOn elenco dei nomi dei widget da abilitare
+	 * @param widgetsOff elenco dei nomi dei widget da disabilitare
+	 * @param widgetsShown elenco dei nomi dei widget da mostrare
+	 * @param widgetsHidden elenco dei nomi dei widget da nascondere
+	 */
 	public ScreenStateCommand(
 			String containerName,
 			String stateName, 
@@ -329,6 +467,11 @@ public class ScreenStateCommand implements ICommand {
 		_widgetsHidden = widgetsHidden;
 	}
 
+	/**
+	 * Esecuzione del comando ScreenStateCommand. L'esecuzione di questo comando e' concretizzata
+	 * tramite l'esecuzione di una serie di comnadi ONOFF e Visibility a seconda di quanto descritto
+	 * iun widgetsOn/Off, widgetShown/Hidden.  
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		OnOffCommand turnOn = new OnOffCommand(_containerName, _widgetsOn, true);
 		OnOffCommand turnOff = new OnOffCommand(_containerName, _widgetsOff, false);
@@ -412,6 +555,9 @@ package «getPresentationJavaPackage()»;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * Implementazione del comando OnOffCommand 
+ */
 public class OnOffCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -425,13 +571,23 @@ public class OnOffCommand implements ICommand {
 	String[] _targetsMenuElement = null;
 	boolean _show = true;
 
+	/**
+	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
+	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
+	 * @param show se vale true i widget saranno abilitati, altrimenti saranno disabilitati
+	 */
 	public OnOffCommand(String containerName, String targetsWidgets[], boolean show) {
 		_containerName = containerName;
 		_targetsWidgets = targetsWidgets;
 		_show = show;
 	}
 	
-	
+	/**
+	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
+	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
+	 * @param targetsMenuElement nomi dei menu da abilitare/disabilitare
+	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
+	 */
 	public OnOffCommand(String containerName, String targetsWidgets[], String targetsMenuElement[], boolean show) {
 		_containerName = containerName;
 		_targetsWidgets = targetsWidgets;
@@ -439,7 +595,10 @@ public class OnOffCommand implements ICommand {
 		_show = show;
 	}
 	
-
+	/**
+	 * esecuzione del comando OnOffCommand. Lo stato di abilitazione dei widget/menu e' contenuto in
+	 * sessione.
+	 */
 	public String doCommand(BaseAction strutsAction)
 			throws CommandExecutionException {
 		if (_targetsWidgets != null) {
@@ -479,6 +638,10 @@ package «getPresentationJavaPackage()»;
 import java.util.Map;
 import java.util.HashMap;
 
+
+/**
+ * Implementazione dle comando VisibilityCommand
+ */
 public class VisibilityCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -486,13 +649,37 @@ public class VisibilityCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * nome dell'attributo in sessione che contiene la mappa di visibilita' dei menu
+	 */
 	private static final String SESSION_MENU_VISIBILITY = "menuVisibilityMap";
 
+	/**
+	 * containerName
+	 */
 	String _containerName = null;
+	
+	/**
+	 * targetsWidgets
+	 */
 	String[] _targetsWidgets = null;
+	
+	/**
+	 * targetsMenuElement
+	 */
 	String[] _targetsMenuElement = null;
+	
+	/**
+	 * show?
+	 */
 	boolean _show = true;
 
+	/**
+	 * @param containerName il nome del content panel che contiene i widget da mostrare/nascondere
+	 * @param targetWidgets nomi dei widget da mostrare/nascondere
+	 * @param targetsMenuElement nomi dei menu da mostrare/nascondere
+	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
+	 */
 	public VisibilityCommand(String containerName, String targetsWidgets[], String targetsMenuElement[],
 			boolean show) {
 		_containerName = containerName;
@@ -501,6 +688,11 @@ public class VisibilityCommand implements ICommand {
 		_show = show;
 	}
 	
+	/**
+	 * @param containerName il nome del content panel che contiene i widget da mostrare/nascondere
+	 * @param targetWidgets nomi dei widget da mostrare/nascondere
+	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
+	 */
 	public VisibilityCommand(String containerName, String targetsWidgets[], 
 			boolean show) {
 		_containerName = containerName;
@@ -508,12 +700,19 @@ public class VisibilityCommand implements ICommand {
 		_show = show;
 	}
 
-
+    /**
+	 * esecuzione del comando VisibilityCommand. Lo stato di visibilita' dei widget/menu e' contenuto in
+	 * sessione.
+	 */
 	public String doCommand(BaseAction strutsAction)
 			throws CommandExecutionException {
 		
 		//Definzione Visibility Widgets per ContentPanel
 		if (_targetsWidgets != null) {
+			// lo stato di visibilita' dei widget e' mantenuto in sessione
+			// in una mappa a due livelli:
+			// - il primo livello contiene <nome cp, mappa per il cp>
+			// - il secondo livello contiene <[widget]_visible, true|false>
 			Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
 					.get(_containerName);
 			if (cpWidgetsStatus == null) {
@@ -530,14 +729,19 @@ public class VisibilityCommand implements ICommand {
 		
 		//Definzione Visibility MenuElement 
 		if(_targetsMenuElement !=null){
+			// lo stato di visibilita' di una voce di menu e' contenuta in sessione
+			// in una mappa
 			Map<String, Boolean> menuVisibilityMap = (Map<String, Boolean>) strutsAction.session
 					.get(SESSION_MENU_VISIBILITY);
 
 			if (menuVisibilityMap == null) {
+				// se la mappa non esiste ancora la creo
 				menuVisibilityMap = new HashMap<String, Boolean>();
 				strutsAction.session
 						.put(SESSION_MENU_VISIBILITY, menuVisibilityMap);
 			}
+			// inserisco lo stato di visibilita' di tutti i target menu
+			// inserendo la coppia <[menu]_visible, true|false>
 			for (int i = 0; i < _targetsMenuElement.length; i++) {
 				menuVisibilityMap.put(_targetsMenuElement[i] + "_visible",
 						Boolean.valueOf(_show));
@@ -561,7 +765,9 @@ import java.lang.reflect.InvocationTargetException;
 
 
 
-////ExecCommand
+/**
+ * Implementazione del comando ExecCommand.
+ */
 public class ExecCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -569,18 +775,44 @@ public class ExecCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * gli esiti possibili
+	 */
 	String _esiti[] = null;
+	
+	/**
+	 * le azioni corrispondenti agli esiti possibili
+	 */
 	ICommand _azioni[] = null;
+	
+	/**
+	 * il nome del metodo da eseguire
+	 */
 	String _nomeMetodo = null;
+	
+	/**
+	 * gli appdata che la logica modifica
+	 */
 	String _appDataToStore[] = null;
+	
+	/**
+	 * mappa <result,azione>
+	 */
 	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
 
+	/**
+	 * @param esiti elenco dei possibili esiti (restituiti dal metodo di business effettivo
+	 * @param azioni elenco degli oggeti ICommand da eseguire a fronte di ciascun esito
+	 * @param nomeMetodo nome del metodo del bean dello strato di business logic da eseguire
+	 * @param appDataToStore elenco dei nomi degli application data modificati dalla logica di business
+	 */
 	public ExecCommand(String esiti[], ICommand[] azioni, String nomeMetodo, String appDataToStore[]) {
 		_esiti = esiti;
 		_azioni = azioni;
 		_nomeMetodo = nomeMetodo;
 		_appDataToStore = appDataToStore;
 		if (_esiti != null) {
+			// riempio la mappa <esiti,azioni>
 			for (int i = 0; i < _esiti.length; i++)
 				_resultAzioni.put(_esiti[i], _azioni[i]);
 		}
@@ -588,6 +820,11 @@ public class ExecCommand implements ICommand {
 
 	/**
 	 * Esecuzione della logica di business.
+	 * Il model su cui lavorera' il metodo di business e' estratto dalla action.
+	 * viene quindi invocato il metodo di business tramite introspection e viene
+	 * preparato il risultato da restituire al workflow di struts (aggiornando anche i
+	 * messaggi con quanto eventualmente contenuto nell'oggetto ExecResult restituito 
+	 * dal metodo di business.
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		// action --> model
@@ -732,7 +969,9 @@ public class ExecCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/ClearAppDataCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// NO OPERATION
+/**
+ * Implementazione del comando ClearAppDataCommand.
+ */
 public class ClearAppDataCommand implements ICommand {
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
 	// solo per poter essere inserita in sessione web e non viene scambiata con altre
@@ -741,10 +980,18 @@ public class ClearAppDataCommand implements ICommand {
 	
 	private String[] _attributesToBeRemovedFromSession = null;
 	
+	/**
+	 * @param nomi degli application data da cancellare
+	 */
 	public ClearAppDataCommand(String[] attributesToBeRemovedFromSession) {
 		this._attributesToBeRemovedFromSession = attributesToBeRemovedFromSession;
 	}
 	
+	/**
+	 * Implementazione del comando clearAppdataCommand. 
+	 * Il comando rimuove dalla sessione gli attributi corrispondenti
+	 * agli application data elencati in attributesToBeRemovedFromSession
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (_attributesToBeRemovedFromSession!=null && _attributesToBeRemovedFromSession.length!=0){
 			for (int i = 0; i < _attributesToBeRemovedFromSession.length; i++) {
@@ -871,7 +1118,9 @@ public class ExecResults {
 «FILE getPresentationJavaSrcDir(true)+"/SequenceCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// SEQUENCE_ACTION
+/**
+ * Implementazione del comando SequenceCommand.
+ */
 public class SequenceCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -880,6 +1129,10 @@ public class SequenceCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	
 	ICommand[] _actions;
+	
+	/** 
+	 * @param actions elenco degli ICommand da eseguire in sequenza
+	 */
 	public SequenceCommand(ICommand[] actions) {
 		_actions = actions;
 	}
@@ -907,7 +1160,9 @@ public class SequenceCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/ShowDialogCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// SHOW_DIALOG_ACTION
+/**
+ * Implementazione del comando ShowDialogCommnad
+ */
 public class ShowDialogCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -916,9 +1171,18 @@ public class ShowDialogCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	
 	String name;
+	
+	/**
+	 * @param panelName il nome del DialogPanel da visualizzare
+	 */
 	public ShowDialogCommand(String panelName) {
 		name = panelName;
 	}
+	
+	/**
+	 * Esecuzione del comando ShowDialogCommand. 
+	 * Si concretizza con la restituzione al workflow di struts del result SHOW_<nome dialog>.
+	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		return "SHOW_"+name;
 	}
@@ -934,7 +1198,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/// BEGIN_EDIT_ACTION
+/**
+ * Implementazione del comando BeginEditCommand.
+ */
 public class BeginEditCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -943,11 +1209,17 @@ public class BeginEditCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	
 	String [] targetAppDataNames;
+	
+	/**
+	 * @param targetAppDataNames i nomi degli applicaiton data da includere nella
+	 * sessione
+	 */
 	public BeginEditCommand(String [] targetAppDataNames) {
 		this.targetAppDataNames = targetAppDataNames;
 	}
 	
 	/**
+	 * Esecuzione del comando BeginEditCommand. 
 	 * Salva un backup (deep copy) degli appdata specificati
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
@@ -966,6 +1238,11 @@ public class BeginEditCommand implements ICommand {
 		return null;
 	}
 	
+	/**
+	 * Effettua il salvataggio di un backup del singolo applicationData
+	 * @param adName il nome dell'application data
+	 * @param strutsAction la action su cui si scatena il comando
+	 */
 	public static void storeBackup(String adName, BaseAction strutsAction) throws CloneNotSupportedException
 	{
 		Object currADVal = strutsAction.getSession().get(adName);
@@ -975,6 +1252,10 @@ public class BeginEditCommand implements ICommand {
 		}
 	}
 	
+	/**
+	 * Effettua un clone ricorsivo delle strutture dati in input.
+	 * Il clone viene fatto tramite serializzazione in memory e successiva deserializzazione.
+	 */
 	public static Object deepClone(Object orig) throws CloneNotSupportedException{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ObjectOutputStream oos;
@@ -999,7 +1280,9 @@ public class BeginEditCommand implements ICommand {
 package «getPresentationJavaPackage()»;
 
 
-/// END_EDIT_ACTION
+/**
+ * Implementazione del comando EndEditSession.
+ */
 public class EndEditCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -1010,6 +1293,11 @@ public class EndEditCommand implements ICommand {
 	String [] targetAppDataNames;
 	boolean undo;
 	
+	/**
+	 * @param targetAppDataNames i nomi degli application data da ripristinare (eventualmente)
+	 * @param undo se valorizzato a true, il valore degli appdata referenziati viene ripristinato a partire
+	 * dal valore di backup effettuato durante l'esecuzione del BeginEditCommand corrispondente
+	 */
 	public EndEditCommand(String [] targetAppDataNames, boolean undo) {
 		this.targetAppDataNames = targetAppDataNames;
 		this.undo=undo;
@@ -1029,6 +1317,12 @@ public class EndEditCommand implements ICommand {
 		return null;
 	}
 	
+	/**
+	 * Rimuove i backup e se necessario effettua il restore del valore del singolo application data
+	 * @param adName
+	 * @param undo
+	 * @param strutsAction
+	 */
 	public static void endEditForAppdata(String adName, boolean undo,
 			BaseAction strutsAction) {
 		if (undo) {
@@ -1051,7 +1345,11 @@ public class EndEditCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/ChkEditStatusCommand.java"»
 package «getPresentationJavaPackage()»;
 
-/// CHECK_EDIT_STATUS_ACTION
+/**
+ * Implementazione del comando ChkEditStatusCommand. Permette di esaminare se il valore
+ * di un ApplicationData coinvolto in una sessione di editing (tramite BeginEditSessionCommand)
+ * e' stato modificato.
+ */
 public class ChkEditStatusCommand implements ICommand {
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
@@ -1064,6 +1362,13 @@ public class ChkEditStatusCommand implements ICommand {
 	String _checkAggr;
 	String [] _checkedData;
 	
+	/**
+	 * @param checkedData il nome deli application data da esaminare
+	 * @param checkAggregation modalita' di aggregazione dei risultati dei singoli check.
+	 * puo' valere "AND", "OR" o "XOR"
+	 * @param doIfChanged ICommand da eseguire se il check e' positivo (dati variati)
+	 * @param doIfNotChanged ICommand da eseguire se il check e' negativo (dati non variati) 
+	 */
 	public ChkEditStatusCommand(
 			String [] checkedData, 
 			String checkAggregation, 
@@ -1076,9 +1381,9 @@ public class ChkEditStatusCommand implements ICommand {
 	}
 
 	/**
-	 * La sequence action esegue in sequenza tutte le azioni atomiche
-	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
-	 * dagli step (per determinare al termine quale debba essere la pagina successiva
+	 * Esecuzione del comando. 
+	 * A seconda del risultato del check (che tiene conto del tipo di aggregazione)
+	 * viene eseguito il comando contenuto in doIfChanged o doIfNotchanged
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		boolean changed = checkAppdata4Changes(_checkedData, _checkAggr, strutsAction);
@@ -1158,39 +1463,71 @@ import java.lang.reflect.Modifier;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * classe di utilita' varia per operare sugli oggetti DTO.
+ */
 public class DTOUtils {
 
+	/**
+	 * singleton
+	 */
 	private static DTOUtils _instance;
 	
 	static{
+		// creazione del singleton
 		_instance = new DTOUtils();
 	}
 	
+	/**
+	 * singleton instance
+	 */
 	public static DTOUtils getInstance(){
 		return _instance;
 	}
+	
+	/**
+	 * Effettua una verifica di uguaglianza in profondita' tra i due
+	 * oggetti in input
+	 * @param o1
+	 * @param o2
+	 */
 	public boolean deepEquals(Object o1, Object o2){
 		if ((o1==null || o2==null) && (o1!=null || o2!=null)){
+			// se uno solo dei due oggetti e' nullo allora non 
+			// possono essere uguali
 			return false;
 		}else if (List.class.isAssignableFrom(o1.getClass())) {
+			// se sono array effettuo la verifica specifica
 			return deepEqualsArray(o1, o2);
 		}else if (!(o1.getClass().equals(o2.getClass()))){
+			// se i due oggetti non sono della stessa classe
+			// non possono essere uguali
 			return false;
 		// else: stesso tipo e nessuno dei due nullo
 		}
 		else if (o1 instanceof Integer || o1 instanceof Long
 				|| o1 instanceof Float || o1 instanceof Double
 				|| o1 instanceof String || o1 instanceof Byte 
-				|| o1 instanceof Boolean)
+				|| o1 instanceof Boolean) {
+			// se sono tipi semplici utilizzo la funzione equals prevista
+			// per quei tipi
 			return o1.equals(o2);
+		}
 		else {
-			// oggetti complessi
+			// se sono oggetti complessi effettuo la verifica specifica
 			return deepEqualsBean(o1, o2);
 		}
 	}
+	
+	/**
+	 * verifica di uguaglianza specifica per bean
+	 * @param o1
+	 * @param o2
+	 */
 	private boolean deepEqualsBean(Object o1, Object o2) {
 		BeanInfo bi;
 		try {
+			// l'accesso agli oggetti avviene mediante introspection
 			bi = Introspector.getBeanInfo(o1.getClass());
 		} catch (IntrospectionException e) {
 			throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
@@ -1198,12 +1535,18 @@ public class DTOUtils {
 		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
 		for (int i = 0; i < pds.length; i++) {
 			PropertyDescriptor currPD = pds[i];
+			// ottengo il metodo di lettura della property corrente dai metadati
 			Method getter = currPD.getReadMethod();
+			// ottengo il metodo di scrittura della property corrente dai metadati
 			Method setter = currPD.getWriteMethod();
 			if (getter != null && setter != null){
+				// se la property non e' read only..
 				try {
+					// valore della property nell'oggetto 1
 					Object v1 = getter.invoke(o1, new Object[]{});
+					// valore della property nell'oggetto 2
 					Object v2 = getter.invoke(o2, new Object[]{});
+					// richiamo ricorsivamente la verifica sui due valori
 					if (!deepEquals(v1, v2))
 						return false; // basta uno diverso => false
 				} 
@@ -1217,15 +1560,32 @@ public class DTOUtils {
 		}
 		return true;
 	}
+	
+	/**
+	 * metodo di verifica di uguaglianza profonda, specifico per oggetti di
+	 * tipo array
+	 * @param o1
+	 * @param o2
+	 */
 	private boolean deepEqualsArray(Object o1, Object o2) {
 		List l1 = (List)o1;
 		List l2 = (List)o2;
-		if (l1.size() != l2.size())
+		if (l1.size() != l2.size()) {
+			// se le due collezioni non hanno lo stesso numero di elementi
+			// non possono essere uguali, percio' non proseguo la verifica
+			// sugli elementi
 			return false;
+		}
 		else{
+			// se le due collezioni hanno lo stesso numero di elementi proseguo
+			// la verifica sui singoli elementi
 			for (int i = 0; i < l1.size(); i++) {
+				// oggetto i-esimo della prima collezione
 				Object curr1 = l1.get(i);
+				// oggetto i-esimo della seconda collezione
 				Object curr2 = l2.get(i);
+				// effettuo la verifica sulla coppia di elementi, sempre tramite
+				// il metodo deepEquals
 				if (!deepEquals(curr1, curr2))
 					return false; // al primo diverso mi fermo
 			}

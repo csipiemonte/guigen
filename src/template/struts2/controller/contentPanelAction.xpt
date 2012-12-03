@@ -64,6 +64,8 @@ import «getBaseJavaPackage(model)».business.*;
 
 import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase()».action.*;
 
+import «getScreenStatesClassFQN(model)»;
+
 import «getInterceptorsJavaPackage(model)».MethodProtection;
 
 «IF model.targetPlatform.enableFatClient-»
@@ -86,45 +88,81 @@ import flexjson.JSON;
 public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» <«getModelDTOClassName(this,false,false,model)»>
 	implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model)»> {
 	
+	/**
+	 * Il modello del content panel.
+	 * Viene riempito a fornte delle interazioni con il browser e viene passato allo
+	 * strato di business.
+	 */
 	private «getModelDTOClassName(this,false,false,model)» model;	
 
-
+	/**
+	 * Il modello del content panel.
+	 * Viene riempito a fornte delle interazioni con il browser e viene passato allo
+	 * strato di business.
+	 */
 	public «getModelDTOClassName(this,false,false,model)» getModel() {
 		return model;
 	}
 	
+	/**
+	 * Il modello del content panel.
+	 * Viene riempito a fornte delle interazioni con il browser e viene passato allo
+	 * strato di business.
+	 */
 	@VisitorFieldValidator (message ="", appendPrefix = false)
 	public  void setModel(«getModelDTOClassName(this,false,false,model)» modello) {
 		this.model = modello;
 	}
 	
+	/**
+	 * Il metodo setSession() viene ridefinito in modo che venga asosciato all'oggetto
+	 * model.
+	 * N.B: il model deve essere creato in precedenza, altrimenti l'impostazione non 
+	 * e' possibile. 
+	 * Per questo motivo esso viene creato in questo (se non già esistente).
+	 */
 	@Override
 	public void setSession(Map session) {
-		// TODO Auto-generated method stub
+		// implementazione standard di SessionAware
 		super.setSession(session);
+		// creo una nuova istanza di modello, se gia' non esiste 
 		if(model == null) {
 			 model = new «getModelDTOClassName(this,false,false,model)»();	 
 		}
+		// associo la sessione applicativa al modello, in modo che
+		// possa implementare l'accesso agli application data
+		// di scope session/same page
 		model.setSession(session);
 	}
 	
-	
+	/**
+	 * contiene le coppie <codice location, comando di jump corrispondente>
+	 */
 	private HashMap<String, JumpExtCommand> jumpExtCommands = new HashMap<String, JumpExtCommand>();
 
+	/**
+	 * contiene le coppie <codice location, comando di jump corrispondente>
+	 */
 	public HashMap<String, JumpExtCommand> getJumpExtCommands() {
 		return jumpExtCommands;
 	}
 
+	/**
+	 * contiene le coppie <codice location, comando di jump corrispondente>
+	 */
 	public void setJumpExtCommands(HashMap<String, JumpExtCommand> jumpExtCommands) {
 		this.jumpExtCommands = jumpExtCommands;
 	}
 	
+	/**
+	 * nome del content panel
+	 */
 	private static final String CP_NAME= "«this.name»";
 	
 	private static final String URL_BACK_COMMAND = "«getContentPanelNamespace(this, false)»/"+CP_NAME;	
 	
 	/**
-	 * classe model associata
+	 * classe model associata al ContentPanel
 	 */
 	public Class modelClass(){
 		return «getModelDTOFQN(this, false, false, model)».class;
@@ -141,7 +179,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		// esegue eventuali comandi di clear appdata
 		ICommand clearCmd = (ICommand)session.get(PENDING_CLEAR_COMMAND_ATTRIBUTE);
 		if (clearCmd != null){
+			// esegue la rimozione degli appdata a scope page, tramite l'apposito comando
 			clearCmd.doCommand(this);
+			// elimina il comando dalla sessione, in quanto ormai eseguito
 			session.remove(PENDING_CLEAR_COMMAND_ATTRIBUTE);
 		}
 		
@@ -150,39 +190,62 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
 		if(null==getCurrentContentPanel() || (null!=getCurrentContentPanel() && !CP_NAME.equalsIgnoreCase(getCurrentContentPanel()))){
 			// CpCommand OnEnter
+			//// inizializzazione
 			ICommand cmdOnEnter = initOnEnterCPCommand();
+			//// esecuzione
 			cmdOnEnter.doCommand(this);
 		}
 				«ENDFOREACH»
 			«ENDIF»
 		«ENDIF»
 		
+		// imposta il nome del content panel corrente
 		setCurrentContentPanel(CP_NAME);
 		return SUCCESS;
 	}
 	
 	«IF hasGisMap(this)»
 	//****************************************gestione mappe*******************************************************
+	
+	/**
+	 * id del map service
+	 */
 	protected String strIdCurServizio;
 	
+	/**
+	 * id del map service
+	 */
 	public String getStrIdCurServizio() {
 		return strIdCurServizio;
 	}
 
+	/**
+	 * id del map service
+	 * @param strIdCurServizio
+	 */
 	public void setStrIdCurServizio(String strIdCurServizio) {
 		this.strIdCurServizio = strIdCurServizio;
 	}
 	«LET (List[MapView])getMapsInContentPanel() AS maps-»
 	«FOREACH maps AS map-»
 	
+	/**
+	 * map adapter per la mappa «map.mapId»
+	 */
 	private GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()»;
 
+	/**
+	 * map adapter per la mappa «map.mapId»
+	 */
 	public void setMapAdapter«map.mapId.toFirstUpper()»(GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()») {
 		this.mapAdapter«map.mapId.toFirstUpper()» = mapAdapter«map.mapId.toFirstUpper()»;
 	}
 	
+	/**
+	 * map adapter per la mappa «map.mapId»
+	 */
 	public String map«map.mapId.toFirstUpper()»Setup() throws Exception {
-
+		// per la serializzazione client/server si utilizza JSON (con GEOJSON)
 		flexjson.JSONSerializer serializer = getJSONSerializer(true);
 		MappaWeb mappa = getModel().get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 		
@@ -203,17 +266,20 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		
 		«IF map.multiDataBinding!=null-»
 		«toJavaType(map.multiDataBinding.appData.type, model)» dati=getModel().get«getAppDataPropertyName(map.multiDataBinding.appData).toFirstUpper()»();
+		// impostazione dei dati di startup dell'acetate layer
 		if (null!=dati && dati.size()>0) {
 			mapCfg.setDatiStartup(dati);
 		}
 		«ENDIF-»
 		«IF map.editDataBinding!=null-»
+		// impostazione dei dati del layer di editing
 		«toJavaType(map.editDataBinding.appData.type, model)» datiEditing=getModel().get«getAppDataPropertyName(map.editDataBinding.appData).toFirstUpper()»();
 		if (null!=datiEditing && datiEditing.size()>0) {
 			mapCfg.setDatiEditing(datiEditing);
 		}
 		«ENDIF-»
 		
+		// serializzazione della risposta
 		String response = serializer.exclude("*.class").deepSerialize(mapCfg);
 
 		// imposta l'input stream di risposta
@@ -228,12 +294,16 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		}
 	}
 	
+	/**
+	 * utilizzato in caso di refresh della mappa comandato dal widget MapView
+	 */
 	public String refreshMap«map.mapId.toFirstUpper()»SingleService() throws Exception {
-
+		// la serializzazione del risultato avviene in JSON (con GEOJSON)
 		flexjson.JSONSerializer serializer = getJSONSerializer(true);
 		try {
 			int indice = -1;
 			
+			// reperisco i dati della mappa dal modello della action
 			MappaWeb mappa = getModel().get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 			
 			for (int i = 0; i < mappa.getServizioMappa().size(); i++) {
@@ -250,7 +320,8 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 			refreshMap«map.mapId.toFirstUpper()»Status();
 			
 			mappa.setStrIdCurServizio(strIdCurServizio);
-
+			
+			// chiedo al mapAdapter le immagini da utilizzare per il refresh
 			mappa = mapAdapter«map.mapId.toFirstUpper()».getRefreshIMages(mappa);
 			currRefreshServizio = mappa.getServizioMappa().get(indice);
 			MapServiceResponse res = new MapServiceResponse();
@@ -286,6 +357,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		}
 	}
 	
+	/**
+	 * refreshMap«map.mapId.toFirstUpper()»Status
+	 */
 	private void refreshMap«map.mapId.toFirstUpper()»Status() throws Exception {
 		try {
 			MappaWeb mappa = getModel().get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
@@ -305,18 +379,26 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		}
 	}
 	
+	/**
+	 * calcola l'envelope iniziale della mappa «map.mapId»
+	 * e lo restitiuisce al widget MapView
+	 */
 	public String calcolaStartEnvelope«map.mapId.toFirstUpper()»() throws Exception {
 		flexjson.JSONSerializer serializer = getJSONSerializer(true);
 		try {
-
+			// recupera le informazioni della mappa «map.mapId» dal modello della action
 			MappaWeb mappa = getModel().get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 			
 			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbarTMP = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
 			toolbarTMP.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_STARTMAP);
+			// verifica se e' necessario sovrsascrivere l'envelope della mappa
+			// (implementa la funzionalita' di posizionamento programmatico della mappa
 			if(!mappa.getUseCurrentEnvelope()){
 				MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
 				mappa.setEnvelope(mappaTmp.getEnvelope());
 			}	
+			
+			// richiede al mapadapter della mappa «map.mapId» i calcoli necessari
 			mappa = mapAdapter«map.mapId.toFirstUpper()».calcolaNavigazione(mappa, toolbarTMP);
 			
 			MapEnvelopeResponse res = new MapEnvelopeResponse();
@@ -343,15 +425,21 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		}
 	}
 	
+	/**
+	 * calcola l'envelope massimo della mappa «map.mapId».
+	 */
 	public String calcolaMaxEnvelope«map.mapId.toFirstUpper()»() throws Exception {
+		// la risposta viene serializzata in JSON (con GEOJSON)
 		flexjson.JSONSerializer serializer = getJSONSerializer(true);
 		try {
+			// recupero dal modello della action le informazioni della mappa «map.mapId»
 			MappaWeb mappa = getModel().get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 			
 			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbarTMP = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
 			toolbarTMP.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_STARTMAP);
 			MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
 			mappa.setEnvelope(mappaTmp.getEnvelope());
+			// richiedo al mapAdapter i calcoli necessari
 			mappa = mapAdapter«map.mapId.toFirstUpper()».calcolaNavigazione(mappa, toolbarTMP);
 			
 			MapEnvelopeResponse res = new MapEnvelopeResponse();
@@ -583,6 +671,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	//***lista dei widgets presenti nel content panel
 	public List<String> listaWidgets = new ArrayList<String>();
 	
+	/**
+	 * lista dei widget del content panel
+	 */
 	public List<String> getListaWidgets() {
 		«EXPAND template::struts2::view::panelsStructure::panelStruct(model, this, "") FOR this»
 		return listaWidgets;
@@ -591,6 +682,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	//***lista dei multipanel presenti nel content panel
 	public List<String> listaMultiPanels = new ArrayList<String>();
 	
+	/**
+	 * lista dei multipanel presenti nel content panel
+	 */
 	public List<String> getListaMultiPanels() {
 		«EXPAND template::struts2::view::multiPanelStructure::panelStruct(model, this, "") FOR panels»
 		return listaMultiPanels;
@@ -880,37 +974,8 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	// gestione dello stato di default
 	if (getSession().get("«name»_currentState")==null){
 	// Screen State Command begin
-    //prepara i nomi dei componenti target da abilitare/disabilitare
-    String[] default_widgets_on = new String[]{
-    «FOREACH defaultState.widgetsOn AS currWidgOn SEPARATOR ","-»
-    "«currWidgOn.name»"
-    «ENDFOREACH-»
-    };
-    
-    String[] default_widgets_off = new String[]{
-    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
-    "«((Widget)currWidgOff).name»"
-    «ENDFOREACH-»
-    };
-    
-    String[] default_widgets_show = new String[]{
-    «FOREACH defaultState.widgetsVisible AS currWidgVisible SEPARATOR ","-»
-    "«currWidgVisible.name»"
-    «ENDFOREACH-»
-    };
-    
-    String[] default_widgets_hide = new String[]{
-    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
-    "«((Widget)currWidgHidden).name»"
-    «ENDFOREACH-»
-    };
-    
-	ScreenStateCommand defaultScreenStateCmd = new ScreenStateCommand(
-		"«name»",null, 
-		default_widgets_on,
-		default_widgets_off,
-		default_widgets_show,
-		default_widgets_hide);
+	ScreenStateCommand defaultScreenStateCmd = 
+		«getScreenStatesClassName(this)».DEFAULT_STATE_COMMAND;
 	//Screen State Command end
 	
 	defaultScreenStateCmd.doCommand(this);
