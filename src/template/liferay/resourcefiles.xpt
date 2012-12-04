@@ -359,3 +359,89 @@ public class BaseServletStream extends HttpServlet {
 
 «ENDFILE»
 «ENDDEFINE»
+
+«DEFINE performJumpExt FOR ContentPanel»
+
+private String performJumpExt(String result)
+	{
+		
+		String locationCode = result.substring(9);
+		
+		JumpExtCommand jECommand = (JumpExtCommand)jumpExtCommands.get(locationCode);
+		
+		String staticUrl = jECommand.getStaticUrl();
+		String runTimeUrlProviderAppaData = jECommand.getRuntimeUrlProviderAppaData();
+		boolean binaryStream = jECommand.isBinaryStream();
+		
+		ActionResponse actionResponse = PortletActionContext.getActionResponse();
+		
+		try
+		{
+			
+		if(StringUtils.isNotEmpty(staticUrl))
+		{
+			//Controllo se url applicativo oppure esterno
+			if(StringUtils.contains(staticUrl, "http:") ||
+					StringUtils.contains(staticUrl, "https:"))
+			{
+				//esterno
+				actionResponse.sendRedirect(staticUrl);
+			}
+			else
+			{
+				//interno
+				
+				ActionRequest actionRequest = PortletActionContext.getActionRequest();
+				ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
+					    .getAttribute(WebKeys.THEME_DISPLAY);
+				
+				String portletName=(String) actionRequest.getAttribute(WebKeys.PORTLET_ID);
+				
+				PortletURL portletURL = PortletURLFactoryUtil
+					    .create(PortalUtil.getHttpServletRequest(actionRequest), portletName,
+					      themeDisplay.getLayout().getPlid(),
+					      PortletRequest.RENDER_PHASE);
+				
+			    portletURL.setWindowState(binaryStream ?LiferayWindowState.EXCLUSIVE : LiferayWindowState.NORMAL);				
+				portletURL.setParameter("struts.portlet.action",staticUrl);
+				
+				actionResponse.sendRedirect(portletURL.toString());
+				
+			}
+		}
+		else if(StringUtils.isNotEmpty(runTimeUrlProviderAppaData))
+		{
+		    //Implementazione url dinamico a partire da un appData specifico
+		    Class classModel = getModel().getClass();
+				//no paramater
+				Class noparams[] = {};
+				Object modelInstance = getModel();
+				Method methodAppaData =
+						classModel.getDeclaredMethod("getAppData"+runTimeUrlProviderAppaData, noparams);
+				
+				actionResponse.sendRedirect((String)methodAppaData.invoke(modelInstance, null));
+		}
+		
+		}
+		catch (Exception e) {
+			   log.error(e);
+			   return "input" ;
+			  }
+		  
+		return "input";
+		
+	}
+
+«ENDDEFINE»
+
+«DEFINE provideDataInterno(GUIModel model, ContentPanel cp, String contextPrefix, MultiDataWidget widget, PDefUseConfig pduc) FOR AppDataBinding»
+	//Invio alla servlet i dati per la generazione dello stream
+		ServletActionContext.getRequest().setAttribute("valueStackWidgetId", "«getOGNLForWidgetMultiValue(widget, contextPrefix, pduc)»");
+		ServletActionContext.getRequest().setAttribute("contentTypeStream", "text/javascript");
+		ServletActionContext.getRequest().setAttribute("jtsData", new Boolean(«(widget.metaType==MapView ? true : false)»));
+		ServletActionContext.getRequest().setAttribute("isTreeView", new Boolean(«widget.metaType == TreeView»));
+		
+		return "successStream";
+		
+	}
+«ENDDEFINE»

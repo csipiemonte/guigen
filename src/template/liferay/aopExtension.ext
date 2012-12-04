@@ -47,3 +47,23 @@ around template::struts2::Struts2Extensions::excludeParamas():
 	"";
 around template::struts2::Struts2Extensions::pageUrlMaker(ContentPanel cp) : 
 	"<!-- pageUrl:<portlet:renderURL windowState='normal'><portlet:param name='struts.portlet.action' value='/"+appmoduleIdMarkerNoComm(cp)+"/"+cp.name+"' /></portlet:renderURL>:endpageUrl -->";
+
+around template::struts2::Struts2Extensions::getImportServletContext(ContentPanel cp) : 
+	"import org.apache.struts2.ServletActionContext;";
+	
+around template::struts2::Struts2Extensions::getImportPackPortlet(ContentPanel cp) : 
+	"import javax.portlet.ActionRequest;"+
+	"import javax.portlet.ActionResponse;"+
+	"import javax.portlet.PortletURL;"+
+	"import javax.portlet.PortletRequest;"+
+	"import org.apache.struts2.portlet.context.PortletActionContext;"+
+    "import org.apache.commons.lang.StringUtils;"+
+	"import com.liferay.portal.theme.ThemeDisplay;"+
+	"import com.liferay.portal.kernel.portlet.LiferayWindowState;"+
+	"import com.liferay.portal.kernel.util.WebKeys;"+
+	"import com.liferay.portlet.PortletURLFactoryUtil;"+
+	"import com.liferay.portal.util.PortalUtil;"+
+	"import java.lang.reflect.Method;";
+		
+	
+	
