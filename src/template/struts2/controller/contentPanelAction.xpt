@@ -41,6 +41,7 @@ import java.util.*;
 import java.lang.reflect.InvocationTargetException;
 import java.beans.IntrospectionException;
 
+«getImportServletContext(this)»
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.ModelDriven;
@@ -77,6 +78,8 @@ import «getInterceptorsJavaPackage(model)».FatClientOnly;
 import «getUIUtilsJavaPackage(model)».*;
 import flexjson.JSON;
 «ENDIF-»
+
+«getImportPackPortlet(this)»
 
 /**
  * «getStrutsActionClassName(this)» Action Class.
@@ -203,6 +206,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		setCurrentContentPanel(CP_NAME);
 		return SUCCESS;
 	}
+
+
+«EXPAND performJumpExt FOR this»
+
 	
 	«IF hasGisMap(this)»
 	//****************************************gestione mappe*******************************************************
@@ -969,6 +976,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 «ENDFILE»
 «ENDDEFINE»
 
+«REM»Crea il metodo performJumpExt per gestire i JumpExt su Liferay«ENDREM»
+«DEFINE performJumpExt FOR ContentPanel»
+«ENDDEFINE»
 
 «DEFINE defaultStateCode FOR ContentPanel»
 	// gestione dello stato di default
