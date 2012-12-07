@@ -1591,6 +1591,40 @@ public class DTOUtils {
 			}
 			return true;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param lista di oggetti in cui effettuare la ricerca
+	 * @param lista delle chiavi usate per individuare gli elementi
+	 * @param nome del campo che rappresenta la chiave 
+	 */
+	public static ArrayList findElementInListById(ArrayList lista, ArrayList listaKeys, String nomeCampoKey) {
+		ArrayList res = new ArrayList();
+			
+				for (Object elemento : lista) {
+					Class classe = elemento.getClass();
+					try {
+						Method getCodice= classe.getMethod("get"+nomeCampoKey, null);
+						Object codice = getCodice.invoke(elemento, new Object[]{});
+						if(listaKeys != null && listaKeys.contains(codice)) {
+							res.add(elemento);
+						}
+					}catch (NoSuchMethodException e) {
+						throw new IllegalArgumentException(
+								"Il metodo richiesto non è stato trovato, controlla il nome del campo Key inserito: "+ nomeCampoKey
+										+ e);
+					}catch (IllegalAccessException e) {
+						throw new IllegalArgumentException(
+								"errore in lettura campi di " + elemento.getClass() + ":"
+										+ e);
+					} catch (InvocationTargetException e) {
+						throw new IllegalArgumentException(
+								"errore in lettura campi di " + elemento.getClass() + ":"
+										+ e);
+					}
+				}	
+		return res;
 	}	
 }
 «ENDFILE»
