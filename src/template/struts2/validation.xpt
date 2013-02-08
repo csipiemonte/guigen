@@ -575,13 +575,13 @@ if (!validateStringDate(value)) {
 «REM»2«ENDREM»
 «DEFINE csiUdNumericIntValidatorMethods FOR GUIModel»
 	@Override
-    public Comparable getMaxComparatorValue() {
+    public Integer getMaxComparatorValue() {
 		try {
 			Object tmpObj = getObjClass().newInstance();
 			Method writeMethod = findWriteMethod("value", getObjClass());
 			if (writeMethod != null) {
 				writeMethod.invoke(tmpObj, new Object[]{getMax()});
-				return (Comparable) tmpObj;
+				return (Integer) tmpObj;
 			}
 			throw new IllegalArgumentException("Metodo getValue() non trovato");
 		} catch (Exception e) {
@@ -591,13 +591,13 @@ if (!validateStringDate(value)) {
     }
 
 	@Override
-    public Comparable getMinComparatorValue() {
+    public Integer getMinComparatorValue() {
 		try {
 			Object tmpObj = getObjClass().newInstance();
 			Method writeMethod = findWriteMethod("value", getObjClass());
 			if (writeMethod != null) {
 				writeMethod.invoke(tmpObj, new Object[]{getMin()});
-				return (Comparable) tmpObj;
+				return (Integer) tmpObj;
 			}
 			throw new IllegalArgumentException("Metodo getValue() non trovato");
 		} catch (Exception e) {
