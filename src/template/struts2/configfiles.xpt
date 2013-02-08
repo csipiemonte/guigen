@@ -232,7 +232,7 @@ e le limitazioni secondo i termini della Licenza.
 	</filter>
 	<filter>
 		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+		<filter-class>«getMDDStrutsFilterFQN()»</filter-class>
 	</filter>
 
   	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
@@ -544,12 +544,12 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="exception" />
 				<interceptor-ref name="i18n" />
 				<interceptor-ref name="chain" />
-				<interceptor-ref name="servlet-config" />
+				<interceptor-ref name="servletConfig" />
 			 	<interceptor-ref name="scopedModelDriven"/> 
 				<interceptor-ref name="modelDriven"/>
 				<interceptor-ref name="checkbox" />
 				<interceptor-ref name="tableSelection" />
-				<interceptor-ref name="static-params" />
+				<interceptor-ref name="staticParams" />
 				«IF isNullOrEmpty(getProperty("guigen.fileUpload.maximumFileSize"))-»
 				<interceptor-ref name="fileUpload"/>
 				«ELSE-»
