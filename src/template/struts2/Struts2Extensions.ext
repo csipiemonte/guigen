@@ -73,6 +73,13 @@ String getInterceptorsJavaSrcDir(GUIModel model, boolean omit_root) :
 String getInterceptorsJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".interceptor";
 
+String getDispatcherJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/dispatcher";
+
+String getDispatcherJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".dispatcher";
+
+
 String getServletsJavaSrcDir(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/servlet";
 	
@@ -409,6 +416,37 @@ String getSessionGuardFilterFQN(GUIModel model) :
 String getSessionGuardFilterJavaFile(GUIModel model, boolean omit_root) :
 	getFiltersJavaSrcDir(model, omit_root) + "/" + getSessionGuardFilterClassName() + ".java";
 
+/// MDDDispatcher
+String getMDDDispatcherClassName() :
+	"MDDDispatcher";
+
+String getMDDDispatcherFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getMDDDispatcherClassName();
+	
+String getMDDDispatcherJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getMDDDispatcherClassName() + ".java";
+
+/// MDDStrutsFilter
+String getMDDStrutsFilterClassName() :
+	"MDDStrutsFilter";
+
+String getMDDStrutsFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getMDDStrutsFilterClassName();
+	
+String getMDDStrutsFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getMDDStrutsFilterClassName() + ".java";
+
+/// MDDFilterInitOperations
+String getMDDFilterInitOperationsClassName() :
+	"MDDInitOperations";	
+
+String getMDDFilterInitOperationsFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getMDDStrutsFilterClassName();
+	
+String getMDDFilterInitOperationsJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getMDDFilterInitOperationsClassName() + ".java";
+
+/// EncodingFixFilter
 String getEncodingFixFilterClassName() :
 	"EncodingFixFilter";	
 String getEncodingFixFilterFQN(GUIModel model) :
