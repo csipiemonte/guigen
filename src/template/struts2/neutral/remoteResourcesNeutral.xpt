@@ -924,18 +924,11 @@ Gestione dei LAYOUT - WIDGETS
 ==========================================================================================================================
 «ENDREM»
 
+
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
- «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero un campo hidden per la gestione delle suggestion«ENDREM»
- «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
-	<input type="hidden" id="«getWidgetName(contextPrefix)»UrlId" name="«getWidgetName(contextPrefix)»Url" value="<portlet:renderURL windowState='exclusive'><portlet:param name="struts.portlet.action" value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»' /></portlet:renderURL>" />
- «IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
- 	<input type="hidden" id="«getWidgetName(contextPrefix)»VCUrlId" name="«getWidgetName(contextPrefix)»Url" value="<portlet:renderURL windowState='exclusive'><portlet:param name="struts.portlet.action" value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»' /></portlet:renderURL>" />
- «ENDIF»
- «ENDLET»
- «ENDIF»
 <customtag:widgetsPanelColumn «IF this.label != null» «!isNullOrEmpty(this.tooltip)?"tooltip=\""+this.tooltip+"\"":""» labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF»
 	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
@@ -1120,11 +1113,11 @@ Gestione del BUILD => file: buildfiles.xpt
 
 «REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
-<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.5.0">
-	<artifact name="custom-component-2.5.0" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="3.0.0">
+	<artifact name="custom-component-3.0.0" type="jar"/>
 </dependency>
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.2.0">
-	<artifact name="util-struts2-csitemplate-1.2.0" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="2.0.0">
+	<artifact name="util-struts2-csitemplate-2.0.0" type="jar"/>
 </dependency>
 «ENDDEFINE»
 
