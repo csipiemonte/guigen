@@ -1175,8 +1175,8 @@ come target di refresh.
 		linkOnTree="true" id="«name»"
 		selectionMultiplicity="«getTreeSelectionMultiplicity(this)»"
 		«IF this.databinding!=null»selectionType="«this.nodeSelectionType.toString().toLowerCase()-»" 
-		«IF getTreeSelectionMultiplicity(this)=="single"»selectionName="appDatatreeSingleSelection"
-		«ELSEIF getTreeSelectionMultiplicity(this)=="multiple"»selectionName="appDatatreeMultipleSelection"
+		«IF getTreeSelectionMultiplicity(this)=="single"»selectionName="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»"
+		«ELSEIF getTreeSelectionMultiplicity(this)=="multiple"»selectionName="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»"
 		«ENDIF-»
 		«ENDIF-»
 		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
