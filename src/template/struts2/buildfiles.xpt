@@ -372,14 +372,14 @@ ANT FILES
           description="Genera il war per lo strato web.">
     <copy todir="${build}/classes">
       <fileset dir="${build}/temp/conf/web/${webapp}/WEB-INF"
-               includes="struts*.xml,validators.xml,*.properties"/>
+               includes="applicationContext.xml,struts*.xml,validators.xml,*.properties"/>
     </copy>
     <war destfile="${build}/archives/${target}/${war-file-name}.war"
          webxml="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml"
          roundup="false"
          manifest="${build}/temp/conf/web/${webapp}/META-INF/MANIFEST.MF">
       <webinf dir="${build}/temp/conf/web/${webapp}/WEB-INF"
-              includes="applicationContext.xml,«getAppServerConfigFile(this)».xml,beanContext.xml,dao-beans.xml,*.xml,*.tld" />
+              includes="«getAppServerConfigFile(this)».xml,beanContext.xml,dao-beans.xml,*.xml,*.tld" />
       <fileset dir="${srcweb}" />
       «IF targetPlatform.enableRichUIBehavior && (isNullOrEmpty(getProperty("development.mode"))||getProperty("development.mode")=="false")-»
       <fileset dir="${temp}/static-resources"/>
