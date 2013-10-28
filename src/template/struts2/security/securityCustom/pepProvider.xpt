@@ -351,8 +351,9 @@ public class SpringPD extends AbstractPortaDelegata {
 
 	public void setInfo(InfoPortaDelegata info){
 		super.setInfo(info);
-
-		ClassPathResource cpr = new ClassPathResource("/WEB-INF/applicationContext.xml");
+	    // a causa di problemi di classloading e' necessario che ci sia una copia del file
+	    // applicationContext.xml in WEB-INF/classes
+		ClassPathResource cpr = new ClassPathResource("/applicationContext.xml");
 		BeanFactory ctx = new XmlBeanFactory(cpr);
 		fakeImplObj = (PEPProviderFacade) ctx.getBean("pepProviderFacadeBeanId");
 	}

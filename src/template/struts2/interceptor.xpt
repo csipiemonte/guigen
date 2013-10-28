@@ -389,7 +389,7 @@ import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.NoParameters;
 import com.opensymphony.xwork2.interceptor.ParameterNameAware;
 import com.opensymphony.xwork2.util.LocalizedTextUtil;
-import com.opensymphony.xwork2.util.OgnlContextState;
+import com.opensymphony.xwork2.util.reflection.ReflectionContextState;
 import com.opensymphony.xwork2.util.TextParseUtil;
 import com.opensymphony.xwork2.util.ValueStack;
 
@@ -471,16 +471,16 @@ public class ParametersInterceptor extends MethodFilterInterceptor {
                 
                 Map contextMap = ac.getContextMap();
                 try {
-                    OgnlContextState.setCreatingNullObjects(contextMap, true);
-                    OgnlContextState.setDenyMethodExecution(contextMap, true);
-                    OgnlContextState.setReportingConversionErrors(contextMap, true);
+                    ReflectionContextState.setCreatingNullObjects(contextMap, true);
+                    ReflectionContextState.setDenyMethodExecution(contextMap, true);
+                    ReflectionContextState.setReportingConversionErrors(contextMap, true);
 
                     ValueStack stack = ac.getValueStack();
                     setParameters(action, stack, newParameters);
                 } finally {
-                    OgnlContextState.setCreatingNullObjects(contextMap, false);
-                    OgnlContextState.setDenyMethodExecution(contextMap, false);
-                    OgnlContextState.setReportingConversionErrors(contextMap, false);
+                    ReflectionContextState.setCreatingNullObjects(contextMap, false);
+                    ReflectionContextState.setDenyMethodExecution(contextMap, false);
+                    ReflectionContextState.setReportingConversionErrors(contextMap, false);
                 }
             }
         }
@@ -722,9 +722,6 @@ public abstract class MethodFilterInterceptor extends AbstractInterceptor {
 
     protected boolean applyInterceptor(ActionInvocation invocation) {
         String method = invocation.getProxy().getMethod();
-        if(method.contains("?")){
-        	invocation.getProxy().setMethod(method.substring(0, method.indexOf("?")));
-        }
         // ValidationInterceptor
         boolean applyMethod = MethodFilterInterceptorUtil.applyMethod(excludeMethods, includeMethods, method);
         if (log.isDebugEnabled()) {

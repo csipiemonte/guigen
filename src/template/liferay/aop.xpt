@@ -16,6 +16,10 @@ e le limitazioni secondo i termini della Licenza.
 «ENDREM»
 «IMPORT guigen»
 
+
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::neutral::Struts2ExtensionsNeutral»
+
 «REM»
 **************************************************************************************************************************
 Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsistente)
@@ -85,3 +89,16 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 «EXPAND template::liferay::resourcefiles::provideDataInterno(model,cp,contextPrefix,widget,pduc) FOR this-»
 «ENDAROUND»
 
+
+«AROUND template::struts2::neutral::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
+«IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero un campo hidden per la gestione delle suggestion«ENDREM»
+ «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
+	<input type="hidden" id="«getWidgetName(contextPrefix)»UrlId" name="«getWidgetName(contextPrefix)»Url" value="<portlet:renderURL windowState='exclusive'><portlet:param name="struts.portlet.action" value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»' /></portlet:renderURL>" />
+ «IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
+ 	<input type="hidden" id="«getWidgetName(contextPrefix)»VCUrlId" name="«getWidgetName(contextPrefix)»Url" value="<portlet:renderURL windowState='exclusive'><portlet:param name="struts.portlet.action" value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»' /></portlet:renderURL>" />
+ «ENDIF»
+ «ENDLET»
+ «targetDef.proceed()»
+ «ENDIF»
+ 
+«ENDAROUND»
