@@ -1,0 +1,156 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+«DEFINE main(String staticResourcesSchemaVersion) FOR GUIModel»
+	«setProperty("staticResourcesSchemaVersion", staticResourcesSchemaVersion)»
+	«EXPAND fatClientMainJSP FOR this»
+	«EXPAND fatClientJSStruct FOR this»
+«ENDDEFINE»
+
+«DEFINE fatClientMainJSP FOR GUIModel»
+«FILE getPresentationMarkupDir(true)+"/fatclient/main.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="/customtag" prefix="customtag" %>
+<%@taglib uri="/csiuicore" prefix="csiuicore" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title><s:text name="header.applicativo.nome.label" /></title>
+
+		<csiuicore:header/>
+		
+	</head>
+
+	<body>
+
+	</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE fatClientJSStruct FOR GUIModel-»
+«IF isOldMode() && !isRemote()»
+«FILE getJavascriptSrcDir(true)+"/fatclient.js"»
+/**
+ * Definizione della struttura ExtCSI dell'applicazione
+ */
+«EXPAND model::types::types FOR this»
+«EXPAND model::data::datas FOR this»
+«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
+«ENDFILE»
+«ELSEIF isNewMode()»
+«FILE getLocalJsDir(this, true)+"/fatclient.js"»
+/**
+ * Definizione della struttura ExtCSI dell'applicazione
+ */
+«EXPAND model::types::types FOR this»
+«EXPAND model::data::datas FOR this»
+«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
+«ENDFILE-»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE appAreaStruct(GUIModel model) FOR ApplicationArea»
+
+var appArea = new ExtCsi.app.ApplicationArea(
+	{
+		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
+		homePage: '«getRegistryID(this.homePage)»',
+		«IF onInitCommand!=null-»
+		onInitCommand: «EXPAND controller::commands::cmd(model, null) FOR this.onInitCommand»
+		«ELSE» onInitCommand: null
+		«ENDIF-»
+	}
+
+);
+
+«LET this.getAllContentPanels() AS allCP»
+ExtCsi.app.ContentPanels = function() {
+	return {
+«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP SEPARATOR ","»
+	}
+}();
+«ENDLET»
+Ext.onReady( function() { 
+	appArea.init();
+}); 
+«ENDDEFINE»
+
+«DEFINE menuBarStruct(GUIModel model) FOR Menubar»
+	new ExtCsi.ui.menu.Menubar(
+		{topLevelMenu: 
+			[
+			«EXPAND menuStruct(model) FOREACH this.topLevelMenu SEPARATOR ","-»
+			]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE menuStruct(GUIModel model) FOR Menu-»
+			new ExtCsi.ui.menu.Menu(
+			{
+				name: '«name»',
+				label: «jsLiteralValue(label)»,
+				eventHandler:
+				«IF eventHandler!=null-»
+				«EXPAND controller::commands::eventHandler(model, null) FOR this.eventHandler»
+				«ELSE»null
+				«ENDIF-»
+				«IF submenu.size>0-»,submenu: [«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","»]«ENDIF-»
+			}
+			)
+«ENDDEFINE»
+
+«DEFINE contentPanelStruct(GUIModel model) FOR ContentPanel»
+/**
+ * struttura del content panel «this.name»
+ */ 
+«name» : function() {
+	globalRegistry.registerObject('«getRegistryID(this)»', 
+		new ExtCsi.ui.panels.ContentPanel(
+			{
+				name: '«name»',	
+				dialogs: [«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","»],
+				panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
+				states: «IF states != null-»[«EXPAND screenState(model, this) FOREACH states.states SEPARATOR ","»]«ELSE-»null«ENDIF-»,
+				dataUrl: '«getStrutsActionCompleteConfigName(this, model)»!«getFormDataProviderMethodName()»«getStrutsActionCompleteExtension()»',
+				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+			}
+		)
+	);
+}
+«ENDDEFINE»
+
+«DEFINE screenState(GUIModel model, ContentPanel cp) FOR ScreenState»
+	new ExtCsi.ui.state.ScreenState(
+		{
+			name: '«this.name»',
+			widgetsOn: [«FOREACH widgetsOn AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»],
+			widgetsVisible: [«FOREACH widgetsVisible AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+		}
+	)
+«ENDDEFINE»
+
+

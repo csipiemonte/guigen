@@ -1,0 +1,570 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM TYPE CONVERTER PROPERTY FILE
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera il file di property«ENDREM»
+«DEFINE conversionPropertyFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsTypeConvertersPropertiesFile(this, skip_component_dir_creation)»#######################################################################
+# SAF2 global conversion goes here
+#######################################################################
+
+int=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+long=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+float=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+double=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+
+java.lang.Integer=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+java.lang.Long=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+java.lang.Float=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+java.lang.Double=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+
+########################################################################
+### UDT converters
+########################################################################
+
+«LET (List[Type])getAllTypes(this) AS allTypes-»
+«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-»
+«FOREACH udtTypes AS currUDT-»
+«getUDTFQN(currUDT, this)»=«getTypeConverterJavaPackage(this)».«getUDTClassName(currUDT)»Converter
+
+«ENDFOREACH-»
+«ENDLET-»
+«ENDLET-»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM TYPE CONVERTER CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera le classi dei convertitori«ENDREM»
+«DEFINE conversionClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND numericConverterClassFile(skip_component_dir_creation) FOR this»
+	«LET (List[ContentPanel])(structure.appWindow.appArea.getAllContentPanels()) AS allCP-»
+	«IF allCP.select(cp|cp.hasGisMap()==true).size>0 -»
+	«EXPAND jsonConverterClassFile(skip_component_dir_creation) FOR this»
+	«ENDIF-»
+	«ENDLET-»
+	«EXPAND udtConverters FOR this»
+«ENDDEFINE»
+
+«DEFINE udtConverters FOR GUIModel»
+«LET (List[Type])getAllTypes(this) AS allTypes-»
+	«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-»
+		«EXPAND udtConverterClassFile(this) FOREACH udtTypes»
+	«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+
+«DEFINE udtConverterClassFile(GUIModel model) FOR SimpleType»
+«FILE getTypeConverterJavaSrcDir(model, true) + "/" + getUDTClassName(this) + "Converter.java"»package «getTypeConverterJavaPackage(model)»;
+
+import java.util.Map;
+
+import «getUDTFQN(this, model)»;
+
+import org.apache.struts2.util.StrutsTypeConverter;
+
+import com.opensymphony.xwork2.conversion.TypeConversionException;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTFQN(this, model) + "import")»
+//inserire qui eventuali import aggiuntivi
+
+«ENDPROTECT»
+
+
+/**
+ * Custom Type Converter per lo user defined type [«name»].
+ * 
+ * @author [GUIGEN]
+ * @generated
+ */
+public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
+
+	/**
+	 * Trasforma una rappresentazione a stringa di un oggetto di tipo
+	 * «getUDTClassName(this)».
+	 * @param  context
+	 * @param  values
+	 * @param  toClass
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertFromString(java.util.Map, java.lang.String[], java.lang.Class)
+	 */
+	@Override
+	public Object convertFromString(Map context, String[] values, Class toClass) {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertFromString")»
+		// TODO: implementare il metodo e rimuovere l'eccezione UnsupportedOperationException
+		/*if (values!=null && values.length>0){
+			String s = values[0].trim();
+			«getUDTClassName(this)» val = new «getUDTClassName(this)»();
+			try {
+				// HINT: convertire in maniera opportuna la stringa s in un tipo compatibile con quello su cui e' basato
+				//       il SimpleType User Defined, e settarla nell'oggetto val creato
+				? t = ?;
+				val.setValue(t);
+				// HINT: end
+			} catch (Exception e) {
+				throw new TypeConversionException("Valore " + s + " non ammesso per il tipo «getUDTClassName(this)»");
+			}
+			return val;
+		}
+		else {
+			return null;
+		}*/
+		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)»Converter.convertFromString() non implementato");
+		«ENDPROTECT»
+	}
+
+	/**
+	 * Trasforma una istanza di «getUDTClassName(this)» nella rappresentazione a stringa.
+	 * @param
+	 * @param
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertToString(java.util.Map, java.lang.Object)
+	 */
+	@Override
+	public String convertToString(Map context, Object o) {
+		«getUDTClassName(this)» val = («getUDTClassName(this)»)o;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")»
+		// TODO: implementare la logica di conversione a stringa e rimuovere l'eccezione UnsupportedOperationException
+		//return val==null ? "" : (val.getValue()!=null ? val.getValue() : "");
+		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)»Converter.convertToString() non implementato");
+		«ENDPROTECT»
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»Genera la classe per il convertitore numerico«ENDREM»
+«DEFINE numericConverterClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/CsiNumericConverter.java"»package «getTypeConverterJavaPackage(this)»;
+
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.util.Locale;
+import java.util.Map;
+
+import org.apache.struts2.util.StrutsTypeConverter;
+
+import com.opensymphony.xwork2.conversion.TypeConversionException;
+
+
+/**
+ * Custom Type Converter per i tipi numerici.
+ * 
+ * @author [GUIGEN]
+ */
+public class CsiNumericConverter extends StrutsTypeConverter {
+
+	/**
+	 * 
+	 * @param  context
+	 * @param  values
+	 * @param  toClass
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertFromString(java.util.Map, java.lang.String[], java.lang.Class)
+	 */
+	@Override
+	public Object convertFromString(Map context, String[] values, Class toClass) {
+		if ( values != null && values.length > 0 && values[0] != null && values[0].trim().length() > 0 ) {
+			String  s = values[0].trim();
+			NumberFormat df = NumberFormat.getNumberInstance(Locale.ITALY);
+
+			if (toClass == Float.TYPE || toClass == Float.class || toClass == Double.TYPE || toClass == Double.class) {
+				df.setMinimumFractionDigits(2);
+				df.setMaximumFractionDigits(2);
+			}
+
+			try {
+				ParsePosition parsePosition = new ParsePosition(0);
+				Number n = df.parse(s, parsePosition );
+				if ( parsePosition.getIndex() != s.length() ) {
+					throw new ParseException("impossibile convertire l'intera stringa", parsePosition.getIndex()); 
+				}
+			
+				// df.parse restituisce il tipo massimo quindi
+				//  [1] double, Double; float, Float  => Double se specifico i decimali
+				//  [2] double, Double; float, Float  => Long se non specifico i decimali
+				//  [3] int, Integer; long, Long      => Long
+				// bisogna in qualche modo fare un "downcast" in base a toClass
+
+				// Se il tipo target e' un decimale occorre gestire il caso [2]
+				if (toClass == Float.TYPE || toClass == Float.class || toClass == Double.TYPE || toClass == Double.class) {
+					if (n instanceof Long){
+						n= new Double(n.doubleValue());
+					}
+				}
+				if (toClass == Integer.TYPE || toClass == Integer.class) {
+					return ((Long) n).intValue();
+				} else if (toClass == Float.TYPE || toClass == Float.class) {
+					return ((Double) n).floatValue();
+				}
+				return n;
+			} catch (ParseException e) {
+				throw new TypeConversionException(e);
+			}
+
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param
+	 * @param
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertToString(java.util.Map, java.lang.Object)
+	 */
+	@Override
+	public String convertToString(Map context, Object o) {
+		NumberFormat df = NumberFormat.getNumberInstance(Locale.ITALY);
+		
+		if ( o instanceof Integer || o instanceof Long ) {
+			return df.format(o);
+		} 
+		else if ( o instanceof Float || o instanceof Double ) {
+			df.setMinimumFractionDigits(2);
+			df.setMaximumFractionDigits(2);
+			return df.format(o);
+		}
+		
+		return o.toString();
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+DISPLAYTAG CUSTOM DECORATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera le classi dei decoratori«ENDREM»
+«DEFINE decoratorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND customColumnDecoratorClassFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera la classe per il decoratore numerico della displaytag«ENDREM»
+«DEFINE customColumnDecoratorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getColumnDecoratorJavaSrcDir(this, skip_component_dir_creation) + "/CsiCustomColumnDecorator.java"»package «getColumnDecoratorJavaPackage(this)»;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import org.displaytag.decorator.ColumnDecorator;
+import org.displaytag.exception.DecoratorException;
+
+
+/**
+ * Custom Column Decorator per DisplayTag: formatta i numeri.
+ * 
+ * @author [GUIGEN]
+ */
+public class CsiCustomColumnDecorator implements ColumnDecorator {
+
+	/**
+	 *
+	 * @param columnValue
+	 * @return
+	 * @see org.displaytag.decorator.ColumnDecorator#decorate(java.lang.Object)
+	 */
+	public String decorate(Object columnValue) throws DecoratorException {
+		if ( columnValue != null ) {
+			if ( columnValue.getClass()  == Integer.class || columnValue.getClass() == Long.class ) {
+				// tipo numerico intero
+				return doFormatFromIntegerToString(columnValue);
+			} 
+			else if ( columnValue.getClass()  == Float.class || columnValue.getClass() == Double.class ) {
+				// tipo intero decimale
+				return doFormatFromDecimalToString(columnValue);
+			}
+			// TODO: implementare la logica di decorazione per altri tipi (se necessario)
+			
+			// per tutti gli altri tipi ritorno la stringa
+			return columnValue.toString();
+		}	
+		return null;
+	}
+
+	
+	/**
+	 * 
+	 * @param columnValue
+	 * @return
+	 */
+	private String doFormatFromIntegerToString(Object columnValue) {
+		NumberFormat df = NumberFormat.getNumberInstance(Locale.ITALY);
+		return df.format(columnValue);
+	}
+	
+	/**
+	 * 
+	 * @param columnValue
+	 * @return
+	 */
+	private String doFormatFromDecimalToString(Object columnValue) {
+		NumberFormat df = NumberFormat.getNumberInstance(Locale.ITALY);
+		df.setMinimumFractionDigits(2);
+		df.setMaximumFractionDigits(2);
+		return df.format(columnValue);
+	}	
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+DISPLAYTAG CUSTOM COMPARATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera le classi dei comparatori«ENDREM»
+«DEFINE comparatorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND dateComparatorClassFile(skip_component_dir_creation) FOR this»
+	«EXPAND dateTimeComparatorClassFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera la classe per il comparatore di tipi Date«ENDREM»
+«DEFINE dateComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateComparator.java"»package «getComparatorJavaPackage(this)»;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+
+/**
+ * Comparatore custom per tipi Date (da usare con la DisplayTag)
+ *
+ * @author [GUIGEN]
+ */
+public class CsiDateComparator implements Comparator<String>, java.io.Serializable {
+
+	/** Costante per il formato DATE */
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
+	public int compare(String o1, String o2) {
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+	
+		if (o1.equals("") && !o2.equals(""))
+			return -1;
+		if (!o1.equals("") && o2.equals(""))
+			return 1;
+		if (o1.equals("") && o2.equals(""))
+			return 0;
+
+		try {
+			Date d1 = sdf.parse(o1);
+			Date d2 = sdf.parse(o2);
+			return d1.compareTo(d2);
+		} catch (ParseException e) {
+			return -1;
+		}
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la classe per il comparatore di tipi Date«ENDREM»
+«DEFINE dateTimeComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateTimeComparator.java"»package «getComparatorJavaPackage(this)»;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+
+/**
+ * Comparatore custom per tipi DateTime  (da usare con la DisplayTag)
+ *
+ * @author [GUIGEN]
+ */
+public class CsiDateTimeComparator implements Comparator<String>, java.io.Serializable {
+
+	/** Costante per il formato DATE */
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
+
+	/** Costante per il formato HOUR SHORT */
+	private static final String HOUR_SHORT_FORMAT = "hh:mm";
+
+	/** Costante per il formato HOUR EXTENDED */
+	private static final String HOUR_EXTENDED_FORMAT = "hh:mm:ss";
+
+	/** Costante per il formato DATETIME SHORT */
+	private static final String DATETIME_SHORT_FORMAT = DATE_FORMAT + "-" + HOUR_SHORT_FORMAT;
+
+	/** Costante per il formato DATETIME EXTENDED */
+	private static final String DATETIME_EXTENDED_FORMAT = DATE_FORMAT + "-" + HOUR_EXTENDED_FORMAT;
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
+	public int compare(String o1, String o2) {
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+
+		try {
+			if (o1.equals("") && !o2.equals(""))
+				return -1;
+			if (!o1.equals("") && o2.equals(""))
+				return 1;
+			if (o1.equals("") && o2.equals(""))
+				return 0;
+
+			// estrapolo la data dalle stringhe
+			int sepIdx1 = o1.indexOf("-");
+			int sepIdx2 = o2.indexOf("-");
+			String sd1 = sepIdx1 > -1 ? o1.substring(0, sepIdx1) : o1;
+			String sd2 = sepIdx2 > -1 ? o2.substring(0, sepIdx2) : o2;
+
+			// converto le stringhe della date in oggetti di tipo Date
+			Date d1 = sdf.parse(sd1);
+			Date d2 = sdf.parse(sd2);
+			
+			// confronto gli oggetti Date
+			if (d1.compareTo(d2) != 0) {
+				// le due date sono differenti, ne ritorno il confronto
+				return d1.compareTo(d2);
+			} else {
+				// le due date sono uguali, confronto la parte delle ore, se presenti
+				String sm1 = sepIdx1 > -1 ? o1.substring(o1.indexOf("-") + 1) : "00:00";
+				String sm2 = sepIdx2 > -1 ? o2.substring(o2.indexOf("-") + 1) : "00:00";
+				return sm1.compareTo(sm2);
+			}
+		} catch (ParseException e) {
+			return -1;
+		}
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE jsonConverterClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/JSONConverter.java"»package «getTypeConverterJavaPackage(this)»;
+
+import it.csi.splugesf.jtsutil.utils.json.GeometryObjectFactory;
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+
+import java.util.Map;
+
+import org.apache.struts2.util.StrutsTypeConverter;
+
+import com.opensymphony.xwork2.conversion.TypeConversionException;
+import com.vividsolutions.jts.geom.Geometry;
+
+import flexjson.JSONException;
+
+/**
+ * Custom Type Converter per i tipi numerici.
+ * 
+ * @author [GUIGEN]
+ */
+public class JSONConverter extends StrutsTypeConverter {
+
+	/**
+	 * 
+	 * @param  context
+	 * @param  values
+	 * @param  toClass
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertFromString(java.util.Map, java.lang.String[], java.lang.Class)
+	 */
+	@Override
+	public Object convertFromString(Map context, String[] values, Class toClass) {
+		if (values != null && values.length > 0 && values[0] != null
+				&& values[0].trim().length() > 0) {
+			String s = values[0].trim();
+			
+			try {
+				Object ris = null;
+				// inserire qui la deserializzazione
+				flexjson.JSONDeserializer deserializer = new flexjson.JSONDeserializer();
+				deserializer.use(Geometry.class, new it.csi.splugesf.jtsutil.utils.json.GeometryObjectFactory());
+				ris = deserializer.deserialize(s);
+				return ris;
+				
+			} catch (JSONException e) {
+				throw new TypeConversionException(e);
+			}
+
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param
+	 * @param
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertToString(java.util.Map, java.lang.Object)
+	 */
+	@Override
+	public String convertToString(Map context, Object o) {
+		String jsonSerialization = "";
+		// inserire qui la seralizzazion json
+		GeometryTransformer geoTransformer = new GeometryTransformer();
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer()
+				.transform(geoTransformer, Geometry.class);
+		jsonSerialization = serializer.exclude("*.class").deepSerialize(o);
+		return jsonSerialization;
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»

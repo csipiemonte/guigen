@@ -1,0 +1,110 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+
+«REM»metodi per reperire la lista dei widget presenti nel content panel«ENDREM»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR ContentPanel»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOR panels»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOREACH dialogs»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH subpanels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
+	«EXPAND widgetsStructure::widgetStruct(model, cp, contextPrefix) FOREACH widgets»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+	«EXPAND widgetsStructure::widgetStruct(model, cp, contextPrefix) FOREACH widgets»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOREACH panels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH msgBoxes»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOR commands»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
+	«IF this.showStdLegend-»
+	<div class="mandatoryNote"><p>I campi contrassegnati con asterisco (*) sono obbligatori</p></div>
+	«ENDIF-»
+	«EXPAND widgetsStructure::widgetStruct(model, cp, contextPrefix) FOREACH textMessages»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOREACH panels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOREACH panels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+	«EXPAND panelsStructure::panelStruct(model, cp, getChainedContext(contextPrefix, this.name)) FOR panelDef»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDef»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOR panel»
+«ENDDEFINE»
+
+
+«REM»metodi per reperire la lista delle tabelle che hanno il clear status impostato«ENDREM»
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND clearStatusTable(cp, contextPrefix) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND clearStatusTable(cp, contextPrefix) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+	«EXPAND clearStatusTable(cp, getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
+	«FOREACH this.widgets.typeSelect(Table) AS currTable»
+    	«EXPAND clearStatusTable(cp, contextPrefix) FOR currTable-»
+    «ENDFOREACH»
+«ENDDEFINE»
+
+
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR Table»
+    cleared = (Boolean) getSession().get("«cp.name»_«getFullID(this, contextPrefix)»_clearStatus");
+    if(cleared != null && cleared){
+    	listaClearStatus.add("«cp.name»-«getFullID(this, contextPrefix)»");
+    }
+«ENDDEFINE»
+

@@ -1,0 +1,562 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import guigen;
+import ecore;
+
+////////////////////////////////////////////////////////////
+/// Estensioni java indipendenti dalla piattaforma target //
+////////////////////////////////////////////////////////////
+
+// [DM] STDMDD-1123: disabilitazione/rimozione delle cartucce differenti dalla neutral
+boolean isValidPortal(String portal) :
+	portal == "neutral";
+
+
+String getBlankPadding(int n) :
+let blanks = 
+"                                                                              "+
+"                                                                              "+
+"                                                                              "+
+"                                                                              " :                                                                                                                                                
+blanks.subString(0,n);
+
+
+String getOrganizationNamePkgPrefix() :
+	getProperty("guigen.javaPackageOrganizationName")==null||getProperty("guigen.javaPackageOrganizationName").length==0?
+	"it.csi":
+	getProperty("guigen.javaPackageOrganizationName");
+
+String getOrganizationNamePathPrefix() :	
+	getProperty("guigen.javaPackageOrganizationName")==null||getProperty("guigen.javaPackageOrganizationName").length==0?
+	"it/csi":
+	getProperty("guigen.javaPackageOrganizationName").replaceAll("\\p{Punct}","/");
+
+
+/// standard generici J2EE Csi piemonte
+String getProjectRootDir(GUIModel model, boolean omit_root) :
+	omit_root ? "" : model.codComponente;
+
+
+/// buildfiles
+String getBuildXmlFileName(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/build.xml";
+
+String getBuildfilesDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/buildfiles";
+
+String getBuildPropertiesFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/build.properties";
+
+String getBuildPropertiesTemplateFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/target_template_file.properties";
+
+String getIvyFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/ivy.xml";
+
+String getIvyConfFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/ivyconf.xml";
+
+String getAppServerLib(GUIModel model) :
+	if ( model.targetPlatform.code == TargetPlatformCodes::JBoss43 ) then
+		"jboss"
+	else if ( model.targetPlatform.code == TargetPlatformCodes::WLS92 ) then
+		"weblogic";
+
+
+/// configfiles
+
+String getConfigRootDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/conf";
+
+String getAppServerConfigFile(GUIModel model) :
+	if ( model.targetPlatform.code == TargetPlatformCodes::JBoss43 ) then
+		"jboss-web"
+	else if ( model.targetPlatform.code == TargetPlatformCodes::WLS92 ) then
+		"weblogic";
+
+
+/// parte EAR
+String getEarConfigRootDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/ear";
+
+String getEarConfigDir(GUIModel model, boolean omit_root) :
+	getEarConfigRootDir(model, omit_root) + "/" + model.codComponente + "/META-INF";
+
+String getEarConfigFile(GUIModel model, boolean omit_root) :
+	getEarConfigDir(model, omit_root) + "/application.xml";
+
+String getEarManifestFile(GUIModel model, boolean omit_root) :
+	getEarConfigDir(model, omit_root) + "/MANIFEST.MF";
+
+
+/// parte EJB
+String getEjbConfigRootDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/ejb";
+
+String getEjbConfigDir(GUIModel model, boolean omit_root) :
+	getEjbConfigRootDir(model, omit_root) + "/business/" + model.codComponente + "/META-INF";
+
+String getEjbManifestFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/MANIFEST.MF";
+
+String getEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/ejb-jar.xml";
+
+String getJbossEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/jboss.xml";
+
+String getWlEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/weblogic-ejb-jar.xml";
+
+
+
+/// parte JAR
+String getJarConfigRootDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/jar";
+
+String getJarConfigDir(GUIModel model, boolean omit_root) :
+	getJarConfigRootDir(model, omit_root) + "/integration/META-INF";
+
+String getJarManifestFile(GUIModel model, boolean omit_root) :
+	getJarConfigDir(model, omit_root) + "/MANIFEST.MF";
+
+
+// parte WEB
+String getWebModulesConfigDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/web";
+
+String getWebModuleConfigDir(GUIModel model, boolean omit_root) :
+	getWebModulesConfigDir(model, omit_root) + "/" + model.codComponente + "/WEB-INF";
+
+String getWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/web.xml";
+
+String getReminclTldDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/remincl.tld";
+
+String getJbossWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/jboss-web.xml";
+
+String getJbossWebContextDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/context.xml";
+	
+String getWlWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/weblogic.xml";
+
+String getWebModuleMetaInfDir(GUIModel model, boolean omit_root) :
+	getWebModulesConfigDir(model, omit_root) + "/" + model.codComponente + "/META-INF";
+
+String getWebModuleManifestFile(GUIModel model, boolean omit_root) :
+	getWebModuleMetaInfDir(model, omit_root) + "/MANIFEST.MF";
+
+
+/// javafiles
+
+String getJavaSrcDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/src/java";
+
+String getBaseJavaSrcDir(GUIModel model, boolean omit_root) :
+	getJavaSrcDir(model, omit_root) + "/"+getOrganizationNamePathPrefix()+"/" + model.codProdotto + "/" + model.codComponente;
+
+String getBaseJavaPackage(GUIModel model) :
+	getOrganizationNamePkgPrefix()+"." + model.codProdotto + "." + model.codComponente;
+
+String getBaseJavaPath(GUIModel model) :
+	"/"+getOrganizationNamePathPrefix()+"/" + model.codProdotto + "/" + model.codComponente;
+
+
+// resourcefiles
+// passare true per risorse remote, false per risorse locali
+// [DM] STDMDD-670: modificata nuova alberatura
+
+String getWebSrcDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/src/web/" + model.codComponente;
+
+String getPathComponentDir(GUIModel model, boolean remote) : JAVA 
+	it.csi.mddtools.guigen.genutils.GenUtils.getPathComponentDir(it.csi.mddtools.guigen.GUIModel, java.lang.Boolean);
+
+String getGlobalJslibDir(boolean remote) : 
+	(remote ? "/" : "") + "ris/utheme/global/jslib/";
+
+String getPortalPageInclusionPath() : 
+	"/ris/utheme/global/themes/xstructureV1/include/";
+
+String getGlobalExtlibsthemeDir(boolean remote) :
+	(remote ? "/" : "") + "ris/utheme/global/themes/extlibsthemeV1/";
+
+String getGlobalXstructureDir(boolean remote) : 
+	(remote ? "/" : "") + "ris/utheme/global/themes/xstructureV1/";
+
+String getGlobalOpenlayersthemeDir(boolean remote) : 
+	(remote ? "/" : "") + "ris/utheme/global/themes/openlayersthemeV1/";
+
+String getJsPath() : 
+	"ris/js/";
+
+String getJsDir(boolean remote) : 
+	(remote ? "/" : "") + getJsPath();
+
+String getNomeCanale(GUIModel model) :
+	let canale = model.structure.appWindow.header.codCanale.trim() :
+	!isNullOrEmpty(canale) ? canale : "general";
+
+boolean checkValidMode(String mode) :
+	!isNullOrEmpty(mode) && (mode == "M1" || mode == "M2");
+
+boolean isOldMode() :
+	getProperty("staticResourcesSchemaVersion") == "M1";
+
+boolean isNewMode() :
+	getProperty("staticResourcesSchemaVersion") == "M2";
+
+// [DM] Gestione PortalProfile/PortalExposition: disattivo temporaneamente la funzione per interventi sul multiportale
+boolean hasPortalProfile(GUIModel model) :
+	false;
+	//model.targetPlatform.portalExpositions != null && model.targetPlatform.portalExpositions.size > 0;
+
+// [DM] STDMDD-621: gestione multiportale
+boolean isMultiPortal(GUIModel model) :
+	model.targetPlatform.portalExpositions != null && model.targetPlatform.portalExpositions.size > 1;
+
+String getPathComponentDirMultiportal(GUIModel model, boolean remote) : JAVA 
+	it.csi.mddtools.guigen.genutils.GenUtils.getPathComponentDirMultiportal(it.csi.mddtools.guigen.GUIModel, java.lang.Boolean);
+
+String getLocalStaticResDir(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/ris";
+
+String getLocalJsDir(GUIModel model, boolean omit_root) :
+	getLocalStaticResDir(model, omit_root) + "/js";
+
+
+
+////////////////////////////////////////////////////////////
+/// Estensioni di layout                                  //
+////////////////////////////////////////////////////////////
+
+// Viene ridefinita mediante AOP per ogni singolo portale (questo e' un default)
+String getPortalName() :
+	"";
+
+String getPortalCode() :
+	"";
+
+String getApplicationName(GUIModel model) :
+	if ( model.structure.appWindow.header != null ) then
+		model.structure.appWindow.header.nomeApplicativo
+	else
+		"";
+
+// [DM] il reperimento delle risorse statiche: true = remoto, false = locale (default = false)
+boolean isRemote() :
+	!isNullOrEmpty(getProperty("guigen.remoteresources")) ? (getProperty("guigen.remoteresources") == "true" ? true : false ) : false;
+
+////////////////////////////////////////////////////////////
+/// Estensioni legate a logiche                           //
+////////////////////////////////////////////////////////////
+List[Command] getLeafCommands(ApplicationArea area) :
+	if (area.onInitCommand == null) then
+		null
+	else
+		getLeafCommands(area.onInitCommand);
+		
+List[Command] getLeafCommands(Command cmd) :
+	{cmd}; // for leafs...
+	
+List[Command] getLeafCommands(SequenceCommand cmd) :
+	cmd.commands.getLeafCommands();
+
+List[Command] getLeafCommands(ExecCommand cmd) :
+	cmd.results.getLeafCommands();
+
+List[Command] getLeafCommands(CommandOutcome co) :
+	co.command.getLeafCommands();
+
+List[Command] getLeafCommands(ChkEditStatusCommand cmd) :
+	{cmd.doIfChanged.getLeafCommands(),cmd.doIfNotChanged.getLeafCommands()};
+
+
+////////////////////////////////////////////////////////////
+/// Estensioni legate a binding                           //
+////////////////////////////////////////////////////////////
+
+ComplexType getTableElementsType(Table t) :
+	if t==null then
+		null
+	else
+		t.multiDataBinding.appData.type;
+
+Table getOwnerTable(Column c):
+	let colModel = (ColumnModel)c.eContainer :
+	let table = (Table)colModel.eContainer:
+	table;
+
+// n.b: selector path puo' contenere il selector, il multidataKeySelector, ...
+boolean canResolveColumnBinding(Column c, String selectorPath) :
+	
+	let bindingType = getTableElementsType(getOwnerTable(c)) :
+	if (bindingType == null) then
+		true
+	else
+		getSelectedField(null,bindingType, selectorPath)!= null;
+
+////////////////////////////////////////////////////////////
+/// Estensioni legate a struttura e dinamiche UI          //
+////////////////////////////////////////////////////////////
+
+// restituisce la lista degli eventuali widget mai visibili in
+// nessuno screen state
+List[Widget] getNeverShownWidgets(ContentPanel cp) :
+	if (cp.states==null || cp.states.states.size==0) then
+		null
+	else
+		cp.findAllWidgetsInContentPanel().select(w|!(cp.states.states.widgetsVisible.contains(w)));
+
+List[Widget] getNeverEnabledWidgets(ContentPanel cp) :
+	if (cp.states==null || cp.states.states.size==0) then
+		null
+	else
+		cp.findAllWidgetsInContentPanel().select(w|!(cp.states.states.widgetsOn.contains(w)));
+
+
+Boolean isContainedInOneOf(Panel p, List[Panel] otherPanels) :
+	otherPanels.exists(op | contains(op,p));
+
+Boolean contains(Panel p1, Panel p2) :
+	false;
+	
+Boolean contains(FormPanel p1, Panel p2) :
+	p1.subpanels.contains(p2) ||
+	p1.subpanels.exists(sp|contains(sp,p2));
+
+Boolean contains(MultiPanel p1, Panel p2) :
+	p1.panels.contains(p2) ||
+	p1.panels.exists(sp|contains(sp,p2));
+
+List[Panel] getRefreshViewConflicts(RefreshViewCommand rwc) :
+	let targetPanels = rwc.targetPanels :
+	targetPanels
+	.select(tp| tp.isContainedInOneOf(targetPanels.select(tp2|tp2 != tp))).name;
+
+////////////////////////////////////////////////////////////
+/// Estensioni legate ai widget                                //
+////////////////////////////////////////////////////////////
+boolean isEnrichmentEnabled(Widget w) :
+	let enrichmentDefaultProp = getProperty("guigen.enableEnrichmentsByDefault") :
+	let enrichmentDefaultValue = (enrichmentDefaultProp == null ? false : (enrichmentDefaultProp == "true" ? true : false)) :
+	w.enableEnrichment == null ? enrichmentDefaultValue : w.enableEnrichment;
+
+////////////////////////////////////////////////////////////
+/// Estensioni di utilita'                                //
+////////////////////////////////////////////////////////////
+
+// [DM] Verifica che la stringa passata non sia nulla o sia blank
+boolean isNullOrEmpty(String s) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.isNullOrEmpty(java.lang.String);
+
+
+//boolean isBoundToArray(AppDataBinding db) :
+//	let fld = (db.path!=null ? getSelectedField(null, db.appData.type, db.path): null) :
+//	fld==null ? db.appData.type.metaType==TypedArray : fld.metaType==TypedArray;
+
+////////////////////////////////////////////////////////////
+/// Lettura properties di generazione					 /// 
+////////////////////////////////////////////////////////////
+String getGenerateAppModulesProperty() :
+	if getProperty("generate-appmodules") != null then
+		""+getProperty("generate-appmodules")
+	else
+		""; 
+
+boolean mustGenerateContentPanel(ContentPanel cp) :
+    let list = getGenerateAppModulesProperty() :
+    
+	if cp.eContainer.metaType==AppModule then
+		list==null || list=="" || list.contains(((AppModule)(cp.eContainer)).name)
+	else
+		true
+	;
+
+Panel getParentPanel(Widget w) :
+	(Panel)(w.eContainer);
+
+
+boolean isSimpleExecChain(Command cmd) :
+	(cmd==null || cmd.metaType != ExecCommand ? 
+		false 
+		:
+		(((ExecCommand)cmd).results.size != 1 ? 
+			false 
+			:
+			(
+			((ExecCommand)cmd).results.first().command.metaType == NOPCommand ?
+				true
+				:
+				false
+			)
+		
+		)
+	);	
+
+SecurityModel getActualSecurityModel(GUIModel model) :
+	if (model.extSecurityModel != null) then
+		model.extSecurityModel
+	else
+		model.securityModel;
+
+
+String noSonarTag(String reason) :
+	let noNoSonar = getProperty("guigen.noNOSONAR"):
+	if (noNoSonar == null || noNoSonar != "true") then
+	"//NOSONAR  Reason:"+reason
+	else
+	"";
+
+////////////////////////////////////////////////////////////
+/// Estensioni java                                       //
+////////////////////////////////////////////////////////////
+String getProperty(String name) : JAVA
+  org.eclipse.xtend.util.stdlib.PropertiesExtension.getProperty(java.lang.String);
+
+String getPluginVersion() : JAVA
+	it.csi.mddtools.guigen.genutils.MiscUtils.getPluginVersion();
+	
+List getAllContentPanels(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllContentPanels(it.csi.mddtools.guigen.GUIModel);
+
+List getAllContentPanels(ApplicationArea appArea) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllContentPanels(it.csi.mddtools.guigen.ApplicationArea);
+
+boolean isContentPanelUnique(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.isContentPanelUnique(it.csi.mddtools.guigen.ContentPanel);
+
+ContentPanel findParentContentPanel(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Command);
+
+ContentPanel findParentContentPanel(Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Widget);
+
+ContentPanel findParentContentPanel(Panel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Panel);
+
+ContentPanel findParentContentPanel(Column c) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Column);
+	
+ContentPanel findParentPanelDef(Panel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentPanelDef(it.csi.mddtools.guigen.Panel);
+
+ContentPanel findParentPanelDef(Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentPanelDef(it.csi.mddtools.guigen.Widget);
+	
+ContentPanel findParentPanelDef(Column c) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentPanelDef(it.csi.mddtools.guigen.Column);
+
+List findAllWidgetsInContentPanel(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllWidgetsInContentPanel(it.csi.mddtools.guigen.ContentPanel);
+
+List findAllWidgetsInPanel(MultiPanel p): JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllWidgetsInPanel(it.csi.mddtools.guigen.MultiPanel);
+
+List findAllWidgetsInPanel(FormPanel fp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllWidgetsInPanel(it.csi.mddtools.guigen.FormPanel);
+	
+List[TabSetPanel] getAllTabSets(ContentPanel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllTabSets(it.csi.mddtools.guigen.ContentPanel);
+
+boolean isVersioneFormalmenteCorretta(String v) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.isVersioneFormalmenteCorretta(java.lang.String);
+
+String getRegionUID(String sourceId) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getRegionUID(java.lang.String);
+
+List findUnresolvedAppDataBinding(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.findUnresolvedAppDataBinding(it.csi.mddtools.guigen.ContentPanel);
+	
+List getAllCustomSecConstraints4Menus(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllCustomSecConstraints4Menus(it.csi.mddtools.guigen.Menubar);
+
+List getAllTypes(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllTypes(it.csi.mddtools.guigen.GUIModel);
+
+List getAllTypes(Typedefs typedef) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllTypes(it.csi.mddtools.guigen.Typedefs);
+
+List getAllApplicationData(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllApplicationData(it.csi.mddtools.guigen.GUIModel);
+	
+List getAllApplicationData(ApplicationDataDefs appDataDefs) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllApplicationData(it.csi.mddtools.guigen.ApplicationDataDefs);
+
+Field getSelectedField(Field f, Type ct, String selector) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getSelectedField(it.csi.mddtools.guigen.Field, it.csi.mddtools.guigen.Type, java.lang.String);
+
+boolean hasCircularHierarchy(ComplexType ct) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.hasCircularHierarchy(it.csi.mddtools.guigen.ComplexType);
+
+boolean isBoundToArray(AppDataBinding db) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.isBoundToArray(it.csi.mddtools.guigen.AppDataBinding);
+	
+EObject getCmdChainContainer(Command cmd) : JAVA
+	it.csi.mddtools.guigen.genutils.CmdFrameworkUtils.getCmdChainContainer(it.csi.mddtools.guigen.Command);	
+	
+// [SC] Restituisce il campo per l'editabilita' di una colonna della tabella
+boolean applicationDataNamesAreAllUnambiguous(List appDataList) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.applicationDataNamesAreAllUnambiguous(java.util.List);	
+	
+Void setProperty(String name, String val) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.setProperty(java.lang.String, java.lang.String);
+	
+List[String] getListLangSnippet() : 
+{'JAVA'};	
+
+List[String] getListPositionSnippetIdentityAdapter() : 
+{'createCurrentUser','normalizeEncodedUserInfo','prepareTicketValidationCall','extractEncodedUserInfo'};	
+List[String] getListNameSnippetIdentityAdapter() :
+{'body'};
+ 
+List[String] getListPositionSnippetPEP() : 
+{'methodPrivate', 'findActorsForPersonaInApplication', 'findActorsForPersonaInUseCase','findRuoliForPersonaInApplication','findRuoliForPersonaInUseCase','findUseCasesForPersonaInApplication',
+ 'getInfoPersonaInUseCase', 'getInfoPersonaSchema', 'identificaCertificato','identificaUserPassword','identificaUserPasswordPIN','isIdentitaAutentica','isPersonaAutorizzataInUseCase', 'isPersonaInRuolo', 'methodPrivate'};
+List[String] getListNameSnippetPEP() :
+{'body','import'};
+
+String upperInitial(String s) : JAVA
+      it.csi.mddtools.guigen.genutils.GenUtils.upperInitial(java.lang.String);
+  
+List[String] getListNameSnippetExecCmd() :
+{'body'};
+List[String] getListPositionSnippetExecCmd() : 
+{'executedMethod'};
+
+  
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
+/// Estensioni ridefinite per i portali specifici mediante AOP                               //
+///******************************************************************************************//
+///////////////////////////////////////////////////////////////////////////////////////////////  
+//////////////////////PORTLET - Liferay//////////////////////////////////////////////////////////
+String getJspPackageExt(GUIModel model) :
+	"struts-default";
+String getDefaultInterceptorRef(GUIModel model) :
+	"jsp-stack";
+	
+boolean insertStrutsExt() :
+	true;	

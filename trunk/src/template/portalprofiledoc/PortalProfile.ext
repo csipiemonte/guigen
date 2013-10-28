@@ -1,0 +1,66 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import guigen;
+
+String docFileName(PortalProfile pp) :
+	pp.name+"/portalProfile_"+pp.name+".html";
+	
+List[StdWebResourceModule] getLibsModules(List[StdWebResourceModule] allModules) :
+allModules.select(m | 
+m.stdName == StdWebResModuleNames::ext_all || 
+m.stdName == StdWebResModuleNames::openlayers ||
+m.stdName == StdWebResModuleNames::extjscsicore ||
+m.stdName == StdWebResModuleNames::extjscsienricher );
+
+List[StdWebResourceModule] getSkinModules(List[StdWebResourceModule] allModules) :
+allModules.select(m | 
+m.stdName == StdWebResModuleNames::extlibstheme || 
+m.stdName == StdWebResModuleNames::areabrand ||
+m.stdName == StdWebResModuleNames::xstructure ||
+m.stdName == StdWebResModuleNames::extlibsareabrand ||
+m.stdName == StdWebResModuleNames::openlayerstheme ||
+m.stdName == StdWebResModuleNames::openlayersareabrand ||
+m.stdName == StdWebResModuleNames::globalinclusions);
+
+String getRepartModulePos(RepartModule mod) :
+mod.type.toString() + "/" + mod.organization+ "/" + mod.name + "/" + mod.version;
+
+String getRepartModuleLink(RepartModule mod) :
+"http://repart.csi.it/"+getRepartModulePos(mod);
+
+String getRepartArtifactLink(RepartModule mod, RepartArtifact art) :
+getRepartModuleLink(mod)+"/lib/"+art.name+"."+art.type;
+
+String getStdModuleTypeDescr(StdWebResourceModule mod) :
+let type = mod.stdName :
+if (type == null) then "??"
+else if (type == StdWebResModuleNames::ext_all) then "Libreria ExtJS per la realizzazione di Rich user Interfaces"
+else if (type == StdWebResModuleNames::openlayers) then "Libreria Openlayers per funzonalit&agrave; di tipo cartografico"
+else if (type == StdWebResModuleNames::extjscsicore) then "Estensioni delle librerie ExtJS con personalizzazioni della user interface"
+else if (type == StdWebResModuleNames::extjscsienricher) then "Framework per l'arricchimento delle applicazioni XHTML"
+else if (type == StdWebResModuleNames::globalinclusions) then "Files globali destinati all'inclusione nelle pagine applicative tramite remote-include"
+else if (type == StdWebResModuleNames::xstructure) then "Fogli di stile CSS e risorse grafiche che conferiscono la struttura di layout e la grafica di base alla schermata"
+else if (type == StdWebResModuleNames::extlibstheme) then "Fogli di stile CSS e risorse grafiche che conferiscono la grafica di base alle componenti ricche (js)"
+else if (type == StdWebResModuleNames::openlayerstheme) then "Fogli di stile CSS e risorse grafiche che conferiscono la grafica di base alle componenti di tipo cartografico (js)"
+else if (type == StdWebResModuleNames::areabrand) then "Fogli di stile CSS e risorse grafiche che conferiscono la grafica specifica di una determinata area tematica (canale) limitatamente alle componenti grafiche xhtml"
+else if (type == StdWebResModuleNames::extlibsareabrand) then "Fogli di stile CSS e risorse grafiche che conferiscono la grafica specifica di una determinata area tematica (canale) limitatamente alle componenti grafiche ricche"
+else "??"+mod.stdName; 

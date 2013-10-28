@@ -1,0 +1,269 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»
+**************************************************************************************************************************
+Risorse statiche, casi:
+   1) M1  ->  vecchia alberatura
+**************************************************************************************************************************
+«ENDREM»
+
+«REM»
+==========================================================================================================================
+BUILD FILES
+===========================================================================================================================
+«ENDREM»
+
+«REM»buildfiles -> build.xml«ENDREM»
+«DEFINE antBuildFileUnzipJs FOR GUIModel»
+  «IF this.targetPlatform.enableRichUIBehavior-»
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # _unzip_js                                                 # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="_unzip_js" description="spacchetta le risorse JS scaricate da repart">
+  «IF isNullOrEmpty(getProperty("development.mode")) || getProperty("development.mode")=="false"-»
+  	<unzip src="${extjs-zipfile}" dest="${temp}/static-resources" />
+  	<unzip src="${csi-extjscore-zipfile}" dest="${temp}/static-resources" />
+  	<unzip src="${csi-extjsenricher-zipfile}" dest="${temp}/static-resources" />
+  	«IF hasGisMap()»
+  	<unzip src="${openlayers-zipfile}" dest="${temp}/static-resources" />
+  	«ENDIF»
+  	«IF targetPlatform.enableFatClient-»
+  	<unzip src="${csi-extjsmdd-zipfile}" dest="${temp}/static-resources" />
+  	«ENDIF-»
+  «ELSE-»
+  	<!-- modalita' di sviluppo delle estensioni JS: le risorse statiche devono 
+  	     essere inserite manualmente in ${srcweb} -->
+  «ENDIF-»
+  </target>
+  «ENDIF-»
+«ENDDEFINE»
+
+
+«REM»buildfiles -> build.properties«ENDREM»
+«DEFINE buildPropertiesFileStaticResources FOR GUIModel»
+«IF !isRemote()-»
+«IF targetPlatform.enableRichUIBehavior-»
+# - [Files delle risorse statiche per rich UI] -------------------------------
+  extjs-zipfile = ${lib}/ext-«getExtAllVersion()»-all.zip
+  csi-extjscore-zipfile = ${lib}/ext-csi-«getExtjsCsiCoreVersion()»-core.zip
+  csi-extjsenricher-zipfile = ${lib}/ext-csi-enricher-«getExtjsCsiEnricherVersion()».zip
+  «IF hasGisMap()»
+  openlayers-zipfile = ${lib}/openlayers-«getOpenlayersVersion()».zip
+  «ENDIF»
+«ENDIF-»
+«IF targetPlatform.enableFatClient-»
+  csi-extjsmdd-zipfile = ${lib}/ext-csi-«getExtjsCsiMddVersion()»-mdd.zip
+«ENDIF-»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»buildfiles -> ivy.xml«ENDREM»
+«DEFINE ivyFileStaticResources FOR GUIModel»
+«IF targetPlatform.enableRichUIBehavior-»
+<!-- librerie js per rich u.i -->
+<dependency org="csipiemonte" name="extjscsicore" rev="«getExtjsCsiCoreVersion()»"/>
+<dependency org="csipiemonte" name="extjscsienricher" rev="«getExtjsCsiEnricherVersion()»"/>
+«IF hasGisMap()»
+<dependency org="openlayers" name="openlayers" rev="«getOpenlayersVersion()»" />
+«ENDIF»
+«IF targetPlatform.enableFatClient-»
+<dependency org="csipiemonte" name="extjscsimdd" rev="«getExtjsCsiMddVersion()»"/>
+«ENDIF-»
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»buildfiles -> ivyconf.xml«ENDREM»
+«DEFINE ivyIvyConfFileStaticResources FOR GUIModel»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+ENRICHMENTS
+===========================================================================================================================
+«ENDREM»
+
+«REM»crea i file JS di arricchimento delle pagine web«ENDREM»
+«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+«IF !isRemote()»
+	«FILE getEnrichmentFile(this, model, skip_component_dir_creation)-»
+		«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+	«ENDFILE-»
+«ENDIF»
+«ENDDEFINE»
+
+«REM»crea i file JS di arricchimento delle pagine web basate su liferay«ENDREM»
+«DEFINE enrichmentDefsPortal(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+«IF !isRemote()»
+	«FILE getEnrichmentFile(this, model, skip_component_dir_creation)-»
+		«EXPAND template::struts2::view::enrichmentsPortal::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+	«ENDFILE-»
+«ENDIF»
+«ENDDEFINE»
+
+
+
+«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
+«DEFINE staticResourcesXML FOR GUIModel-»
+<resource type="text/css">
+	<position value="ext-all/resources/css/ext-all.css" />
+	<position value="ext-all/resources/css/xtheme-gray.css" />
+</resource>
+<resource type="text/javascript">
+	<position value="ext-all/adapter/ext/ext-base.js" />
+	<position value="ext-all/ext-all.js" />
+	<position value="ext-csi/util/Format.js" />
+	<position value="ext-csi/locale/ext-lang-it.js" />
+</resource>
+«ENDDEFINE»
+
+
+«REM»Configurazione singolo ContentPanel«ENDREM»
+«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
+<resource type="text/css">
+	<position value="ext-csi-enricher/ajaxify-tag/css/ajaxify.css" />
+	«IF hasGisMap()»
+	<position value="css/openlayers_style.css" />
+	<position value="css/grease.css" />
+	<position value="css/toolbar.css" />
+	«ENDIF»
+</resource>
+<resource type="text/javascript">
+	<position value="ext-csi/table-grid/TableGrid.js" />
+	<position value="ext-csi/miframe/miframe.js" />
+	<position value="ext-csi-enricher/enricher/enricher.js" />
+	<position value="ext-csi-enricher/menu/csimenu.js" />
+	<position value="ext-csi-enricher/toggle-panel/toggle.js" />
+	<position value="ext-csi-enricher/ajaxify-tag/ajaxifyTag.js" />
+	«IF hasGisMap()»
+	<position value="openlayers/core/OpenLayers.js" />
+	<position value="ext-csi-enricher/maps/map-setup.js" />
+	«ENDIF»
+	<!-- componente js dello skin -->
+	<position value="ris/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="js/«getLocalLibsFileWebRootRelative(this, model)»" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="js/«getEnrichmentFileWebRootRelative(this, model)»" />
+</resource>
+«ENDDEFINE»
+
+
+«REM»Configurazione per Fat Client«ENDREM»
+«DEFINE staticResourcesXMLFatClient FOR GUIModel-»
+<resource type="text/css">
+	<position value="ext-csi/grid-filter/css/GridFilters.css" />
+  	<position value="ext-csi/grid-filter/css/RangeMenu.css" />
+  	<position value="ext-csi/multiselect/css/MultiSelect.css" />
+  	<position value="ext-csi-mdd/core/css/core.css" />
+</resource>
+<resource type="text/javascript">
+	<position value="ext-csi/grid-filter/menu/RangeMenu.js" />
+  	<position value="ext-csi/grid-filter/menu/ListMenu.js" />
+  	<position value="ext-csi/grid-filter/GridFilters.js" />
+  	<position value="ext-csi/grid-filter/filter/Filter.js" />
+  	<position value="ext-csi/grid-filter/filter/StringFilter.js" />
+  	<position value="ext-csi/grid-filter/filter/DateFilter.js" />
+  	<position value="ext-csi/grid-filter/filter/ListFilter.js" />
+  	<position value="ext-csi/grid-filter/filter/NumericFilter.js" />
+  	<position value="ext-csi/grid-filter/filter/BooleanFilter.js" />
+  	<position value="ext-csi/multiselect/MultiSelect.js" />
+  	<position value="ext-csi/multiselect/ItemSelector.js" />
+  	<position value="ext-csi/tree-state/TreePanelStatefull_plugin.js" />
+  	<position value="ext-csi/fileuploadfield/FileUploadField.js" />
+	<position value="ext-csi-mdd/core/core.js" />
+	<position value="js/fatclient.js" />
+</resource>
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+STATIC RESORCES HTML (per cartuccia NEUTRALE)
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)«ENDREM»
+«DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
+<!--[if lte IE 6]>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
+<![endif]-->
+<!-- funzioni e definizioni javascript -->
+<script type="text/javascript" src="«getJsFunctionsFilePath()»"></script>
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)«ENDREM»
+«DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
+<!-- fine HEAD di APPLICATIVO (con remincl) -->
+
+«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+
+<!-- funzioni e definizioni javascript -->
+<script type="text/javascript" src="«getJsFunctionsFilePath()»"></script>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
+«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+<r:include url="/ris/include/portal_header.html" resourceProvider="sp" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
+«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»application_header.html" resourceProvider="sp" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«LET model.structure.appWindow.header.codCanale AS codCanale»
+«LET model.structure.appWindow.header.codApplicativo AS codApplicativo»
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:catch var="ex">
+	<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»static_links.html" resourceProvider="sp" />
+</c:catch>
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+<r:include url="/ris/include/portal_footer.html" resourceProvider="sp" />
+«ENDDEFINE»

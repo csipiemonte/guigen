@@ -1,0 +1,150 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+
+
+«DEFINE ajaxifyControlHeader FOR Widget»
+	«ERROR "widget "+this+" non ajaxificabile"»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Widget»
+	«ERROR "widget "+this+" non ajaxificabile"»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix, boolean isPortlet) FOR Button-»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="button"
+		«IF isPortlet»
+		requestUri="«getPortalStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(clickHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
+		«ELSE» 
+		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(clickHandler, contextPrefix)»«getStrutsActionCompleteExtension()»" 
+		«ENDIF»
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»"
+		javascriptDetection="false">
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Button»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(GUIModel model, ContentPanel parentCP, TabSetPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
+
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
+		widgetType="button" 
+		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)»«getStrutsActionCompleteExtension()»" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»"
+		javascriptDetection="false">
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(GUIModel model, ContentPanel parentCP, WizardPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
+
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
+		widgetType="button" 
+		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)»«getStrutsActionCompleteExtension()»" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»"
+		javascriptDetection="false">
+	«ENDLET-»
+«ENDDEFINE»
+
+
+«DEFINE ajaxifyControlFooter FOR TabSwitcher»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-»
+«IF isEnrichmentEnabled()-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="table" 
+		pageId="«parentCP.name»"
+		javascriptDetection="false">
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Table»
+«IF isEnrichmentEnabled()-»
+	</csiuicore:ajaxify>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ComboBox-»
+«IF isEnrichmentEnabled()-»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="combo" 
+		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(vcHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
+		pageId="«parentCP.name»"
+		formName="«parentCP.name»"
+		javascriptDetection="false"
+		nameSpace="«getContentPanelNamespace(parentCP, false)»">
+	«ENDLET-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR ComboBox-»
+«IF isEnrichmentEnabled()-»
+	</csiuicore:ajaxify>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR RadioButtons-»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="radio" 
+		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(vcHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
+		pageId="«parentCP.name»"
+		formName="«parentCP.name»"
+		javascriptDetection="false">
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR RadioButtons-»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR TreeView-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="tree" 
+		pageId="«parentCP.name»"
+		javascriptDetection="false">
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR TreeView»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE dataProviderStreamProperty FOR GUIModel»
+	protected java.io.InputStream dataProviderStream = null;
+	
+	public java.io.InputStream getDataProviderStream() {
+		return dataProviderStream;
+	}
+«ENDDEFINE»
+

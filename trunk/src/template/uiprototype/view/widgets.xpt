@@ -1,0 +1,174 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+
+
+«REM»
+Combobox di esempio 
+«ENDREM»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TextField»
+			new ExtCsi.ui.widgets.TextField(
+				{
+					«EXPAND template::fatjs::view::widgets::widgetCommonProperties(model) FOR this»,
+					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
+					«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
+					dataUrl: '«getDataDir()»/«cp.name»uno.txt'
+					«ELSE-»
+					multiDataBinding: null
+					«ENDIF-»,
+					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
+				}
+			)
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+"uno.txt"»«ENDFILE»			
+«ENDDEFINE»
+
+
+«DEFINE colModel(GUIModel model, Table table, ContentPanel cp) FOR ColumnModel»
+					columnModel: new ExtCsi.ui.widgets.table.ColumnModel(
+					{
+						valueSelector: «jsLiteralValue(valueSelector)», 
+						columns: [«EXPAND template::uiprototype::view::widgets::column(table, cp,model) FOREACH this.columns SEPARATOR ","-»]
+					}
+			)	
+
+«FILE getWebDir(model)+getDataDir()+"/"+table.name+".txt"-»{"clearStatus":false,"elenco":[«FOREACH {'DATO 1','DATO 2','DATO 3','DATO 4','DATO 5','DATO 6','DATO 7','DATO 8','DATO 9'} AS c ITERATOR iter SEPARATOR ','-»
+{«EXPAND columnJson(table, cp,model,iter.counter1) FOREACH this.columns SEPARATOR ","-»}«ENDFOREACH»],"numtot":9,"positions":[]} «ENDFILE»«ENDDEFINE»«DEFINE columnJson(Table table, ContentPanel cp,GUIModel model,Integer iter) FOR Column-»"«selector»" : "DATO_«this.selector»_«iter»"«ENDDEFINE»
+
+
+«DEFINE column(Table table, ContentPanel cp,GUIModel model) FOR Column»
+						new ExtCsi.ui.widgets.table.Column(
+						{
+							label: «jsLiteralValue(label)»,
+							editable: «jsLiteralValue(this.editable)»,
+							sortable: «jsLiteralValue(sortable)»,
+							tooltip: «jsLiteralValue(tooltip)»,
+							selector: «jsLiteralValue(selector)»,
+							«IF editable-»
+							editableFlagSelector: «jsLiteralValue(editableFlagSelector)»,
+							multidataPropertySelector: «jsLiteralValue(multidataPropertySelector)»,
+							«IF multiDataBinding!=null-»
+							multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
+							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
+							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
+							dataUrl: '«getDataDir()»/«cp.name»«table.name».txt',
+							«ENDIF-»
+							«ENDIF-»
+							«IF eventActive-»
+							activeFlagSelector: «jsLiteralValue(activeFlagSelector)»,
+							«ENDIF-»
+							eventActive: «jsLiteralValue(this.eventActive)»
+						}
+						)
+						
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ComboBox»
+			new ExtCsi.ui.widgets.ComboBox(
+				{
+					«EXPAND template::fatjs::view::widgets::widgetCommonProperties(model) FOR this»,
+					keySelector: «jsLiteralValue(keySelector)»,
+					valueSelector: «jsLiteralValue(valueSelector)»,
+					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
+					«EXPAND template::uiprototype::view::widgets::multidataWidgetProperties(model, cp) FOR this»,
+					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
+				}
+			)
+			
+«REM»creo dati fittizi x combo in formato JSON
+«ENDREM»
+	«EXPAND creaDataStructureJson(model,cp) FOR this»		
+
+«ENDDEFINE»
+
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TreeView»
+			new ExtCsi.ui.widgets.TreeView(
+				{
+					«EXPAND template::fatjs::view::widgets::widgetCommonProperties(model) FOR this»,
+					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
+					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
+				}
+			)
+«REM»creo dati fittizi x combo in formato JSON
+«ENDREM»
+	«EXPAND creaDataStructureJson(model,cp) FOR this»				
+«ENDDEFINE»
+
+
+«DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
+	«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
+					dataUrl: '«getDataDir()»/«this.name».txt'
+	«ELSE-»
+					multiDataBinding: null
+	«ENDIF-»
+
+«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"»«ENDFILE»«ENDDEFINE»
+
+
+
+«DEFINE creaDataStructureJson(GUIModel model, ContentPanel cp) FOR ComboBox-»
+«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"-»[«FOREACH {'DATO 1','DATO 2','DATO 3','DATO 4','DATO 5','DATO 6','DATO 7','DATO 8','DATO 9'} AS c ITERATOR iter SEPARATOR ','»{"«keySelector»" : «iter.counter1»,"«valueSelector»": "«c»"}«ENDFOREACH»]«ENDFILE»	
+«ENDDEFINE»
+
+«DEFINE creaDataStructureJson(GUIModel model, ContentPanel cp) FOR TreeView-»
+«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"»
+ [{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALBERA LIGURE","leaf":true,"text":"ALBERA LIGURE","uniqueid":"738"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALFIANO NATTA","leaf":true,"text":"ALFIANO NATTA","uniqueid":"739"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALICE BEL COLLE","leaf":true,"text":"ALICE BEL COLLE","uniqueid":"740"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALLUVIONI CAMBIO'","leaf":true,"text":"ALLUVIONI CAMBIO'","uniqueid":"741"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALTAVILLA MONFERRATO","leaf":true,"text":"ALTAVILLA MONFERRATO","uniqueid":"742"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALZANO SCRIVIA","leaf":true,"text":"ALZANO SCRIVIA","uniqueid":"743"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ARQUATA SCRIVIA","leaf":true,"text":"ARQUATA SCRIVIA","uniqueid":"744"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/AVOLASCA","leaf":true,"text":"AVOLASCA","uniqueid":"745"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BALZOLA","leaf":true,"text":"BALZOLA","uniqueid":"746"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BASALUZZO","leaf":true,"text":"BASALUZZO","uniqueid":"747"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BASSIGNANA","leaf":true,"text":"BASSIGNANA","uniqueid":"748"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BELFORTE MONFERRATO","leaf":true,"text":"BELFORTE MONFERRATO","uniqueid":"749"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BERGAMASCO","leaf":true,"text":"BERGAMASCO","uniqueid":"750"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BERZANO DI TORTONA","leaf":true,"text":"BERZANO DI TORTONA","uniqueid":"751"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BISTAGNO","leaf":true,"text":"BISTAGNO","uniqueid":"752"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BORGHETTO DI BORBERA","leaf":true,"text":"BORGHETTO DI BORBERA","uniqueid":"753"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BORGO S.MARTINO","leaf":true,"text":"BORGO S.MARTINO","uniqueid":"754"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BORGORATTO ALESSANDRINO","leaf":true,"text":"BORGORATTO ALESSANDRINO","uniqueid":"755"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BOSCO MARENGO","leaf":true,"text":"BOSCO MARENGO","uniqueid":"756"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BOSIO","leaf":true,"text":"BOSIO","uniqueid":"757"}],"cls":"folder","expanded":false,"id":"-1/ALESSANDRIA","leaf":false,"text":"ALESSANDRIA","uniqueid":"2"},{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CASTELNUOVO CALCEA","leaf":true,"text":"CASTELNUOVO CALCEA","uniqueid":"978"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CASTELNUOVO DON BOSCO","leaf":true,"text":"CASTELNUOVO DON BOSCO","uniqueid":"979"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CELLARENGO","leaf":true,"text":"CELLARENGO","uniqueid":"980"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CELLE ENOMONDO","leaf":true,"text":"CELLE ENOMONDO","uniqueid":"981"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CERRETO D'ASTI","leaf":true,"text":"CERRETO D'ASTI","uniqueid":"982"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CERRO TANARO","leaf":true,"text":"CERRO TANARO","uniqueid":"983"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CESSOLE","leaf":true,"text":"CESSOLE","uniqueid":"984"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CHIUSANO D'ASTI","leaf":true,"text":"CHIUSANO D'ASTI","uniqueid":"985"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CINAGLIO","leaf":true,"text":"CINAGLIO","uniqueid":"986"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CISTERNA D'ASTI","leaf":true,"text":"CISTERNA D'ASTI","uniqueid":"987"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/COAZZOLO","leaf":true,"text":"COAZZOLO","uniqueid":"988"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/COCCONATO","leaf":true,"text":"COCCONATO","uniqueid":"989"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CORSIONE","leaf":true,"text":"CORSIONE","uniqueid":"991"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CORTANDONE","leaf":true,"text":"CORTANDONE","uniqueid":"992"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CORTANZE","leaf":true,"text":"CORTANZE","uniqueid":"993"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CORTAZZONE","leaf":true,"text":"CORTAZZONE","uniqueid":"994"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CORTIGLIONE","leaf":true,"text":"CORTIGLIONE","uniqueid":"995"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/COSSOMBRATO","leaf":true,"text":"COSSOMBRATO","uniqueid":"996"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/COSTIGLIOLE D'ASTI","leaf":true,"text":"COSTIGLIOLE D'ASTI","uniqueid":"997"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CUNICO","leaf":true,"text":"CUNICO","uniqueid":"998"}],"cls":"folder","expanded":false,"id":"-1/ASTI","leaf":false,"text":"ASTI","uniqueid":"6"},{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/NETRO","leaf":true,"text":"NETRO","uniqueid":"1135"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/OCCHIEPPO INFERIORE","leaf":true,"text":"OCCHIEPPO INFERIORE","uniqueid":"1136"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/OCCHIEPPO SUPERIORE","leaf":true,"text":"OCCHIEPPO SUPERIORE","uniqueid":"1137"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/PETTINENGO","leaf":true,"text":"PETTINENGO","uniqueid":"1138"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/PIATTO","leaf":true,"text":"PIATTO","uniqueid":"1139"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/PIEDICAVALLO","leaf":true,"text":"PIEDICAVALLO","uniqueid":"1140"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/POLLONE","leaf":true,"text":"POLLONE","uniqueid":"1142"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/PONDERANO","leaf":true,"text":"PONDERANO","uniqueid":"1143"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/PORTULA","leaf":true,"text":"PORTULA","uniqueid":"1144"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/PRALUNGO","leaf":true,"text":"PRALUNGO","uniqueid":"1148"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/PRAY","leaf":true,"text":"PRAY","uniqueid":"1145"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/QUAREGNA","leaf":true,"text":"QUAREGNA","uniqueid":"1146"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/QUITTENGO","leaf":true,"text":"QUITTENGO","uniqueid":"1147"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/RONCO BIELLESE","leaf":true,"text":"RONCO BIELLESE","uniqueid":"1149"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ROPPOLO","leaf":true,"text":"ROPPOLO","uniqueid":"1150"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ROSAZZA","leaf":true,"text":"ROSAZZA","uniqueid":"1151"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/SAGLIANO MICCA","leaf":true,"text":"SAGLIANO MICCA","uniqueid":"1152"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/SALA BIELLESE","leaf":true,"text":"SALA BIELLESE","uniqueid":"1153"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/SALUSSOLA","leaf":true,"text":"SALUSSOLA","uniqueid":"1154"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/SANDIGLIANO","leaf":true,"text":"SANDIGLIANO","uniqueid":"1155"}],"cls":"folder","expanded":false,"id":"-1/BIELLA","leaf":false,"text":"BIELLA","uniqueid":"12"},{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ACCEGLIO","leaf":true,"text":"ACCEGLIO","uniqueid":"1183"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/AISONE","leaf":true,"text":"AISONE","uniqueid":"1184"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALBA","leaf":true,"text":"ALBA","uniqueid":"1185"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALBARETTO DELLA TORRE","leaf":true,"text":"ALBARETTO DELLA TORRE","uniqueid":"1186"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ALTO","leaf":true,"text":"ALTO","uniqueid":"1187"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ARGENTERA","leaf":true,"text":"ARGENTERA","uniqueid":"1188"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ARGUELLO","leaf":true,"text":"ARGUELLO","uniqueid":"1189"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BAGNASCO","leaf":true,"text":"BAGNASCO","uniqueid":"1190"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BAGNOLO PIEMONTE","leaf":true,"text":"BAGNOLO PIEMONTE","uniqueid":"1191"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BALDISSERO D'ALBA","leaf":true,"text":"BALDISSERO D'ALBA","uniqueid":"1192"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BARBARESCO","leaf":true,"text":"BARBARESCO","uniqueid":"1193"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BARGE","leaf":true,"text":"BARGE","uniqueid":"1194"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BAROLO","leaf":true,"text":"BAROLO","uniqueid":"1195"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BASTIA MONDOVI'","leaf":true,"text":"BASTIA MONDOVI'","uniqueid":"1196"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BATTIFOLLO","leaf":true,"text":"BATTIFOLLO","uniqueid":"1197"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BEINETTE","leaf":true,"text":"BEINETTE","uniqueid":"1198"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BELLINO","leaf":true,"text":"BELLINO","uniqueid":"1199"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BELVEDERE LANGHE","leaf":true,"text":"BELVEDERE LANGHE","uniqueid":"1200"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BENE VAGIENNA","leaf":true,"text":"BENE VAGIENNA","uniqueid":"1201"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BENEVELLO","leaf":true,"text":"BENEVELLO","uniqueid":"1202"}],"cls":"folder","expanded":false,"id":"-1/CUNEO","leaf":false,"text":"CUNEO","uniqueid":"28"},{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CASTELLAZZO NOVARESE","leaf":true,"text":"CASTELLAZZO NOVARESE","uniqueid":"1504"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CASTELLETTO SOPRA TICINO","leaf":true,"text":"CASTELLETTO SOPRA TICINO","uniqueid":"1505"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CAVAGLIETTO","leaf":true,"text":"CAVAGLIETTO","uniqueid":"1506"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CAVAGLIO D'AGOGNA","leaf":true,"text":"CAVAGLIO D'AGOGNA","uniqueid":"1507"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CAVALLIRIO","leaf":true,"text":"CAVALLIRIO","uniqueid":"1509"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CERANO","leaf":true,"text":"CERANO","uniqueid":"1511"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/COLAZZA","leaf":true,"text":"COLAZZA","uniqueid":"1513"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/COMIGNAGO","leaf":true,"text":"COMIGNAGO","uniqueid":"1514"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CRESSA","leaf":true,"text":"CRESSA","uniqueid":"1517"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CUREGGIO","leaf":true,"text":"CUREGGIO","uniqueid":"1520"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/DIVIGNANO","leaf":true,"text":"DIVIGNANO","uniqueid":"1522"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/DORMELLETTO","leaf":true,"text":"DORMELLETTO","uniqueid":"1524"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FARA NOVARESE","leaf":true,"text":"FARA NOVARESE","uniqueid":"1527"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FONTANETO D'AGOGNA","leaf":true,"text":"FONTANETO D'AGOGNA","uniqueid":"1528"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GALLIATE","leaf":true,"text":"GALLIATE","uniqueid":"1530"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GARBAGNA NOVARESE","leaf":true,"text":"GARBAGNA NOVARESE","uniqueid":"1531"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GARGALLO","leaf":true,"text":"GARGALLO","uniqueid":"1532"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GATTICO","leaf":true,"text":"GATTICO","uniqueid":"1533"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GHEMME","leaf":true,"text":"GHEMME","uniqueid":"1535"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/SAN MAURIZIO D'OPAGLIO","leaf":true,"text":"SAN MAURIZIO D'OPAGLIO","uniqueid":"999989"}],"cls":"folder","expanded":false,"id":"-1/NOVARA","leaf":false,"text":"NOVARA","uniqueid":"57"},{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CUORGNE'","leaf":true,"text":"CUORGNE'","uniqueid":"428"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/DRUENTO","leaf":true,"text":"DRUENTO","uniqueid":"429"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/EXILLES","leaf":true,"text":"EXILLES","uniqueid":"430"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FAVRIA","leaf":true,"text":"FAVRIA","uniqueid":"431"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FELETTO","leaf":true,"text":"FELETTO","uniqueid":"432"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FENESTRELLE","leaf":true,"text":"FENESTRELLE","uniqueid":"433"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FIANO","leaf":true,"text":"FIANO","uniqueid":"434"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FIORANO CANAVESE","leaf":true,"text":"FIORANO CANAVESE","uniqueid":"435"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FOGLIZZO","leaf":true,"text":"FOGLIZZO","uniqueid":"436"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FORNO CANAVESE","leaf":true,"text":"FORNO CANAVESE","uniqueid":"437"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FRASSINETTO","leaf":true,"text":"FRASSINETTO","uniqueid":"438"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FRONT","leaf":true,"text":"FRONT","uniqueid":"439"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/FROSSASCO","leaf":true,"text":"FROSSASCO","uniqueid":"440"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GARZIGLIANA","leaf":true,"text":"GARZIGLIANA","uniqueid":"441"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GASSINO TORINESE","leaf":true,"text":"GASSINO TORINESE","uniqueid":"442"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GERMAGNANO","leaf":true,"text":"GERMAGNANO","uniqueid":"443"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GIAGLIONE","leaf":true,"text":"GIAGLIONE","uniqueid":"444"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GIAVENO","leaf":true,"text":"GIAVENO","uniqueid":"445"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GIVOLETTO","leaf":true,"text":"GIVOLETTO","uniqueid":"446"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/GRAVERE","leaf":true,"text":"GRAVERE","uniqueid":"447"}],"cls":"folder","expanded":false,"id":"-1/TORINO","leaf":false,"text":"TORINO","uniqueid":"91"},{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ANTRONA SCHIERANCO","leaf":true,"text":"ANTRONA SCHIERANCO","uniqueid":"1683"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ANZOLA D'OSSOLA","leaf":true,"text":"ANZOLA D'OSSOLA","uniqueid":"1684"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/ARIZZANO","leaf":true,"text":"ARIZZANO","uniqueid":"1685"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/AROLA","leaf":true,"text":"AROLA","uniqueid":"1686"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/SEPPIANA","leaf":true,"text":"SEPPIANA","uniqueid":"1745"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/S.MARIA MAGGIORE","leaf":true,"text":"S.MARIA MAGGIORE","uniqueid":"1744"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/STRESA","leaf":true,"text":"STRESA","uniqueid":"1746"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/TOCENO","leaf":true,"text":"TOCENO","uniqueid":"1747"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/TRAREGO VIGGIONA","leaf":true,"text":"TRAREGO VIGGIONA","uniqueid":"1748"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/TRASQUERA","leaf":true,"text":"TRASQUERA","uniqueid":"1749"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/TRONTANO","leaf":true,"text":"TRONTANO","uniqueid":"1750"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VALSTRONA","leaf":true,"text":"VALSTRONA","uniqueid":"1751"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VANZONE CON S.CARLO","leaf":true,"text":"VANZONE CON S.CARLO","uniqueid":"1752"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VARZO","leaf":true,"text":"VARZO","uniqueid":"1753"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VERBANIA","leaf":true,"text":"VERBANIA","uniqueid":"1682"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VIGANELLA","leaf":true,"text":"VIGANELLA","uniqueid":"1754"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VIGNONE","leaf":true,"text":"VIGNONE","uniqueid":"1755"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VILLADOSSOLA","leaf":true,"text":"VILLADOSSOLA","uniqueid":"1756"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VILLETTE","leaf":true,"text":"VILLETTE","uniqueid":"1757"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VOGOGNA","leaf":true,"text":"VOGOGNA","uniqueid":"1758"}],"cls":"folder","expanded":false,"id":"-1/VERBANO-CUSIO-OSSOLA","leaf":false,"text":"VERBANO-CUSIO-OSSOLA","uniqueid":"100"},{"checked":null,"children":[{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BOCCIOLETO","leaf":true,"text":"BOCCIOLETO","uniqueid":"1773"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BORGO D'ALE","leaf":true,"text":"BORGO D'ALE","uniqueid":"1774"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BORGO VERCELLI","leaf":true,"text":"BORGO VERCELLI","uniqueid":"1775"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BORGOSESIA","leaf":true,"text":"BORGOSESIA","uniqueid":"1776"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BREIA","leaf":true,"text":"BREIA","uniqueid":"1778"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/BURONZO","leaf":true,"text":"BURONZO","uniqueid":"1780"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CAMPERTOGNO","leaf":true,"text":"CAMPERTOGNO","uniqueid":"1784"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CARCOFORO","leaf":true,"text":"CARCOFORO","uniqueid":"1788"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CARESANA","leaf":true,"text":"CARESANA","uniqueid":"1789"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CARESANABLOT","leaf":true,"text":"CARESANABLOT","uniqueid":"1790"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CARISIO","leaf":true,"text":"CARISIO","uniqueid":"1791"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CASANOVA ELVO","leaf":true,"text":"CASANOVA ELVO","uniqueid":"1792"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CELLIO","leaf":true,"text":"CELLIO","uniqueid":"1797"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CERVATTO","leaf":true,"text":"CERVATTO","uniqueid":"1800"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CIGLIANO","leaf":true,"text":"CIGLIANO","uniqueid":"1801"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/CIVIASCO","leaf":true,"text":"CIVIASCO","uniqueid":"1802"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/COLLOBIANO","leaf":true,"text":"COLLOBIANO","uniqueid":"1804"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/SAN GIACOMO VERCELLESE","leaf":true,"text":"SAN GIACOMO VERCELLESE","uniqueid":"1794"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VILLATA","leaf":true,"text":"VILLATA","uniqueid":"1922"},{"checked":null,"children":[],"cls":"file","expanded":false,"id":"-1/VOCCA","leaf":true,"text":"VOCCA","uniqueid":"1924"}],"cls":"folder","expanded":false,"id":"-1/VERCELLI","leaf":false,"text":"VERCELLI","uniqueid":"101"}]
+«ENDFILE»	
+«ENDDEFINE»
+
+
+
+«REM»
+Creazione File di Progetto da importare in Eclipse
+«ENDREM»
+
+«DEFINE projectFileWork FOR GUIModel»
+«FILE ".project"»<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name></name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.wst.jsdt.core.javascriptValidator</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.wst.validation.validationbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
+	</natures>
+</projectDescription>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»[DM]«ENDREM»
+«DEFINE widgetsStatusJson FOR ContentPanel»
+«EXPAND widgetStatusJson FOREACH (List[Widget])findAllWidgetsInContentPanel(this) SEPARATOR ","-»
+«ENDDEFINE»
+
+«DEFINE widgetStatusJson FOR Widget»{
+     "disabled":false,
+     "visible":true,
+     "widgetName":"«this.name»"
+}
+«ENDDEFINE»

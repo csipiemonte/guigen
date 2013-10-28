@@ -1,0 +1,86 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::portalprofiledoc::PortalProfile»
+
+«DEFINE main FOR PortalProfile-»
+«FILE docFileName()»
+<html>
+<head>
+</head>
+<body>
+<h1>Descrizione del profilo del portale &quot;«name.toUpperCase()»&quot;</h1>
+«EXPAND resourceModuleDescr FOR this»
+<h2>Informazioni per l'utilizzo in modalit&agrave; multiportale</h2>
+<p>Il portale &quot;«name»&quot;, in un utilizzo <i>multiportale</i>, &egrave; identificato dal codice: [«this.whereAreYouFromPortalCode»];
+le funzionalit&egrave; di <i>Where Are You From</i> utilizzeranno qeusto codice per discriminare la provenienza dell
+utente collegato.</p>
+</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE resourceModuleDescr FOR PortalProfile»
+<h2>Descrizione dei moduli di risorse disponibili</h2>
+<p>Di seguito sono riportate le specifiche dei vari moduli di risorse web (statiche)
+che costituiscono la baseline del portale.</p>
+<h3>Moduli di librerie Javascript</h3>
+<ul>
+«EXPAND resourceModuleDescr FOREACH this.resModules.getLibsModules()»
+</ul>
+<h3>Moduli di risorse per la stilizzazione grafica (skin)</h3>
+<ul>
+«EXPAND resourceModuleDescr FOREACH this.resModules.getSkinModules()»
+</ul>
+<h3>Riepilogo degli artefatti</h3>
+<table border="1">
+<thead><th><strong>modulo</strong></th><th><strong>artefatto</strong></th></thead>
+<tbody>
+«FOREACH this.resModules.repartModule.artifacts AS art»
+«LET (RepartModule)art.eContainer AS mod-»
+<tr><td>
+<a href="«getRepartModuleLink(mod)»">«getRepartModulePos(mod)»</a></td>
+<td><a href="«getRepartArtifactLink(mod, art)»">«art.name».«art.type»</a>
+</td></tr>
+«ENDLET»
+«ENDFOREACH»
+</tbody>
+</table>
+«ENDDEFINE»
+
+«DEFINE resourceModuleDescr FOR WebResourceModule»
+«ENDDEFINE»
+
+«DEFINE resourceModuleDescr FOR StdWebResourceModule»
+<li> «this.name» v.«this.version» [«getStdModuleTypeDescr().toFirstLower()»]:
+	<ul>
+	<li>su repart:
+		<ul>
+		<li>posizione: <a href="«getRepartModuleLink(this.repartModule)»">«getRepartModulePos(this.repartModule)»</a> </li>
+		<li>artefatti:
+			<ul>
+			«FOREACH this.repartModule.artifacts AS art»
+			<li><a href="«getRepartArtifactLink(this.repartModule, art)»">«art.name».«art.type»</a></li>
+			«ENDFOREACH»
+			</ul>
+		</li>
+		</ul>
+	</li>
+	</ul>
+</li>
+«ENDDEFINE»

@@ -1,0 +1,598 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
+«DEFINE iridePDCacheClass(GUIModel model) FOR SecurityModel»
+«FILE getIridePDCacheJavaFile(model,true)»package «getBaseJavaPackage(model)».business;
+
+import java.util.HashMap;
+import java.util.Hashtable;
+
+import it.csi.csi.pfh.FHResult;
+import it.csi.csi.pfh.FunctHandler;
+import it.csi.csi.util.Param;
+import it.csi.csi.wrapper.CSIException;
+import it.csi.iride2.policy.entity.*;
+import it.csi.iride2.iridefed.entity.Ruolo;
+
+public class «getIridePDCacheClassName()» implements FunctHandler{
+
+	static HashMap<Iride2CallKey, Iride2CallValue> cache = new HashMap<Iride2CallKey, Iride2CallValue>();
+
+	static final long TTL = 60 * 60 * 1000; // TTL = 1h
+
+	public FHResult doOnInvokeSynch(String methodName, Param[] params,
+			FHResult prevres, Hashtable bag, boolean inPreChain)
+			throws CSIException {
+		if (mustCache(methodName)) {
+
+			Iride2CallKey call = new Iride2CallKey(methodName, params);
+			if (inPreChain) {
+				Iride2CallValue cachedResult = cache.get(call);
+				if (cachedResult != null) {
+					// System.out.println("PDCache: found result for " + call);
+					if ((System.currentTimeMillis() - cachedResult.birthTime) < TTL) {
+						prevres.setResult(cachedResult.result);
+						prevres.setSkipInvoke(true);
+					} else
+						cache.remove(call);
+				}
+				// else continue and call PA...
+			}
+
+			else { // post chain
+				if (prevres.getException() == null) {
+					// metti in cache il risultato
+					// System.out.println("PDCache: caching result for " +
+					// call);
+					Iride2CallValue newVal = new Iride2CallValue(System
+							.currentTimeMillis(), prevres.getResult());
+					cache.put(call, newVal);
+				}
+			}
+		}
+		return prevres;
+	}
+
+	private boolean mustCache(String methodName) {
+		if ("isPersonaInRuolo".equals(methodName)
+				|| "isPersonaAutorizzataInUseCase".equals(methodName)
+				|| "findActorsForPersonaInApplication".equals(methodName))
+			return true;
+		else
+			return false;
+
+	}
+	
+	class Iride2CallValue {
+		public long birthTime;
+		public Param result;
+
+		public Iride2CallValue(long bt, Param p) {
+			birthTime = bt;
+			result = p;
+		}
+	}
+
+	class Iride2CallKey {
+		public String paramsKey;
+
+		public Iride2CallKey(String methodName, Param[] params) {
+			paramsKey += methodName + ":";
+			Identita id = (Identita) (params[0].getValue());
+			paramsKey += id.getCodFiscale();
+			if (params[1].getType() == UseCase.class) {
+				paramsKey += ",UC:"
+						+ ((UseCase) (params[1].getValue())).getId();
+			} else if (params[1].getType() == Actor.class) {
+				paramsKey += ",ACT:" + ((Actor) (params[1].getValue())).getId();
+			} else if (params[1].getType() == Ruolo.class) {
+				paramsKey += ",ROL:"
+						+ ((Ruolo) (params[1].getValue())).getCodiceDominio()
+						+ "-"
+						+ ((Ruolo) (params[1].getValue())).getCodiceRuolo();
+			}
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof Iride2CallKey) {
+				Iride2CallKey other = (Iride2CallKey) obj;
+				return paramsKey.equals(other.paramsKey);
+			} else
+				return false;
+		}
+
+		@Override
+		public int hashCode() {
+
+			return paramsKey.hashCode();
+		}
+
+		@Override
+		public String toString() {
+			return paramsKey;
+		}
+
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE irideHelperMethods FOR GUIModel»
+«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»
+«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
+	
+	///////////////////////////////////////////////////////////////////////////////
+	//// Metodi per la sicurezza basata su IRIDE2
+	///////////////////////////////////////////////////////////////////////////////
+	
+	«IF this.targetPlatform.securityProfile != null && this.targetPlatform.securityProfile.pepImpl.custom == true»
+	public final static String IRIDE_PEP_RESOURCE = "/META-INF/«getPEPProvideXMLPDName()»";
+	«ELSE»
+	public final static String IRIDE_PEP_RESOURCE = "/META-INF/iride2_pep_defPD_ejb.xml";
+	«ENDIF»
+	
+	it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService iride = null;
+	
+	protected PolicyEnforcerBaseService getIridePEP(){
+		if (this.iride==null){
+			InputStream is = getClass().getResourceAsStream(IRIDE_PEP_RESOURCE);
+			if (is != null){
+				try {
+					InfoPortaDelegata info = PDConfigReader.read(is);
+					this.iride = (PolicyEnforcerBaseService)PDProxy.newInstance(info);
+					return this.iride;
+				} 
+				catch (Exception e) {
+					log.error("[SecurityHelper::getIridePEP] errore nella parsificazione della configurazione di IRIDE2:"+e,e);
+					throw new IllegalArgumentException("errore nella parsificazione della configurazione di IRIDE2");
+				}
+			}
+			else 
+				log.error("[SecurityHelper::getIridePEP] configurazione di IRIDE2 non trovata");
+				throw new IllegalArgumentException("configurazione di IRIDE2 non trovata");
+		} 
+		else
+			return this.iride;
+	}
+	
+	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
+	
+	protected Identita getCurrentUser(Map session)
+		throws BEException
+	{
+		Identita id = (Identita)session.get(IRIDE_ID_SESSIONATTR);
+		if (id == null){
+			log.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
+			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
+		}
+		else{
+			return id;
+		}
+	}
+	
+	protected «toJavaType(currentUserAD.type, this)» getCurrentUserInfo(Map session)
+		throws BEException
+	{
+		«toJavaType(currentUserAD.type, this)» userInfo = («toJavaType(currentUserAD.type, this)»)session.get("«getAppDataKey(currentUserAD)»");
+		if (userInfo == null){
+			log.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
+			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
+		}
+		else{
+			return userInfo;
+		}
+	}
+	
+	public final static Application IRIDE2_APPLICATION = new Application("«getActualSecurityModel(this).securityAppID»");
+	
+	public boolean verifyCurrentUserForRole(Map session, String roleCode, String domainCode)
+			throws BEException {
+		Identita currentUser = getCurrentUser(session);
+		Ruolo rol = new Ruolo();
+
+		rol.setCodiceRuolo(roleCode);
+		rol.setCodiceDominio(domainCode);
+		try {
+			return getIridePEP().isPersonaInRuolo(
+					getCurrentUser(session), rol);
+		} catch (InternalException e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore interno in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException("Errore interno in verifyCurrentUserForRole:"
+					+ e, e);
+		} catch (IdentitaNonAutenticaException e) {
+			log
+					.error("[SecurityHelper::verifyCurrentUserForRole] identita' non autentica ["
+							+ currentUser + "]," + e);
+			throw new BEException(
+					"verifyCurrentUserForRole: identita' non autentica ["
+							+ currentUser + "]," + e, e);
+		} catch (BadRuoloException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForRole] ruolo ["
+					+ rol + "] non valido" + e);
+			throw new BEException("verifyCurrentUserForRole: ruolo [" + rol
+					+ "] non valido" + e, e);
+		} catch (UnrecoverableException e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore non recuperabile in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException(
+					"Errore non recuperabile in verifyCurrentUserForRole:" + e, e);
+		} catch (SystemException e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore di sistema in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException(
+					"Errore di sistema in verifyCurrentUserForRole:" + e, e);
+		} catch (Exception e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore interno in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException("Errore interno in verifyCurrentUserForRole:"
+					+ e, e);
+		}
+	}
+	
+	
+	/**
+	 * estrae il prefisso dal cod ruolo in formato <idruolo>@<coddominio>
+	 * @param codRuolo
+	 */
+	private String getPrefixFromCodRuolo(String codRuolo){
+		return codRuolo.substring(0,codRuolo.indexOf("@"));
+	}
+	
+	/**
+	 * estrae il codice dominio dal cod ruolo in formato <idruolo>@<coddominio>
+	 * @param codRuolo
+	 */
+	private String getDomainFromCodRuolo(String codRuolo){
+		return codRuolo.substring(codRuolo.indexOf("@")+1);
+	}
+	
+	public boolean verifyCurrentUserForUC(Map session, String useCaseCode)
+		throws BEException
+	{
+		Identita currentUser = getCurrentUser(session);
+		UseCase uc = new UseCase();
+		 
+		uc.setAppId(IRIDE2_APPLICATION);
+		uc.setId(useCaseCode);
+		try {
+			«toJavaType(currentUserAD.type, this)» currentUserInfo = getCurrentUserInfo(session);
+			if (currentUserInfo==null || currentUserInfo.getCodRuolo()==null || currentUserInfo.getCodRuolo().length()==0){
+				// verifica dell'abilitazione allo UC senza tener conto del ruolo corrente
+				return getIridePEP().isPersonaAutorizzataInUseCase(getCurrentUser(session), uc);
+			}
+			else {
+				// verifica dell'abilitazione allo UC tenendo conto del ruolo corrente
+				Ruolo[] ruoliForPersonaInUseCase = getIridePEP()
+						.findRuoliForPersonaInUseCase(currentUser, uc);
+
+				
+				String codDominioRuolo = getDomainFromCodRuolo(currentUserInfo.getCodRuolo()); 
+				String codRuoloRuolo = getPrefixFromCodRuolo(currentUserInfo.getCodRuolo());
+				boolean authorized = false;
+				Ruolo currentRole = new Ruolo(codRuoloRuolo, codDominioRuolo);
+				for (Ruolo ruolo : ruoliForPersonaInUseCase) {
+					if (ruolo != null
+							&& currentRole.getMnemonico().equals(
+									ruolo.getMnemonico())) {
+						authorized = true;
+						break;
+					}
+				}
+				return authorized;
+			}
+		} catch (InternalException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
+		} catch (IdentitaNonAutenticaException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForUC] identita' non autentica ["+currentUser+"],"+e);
+			throw new BEException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e, e);
+		} catch (NoSuchUseCaseException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForUC] use case ["+uc+"] non valido"+e);
+			throw new BEException("verifyCurrentUserForUC: use case ["+uc+"] non valido"+e, e);
+		} catch (NoSuchApplicationException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForUC] applicazione "+IRIDE2_APPLICATION+" non valida"+e);
+			throw new BEException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e, e);
+		} catch (UnrecoverableException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
+			throw new BEException("Errore non recuperabile in verifyCurrentUserForUC:"+e, e);
+		} catch (SystemException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore di sistema in verifyCurrentUserForUC:"+e,e);
+			throw new BEException("Errore di sistema in verifyCurrentUserForUC:"+e, e);
+		}
+		catch(Exception e){
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
+		}
+	}
+	
+	public boolean verifyCurrentUserForActor(Map session, String actorCode)
+		throws BEException
+	{
+		Identita currentUser = getCurrentUser(session);
+		Actor act = new Actor();
+		 
+		act.setAppId(IRIDE2_APPLICATION);
+		act.setId(actorCode);
+		try {
+			Actor [] actors = getIridePEP().findActorsForPersonaInApplication(currentUser, IRIDE2_APPLICATION);
+			if (actors!=null){
+				for (int i = 0; i < actors.length; i++) {
+					Actor actor = actors[i];
+					if (actor.equals(act))
+						return true;
+				}
+				return false;
+			}
+			else
+				return false;
+		} catch (InternalException e) {
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
+		} catch (IdentitaNonAutenticaException e) {
+			log.error("[SecurityHelper::verifyCurentUserForActor] identita' non autentica ["+currentUser+"],"+e,e);
+			throw new BEException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e, e);
+		} catch (NoSuchApplicationException e) {
+			log.error("[SecurityHelper::verifyCurentUserForActor] applicazione "+IRIDE2_APPLICATION+" non valida"+e,e);
+			throw new BEException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e, e);
+		} catch (UnrecoverableException e) {
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
+			throw new BEException("Errore non recuperabile in verifyCurrentUserForUC:"+e, e);
+		} catch (SystemException e) {
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore di sistema in verifyCurrentUserForUC:"+e,e);
+			throw new BEException("Errore di sistema in verifyCurrentUserForUC:"+e, e);
+		}
+		catch(Exception e){
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e,e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
+		}
+	}
+	
+	«ENDLET-»
+	«ENDLET-»
+	«IF this.targetPlatform.securityProfile != null && this.targetPlatform.securityProfile.pepImpl.custom == true»
+	public Identita identificaUserPasswordPIN(String user, String password, String pin) throws BEException, InternalException, AuthException, IdProviderNotFoundException, MalformedUsernameException, UnrecoverableException, SystemException {
+		return getIridePEP().identificaUserPasswordPIN(user, password, pin);
+	}
+
+	
+	public Identita identificaUserPassword(String user, String password) throws BEException, InternalException, AuthException, IdProviderNotFoundException, MalformedUsernameException, UnrecoverableException, SystemException {
+		return getIridePEP().identificaUserPassword(user, password);
+	}
+«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE pepauthPDFile FOR GUIModel»
+«FILE getSpringPepauthPDConfig()»<porta-delegata name="«codComponente».pepauth">
+  <services>
+     <service name="SSOBARTPepAuth" public-interface-class="it.csi.ssobart.pepauth.interfacecsi.PepAuth">
+       <operations>
+
+         <operation name="getLivelloAuthAndIDProviderForApplInPortale" type="synch-call">
+          <param-list>
+             <param name="cod_applicazione" type="java.lang.String" />
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.Auth"/>
+         </operation>
+
+         <operation name="findApplicationForPortal" type="synch-call">
+           <param-list>
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="java.lang.String[]"/>
+         </operation>
+
+         <operation name="findInformationForApplication" type="synch-call">
+           <param-list>
+             <param name="cod_appl" type="java.lang.String" />
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.PepAuthAppl"/>
+         </operation>
+
+         <operation name="findInformationForPortal" type="synch-call">
+           <param-list>
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.Portale"/>
+         </operation>
+
+         <operation name="findInformationForApplicationsInPortale" type="synch-call">
+           <param-list>
+             <param name="cod_appl" type="java.lang.String" />
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.PepAuthAppl[]"/>
+         </operation>
+
+
+       </operations>
+     </service>
+  </services>
+
+  <config>
+    <url-pa>multi://www.csi.it</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd
+        name="ssobarts.PepAuthPA"
+        class="it.csi.csi.porte.ejb.PortaDelegataEJB"
+        url-pa="ssobarts/SSOBARTPepAuthPA">
+        <properties>
+          <property name="java.naming.provider.url" value="@SSOBART_PEPAUTH_URL@" />
+          <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+          <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          <property name="csi.auth.basic" value="" />
+        </properties>
+     </pluggable-pd>
+
+    </pluggable-pd-list>
+    <queue-manager url=""/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE iride2PDFile FOR GUIModel»
+«FILE getSpringIRIDE2PDConfig()»<porta-delegata name="PolicyEnforcerBase">
+  <services>
+    <service
+      name="PolicyEnforcerBase"
+      public-interface-class="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService">
+      <operations>
+        <operation name="identificaUserPassword" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaUserPasswordPIN" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+            <param name="pin" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaCertificato" type="synch-call">
+          <param-list>
+            <param name="certificato" type="byte[]" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="isPersonaAutorizzataInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="isPersonaInRuolo" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="ruolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findRuoliForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findRuoliForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findUseCasesForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.UseCase[]"/>
+        </operation>
+        <operation name="findActorsForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+        <operation name="isIdentitaAutentica" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaSchema" type="synch-call">
+          <param-list>
+            <param name="codRuolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findActorsForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+      </operations>
+    </service>
+  </services>
+  <config>
+    <url-pa>multi://pc41012.csi.it</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd
+        name="policyEnf"
+        class="it.csi.csi.porte.ejb.PortaDelegataEJB"
+        url-pa="iride2/policy/PolicyEnforcementPoint_PA" >
+        <properties>
+          <property name="java.naming.provider.url" value="@IRIDE_PROVIDER_URL@" />
+          <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+          <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          <property name="csi.auth.basic" value="" />
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <pre-function-handler-list>
+    	<pluggable-fh
+         name="CACHE PRE"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </pre-function-handler-list>
+    <post-function-handler-list>
+    	<pluggable-fh
+         name="CACHE POST"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </post-function-handler-list>
+    <queue-manager url="rmi://:2001/QMgrCli"/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»

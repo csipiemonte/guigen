@@ -1,0 +1,173 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+«DEFINE eventHandler(GUIModel model, ContentPanel cp) FOR EventHandler»
+new ExtCsi.ui.event.EventHandler(
+{
+	eventType: ExtCsi.ui.event.EventTypes().«eventType»,
+	skipValidation: «jsLiteralValue(this.skipValidation)»,
+	methodProtection: ExtCsi.ui.event.MethodProtectionTypes().«this.methodProtection»,
+	command: «EXPAND cmd(model, cp) FOR this.command»
+}
+)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR Command»
+«ERROR "comando "+metaType+" non gestito"»
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR SequenceCommand»
+	new ExtCsi.cmd.SequenceCommand(
+		{commands: [«EXPAND cmd(model, cp) FOREACH this.commands SEPARATOR ","»]}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR NOPCommand»
+	new ExtCsi.cmd.NOPCommand()
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR JumpCommand»
+	new ExtCsi.cmd.JumpCommand(
+		{
+			jumpTo: '«getRegistryID(this.jumpTo)»',
+			pushCurrentPage: «jsLiteralValue(pushCurrentPage)»
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR JumpExtCommand»
+	new ExtCsi.cmd.JumpExtCommand(
+		{
+		staticUrl: «jsLiteralValue(this.staticUrl)»,
+		locationCode: «jsLiteralValue(this.locationCode)»
+		}
+	)
+«ENDDEFINE»
+
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR VisibilityCommand»
+	new ExtCsi.cmd.VisibilityCommand({
+		show: «this.show»,
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+	})
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ShowDialogCommand»
+	new ExtCsi.cmd.ShowDialogCommand({
+		dialog: '«this.dialog.name»'
+		} 
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ONOFFCommand»
+	new ExtCsi.cmd.ONOFFCommand({
+		enable: «this.enable»,
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+	})
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ActivateMultiPanelItemCommand»
+	new ExtCsi.cmd.ActivateMultiPanelItemCommand({
+		activeItem: «IF activeItem != null» «ENDIF»«jsLiteralValue(this.activeItem.name)»,
+		multipanel: «jsLiteralValue(this.multipanel.name)»
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ExecCommand»
+«LET cp != null ? getStrutsActionCompleteConfigName(cp, model) : ( !isInMenuBranch() ? "HomeAction" : "MenuAction") AS actionName-»
+	new ExtCsi.cmd.ExecCommand({
+		methodName: «jsLiteralValue(methodName)»,
+		methodUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«this.getExecCommandMethodName(null)»«getStrutsActionCompleteExtension()»',
+		results: [«EXPAND cmdOutcome(model, cp) FOREACH this.results SEPARATOR ","»]
+		// TODO postExecData
+		}
+	)
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE cmdOutcome(GUIModel model, ContentPanel cp) FOR CommandOutcome»
+		new ExtCsi.cmd.CommandOutcome(
+		{
+			resultCode: «jsLiteralValue(resultCode)»,
+			command: «EXPAND cmd(model, cp) FOR this.command»}
+		)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR RefreshViewCommand»
+	new ExtCsi.cmd.RefreshViewCommand(
+		{
+			targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»],
+			targetPanels: [«FOREACH targetPanels AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ScreenStateCommand»
+	new ExtCsi.cmd.ScreenStateCommand(
+		{
+			goTo: «jsLiteralValue(goTo.name)»
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR BeginEditCommand»
+	new ExtCsi.cmd.BeginEditCommand(
+		{
+			dataEdited: [«EXPAND appDataName FOREACH dataEdited SEPARATOR ","»]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR EndEditCommand»
+	new ExtCsi.cmd.EndEditCommand(
+		{
+			undo: «undo»,
+			dataEdited: [«EXPAND appDataName FOREACH dataEdited SEPARATOR ","»]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ChkEditStatusCommand»
+	new ExtCsi.cmd.ChkEditStatusCommand(
+		{
+			checkAggregation: '«this.checkAggregation»',
+			doIfChanged: «EXPAND cmdOutcome(model, cp) FOR doIfChanged»,
+			doIfNotChanged: «EXPAND cmdOutcome(model, cp) FOR doIfNotChanged»,
+			dataChecked: [«EXPAND appDataName FOREACH dataChecked SEPARATOR ","»]
+		}
+	)
+«ENDDEFINE»
+
+
+
+«DEFINE databinding FOR ApplicationData»
+«LET this.eContainer.metaType == AppDataGroup ? this.eContainer : null AS adg-»
+		'«getRegistryID(this, adg)»'
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE appDataName FOR ApplicationData»
+	'appData«this.name»'
+«ENDDEFINE»

@@ -1,0 +1,173 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
+
+«DEFINE idAdapterCustomFilter(GUIModel model) FOR SecurityProfile»
+
+«FILE getIdAdapterCustomFilterJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+import it.csi.myprod.mycomp.util.Constants;
+import java.io.IOException;
+import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.filter.FilterChain;
+import javax.portlet.filter.FilterConfig;
+import javax.portlet.filter.RenderFilter;
+import org.apache.log4j.Logger;
+import it.csi.«model.codProdotto».«model.codComponente».util.*;
+
+/**
+ * Inserisce in sessione l'oggetto <code>currentUser</code>
+ * Funge da adapter tra il filter del metodo di autenticaizone previsto e la
+ * logica applicativa.
+ *
+ * @author CSIPiemonte
+ */
+ 
+public class «getIdAdapterCustomFilterClassName()» implements RenderFilter{
+	
+	public static final String USERINFO_SESSIONATTR = "appDatacurrentUser";
+	public final static String TICKET = "«this.idAdapter.infoSourceName»";
+	public static final String SECURITY_SESSION_MARKER = "iride2_id";
+	
+	protected static final Logger log = Logger							«noSonarTag("EIAS")»
+			.getLogger(Constants.APPLICATION_CODE + ".security");		«noSonarTag("EIAS")»
+			
+	public static String loginPage;
+	«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»	
+	public static String remoteValidationUrl;
+	«ENDIF»
+	
+	public void doFilter(RenderRequest req, RenderResponse resp,
+			FilterChain fchn) throws IOException,PortletException {
+
+		Object marker = getMarker(req);
+
+		if (marker != null)
+			fchn.doFilter(req, resp);
+		else {
+			validateTicket(req);
+			fchn.doFilter(req, resp);
+		}
+	}
+		
+	private Object getMarker(RenderRequest hreq) {
+		return hreq.getPortletSession().getAttribute(SECURITY_SESSION_MARKER);
+	}
+	
+	private Object getTicket(RenderRequest hreq) {
+		return hreq.getPortletSession().getAttribute(TICKET, PortletSession.APPLICATION_SCOPE);
+	}
+	
+	/**
+	 * Estrae dalla «this.idAdapter.sourceType» il ticket (nel parametro "«this.idAdapter.infoSourceName»") e lo valida
+	 * Se la validazione ha avuto successo allora da questo ricava l' identità digitale necessaria per il livello autorizzativo.
+	 * Inserisce in sessione l' identità digitale (nel paramentro "iride2_id")
+	 * Crea e inserisce in sessione il currentUser (nel paramentro "appDatacurrentUser")
+	 «IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»
+	 * La validazione viene fatta da un servizio Http remoto
+	 «ENDIF-»
+	 * @param hreq
+	 * @throws PortletException --> 
+	 */
+		private void validateTicket(RenderRequest hreq)
+			throws PortletException {
+		Identita identita = null;
+		Object ticket = getTicket(hreq);
+  		System.out.println("Identita Shibboleth"+ticket);
+		String encodedUserInfo = extractEncodedUserInfo(ticket);
+		String normalizedTicket = normalizeEncodedUserInfo(encodedUserInfo);
+        System.out.println("Identita Shibboleth" + normalizedTicket);
+      
+		try {
+			identita = new Identita(normalizedTicket);
+		} catch (MalformedIdTokenException e) {
+			e.printStackTrace();
+		}
+
+		if (identita != null) {
+			hreq.getPortletSession().setAttribute(SECURITY_SESSION_MARKER, identita);
+			createCurrentUser(hreq);
+		} else
+			throw new PortletException(
+					"Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+
+	}
+
+	/**
+	 * Costruisce l' oggetto UserInfo per tenere traccia dell' utente loggato
+	 * @param hreq
+	 */
+		private void createCurrentUser(RenderRequest hreq) {
+		
+		Identita identita = (Identita) hreq.getPortletSession().getAttribute(SECURITY_SESSION_MARKER);
+		it.csi.«model.codProdotto».«model.codComponente».dto.common.UserInfo userInfo = new it.csi.«model.codProdotto».«model.codComponente».dto.common.UserInfo();
+		
+		userInfo.setNome(identita.getNome());
+		userInfo.setCognome(identita.getCognome());
+		userInfo.setCodFisc(identita.getCodFiscale());
+		userInfo.setIdIride(identita.toString());
+		
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","createCurrentUser") FOR this.idAdapter-»
+		hreq.getPortletSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
+
+	}
+	
+	/**
+	 * Rielaborare (se necessario) la stringa encodedUserInfo per ottenerne una del tipo:
+	 * C.F./NOME/COGNOME/ID_PROVIDER/MAC/LIV_AUTENTICAZIONE/TIMESTAMP
+	 * @param encodedUserInfo
+	 * @return String token normalizzato
+	 */
+	private String normalizeEncodedUserInfo(String encodedUserInfo) {
+		String res = encodedUserInfo;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","normalizeEncodedUserInfo") FOR this.idAdapter-»
+		return res;
+	}
+
+
+	private String extractEncodedUserInfo(Object ticket){
+		String res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","extractEncodedUserInfo") FOR this.idAdapter-»
+		return res;
+	}
+	
+	
+	public void destroy() {
+		// NOP
+	}
+
+	public void init(FilterConfig config) throws PortletException {
+		loginPage = config.getInitParameter("loginPage");
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
+
+«ENDDEFINE»

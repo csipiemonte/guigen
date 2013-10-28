@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="prova" codComponente="prova" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <appArea>
+        <menubar>
+          <topLevelMenu name="mnuFunzioni" label="Funzioni">
+            <item name="mnuitemGestPersona" label="Gestione Persona">
+              <eventHandler>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+            </item>
+          </topLevelMenu>
+        </menubar>
+        <titlebar/>
+        <statusbar/>
+        <contentPanels name="cpPrimaPagina">
+          <panels xsi:type="guigen:FormPanel" name="pDtAnag" label="Dati anagrafici">
+            <subpanels xsi:type="guigen:DialogPanel" name="dlgConferma" label="Conferma salvataggio">
+              <dialogContent xsi:type="guigen:FormPanel" name="pConferma" label="">
+                <widgets xsi:type="guigen:ConfirmButton" name="bConfermaOK" label="Si"/>
+                <widgets xsi:type="guigen:ResetButton" name="bConfermaNO" label="No"/>
+              </dialogContent>
+            </subpanels>
+            <widgets xsi:type="guigen:TextField" name="txNome" label="Nome:"/>
+            <widgets xsi:type="guigen:TextField" name="txCognome" label="Cognome:"/>
+            <widgets xsi:type="guigen:TextField" name="txDatANasc" label="Data di Nascita:" dataType="DATA" dataTypeModifier=""/>
+            <widgets xsi:type="guigen:ComboBox" name="cbComune" label="Comune Nascita:"/>
+            <widgets xsi:type="guigen:ConfirmButton" name="bSalva" label="Salva dati anagrafici">
+              <eventHandlers>
+                <action xsi:type="guigen:SequenceAction">
+                  <actions xsi:type="guigen:ShowDialogAction" dialog="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0"/>
+                </action>
+              </eventHandlers>
+            </widgets>
+            <widgets xsi:type="guigen:ConfirmButton" name="bVaiADatiLav" label="Vai a dati occupazionali">
+              <eventHandlers>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1" pushCurrentPage="true"/>
+              </eventHandlers>
+            </widgets>
+            <widgets xsi:type="guigen:ConfirmButton" name="bDisableAll" label="Diasabilita tutto">
+              <eventHandlers>
+                <action xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.4"/>
+              </eventHandlers>
+            </widgets>
+            <widgets xsi:type="guigen:ConfirmButton" name="bRiabiitaTutto" label="Riabilita">
+              <eventHandlers>
+                <action xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.4" enable="true"/>
+              </eventHandlers>
+            </widgets>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpSeconda">
+          <panels xsi:type="guigen:FormPanel" name="pDatiOccupazione" label="Dati lavorativi">
+            <widgets xsi:type="guigen:TextField" name="txImpiego" label="Impiego"/>
+            <widgets xsi:type="guigen:ConfirmButton" name="bBack1" label="Torna alla pagina precedente">
+              <eventHandlers>
+                <action xsi:type="guigen:JumpBackAction"/>
+              </eventHandlers>
+            </widgets>
+          </panels>
+        </contentPanels>
+      </appArea>
+    </appWindow>
+  </structure>
+</guigen:GUIModel>

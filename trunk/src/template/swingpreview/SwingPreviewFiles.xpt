@@ -1,0 +1,1092 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::swingpreview::SwingPreviewExtensions»
+
+«DEFINE main2 FOR GUIModel»
+«LET this.structure.appWindow.appArea AS frm»
+«FILE "comp/swingpreview/SpringUtilities.java"»
+/*
+ * Copyright (c) 1995 - 2008 Sun Microsystems, Inc.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   - Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ *   - Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *
+ *   - Neither the name of Sun Microsystems nor the names of its
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */ 
+
+package comp.swingpreview;
+
+import javax.swing.*;
+import javax.swing.SpringLayout;
+import java.awt.*;
+
+/**
+ * A 1.4 file that provides utility methods for
+ * creating form- or grid-style layouts with SpringLayout.
+ * These utilities are used by several programs, such as
+ * SpringBox and SpringCompactGrid.
+ */
+public class SpringUtilities {
+    /**
+     * A debugging utility that prints to stdout the component's
+     * minimum, preferred, and maximum sizes.
+     */
+    public static void printSizes(Component c) {
+        System.out.println("minimumSize = " + c.getMinimumSize());
+        System.out.println("preferredSize = " + c.getPreferredSize());
+        System.out.println("maximumSize = " + c.getMaximumSize());
+    }
+
+    /**
+     * Aligns the first <code>rows</code> * <code>cols</code>
+     * components of <code>parent</code> in
+     * a grid. Each component is as big as the maximum
+     * preferred width and height of the components.
+     * The parent is made just big enough to fit them all.
+     *
+     * @param rows number of rows
+     * @param cols number of columns
+     * @param initialX x location to start the grid at
+     * @param initialY y location to start the grid at
+     * @param xPad x padding between cells
+     * @param yPad y padding between cells
+     */
+    public static void makeGrid(Container parent,
+                                int rows, int cols,
+                                int initialX, int initialY,
+                                int xPad, int yPad) {
+        SpringLayout layout;
+        try {
+            layout = (SpringLayout)parent.getLayout();
+        } catch (ClassCastException exc) {
+            System.err.println("The first argument to makeGrid must use SpringLayout.");
+            return;
+        }
+
+        Spring xPadSpring = Spring.constant(xPad);
+        Spring yPadSpring = Spring.constant(yPad);
+        Spring initialXSpring = Spring.constant(initialX);
+        Spring initialYSpring = Spring.constant(initialY);
+        int max = rows * cols;
+
+        //Calculate Springs that are the max of the width/height so that all
+        //cells have the same size.
+        Spring maxWidthSpring = layout.getConstraints(parent.getComponent(0)).
+                                    getWidth();
+        Spring maxHeightSpring = layout.getConstraints(parent.getComponent(0)).
+                                    getWidth();
+        for (int i = 1; i < max; i++) {
+            SpringLayout.Constraints cons = layout.getConstraints(
+                                            parent.getComponent(i));
+
+            maxWidthSpring = Spring.max(maxWidthSpring, cons.getWidth());
+            maxHeightSpring = Spring.max(maxHeightSpring, cons.getHeight());
+        }
+
+        //Apply the new width/height Spring. This forces all the
+        //components to have the same size.
+        for (int i = 0; i < max; i++) {
+            SpringLayout.Constraints cons = layout.getConstraints(
+                                            parent.getComponent(i));
+
+            cons.setWidth(maxWidthSpring);
+            cons.setHeight(maxHeightSpring);
+        }
+
+        //Then adjust the x/y constraints of all the cells so that they
+        //are aligned in a grid.
+        SpringLayout.Constraints lastCons = null;
+        SpringLayout.Constraints lastRowCons = null;
+        for (int i = 0; i < max; i++) {
+            SpringLayout.Constraints cons = layout.getConstraints(
+                                                 parent.getComponent(i));
+            if (i % cols == 0) { //start of new row
+                lastRowCons = lastCons;
+                cons.setX(initialXSpring);
+            } else { //x position depends on previous component
+                cons.setX(Spring.sum(lastCons.getConstraint(SpringLayout.EAST),
+                                     xPadSpring));
+            }
+
+            if (i / cols == 0) { //first row
+                cons.setY(initialYSpring);
+            } else { //y position depends on previous row
+                cons.setY(Spring.sum(lastRowCons.getConstraint(SpringLayout.SOUTH),
+                                     yPadSpring));
+            }
+            lastCons = cons;
+        }
+
+        //Set the parent's size.
+        SpringLayout.Constraints pCons = layout.getConstraints(parent);
+        pCons.setConstraint(SpringLayout.SOUTH,
+                            Spring.sum(
+                                Spring.constant(yPad),
+                                lastCons.getConstraint(SpringLayout.SOUTH)));
+        pCons.setConstraint(SpringLayout.EAST,
+                            Spring.sum(
+                                Spring.constant(xPad),
+                                lastCons.getConstraint(SpringLayout.EAST)));
+    }
+
+    /* Used by makeCompactGrid. */
+    private static SpringLayout.Constraints getConstraintsForCell(
+                                                int row, int col,
+                                                Container parent,
+                                                int cols) {
+        SpringLayout layout = (SpringLayout) parent.getLayout();
+        Component c = parent.getComponent(row * cols + col);
+        return layout.getConstraints(c);
+    }
+
+    /**
+     * Aligns the first <code>rows</code> * <code>cols</code>
+     * components of <code>parent</code> in
+     * a grid. Each component in a column is as wide as the maximum
+     * preferred width of the components in that column;
+     * height is similarly determined for each row.
+     * The parent is made just big enough to fit them all.
+     *
+     * @param rows number of rows
+     * @param cols number of columns
+     * @param initialX x location to start the grid at
+     * @param initialY y location to start the grid at
+     * @param xPad x padding between cells
+     * @param yPad y padding between cells
+     */
+    public static void makeCompactGrid(Container parent,
+                                       int rows, int cols,
+                                       int initialX, int initialY,
+                                       int xPad, int yPad) {
+        SpringLayout layout;
+        try {
+            layout = (SpringLayout)parent.getLayout();
+        } catch (ClassCastException exc) {
+            System.err.println("The first argument to makeCompactGrid must use SpringLayout.");
+            return;
+        }
+
+        //Align all cells in each column and make them the same width.
+        Spring x = Spring.constant(initialX);
+        for (int c = 0; c < cols; c++) {
+            Spring width = Spring.constant(0);
+            for (int r = 0; r < rows; r++) {
+                width = Spring.max(width,
+                                   getConstraintsForCell(r, c, parent, cols).
+                                       getWidth());
+            }
+            for (int r = 0; r < rows; r++) {
+                SpringLayout.Constraints constraints =
+                        getConstraintsForCell(r, c, parent, cols);
+                constraints.setX(x);
+                constraints.setWidth(width);
+            }
+            x = Spring.sum(x, Spring.sum(width, Spring.constant(xPad)));
+        }
+
+        //Align all cells in each row and make them the same height.
+        Spring y = Spring.constant(initialY);
+        for (int r = 0; r < rows; r++) {
+            Spring height = Spring.constant(0);
+            for (int c = 0; c < cols; c++) {
+                height = Spring.max(height,
+                                    getConstraintsForCell(r, c, parent, cols).
+                                        getHeight());
+            }
+            for (int c = 0; c < cols; c++) {
+                SpringLayout.Constraints constraints =
+                        getConstraintsForCell(r, c, parent, cols);
+                constraints.setY(y);
+                constraints.setHeight(height);
+            }
+            y = Spring.sum(y, Spring.sum(height, Spring.constant(yPad)));
+        }
+
+		//***sovrascrivo la larghezza
+		x = Spring.constant(750);
+        //Set the parent's size.
+        SpringLayout.Constraints pCons = layout.getConstraints(parent);
+        pCons.setConstraint(SpringLayout.SOUTH, y);
+        pCons.setConstraint(SpringLayout.EAST, x);
+    }
+}
+«ENDFILE»
+
+«FILE "comp/swingpreview/Main.java"»
+package comp.swingpreview;
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MainFrame frm = new MainFrame();
+		frm.setUp();
+	}
+
+}
+«ENDFILE»
+
+«FILE "comp/swingpreview/MainFrame.java"»
+package comp.swingpreview;
+
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
+
+public class MainFrame extends JFrame {
+
+	public void setUp(){
+		
+		setupTitleBar();
+		setupMenubar();
+		setupContentPanes();
+		this.pack();
+		setupGeneral();
+	}
+
+	private void setupGeneral() {
+		// TODO Auto-generated method stub
+		this.setSize(800, 600);
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		WindowListener windowListener = new WindowAdapter() {
+			// anonymous WindowAdapter class
+			public void windowClosing ( WindowEvent w ) {
+				MainFrame.this.dispose();
+			}
+		}; // end anonymous class
+		«IF this.structure.appWindow.appArea.onInitCommand!=null»
+		«EXPAND addActionCode("onAppInitAction", 0) FOR this.structure.appWindow.appArea.onInitCommand»
+		act_onAppInitAction_0.doAction(); 
+		«ENDIF»
+		this.addWindowListener( windowListener );
+	}
+
+	
+
+    «LET (List[ContentPanel])getAllContentPanels(this) AS contentPanels»
+    
+    
+    
+    //card layout
+    CardLayout cardLayout = null;
+    
+    //main panel
+    JPanel switchPanel = null;
+    
+    //contenitore di tutti i widget (per le azioni widget-targetted)
+    java.util.Hashtable _allWidgetsByName = new java.util.Hashtable();
+    
+    java.util.ArrayList _pageStack = new java.util.ArrayList();
+    
+    java.util.Hashtable _allDialogsByName = new java.util.Hashtable();
+    
+    private void setupContentPanes() {
+    	switchPanel = new JPanel();
+		cardLayout = new CardLayout();
+		switchPanel.setLayout(cardLayout);
+        «FOREACH contentPanels AS currP»
+        JPanel panel_«currP.name» = setupContentPanel_«currP.name»();
+        switchPanel.add(panel_«currP.name»,"«currP.name»");
+        «ENDFOREACH»
+		
+		//aggiunta scrollbar
+		JScrollPane jsp1 = new JScrollPane(switchPanel);
+		this.getContentPane().add(jsp1);
+		
+		cardLayout.show(switchPanel, "«contentPanels.first().name»");
+	}
+	
+	«FOREACH contentPanels AS currP»
+		«EXPAND setupContentPanel FOR currP»
+	«ENDFOREACH»
+	
+    «ENDLET»
+    
+«LET this.structure.appWindow.appArea.menubar AS menubar»
+	private void setupMenubar() {
+	    /// creazione struttura menu
+		this.setMenuBar(new MenuBar());
+		
+		«FOREACH menubar.topLevelMenu AS tlmenu»
+		Menu mnu_«tlmenu.name» = setupMenu_«tlmenu.name»();
+		this.getMenuBar().add(mnu_«tlmenu.name»);
+		«ENDFOREACH»
+		
+		//}}
+	}
+«ENDLET»
+
+   ///// funzioni/classi di utility
+   
+   public void switchToContentPane(String name){
+   System.out.println("switchTo:["+name+"]");
+   	 cardLayout.show(switchPanel, name);	
+   }
+   
+   protected ImageIcon createImageIcon(String path,
+                                           String description) {
+    java.net.URL imgURL = getClass().getResource(path);
+    if (imgURL != null) {
+        return new ImageIcon(imgURL, description);
+    } else {
+        System.err.println("Couldn't find file: " + path);
+        return null;
+    }
+   }
+   
+   
+   /// classi generiche di implementaizone degli event Listener
+   
+   /// JUMP_ACTION
+   class GlobalMenuJumpActionLtr implements ActionListener {
+
+		String name;
+		public GlobalMenuJumpActionLtr(String panelName) {
+			name = panelName;
+		}
+		public void actionPerformed(ActionEvent e) {
+			//MenuItem menu = (MenuItem)e.getSource();
+			//String menuName = menu.getName();
+			//switchToContentPane(menuName);
+			switchToContentPane(name);
+		}
+	};
+   
+   
+   class GenericActionPerformedListener implements ActionListener{
+   		IAction [] _actions = null;
+   		
+   		public GenericActionPerformedListener(IAction [] actions){
+   			_actions=actions;
+   		}
+   		
+   		public void actionPerformed(ActionEvent e) {
+   			if (_actions!=null){
+   				for(int i=0;i<_actions.length;i++){
+   					_actions[i].doAction();
+   				}
+   			}
+   		
+   		};
+   };
+   
+   ///// classi di implementazione delle action
+   
+   interface IAction {
+      public void doAction();
+   };
+   
+   /// JUMP_ACTION
+   class JumpAction implements IAction{
+   		String name;
+   		String _currentPageName = null;
+   		boolean _pushCurrent;
+		public JumpAction(String panelName, String currentPageName, boolean pushCurrent) {
+			name = panelName;
+			_pushCurrent = pushCurrent;
+			_currentPageName = currentPageName;
+		}
+		public void doAction() {
+		    if (_pushCurrent){
+		      _pageStack.add(_currentPageName);
+		    }
+			switchToContentPane(name);
+		}
+   };
+   
+   // JUMP BACK ACTION
+   class JumpBackAction implements IAction{
+       public void doAction(){
+         if (_pageStack.size()>0){
+           String backTo=(String)_pageStack.get(_pageStack.size()-1);
+           _pageStack.remove(_pageStack.size()-1);
+           switchToContentPane(backTo);
+         }
+         else{
+         System.out.println("Stack vuoto...");
+         } 
+       }
+   }
+   
+   /// SEQUENCE_ACTION
+   class SequenceAction implements IAction{
+   		IAction [] _actions;
+		public SequenceAction(IAction [] actions) {
+			_actions = actions;
+		}
+		public void doAction() {
+			if (_actions != null){
+				for(int i=0; i<_actions.length;i++){
+				  IAction currAct = _actions[i];
+				  System.out.println("sequenza, azione #"+i+":"+currAct);
+				  currAct.doAction();
+				}
+			}
+		}
+   };
+   
+   /// SHOWDIALOG_ACTION
+   class ShowDialogAction implements IAction{
+   		String _dlgName;
+		public ShowDialogAction(String dlgName) {
+			_dlgName=dlgName;
+		}
+		public void doAction() {
+			System.out.println("Show dialog "+_dlgName);
+			JDialog currDlg = (JDialog)_allDialogsByName.get(_dlgName);
+			currDlg.setSize(400,300);
+			currDlg.setVisible(true);
+		}
+   };
+   
+   //// ExecAction
+   class ExecAction implements IAction{
+   		String _esiti [] = null;
+   		JFrame _frame = null;
+   		IAction _azioni []= null;
+   		java.util.Hashtable _resultAzioni = new java.util.Hashtable();
+   		
+   		public ExecAction(JFrame frame,String esiti[], IAction [] azioni){
+   		  _esiti = esiti;
+   		  _frame = frame;
+   		  _azioni = azioni;
+   		  if (_esiti!=null){
+   		    for (int i=0; i<_esiti.length; i++)
+   		       _resultAzioni.put(_esiti[i], _azioni[i]);
+   		  }  
+   		}
+   		
+   		public void doAction(){
+   		  System.out.println("exec action!");
+   		  
+   		  String s = (String)JOptionPane.showInputDialog(
+                    _frame,
+                    "Scegli il result post-esecuzione:\n",
+                    "Customized Dialog",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    _esiti,
+                    _esiti[0]);
+
+   		  
+   		  
+
+			//If a string was returned, say so.
+		if ((s != null) && (s.length() > 0)) {
+    		System.out.println("Esito:"+s);
+    		IAction azione = (IAction)_resultAzioni.get(s);
+    		azione.doAction();
+		}
+   		  
+   		}
+   }
+   
+   /// OnOffAction
+   class OnOffAction implements IAction{
+        String [] _targets = null;
+        boolean _enable = true;
+       
+   		public OnOffAction(String targets[], boolean enable){
+   		  _targets=targets;
+   		  _enable=enable;
+   		}
+   		
+   		public void doAction(){
+   		  System.out.println("on off action!");
+   		  if (_targets != null){
+   		  	for(int i=0; i<_targets.length;i++){
+   		  	   System.out.println("on-off action on "+_targets[i]);
+   		  	   Component currTarget = (Component)_allWidgetsByName.get(_targets[i]);
+   		  		currTarget.setEnabled(_enable);
+   		  	}
+   		  }
+   		}
+   }
+   
+   
+   /// VisibilityAction
+   class VisibilityAction implements IAction{
+        String [] _targets = null;
+        boolean _show = true;
+       
+   		public VisibilityAction(String targets[], boolean show){
+   		  _targets=targets;
+   		  _show=show;
+   		}
+   		
+   		public void doAction(){
+   		  System.out.println("visibility action!");
+   		  if (_targets != null){
+   		  	for(int i=0; i<_targets.length;i++){
+   		  	    System.out.println("visibility action on "+_targets[i]);
+   		  	    Component currTarget = (Component)_allWidgetsByName.get(_targets[i]);
+   		  		currTarget.setVisible(_show);
+   		  	}
+   		  }
+   		}
+   }
+   /////
+   
+«LET this.structure.appWindow.appArea.menubar AS menubar»
+	
+«FOREACH menubar.topLevelMenu AS tlmenu»
+	private Menu setupMenu_«tlmenu.name»() {
+		
+		Menu mnu = new Menu("«tlmenu.label»");
+		«FOREACH tlmenu.item AS currMenuItem»
+		MenuItem item_«currMenuItem.name» = new MenuItem("«currMenuItem.label»");
+		mnu.add(item_«currMenuItem.name»);
+		
+		«IF currMenuItem.eventHandler!=null»
+
+        «EXPAND addEventListenerCode("item_"+currMenuItem.name) FOR currMenuItem.eventHandler»		
+		
+		«ENDIF»
+	
+		«ENDFOREACH»
+		return mnu;
+	}
+«ENDFOREACH»
+«ENDLET»
+	private void setupTitleBar() {
+		// TODO Auto-generated method stub
+		this.setTitle("<<this is the title>>");
+	}
+
+}
+«ENDFILE»
+
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE addActionsCode(String actionsVarName) FOR EventHandler»
+    «LET this.command AS currAction»
+    «LET 1 AS actionNumber»
+    	«EXPAND addActionCode(actionsVarName,actionNumber) FOR currAction»
+    «ENDLET»
+    «ENDLET»
+    
+	//IAction [] «actionsVarName» = new IAction[]{
+	«LET this.command AS currAct»
+		«LET 1 AS actionNumber»
+	//	act_«actionsVarName»_«actionNumber»
+		«ENDLET»
+	«ENDLET»
+	//};
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR Command»
+// azione non supportata «this»
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpCommand»
+	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ShowDialogCommand»
+	ShowDialogAction act_«actionsVarName»_«actionNumber» = new ShowDialogAction("«this.dialog.name»");
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpBackCommand»
+	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR SequenceCommand»
+    «FOREACH commands AS currAct»
+    «EXPAND addActionCode(actionsVarName+"step",commands.indexOf(currAct)) FOR currAct»
+    «ENDFOREACH»
+    
+    IAction [] act_«actionsVarName»_«actionNumber»_steps = new IAction[]{
+    «FOREACH commands AS currAct»
+    act_«actionsVarName+"step_"+commands.indexOf(currAct)»«IF currAct!=commands.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	SequenceAction act_«actionsVarName»_«actionNumber» = new SequenceAction(act_«actionsVarName»_«actionNumber»_steps);
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFCommand»
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+    
+	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction(act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityCommand»
+	//prepara i nomi dei componenti target da mostrare/nascondere
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction(act_«actionsVarName»_«actionNumber»_targets,«this.show»);
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecCommand»
+    String [] resultNames=new String []{
+      «FOREACH this.results AS currRes»
+      "«currRes.resultCode»"«IF currRes!=results.last()»,«ENDIF»
+      «ENDFOREACH»
+    };
+    
+    IAction [] actionsForResults = new IAction[«this.results.size»];
+    «FOREACH results AS currRes»
+    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes)) FOR currRes.command»
+    actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
+    «ENDFOREACH»
+    
+    
+	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(this,resultNames, actionsForResults);
+«ENDDEFINE»
+
+«REM»addToComponent_var: nome della variabile che contiene il componente
+     a cui associare il listener
+«ENDREM»
+«DEFINE addEventListenerCode(String addToComponent_var) FOR EventHandler»
+	«REM»IAction [] actions_«this.eventType.toString().toLowerCase()»_«addToComponent_var» = null;«ENDREM»
+	«EXPAND addActionsCode("actions_"+this.eventType.toString().toLowerCase()+"_"+addToComponent_var) FOR this» 
+	«IF eventType==EventTypes::CLICKED»
+	GenericActionPerformedListener ltr_«eventType.toString().toLowerCase()»_«addToComponent_var» = 
+		   new GenericActionPerformedListener(actions_«eventType.toString().toLowerCase()»_«addToComponent_var»);
+	«addToComponent_var».addActionListener(ltr_«eventType.toString().toLowerCase()»_«addToComponent_var»);
+	«ELSEIF eventType==EventTypes::VALUE_CHANGED»
+	«ELSEIF eventType==EventTypes::FOCUS_LOST»
+	«ELSEIF eventType==EventTypes::FOCUS_GAINED»
+	«ELSE»
+	 //// «this»: event listener non supportato
+	«ENDIF»
+	
+
+«ENDDEFINE»
+
+«DEFINE setupContentPanel FOR ContentPanel»
+private JPanel setupContentPanel_«this.name»() {
+	«LET this.panels AS currP»
+    	    JPanel p = null;
+    	    
+    	    // impostazione componenti di primo livello
+    	    «IF currP.metaType==FormPanel»
+    	    p = setupFormPanel_«currP.name»();
+    	    «ELSEIF currP.metaType==TabSetPanel»
+    	    p = setupTabSetPanel_«currP.name»();
+    	    «ENDIF»
+    	    
+    	    
+    	    return p;
+}
+
+ 		«EXPAND genPanelSetupFunction FOR currP»
+    	    
+ 	«ENDLET»
+  
+«ENDDEFINE»
+
+«REM»genera la funzione di setup di un singolo pannello
+e si richiama ricordivamente sui sottopannelli in modo da fare una visita
+depth first dell'albero della struttura a pannelli«ENDREM»
+«DEFINE genPanelSetupFunction FOR Panel»
+// funzione di creazione del pannello «this»
+«IF this.metaType==FormPanel || this.metaType==CommandPanel»
+    	    «EXPAND setupFormPanel FOR (FormPanel)this»
+    	    «EXPAND genPanelSetupFunction FOREACH ((FormPanel)this).subpanels»
+«ELSEIF this.metaType==MenuPanel»
+    	    «EXPAND setupMenuPanel FOR (MenuPanel)this»
+«REM»«ELSEIF this.metaType==TabSetPanel»
+    	    «EXPAND setupTabSetPanel FOR (TabSetPanel)this»
+    	    «EXPAND genPanelSetupFunction FOREACH ((TabSetPanel)this).panels»
+«ELSEIF this.metaType==DialogPanel»
+			«EXPAND genPanelSetupFunction FOR ((DialogPanel)this).dialogContent»
+«ENDREM»
+«ENDIF»
+
+
+«ENDDEFINE»
+
+«DEFINE setupFormPanel FOR FormPanel»
+private JPanel setupFormPanel_«this.name»(){
+    «IF this.layout.metaType==UDLRCPanelLayout»
+    JPanel p = new JPanel();
+	// impostazione layout del pannello
+    p.setLayout(new java.awt.BorderLayout());
+    «ELSEIF this.layout.metaType==HorizontalFlowPanelLayout»
+    JPanel p = new JPanel();
+	// impostazione layout del pannello
+    p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
+    «ELSEIF this.layout.metaType==VerticalFlowPanelLayout && this.widgets.size == 0»
+    /*JPanel p = new JPanel(){
+		public Dimension getMaximumSize() {
+			Dimension pref = getPreferredSize();
+				return new Dimension(Integer.MAX_VALUE, pref.height);
+		}
+	};*/
+	JPanel p = new JPanel();	
+    p.setLayout(new BoxLayout(p,BoxLayout.PAGE_AXIS));
+    «ELSEIF this.layout.metaType==VerticalFlowPanelLayout && this.widgets.size > 0» 
+    //*******eseguo modifica solo se sono in un vertical fields layout********************************
+    JPanel p = new JPanel(new SpringLayout());
+    «ELSE»
+    JPanel p = new JPanel();
+	// impostazione layout del pannello
+    p.setLayout(new java.awt.FlowLayout());
+    «ENDIF»
+    // impostazione del bordo con label se prevista la label
+    «IF label!=null»
+    p.setBorder(new TitledBorder("«label»"));
+    «ENDIF»
+    
+	«FOREACH this.widgets AS currWidg»
+		«EXPAND createAndAddWidget("p",this.layout) FOR currWidg»
+	«ENDFOREACH»
+	«FOREACH this.subpanels.select(p|p.metaType!=DialogPanel) AS currSubform»
+	// subpanel «currSubform»
+		«EXPAND createAndAddSubpanel("p",this.layout,currSubform.layoutSpec) FOR currSubform»
+	«ENDFOREACH»
+	«FOREACH this.subpanels.select(p|p.metaType==DialogPanel) AS currDialog»
+	// dialog «currDialog» 
+	// (crea solo la variabile senza effettuare l'add al container)
+		«EXPAND createSubpanel("p",this.layout,currDialog.layoutSpec) FOR currDialog»
+	«ENDFOREACH»
+	
+	«IF this.layout.metaType==VerticalFlowPanelLayout && this.widgets.size > 0»
+	int GAP = 10;
+	SpringUtilities.makeCompactGrid(p, «this.widgets.size», 2, GAP, GAP, GAP, GAP/2);
+	«ENDIF»
+	return p;
+}
+
+«ENDDEFINE»
+
+«DEFINE setupMenuPanel FOR MenuPanel»
+private JPanel setupFormPanel_«this.name»(){
+	JPanel p = new JPanel();
+	// impostazione layout del pannello
+    «IF this.layout.metaType==UDLRCPanelLayout»
+    p.setLayout(new java.awt.BorderLayout());
+    «ELSEIF this.layout.metaType==HorizontalFlowPanelLayout»
+    p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
+    «ELSEIF this.layout.metaType==VerticalFlowPanelLayout»
+    p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
+    «ELSE»
+    p.setLayout(new java.awt.FlowLayout());
+    «ENDIF»
+    // impostazione del bordo con label se prevista la label
+    «IF label!=null»
+    p.setBorder(new TitledBorder("«label»"));
+    «ENDIF»
+    
+	«REM»«FOREACH this.widgets AS currWidg»
+		«EXPAND createAndAddWidget("p",this.layout) FOR currWidg»
+	«ENDFOREACH»
+	«FOREACH this.subpanels.select(p|p.metaType!=DialogPanel) AS currSubform»
+	// subpanel «currSubform»
+		«EXPAND createAndAddSubpanel("p",this.layout,currSubform.layoutSpec) FOR currSubform»
+	«ENDFOREACH»
+	«FOREACH this.subpanels.select(p|p.metaType==DialogPanel) AS currDialog»
+	// dialog «currDialog» 
+	// (crea solo la variabile senza effettuare l'add al container)
+		«EXPAND createSubpanel("p",this.layout,currDialog.layoutSpec) FOR currDialog»
+	«ENDFOREACH»
+	«ENDREM»
+	return p;
+}
+
+«ENDDEFINE»
+
+«DEFINE createAndAddSubpanel(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
+// creazione sottopannello «this.name»
+Component subp_«this.name» = null;
+«IF this.metaType==FormPanel || this.metaType==CommandPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==MenuPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==TabSetPanel»
+	subp_«this.name» = setupTabSetPanel_«this.name»(); 
+«ELSE»
+// ERRORE tipo di pannello «this» non gestito!!!!
+«ENDIF»
+«IF containerLayout.metaType==UDLRCPanelLayout»
+	«containerVarName».add(subp_«this.name»,«nsewcSpec2BorderSpec((UDLRCWidgetLayoutSpec)widgetLayoutSpec)»);
+«ELSE»
+	«containerVarName».add(subp_«this.name»);
+«ENDIF»
+
+«ENDDEFINE»
+
+«DEFINE createSubpanel(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
+// creazione sottopannello «this.name»
+Component subp_«this.name» = null;
+«IF this.metaType==FormPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==TabSetPanel»
+	subp_«this.name» = setupTabSetPanel_«this.name»(); 
+«ELSEIF this.metaType==DialogPanel»
+«REM»da mettere a posto dopo modifica a dialog nel metamodello
+    Component subp_«name»_content = null; // dialog content
+	«LET (DialogPanel)this AS thisDialog»
+	«LET  thisDialog.dialogContent AS currDialogContent»
+	«IF currDialogContent.metaType==FormPanel»
+	subp_«this.name»_content = setupFormPanel_«thisDialog.dialogContent.name»();
+	«ELSEIF currDialogContent.metaType==TabSetPanel»
+	subp_«this.name»_content = setupTabSetPanel_«this.name»();
+	«ENDIF»
+	// creazione Dialog
+	subp_«this.name» = new JDialog(this,"«thisDialog.label»",false);
+	// salvo il dialog perche' possa essere richiamato dalla showdialog action
+	_allDialogsByName.put("«this.name»",subp_«this.name»);
+	((JDialog)subp_«this.name»).getContentPane().add(subp_«this.name»_content);
+	«ENDLET» 
+	«ENDLET»
+«ENDREM»      
+«ELSE»
+// ERRORE tipo di pannello «this» non gestito!!!!
+«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE createAndAddWidget(String panelVarName, PanelLayout panelLayout) FOR Widget»
+// creazione widget «name»
+«IF this.metaType==TextField»
+«REM»Text Field«ENDREM»
+JTextField widg_«this.name» = new JTextField();
+
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+	«IF ((TextField)this).fieldLength != null»
+	«LET ((((TextField)this).fieldLength)!=null ? ""+((TextField)this).fieldLength : "20") AS fldLen»
+	widg_«this.name».setColumns(«fldLen»);
+	widg_«this.name».setMaximumSize(new Dimension(«((TextField)this).fieldLength»,20));
+	widg_«this.name».setSize(new Dimension(«((TextField)this).fieldLength»,20));
+	widg_«this.name».setPreferredSize(new Dimension(«((TextField)this).fieldLength»,20));
+	«ENDLET»
+	«ENDIF»
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==PlainText»
+«REM»Plain Text«ENDREM»
+JTextField widg_«this.name» = new JTextField("«((PlainText)this).staticText»");
+
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+	«LET "20" AS len»
+	//widg_«this.name».setColumns(«((PlainText)this).staticText.length»);
+	widg_«this.name».setColumns(«len»);	
+	widg_«this.name».setMaximumSize(new Dimension(300,20));
+	widg_«this.name».setSize(new Dimension(300,20));
+	widg_«this.name».setPreferredSize(new Dimension(300,20));	
+	«ENDLET»
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==TextArea»
+«REM»Text Area«ENDREM»
+
+JTextArea widg_ta_«this.name» = new JTextArea("«this.name»");
+_allWidgetsByName.put("«this.name»",widg_ta_«this.name»);
+JScrollPane widg_«this.name» = new JScrollPane(widg_ta_«name»);
+	«IF ((TextArea)this).rows != null»
+	widg_ta_«this.name».setRows(«((TextArea)this).rows»);
+	«ENDIF»
+	«IF ((TextArea)this).columns != null»
+	widg_ta_«this.name».setColumns(«((TextArea)this).columns»);
+	«ENDIF»
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==RadioButtons»
+
+«REM»Radio Buttons«ENDREM»
+//TODO create widget «this»
+JComponent widg_«this.name» = new JPanel();
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«LET (RadioButtons)this AS rbGroup»
+ButtonGroup rbGroup_«name» = new ButtonGroup();
+_allWidgetsByName.put("«this.name»",rbGroup_«this.name»);
+«FOREACH rbGroup.radio AS currRB»
+JRadioButton rb_«name»_«currRB.name» = new JRadioButton("«currRB.label»");
+widg_«name».add(rb_«name»_«currRB.name»);
+rbGroup_«name».add(rb_«name»_«currRB.name»);
+«ENDFOREACH»
+«ENDLET»
+
+
+«ELSEIF this.metaType==ComboBox»
+«REM»Combo«ENDREM»
+//TODO create widget «this»
+JComponent widg_«this.name» = new JComboBox();
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+JComboBox cb_«this.name» = (JComboBox)widg_«this.name»;
+DefaultComboBoxModel cb_«name»_model =new DefaultComboBoxModel();
+for (int i=0; i<20; i++)
+	cb_«name»_model.addElement("Elemento "+i);
+		
+		cb_«name».setModel(cb_«name»_model);
+
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==Table»
+
+«REM»Table«ENDREM»
+//sample data
+«LET ((Table)this).columnModel AS tabColMod»
+String[] sampleColumnNames_«name» = {
+«FOREACH tabColMod.columns AS currCol»
+"«currCol.selector»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
+«ENDFOREACH»
+};
+
+Object[][] sampleTableData_«name» = {
+«FOREACH {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30} AS index»
+{
+«FOREACH tabColMod.columns AS currCol»
+"sample «currCol.label»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
+«ENDFOREACH»
+}
+«IF index != 30»,«ENDIF»
+«ENDFOREACH»
+			};
+
+«ENDLET»
+
+
+JComponent widg_tab_«this.name» = new JTable(sampleTableData_«name»,sampleColumnNames_«name»);
+_allWidgetsByName.put("«this.name»",widg_tab_«this.name»);
+JScrollPane widg_«name» = new JScrollPane((JTable)widg_tab_«this.name»);
+
+
+
+
+
+
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==CheckBox»
+«REM»CheckBox«ENDREM»
+//TODO create widget «this»
+JComponent widg_«this.name» = new JCheckBox("«this.label»");
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+JLabel lbl_«this.name» = null;
+
+«ELSEIF this.metaType==Image»
+//TODO create widget «this»
+ImageIcon image_«this.name» = createImageIcon("«((Image)this).image»",
+                                 "«((Image)this).label»");
+
+JComponent widg_«this.name» = new JLabel(image_«this.name»);
+widg_«this.name».setSize(new Dimension(image_«this.name».getIconHeight(),image_«this.name».getIconWidth()));
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+
+«ELSEIF this.metaType==ResetButton || this.metaType==ConfirmButton || this.metaType==Button»
+JButton widg_«this.name» = new JButton();
+widg_«this.name».setName("«name»");
+widg_«this.name».setLabel("«label»");
+JLabel lbl_«this.name» = null; // no labels for buttons
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+«ENDIF»
+«IF panelLayout.metaType==UDLRCPanelLayout»
+if (widg_«this.name» != null){ // temp fix
+    JPanel lblAndWidg_«this.name» = new JPanel();
+    lblAndWidg_«this.name».setLayout(new BoxLayout(lblAndWidg_«this.name»,BoxLayout.LINE_AXIS));
+    if (lbl_«this.name»!=null)
+		lblAndWidg_«this.name».add(lbl_«this.name»);
+	if (widg_«this.name» != null) // temp fix
+		lblAndWidg_«this.name».add(widg_«this.name»);
+	«panelVarName».add(lblAndWidg_«this.name»,«nsewcSpec2BorderSpec((UDLRCWidgetLayoutSpec)this.layoutSpec)»);
+}
+«ELSE»
+if (lbl_«this.name»!=null)
+	«panelVarName».add(lbl_«this.name»);
+if (widg_«this.name» != null) // temp fix
+	«panelVarName».add(widg_«this.name»);
+«ENDIF»
+
+// associazione degli event handler
+«EXPAND addEventListenerCode("widg_"+this.name) FOREACH this.eventHandlers»
+
+«ENDDEFINE»
+
+«DEFINE createAndAddTab(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
+// creazione pannello/tab «this.name»
+JPanel subp_«this.name» = null;
+«IF this.metaType==FormPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==TabSetPanel»
+	subp_«this.name» = setupTabSetPanel_«this.name»(); 
+«ELSE»
+// ERRORE tipo di pannello «this» non gestito!!!!
+«ENDIF»
+
+«containerVarName».addTab("«this.label»",null,subp_«this.name»,"«this.label»");
+
+
+«ENDDEFINE»
+
+«DEFINE setupTabSetPanel FOR TabSetPanel»
+private JTabbedPane setupTabSetPanel_«this.name»(){
+	JTabbedPane p = new JTabbedPane();
+	// impostazione layout del pannello
+    «IF this.layout.metaType==UDLRCPanelLayout»
+    //p.setLayout(new java.awt.BorderLayout());
+    «ELSE»
+    p.setLayout(new java.awt.FlowLayout());
+    «ENDIF»
+    // impostazione del bordo con label se prevista la label
+    «IF label!=null»
+    p.setBorder(new TitledBorder("«label»"));
+    «ENDIF»
+    
+	
+	«FOREACH this.panels AS currTab»
+	// TODO tab «currTab»
+		«EXPAND createAndAddTab("p",this.layout,currTab.layoutSpec) FOR currTab»
+	«ENDFOREACH»
+	
+	p.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+	
+	return p;
+}
+
+
+«ENDDEFINE»

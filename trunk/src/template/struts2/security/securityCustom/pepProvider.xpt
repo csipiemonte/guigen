@@ -1,0 +1,561 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
+
+«DEFINE pepProvider(GUIModel model) FOR SecurityProfile»
+«IF this.pepImpl.custom»
+	«EXPAND PEPProviderCustomClass(model) FOR this»
+	«EXPAND PEDPProviderPDFile FOR model»
+	«EXPAND springPDJavaFile(true) FOR model»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE PEPProviderCustomClass(GUIModel model) FOR SecurityProfile»
+«FILE getPEPProviderJavaFile(model, true)»package «getPEPProviderJavaPackage(model)»;
+import it.csi.csi.wrapper.SystemException;
+import it.csi.csi.wrapper.UnrecoverableException;
+import it.csi.iride2.iridefed.entity.Ruolo;
+import it.csi.iride2.iridefed.exceptions.BadRuoloException;
+import it.csi.iride2.policy.entity.Actor;
+import it.csi.iride2.policy.entity.Application;
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.entity.UseCase;
+import it.csi.iride2.policy.exceptions.AuthException;
+import it.csi.iride2.policy.exceptions.CertOutsideValidityException;
+import it.csi.iride2.policy.exceptions.CertRevokedException;
+import it.csi.iride2.policy.exceptions.IdProviderNotFoundException;
+import it.csi.iride2.policy.exceptions.IdentitaNonAutenticaException;
+import it.csi.iride2.policy.exceptions.InternalException;
+import it.csi.iride2.policy.exceptions.MalformedUsernameException;
+import it.csi.iride2.policy.exceptions.NoSuchApplicationException;
+import it.csi.iride2.policy.exceptions.NoSuchUseCaseException;
+import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
+
+«EXPAND template::struts2::generalTemplate::inlineDef("import","methodPrivate") FOR this.pepImpl-»
+public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService {
+
+	«IF this.pepImpl !=null»
+	«LET this.pepImpl.params AS envConfigParams-»
+	«FOREACH envConfigParams AS envConfigParam-»
+	private String pepImpl«envConfigParam.name.toFirstUpper()»;
+	public String getPepImpl«envConfigParam.name.toFirstUpper()»(){
+		return this.pepImpl«envConfigParam.name.toFirstUpper()»;
+	}
+	
+	public void setPepImpl«envConfigParam.name.toFirstUpper()»(String pepImpl«envConfigParam.name.toFirstUpper()»){
+		this.pepImpl«envConfigParam.name.toFirstUpper()» = pepImpl«envConfigParam.name.toFirstUpper()»;
+	}
+	«ENDFOREACH-»
+	«ENDLET»
+	«ENDIF»
+
+	public Actor[] findActorsForPersonaInApplication(Identita identita,
+			Application app) throws UnrecoverableException, SystemException,
+			InternalException, IdentitaNonAutenticaException,
+			NoSuchApplicationException {
+		Actor[] res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","findActorsForPersonaInApplication") FOR this.pepImpl-»
+		return res;
+	}
+
+	public Actor[] findActorsForPersonaInUseCase(Identita identita, UseCase useCase)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		Actor[] res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","findActorsForPersonaInUseCase") FOR this.pepImpl-»
+		return res;
+	}
+
+	public Ruolo[] findRuoliForPersonaInApplication(Identita identita,
+			Application app) throws UnrecoverableException, SystemException,
+			InternalException, IdentitaNonAutenticaException,
+			NoSuchApplicationException {
+		Ruolo[] res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","findRuoliForPersonaInApplication") FOR this.pepImpl-»
+		return res;
+	}
+
+	public Ruolo[] findRuoliForPersonaInUseCase(Identita identita, UseCase useCase)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		Ruolo[] res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","findRuoliForPersonaInUseCase") FOR this.pepImpl-»
+		return res;
+	}
+
+	public UseCase[] findUseCasesForPersonaInApplication(Identita identita,
+			Application app) throws UnrecoverableException, SystemException,
+			InternalException, IdentitaNonAutenticaException,
+			NoSuchApplicationException {
+		UseCase[] res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","findUseCasesForPersonaInApplication") FOR this.pepImpl-»
+		return res;
+	}
+
+	public String getInfoPersonaInUseCase(Identita identita, UseCase useCase)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		String res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","getInfoPersonaInUseCase") FOR this.pepImpl-»
+		return res;
+	}
+
+	public String getInfoPersonaSchema(Ruolo ruolo)
+			throws UnrecoverableException, SystemException, InternalException,
+			BadRuoloException {
+		String res = null;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","getInfoPersonaSchema") FOR this.pepImpl-»
+		return res;
+	}
+
+	public Identita identificaCertificato(byte[] arg0)
+			throws UnrecoverableException, SystemException, InternalException,
+			CertOutsideValidityException, CertRevokedException,
+			IdProviderNotFoundException {
+		Identita i = new Identita();
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","identificaCertificato") FOR this.pepImpl-»
+		return i;
+	}
+
+	public Identita identificaUserPassword(String user, String password)
+			throws UnrecoverableException, SystemException, InternalException,
+			AuthException, IdProviderNotFoundException,
+			MalformedUsernameException {
+			
+		Identita i = new Identita();
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","identificaUserPassword") FOR this.pepImpl-»
+		return i;
+	}
+
+	public Identita identificaUserPasswordPIN(String user, String password,
+			String pin) throws UnrecoverableException, SystemException,
+			InternalException, AuthException, IdProviderNotFoundException,
+			MalformedUsernameException {
+		Identita i = new Identita();
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","identificaUserPasswordPIN") FOR this.pepImpl-»
+		return i;
+	}
+
+	public boolean isIdentitaAutentica(Identita identita)
+			throws UnrecoverableException, SystemException, InternalException {
+		boolean res = false;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","isIdentitaAutentica") FOR this.pepImpl-»
+		return res;
+	}
+
+	public boolean isPersonaAutorizzataInUseCase(Identita identita, UseCase useCase)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		boolean res = false;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","isPersonaAutorizzataInUseCase") FOR this.pepImpl-»
+		return res;
+	}
+
+	public boolean isPersonaInRuolo(Identita identita, Ruolo ruolo)
+			throws UnrecoverableException, SystemException, InternalException,
+			BadRuoloException, IdentitaNonAutenticaException {
+		boolean res = false;
+		«EXPAND template::struts2::generalTemplate::inlineDef("body","isPersonaInRuolo") FOR this.pepImpl-»
+		return res;
+	}
+	«EXPAND template::struts2::generalTemplate::inlineDef("body","methodPrivate") FOR this.pepImpl-»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»Reiplementazione della pd sostuendo la FakePD con una sua reimplementazione SpringPD«ENDREM»
+«DEFINE PEDPProviderPDFile FOR GUIModel»
+«FILE getSpringPEDPProviderConfig()»<porta-delegata name="PolicyEnforcerBase">
+  <services>
+    <service
+      name="PolicyEnforcerBase"
+      public-interface-class="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService">
+      <operations>
+        <operation name="identificaUserPassword" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaUserPasswordPIN" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+            <param name="pin" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaCertificato" type="synch-call">
+          <param-list>
+            <param name="certificato" type="byte[]" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="isPersonaAutorizzataInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="isPersonaInRuolo" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="ruolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findRuoliForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findRuoliForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findUseCasesForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.UseCase[]"/>
+        </operation>
+        <operation name="findActorsForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+        <operation name="isIdentitaAutentica" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaSchema" type="synch-call">
+          <param-list>
+            <param name="codRuolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findActorsForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+      </operations>
+    </service>
+  </services>
+  <config>
+    <url-pa>multi://pc41012.csi.it</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+	 <pluggable-pd
+        name="policyEnf"
+        class="«getBaseJavaPackage(this)».util.SpringPD"
+        url-pa="iride2/policy/PolicyEnforcementPoint_PA" >
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <pre-function-handler-list>
+    	<pluggable-fh
+         name="CACHE PRE"
+         class="it.csi.«this.codProdotto».«this.codComponente».business.IridePDCache" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </pre-function-handler-list>
+    <post-function-handler-list>
+    	<pluggable-fh
+         name="CACHE POST"
+         class="it.csi.«this.codProdotto».«this.codComponente».business.IridePDCache" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </post-function-handler-list>
+    <queue-manager url="rmi://:2001/QMgrCli"/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»Reiplementazione della FakePD --> it.csi.csi.tools.fakestub.FakePD«ENDREM»
+«DEFINE springPDJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBaseJavaSrcDir(skip_component_dir_creation) + "/util/SpringPD.java" »package «getBaseJavaPackage(this)».util;
+import it.csi.csi.porte.AbstractPortaDelegata;
+import it.csi.csi.porte.InfoPortaDelegata;
+import it.csi.csi.util.DatiMessaggio;
+import it.csi.csi.util.Param;
+import it.csi.csi.util.log.Categories;
+import it.csi.csi.wrapper.AbstractAdapter;
+import it.csi.csi.wrapper.CSIException;
+import it.csi.csi.wrapper.SystemException;
+import it.csi.csi.wrapper.UnrecoverableException;
+import it.csi.csi.wrapper.UserException;
+import «getPEPProviderJavaPackage(this)».*;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+
+public class SpringPD extends AbstractPortaDelegata {
+
+	protected Object fakeImplObj = null;
+
+	public SpringPD() {}
+
+	public SpringPD(InfoPortaDelegata info) {
+		setInfo(info);
+	}
+
+	public void setInfo(InfoPortaDelegata info){
+		super.setInfo(info);
+	    // a causa di problemi di classloading e' necessario che ci sia una copia del file
+	    // applicationContext.xml in WEB-INF/classes
+		ClassPathResource cpr = new ClassPathResource("/applicationContext.xml");
+		BeanFactory ctx = new XmlBeanFactory(cpr);
+		fakeImplObj = (PEPProviderFacade) ctx.getBean("pepProviderFacadeBeanId");
+	}
+
+	public Param invokeSynch(String methodName, Param[] param) throws it.csi.csi.wrapper.CSIException {
+		Categories.getLogger(null, Categories.PORTA_DELEGATA)
+		.debug("invocazione metodo fittizio sincrono "+methodName);
+		try{
+			// ottiene un'istanza di service object
+			Object srv = fakeImplObj;
+			//
+			Method method = AbstractAdapter.locateMethodInInterfaces(srv, methodName, param);
+			if (method != null){
+				Object args[]= new Object [param.length];
+				for (int i=0;i<param.length;i++){
+					args[i]=param[i].getValue();
+				}
+				try{
+					Object retval = method.invoke(srv,args);
+					//Param retPar = new Param("retval",(retval == null ? Object.class : retval.getClass()),retval,null);
+					Param retPar = AbstractAdapter.buildRetVal(retval, method.getReturnType());
+					return retPar;
+				}
+				catch(InvocationTargetException ite){
+					// arrivo qui se ci sono errori sul server RMI
+					Throwable ex = ite.getTargetException();
+					if (ex instanceof UserException ||
+							ex instanceof SystemException ||
+							ex instanceof UnrecoverableException)
+						throw (CSIException)ex;
+					else {
+						Categories.getLogger(getAppContextName(),Categories.PA_WRAPPER_ADAPTER)
+						.error("Errore imprevisto sollevato dal servizio:"+ite.getTargetException());
+						ite.printStackTrace();
+						throw new UnrecoverableException("Errore imprevisto sollevato dal servizio:",ite.getTargetException());
+					}
+				}
+				catch(IllegalAccessException iae){
+					// arrivo qui se ci sono problemi nel chiamare il servizio
+					Categories.getLogger(getAppContextName(),Categories.PA_WRAPPER_ADAPTER)
+					.error("Errore imprevisto nell'invocazione del servizio:"+iae);
+					iae.printStackTrace();
+					throw new UnrecoverableException("Errore imprevisto nell'invocazione del servizio",iae);
+				}
+			}
+			else {
+				/// errore metodo non trovato
+				Categories.getLogger(getAppContextName(),Categories.PA_WRAPPER_ADAPTER)
+				.error("Metodo "+methodName+ " non trovato nel servizio");
+				throw new UnrecoverableException("Metodo "+methodName+ " non trovato nel servizio");
+			}
+		}
+		catch(CSIException locex){
+			throw locex;
+		}
+	}
+
+	public String sendEvent(String methodName, Param[] param, DatiMessaggio datiMsg) throws it.csi.csi.wrapper.CSIException {
+		Categories.getLogger(null, Categories.PORTA_DELEGATA)
+		.debug("invocazione metodo fittizio asincrono P2P "+methodName);
+		Param [] allParams = new Param[param.length+1];
+		for (int i=0; i<param.length; i++)
+			allParams[i]=param[i];
+		allParams[allParams.length-1] = new Param("datiMsg", DatiMessaggio.class, false, datiMsg, "");
+		return (String)(this.invokeSynch(methodName, allParams).getValue());
+	}
+	public String invokeAsynch(String methodName, Param[] param, DatiMessaggio datiMsg) throws it.csi.csi.wrapper.CSIException {
+		Categories.getLogger(null, Categories.PORTA_DELEGATA)
+		.debug("invocazione metodo fittizio asincrono PUB&SUB "+methodName);
+		Param [] allParams = new Param[param.length+1];
+		for (int i=0; i<param.length; i++)
+			allParams[i]=param[i];
+		allParams[allParams.length-1] = new Param("datiMsg", DatiMessaggio.class, false, datiMsg, "");
+		return (String)(this.invokeSynch(methodName, allParams).getValue());
+	}
+
+
+
+	/**
+	 * Questo metodo ricerca tramite introspection l'oggetto Method corrispondente al nome
+	 * (methodName) e ai parametri (param[]). Poichè RMI/EJB non riescono a serializzare oggetti
+	 * Class che rappresentano tipi semplici a causa di un baco della JVM di SUN (Bug Id  4171142),
+	 * nell'oggetto param, in caso di tipo semplice c'è il campo "simple" = true. A differenza dai
+	 * metadata CSI la reflection riesce a trovare correttamente i metodi che prendono tipi semplici,
+	 * passando al metodo getMethod() come classi i tipi semplici. Per far ciò occorre ritrasformare
+	 * eventuali coppie <wrapper di tipo semplice, simple=true> nel corrispondente tipo semplice.
+	 * Poi l'introspection farà il resto.
+	 * @param srv
+	 * @param methodName
+	 * @param params
+	 * @return il metodo che corrisponde alla signature
+	 */
+	public static Method locateMethodInInterfaces(Object srv, String methodName, Param [] params){
+		Class wrapperClass=srv.getClass();
+		Class [] interfaces = wrapperClass.getInterfaces();
+		Class [] parClasses = new Class[params.length];
+		for (int i=0;i<params.length;i++){
+			// devo ripristinare i tipi corretti nei casi simple type e array di simple type
+			if (params[i].isSimple()){
+				if (! params[i].getType().isArray())
+					parClasses[i]=Param.getWrappedType(params[i].getType() );
+				else {
+					Object dummyArrInst = Array.newInstance(Param.getWrappedType(params[i].getType().getComponentType()),1);
+					parClasses[i]=dummyArrInst.getClass();
+				}
+			}
+			else
+				parClasses[i]=params[i].getType();
+		}
+		// primo ciclo: su tutte le interfacce faccio una ricerca diretta con i metodi
+		// della reflection
+		for (int i=0; i<interfaces.length;i++){
+			Class currInt=interfaces[i];
+			try {
+				Method m = currInt.getMethod(methodName, parClasses);
+				if (m!=null) // precauzione ma non dovrebbe mai essere nullo (eccezione!!)
+					return m;
+			}
+			catch(NoSuchMethodException nsme){
+				// non era l'interfaccia giusta.
+				continue;
+			}
+		}
+		/// secondo ciclo: se non l'ho trovato prima provo a cercare più a fondo
+		/// utilizzando tipi semplici dove ci sono wrapper di tipi semplici, per
+		/// ovviare al problema del Proxy dinamico che non permette (?) di sapere se
+		/// il tipo di un parametro attuale è primitivo o davvero un wrapper.
+		for (int ii=0; ii<interfaces.length;ii++){
+			Class currInt=interfaces[ii];
+			try {
+				// trasformo in primitivi tutti i tipi wrapper
+				for (int j=0; j<parClasses.length; j++){
+					Class currClass = parClasses[j];
+					//if (currClass.isPrimitive()){
+					if (currClass.equals(Integer.class))
+						parClasses[j]=Integer.TYPE;
+					else if (currClass.equals(Long.class))
+						parClasses[j]=Long.TYPE;
+					else if (currClass.equals(Float.class))
+						parClasses[j]=Float.TYPE;
+					else if (currClass.equals(Double.class))
+						parClasses[j]=Double.TYPE;
+					else if (currClass.equals(Byte.class))
+						parClasses[j]=Byte.TYPE;
+					else if (currClass.equals(Boolean.class))
+						parClasses[j]=Boolean.TYPE;
+					// se no lascia tutto com'è
+					//}
+				}
+				Method m = currInt.getMethod(methodName, parClasses);
+				if (m!=null) // precauzione ma non dovrebbe mai essere nullo (eccezione!!)
+					return m;
+			}
+			catch(NoSuchMethodException nsme){
+				// non era l'interfaccia giusta.
+				continue;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Costruisce un oggetto Param da ritornare alla PD chiamante, tenendo conto del tipo
+	 * dichiarato nell'interfaccia. Serve per gestire correttamente le coppie <tipo, simple>
+	 * anche nel caso di ritorno.
+	 * @param value
+	 * @param declaredRetType
+	 * @return l'oggetto Param che contiene il valore di ritorno
+	 */
+
+	public static Param buildRetVal(Object value, Class<?> declaredRetType){
+		Class actType = declaredRetType;
+		Param p = null;
+		// se il value è null il tipo lo metto = Object (non usato)
+		if (value == null){
+			actType = Object.class;
+			p = new Param("retval", actType, value, "");
+			return p;
+		}
+		else {
+			if (actType.isArray() && actType.getComponentType().isPrimitive()){
+				Object dummyArr = Array.newInstance(Param.getPrimitiveWrapper(actType.getComponentType()),1);
+				p = new Param("retval", dummyArr.getClass(), true, value, "");
+				return p;
+			}
+			// serve per mettere il tipo più specifico possibile
+			else if (declaredRetType.isAssignableFrom(value.getClass())){
+				actType = value.getClass();
+				p=new Param("retval",actType, value, "");
+				return p;
+			}
+			else {
+				p = new Param("retval",actType,value,"");
+				return p;
+			}
+		}
+	}
+	public String getAppContextName(){return null;}
+}
+
+
+
+«ENDFILE»
+«ENDDEFINE»
+

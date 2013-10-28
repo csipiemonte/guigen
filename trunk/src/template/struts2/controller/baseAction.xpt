@@ -1,0 +1,885 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«IMPORT template::struts2::eventHandlers»
+«IMPORT template::struts2::controller::dataProvider»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
+«REM»
+Genera una Base Action Struts2 che contiene gli elementi comuni all'applicazione.
+Tutte le altre Action dell'applicazione dovranno ereditare da questa
+in modo da ottenere le parti comuni, e dovranno implementare in proprio
+le funzionalità specifiche della pagina.
+«ENDREM»
+«DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+import java.util.*;
+import java.lang.reflect.Method;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+
+import org.apache.log4j.Logger;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.Preparable;
+import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+import «getBaseJavaPackage(this)».util.*;
+import «getDTOBaseJavaPackage(this)».*;
+import «getBaseJavaPackage()».business.*;
+
+import «getSecurityJavaPackage(this)».*;
+
+«IF this.targetPlatform.enableRichUIBehavior-»
+import «getInterceptorsJavaPackage(this)».FatClientOnly;
+import «getUIUtilsJavaPackage(this)».*;
+import flexjson.JSON;
+«ENDIF-»
+
+«IF hasGisMap()»
+import «getDTOBaseJavaPackage(this)».greasemapfacade.*;
+import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+import com.vividsolutions.jts.geom.*;
+«ENDIF»
+
+/**
+ * Base Action che contiene gli elementi comuni all'applicazione.
+ * Tutte le altre Action dell'applicazione dovranno ereditare da questa
+ * in modo da ottenere le parti comuni, e dovranno implementare in proprio
+ * le funzionalit&agrave; specifiche della pagina.
+ * <p/>
+ * La classe eredita da {@link com.opensymphony.xwork2.ActionSupport} i
+ * metodi di utilit&agrave; necessari ad eseguire le principali operazioni
+ * (ad esempio conversione, validazione, ecc...) ed implementa l'interfaccia
+ * {@link org.apache.struts2.interceptor.SessionAware}, che permette
+ * alla Action di accedere alla sessione. 
+ * 
+ * @author GuiGen
+ */
+public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSessionAwareDTO> extends ActionSupport implements SessionAware, Preparable {
+
+	/**  */
+	protected static final Logger log =								«noSonarTag("EIAS")» 
+	Logger.getLogger(Constants.APPLICATION_CODE + ".presentation"); «noSonarTag("EIAS")»
+
+	/** 
+	 * Riferimento alla sessione corrente
+	 */
+	protected Map session;
+	
+	/** 
+	 * Riferimento alla sessione corrente
+	 */
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	
+	/** 
+	 * Riferimento alla sessione corrente
+	 */
+	public Map getSession() {
+		return this.session;
+	}
+	
+	/**
+	 * backActionName
+	 */
+	private String backActionName;
+	
+	/**
+	 * backNamespace
+	 */
+	private String backNamespace;
+
+	/**
+	 * backActionName
+	 */	
+	public void setBackActionName(String value) {
+		this.backActionName = value;
+	}
+	
+	/**
+	 * backActionName
+	 */
+	public String getBackActionName() {
+		return this.backActionName;
+	}
+
+	/**
+	 * backNamespace
+	 */
+	public void setBackNamespace(String value) {
+		this.backNamespace = value;
+	}
+	
+	/**
+	 * backNamespace
+	 */
+	public String getBackNamespace() {
+		return this.backNamespace;
+	}
+	
+	/**
+	 * stack di navigazione utilizzato dal JumpBackCommand
+	 */
+	public void setAppDataNavigationQueue(
+			java.util.LinkedList<java.lang.String> value) {
+		getSession().put("appDataNavigationQueue", value);
+	}
+
+	/**
+	 * stack di navigazione utilizzato dal JumpBackCommand
+	 */
+	public java.util.LinkedList<java.lang.String> getAppDataNavigationQueue() {
+		return (java.util.LinkedList<java.lang.String>) (getSession()
+				.get("appDataNavigationQueue"));
+	}
+	
+	/**
+	 * nome del content panel corrente
+	 */
+	public void setCurrentContentPanel(java.lang.String value) {
+		getSession().put("currentContentPanel", value);
+	}
+
+	/**
+	 * nome del content panel corrente
+	 */
+	public java.lang.String getCurrentContentPanel() {
+		return (java.lang.String) (getSession()
+				.get("currentContentPanel"));
+	}
+	
+	«IF hasGisMap(this)»
+	/**
+	 * codice di errore a livello warning per funzioni GIS
+	 */
+	public static int ERROR_LEVEL_WARNING = 0;
+	
+	/**
+	 * codice di errore a livello error per funzioni GIS
+	 */
+	public static int ERROR_LEVEL_ERROR = 1;
+	
+	/**
+	 * codice di errore a livello fatal per funzioni GIS
+	 */
+	public static int ERROR_LEVEL_FATAL = 2;
+	
+	/**
+	 * codice di errore a livello no-error per funzioni GIS
+	 */
+	public static int ERROR_LEVEL_NO_ERROR = -1;
+	«ENDIF»
+
+	/**
+	 * mappa <menu,constraints di visibilita'>
+	 */
+	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;
+	
+	/**
+	 * mappa <menu,constraints di abilitazione>
+	 */
+	protected Map<String, UISecConstraint> allMenuOnOffConstraints = null;
+	
+	
+	/**
+	 * metodo di preparazioen della action.
+	 */
+	public void prepare() throws CommandExecutionException{
+	
+		«IF getActualSecurityModel(this)!=null»
+	    // caricamento struttura di constraints di visibilita' del menu
+	    if (allMenuVisibilityConstraints==null)
+	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
+	    // caricamento struttura di constraints di abilitazione del menu
+	    if (allMenuOnOffConstraints==null)
+	    	allMenuOnOffConstraints = getMenuONOFFUIConstraints();
+	
+		«ENDIF»
+	}
+	
+    ////////////////////////////////////////////////////////////////////////
+    //// costruzione/lettura strato model da passare allo strato di logica
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * la classe del modello del content panel
+     */
+    public abstract Class modelClass();
+    
+    /**
+     * il modello del content panel
+     */
+    public abstract T getModel() ;
+	
+	/**
+     * il modello del content panel
+     */
+	public abstract void setModel(T t);
+	
+	/**
+	 * prepara il modello del content panel per passarlo alla business logic
+	 */
+	public T toModel()  {
+		return getModel();
+	}
+
+	/**
+	 * incorpora nella action il modello del content panel ricevuto
+	 * a fronte dell'esecuzione della business logic
+	 */
+	public void fromModel(T t) {
+		setModel(t);	
+	}
+    
+    /**
+     * metodo di utilita' per effettuare introspection.
+     * @param name nome della property
+     * @param cl classe in cui cercare
+     */
+	protected java.lang.reflect.Method findReadMethod(String name, Class cl)
+			throws IntrospectionException {
+		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
+			:
+			name.startsWith("is")? name.substring(2) : name);
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equalsIgnoreCase(name))
+				return currPd.getReadMethod();
+		}
+		return null;
+	}
+
+	/**
+     * metodo di utilita' per effettuare introspection.
+     * @param name nome della property
+     * @param cl classe in cui cercare
+     */
+	protected java.lang.reflect.Method findWriteMethod(String name, Class cl)
+			throws IntrospectionException {
+		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
+			:
+			name.startsWith("is")? name.substring(2) : name);
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equalsIgnoreCase(name))
+				return currPd.getWriteMethod();
+		}
+		return null;
+	}
+
+	
+    
+	///////////////////////////////////
+	/**
+	 * Metodi per visibilita'/abilitazione dei Widget
+	 */
+	
+	/**
+	 * @return true se il widget deve essere reso visibile
+	 * @param cpName nome del ContentPanel
+	 * @param widgShortName nome del widget
+	 */
+	public boolean isWidgetVisible(String cpName, String widgShortName){
+		// lo stato di visibilita' del widget e' mantenuto in sessione, in una mappa a due
+		// livelli:
+		// - il primo livello contiene coppie <nome cp, mappa widget del cp>
+		// - il secondo livello contiene coppie <[nome widget]_visible, true|false> 
+		Map cpData = (Map)session.get(cpName);
+		if (cpData!=null){
+			Boolean visibleFlag=(Boolean)cpData.get(widgShortName+"_visible");
+			if (visibleFlag!=null){
+				return visibleFlag.booleanValue();
+			}
+			else {
+				// se non ho trovato niente forzo a true
+				return true;
+			}
+		}
+		else {
+			// se non ho trovato niente forzo a true
+			return true;
+		}
+		
+	}
+	
+	/**
+	 * @return true se il widget deve essere disabilitato
+	 * @param cpName nome del ContentPanel
+	 * @param widgShortName nome del widget
+	 */
+	public boolean isWidgetDisabled(String cpName, String widgShortName){
+		// lo stato di abbilitazione del widget e' mantenuto in sessione, in una mappa a due
+		// livelli:
+		// - il primo livello contiene coppie <nome cp, mappa widget del cp>
+		// - il secondo livello contiene coppie <[nome widget]_enabled, true|false>
+		Map cpData = (Map)session.get(cpName);
+		if (cpData!=null){
+			Boolean enabledFlag=(Boolean)cpData.get(widgShortName+"_enabled");
+			if (enabledFlag!=null){
+				return !enabledFlag.booleanValue();
+			}
+			else {
+				// se non ho trovato nulla forzo a true
+				return false;
+			}
+		}
+		else {
+			// se non ho trovaot nulla forzo a true
+			return false;
+		}
+		
+	}
+
+
+	///////////////////////////////////
+	/**
+	 * Metodi per visibilita'/abilitazione del menu
+	 */
+
+	«IF structure.appWindow.appArea.menubar != null»
+	static List<MenuStructure> menuMap = new ArrayList<MenuStructure>();
+	static {
+		«EXPAND submenuMap FOR structure.appWindow.appArea.menubar»
+	}
+	«ENDIF»
+
+	
+	/**
+	 * Metodi per visibilita'/abilitazione dei MenuElemnt
+	 */
+
+		
+	/**
+	 * @return true se il menu deve essere reso visibile
+	 * @param menuName il nome del menu
+	 */
+	public boolean isMenuVisible(String menuName) {
+	«IF getActualSecurityModel(this)!=null-»
+		// recupero l'elenco di security constraints associati al menu
+		// preparati in precedenza
+		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
+		boolean status;
+		if (ctr!=null){
+			try{
+				// eseguo la valutazione dei constraints
+				status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				log.error("[«getStrutsBaseActionClassName(this)»::isMenuVisible] errore durante verifica->false");
+				return false;
+			}
+		}
+		else {
+			// se non ci sono constraint valuto solo la visibilita' dell'elemento
+			status = isMenuElementVisible(menuName);
+		}
+		return status;
+	«ELSE-»
+		// vlauto la visibilita' dell'elemento
+		return isMenuElementVisible(menuName);
+	«ENDIF-»
+	}
+
+	
+	
+	private static final String SESSION_MENU_VISIBILITY = "menuVisibilityMap";
+	
+	/**
+	 * @return true se il MenuElement deve essere reso visibile
+	 * @param menuName il nome del menu
+	 */
+	public boolean isMenuElementVisible(String menuName) {
+		// i dati di visibilita' sono conservati in sessione in una mappa
+		Map cpData = (Map) session.get(SESSION_MENU_VISIBILITY);
+		if (cpData != null) {
+			Boolean visibleFlag = (Boolean) cpData.get(menuName
+					+ "_visible");
+			if (visibleFlag != null) {
+				return visibleFlag.booleanValue();
+			} else {
+				// se non ho trovato nulla forzo a true
+				return true;
+			}
+		} else {
+			// se non ho trovato nulla forzo a true
+			return true;
+		}
+
+	}
+	
+	/**
+	 * @return true se almeno uno dei sottomenu del menu dato &egrave; vissibile, false altrimenti
+	 * @param menuName il nome del menu
+	 */
+	public boolean isAtLeastOneSubMenuVisible(String menuName) {
+		«IF getActualSecurityModel(this) != null»
+		// ricerco il sottoalbero di menu a partire dal menu in esame
+		MenuStructure menuStructure = searchMenuItem(menuName, menuMap, null);
+		// quindi i suoi sottomenu
+		List<MenuStructure> mstr = menuStructure.getSubmenus();
+		for (MenuStructure subMenu : mstr) {
+			// se almeno uno dei sottomenu e' visibile allora anche il menu padre deve 
+			// essere visibile
+			if (isMenuVisible(subMenu.getMenuName())) {
+				return true;
+			}
+		}
+		return false;
+		«ELSE»
+		return true;
+		«ENDIF»
+	}
+	«IF getActualSecurityModel(this) != null»
+	/**
+	 * ricerca nella struttura dei menu il sottoalbero relativo al menu passato
+	 * in input
+	 * @param menuName il menu da cercare
+	 * @param la struttura di menu (per ricorsione)
+	 * @param la struttura di menu corrente
+	 */
+	private MenuStructure searchMenuItem(String menuName,
+			List<MenuStructure> menuTmp, MenuStructure menuStructureCurr) {
+		MenuStructure res = menuStructureCurr;
+		for (MenuStructure menuStructure : menuTmp) {
+			if (menuName.equalsIgnoreCase(menuStructure.getMenuName())) 
+				return menuStructure;
+
+			res = searchMenuItem(menuName, menuStructure.getSubmenus(), res);
+		}
+
+		return res;
+	}
+	«ENDIF»
+	/**
+	 * @return true se il menu deve essere reso abilitato
+	 * @param menuName
+	 */
+	public boolean isMenuEnabled(String menuName) {
+	«IF getActualSecurityModel(this)!=null-»
+		// recupero i constraint preparati in precedenza
+		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
+		boolean status;
+		if (ctr!=null){
+			try{
+				// valuto i constraint per veirifcare lo stato di abilitazione
+				status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				log.error("[«getStrutsBaseActionClassName(this)»::isMenuEnabled] errore durante verifica->false");
+				return false;
+			}
+		}
+		else {
+			// se non vi sono constraints allora e' sufficiente valutare lo stato di
+			// abilitazione dell'elemento
+			status = isMenuElementEnabled(menuName);
+		}
+		return status;
+	«ELSE»
+		// valuto lo stato di abilitazione dell'elemento
+		return isMenuElementEnabled(menuName);
+	«ENDIF»
+	}
+	
+	
+	/**
+	 * nome dell'attributo di sessione che contiene la mappa di abilitazione dei menu
+	 */
+	private static String SESSION_MENU_ONOFF = "menuOnOffMap";
+	
+	/**
+	 * @return true se il menuElement deve essere disabilitato
+	 * @param menuName
+	 */
+	public boolean isMenuElementEnabled(String menuName) {
+		// le informazioni di abilitazione sono contenute in una mappa 
+		// in sessione
+		Map cpData = (Map) session.get(SESSION_MENU_ONOFF);
+		if (cpData != null) {
+			Boolean enabledFlag = (Boolean) cpData.get(menuName
+					+ "_enabled");
+			if (enabledFlag != null) {
+				return enabledFlag.booleanValue();
+			} else {
+				// se non trovo nulla forzo a true
+				return true;
+			}
+		} else {
+			// se non trovo nulla forzo a true
+			return true;
+		}
+
+	}
+	
+	/**
+	 * @return true se il menu deve essere reso attivo (ovvero &grave; stato cliccato)
+	 * @param menuName
+	 */
+	public boolean isMenuActive(String menuName) {
+		// il menu corrente e' mantenuto in sessione
+		String menu = "menu_items_" + menuName;
+		return menu.equals((String)session.get("active_menu"));
+	}
+
+	/**
+	 * @return true se un sottomenu del menu dato (a qualunque livello) &egrave; attivo 
+	 * (ovvero &grave; stato cliccato)
+	 * @param menuName
+	 */
+	public boolean isSubMenuActive(String menuName) {
+		for (MenuStructure menuStructure : menuMap) {
+			if (menuName.equals(menuStructure.getMenuName())) {
+				List<MenuStructure> mstr = menuStructure.getSubMenuFlattenList(menuStructure, menuName);
+				for (MenuStructure subMenu : mstr) {
+					if (isMenuActive(subMenu.getMenuName())) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+
+	/**
+     * Gestione del reset della paginazione/sorting delle tabelle (Displaytag)
+     * @param tableName nome della tabella
+     * @return true se bisogna resettare paginazione/sorting, false altrimenti
+     */
+    public boolean isTableClearStatus(String tableName) {
+    	String sessionValue = tableName + "_clearStatus";
+    	Boolean clearStatus = (Boolean)session.get(sessionValue);
+    	if ( clearStatus == null ) {
+    		clearStatus = true;
+    	}
+    	if ( clearStatus ) {
+    		// la proprieta' e' "usa e getta"
+    		session.put(sessionValue, Boolean.valueOf(false));
+    	}
+    	return clearStatus;
+    }
+	
+	«EXPAND provideMenuStatus FOR this»
+	
+	«IF this.targetPlatform.enableFatClient-»
+	«EXPAND provideWidgetsStatus FOR this»
+	«EXPAND setWidgetsOnOffStatus FOR this»
+	«EXPAND setWidgetsVisibilityStatus FOR this»
+	«EXPAND provideMultiPanelStatus FOR this»
+	«ENDIF-»
+
+	/**
+	 * metodo astratto per il dump visivo del model (da riscrivere nelle action dei singoli
+	 * ContentPanel
+	 */
+	abstract protected void dumpModel(boolean pre);
+	
+	/**
+	 * deve essere ridefinito nelle action relative ai ContentPanel
+	 */
+	abstract protected void doBeforeEventCommand() throws CommandExecutionException;
+	
+	/**
+	 * deve essere ridefinito nelle action relative ai ContentPanel
+	 */
+	abstract protected void doAfterEventCommand() throws CommandExecutionException;
+	
+	/**
+	 * metodo astratto che deve essere sovrascritto nelle action dei singoli ContentPanel per
+	 * l'inizializzazione dei vari comandi presenti nella schermata
+	 * @param widgName il nome del widget a cui e' associato l'evento
+	 * @param eventName il nome dell'evento (es. CLICKED)
+	 */
+	abstract protected ICommand initCommand(String widgName, String eventName);
+	
+«IF targetPlatform.enableRichUIBehavior-»
+	«EXPAND getJSONSerializerMethod FOR this»
+«ENDIF-»
+
+	/**
+	 * Metodo generico per l'esecuzione della logica associata ad un evento
+	 * @param widgName il nome del widget a cui e' associato l'evento
+	 * @param eventName il nome dell'evento (es. CLICKED)
+	 */
+	protected String handleEventInternal(String widgName, String eventName)
+			throws CommandExecutionException {
+		ICommand action = initCommand(widgName, eventName);
+		if (log.isDebugEnabled()) {
+			log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model before");
+			dumpModel(false);
+		}
+		
+		// Before event commands...
+		doBeforeEventCommand();
+		// event commands
+		String result = action.doCommand(this);
+		// After event commands...
+		doAfterEventCommand();
+
+		if (result != null) {
+			if (log.isDebugEnabled()) {
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
+				dumpModel(false);
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning result ["
+						+ result + "]");
+			}
+
+			return result;
+
+		} else {
+			if (log.isDebugEnabled()) {
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
+				dumpModel(false);
+				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning default result [SUCCESS]");
+			}
+			return SUCCESS;
+
+		}
+	}
+
+«IF targetPlatform.enableRichUIBehavior-»
+	«EXPAND dataProvider::dataProviderInternalMethod FOR this»
+«ENDIF»	
+
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. Deve essere implementato in tutte le sottoclassi associate
+	 *  ad un content panel. 
+	 */
+	 public abstract void clearPageScopedAppData(String targetContentPanelName);
+	 
+	 «REM»STDMDD-407«ENDREM»
+	 /**
+	  * Ripulisce gli eventuali errori di conversione se il metodo richiamato
+	  * dichiarava @skipValidation 
+	  */
+	 protected void clearConversionErrorsIfSkipValidation() {
+		ActionContext ctx = ActionContext.getContext();
+		String methodName = ctx.getActionInvocation().getProxy().getMethod();
+		Method m;
+		try {
+			boolean skipValidation = true;
+			m = this.getClass().getDeclaredMethod(methodName, new Class[]{});
+			if (m != null) {
+				skipValidation = m.isAnnotationPresent(SkipValidation.class);
+			}
+			if (skipValidation && !m.getName().equalsIgnoreCase("execute")) {
+				removeFailedParamsFromRequest(ctx);
+				clearErrorsAndMessages();
+			}
+		} catch (SecurityException e) {
+			log.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
+					+ ", ignoro");
+		} catch (NoSuchMethodException e) {
+			log.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
+					+ ", ignoro");
+		}
+	}
+	
+	private void removeFailedParamsFromRequest(ActionContext ctx){
+		ctx.getContextMap();
+		ctx.getContextMap().remove("original.property.override");
+	}
+	 
+	«EXPAND springBEProperties FOR this»
+	
+	«IF targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::view::richFeatures::dataProviderStreamProperty FOR this-»
+	«ENDIF-»
+	
+	«IF getActualSecurityModel(this)!=null && structure.appWindow.appArea.menubar!=null»
+	«EXPAND template::struts2::security::securityConstraints::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
+	«ENDIF»
+	
+	«IF isMultiPortal(this)»
+	«EXPAND template::struts2::multiPortal::baseActionMethods FOR this-»
+	«ENDIF»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE getJSONSerializerMethod FOR GUIModel-»
+	protected flexjson.JSONSerializer getJSONSerializer(boolean jtsAware){
+		flexjson.JSONSerializer serializer = null;
+«IF hasGisMap()-»
+		if (jtsAware){
+			GeometryTransformer geoTransformer = new GeometryTransformer();
+			serializer = new flexjson.JSONSerializer().transform(geoTransformer, Geometry.class);
+		}
+		else{
+			serializer = new flexjson.JSONSerializer();
+		}
+«ELSE-»
+		serializer = new flexjson.JSONSerializer();
+«ENDIF-»
+		return serializer;
+	}
+«ENDDEFINE»
+
+«DEFINE springBEProperties FOR GUIModel»
+	private «getSpringBEFQN()» _backEnd = null;
+	
+	public void setSpringBackEnd(«getSpringBEFQN()» be){
+		_backEnd = be;
+	}
+	
+	public «getSpringBEFQN()» getSpringBackEnd(){
+		return _backEnd;
+	}
+	
+	
+	private «getSpringSecurityHelperFQN()» _securityHelper = null;
+	
+	public void setSpringSecurityHelper(«getSpringSecurityHelperFQN()» sh){
+		_securityHelper = sh;
+	}
+	
+	public «getSpringSecurityHelperFQN()» getSpringSecurityHelper(){
+		return _securityHelper;
+	}
+	
+«ENDDEFINE»
+
+
+«REM»
+[DM] STDMDD-241: razionalizzazione del menu
+Esteso a qualunque livello di annidamento
+«ENDREM»
+«DEFINE submenuMap FOR Menubar»
+«FOREACH this.topLevelMenu AS topLevelMenu»
+MenuStructure «topLevelMenu.name»Menu = new MenuStructure("«topLevelMenu.name»");
+«EXPAND submenuList FOR topLevelMenu»
+menuMap.add(«topLevelMenu.name»Menu);
+«ENDFOREACH»
+«ENDDEFINE»
+
+
+«DEFINE submenuList FOR Menu»
+«IF this.submenu.size > 0»
+	«FOREACH this.submenu AS subMenu-»
+	MenuStructure «subMenu.name»Menu = new MenuStructure("«subMenu.name»");
+	«EXPAND submenuList FOR subMenu»
+	«this.name»Menu.getSubmenus().add(«subMenu.name»Menu);
+	«ENDFOREACH-»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE provideMenuStatus FOR GUIModel»
+	/**
+	 * Restituisce lo stato del menu
+	 * @return List<MenuStructure>
+	 */
+	protected List<MenuStructure> getMenuStatus(){
+		
+		List<MenuStructure> menus = new ArrayList<MenuStructure>();
+		for (MenuStructure menuStructure : menuMap) {
+			//***sul fatclient non ho bisogno dello stato attivo per cui lo imposto a false
+			menus.add(new MenuStructure(menuStructure.getMenuName(),
+					isMenuVisible(menuStructure.getMenuName()),
+					isMenuEnabled(menuStructure.getMenuName()), false));
+
+			for (String subMenu : menuStructure.getAllSubMenu()) {
+
+				menus.add(new MenuStructure(subMenu, isMenuVisible(subMenu),
+						isMenuEnabled(subMenu), false));
+
+			}
+		}
+		return menus;
+	}
+«ENDDEFINE»
+
+«DEFINE provideWidgetsStatus FOR GUIModel»
+	/**
+	 * restituisce lo stato di tutti i widgets presenti nel contentpanel
+	 */
+	protected List<WidgetsStructure> getWidgetsStatus(List<String> listaWidgets,
+			String cpName) {
+		List<WidgetsStructure> widgets = new ArrayList<WidgetsStructure>();
+		for (String widget : listaWidgets) {
+			widgets.add(new WidgetsStructure(widget, isWidgetVisible(cpName, widget), isWidgetDisabled(cpName,widget)));
+		}
+		return widgets;
+	}
+«ENDDEFINE»
+
+«DEFINE provideMultiPanelStatus FOR GUIModel»
+	/**
+	 * restituisce i pannelli attivi nel contentPanel
+	 */
+	protected List<MultiPanelStructure> getMultiPanelStatus(
+			List<String> listaMultiPanel, String cpName) {
+		List<MultiPanelStructure> widgets = new ArrayList<MultiPanelStructure>();
+		for (String panel : listaMultiPanel) {
+			widgets.add(new MultiPanelStructure(panel, (String) session.get(cpName+"_"+panel+"_selectedMultiPanel")));
+		}
+		return widgets;
+	}
+«ENDDEFINE»
+
+«DEFINE setWidgetsOnOffStatus FOR GUIModel»
+	/**
+	 * setta lo stato di OnOff dei widgets passati
+	 */
+	protected void setWidgetsOnOffStatus(String cpName, String[] nomiWidgets, boolean enableWidget) throws CommandExecutionException{
+		
+		OnOffCommand onOffCmd = new OnOffCommand(
+				cpName,
+				 nomiWidgets,
+				enableWidget);
+		onOffCmd.doCommand(this);
+				
+	}
+«ENDDEFINE»
+
+«DEFINE setWidgetsVisibilityStatus FOR GUIModel»
+	/**
+	 * setta lo stato di visibility dei widgets passati
+	 */
+	protected void setWidgetsVisibilitytatus(String cpName, String[] nomiWidgets, boolean showWidget) throws CommandExecutionException{
+		
+		VisibilityCommand visibilityCmd = new VisibilityCommand(
+				cpName,
+				 nomiWidgets,
+				showWidget);
+		visibilityCmd.doCommand(this);
+				
+	}
+«ENDDEFINE»

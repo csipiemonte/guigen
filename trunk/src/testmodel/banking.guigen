@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="bank" codComponente="homebank" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="finanziamenti" codApplicativo="pbandi" nomeCanale="test" linkCanale="http://www.sistemapiemonte.it" nomeApplicativo="testesecurity"/>
+      <appArea>
+        <menubar>
+          <topLevelMenu name="mnuHome" label="Home">
+            <eventHandler>
+              <command xsi:type="guigen:SequenceCommand">
+                <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </command>
+            </eventHandler>
+          </topLevelMenu>
+          <topLevelMenu name="mnuConto" label="Conto corrente">
+            <eventHandler>
+              <command xsi:type="guigen:SequenceCommand">
+                <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+              </command>
+            </eventHandler>
+          </topLevelMenu>
+          <topLevelMenu name="mnuInvestimenti" label="Investimenti">
+            <eventHandler>
+              <command xsi:type="guigen:SequenceCommand">
+                <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+              </command>
+            </eventHandler>
+          </topLevelMenu>
+          <topLevelMenu name="mnuRicariche" label="Ricariche">
+            <eventHandler>
+              <command xsi:type="guigen:SequenceCommand">
+                <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+              </command>
+            </eventHandler>
+          </topLevelMenu>
+        </menubar>
+        <contentPanels name="cpHome" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.2/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Servizio di home banking">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="mvMainMenu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Home page del servizio">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="pMsgHome">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <textMessages name="txtMsgHome" dataType="//@typedefs/@types.7" staticText="&lt;b>Benvenuti nel servizio di Home Banking della Banca del mutuo soccorso&lt;/b>"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pDtCliente" label="Dati cliente" summary="Dati del cliente">
+                <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="2"/>
+                <widgets xsi:type="guigen:PlainText" name="txtNumCli" label="numero cliente:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="numCliente"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtCodFisc" label="codice fiscale:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codFisc"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtCognomeCli" label="cognome:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="cognome"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtNomeCli" label="nome:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="nome"/>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:SequenceCommand">
+            <commands xsi:type="guigen:ExecCommand" methodName="initDatiCliente" postExecData="//@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.2/@appData.0">
+              <results resultCode="OK">
+                <command xsi:type="guigen:SequenceCommand">
+                  <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </command>
+              </results>
+            </commands>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpConto" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.3 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.5">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Servizio di home banking - Conto corrente">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="mvMainMenu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="--">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pDtCliente" label="Dati cliente" summary="Dati del cliente">
+                <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="2"/>
+                <widgets xsi:type="guigen:PlainText" name="txtNumCli" label="numero cliente:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="numCliente"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtCodFisc" label="codice fiscale:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codFisc"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtCognomeCli" label="cognome:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="cognome"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtNomeCli" label="nome:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="nome"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pRapportoBancario" label="Rapporto bancario" summary="Rapporto bancario">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ComboBox" name="cbRapporto" label="Scelta rapporto bancario in esame:" dataType="//@typedefs/@types.7" keySelector="numConto" valueSelector="numConto">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:SequenceCommand">
+                      <commands xsi:type="guigen:ExecCommand" methodName="selectConto" postExecData="//@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.3 //@appDataDefs/@groups.0/@appData.2">
+                        <results resultCode="SHOW_SALDO">
+                          <command xsi:type="guigen:SequenceCommand">
+                            <commands xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2" activeItem="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@panels.1"/>
+                            <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.1/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1"/>
+                          </command>
+                        </results>
+                        <results resultCode="HIDE_SALDO">
+                          <command xsi:type="guigen:SequenceCommand">
+                            <commands xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2" activeItem="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@panels.0"/>
+                            <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.1/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1"/>
+                          </command>
+                        </results>
+                      </commands>
+                    </command>
+                  </eventHandlers>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.1"/>
+                  <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0" path=""/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:MultiPanel" name="pMultiEstratto">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <panels xsi:type="guigen:FormPanel" name="pEstrattoEmpty">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:MsgBoxPanel" name="pMsgEstrattoEmpty">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <textMessages name="txtScegliereRapporto" dataType="//@typedefs/@types.7" staticText="&lt;p>Selezionare un rapporto per visualizzare il saldo corrente o effettuare ricerche sui movimenti relativi.&lt;/p>"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="pEstratto">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pSaldoPre">
+                    <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="txtSaldoPre" label="saldo iniziale in Euro" dataType="//@typedefs/@types.10">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.3"/>
+                    </widgets>
+                  </subpanels>
+                  <subpanels xsi:type="guigen:FormPanel" name="pMovimenti" label="Movimenti nel periodo">
+                    <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pMovimentiTbl">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                      <widgets xsi:type="guigen:Table" name="tblMovimenti" dataType="//@typedefs/@types.8" pageSize="5">
+                        <eventHandlers>
+                          <command xsi:type="guigen:SequenceCommand">
+                            <commands xsi:type="guigen:ExecCommand" methodName="showDetail" postExecData="//@appDataDefs/@groups.0/@appData.5">
+                              <results resultCode="OK">
+                                <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@panels.1/@subpanels.1/@subpanels.0/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@panels.1/@subpanels.1/@subpanels.1"/>
+                              </results>
+                            </commands>
+                          </command>
+                        </eventHandlers>
+                        <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.2"/>
+                        <columnModel valueSelector="progressivo">
+                          <columns selector="progressivo" label="progr." sortable="true" eventActive="true"/>
+                          <columns selector="data" label="data" sortable="true" multidataValueSelector=""/>
+                          <columns selector="entrataUscita" label="E / U" sortable="true"/>
+                          <columns selector="valore" label="importo" sortable="true"/>
+                          <columns selector="dataValuta" label="data valuta" sortable="true" multidataValueSelector=""/>
+                        </columnModel>
+                      </widgets>
+                    </subpanels>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pDtlMov" label="Dettagli movimento">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                      <widgets xsi:type="guigen:TextArea" name="taDtlMov" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                        <databinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                      </widgets>
+                    </subpanels>
+                  </subpanels>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pSaldoPost">
+                    <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="txtSaldoPost" label="saldo finale in Euro" dataType="//@typedefs/@types.10">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.4"/>
+                    </widgets>
+                  </subpanels>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pFiltriMov" label="Filtro movimenti">
+                    <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="3"/>
+                    <widgets xsi:type="guigen:RadioButtons" name="rbsTipoMovFiltro" label="Tipo movimento" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="2"/>
+                      <radio name="rbTipoMovFltE" label="Entrata" value="E"/>
+                      <radio name="rbTipoMovFltU" label="Uscita" value="U"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:Calendar" name="calMovFltDa" label="da:" dataType="//@typedefs/@types.3">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:Calendar" name="calMovFltA" label="a:" dataType="//@typedefs/@types.3">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:UserDefinedWidget" name="udwMyCal" label="my cal">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="2"/>
+                    </widgets>
+                  </subpanels>
+                  <subpanels xsi:type="guigen:CommandPanel" name="pCmdFiltro">
+                    <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:ConfirmButton" name="bApplicaFiltro" label="Applica filtro">
+                      <eventHandlers>
+                        <command xsi:type="guigen:ExecCommand" methodName="filtraMov" postExecData="//@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.2">
+                          <results resultCode="OK">
+                            <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@panels.1/@subpanels.4/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2"/>
+                          </results>
+                        </command>
+                      </eventHandlers>
+                    </widgets>
+                  </subpanels>
+                </panels>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpInvest" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.2/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Servizio di home banking - Investimenti">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="mvMainMenu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Home page del servizio">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pDtCliente" label="Dati cliente" summary="Dati del cliente">
+                <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="2"/>
+                <widgets xsi:type="guigen:PlainText" name="txtNumCli" label="numero cliente:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="numCliente"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtCodFisc" label="codice fiscale:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codFisc"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtCognomeCli" label="cognome:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="cognome"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtNomeCli" label="nome:" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                  <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="nome"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pPortfolio" label="Portafoglio investimenti">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:Table" name="tblInvestimenti" label="" dataType="//@typedefs/@types.0">
+                  <multiDataBinding appData="//@appDataDefs/@groups.2/@appData.0"/>
+                  <columnModel valueSelector="progressivo">
+                    <columns selector="titolo.codTitolo" label="cod. strumento"/>
+                    <columns selector="titolo.nome" label="Strumento finanziario"/>
+                    <columns selector="titolo.tipo" label="tipologia" sortable="true"/>
+                    <columns selector="titolo.annoScadenza" label="scadenza" sortable="true"/>
+                    <columns selector="sommaInvestita" label="somma investita" sortable="true"/>
+                    <columns selector="utilePerdita" label="utile/perdita" sortable="true"/>
+                    <columns selector="percUtilePerdita" label="(%)" sortable="true"/>
+                    <columns selector="valoreAttuale" label="val. attuale" sortable="true"/>
+                  </columnModel>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pFiltriMov" label="Filtro movimenti">
+                <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="3"/>
+                <widgets xsi:type="guigen:RadioButtons" name="rbsTipoMovFiltro" label="Tipo movimento" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="2"/>
+                  <radio name="rbTipoMovFltE" label="Entrata" value="E"/>
+                  <radio name="rbTipoMovFltU" label="Uscita" value="U"/>
+                </widgets>
+                <widgets xsi:type="guigen:Calendar" name="calMovFltDa" label="da:" dataType="//@typedefs/@types.3">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                </widgets>
+                <widgets xsi:type="guigen:Calendar" name="calMovFltA" label="a:" dataType="//@typedefs/@types.3">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCmdFiltro">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bApplicaFiltro" label="Applica filtro">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="filtraMov" postExecData="//@appDataDefs/@groups.2/@appData.0">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.2/@panels/@subpanels.1/@subpanels.3/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpRicariche" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Servizio di home banking">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="mvMainMenu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Home page del servizio">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="pMsgHome">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <textMessages name="txtMsgHome" dataType="//@typedefs/@types.7" staticText="&lt;b>Benvenuti nel servizio di Home Banking della Banca del mutuo soccorso&lt;/b>"/>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
+    <types xsi:type="guigen:ComplexType" name="UserInfo">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="ente" type="//@typedefs/@types.7"/>
+      <fields name="ruolo" type="//@typedefs/@types.7"/>
+      <fields name="idIride" type="//@typedefs/@types.7"/>
+    </types>
+    <namespaces name="anagrafiche">
+      <types xsi:type="guigen:ComplexType" name="Cliente">
+        <fields name="numCliente" type="//@typedefs/@types.7"/>
+        <fields name="codFisc" type="//@typedefs/@types.7"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="cognome" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Cliente []" componentType="//@typedefs/@namespaces.0/@types.0"/>
+    </namespaces>
+    <namespaces name="datirapporto">
+      <types xsi:type="guigen:ComplexType" name="Conto" initFields="true">
+        <fields name="numConto" type="//@typedefs/@types.7"/>
+        <fields name="titolare" type="//@typedefs/@namespaces.0/@types.0"/>
+        <fields name="cotitolare" type="//@typedefs/@namespaces.0/@types.0"/>
+        <fields name="movimenti" type="//@typedefs/@namespaces.3/@types.1"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Conto []" componentType="//@typedefs/@namespaces.1/@types.0"/>
+    </namespaces>
+    <namespaces name="investimenti">
+      <types xsi:type="guigen:ComplexType" name="Titolo">
+        <fields name="codTitolo" type="//@typedefs/@types.7"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="tipo" type="//@typedefs/@types.7"/>
+        <fields name="annoScadenza" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Titolo[]" componentType="//@typedefs/@namespaces.2/@types.0"/>
+      <types xsi:type="guigen:ComplexType" name="Investimento">
+        <fields name="progressivo" type="//@typedefs/@types.0"/>
+        <fields name="titolo" type="//@typedefs/@namespaces.2/@types.0"/>
+        <fields name="sommaInvestita" type="//@typedefs/@types.4"/>
+        <fields name="utilePerdita" type="//@typedefs/@types.4"/>
+        <fields name="percUtilePerdita" type="//@typedefs/@types.4"/>
+        <fields name="valoreAttuale" type="//@typedefs/@types.4"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Investimento []" componentType="//@typedefs/@namespaces.2/@types.2"/>
+    </namespaces>
+    <namespaces name="valori">
+      <types xsi:type="guigen:ComplexType" name="Movimento">
+        <fields name="progressivo" type="//@typedefs/@types.0"/>
+        <fields name="entrataUscita" type="//@typedefs/@types.7"/>
+        <fields name="data" type="//@typedefs/@types.3"/>
+        <fields name="valore" type="//@typedefs/@types.4"/>
+        <fields name="dataValuta" type="//@typedefs/@types.3"/>
+        <fields name="dettaglio" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Movimento []" componentType="//@typedefs/@namespaces.3/@types.0"/>
+    </namespaces>
+  </typedefs>
+  <appDataDefs>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
+    <groups name="conto">
+      <appData name="conti" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.1"/>
+      <appData name="numContoSelez" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+      <appData name="movFiltrati" lifetimeExtent="SAME_PAGE" type="//@typedefs/@namespaces.3/@types.1"/>
+      <appData name="saldoPre" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.10"/>
+      <appData name="saldoPost" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.10"/>
+      <appData name="dettaglioMovimento" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
+    </groups>
+    <groups name="common">
+      <appData name="datiCliente" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
+    </groups>
+    <groups name="investimenti">
+      <appData name="investimenti" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.2/@types.3"/>
+    </groups>
+  </appDataDefs>
+  <securityModel securityAppID="AAAA"/>
+  <targetPlatform code="JBoss43" enableRichUIBehavior="true"/>
+</guigen:GUIModel>

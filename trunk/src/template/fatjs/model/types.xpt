@@ -1,0 +1,87 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+«DEFINE types FOR GUIModel»
+/**
+ * def. e registrazione tipi base e non
+ */
+«EXPAND type(null) FOREACH typedefs.types»
+«EXPAND types FOREACH typedefs.namespaces»
+«EXPAND types FOREACH typedefs.extNamespaces»
+«ENDDEFINE»
+
+«DEFINE type(TypeNamespace tns) FOR Type»
+«ERROR "type:"+metaType»
+«ENDDEFINE»
+
+«DEFINE type(TypeNamespace tns) FOR SimpleType»
+globalRegistry.registerObject('«getRegistryID(this, tns)»',
+	new ExtCsi.mdl.types.SimpleType(
+		{ name: «jsLiteralValue(name)»,
+		  code: ExtCsi.mdl.types.SimpleTypeCodes().«code»,
+		  userDefined: «jsLiteralValue(userDefined)»,
+		  nillable: «jsLiteralValue(nillable)»
+		}
+	)
+);
+«ENDDEFINE»
+
+«REM»todo: il tns del supertipo dove lo prendo???«ENDREM»
+«DEFINE type(TypeNamespace tns) FOR ComplexType»
+globalRegistry.registerObject('«getRegistryID(this, tns)»',
+	new ExtCsi.mdl.types.ComplexType(
+		{ name: «jsLiteralValue(name)»,
+		  «IF extends!=null-»extendType: '«getRegistryID(extends, tns)»',«ENDIF-»
+		  initFields: «jsLiteralValue(initFields)»,
+		  fields: [«EXPAND field(tns) FOREACH this.fields SEPARATOR ","»]  
+		}
+	)
+);
+«ENDDEFINE»
+
+«DEFINE field(TypeNamespace tns) FOR Field»
+«LET type.eContainer.metaType == TypeNamespace ? ((TypeNamespace)type.eContainer) : null AS fieldTns»
+new ExtCsi.mdl.types.Field(
+	{
+		name: «jsLiteralValue(name)»,
+		type: '«getRegistryID(type, fieldTns)»'
+	}
+)
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE type(TypeNamespace tns) FOR TypedArray»
+«LET componentType.eContainer.metaType == TypeNamespace ? ((TypeNamespace)componentType.eContainer) : null AS componentTns»
+globalRegistry.registerObject('«getRegistryID(this, tns)»',
+	new ExtCsi.mdl.types.TypedArray(
+		{ name: «jsLiteralValue(name)»,
+		  componentType: '«getRegistryID(componentType,componentTns)»'  
+		}
+	)
+);
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE types FOR TypeNamespace»
+«EXPAND type(this) FOREACH this.types»
+«ENDDEFINE»

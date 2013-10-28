@@ -1,0 +1,241 @@
+ ------
+ Panoramica
+ ------
+ DSP-STD
+ ------
+ 13 August 2008
+ ------
+
+
+Panoramica GUIGEN
+
+* Introduzione
+
+	GUIGEN è un generatore <model-driven> di front-end applicativi.
+	Permette la generazione di applicazioni <end-user> a partire da un modello dichiarativo dell'applicazione e con l'aggiunta manuale 
+	di codice custom a completamento della logica di business (principalmente per la realizzazione dell'interazione con il backend, con
+	servizi esterni o con risorse quali DBMS).
+ 	Il modello che descrive l'applicazione è basato su un metamodello descritto in dettaglio in ...TODO... e ricopre vari aspetti di una
+ 	applicazione:
+ 	
+ 	* caratteristiche strutturali
+ 	
+ 		* struttura delle schermate
+ 		
+ 		* struttura dei menu delle funzionalità
+ 		
+ 	* caratteristiche dinamiche
+ 	
+ 	* flusso tra le schermate
+ 	
+ 		* eventi associati ai vari componenti di controllo (menu, pulsanti, etc.)
+ 		
+ 		* azioni (comandi) scatenate a fronte di un evento su un componente di controllo
+ 		
+ 		* modifica stato dei widget (disabilitazione/visibilità, ...)
+ 		
+ 	* caratteristiche di binding dati
+ 	
+ 		* definizione di strutture dati (model)
+ 		
+ 		* binding bidirezionale tra widget e dati del model
+ 		 
+	Il metamodello secondo il quale occorre modellare l'applicazione è indipendente da una particolare modalità/tecnologia
+ 	di realizzazione dell'applicazione, utilizzando concetti generali (es. widget, event-handler, panels) e non <technology-specific>
+ 	(es. submit, JTree, ...): di conseguenza il generatore GUIGEN può in linea teorica generare un'applicazione modellata secondo tale
+ 	metamodello utilizzando differenti tecnologie di implementazione. 
+ 	Attualmente sono previste due "cartucce" di generazione:
+ 	
+ 	* generazione di una applicazione di preview swing, <<non utilizzabile per la produzione>> ma utile come <preview> della struttura
+ 	  delle schermate e della navigazione tra le schermate stesse
+ 	
+ 	* generazione di una web-application J2EE compliant con l'attuale framework applicativo basato su tecnologie Servlet/JSP e framework struts2   	 
+	
+* Funzionalità
+  
+	Di seguito sono elencate le principali funzionalità messe a disposizione dal generatore GUIGEN.
+	
+** Definizione della struttura della User Interface dell'applicativo
+
+	* la U.I dell'applicazione è organizzata in tre aree prinicpali:
+	
+		* un <header> e un <footer> che contengono informazioni statiche non gestite da applicativo (che in genere sono determinate dalla 
+	      collocazione di un applicativo in un particolare contesto (es. sito web) e che non varia da applicazione ad applicazione
+		
+		* una area applicativa <ApplicationArea> che dipende dalla particolare applicazione. A sua volta questa area applicativa è
+		  strutturata in:
+		  
+			* una struttura a menu (<MenuBar>)
+			
+			* un'insieme di schermate applicative (<ContentPanel>) che si avvicendano a fronte del flusso funzionale dell'applicativo e sono 
+			  visualizzate all'interno dell'area invariante (header, footer). Il menu è gestito come widget in modo da poter essere collocato 
+			  in tutte le schermate. 
+	
+	* ciascuna schermata contiene <Widget> di vario genere strutturati in pannelli (<Panel>) che possono essere dei seguenti tipi:
+	
+		* <FormPanel>: pannello destinato a contenere <widget> o <sottopannelli>
+		
+		 * <CommandPanel>: tipo specializzato di <FormPanel> che può contenere solo <widget> di tipo <Command> (pulsanti)
+		 
+		 * <MenuPanel>: tipo specializzato di <FormPanel> che può contenere solo <widget> di tipo menu o affini (attualmente
+		   solo <MenuView> o <TreeView>).
+		
+		* <TabSetPanel>: il classico pannello a tab (il contenuto di ciascun tab è a sua volta un <pannello>)
+		
+		* <DialogPanel>: pannello utilizzato per la visualizzazione di popup
+	
+	* ciascun singolo pannello prevede uno schema di layout (selezionabile in un insieme di possibilità) secondo cui i sottopannelli 
+	  e i widget vengono disposti:
+	  
+	  	* Disposizione a cascata verticale su un'unica colonna (<VerticalFlowPanelLayout>); 
+	  	
+	  		* applicabile a sottopannelli e widget
+	  		
+	  		* l'ordine di visualizzazione è dall'alto in basso a seconda dell'ordine in cui i componenti appaiono nel modello (non sono 
+	  		  necessarie delle <layout specification> aggiuntive
+	  	
+	  	* Disposizione in sequenza orizzontale <left to right> su un'unica riga (<HorizontalFlowPanelLayout>)
+	  	
+	  		* applicabile a sottopannelli e widget
+	  		
+	  		* l'ordine di visualizzazione è dasinistra a destra a seconda dell'ordine in cui i componenti appaiono nel modello (non sono 
+	  		  necessarie delle <layout spcificiation> aggiuntive
+	  	
+	  	* Disposizione a 5 quadranti (<UpDownLeftRightCenterPanelLayout>)
+
+			* applicabile al pannello principale o a command panel (in questo caso sono disponibili solo le posizioni Left e Right e 
+			  servono per implementare plusantiere di navigazione del tipo indietro-prosegui)
+			
+			* può contenere al massimo 5 sottopannelli, 1 al massimo per sezione, ed è necessario specificare 
+			  esplicitamente per ciascun elemento il quadrante di destinazione (mediante una <UDLRCWidgetLayoutSpec>)   
+	
+		* Disposizione a griglia nXm (GridPanelLayout)
+		
+			* applicabile solo a sottopannelli
+			
+			* può contenere al max. <n> X <m> widget o sottopannelli (uno per cella della griglia - ogni widget comprende tutti gli elementi
+			  grafici utili a realizzarlo, quali label, widget vero e proprio etc..)
+			  
+			* per ciascun widget è possibile specificare con precisione la posizione nella griglia e, opzionalmente, il numero di colonne
+			  per cui la porzione <non-label> del widget si deve estendere (1 colonna = 1 posto per un widget completo, indipendentemente
+			  dal numero di elementi grafici utilizzati nel codice generato.    
+	
+	* i widget disponibili condividono alcuni comportamenti comuni:
+			
+		* possono essere disabilitati o abilitati a comando (abiltazione/disabilitazione/stato di default): se disabilitati non possono 
+		  accettare input o comandi dall'utente
+				
+		* possono essere resi invisibili o nuovamente visibili a comando (visibile/invisibile/stato di default)
+				
+		* possono essere posizionati con precisione nel pannello contenitore utilizzando una parametrizzazione specifica
+		  del tipo di layout del contenitore (vedi sopra)
+		  
+		* possono essere corredati da un EventHandler in grado di gestire eventi di interazione umana (per l'elenco delle tipologie
+		  di eventi supportate da ciascun widget e per dettagli sulla gestione degli eventi si vedano le sezioni apposite).
+	
+*** Widget disponibili
+
+	
+	* <CommandWidget>: widget che hanno lo scopo di gestire <comandi utente>. I <CommandWidget> condividono la possibilità di catturare 
+	  eventi di user interaction (vedere sotto). 
+		  
+		* sono disponibili i seguenti widget: 
+	
+			* Pulsanti (<ConfirmButton>) che permettono l'esecuzione di una serie di azioni/comandi
+			
+			* Pulsanti che permettono la pulizia della schrmata (<ResetButton>)
+			
+			* Menu (la struttura è definita centralmente nell'applicativo; questo widget è solo un segnaposto necessario per
+			  collocare il menu all'intenro della schermata)
+				
+
+	* <DataWidget>: widget destinati all'input/output di informazioni.
+			
+		* condividono alcuni comportamenti comuni aggiuntivi rispetto ai widget generici:
+				  
+			* sono dotati di tipo
+				
+			* prevedono la possibilità di effettuare una serie di validazioni sull'input immesso (vedere sezione apposita per i dettagli)
+				
+			* possono essere collegati al <model> mediante appositi binding (<AppDataBinding>)
+				
+				* possono essere valorizzati in base allo stato dell'applicazione 
+				
+				* possono passare l'informazione immessa dall'utente ai moduli di logica applicativa (esclusi <Image>, <StaticText>)
+				
+		* sono disponibili i seguenti widget:
+		
+			* Campi di immissione testo monolinea (<TextField>) o multilinea (<TextArea>)
+			
+			* Drop-down list (<ComboBox>)
+			
+			* Pulsante on-off (<Check Box>)
+			
+			* Pulsanti a scelta esclusiva (<RadioButton>)
+			
+			* Tabella di visualizzazione (read-only) con possibilità di ordinamento, paginazione, export dei dati in vari formati, selezione di
+		  	  una o più righe per l'esecuzione di un'azione su di esse
+		
+			* Albero espandibile (<TreeView>)
+				
+			* Variante dell'albero espandibile <MenuTree> che serve per inserire la struttura di menu in una posizione particolare, come fosse
+			  un normale widget
+			
+			* Immagine (<Image>)
+			
+			* Testo puro (<PlainText>)
+						  
+
+** Definizione del <model> gestito nell'applicativo
+
+	Lo strato di model nell'applicativo è costituito da:
+	
+	* definizioni di <tipi> complessi relativi agli oggetti che dovranno essere maneggiati dalla logica applicativa (strutture dati)
+	
+	* definizioni di <ApplicationData>, che rappresentano le porzioni di informazione (strettamente tipizzate) che vengono maneggiate
+	  all'interno della logica applicativa e dallo strato di view:
+	  
+	  	* hanno un nome che li identifica a livello di applicazione e con il quale possono essere referenziati all'interno delle GUI o nella
+	  	  logica applicativa
+	  	  
+	  	* sono tipizzati (tipi semplici o complessi o collezioni di tipi semplici o complessi)
+	  	
+	  	* possono "vivere" per il solo tempo di una singola <interazione utente> (scope = USER_ACTION) oppure per più interazioni successive 
+	  	  scope USER_SESSION)
+	  
+	*  la logica di business sarà nettamente separata dalla logica di U.I e dovrà essere codificata manualmente:
+	
+		* avendo a disposizione gli <ApplicationData> necessari, il cui valore è pre-compilato (se necessario) a fronte dell'input utente sulle
+		  GUI a cui tali dati sono collegati o a fronte del valore contenuto in sessione se l'<ApplicationData> è a scope USER_SESSION;
+		
+		* restituendo al gestore del contesto applicativo gli <ApplicationData> creati/modificati dalla logica, in modo che possano
+		  essere maneggiati dallo strato di presentation
+		  
+		* implementando metodi con una interfaccia ben definita
+		
+	* il collegamento tra U.I, controller e model/logica è modellato come spiegato nel paragrafo successivo  
+
+** Definizione del comportamento dinamico dell'applicativo
+
+	Il comportamento dinamico dell'applicativo si concretizza nella possibilità di associare una serie di comandi agli eventi di user
+	interaction che avvengono sull'applicativo. In particolare sono disponibili le seguenti possibilità/comandi:
+	
+	* <ONOFFCommand>: abilitazione/disabilitazione di un set di widget definito a tempo di design
+	
+	* <VisibilityCommand>: rendere visibile/invisibile un set di widget definito a tempo di design
+	
+	* <JumpCommand>: saltare ad una schermata (<ContentPanel>) differente da quella corrente
+	
+	* <ExecCommand>: eseguire una logica applicativa java e, a seconda dell'esito (1 o più di uno) eseguire altre sequenze di comandi
+	
+	* <SequenceCommand>: eseguire una sequenza di comandi
+	
+	* ...
+	
+	
+	La struttura di comandi che devono essere eseguiti a fronte di un evento di U.I su un particolare widget sono modellati e sono
+	implementati automaticamente dal codice generato, ad esclusione dell'<ExecCommand>. In quest'ìultimo caso, infatti, sebbene il codice
+	generato provveda a richiamare automaticamente un metodo di business fornendogli il contesto applicativo e modificando il contesto 
+	applicativo con i risultati dell'esecuzione di tale metodo, il metodo di business deve essere codificato manualmente inel linguaggio
+	target (java). Al momento questo rappresenta l'unico punto di intervento manuale post-generazione sul codice.  
+  

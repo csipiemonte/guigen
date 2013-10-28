@@ -1,0 +1,1536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="isped" codComponente="ispedfe" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="finanziamenti" codApplicativo="pbandi" nomeCanale="pratiche edilizie" linkCanale="http://www.csi.it" nomeApplicativo="Iter Ispezioni Pratiche Edilizie"/>
+      <appArea>
+        <menubar/>
+        <titlebar/>
+        <statusbar/>
+        <contentPanels name="Pratiche" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6 //@appDataDefs/@appData.7 //@appDataDefs/@appData.8 //@appDataDefs/@appData.9 //@appDataDefs/@appData.17 //@appDataDefs/@appData.19 //@appDataDefs/@appData.33 //@appDataDefs/@appData.35 //@appDataDefs/@appData.37 //@appDataDefs/@appData.38 //@appDataDefs/@appData.36 //@appDataDefs/@appData.41 //@appDataDefs/@appData.43 //@appDataDefs/@appData.45 //@appDataDefs/@appData.46 //@appDataDefs/@appData.48 //@appDataDefs/@appData.49 //@appDataDefs/@appData.50 //@appDataDefs/@appData.57">
+          <panels xsi:type="guigen:FormPanel" name="cpPratiche" label="Pratiche">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:StdMessagePanel" name="ValidaField" showGlobalMessages="true"/>
+            <subpanels xsi:type="guigen:MultiPanel" name="panelFilter">
+              <panels xsi:type="guigen:FormPanel" name="formFilterPanel" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pRicerca" label="Ricerca">
+                  <layout xsi:type="guigen:GridPanelLayout" columnSizes="13,13,13,13,12,12,12,12" columns="4" rows="5"/>
+                  <widgets xsi:type="guigen:TextField" name="tfPratica" label="Pratica" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="numeroPratica"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:Calendar" name="cDataDal" label="Dal" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="dataRegistrazioneDal"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:Calendar" name="cDataAl" label="Al" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="dataRegistrazioneAl"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:RadioButtons" name="archiviate" label="Archiviate" dataTypeModifier="" dataType="//@typedefs/@types.9">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="1"/>
+                    <eventHandlers eventType="VALUE_CHANGED">
+                      <command xsi:type="guigen:ExecCommand" methodName="impostaValoreRadio">
+                        <results resultCode="abilitaCalendario">
+                          <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@panels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@panels.0/@subpanels.0/@widgets.5" enable="true"/>
+                        </results>
+                        <results resultCode="disabilitaCalendario">
+                          <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@panels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@panels.0/@subpanels.0/@widgets.5"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                    <radio name="archiviateSi" label="Si" value="true"/>
+                    <radio name="archiviateNo" label="No" value="false"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:Calendar" name="archiviateDal" label="Dal" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="dataArchiviateDal"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:Calendar" name="archiviateAl" label="Al" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="dataArchiviateAl"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="cbInconveniente" label="Inconveniente" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="4"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="tipoInconveniente"/>
+                    <multiDataBinding appData="//@appDataDefs/@appData.37"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="tfNumManuale" label="N. Manuale" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="numeroManuale"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:Calendar" name="cAperta" label="Aperta il" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="2" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="dataAperturaManuale"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="cPosizione" label="Posizione" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="3" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="codiceOperatore"/>
+                    <multiDataBinding appData="//@appDataDefs/@appData.38" path=""/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="tfIndirizzo" label="Indirizzo" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="indirizzo.descrizione"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="tfNumero" label="numero" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="2" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.35" path="civico"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bValida" label="Cerca Indirizzo">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="3" hspan="1"/>
+                    <eventHandlers>
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.9"/>
+                    </eventHandlers>
+                  </widgets>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bCAncellaIndirizzo" label="Cancella Indirizzo">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="4" hspan="1"/>
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="svuotaIndirizzo">
+                        <results resultCode="svuota">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
+                </subpanels>
+              </panels>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pMenuRicerca">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Ricerca">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="ricercaPratiche" postExecData="//@appDataDefs/@appData.2">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="bCancella" label="Cancella">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="cancellaFiltro">
+                    <results resultCode="cancella">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bCollassaEspandi" label="Collassa/Espandi" defaultVisible="false">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="toggleFilter" postExecData="//@appDataDefs/@appData.7">
+                    <results resultCode="collassa">
+                      <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
+                    </results>
+                    <results resultCode="espandi">
+                      <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@panels.0"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="areaPrincipale" label="">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="areaTabella" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pTabella" label="">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tblPratiche" dataTypeModifier="" dataType="//@typedefs/@types.7" pageSize="6">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.8"/>
+                    <multiDataBinding appData="//@appDataDefs/@appData.2" path=""/>
+                    <columnModel valueSelector="num">
+                      <columns selector="progr" label="#" sortable="true"/>
+                      <columns selector="num" label="pratica" sortable="true"/>
+                      <columns selector="creata" label="Creata il" sortable="true"/>
+                      <columns selector="inManoA" label="In mano A"/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="areaTree" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                <subpanels xsi:type="guigen:MenuPanel" name="treePanel">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TreeView" name="treePratica" label="" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2" hspan="1"/>
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="dettaglioAlbero" postExecData="//@appDataDefs/@appData.4">
+                        <results resultCode="ok">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                    <databinding appData="//@appDataDefs/@appData.50"/>
+                    <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                  </widgets>
+                </subpanels>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pdettaglio">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextArea" name="dettaglioSoggetti" dataType="//@typedefs/@types.21">
+                    <databinding appData="//@appDataDefs/@appData.4"/>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pMenu" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bNuovaPratica" label="Nuova Pratica">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="nuovaPratica" postExecData="//@appDataDefs/@appData.6">
+                    <results resultCode="nuovaPratica">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="bModificaPratica" label="Modifica Pratica">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="modificaPraticaEdificio" postExecData="//@appDataDefs/@appData.6">
+                    <results resultCode="modificaPraticaEdificio">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                    <results resultCode="noSelect">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="bStampaPratica" label="Stampa Pratica">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="stampaPratica" postExecData="//@appDataDefs/@appData.6">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:JumpExtCommand" staticUrl="/printPratica.do" locationCode="stampa"/>
+                    </results>
+                    <results resultCode="ko">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                    <results resultCode="noSelect">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bReferti" label="Referti" defaultEnabled="false">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaReferti" postExecData="//@appDataDefs/@appData.9">
+                    <results resultCode="visualizzaReferti">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bComunicazioni" label="Comunicazioni" defaultEnabled="false">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaComunicazioni" postExecData="//@appDataDefs/@appData.17">
+                    <results resultCode="visualizzaComunicazioni">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bSoggetti" label="Cerca Soggetto" defaultVisible="false">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaSogettiVuoto" postExecData="//@appDataDefs/@appData.19">
+                    <results>
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="pInconvenienti" label="Inconvenienti" image="">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaInconvenientiDaPratica" postExecData="//@appDataDefs/@appData.45">
+                    <results resultCode="visualizzaInconvenienti">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.10"/>
+                    </results>
+                    <results resultCode="KO">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="pGestioneAnagrafiche" label="Gestione Anagrafiche">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaAnagrafichePratica" postExecData="//@appDataDefs/@appData.46">
+                    <results resultCode="OK">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                    </results>
+                    <results resultCode="KO">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bVisualizzaSoggetti" label="Visualizza Soggetti" image="">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaSoggetti" postExecData="//@appDataDefs/@appData.3">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bMovimenti" label="Movimenti">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaMovimenti" postExecData="//@appDataDefs/@appData.57">
+                    <results resultCode="OK">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.2"/>
+                    </results>
+                    <results resultCode="KO">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="refresh" postExecData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.3">
+            <results resultCode="ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpNuovaPratica" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.6 //@appDataDefs/@appData.15 //@appDataDefs/@appData.16 //@appDataDefs/@appData.24 //@appDataDefs/@appData.23 //@appDataDefs/@appData.25 //@appDataDefs/@appData.39 //@appDataDefs/@appData.41 //@appDataDefs/@appData.42">
+          <panels xsi:type="guigen:FormPanel" name="pMainNuovaPratica" label="Nuova Pratica">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:StdMessagePanel" name="ControllaIndirizzo" label="" showGlobalMessages="true"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiPratica" label="Dati Pratica">
+              <layout xsi:type="guigen:GridPanelLayout" columnSizes="15,15,12,12,12,12,11,11" columns="4" rows="9"/>
+              <widgets xsi:type="guigen:TextField" name="tfPratica" label="Pratica" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="1"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfAnno" label="Anno" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="anno"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfDataCreazione" label="Data Creazione" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3" hspan="2"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfDescrizione" label="Descrizione" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfNote" label="Note" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="note"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cSegnalazione" label="Segnalazione" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="segnalazione.chiave"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.39" path=""/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfNumeroManuale" label="Numero Manuale" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="2"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="numeroManuale"/>
+              </widgets>
+              <widgets xsi:type="guigen:Calendar" name="cDataApertura" label="Data Apertura" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="2" hspan="2"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="dataApertura"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfIndirizzoManuale" label="Indirizzo" defaultEnabled="false" dataType="//@typedefs/@types.7" required="true">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="1" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="indirizzo.descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bValida" label="Cerca Indirizzo">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="4" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfCivico" label="Num. civico" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="1" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="numeroCivico"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfBis" label="Bis" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="2" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="bis.descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfLettera" label="Lettera" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="3" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="lettera"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfInterno" label="Interno" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="4" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="interno"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfUbicazione" label="Ubicazione" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="9" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="ubicazione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfCircoscrizione" label="Circoscrizione" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="8" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="circoscrizione.descrizione"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="inserisciPratica">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                    <results resultCode="errore">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaSegnalazioni" postExecData="//@appDataDefs/@appData.39 //@appDataDefs/@appData.1">
+            <results resultCode="ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpModificaPratica" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.6 //@appDataDefs/@appData.15 //@appDataDefs/@appData.16 //@appDataDefs/@appData.24 //@appDataDefs/@appData.23 //@appDataDefs/@appData.25 //@appDataDefs/@appData.39 //@appDataDefs/@appData.8 //@appDataDefs/@appData.42">
+          <panels xsi:type="guigen:FormPanel" name="pMainModificaPratica" label="Modifica Pratica">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiPratica" label="Dati Pratica">
+              <layout xsi:type="guigen:GridPanelLayout" columnSizes="15,15,12,12,12,12,11,11" columns="4" rows="9"/>
+              <widgets xsi:type="guigen:TextField" name="tfPratica" label="Pratica" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="numeroPratica"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfAnno" label="Anno" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="anno"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfDataCreazione" label="Data Creazione" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3" hspan="2"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="dataCreazione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfCreataDa" label="Creata Da" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="4" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="creataDa.descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfDescrizione" label="Descrizione" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfNote" label="Note" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="note"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cSegnalazione" label="Segnalazione" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="segnalazione.chiave"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.39" path=""/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfNumeroManuale" label="Numero Manuale" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="2"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="numeroManuale"/>
+              </widgets>
+              <widgets xsi:type="guigen:Calendar" name="cDataApertura" label="Data Apertura" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="2" hspan="2"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="dataApertura"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfIndirizzoManuale" label="Indirizzo" defaultEnabled="false" dataType="//@typedefs/@types.7" required="true">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="1" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="indirizzo.descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bValida" label="Cerca Indirizzo">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="4" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfCivico" label="Num. civico" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="1" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="numeroCivico"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfBis" label="Bis" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="2" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="bis.descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfLettera" label="Lettera" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="3" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="lettera"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfInterno" label="Interno" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="4" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="interno"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfUbicazione" label="Ubicazione" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="9" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="ubicazione"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="TCircoscrizione" label="Circoscrizione" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="8" column="1" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="circoscrizione.descrizione"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="aggiornaPratica">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                    <results resultCode="errore">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaDatiPratica" postExecData="//@appDataDefs/@appData.6 //@appDataDefs/@appData.39">
+            <results resultCode="ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpReferto" appData="//@appDataDefs/@appData.9 //@appDataDefs/@appData.10 //@appDataDefs/@appData.1 //@appDataDefs/@appData.11">
+          <panels xsi:type="guigen:FormPanel" name="pReferti" label="Referti">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bNuovoReferto" label="Nuovo Referto">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiPratica" label="Dati Pratica">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:Table" name="tblPratiche" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                <databinding appData="//@appDataDefs/@appData.10" path=""/>
+                <multiDataBinding appData="//@appDataDefs/@appData.9" path=""/>
+                <columnModel valueSelector="idRef">
+                  <columns selector="dataRef" label="Data Referto"/>
+                  <columns selector="dataSopralluogo" label="Data Sopralluogo"/>
+                  <columns selector="tecnico" label="Tecnico"/>
+                </columnModel>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pSeleziona" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:Button" name="selezionaRef" label="Seleziona" image="">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioReferto" postExecData="//@appDataDefs/@appData.11">
+                    <results resultCode="selezioneReferto">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDettaglioRef" label="">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextArea" name="oggettoRef" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.11" path=""/>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaIndirizzi" postExecData="//@appDataDefs/@appData.1">
+            <results resultCode="ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpNuovoReferto" appData="//@appDataDefs/@appData.13 //@appDataDefs/@appData.12">
+          <panels xsi:type="guigen:FormPanel" name="pReferti" label="Referti">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:CommandPanel" name="pFrasario" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:Button" name="bFrasario" label="Frasario" image="">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDettaglioFrasario" label="">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextArea" name="frasarioRef" dataType="//@typedefs/@types.7"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiPratica" label="Dati Pratica">
+              <layout xsi:type="guigen:GridPanelLayout" columns="1" rows="3"/>
+              <widgets xsi:type="guigen:TextField" name="tTecnico" label="Tecnico" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="1"/>
+              </widgets>
+              <widgets xsi:type="guigen:Calendar" name="cDataSopralluogo" label="Data Sopralluogo" dataType="//@typedefs/@types.3">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="1"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tNote" label="Note" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="1"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma" defaultEnabled="false"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="Frasario" appData="//@appDataDefs/@appData.12 //@appDataDefs/@appData.13 //@appDataDefs/@appData.14">
+          <panels xsi:type="guigen:FormPanel" name="cpFrasi" label="Frasario">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pFrasario" label="Frasario">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ComboBox" name="comboFrasi" label="Descrizione" dataType="//@typedefs/@types.7" valueSelector="">
+                <eventHandlers eventType="VALUE_CHANGED">
+                  <command xsi:type="guigen:ExecCommand" methodName="visualizzaFrase" postExecData="//@appDataDefs/@appData.14">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+                <databinding appData="//@appDataDefs/@appData.13"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.12"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextArea" name="testo" label="Testo Completo della Frase" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pMenuRicerca">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="fraseSelezionata" postExecData="//@appDataDefs/@appData.14">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaFrasi" postExecData="//@appDataDefs/@appData.13">
+            <results resultCode="ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpComunicazioni" appData="//@appDataDefs/@appData.18 //@appDataDefs/@appData.17">
+          <panels xsi:type="guigen:FormPanel" name="pComunicazioni" label="Comunicazioni">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiProtocollo" label="Comunicazioni Protocollate">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:Table" name="tblPratiche" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                <databinding appData="//@appDataDefs/@appData.18" path=""/>
+                <multiDataBinding appData="//@appDataDefs/@appData.17" path=""/>
+                <columnModel valueSelector="numeroProtocollo">
+                  <columns selector="data" label="Data Protocollo"/>
+                  <columns selector="numeroProtocollo" label="Numero Protocollo"/>
+                  <columns selector="tipoProtocollo" label="Tipo Protocollo"/>
+                  <columns selector="oggetto" label="Oggetto"/>
+                </columnModel>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma" defaultEnabled="false"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpCercaSoggetto" appData="//@appDataDefs/@appData.19 //@appDataDefs/@appData.20 //@appDataDefs/@appData.21 //@appDataDefs/@appData.22">
+          <panels xsi:type="guigen:FormPanel" name="pCercaSoggetto" label="Cerca Soggetto">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:StdMessagePanel" name="ValidaSoggettoField" showGlobalMessages="true"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiSoggetto" label="Dati Soggetto">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="tCognome" label="Cognome" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.20"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tNome" label="Nome" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.21"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbSoggetto" label="Dati Soggetto" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="datiSoggetto">
+                <multiDataBinding appData="//@appDataDefs/@appData.19"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:Button" name="cercaSoggetti" label="Cerca Soggetti" image="">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="cercaSoggettiGMS" postExecData="//@appDataDefs/@appData.19">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma" defaultEnabled="false"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpCercaIndirizzo" appData="//@appDataDefs/@appData.15 //@appDataDefs/@appData.16 //@appDataDefs/@appData.25 //@appDataDefs/@appData.24 //@appDataDefs/@appData.23 //@appDataDefs/@appData.6 //@appDataDefs/@appData.40 //@appDataDefs/@appData.41 //@appDataDefs/@appData.42 //@appDataDefs/@appData.43">
+          <panels xsi:type="guigen:FormPanel" name="fmCercaIndirizzo" label="Cerca Indirizzo">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:StdMessagePanel" name="cercaIndirizzoValida" showGlobalMessages="true"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pCercaIndirizzo" label="Cerca Indirizzo">
+              <layout xsi:type="guigen:GridPanelLayout" columnSizes="12,12,12,12,12,12,14,14" columns="4" rows="5"/>
+              <widgets xsi:type="guigen:TextField" name="tIndirizzo" label="Indirizzo" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="2"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="indirizzo.descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbIndirizzo" label="Indirizzo" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3" hspan="2"/>
+                <eventHandlers eventType="VALUE_CHANGED">
+                  <command xsi:type="guigen:ExecCommand" methodName="popolaIndirizzo" postExecData="//@appDataDefs/@appData.16">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+                <databinding appData="//@appDataDefs/@appData.6" path="indirizzo.chiave"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.15" path=""/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfCivico" label="Num. civico" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="numeroCivico"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfLettera" label="Lettera" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="lettera"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfInterno" label="Interno" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="4" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="interno"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfUbicazione" label="Ubicazione" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="ubicazione"/>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="caricaIndirizzo" label="Carica Indirizzi" image="">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaInidirizziToponomastica" postExecData="//@appDataDefs/@appData.15">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bValida" label="Valida Indirizzo">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="2" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="validaVia" postExecData="//@appDataDefs/@appData.23">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="conferma" label="Conferma" image="">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="3" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="conferma">
+                    <results resultCode="nuova">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                    </results>
+                    <results resultCode="indirizzoErrato">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                    <results resultCode="modifica">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bIndietro" label="Indietro">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="4" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="tornaIndietro">
+                    <results resultCode="nuova">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                    </results>
+                    <results resultCode="modifica">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbBis" label="Bis" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="bis.chiave"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.40" path=""/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cCircoscrizione" label="Circoscrizione" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="4"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="circoscrizione.chiave"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.41"/>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaBis" postExecData="//@appDataDefs/@appData.40 //@appDataDefs/@appData.15">
+            <results resultCode="ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpCercaIndirizzoPerFiltro" appData="//@appDataDefs/@appData.15 //@appDataDefs/@appData.16 //@appDataDefs/@appData.25 //@appDataDefs/@appData.24 //@appDataDefs/@appData.23 //@appDataDefs/@appData.6 //@appDataDefs/@appData.40 //@appDataDefs/@appData.41 //@appDataDefs/@appData.42 //@appDataDefs/@appData.43 //@appDataDefs/@appData.35">
+          <panels xsi:type="guigen:FormPanel" name="fmCercaIndirizzoPerFiltro" label="Cerca Indirizzo">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:StdMessagePanel" name="ValidaFieldCampiIndFilro" showGlobalMessages="true"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pCercaIndirizzo" label="Cerca Indirizzo">
+              <layout xsi:type="guigen:GridPanelLayout" columnSizes="12,12,12,12,12,12,14,14" columns="4" rows="10"/>
+              <widgets xsi:type="guigen:TextField" name="tIndirizzo" label="Indirizzo" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="2"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="indirizzo.descrizione"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbIndirizzo" label="Lista indirizzi" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="2"/>
+                <eventHandlers eventType="VALUE_CHANGED">
+                  <command xsi:type="guigen:ExecCommand" methodName="popolaIndirizzo" postExecData="//@appDataDefs/@appData.16">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+                <databinding appData="//@appDataDefs/@appData.6" path="indirizzo.chiave"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.15" path=""/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfCivico" label="Num. civico" dataType="//@typedefs/@types.7">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3" hspan="1"/>
+                <databinding appData="//@appDataDefs/@appData.6" path="numeroCivico"/>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="caricaIndirizzo" label="Carica Indirizzi" image="">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="caricaInidirizziToponomastica" postExecData="//@appDataDefs/@appData.15">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bValida" label="Valida Indirizzo">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="2" hspan="1"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="validaVia" postExecData="//@appDataDefs/@appData.23">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pPanelButton" label="">
+              <widgets xsi:type="guigen:Button" name="conferma" label="Conferma" image="">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="conferma">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                    <results resultCode="indirizzoErrato">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bIndietro" label="Indietro">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaBis" postExecData="//@appDataDefs/@appData.40 //@appDataDefs/@appData.15">
+            <results resultCode="ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpInconvenienti" appData="//@appDataDefs/@appData.45 //@appDataDefs/@appData.44">
+          <panels xsi:type="guigen:FormPanel" name="pInconvenienti" label="Inconvenienti">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:StdMessagePanel" name="validaInconveniente" label="" showGlobalMessages="true"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiInconveniente" label="Dati Inconveniente">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:Table" name="tblInconvenienti" dataType="//@typedefs/@types.7" summary="">
+                <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                <databinding appData="//@appDataDefs/@appData.44" path=""/>
+                <multiDataBinding appData="//@appDataDefs/@appData.45" path=""/>
+                <columnModel valueSelector="chiave">
+                  <columns selector="descrizione" label="Descrizione" multidataKeySelector="" multidataValueSelector="" multidataPropertySelector=""/>
+                  <columns selector="numPratica" label="Numero Pratica"/>
+                </columnModel>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pMenu">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="pNuovoInconveniente" label="Nuovo Inconveniente" image="">
+                <eventHandlers skipValidation="true">
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.11"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="pEliminaInconveniente" label="Elimina Inconveniente" image="">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="eliminaInconveniente" postExecData="//@appDataDefs/@appData.45">
+                    <results resultCode="OK">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                    <results resultCode="KO">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand" label="">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="pAnnulla" label="Annulla" image="">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpNuovoInconveniente" appData="//@appDataDefs/@appData.45 //@appDataDefs/@appData.37 //@appDataDefs/@appData.44">
+          <panels xsi:type="guigen:FormPanel" name="pNuovoInconveniente" label="Nuovo Inconveniente">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:StdMessagePanel" name="validaInconveniente" label="" showGlobalMessages="true"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pInserisciInconveniente" label="Inserisci Inconveniente">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ComboBox" name="comboInconvenienti" label="Descrizione" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                <databinding appData="//@appDataDefs/@appData.44"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.37"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pCommand">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="inserisciInconveniente" postExecData="//@appDataDefs/@appData.45">
+                    <results resultCode="OK">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.10"/>
+                    </results>
+                    <results resultCode="KO">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.10"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <modules name="nuoveFunzionalita">
+          <contentPanels name="cpGestioneAnagrafica" appData="//@appDataDefs/@appData.46 //@appDataDefs/@appData.49 //@appDataDefs/@appData.48 //@appDataDefs/@appData.8 //@appDataDefs/@appData.52 //@appDataDefs/@appData.51 //@appDataDefs/@appData.53 //@appDataDefs/@appData.54 //@appDataDefs/@appData.47 //@appDataDefs/@appData.56">
+            <panels xsi:type="guigen:FormPanel" name="pGestioneAnagrafica" label="Gestione Anagrafiche Coinvolte">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="errore selezione" showGlobalMessages="true"/>
+              <subpanels xsi:type="guigen:FormPanel" name="Gestione Ente" label="">
+                <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                <subpanels xsi:type="guigen:FormPanel" name="pTabella" label="Persone Fisiche / Persone Giuridiche / Enti ">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pGestAnagrafica" label="Gestione anagrafica" summary="">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:Table" name="tblAnagrafiche" label="" dataType="//@typedefs/@types.7">
+                      <databinding appData="//@appDataDefs/@appData.47" path=""/>
+                      <multiDataBinding appData="//@appDataDefs/@appData.46"/>
+                      <columnModel valueSelector="idAnagrafica">
+                        <columns selector="personaPratica.ruolo.descrizione" label="Ruolo" multidataKeySelector="" multidataValueSelector="" multidataPropertySelector=""/>
+                        <columns selector="nominativo" label="Nominativo" multidataKeySelector=""/>
+                        <columns selector="personaPratica.dataInizio" label="Data Inizio"/>
+                        <columns selector="personaPratica.dataFine" label="Data Fine" multidataKeySelector="" multidataValueSelector=""/>
+                      </columnModel>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="treePanel" label="">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                  <subpanels xsi:type="guigen:MenuPanel" name="pDettagli">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:TreeView" name="treeProvvedimenti" label="" dataType="//@typedefs/@types.7">
+                      <eventHandlers>
+                        <command xsi:type="guigen:ExecCommand" methodName="dettaglioProvvedimento" postExecData="//@appDataDefs/@appData.53">
+                          <results resultCode="OK">
+                            <command xsi:type="guigen:NOPCommand"/>
+                          </results>
+                        </command>
+                      </eventHandlers>
+                      <multiDataBinding appData="//@appDataDefs/@appData.49"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TreeView" name="treeComunicazioni" label="" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                      <eventHandlers>
+                        <command xsi:type="guigen:ExecCommand" methodName="dettaglioComunicazioni" postExecData="//@appDataDefs/@appData.53">
+                          <results resultCode="OK">
+                            <command xsi:type="guigen:NOPCommand"/>
+                          </results>
+                        </command>
+                      </eventHandlers>
+                      <multiDataBinding appData="//@appDataDefs/@appData.48"/>
+                    </widgets>
+                  </subpanels>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pDettaglioSoggetto" label="">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:TextArea" name="dettaglioProvvCom" defaultEnabled="false" dataType="//@typedefs/@types.21">
+                      <databinding appData="//@appDataDefs/@appData.53" path=""/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="informazioniSogg">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pInfo">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextArea" name="infoSogg" defaultEnabled="false" dataType="//@typedefs/@types.7" rows="1" columns="60">
+                    <databinding appData="//@appDataDefs/@appData.56"/>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCommand">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla" image="">
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bVisualizzaComunicazioni" label="Visualizza Comunicazioni">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="caricaComunicazioniPersona" postExecData="//@appDataDefs/@appData.48">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bVisualizzaProvvedimenti" label="Visualizza Provvedimenti">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="caricaProvvedimentiPersona" postExecData="//@appDataDefs/@appData.49">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bDettaglioSoggetto" label="Dettaglio Soggetto">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="dettaglioSoggetto" postExecData="//@appDataDefs/@appData.56">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnullaSoggetto" label="Annulla Soggetto">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="caricaAnagraficaSelezionata" postExecData="//@appDataDefs/@appData.54">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.1"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpAnnullaSoggettoPratica" appData="//@appDataDefs/@appData.54 //@appDataDefs/@appData.46 //@appDataDefs/@appData.55 //@appDataDefs/@appData.8 //@appDataDefs/@appData.47">
+            <panels xsi:type="guigen:FormPanel" name="Annulla" label="Annulla Soggetto">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="annullaSoggMessage" showGlobalMessages="true"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pAnnsogg">
+                <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pDettaglioSoggetto">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                  <widgets xsi:type="guigen:TextArea" name="tDettSogg" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.7" rows="5">
+                    <databinding appData="//@appDataDefs/@appData.54"/>
+                  </widgets>
+                </subpanels>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pAnnullaSogg">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                  <widgets xsi:type="guigen:Calendar" name="cDataAnnull" label="impostare la Data" dataType="//@typedefs/@types.3">
+                    <databinding appData="//@appDataDefs/@appData.55"/>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="bFun" label="">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="annullaSoggettoPratica" postExecData="//@appDataDefs/@appData.46">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpMovimenti" appData="//@appDataDefs/@appData.57 //@appDataDefs/@appData.58 //@appDataDefs/@appData.60 //@appDataDefs/@appData.59">
+            <panels xsi:type="guigen:FormPanel" name="pElencoMovimenti">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="elencoMovMessage" label="" showGlobalMessages="true"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pMovimenti" label="Elenco Moviementi">
+                <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                <subpanels xsi:type="guigen:FormPanel" name="pInfoMovimenti">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pInfoMov">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:Table" name="bVisualizzaMovimenti" dataType="//@typedefs/@types.7">
+                      <databinding appData="//@appDataDefs/@appData.58"/>
+                      <multiDataBinding appData="//@appDataDefs/@appData.57"/>
+                      <columnModel valueSelector="codMovimento">
+                        <columns selector="dataMovimento" label="Data Movimento" multidataValueSelector=""/>
+                        <columns selector="nomeOperatore" label="Nominativo Operatore"/>
+                        <columns selector="ufficioOperatore" label="Ufficio Operatore"/>
+                      </columnModel>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="pDettaglioMov">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pDettagMov">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:TextArea" name="tDettMovimenti" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                      <databinding appData="//@appDataDefs/@appData.59" path=""/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="bFun">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bNuovoMovimento" label="Nuovo Movimento">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="caricaMovimentoVuoto">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.3"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bVisualizzaDettMovimento" label="Dettaglio Movimento">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="visualizzaDettaglioMovimento" postExecData="//@appDataDefs/@appData.59">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bModificaMovimento" label="Modifica Movimento">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="caricaMovimentoSelzionato" postExecData="//@appDataDefs/@appData.60">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.4"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpNuovoMovimento" appData="//@appDataDefs/@appData.38 //@appDataDefs/@appData.60 //@appDataDefs/@appData.8">
+            <panels xsi:type="guigen:FormPanel" name="pNuovoMovimento">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pInsMovimento">
+                <layout xsi:type="guigen:GridPanelLayout" columns="1" rows="3"/>
+                <widgets xsi:type="guigen:ComboBox" name="cbOperatore" label="Operatore" dataType="//@typedefs/@types.7" keySelector="chiave" valueSelector="descrizione">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                  <databinding appData="//@appDataDefs/@appData.60" path="chiaveOperatore"/>
+                  <multiDataBinding appData="//@appDataDefs/@appData.38"/>
+                </widgets>
+                <widgets xsi:type="guigen:Calendar" name="cDataMovimento" label="Data Movimento" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  <databinding appData="//@appDataDefs/@appData.60" path="dataMovimento"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tNote" label="Note" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                  <databinding appData="//@appDataDefs/@appData.60" path="note"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="bCommand" label="">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.2"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="inserisciMovimento">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.2"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpModificaMovimento" appData="//@appDataDefs/@appData.60 //@appDataDefs/@appData.57 //@appDataDefs/@appData.58">
+            <panels xsi:type="guigen:FormPanel" name="pModificaMovimento">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pModMovimento">
+                <layout xsi:type="guigen:GridPanelLayout" columns="1" rows="3"/>
+                <widgets xsi:type="guigen:TextField" name="tOperatore" label="Operatore" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                  <databinding appData="//@appDataDefs/@appData.60" path="nomeOperatore"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tDataMovimento" label="Data Movimento" defaultEnabled="false" dataType="//@typedefs/@types.3">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  <databinding appData="//@appDataDefs/@appData.60" path="dataMovimento"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tNote" label="Note" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                  <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                  <databinding appData="//@appDataDefs/@appData.60" path="note"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="bCommand" label="">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="Annulla">
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.2"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="Conferma">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="modificaMovimento" postExecData="//@appDataDefs/@appData.57">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.2"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </panels>
+          </contentPanels>
+        </modules>
+        <modules name="InfoPratica">
+          <contentPanels name="cpInfoaPratica">
+            <panels xsi:type="guigen:FormPanel" name="pInfoPratica" label="Informazioni Pratica">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiPratica" label="Dati Pratica">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextArea" name="tInfo" dataType="//@typedefs/@types.7"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCommandInfo" label="">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bConfermaInfo" label="Conferma"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnullaInfo" label="Annulla"/>
+              </subpanels>
+            </panels>
+            <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaInfoPratica">
+              <results resultCode="ok">
+                <command xsi:type="guigen:NOPCommand"/>
+              </results>
+            </onRefreshCommand>
+          </contentPanels>
+        </modules>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="TreeNode" code="TREE_NODE" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:TypedArray" name="Array of TreeNode" componentType="//@typedefs/@types.13"/>
+    <types xsi:type="guigen:ComplexType" name="UserInfo">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="ente" type="//@typedefs/@types.7"/>
+      <fields name="ruolo" type="//@typedefs/@types.7"/>
+      <fields name="idIride" type="//@typedefs/@types.7"/>
+    </types>
+    <namespaces name="ispedfe">
+      <types xsi:type="guigen:ComplexType" name="Indirizzo">
+        <fields name="chiave" type="//@typedefs/@types.7"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Indirizzo[]" componentType="//@typedefs/@namespaces.0/@types.0"/>
+      <types xsi:type="guigen:ComplexType" name="Pratica">
+        <fields name="progr" type="//@typedefs/@types.7"/>
+        <fields name="num" type="//@typedefs/@types.7"/>
+        <fields name="creata" type="//@typedefs/@types.3"/>
+        <fields name="indirizzo" type="//@typedefs/@types.7"/>
+        <fields name="inManoA" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Pratica []" componentType="//@typedefs/@namespaces.0/@types.2"/>
+      <types xsi:type="guigen:ComplexType" name="DatiPratica">
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+        <fields name="note" type="//@typedefs/@types.7"/>
+        <fields name="segnalazione" type="//@typedefs/@namespaces.0/@types.17"/>
+        <fields name="numeroManuale" type="//@typedefs/@types.7"/>
+        <fields name="dataApertura" type="//@typedefs/@types.3"/>
+        <fields name="indirizzo" type="//@typedefs/@namespaces.0/@types.0" dataTypeModifier=""/>
+        <fields name="numeroCivico" type="//@typedefs/@types.8"/>
+        <fields name="bis" type="//@typedefs/@namespaces.0/@types.19"/>
+        <fields name="lettera" type="//@typedefs/@types.7"/>
+        <fields name="interno" type="//@typedefs/@types.8"/>
+        <fields name="circoscrizione" type="//@typedefs/@namespaces.0/@types.16" dataTypeModifier=""/>
+        <fields name="ubicazione" type="//@typedefs/@types.7"/>
+        <fields name="chiaveVia" type="//@typedefs/@types.7"/>
+        <fields name="numeroPratica" type="//@typedefs/@types.8" dataTypeModifier=""/>
+        <fields name="anno" type="//@typedefs/@types.3"/>
+        <fields name="dataCreazione" type="//@typedefs/@types.3"/>
+        <fields name="creataDa" type="//@typedefs/@namespaces.0/@types.14"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="DatiReferto">
+        <fields name="dataRef" type="//@typedefs/@types.7"/>
+        <fields name="dataSopralluogo" type="//@typedefs/@types.7"/>
+        <fields name="tecnico" type="//@typedefs/@types.7"/>
+        <fields name="idRef" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Referto []" componentType="//@typedefs/@namespaces.0/@types.5"/>
+      <types xsi:type="guigen:ComplexType" name="Protocollo">
+        <fields name="data" type="//@typedefs/@types.7"/>
+        <fields name="tipoProtocollo" type="//@typedefs/@types.7"/>
+        <fields name="oggetto" type="//@typedefs/@types.7"/>
+        <fields name="numeroProtocollo" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Protocollo[]" componentType="//@typedefs/@namespaces.0/@types.7"/>
+      <types xsi:type="guigen:ComplexType" name="Soggetto">
+        <fields name="chiave" type="//@typedefs/@types.7"/>
+        <fields name="datiSoggetto" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Soggetto[]" componentType="//@typedefs/@namespaces.0/@types.9"/>
+      <types xsi:type="guigen:ComplexType" name="FiltroBean">
+        <fields name="numeroPratica" type="//@typedefs/@types.8" dataTypeModifier=""/>
+        <fields name="dataRegistrazioneDal" type="//@typedefs/@types.3"/>
+        <fields name="dataRegistrazioneAl" type="//@typedefs/@types.3"/>
+        <fields name="archiviata" type="//@typedefs/@types.9"/>
+        <fields name="dataArchiviateDal" type="//@typedefs/@types.3"/>
+        <fields name="dataArchiviateAl" type="//@typedefs/@types.3"/>
+        <fields name="tipoInconveniente" type="//@typedefs/@types.8"/>
+        <fields name="numeroManuale" type="//@typedefs/@types.8" dataTypeModifier=""/>
+        <fields name="dataAperturaManuale" type="//@typedefs/@types.3"/>
+        <fields name="codiceOperatore" type="//@typedefs/@types.8"/>
+        <fields name="indirizzo" type="//@typedefs/@namespaces.0/@types.0" dataTypeModifier=""/>
+        <fields name="civico" type="//@typedefs/@types.8"/>
+        <fields name="circoscrizione" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Inconveniente">
+        <fields name="chiave" type="//@typedefs/@types.8"/>
+        <fields name="descrizione" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Inconveniente[]" componentType="//@typedefs/@namespaces.0/@types.12"/>
+      <types xsi:type="guigen:ComplexType" name="Operatore">
+        <fields name="chiave" type="//@typedefs/@types.8"/>
+        <fields name="descrizione" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Operatore[]" componentType="//@typedefs/@namespaces.0/@types.14"/>
+      <types xsi:type="guigen:ComplexType" name="Circoscrizione">
+        <fields name="chiave" type="//@typedefs/@types.8"/>
+        <fields name="descrizione" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Segnalazione">
+        <fields name="chiave" type="//@typedefs/@types.8"/>
+        <fields name="descrizione" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Segnalazione[]" componentType="//@typedefs/@namespaces.0/@types.17"/>
+      <types xsi:type="guigen:ComplexType" name="Bis">
+        <fields name="chiave" type="//@typedefs/@types.8"/>
+        <fields name="descrizione" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Bis[]" componentType="//@typedefs/@namespaces.0/@types.19"/>
+      <types xsi:type="guigen:ComplexType" name="Circoscrizione">
+        <fields name="chiave" type="//@typedefs/@types.8"/>
+        <fields name="descrizione" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Circoscrizione[]" componentType="//@typedefs/@namespaces.0/@types.16"/>
+      <types xsi:type="guigen:ComplexType" name="InconvenientePratica">
+        <fields name="chiave" type="//@typedefs/@types.8" dataTypeModifier=""/>
+        <fields name="numPratica" type="//@typedefs/@types.7"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="InconvenientePratica[]" componentType="//@typedefs/@namespaces.0/@types.23"/>
+      <types xsi:type="guigen:ComplexType" name="Ruolo">
+        <fields name="chiave" type="//@typedefs/@types.8" dataTypeModifier=""/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="PersonaPratica">
+        <fields name="ruolo" type="//@typedefs/@namespaces.0/@types.25" dataTypeModifier=""/>
+        <fields name="dataInizio" type="//@typedefs/@types.3"/>
+        <fields name="dataFine" type="//@typedefs/@types.3"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="AnagraficaPratica">
+        <fields name="idAnagrafica" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="nominativo" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="personaPratica" type="//@typedefs/@namespaces.0/@types.26"/>
+        <fields name="indirizzoResidenza" type="//@typedefs/@namespaces.0/@types.0"/>
+        <fields name="indirizzoRecapito" type="//@typedefs/@namespaces.0/@types.0"/>
+        <fields name="idGMS" type="//@typedefs/@types.0"/>
+        <fields name="nominativoPersRiferimeto" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="telRecapito" type="//@typedefs/@types.7"/>
+        <fields name="telResidenza" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="AnagraficaPratica[]" componentType="//@typedefs/@namespaces.0/@types.27"/>
+      <types xsi:type="guigen:ComplexType" name="Movimento">
+        <fields name="codMovimento" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="nomeOperatore" type="//@typedefs/@types.7"/>
+        <fields name="dataMovimento" type="//@typedefs/@types.3"/>
+        <fields name="ufficioOperatore" type="//@typedefs/@types.7"/>
+        <fields name="note" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="chiaveOperatore" type="//@typedefs/@types.8"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Movimenti[]" componentType="//@typedefs/@namespaces.0/@types.29"/>
+    </namespaces>
+  </typedefs>
+  <appDataDefs>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.28"/>
+    <appData name="indirizzi" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
+    <appData name="pratiche" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.3"/>
+    <appData name="soggettiPratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.13"/>
+    <appData name="dettaglioSoggetto" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="praticaSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.2"/>
+    <appData name="datiPratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.4"/>
+    <appData name="filtroOn" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+    <appData name="idPraticaSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="referti" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.6"/>
+    <appData name="idRefertoSelezionato" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="dettaglioReferto" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="Frasi" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.21"/>
+    <appData name="fraseSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="idFraseSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="indirizziToponomastica" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
+    <appData name="indirizzoDaCercare" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="arrayProtocollo" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.8"/>
+    <appData name="idComunicazioneSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="soggettoGms" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.10"/>
+    <appData name="cognome" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="nome" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="datiSoggettoString" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="viaValida" type="//@typedefs/@types.1"/>
+    <appData name="civicoDaCercare" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="indirizzoSelezionato" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="numeroPratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.0"/>
+    <appData name="dataRegistrazioneDal" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.3"/>
+    <appData name="dataRegistrazioneAl" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.3"/>
+    <appData name="dataArchiviateDal" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.3"/>
+    <appData name="dataArchiviateAl" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.3"/>
+    <appData name="numeroManuale" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="dataAperturaManuale" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.3"/>
+    <appData name="indirizzo" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="civico" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.0"/>
+    <appData name="filtroRicerca" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.11"/>
+    <appData name="radioArchiviate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+    <appData name="elencoInconvenienti" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.13"/>
+    <appData name="elencoOperatori" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.15"/>
+    <appData name="segnalazione" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.18"/>
+    <appData name="bisInd" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.20"/>
+    <appData name="circoscrizioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.22"/>
+    <appData name="circoscrizione" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.16"/>
+    <appData name="funzionalitaNuova" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+    <appData name="idInconvenienteSelezionato" type="//@typedefs/@types.0"/>
+    <appData name="InconvenientiDaPratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.24"/>
+    <appData name="anagrafichePratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.28"/>
+    <appData name="idAnagraficaPraticaSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="comunicazioniSoggettoPratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.13"/>
+    <appData name="provvedimentiSoggettoPratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.13"/>
+    <appData name="soggettoSelezionato" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="idProvvedimentoSelezionato" type="//@typedefs/@types.0"/>
+    <appData name="idComunicazioneSelez" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="informazioniSoggetto" type="//@typedefs/@types.7"/>
+    <appData name="anagraficaSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="dataAnnullamentoSoggetto" type="//@typedefs/@types.3"/>
+    <appData name="dettSogg" type="//@typedefs/@types.7"/>
+    <appData name="elencoMovimenti" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.30"/>
+    <appData name="idMovimentoSelezionato" type="//@typedefs/@types.7"/>
+    <appData name="dettaglioMovimento" type="//@typedefs/@types.7"/>
+    <appData name="movimentoSelezionato" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.29"/>
+  </appDataDefs>
+  <targetPlatform/>
+</guigen:GUIModel>

@@ -1,0 +1,1493 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+ 
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/action";
+
+String getPresentationJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".action";
+
+String getPresentationRootJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation";
+	
+String getPresentationRootJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation";
+
+String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/jsp";
+	
+String getPresentationMarkupConfig() :
+	"jsp";	
+
+String getPresentationJavaPath(GUIModel model) :
+	getBaseJavaPath(model) + "/presentation/" + model.codComponente + "/action";
+
+String getValidationJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/validator";
+
+String getValidationJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".validator";
+
+String getFiltersJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/filter";
+
+String getFiltersJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".filter";
+
+String getSecurityJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/security";
+
+String getSecurityJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".security";
+
+String getInterceptorsJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/interceptor";
+
+String getInterceptorsJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".interceptor";
+
+String getDispatcherJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/dispatcher";
+
+String getDispatcherJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".dispatcher";
+
+
+String getServletsJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/servlet";
+	
+String getServletsJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".servlet";	
+
+String getUIUtilsJavaSrcDir(GUIModel model, boolean omit_root) :
+	getPresentationRootJavaSrcDir(model, omit_root) + "/uiutils";
+
+String getUIUtilsJavaPackage(GUIModel model) :
+	getPresentationRootJavaPackage(model) + ".uiutils";
+
+String getMultiPortalUtilsJavaSrcDir(GUIModel model, boolean omit_root) :
+	getPresentationRootJavaSrcDir(model, omit_root) + "/multiportalutils";
+
+String getMultiPortalUtilsJavaPackage(GUIModel model) :
+	getPresentationRootJavaPackage(model) + ".multiportalutils";
+String getWAYFInfoSourceType(WAYFRequestAdapter requestAdapter) : 
+		
+		switch (requestAdapter.sourceType){
+			case InfoSourceTypes::REQUEST_PARAM : 
+				"RequestParam"
+			case InfoSourceTypes::REQUEST_HEADER : 
+				"Header"
+			case InfoSourceTypes::REQUEST_COOKIE : 
+				"Cookie"
+			case InfoSourceTypes::SESSION_ATTRIBUTE : 
+				"SessionAttribute"
+			case InfoSourceTypes::REQUEST_ATTRIBUTE : 
+				"RequestAttribute"
+			default : 
+				null
+		};
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Files di configurazione di Struts2
+
+String getStrutsConfigFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/struts.xml";
+
+String getStrutsGlobalConfigFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/struts-global.xml";
+
+String getStrutsApplicationConfigFile(GUIModel model, boolean omit_root, String fileName) :
+	getWebModuleConfigDir(model, omit_root) + "/" + fileName + ".xml";
+
+String getStrutsValidationConfigFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/validators.xml";
+
+String getStrutsGlobalMessagesPropertiesFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/globalMessages.properties";
+
+String getStrutsTypeConvertersPropertiesFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/xwork-conversion.properties";
+
+// [DM] STDMDD-1100: suddivisione delle action struts in package/namespace a seconda della struttura logica del modello
+String getBasicNamespace(boolean omitRoot) :
+	//(omitRoot ? "" : "/") + "ctrl";
+	(omitRoot ? "" : "/");
+
+String getBaseNamespace(boolean omitRoot) :
+	getBasicNamespace(omitRoot) + "base";
+
+String getSecureNamespace(boolean omitRoot) :
+	getBasicNamespace(omitRoot) + "secure";
+
+String getContentPanelNamespace(ContentPanel cp, boolean omitRoot) :
+	if cp.eContainer.metaType == AppModule then
+		// ContentPanel in AppModule
+		getAppModuleNamespace((AppModule)cp.eContainer, omitRoot)
+	else
+		// il ContentPanel NON � in un AppModule
+		getBaseNamespace(omitRoot);
+		
+String getAppModuleNamespace(AppModule am, boolean omitRoot) :
+	(am.secure ? getSecureNamespace(omitRoot) : getBaseNamespace(omitRoot)) + "/" + am.name;
+		
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// File javascript
+
+String getJavascriptSrcDir(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/js";
+
+String getEnrichmentFileWebRootRelative(ContentPanel cp, GUIModel model) :
+	"enrichments/"+cp.name+".js";
+	
+String getLocalLibsFileWebRootRelative(ContentPanel cp, GUIModel model) :
+	"localLibs.js";
+	
+String getEnrichmentFile(ContentPanel cp, GUIModel model, boolean omit_root) :
+	getJavascriptSrcDir(model, omit_root) + "/"+getEnrichmentFileWebRootRelative(cp, model);
+
+String getJsFunctionsFile(GUIModel model, boolean omit_root) :
+	getJavascriptSrcDir(model, omit_root) + "/jsFunctions.js";
+	
+String getJsFunctionsFilePath() :
+	"<%=request.getContextPath()%>/" + getJsPath() + "jsFunctions.js";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Files di configurazione di Spring
+
+String getSpringEjbConfigurationFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/beanContext.xml";
+
+String getGisMapPdConfigurationFile(GUIModel model, boolean omit_root) :
+	getEjbConfigRootDir(model, omit_root) + "/business/" + model.codComponente + "/map-config/pd_gosgisso_baseservice.xml";
+
+String getGisMapPdPropertiesFile(GUIModel model, boolean omit_root) :
+	getEjbConfigRootDir(model, omit_root) + "/business/" + model.codComponente + "/map-config/gosgissobase-delegate.properties";
+		
+String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/applicationContext.xml";
+
+String getSpringDaoConfigurationFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/dao-beans.xml";
+	
+String getSpringGisMapConfigurationFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/gis-beans.xml";
+	
+String getSpringGisMapPropertiesFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/gisMapConf.properties";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Files di configurazione servizi supplier
+
+String getSpringIRIDE2PDConfig(GUIModel model) :
+	getEjbConfigDir(model, true) + "/iride2_pep_defPD_ejb.xml";
+
+
+String getSpringPepauthPDConfig(GUIModel model) :
+	getWebModuleConfigDir(model, true) + "/SSOBARTPepAuthPD.xml";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Files JSP comuni
+
+// Index Page (for redirection purpoose only)
+String getIndexJspFile(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/index.jsp";
+
+// Home Page
+String getHomePageConfig(GUIModel model) :
+	getStrutsActionJspConfigName(model.structure.appWindow.appArea.homePage);
+
+// Error pages
+String getJspErrorPagesDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/error";
+
+// JSP Fragments (Header, footer, ecc...)
+String getJspFragmentsMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/fragments";
+
+// JSP Tab (Tabbed Panels Includes)
+String getJspTabsMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/tabs";
+
+String getJspTabsConfig() :
+	"/" + getPresentationMarkupConfig() + "/tabs";
+
+// Jsp MultiPanel includes
+String getJspMultiPanelsMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/multipanels";
+
+String getJspMultiPanelsConfig() :
+	"/" + getPresentationMarkupConfig() + "/multipanels";
+
+// Jsp WizardPanel includes
+String getJspWizardPanelsMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/wizardpanels";
+
+String getJspWizardPanelsConfig() :
+	"/" + getPresentationMarkupConfig() + "/wizardpanels";
+
+// JSP MultiPanels fragments
+String getJspMultiPanelFullName(GUIModel model, boolean omit_root, MultiPanel mp, Panel p, ContentPanel parentCP, String contextPrefix) :
+	if ( mp.metaType == MultiPanel ) then
+		getJspMultiPanelsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
+	else if ( mp.metaType == TabSetPanel ) then
+		getJspTabsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
+	else if ( mp.metaType == WizardPanel ) then
+		getJspWizardPanelsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp";
+
+String getMultiPanelJspInclude(MultiPanel mp, Panel p, ContentPanel parentCP, String contextPrefix) :
+	if ( mp.metaType == MultiPanel ) then
+		getJspMultiPanelsConfig() + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
+	else if ( mp.metaType == TabSetPanel ) then
+		getJspTabsConfig() + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
+	else if ( mp.metaType == WizardPanel ) then
+		getJspWizardPanelsConfig() + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp";
+
+String getMultiPanelName(MultiPanel mp, Panel p, ContentPanel parentCP, String contextPrefix) :
+	parentCP.name+ "_" + getFullID(mp,contextPrefix) + "_" + getFullID(p,contextPrefix);
+
+String getSelectedMultiPanelName(MultiPanel mp, ContentPanel parentCP, String contextPrefix) :
+	parentCP.name+ "_" + getFullID(mp,contextPrefix);
+
+// serve per l'attributo "id" dei submit nell'implementazione a input di tab e wizard
+String getTabSwitcherSubmitID(Widget switcher, Panel tab, String contextPrefix) :
+	getFullID(switcher, contextPrefix)+"_"+tab.name;
+	
+// JSP for UserDefinedPanels
+String getJspUserDefinedPanelMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/userpanels";
+
+String getJspUserDefinedPanelConfig() :
+	"/" + getPresentationMarkupConfig() + "/userpanels";
+
+// JSP for UserDefinedWidget
+String getJspUserDefinedWidgetMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/userwidgets";
+
+String getJspUserDefinedWidgetConfig() :
+	"/" + getPresentationMarkupConfig() + "/userwidgets";
+
+// JSP for DialogPanel
+String getJspDialogPanelMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/dialogpanels";
+	
+String getJspDialogPanelConfig() :
+	"/" + getPresentationMarkupConfig() + "/dialogpanels";
+
+String getJspDialogPanelFullName(GUIModel model, boolean omit_root, DialogPanel dp) :
+	getJspDialogPanelMarkupDir(model, omit_root) + "/" + findParentContentPanel(dp).name + "_" + dp.name + ".jsp";
+
+String getJspDialogPanelConfigName(DialogPanel dp) :
+	getJspDialogPanelConfig() + "/" + findParentContentPanel(dp).name + "_" + dp.name + ".jsp";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Classi Java comuni
+
+String getDTOBaseJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".dto";
+
+String getDTOBaseSrcDir(GUIModel model) :
+	getBaseJavaSrcDir(model, true)+"/dto";
+
+String getDTOClassName(ComplexType ct) :
+	ct.name.toFirstUpper();
+
+String getFQNDTOClassName(ComplexType ct, GUIModel model) :
+	getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg(ct,false,true)+getDTOClassName(ct);
+	
+String getFullDTOClassFile(ComplexType ct, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(ct,false,true)+getDTOClassName(ct)+".java";	
+
+
+String getModelDTOClassName(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
+    ( forMenu? "GlobalMenuModel":
+    	(forHome? "GlobalHomeModel": cp.name.toFirstUpper()+"Model") 
+    );
+
+String getModelDTOFQN(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
+	getDTOBaseJavaPackage(model) + "." +getAppModuleAsPkg(cp,false,true) + getModelDTOClassName(cp, forMenu, forHome, model);
+
+String getFullModelDTOClassFile(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getAppModuleAsFolder(cp,false, true)+getModelDTOClassName(cp, forMenu, forHome, model)+".java";
+
+String getUDTClassName(SimpleType t) : 
+	if (t.userDefined)then 
+		"UDT"+t.name 
+	else
+		"<<errore getUDT ClassName: "+t.name+" non � userDefined!>>";
+
+String getUDTFQN(SimpleType t, GUIModel model) :
+		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg(t,false,true)+getUDTClassName(t);
+		
+String getFullUDTClassFile(SimpleType t, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(t,false,true)+getUDTClassName(t)+".java";
+
+/// MENU
+String getStrutsMenuClassName(GUIModel model) :
+	"MenuAction";
+	
+String getStrutsMenuFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsMenuClassName(model);
+
+String getStrutsHomeClassName(GUIModel model) :
+	"HomeAction";
+	
+String getStrutsHomeFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsHomeClassName(model);
+	
+String getStrutsHomeJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsHomeClassName(model) + ".java";
+	
+String getStrutsMenuJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsMenuClassName(model) + ".java";
+
+String getStrutsLogoutJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsLogoutClassName(model) + ".java";
+
+String getStrutsLogoutClassName(GUIModel model) :
+	"LogoutAction";
+	
+String getStrutsLogoutFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsLogoutClassName(model);
+
+String getStrutsMenuConfigName(GUIModel model) :
+	"menuAction";
+
+String getStrutsHomePropertiesFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsHomeClassName(model) + ".properties";
+
+/// BaseAction
+String getStrutsBaseActionClassName(GUIModel model) :
+	"BaseAction";
+
+String getStrutsBaseActionFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsBaseActionClassName(model);
+
+String getStrutsBaseActionJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsBaseActionClassName(model) + ".java";
+
+String getIrideIdAdapterFilterClassName() :
+	"IrideIdAdapterFilter";
+	
+String getIrideIdAdapterFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getIrideIdAdapterFilterClassName();
+	
+String getIrideIdAdapterFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getIrideIdAdapterFilterClassName() + ".java";
+
+String getSessionGuardFilterClassName() :
+	"AppSessionGuardFilter";
+
+String getSessionGuardFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getSessionGuardFilterClassName();
+	
+String getSessionGuardFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getSessionGuardFilterClassName() + ".java";
+
+/// MDDDispatcher
+String getMDDDispatcherClassName() :
+	"MDDDispatcher";
+
+String getMDDDispatcherFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getMDDDispatcherClassName();
+	
+String getMDDDispatcherJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getMDDDispatcherClassName() + ".java";
+
+/// MDDStrutsFilter
+String getMDDStrutsFilterClassName() :
+	"MDDStrutsFilter";
+
+String getMDDStrutsFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getMDDStrutsFilterClassName();
+	
+String getMDDStrutsFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getMDDStrutsFilterClassName() + ".java";
+
+/// MDDFilterInitOperations
+String getMDDFilterInitOperationsClassName() :
+	"MDDInitOperations";	
+
+String getMDDFilterInitOperationsFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getMDDStrutsFilterClassName();
+	
+String getMDDFilterInitOperationsJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getMDDFilterInitOperationsClassName() + ".java";
+
+/// EncodingFixFilter
+String getEncodingFixFilterClassName() :
+	"EncodingFixFilter";	
+String getEncodingFixFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getEncodingFixFilterClassName();		
+String getEncodingFixFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getEncodingFixFilterClassName() + ".java";
+	
+String getIridePDCacheClassName() :
+	"IridePDCache";
+	
+String getIridePDCacheFQN(GUIModel model) :
+	getBaseJavaPackage(model) + ".business." + getIridePDCacheClassName();
+	
+String getIridePDCacheJavaFile(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/business/" + getIridePDCacheClassName() + ".java";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Action Struts2
+
+String getStrutsActionExtension() :
+	"do";
+
+String getStrutsActionCompleteExtension() :
+	"." + getStrutsActionExtension();
+
+String getStrutsActionClassName(ContentPanel panel) :
+	panel.name.toFirstUpper() + "Action";
+	
+String getStrutsActionJspName(ContentPanel panel) :
+	panel.name;
+
+String getStrutsActionConfigName(ContentPanel panel) :
+	panel.name;
+
+String getStrutsActionFQN(ContentPanel panel, GUIModel model) :
+	getPresentationJavaPackage(model) + getAppModuleAsPkg(panel,true, false) + "." + getStrutsActionClassName(panel);
+	
+String getStrutsActionPath(ContentPanel panel, GUIModel model) :
+	getPresentationJavaPath(model) + "/" +getAppModuleAsFolder(panel, false, true) + getStrutsActionClassName(panel);	
+	
+String getStrutsActionJavaFile(ContentPanel panel, GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getAppModuleAsFolder(panel, false, true) + getStrutsActionClassName(panel) + ".java";
+	
+String getStrutsActionJspFile(ContentPanel panel, GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/" + getStrutsActionJspName(panel) + ".jsp";
+
+String getStrutsActionJspConfigName(ContentPanel panel) :
+	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
+
+String getStrutsActionPropertiesFile(ContentPanel panel, GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getAppModuleAsFolder(panel, false, true) + getStrutsActionClassName(panel) + ".properties";
+
+String getFormEnctype(ContentPanel cp) : 
+	hasFileUpload(cp) ? " enctype=\"multipart/form-data\"" : "";
+
+// [DM] STDMDD-1100: introduzione namespaces -> Struts2 Action
+String getStrutsActionCompleteConfigName(ContentPanel panel, GUIModel model) :
+	"/" + model.codComponente + getContentPanelNamespace(panel, false) + "/" + getStrutsActionConfigName(panel);
+
+String getStrutsActionNotNameSpaceConfigName(ContentPanel panel, GUIModel model) :
+	"/" + model.codComponente + "/" + getStrutsActionConfigName(panel);
+	
+String getPortalStrutsActionCompleteConfigName(ContentPanel panel, GUIModel model) :
+	getContentPanelNamespace(panel, false) + "/" + model.codComponente + "/" + getStrutsActionConfigName(panel);	
+
+String getPortalActionCompleteConfigName(ContentPanel panel) :
+	getContentPanelNamespace(panel, false) + "/" + getStrutsActionConfigName(panel);
+
+String getStrutsActionCompleteURL(ContentPanel panel, GUIModel model) :
+	getStrutsActionCompleteConfigName(panel, model) + getStrutsActionCompleteExtension();
+
+// [DM] STDMDD-1100: introduzione namespaces -> HomePage Action
+String getHomePageActionName() :
+	"HomePage";
+
+String getHomePageActionNamespace(boolean omitRoot) :
+	getSecureNamespace(omitRoot);
+
+String getHomePageActionURL(boolean omitRoot) :
+	getHomePageActionNamespace(omitRoot) + "/" + getHomePageActionName() + getStrutsActionCompleteExtension();
+
+String getHomePageActionURLWithContextPath() :
+	"<%=request.getContextPath()%>" + getHomePageActionNamespace(false) + "/" + getHomePageActionName() + getStrutsActionCompleteExtension();
+
+// [DM] STDMDD-1100: introduzione namespaces -> Logout Action
+String getLogoutActionName() :
+	"Logout";
+
+String getLogoutActionNamespace(boolean omitRoot) :
+	getSecureNamespace(omitRoot);
+
+String getLogoutActionURL(String logoutMethod) :
+	"<%=request.getContextPath()%>" + getLogoutActionNamespace(false) + "/" + getLogoutActionName() + "!" + logoutMethod + getStrutsActionCompleteExtension();
+
+// [DM] STDMDD-1100: introduzione namespaces -> MENU Action
+String getMenuItemActionName(String menuName) :
+	"goTo" + menuName + "FromMenu";
+
+String getMenuActionNamespace(boolean omitRoot) :
+	getSecureNamespace(omitRoot);
+
+// [DM] STDMDD-1100: introduzione namespaces -> Map enrichment
+String getMapEnrichmentAcionNamespace(ContentPanel panel, GUIModel model) :
+	"/" + model.codComponente + getContentPanelNamespace(panel, false);
+
+// [DM] STDMDD-1084: URL Action errore Javascript non abilitato
+String getJavascriptErrorActionURL(boolean omitRoot) :
+	"<%=request.getContextPath()%>" + getBaseNamespace(false) + "/javascriptError" + getStrutsActionCompleteExtension(); 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Screen States per content panel
+String getScreenStatesClassName(ContentPanel cp) :
+	cp.name.toFirstUpper()+"ScreenStates";
+
+String getScreenStateInnerClassName(ScreenState state) :
+//	let states = (ScreenStates)state.eContainer :
+//	let cp = (ContentPanel)states.eContainer :
+	state.name.toFirstUpper()+"ScreenState";
+
+String getScreenStatesPkgAsPkg(ContentPanel panel, GUIModel model) :
+	getPresentationJavaPackage(model) + getAppModuleAsPkg(panel,true, false) + ".states";
+
+String getScreenStatesPkgAsPath(ContentPanel panel, GUIModel model) :
+	getPresentationJavaSrcDir(model, true) + "/" +getAppModuleAsFolder(panel, false, true) + "states/";
+
+String getScreenStatesClassFQN(ContentPanel panel, GUIModel model) :
+	getScreenStatesPkgAsPkg(panel, model) + "."+getScreenStatesClassName(panel);
+	
+String getScreenStatesClassPath(ContentPanel panel, GUIModel model) :
+	getScreenStatesPkgAsPath(panel, model) + getScreenStatesClassName(panel)+".java";	
+	
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Validatori e convertitori Struts2
+
+String getStrutsCustomValidatorFQN(String validatorName, GUIModel model) :
+	getValidationJavaPackage(model) + "." + validatorName.toFirstUpper();
+	
+String getStrutsCustomValidatorJavaFile(String validatorName, GUIModel model, boolean omit_root) :
+	getValidationJavaSrcDir(model, omit_root) + "/" + validatorName.toFirstUpper() + ".java";
+
+String getTypeConverterJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/converter";
+
+String getTypeConverterJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".converter";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Classi spring
+
+String getSpringBEClassName() :
+	"BackEndFacade";
+
+String getSpringBEFQN(GUIModel model) :
+	getBaseJavaPackage(model)+".business."+getSpringBEClassName();
+
+String getSpringBEJavaFile(GUIModel model) :
+	getBaseJavaSrcDir(model, true)+"/business/"+getSpringBEClassName()+".java";
+
+String getSpringCPBEClassName(ContentPanel cp) :
+	"CPBE"+cp.name.toFirstUpper();
+
+String getSpringCPBEFQN(GUIModel model, ContentPanel cp) :
+	getBaseJavaPackage(model)+".business."+getAppModuleAsPkg(cp, false,true)+getSpringCPBEClassName(cp);
+
+String getSpringCPBEJavaFile(GUIModel model, ContentPanel cp) :
+	getBaseJavaSrcDir(model, true)+"/business/"+getAppModuleAsFolder(cp,false,true)+getSpringCPBEClassName(cp)+".java";
+
+String getSpringBEExcClassName() :
+	"BEException";
+
+String getSpringBEExcFQN(GUIModel model) :
+	getBaseJavaPackage(model)+".business."+getSpringBEExcClassName();
+
+String getSpringBEExcJavaFile(GUIModel model) :
+	getBaseJavaSrcDir(model, true)+"/business/"+getSpringBEExcClassName()+".java";
+
+String getSpringSecurityHelperClassName() :
+	"SecurityHelper";
+
+String getSpringSecurityHelperFQN(GUIModel model) :
+	getBaseJavaPackage(model)+".business."+getSpringSecurityHelperClassName();
+
+String getSpringSecurityHelperJavaFile(GUIModel model) :
+	getBaseJavaSrcDir(model, true)+"/business/"+getSpringSecurityHelperClassName()+".java";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Classi relative alla Tag Library DisplayTag
+
+String getTableDecoratorClassName(Table tbl) :
+	findParentContentPanel(tbl).name.toFirstUpper()+tbl.name.toFirstUpper()+"CustomDecorator";
+	
+String getTableDecoratorFQN(GUIModel model, Table tbl) :
+	getPresentationRootJavaPackage(model)+".decorator."+getAppModuleAsPkg(findParentContentPanel(tbl), false,true)+getTableDecoratorClassName(tbl);
+
+
+String getTableDecoratorJavaFile(GUIModel model, Table tbl) :
+	getPresentationRootJavaSrcDir(model, true) + "/decorator/" + getAppModuleAsFolder(findParentContentPanel(tbl),false,true)+ getTableDecoratorClassName(tbl) + ".java";
+
+String getColumnDecoratorJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/decorator";
+
+String getColumnDecoratorJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".decorator";
+
+String getComparatorJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/comparator";
+
+String getComparatorJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".comparator";
+
+String getColumnComparator(GUIModel model, Column col, Table t) :
+	let comparator = getColumnComparator(col, t) :
+	if ( !isNullOrEmpty(comparator) ) then
+		"comparator=\"" + getComparatorJavaPackage(model) + "." + comparator + "\""
+	else
+		"";
+		
+String getColumnDecoratorClassName(Table tbl, Column col) :
+	tbl.name.toFirstUpper()+col.selector.toFirstUpper()+"ColDecorator";		
+
+String getColumnDecoratorFQN(GUIModel model, Table tbl, Column col) :
+	getPresentationRootJavaPackage(model)+".decorator."+getAppModuleAsPkg(findParentContentPanel(tbl), false,true)+getColumnDecoratorClassName(tbl, col);
+		
+String getColumnDecoratorJavaFile(GUIModel model, Table tbl, Column col) :
+	getPresentationRootJavaSrcDir(model, true) + "/decorator/" + getAppModuleAsFolder(findParentContentPanel(tbl),false,true)+ getColumnDecoratorClassName(tbl, col) + ".java";
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Type Mapping
+
+/// mapping di tipi model -> java
+String toJavaSimpleType(Type type) :
+	let code = ((SimpleType)type).code :
+	let nillable =  ((SimpleType)type).nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  		(nillable ? "java.lang.Integer" : "int")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  		(nillable ? "java.lang.String" : "java.lang.String")
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  		(nillable ? "java.lang.Float" : "float")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  		(nillable ? "java.lang.Long" : "long")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  		(nillable ? "java.lang.Double" : "double")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  		(nillable ? "java.lang.Boolean" : "boolean")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  		(nillable ? "java.lang.String" : "java.lang.String")
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  		(nillable ? "java.lang.String" : "java.lang.String")
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  		(nillable ? "java.lang.String" : "java.lang.String")
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  		(nillable ? "java.lang.Byte" : "byte")
+  	else if (code == guigen::SimpleTypeCodes::TREE_NODE) then
+  		"it.csi.custom.component.tree.base.TreeNode"
+	else 
+  		"???";
+
+String toJavaSimpleUDType(SimpleType t, GUIModel model) :
+	getUDTFQN(t, model);
+
+String toJavaType(Type type, GUIModel model) :
+	if (type==null) then
+		"void"
+	else if (type.metaType==SimpleType && !((SimpleType)type).userDefined) then
+		toJavaSimpleType(type)
+	else if (type.metaType==SimpleType && ((SimpleType)type).userDefined) then
+		toJavaSimpleUDType((SimpleType)type, model)		
+	else if (type.metaType==ComplexType && ((ComplexType)type).typeAnnotation != null && ((ComplexType)type).typeAnnotation.size > 0) then
+		((ComplexType)type).typeAnnotation.get(0).fqn
+	else if (type.metaType==ComplexType) then
+		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg((ComplexType)type,false,true)+type.name.toFirstUpper() 
+	else 
+		"java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">";
+
+String defaultInitVal(Type type, GUIModel model) :
+	if(type==null) then
+	  "null"
+	else if(type.metaType==SimpleType && !((SimpleType)type).userDefined) then
+	  defaultSimpleInitVal(type)
+	else if(type.metaType==SimpleType && ((SimpleType)type).userDefined) then
+	  "null"
+	else if(type.metaType==TypedArray) then
+	  "new java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">()"
+	else
+	  "null";
+
+String defaultSimpleInitVal(Type type) :
+	let code = ((SimpleType)type).code :
+	let nillable =  ((SimpleType)type).nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  		(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  		(nillable ? "null" : "null")
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  		(nillable ? "null" : "0")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  		(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  		(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  		(nillable ? "null" : "false")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  		(nillable ? "null" : "null")
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  		(nillable ? "null" : "null")
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  		(nillable ? "null" : "null")
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  		(nillable ? "0" : "0")
+	else 
+  		"???";
+
+
+SimpleType getWrappedTypeFromSimpleType(SimpleType s) :
+	let tw = new SimpleType :
+	tw.setCode(s.code) ->
+	tw.setNillable(true) ->
+	tw;
+
+boolean typeHandleNullValue(SimpleType type) :
+	let code = ((SimpleType)type).code :
+	let nillable = ((SimpleType)type).nillable :
+	nillable || (code == guigen::SimpleTypeCodes::STRING)   ||
+  				(code == guigen::SimpleTypeCodes::DATE)     ||
+  				(code == guigen::SimpleTypeCodes::DATETIME) ||
+  				(code == guigen::SimpleTypeCodes::HOURS)    ||
+  				(code == guigen::SimpleTypeCodes::TREE_NODE);
+
+boolean jsonBasedType(Type type) :
+	false;
+	
+boolean jsonBasedType(ComplexType type) :
+	let ct = (ComplexType)type :
+	let fqnAnnotation = ct.typeAnnotation.selectFirst(ta|ta.language=="java").fqn :
+		(fqnAnnotation != null && fqnAnnotation == "it.csi.jeegia.jeegfw.dto.jeegweb.query.BaseResultDatarow")  
+	;
+
+boolean jsonBasedType(TypedArray type) :
+	jsonBasedType(type.componentType);
+		
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+String getHandlerMethodName(Widget source, EventHandler evh, String contextPrefix) :
+	"handle"+getFullID(source, contextPrefix).toFirstUpper()+"_"+evh.eventType.toString();
+
+String getClickHandlerMethodName(Widget source, String contextPrefix) :
+	( source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1 ? 
+		getHandlerMethodName(source, source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)
+		:
+		"execute" 
+	);
+
+
+String methodProtectionAnnotation(EventHandler evh) :
+	if evh.methodProtection==null || evh.methodProtection==MethodProtectionTypes::ALLOW_ALL then
+		"@MethodProtection (level=\"ALLOW_ALL\")" 
+	else if evh.methodProtection!=null && evh.methodProtection==MethodProtectionTypes::REJECT_SAME then
+		"@MethodProtection (level=\"REJECT_SAME\")"
+	else if evh.methodProtection!=null && evh.methodProtection==MethodProtectionTypes::REJECT_ALL then
+		"@MethodProtection (level=\"REJECT_ALL\")"
+	;
+
+// [DM] STDMDD-
+List[String] addTableRefreshTargetId(List[String] targetIds, String tableId) :
+	!targetIds.contains(tableId) ? targetIds.add(tableId) : targetIds;
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/// DATA PROVIDER
+String getDataProviderMethodName(Widget source, String providedDataTipology, String contextPrefix) :
+	"provide"+getFullID(source, contextPrefix).toFirstUpper()+"_"+providedDataTipology;
+
+String getFormDataProviderMethodName() :
+	"provide_CPDATA";
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/// EXEC METHODS
+String getExecCommandMethodName(ExecCommand cmd, String contextPrefix) :
+	"exec"+cmd.methodName.toFirstUpper();
+
+
+// [DM] restituisce l'azione relativa ad una colonna di una Table
+String getColumnAction(Column currCol, Table table, GUIModel model, ContentPanel cp, String contextPrefix, boolean test) : 
+	if (currCol.eventActive) then
+		"href=\"" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix) + 
+			getStrutsActionCompleteExtension() + "?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
+
+String getTabItemHandlerMethodName(ContentPanel cp, MultiPanel tabSet, Panel tab, String contextPrefix) :
+	"handle_"+cp.name.toFirstUpper()+"_"+tabSet.name.toFirstUpper()+"_"+tab.name.toFirstUpper()+"_CLICKED";
+
+boolean proceedToJSon(EventHandler evh, Widget w) :
+	isSuggestedTextField(evh, w);
+	
+boolean isSuggestedTextField(EventHandler evh, Widget w) :
+	(w.metaType == TextField || w.metaType == ComboBox) && evh.eventType == EventTypes::KEY_PRESSED;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// utility per link JS
+String resolveVersionDirectory(String actualVersion) : 
+	let enableJSSvcPack = getProperty("guigen.clientLibs.enableAutoServicePack") :
+	if enableJSSvcPack=="true" then
+		replaceFixNumberWithLatest(actualVersion) 
+	else
+		actualVersion;
+
+String getExtjsCsiCoreVersion() : 
+	"1.0.0";
+
+String getExtjsCsiMddVersion() :
+	"1.0.0";
+
+String getExtjsCsiEnricherVersion() :
+	"1.5.2";
+
+String getExtAllVersion() :
+	"3.4.0";
+	
+String getCKEditorVersion() :
+	"3.6.4";
+	
+String getOpenlayersVersion() :
+	"2.10";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// ALTRE UTILITY
+
+String getAppModuleAsPkg(ContentPanel cp, boolean prependDot, boolean appendDot) : 
+	let parent = cp.eContainer :
+		(parent.metaType==AppModule ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );
+		
+String getAppModuleAsFolder(ContentPanel cp, boolean prependSlash, boolean appendSlash) : 
+	let parent = cp.eContainer :
+		(parent.metaType==AppModule ? (prependSlash ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendSlash? "/": "") : "" );
+
+String getTypeNSAsPkg(Type ct, boolean prependDot, boolean appendDot) : 
+	let parent = ct.eContainer :
+		(parent.metaType==TypeNamespace ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );		
+
+String getTypeNSAsFolder(Type ct, boolean prependDot, boolean appendDot) : 
+	let parent = ct.eContainer :
+		(parent.metaType==TypeNamespace ? (prependDot ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "/" :"") : "" );		
+
+
+String getChainedContext(String oldContext, String newContext) :
+	oldContext==null || oldContext.length==0 ? newContext : oldContext+"_"+newContext;
+
+// serve in quei casi in cui si usava w.name senza necessit� di avere il prefisso "widg_"
+//String getFullID(Widget w, String contextPrefix) :
+//	contextPrefix == null || contextPrefix.length==0 ? w.name : contextPrefix+w.name;
+
+//String getFullID(Panel p, String contextPrefix) :
+//	contextPrefix == null || contextPrefix.length==0 ? p.name : contextPrefix+p.name;
+
+
+String getFullExecCmdMethodName(String methodName, String contextPrefix) :
+	contextPrefix!=null && contextPrefix.length>0 ? 
+	contextPrefix+methodName.toFirstUpper() :
+	methodName;
+
+int getStepNumber(Panel step, WizardPanel wiz) :
+	wiz.panels.indexOf(step)+1;
+
+///// risoluzione hostname del repository artefatti
+String getIvyRepositoryHost() :
+	getProperty("guigen.ivyRepositoryHost")==null||getProperty("guigen.ivyRepositoryHost").length==0?
+	"repart.csi.it":
+	getProperty("guigen.ivyRepositoryHost");
+	
+	
+// restituisce la molteplicit� della selezione di un treeview
+String getTreeSelectionMultiplicity(TreeView t) :
+ if(t.databinding!= null) then
+ 	(t.databinding.isBoundToArray() ? "multiple" : "single")
+ else
+ 	"none";
+ 			
+
+
+	
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// JAVA METHODS BINDING
+
+String getWidgetName(Widget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetName(it.csi.mddtools.guigen.Widget, java.lang.String);
+
+String getFullID(Widget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getFullID(it.csi.mddtools.guigen.Widget, java.lang.String);
+
+String getFullID(Panel p, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getFullID(it.csi.mddtools.guigen.Panel, java.lang.String);
+	
+String getFullID(Menu p, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getFullID(it.csi.mddtools.guigen.Menu, java.lang.String);
+
+boolean hasFileUpload(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.hasFileUpload(it.csi.mddtools.guigen.ContentPanel);
+	
+boolean hasGisMap(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.hasGisMap(it.csi.mddtools.guigen.ContentPanel);
+	
+boolean hasGisMap(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.hasGisMap(it.csi.mddtools.guigen.GUIModel);
+	
+List getMapsInModel(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getMapsInModel(it.csi.mddtools.guigen.GUIModel);
+	
+List getMapsInContentPanel(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getMapsInContentPanel(it.csi.mddtools.guigen.ContentPanel);
+
+List getAllPossibleJumps(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);
+
+List getAllPossibleJumps(Menu m) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.Menu);
+
+List getAllPossibleJumps(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.Command);
+
+List getAllPossibleExtJumps(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.ContentPanel);
+
+List getAllPossibleExtJumps(Menu m) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.Menu);
+
+List getAllPossibleExtJumps(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.Command);
+
+JumpExtCommand getAdjustedJumpExtCommand(JumpExtCommand jec) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAdjustedJumpExtCommand(it.csi.mddtools.guigen.JumpExtCommand);
+	
+List getAllPossibleShowDialogs(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleShowDialogs(it.csi.mddtools.guigen.ContentPanel);
+
+List getAllPossibleShowDialogs(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleShowDialogs(it.csi.mddtools.guigen.Command);
+
+List getAllEventSourceWidgets(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceWidgets(it.csi.mddtools.guigen.ContentPanel);
+
+List getAllEventSourceMenus(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenus(it.csi.mddtools.guigen.Menubar);
+
+List getAllExecActionsForEventHandler(EventHandler eh) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllExecActionsForEventHandler(it.csi.mddtools.guigen.EventHandler);
+
+List getAllExecActionsRecursive(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllExecActionsRecursive(it.csi.mddtools.guigen.Command);
+
+ContentPanel findParentContentPanel(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Command);
+
+PanelDef findParentPanelDef(Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentPanelDef(it.csi.mddtools.guigen.Widget);
+
+PanelDef findParentPanelDef(Panel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentPanelDef(it.csi.mddtools.guigen.Panel);
+	
+PanelDef findParentPanelDef(Command c) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findParentPanelDef(it.csi.mddtools.guigen.Command);
+
+List[Widget] findAllWidgetsInPanel(Panel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllWidgetsInPanel(it.csi.mddtools.guigen.Panel);
+	
+String getFixedRadioButtonList(RadioButtons rb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getFixedRadioButtonList(it.csi.mddtools.guigen.RadioButtons);
+
+String getFixedRadioButtonList(RadioButton rb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getFixedRadioButtonList(it.csi.mddtools.guigen.RadioButton);
+
+List findAllActionScopedAppDataInContentPanel(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppDataInContentPanel(it.csi.mddtools.guigen.ContentPanel);
+
+List findAllActionScopedAppDataInMenubar(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppDataInMenubar(it.csi.mddtools.guigen.Menubar);
+
+List findAllActionScopedAppData(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppData(it.csi.mddtools.guigen.Command);
+
+String getOGNLForWidgetValue(DataWidget w, String contextPrefix, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetValue(it.csi.mddtools.guigen.DataWidget, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig);
+
+String getOGNLForWidgetMultiValue(MultiDataWidget w, String contextPrefix, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetMultiValue(it.csi.mddtools.guigen.MultiDataWidget, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig);
+
+String getOGNLForColumnMultiValue(Column w, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForColumnMultiValue(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.PDefUseConfig);
+
+
+// chiave dell'app data quando salvato in sessione
+String getAppDataKey(ApplicationData ad) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataKey(it.csi.mddtools.guigen.ApplicationData);
+
+// nome della property associata all'appdata quando viene inserito nella action
+String getAppDataPropertyName(ApplicationData ad) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataPropertyName(it.csi.mddtools.guigen.ApplicationData);
+
+// risoluzione dell'actor a fronte di eventuali PanelDefUseConfig
+Actor getResolvedActor(Actor original, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getResolvedActor(it.csi.mddtools.guigen.Actor, it.csi.mddtools.guigen.PDefUseConfig);
+
+// risoluzione dello use case a fronte di eventuali PanelDefUseConfig
+UseCase getResolvedUseCase(UseCase original, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getResolvedUseCase(it.csi.mddtools.guigen.UseCase, it.csi.mddtools.guigen.PDefUseConfig);
+
+// risoluzione dell'actor a fronte di eventuali PanelDefUseConfig
+Role getResolvedRole(Role original, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getResolvedRole(it.csi.mddtools.guigen.Role, it.csi.mddtools.guigen.PDefUseConfig);
+
+
+List getAllMenuRecursive(Menu m) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllMenuRecursive(it.csi.mddtools.guigen.Menu);
+
+boolean isMenuNameUnique(String name, Menubar menubar) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.isMenuNameUnique(java.lang.String, it.csi.mddtools.guigen.Menubar);
+
+boolean isInMenuBranch(ExecCommand ea) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.isInMenuBranch(it.csi.mddtools.guigen.ExecCommand);
+
+boolean jumpToSameContentPanel(JumpCommand jc) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.jumpToSameContentPanel(it.csi.mddtools.guigen.JumpCommand);
+
+// [DM] restituisce il sottopannello situato nella posizione specificata di un layout UDLRC
+Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getSubPanelByLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+
+// [DM] restituisce i sottopannelli situati nella posizione specificata di un layout UDLRC
+List getSubPanelsByLayout(FormPanel panel, UDLRCSpecConstants quadrante) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getSubPanelsByLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+
+// [DM] restituisce il numero di colonne da impostare per il pannello indicato secondo il suo layout
+String getGridPanelColumnsNumber(WidgetsPanel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getGridPanelColumnsNumber(it.csi.mddtools.guigen.WidgetsPanel);
+
+// [DM] Restituisce, se necessario, la percentuale delle colonne da impostare sulla PanelGrid
+String getPanelGridPercentCols(WidgetsPanel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getPanelGridPercentCols(it.csi.mddtools.guigen.WidgetsPanel);
+
+// [DM] Restituisce una lista di widget nell'ordine corretto di posizionamento per il il layout specificato
+List getWidgetsByOrder(WidgetsPanel p)  : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getWidgetsByOrder(it.csi.mddtools.guigen.WidgetsPanel);
+
+// [DM] Restituisce la posizione (first, last oppure niente) del widget da impostare sulla componente <customtag:column>
+String getCustomtagColumnPosition(WidgetsPanel wp, Widget w, Boolean isFirst, Boolean isLast) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagColumnPosition(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget, java.lang.Boolean, java.lang.Boolean);
+
+// [DM] L'attributo hspan di un widget deve essere gestito solo nel caso di GridPanelLayout.
+boolean needHandleCustomtagHeaderHspan(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.needHandleCustomtagHeaderHspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
+	
+// [DM] Gestisce la clausola <s:else> della visibility di un widget (non va visualizzata in determinati casi).
+boolean needHandleCustomtagCloseHspan(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.needHandleCustomtagCloseHspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
+
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario) per un Widget di tipo PlainText.
+String getCustomtagHeaderColspan(WidgetsPanel wp, PlainText w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.PlainText);
+
+// [DM] Gestisce l'attributo colSpan per la clausola <s:else> della visibility di un widget.
+String getCustomtagCloseColspan(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagCloseColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
+
+// [DM]
+String getWidgetLabelFor(Widget w, String contextPrefix, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetLabelFor(it.csi.mddtools.guigen.Widget, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig);
+
+// [DM] Restituisce le annotazioni per la validazione del campo
+String getWidgetValidation(DataWidget w, ContentPanel cp, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget, it.csi.mddtools.guigen.ContentPanel, java.lang.String);
+
+// [DM] Restituisce la lista dei custom validators definiti dal generatore
+List getGuigenCustomValidators() : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenCustomValidators();
+
+// [DM] Restituisce la lista di tutti i Validatori per User Defined Simple Types definiti dal generatore.
+List getGuigenUserDefinedTypesValidators() : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenUserDefinedTypesValidators();
+
+String getGuigenUserDefinedTypeValidatorClassImpl(String validatorName) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenUserDefinedTypeValidatorClassImpl(java.lang.String);
+
+// [DM] Restituisce la lista dei custom validators modellati dall'utente nei widget
+List getUserCustomValidatorsName() : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getUserCustomValidatorsName();
+
+// [DM] Restituisce (se necessaria) l'annotazione per un Visitor Filed Validator
+String getVisitorFieldValidator(ApplicationData ad, ContentPanel cp, Boolean expandVisitorFieldValidator) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getVisitorFieldValidator(it.csi.mddtools.guigen.ApplicationData, it.csi.mddtools.guigen.ContentPanel, java.lang.Boolean);
+
+// [DM] Verifica se e' necessaria  l'annotazione per un Visitor Filed Validator
+boolean isValidatorAnnotationRequired(ComplexType t) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.isValidatorAnnotationRequired(it.csi.mddtools.guigen.ComplexType);
+
+// [DM] Restituisce (se necessaria) l'annotazione di validazione per il field di un DTO
+String getValidatorFieldAnnotationForDTO(Field f) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getValidatorFieldAnnotationForDTO(it.csi.mddtools.guigen.Field);
+
+// [DM] Restituisce la lista delle label del menu
+List getMenuBarLabels(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getMenuBarLabels(it.csi.mddtools.guigen.Menubar);
+
+// [DM] Restituisce la lista delle label dei pannelli di un ContentPanel
+//List getContentPanelLabels(ContentPanel cp) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getContentPanelLabels(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM] Restituisce la lista delle label dei widgets di un ContentPanel
+//List getWidgetsLabels(ContentPanel cp) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetsLabels(it.csi.mddtools.guigen.ContentPanel);
+
+List[String] getWidgetLabels(Widget w, ContentPanel cp, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetLabels(it.csi.mddtools.guigen.Widget, it.csi.mddtools.guigen.ContentPanel, java.lang.String);
+
+
+// [DM] Restituisce la lista delle label dei widgets di un ContentPanel
+List getApplicationDataLabels(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getApplicationDataLabels(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM] verifica se un ContentPanel contiene o meno delle tabelle (problema della localizzazione della displaytag)
+boolean hasTable(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.hasTable(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM] verifica se un Panel contiene o meno delle tabelle (problema della localizzazione della displaytag)
+boolean hasTable(Panel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.hasTable(it.csi.mddtools.guigen.Panel);
+
+// [DM] verifica se un ContentPanel contiene o meno dei widget di tipo TreeView
+boolean hasTree(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.hasTree(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM]
+String getText(Widget w, ContentPanel cp, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getText(it.csi.mddtools.guigen.Widget, it.csi.mddtools.guigen.ContentPanel, java.lang.String);
+
+// [DM] restituisce la lista delle label per i Visitor Validators sui Typedefs
+List getVisitorValidatorLabels(List complexTypesList) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getVisitorValidatorLabels(java.util.List);
+
+// [DM] Restituisce la lista dei widget di tipo Table contenuti in un ContentPanel
+List findAllTablesInContentPanel(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllTablesInContentPanel(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM] restituisce la lista delle label dei DialogPanels di un ContentPanel
+List getDialogPanelLabels(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getDialogPanelLabels(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM]
+String getColumnFormatter(Column col, Table t) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnFormatter(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table);
+
+// [DM]
+String getColumnComparator(Column col, Table t) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnComparator(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table);
+
+// [DM] Restituisce la classe da applicare ad una cella nella CustomComponent sulla base del tipo di dato del Widget (PlainText).
+//      Utilizzato per allineare a destra i dati numerici.
+String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
+
+// [DM] Restituisce il campo per l'editabilit� di una colonna della tabella
+String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig, java.lang.String);
+
+// restituisce l'elenco degli id dei pannelli target di refresh. null se nessun RefreshViewCommand	
+List[String] getRefreshTargetIds(Widget cw) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getRefreshTargetIds(it.csi.mddtools.guigen.Widget);
+	
+List[String] getRefreshTargetIds(EventHandler evh) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getRefreshTargetIds(it.csi.mddtools.guigen.EventHandler);
+
+// [DM]
+String getWizardPanelStepCompleteIndex(Panel currentPanel, String index) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getWizardPanelStepCompleteIndex(it.csi.mddtools.guigen.Panel, java.lang.String);
+
+//[DM] STDMDD-444:
+String extractLabelKey(String label) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.extractLabelKey(java.lang.String);
+
+// [DM] STDMDD-446: PanelDef: customizzabilit� delle Table contenute nel PanelDef 
+List[Column] getCustomizedColumnsList(Table table, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getCustomizedColumnsList(it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.PDefUseConfig);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Java Extensions for checks                                                               //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] Controlla che tutti i widget di un CommandPanel siano dei CommandWidget.
+boolean commandPanelCommandWidgetCheck(CommandPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.commandPanelCommandWidgetCheck(it.csi.mddtools.guigen.CommandPanel);
+
+// [DM] Un CommandPanel pu� avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
+boolean commandPanelLayoutCheck(CommandPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
+
+// [DM] Controlla che tutti i widget di un MenuPanel siano di tipo MenuView o TreeView.
+boolean menuPanelWidgetCheck(MenuPanel mp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.menuPanelWidgetCheck(it.csi.mddtools.guigen.MenuPanel);
+
+// [DM] Verifica che l'attributo columnSizes del layout di un WidgetsPanel sia formalmente corretto
+//boolean columnSizesWidgetsPanelCheck(WidgetsPanel wp) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtilsChecks.columnSizesWidgetsPanelCheck(it.csi.mddtools.guigen.WidgetsPanel);
+
+// [DM]
+boolean columnSizesFormatWidgetsPanelCheck(WidgetsPanel wp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.columnSizesFormatWidgetsPanelCheck(it.csi.mddtools.guigen.WidgetsPanel);
+
+// [DM]
+boolean columnSizesSumWidgetsPanelCheck(WidgetsPanel wp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.columnSizesSumWidgetsPanelCheck(it.csi.mddtools.guigen.WidgetsPanel);
+
+// [DM]
+int realColumnsNumberWidgetsPanelCheck(WidgetsPanel wp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.realColumnsNumberWidgetsPanelCheck(it.csi.mddtools.guigen.WidgetsPanel);
+	
+// [DM]
+int expectedColumnsNumberWidgetsPanelCheck(WidgetsPanel wp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.expectedColumnsNumberWidgetsPanelCheck(it.csi.mddtools.guigen.WidgetsPanel);
+
+// [DM] Verifica che il DataBinding di un Calendar sia di tipo Date
+boolean calendarDataBindingTypeCheck(Calendar c) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.calendarDataBindingTypeCheck(it.csi.mddtools.guigen.Calendar);
+
+// [DM] Verifica la corrispondenza di tipo tra DataWidget e binding.
+boolean widgetDataBindingCorrispondenceCheck(DataWidget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.widgetDataBindingCorrispondenceCheck(it.csi.mddtools.guigen.DataWidget);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
+/// Estensioni abilitanti al Web 2.0                                                         //
+///******************************************************************************************//
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+String getFragmentId(Panel p) :
+	"p_"+p.name;
+
+String startFragment(Panel p) :
+	"<div id=\""+getFragmentId(p)+"\"" + (p.scrollable ? " class=\"scroll\"" : "") + "><!-- startFragment:"+getFragmentId(p)+" -->";
+
+String endFragment(Panel p) :
+	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
+
+String pageIdMarker(ContentPanel cp) :
+	"<!-- pageId:"+cp.name+" -->";
+
+String appmoduelIdMarker(ContentPanel cp):
+let appmodule = (AppModule)(cp.eContainer.metaType==AppModule ? ((AppModule)cp.eContainer) : null) :
+let baseOrSecure = (appmodule != null ? baseOrSecure(appmodule) : "base") :
+	"<!-- appmoduleId:"+getContentPanelNamespace(cp, true)+" -->";
+	
+String pageUrlMaker(ContentPanel cp):
+	"";
+
+String getImportServletContext(ContentPanel cp):
+    "";
+    
+String getImportPackPortlet(ContentPanel cp):
+    "";   	
+	
+String appmoduleIdMarkerNoComm(ContentPanel cp):
+let appmodule = (AppModule)(cp.eContainer.metaType==AppModule ? ((AppModule)cp.eContainer) : null) :
+let baseOrSecure = (appmodule != null ? baseOrSecure(appmodule) : "base") :
+	getContentPanelNamespace(cp, true);
+
+String baseOrSecure(AppModule m):
+ if m.secure then "secure" else "base";	
+	
+String getToggleHandleHtml(FormPanel fp, String contextPrefix) :
+	if (fp.collapsible) then
+	"<span id=\"toggle_"+getFullID(fp,contextPrefix)+"\"></span>"
+	else "";
+
+String getToggleHandleHtml(WidgetsPanel fp, String contextPrefix) :
+	if (fp.collapsible) then
+	"<span id=\"toggle_"+getFullID(fp,contextPrefix)+"\"></span>"
+	else "";
+
+String getEventSpecifierValue(EventHandler evh, String specifierCode) :
+	let targetSpec = evh.eventSpecifiers.selectFirst(e|e.startsWith(specifierCode)) :
+	targetSpec != null ? targetSpec.subString(specifierCode.length+1,targetSpec.length) : "null";
+	
+String getNameDisplayTable(MultiDataWidget w, String contextPrefix, PDefUseConfig pduConf) : 
+	getOGNLForWidgetMultiValue(w, contextPrefix, pduConf);	
+	
+String getFactoryRequestHelper():
+	"org.displaytag.util.DefaultRequestHelperFactory";
+String	excludeParamas():
+	"excludedParams=\"*\"";
+	
+List[AppModule] getAllAppMudule(GUIModel guiModel) :
+guiModel.structure.appWindow.appArea.extModules.union(guiModel.structure.appWindow.appArea.modules);
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
+/// Estensioni ridefinite per i portali specifici mediante AOP                               //
+///******************************************************************************************//
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Build files 
+
+String getReminclResourceProvider(GUIModel model) :
+	"";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// PORTAL THEMES AND STYLES
+
+String getStrutsThemeByPortal(GUIModel model) :
+	"csi";
+
+String getTablePortalStyle(GUIModel model, Table t) :
+	"";
+
+String getRadioPortalStyle(GUIModel model) :
+	"";
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayout(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce lo stile del <div> per i Button
+String getButtonDivStyleByLayout(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei Button
+String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei TextField
+String getTextFieldStyleByLayout(GUIModel model, TextField t) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
+
+// [DM] Restituisce lo stile dei Calendar
+String getCalendarStyleByLayout(GUIModel model, Calendar c) :
+	"";
+
+// [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
+String getCalendarImageByLayout(GUIModel model, Calendar c) :
+	"";
+
+// [DM] Restituisce lo stile dei FileUpload
+String getFileUploadStyleByLayout(GUIModel model, FileUpload f) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getFileUploadStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.FileUpload);
+
+// [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
+String getComboBoxValueChangedHandlerStyle(GUIModel model) :
+	"";
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM] Restituisce lo stile di una colonna sulla base del tipo bindato alla colonna stessa
+String getColumnStyle(Column col, Table t, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perch� viene utilizzato anche da Java
+String getCheckboxPortalStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce la classe per un TextField in una Table.
+// nota: deve rimanere in Java perch� viene utilizzato anche da Java 
+String getColumnEditableTextfieldPortalStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] restituisce l'attributo di obbligatoriet� del campo da settare nella custom Component widgetsPanelColumn
+String getCustomtagRequiredField(Widget w) : 
+	"";
+
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+String getUrlWidgetValueChange(Widget cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"action=\""+getStrutsActionNotNameSpaceConfigName(cp, model)+ "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) +"\" " +
+		"namespace=\""+getContentPanelNamespace(cp, false)+"\" ";
+		
+String getUrlParentWidgetValueChange(Widget cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"action=\""+getStrutsActionNotNameSpaceConfigName(findParentContentPanel(cb), model)+ "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) +"\" " +
+		"namespace=\""+getContentPanelNamespace(cp, false)+"\" ";
+   
+
+// [DM] genera il codice che gestise l'evento change sulla ComboBox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
+String getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		//"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" " +
+		"onfocus=\"inFocus(this)\" " +
+		//"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" ";
+
+// [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
+// [DM] STDMDD-1084: rimozione noscript
+String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	"";
+//	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
+
+// [DM] genera il codice che gestise l'evento change sui RadioButtons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
+String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
+		//"onclick=\"onRBClick('%{" + getWidgetName(rb, contextPrefix)+"urlRadioButtonValueChange}" + "')\" ";
+		
+
+// [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
+// [DM] STDMDD-1084: rimozione noscript
+String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	"";
+//	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
+
+String replaceFixNumberWithLatest(String actualVersion)  : JAVA
+  it.csi.mddtools.guigen.genutils.GenUtils.replaceFixNumberWithLatest(java.lang.String);
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
+// ATTENZIONE!!! NOTA PER GLI SVILUPPATORI
+// Inserire possibilmente ogni nuovo metodo nella relativa sezione (Struts2, JavaBinding, Web 2.0, ecc...) e non al fondo del file
+// dove si trova la sezione dei metodi che devono essere sovrascritti tramite AOP, in modo da facilitare la comprensione di quali metodi
+// siano gi� stati sovrascritti e di quali debbano essere ancora implementati nei files aop di portale necessari

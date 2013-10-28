@@ -1,0 +1,76 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+ 
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
+
+String getInternalAuthenticationFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getInternalAuthenticationFilterClassName();
+	
+String getInternalAuthenticationFilterClassName() :
+	"InternalAuthenticationFilter";
+
+String getInternalAuthenticationFilterrJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getInternalAuthenticationFilterClassName() + ".java";
+	
+String getIdAdapterCustomFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getIdAdapterCustomFilterClassName();
+	
+String getIdAdapterCustomFilterClassName() :
+	"IdAdapterCustomFilter";
+
+String getIdAdapterCustomFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getIdAdapterCustomFilterClassName() + ".java";
+	
+String getLocalLoginUIActionClassName() :
+	"LocalLoginUIAction";
+
+String getLocalLoginUIActionJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getLocalLoginUIActionClassName() + ".java";	
+	
+String getLocalLoginUIActionPropertiesFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getLocalLoginUIActionClassName() + ".properties";	
+
+String getStrutsLocalLoginUIActionJspFile(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/" + "localLoginUI" + ".jsp";
+	
+String getStrutsLocalLoginUIConfigFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/struts-LocalLogin.xml";
+	
+String getStrutsAutorizzazioneFallitaJspFile(GUIModel model, boolean omit_root) :
+	getJspErrorPagesDir(model, omit_root) + "/" + "autorizzazioneFallita" + ".jsp";
+
+String getPEPProviderJavaPackage(GUIModel model) :	
+	getSecurityJavaPackage(model)+".pepprovider";
+String getPEPProviderJavaSrcDir(GUIModel model, boolean omit_root) :
+	getSecurityJavaSrcDir(model, omit_root)+"/pepprovider";
+	
+String getPEPProviderClassName() :
+	"PEPProviderFacade";
+String getPEPProviderJavaFile(GUIModel model, boolean omit_root) :
+	getPEPProviderJavaSrcDir(model, omit_root) + "/" + getPEPProviderClassName() + ".java";		
+	
+String getPEPProvideXMLPDName() :
+ 	"customProvider_pep_defPD_ejb.xml";
+String getSpringPEDPProviderConfig(GUIModel model) :
+	getEjbConfigDir(model, true) + "/"+getPEPProvideXMLPDName();	

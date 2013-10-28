@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="test" codComponente="fatclient" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="ambiente" codApplicativo="sicee" nomeCanale="test" linkCanale="http://www.sistemapiemonte.it" nomeApplicativo="testweb 20"/>
+      <appArea homePage="//@structure/@appWindow/@appArea/@contentPanels.0">
+        <contentPanels name="maincp" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="fUno" label="Form Uno">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="p2">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="nome" label="nome" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma" label="conferma">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="mainTest" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="fUno_2" label="Form Uno">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="p1">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="nome_2" label="nome" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bConferma_2" label="conferma">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Table" name="Tab1" label="tabella uno" dataType="//@typedefs/@types.0">
+                <columnModel valueSelector="a"/>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="paneltre" appData="//@appDataDefs/@appData.0"/>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+  </typedefs>
+  <appDataDefs>
+    <appData name="pippo" type="//@typedefs/@types.7"/>
+  </appDataDefs>
+  <targetPlatform code="JBoss43" enableRichUIBehavior="true" enableFatClient="true"/>
+</guigen:GUIModel>

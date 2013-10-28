@@ -1,0 +1,447 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="/customtag" prefix="customtag" %>
+«IF model.targetPlatform.enableRichUIBehavior-»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF-»
+«REM»«EXPAND remoteResources::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
+comment«ENDREM»
+«ENDFILE»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/headerNoStruts.jsp"»<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setBundle basename="globalMessages" />
+«REM»
+«EXPAND remoteResources::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
+«ENDREM»
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»
+Genera SELECT A CASCATA per gestire relazione tra due select
+estratto dal file pulsantiPadreFiglio.js di SISP
+Viene referenziato il form della portlet Liferay, passato come 
+parametrro
+«ENDREM»
+«DEFINE getScriptJsFunction(GUIModel model) FOR ContentPanel»
+<script src="/«model.codComponente»/ris/js/enrichments/«this.name».js" type="text/javascript"></script>	
+<script type="text/javascript">
+///////////////////////////////////////////////////////////////////////////////
+//*********** SELECT A CASCATA ************************************************
+//Funzione javascript per gestire relazione tra due select
+//estratto dal file pulsantiPadreFiglio.js di SISP
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+var old_value_combobox  = "";
+
+
+var old_name_combobox   = "";
+
+
+var is_onclick_combobox = false;
+
+
+/**
+* Funzione che viene eseguita all'acquisizione del focus da parte del combobox
+*/
+function inFocus(oggetto)
+{
+  old_value_combobox = oggetto.value;
+  old_name_combobox  = oggetto.name;
+}
+
+
+/**
+* Funzione che viene eseguita alla perdita del focus da parte del combobox
+* e simula il comportamento del click sul pulsante submit del form
+*/
+function lostFocus(oggetto,Submit_name,Submit_value,url)
+{
+  
+  if(old_value_combobox!=oggetto.value && old_name_combobox==oggetto.name)
+  {
+      document.getElementById("«this.name»").action=url+"?"+Submit_name+"="+Submit_value;
+      document.getElementById("«this.name»").submit();
+  }
+}
+
+
+/**
+* Funzione che viene eseguita al click sul combobox
+*/
+function onCBClick(oggetto,Submit_name,Submit_value,url)
+{
+  
+  if(is_onclick_combobox==true)
+  {
+      // mi comporto come se la combobox perda il fuoco
+      is_onclick_combobox=false;
+      lostFocus(oggetto,Submit_name,Submit_value,url)
+      old_value_combobox=oggetto.value;
+      old_name_combobox=oggetto.name;
+  }
+  else {
+  	
+      is_onclick_combobox=true;
+  }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+//*********** RADIOBUTTONS ****************************************************
+//Funzione javascript per gestire l'evento di change su un radiobutton
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+*
+*/
+function onRBClick(url) {
+  document.getElementById("«this.name»").action = url;
+  document.getElementById("«this.name»").submit();
+}
+</script>
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+«REM»
+«EXPAND remoteResources::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+«ENDREM»
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
+«DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)-»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@taglib uri="/customtag" prefix="customtag" %>
+«IF model.targetPlatform.enableRichUIBehavior-»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF-»
+«IF hasTable(this) -»
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setBundle basename="«getStrutsActionPath(this, model)»" />
+«ENDIF-»
+
+<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
+<portlet:defineObjects />
+«REM»Genera la HEADER«ENDREM»
+«EXPAND template::struts2::view::resourcefiles::setupHeader(model, skip_component_dir_creation) FOR this-»
+
+«REM»Genera il corpo della Pagina«ENDREM»
+«EXPAND template::struts2::view::resourcefiles::setupContentPanel(model, skip_component_dir_creation,true) FOR this-»
+
+«REM»Genera la FOOTER«ENDREM»
+«EXPAND template::struts2::view::resourcefiles::setupFooter(model, skip_component_dir_creation) FOR this-»
+«ENDFILE-»
+«EXPAND template::struts2::view::resourcefiles::createUserDefinedWidgetJspFiles(model, skip_component_dir_creation) FOR this-»
+«EXPAND template::struts2::view::resourcefiles::createDialogPanelJspFiles(model, skip_component_dir_creation,true) FOR this-»
+«ENDDEFINE»
+
+«REM»Crea la servlet stream dati«ENDREM»
+«DEFINE resourceStreamJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getServletsJavaSrcDir(this, skip_component_dir_creation) + "/ResourceServletStream.java" »package «getServletsJavaPackage(this)»;
+
+
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.portlet.RenderResponse;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.portlet.context.PortletActionContext;
+
+import com.liferay.portal.kernel.servlet.HttpHeaders;
+
+
+
+/**
+ * <p>Classe per la gestione dello stream dati su liferay portal.</p>
+ *
+ * @author GuiGen
+ */
+public class ResourceServletStream extends HttpServlet {
+
+	
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		
+		String contentTypeStream = (String) request
+				.getAttribute("contentTypeStream");
+		
+		ByteArrayOutputStream bos = (ByteArrayOutputStream) request
+						.getAttribute("bosFileStream");
+		String contentDisposition = (String) request
+						.getAttribute("contentDisposition");
+				
+				
+		RenderResponse renderResponse = PortletActionContext.getRenderResponse();
+		
+		renderResponse.setContentType(contentTypeStream);
+		renderResponse.addProperty(HttpHeaders.CACHE_CONTROL, "max-age=3600, must-revalidate");                
+		renderResponse.setBufferSize(bos.size());
+				
+		OutputStream out =  renderResponse.getPortletOutputStream();
+				
+				
+				
+				bos.writeTo(out);
+				out.flush();
+				out.close();
+			
+		
+
+		System.out.println("doPost" + "END");
+
+	}
+
+	public void destroy() {
+
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»Crea la servlet stream dati«ENDREM»
+«DEFINE servletStreamJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getServletsJavaSrcDir(this, skip_component_dir_creation) + "/BaseServletStream.java" »package «getServletsJavaPackage(this)»;
+
+
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+«IF hasGisMap()-»
+import com.vividsolutions.jts.geom.Geometry;
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+«ENDIF-»
+
+/**
+ * <p>Classe per la gestione dello stream dati su liferay portal.</p>
+ *
+ * @author GuiGen
+ */
+public class BaseServletStream extends HttpServlet {
+	
+	
+	
+	protected flexjson.JSONSerializer getJSONSerializer(boolean jtsAware) {
+		flexjson.JSONSerializer serializer = null;
+		
+«IF hasGisMap()-»
+		if (jtsAware){
+			GeometryTransformer geoTransformer = new GeometryTransformer();
+			serializer = new flexjson.JSONSerializer().transform(geoTransformer, Geometry.class);
+		}
+		else{
+			serializer = new flexjson.JSONSerializer();
+		}
+«ELSE-»
+		serializer = new flexjson.JSONSerializer();
+«ENDIF-»
+		return serializer;
+	}
+		
+		
+	 
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+	}
+	 
+	 
+	public void doGet(HttpServletRequest request,
+            HttpServletResponse response)
+    throws ServletException, IOException
+{
+		doPost(request, response);
+}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	// reperisce il dato da serializzare
+	com.opensymphony.xwork2.ActionContext ctx = com.opensymphony.xwork2.ActionContext
+					.getContext();
+	
+	String valueStackWidgetId = (String)request.getAttribute("valueStackWidgetId");
+	String contentTypeStream = (String)request.getAttribute("contentTypeStream");
+	boolean jtsData = ((Boolean)request.getAttribute("jtsData")).booleanValue();
+	boolean isTreeView = ((Boolean)request.getAttribute("isTreeView")).booleanValue();
+	
+	//Object dataToProvide = ctx.getValueStack().findValue("appDataregioniSuggerite2");
+	Object dataToProvide = ctx.getValueStack().findValue(valueStackWidgetId);
+	
+			
+	flexjson.JSONSerializer serializer = getJSONSerializer(jtsData);
+	
+	String responseFin = "";
+			
+	if (isTreeView){
+			responseFin = serializer.exclude("*.class").deepSerialize(((it.csi.custom.component.tree.base.TreeNodeBase) dataToProvide).getChildren());
+		}
+		else{
+			responseFin = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		}
+	
+	/*
+	* Set the content type(MIME Type) of the response.
+	*/
+	//response.setContentType("text/javascript");
+	response.setContentType(contentTypeStream);
+	 
+	OutputStream out = response.getOutputStream();
+	/*
+	* Write the HTML to the response
+	*/
+	out.write(responseFin.getBytes("UTF-8"));
+	out.close();
+	 
+	}
+	 
+	 
+	public void destroy() {
+	 
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE performJumpExt FOR ContentPanel»
+
+private String performJumpExt(String result)
+	{
+		
+		String locationCode = result.substring(9);
+		
+		JumpExtCommand jECommand = (JumpExtCommand)jumpExtCommands.get(locationCode);
+		
+		String staticUrl = jECommand.getStaticUrl();
+		String runTimeUrlProviderAppaData = jECommand.getRuntimeUrlProviderAppaData();
+		boolean binaryStream = jECommand.isBinaryStream();
+		
+		ActionResponse actionResponse = PortletActionContext.getActionResponse();
+		
+		try
+		{
+			
+		if(StringUtils.isNotEmpty(staticUrl))
+		{
+			//Controllo se url applicativo oppure esterno
+			if(StringUtils.contains(staticUrl, "http:") ||
+					StringUtils.contains(staticUrl, "https:"))
+			{
+				//esterno
+				actionResponse.sendRedirect(staticUrl);
+			}
+			else
+			{
+				//interno
+				
+				ActionRequest actionRequest = PortletActionContext.getActionRequest();
+				ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
+					    .getAttribute(WebKeys.THEME_DISPLAY);
+				
+				String portletName=(String) actionRequest.getAttribute(WebKeys.PORTLET_ID);
+				
+				PortletURL portletURL = PortletURLFactoryUtil
+					    .create(PortalUtil.getHttpServletRequest(actionRequest), portletName,
+					      themeDisplay.getLayout().getPlid(),
+					      PortletRequest.RENDER_PHASE);
+				
+			    portletURL.setWindowState(binaryStream ?LiferayWindowState.EXCLUSIVE : LiferayWindowState.NORMAL);				
+				portletURL.setParameter("struts.portlet.action",staticUrl);
+				
+				actionResponse.sendRedirect(portletURL.toString());
+				
+			}
+		}
+		else if(StringUtils.isNotEmpty(runTimeUrlProviderAppaData))
+		{
+		    //Implementazione url dinamico a partire da un appData specifico
+		    Class classModel = getModel().getClass();
+				//no paramater
+				Class noparams[] = {};
+				Object modelInstance = getModel();
+				Method methodAppaData =
+						classModel.getDeclaredMethod("getAppData"+runTimeUrlProviderAppaData, noparams);
+				
+				actionResponse.sendRedirect((String)methodAppaData.invoke(modelInstance, null));
+		}
+		
+		}
+		catch (Exception e) {
+			   log.error(e);
+			   return "input" ;
+			  }
+		  
+		return "input";
+		
+	}
+
+«ENDDEFINE»
+
+«DEFINE provideDataInterno(GUIModel model, ContentPanel cp, String contextPrefix, MultiDataWidget widget, PDefUseConfig pduc) FOR AppDataBinding»
+	//Invio alla servlet i dati per la generazione dello stream
+		ServletActionContext.getRequest().setAttribute("valueStackWidgetId", "«getOGNLForWidgetMultiValue(widget, contextPrefix, pduc)»");
+		ServletActionContext.getRequest().setAttribute("contentTypeStream", "text/javascript");
+		ServletActionContext.getRequest().setAttribute("jtsData", new Boolean(«(widget.metaType==MapView ? true : false)»));
+		ServletActionContext.getRequest().setAttribute("isTreeView", new Boolean(«widget.metaType == TreeView»));
+		
+		return "successStream";
+		
+	}
+«ENDDEFINE»
