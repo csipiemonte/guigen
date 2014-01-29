@@ -868,6 +868,10 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR CheckBox»
 <!-- widget «getFullID(this, contextPrefix)» -->
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
+«ENDIF-»
 <s:checkbox 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -875,10 +879,15 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getCheckboxPortalStyle(model)»
-	/>
+	«getCheckBoxesValueChangedHandlerJS(this, model, cp, contextPrefix)»«REM»STDMDD-163: Check box: implementazione evento di click«ENDREM»
+	/> 
 <s:if test="!isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
 	<s:hidden name="__checkbox_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__checkbox_«getWidgetName(this, contextPrefix)»" />
 </s:if>
+«IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 

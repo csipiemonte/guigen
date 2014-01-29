@@ -107,6 +107,12 @@ String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, GUIModel mod
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		//"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 		"onclick=\"onRBClick('%{" + getWidgetName(rb, contextPrefix)+"urlRadioButtonValueChange}" + "')\" ";
+		
+// [MB] genera il codice che gestise l'evento change sui checkbox con JavaScript abilitato
+String getCheckBoxesValueChangedHandlerJSNeutral(CheckBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		//"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onclick=\"onCheckBoxClick('%{" + getWidgetName(cb, contextPrefix)+"urlCheckBoxValueChange}" + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
 //String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :

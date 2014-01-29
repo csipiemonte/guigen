@@ -1471,7 +1471,6 @@ String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, Con
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
 		//"onclick=\"onRBClick('%{" + getWidgetName(rb, contextPrefix)+"urlRadioButtonValueChange}" + "')\" ";
-		
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
 // [DM] STDMDD-1084: rimozione noscript
@@ -1481,6 +1480,15 @@ String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel mode
 //		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
 //			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
 //			"\" /></noscript>";
+
+// [MB] genera il codice che gestise l'evento change sui checkbox con JavaScript abilitato
+String getCheckBoxesValueChangedHandlerJS(CheckBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(cb), model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		//"onclick=\"onCheckBoxClick('%{" + getWidgetName(rb, contextPrefix)+"urlCheckBoxValueChange}" + "')\" ";		
+
+String getCheckBoxesValueChangedHandlerNoScript(CheckBox rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	"";
 
 String replaceFixNumberWithLatest(String actualVersion)  : JAVA
   it.csi.mddtools.guigen.genutils.GenUtils.replaceFixNumberWithLatest(java.lang.String);

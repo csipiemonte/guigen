@@ -129,6 +129,21 @@ e le limitazioni secondo i termini della Licenza.
 	</csiuicore:ajaxify>
 «ENDDEFINE»
 
+«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR CheckBox-»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="checkbox" 
+		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(vcHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
+		pageId="«parentCP.name»"
+		formName="«parentCP.name»"
+		javascriptDetection="false">
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR CheckBox-»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR TreeView-»
 	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="tree" 
