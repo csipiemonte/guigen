@@ -1040,7 +1040,7 @@ come target di refresh.
 «LET getRefreshTargetIds(this) AS targetIdsTemp-»
 «LET targetIdsTemp!=null ? addTableRefreshTargetId(targetIdsTemp, getFragmentId(parentPanel)) : {getFragmentId(parentPanel)} AS targetIds-»
 «IF model.targetPlatform.enableRichUIBehavior-»
-«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader((List[String])targetIds,cp, contextPrefix) FOR this-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader((List[String])targetIds, model, cp, contextPrefix) FOR this-»
 «ENDIF-»
 «LET this.enableExport ? "true" : "false" AS exportEnabled-»
 <s:set name="«cp.name»_«getFullID(this, contextPrefix)»_clearStatus" value="isTableClearStatus('«cp.name»_«getFullID(this, contextPrefix)»')" />

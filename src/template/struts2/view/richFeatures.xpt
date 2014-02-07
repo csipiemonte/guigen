@@ -79,11 +79,15 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-»
+«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model,ContentPanel parentCP, String contextPrefix) FOR Table-»
 «IF isEnrichmentEnabled()-»
 	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
-		widgetType="table" 
+		widgetType="table"		
 		pageId="«parentCP.name»"
+		«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
+			formName="«parentCP.name»"
+			requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(vcHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
+		«ENDLET-»
 		javascriptDetection="false">
 «ENDIF-»
 «ENDDEFINE»
