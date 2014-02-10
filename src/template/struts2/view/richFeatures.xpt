@@ -84,10 +84,12 @@ e le limitazioni secondo i termini della Licenza.
 	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="table"		
 		pageId="«parentCP.name»"
+		«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
 		«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
-			formName="«parentCP.name»"
 			requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(vcHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
+			formName="«parentCP.name»"			
 		«ENDLET-»
+		«ENDIF-»
 		javascriptDetection="false">
 «ENDIF-»
 «ENDDEFINE»

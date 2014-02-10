@@ -1063,9 +1063,21 @@ come target di refresh.
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort" media="html">
 		«IF this.databinding.appData.type.metaType == SimpleType -»
-			<s:radio list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getRadioPortalStyle(model)» />
+			<s:radio list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getRadioPortalStyle(model)»
+			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
+				«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
+				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
+				«ENDLET-»
+			«ENDIF-»
+			/>
 		«ELSEIF this.databinding.appData.type.metaType == TypedArray -»
-			<s:checkboxlist list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getCheckboxPortalStyle(model)» />
+			<s:checkboxlist list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getCheckboxPortalStyle(model)»
+			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
+			«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
+				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
+			«ENDLET-» 
+			«ENDIF-»
+			/>
 		«ELSEIF this.databinding.appData.type.metaType == ComplexType -»
 			«REM»COME FARE SE SIAMO IN QUESTO CASO?«ENDREM»
 			«ERROR "Databinding a ComplexType non ancora gestito sul widget Table " + loc()»
