@@ -331,7 +331,7 @@ ANT FILES
   <!-- -->
   <target name="package-ear"
           depends="environment-recreate, environment-config, compile-all,
-                   commons-jar, business-ejb-jar, integration-jar, «IF isOldMode()-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
+                   commons-jar, business-ejb-jar, integration-jar,
                    package-war"
           description="costruisce l&apos;ear">
 
@@ -360,8 +360,6 @@ ANT FILES
     </ear>
   </target>
  
-  «REM»[DM] STDMDD-670: target _unzip_js (spacchetta le risorse JS scaricate da repart)«ENDREM»
-  «EXPAND template::struts2::view::staticResources::antBuildFileUnzipJs FOR this-»
 
   <!-- -->
   <!-- ############################################################# -->
@@ -589,9 +587,6 @@ ANT FILES
   docs        = ${basedir}/docs
   temp        = ${build}/temp
 
-«REM»[DM] STDMDD-670: Files delle risorse statiche per rich UI«ENDREM»
-«EXPAND template::struts2::view::staticResources::buildPropertiesFileStaticResources FOR this»
-
 # - [ear-libs-filter] --------------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
 # essere inclusi all'interno dell'EAR prodotto.
@@ -685,8 +680,6 @@ remincl.cache.time.default=28800000
   docs        = ${basedir}/docs
   temp        = ${build}/temp
 
-«REM»[DM] STDMDD-670: Files delle risorse statiche per rich UI«ENDREM»
-«EXPAND template::struts2::view::staticResources::buildPropertiesFileStaticResources FOR this»
 
 # - [ear-libs-filter] --------------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono

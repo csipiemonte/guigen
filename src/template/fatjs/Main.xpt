@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,22 +13,21 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::fatjs::FatJSExtensions»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::fatjs::FatJSExtensionsÂ»
 
-«DEFINE main(String staticResourcesSchemaVersion) FOR GUIModel»
-	«setProperty("staticResourcesSchemaVersion", staticResourcesSchemaVersion)»
-	«EXPAND fatClientMainJSP FOR this»
-	«EXPAND fatClientJSStruct FOR this»
-«ENDDEFINE»
+Â«DEFINE main FOR GUIModelÂ»
+	Â«EXPAND fatClientMainJSP FOR thisÂ»
+	Â«EXPAND fatClientJSStruct FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE fatClientMainJSP FOR GUIModel»
-«FILE getPresentationMarkupDir(true)+"/fatclient/main.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+Â«DEFINE fatClientMainJSP FOR GUIModelÂ»
+Â«FILE getPresentationMarkupDir(true)+"/fatclient/main.jsp"Â»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 <%@taglib uri="/customtag" prefix="customtag" %>
 <%@taglib uri="/csiuicore" prefix="csiuicore" %>
@@ -46,111 +45,100 @@ e le limitazioni secondo i termini della Licenza.
 
 	</body>
 </html>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE fatClientJSStruct FOR GUIModel-»
-«IF isOldMode() && !isRemote()»
-«FILE getJavascriptSrcDir(true)+"/fatclient.js"»
+Â«DEFINE fatClientJSStruct FOR GUIModel-Â»
+Â«FILE getLocalJsDir(this, true)+"/fatclient.js"Â»
 /**
  * Definizione della struttura ExtCSI dell'applicazione
  */
-«EXPAND model::types::types FOR this»
-«EXPAND model::data::datas FOR this»
-«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
-«ENDFILE»
-«ELSEIF isNewMode()»
-«FILE getLocalJsDir(this, true)+"/fatclient.js"»
-/**
- * Definizione della struttura ExtCSI dell'applicazione
- */
-«EXPAND model::types::types FOR this»
-«EXPAND model::data::datas FOR this»
-«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
-«ENDFILE-»
-«ENDIF»
-«ENDDEFINE»
+Â«EXPAND model::types::types FOR thisÂ»
+Â«EXPAND model::data::datas FOR thisÂ»
+Â«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appAreaÂ»
+Â«ENDFILE-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE appAreaStruct(GUIModel model) FOR ApplicationArea»
+Â«DEFINE appAreaStruct(GUIModel model) FOR ApplicationAreaÂ»
 
 var appArea = new ExtCsi.app.ApplicationArea(
 	{
-		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
-		homePage: '«getRegistryID(this.homePage)»',
-		«IF onInitCommand!=null-»
-		onInitCommand: «EXPAND controller::commands::cmd(model, null) FOR this.onInitCommand»
-		«ELSE» onInitCommand: null
-		«ENDIF-»
+		menubar: Â«EXPAND menuBarStruct(model) FOR this.menubar-Â»,
+		homePage: 'Â«getRegistryID(this.homePage)Â»',
+		Â«IF onInitCommand!=null-Â»
+		onInitCommand: Â«EXPAND controller::commands::cmd(model, null) FOR this.onInitCommandÂ»
+		Â«ELSEÂ» onInitCommand: null
+		Â«ENDIF-Â»
 	}
 
 );
 
-«LET this.getAllContentPanels() AS allCP»
+Â«LET this.getAllContentPanels() AS allCPÂ»
 ExtCsi.app.ContentPanels = function() {
 	return {
-«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP SEPARATOR ","»
+Â«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP SEPARATOR ","Â»
 	}
 }();
-«ENDLET»
+Â«ENDLETÂ»
 Ext.onReady( function() { 
 	appArea.init();
 }); 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE menuBarStruct(GUIModel model) FOR Menubar»
+Â«DEFINE menuBarStruct(GUIModel model) FOR MenubarÂ»
 	new ExtCsi.ui.menu.Menubar(
 		{topLevelMenu: 
 			[
-			«EXPAND menuStruct(model) FOREACH this.topLevelMenu SEPARATOR ","-»
+			Â«EXPAND menuStruct(model) FOREACH this.topLevelMenu SEPARATOR ","-Â»
 			]
 		}
 	)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE menuStruct(GUIModel model) FOR Menu-»
+Â«DEFINE menuStruct(GUIModel model) FOR Menu-Â»
 			new ExtCsi.ui.menu.Menu(
 			{
-				name: '«name»',
-				label: «jsLiteralValue(label)»,
+				name: 'Â«nameÂ»',
+				label: Â«jsLiteralValue(label)Â»,
 				eventHandler:
-				«IF eventHandler!=null-»
-				«EXPAND controller::commands::eventHandler(model, null) FOR this.eventHandler»
-				«ELSE»null
-				«ENDIF-»
-				«IF submenu.size>0-»,submenu: [«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","»]«ENDIF-»
+				Â«IF eventHandler!=null-Â»
+				Â«EXPAND controller::commands::eventHandler(model, null) FOR this.eventHandlerÂ»
+				Â«ELSEÂ»null
+				Â«ENDIF-Â»
+				Â«IF submenu.size>0-Â»,submenu: [Â«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","Â»]Â«ENDIF-Â»
 			}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE contentPanelStruct(GUIModel model) FOR ContentPanel»
+Â«DEFINE contentPanelStruct(GUIModel model) FOR ContentPanelÂ»
 /**
- * struttura del content panel «this.name»
+ * struttura del content panel Â«this.nameÂ»
  */ 
-«name» : function() {
-	globalRegistry.registerObject('«getRegistryID(this)»', 
+Â«nameÂ» : function() {
+	globalRegistry.registerObject('Â«getRegistryID(this)Â»', 
 		new ExtCsi.ui.panels.ContentPanel(
 			{
-				name: '«name»',	
-				dialogs: [«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","»],
-				panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
-				states: «IF states != null-»[«EXPAND screenState(model, this) FOREACH states.states SEPARATOR ","»]«ELSE-»null«ENDIF-»,
-				dataUrl: '«getStrutsActionCompleteConfigName(this, model)»!«getFormDataProviderMethodName()»«getStrutsActionCompleteExtension()»',
-				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+				name: 'Â«nameÂ»',	
+				dialogs: [Â«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","Â»],
+				panels: Â«EXPAND view::panels::panelStruct(model, this) FOR panelsÂ»,
+				states: Â«IF states != null-Â»[Â«EXPAND screenState(model, this) FOREACH states.states SEPARATOR ","Â»]Â«ELSE-Â»nullÂ«ENDIF-Â»,
+				dataUrl: 'Â«getStrutsActionCompleteConfigName(this, model)Â»!Â«getFormDataProviderMethodName()Â»Â«getStrutsActionCompleteExtension()Â»',
+				onRefreshCommand: Â«IF onRefreshCommand!=null-Â»Â«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-Â»Â«ELSE-Â» null Â«ENDIF-Â»
 			}
 		)
 	);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE screenState(GUIModel model, ContentPanel cp) FOR ScreenState»
+Â«DEFINE screenState(GUIModel model, ContentPanel cp) FOR ScreenStateÂ»
 	new ExtCsi.ui.state.ScreenState(
 		{
-			name: '«this.name»',
-			widgetsOn: [«FOREACH widgetsOn AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»],
-			widgetsVisible: [«FOREACH widgetsVisible AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+			name: 'Â«this.nameÂ»',
+			widgetsOn: [Â«FOREACH widgetsOn AS w SEPARATOR ","Â»'Â«getFullID(w,"")Â»' Â«ENDFOREACHÂ»],
+			widgetsVisible: [Â«FOREACH widgetsVisible AS w SEPARATOR ","Â»'Â«getFullID(w,"")Â»' Â«ENDFOREACHÂ»]
 		}
 	)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 

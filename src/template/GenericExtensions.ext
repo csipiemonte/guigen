@@ -220,13 +220,7 @@ String getNomeCanale(GUIModel model) :
 	!isNullOrEmpty(canale) ? canale : "general";
 
 boolean checkValidMode(String mode) :
-	!isNullOrEmpty(mode) && (mode == "M1" || mode == "M2");
-
-boolean isOldMode() :
-	getProperty("staticResourcesSchemaVersion") == "M1";
-
-boolean isNewMode() :
-	getProperty("staticResourcesSchemaVersion") == "M2";
+	isNullOrEmpty(mode) || (mode == "M2"); // modo M1 rimosso!!
 
 // [DM] Gestione PortalProfile/PortalExposition: disattivo temporaneamente la funzione per interventi sul multiportale
 boolean hasPortalProfile(GUIModel model) :
