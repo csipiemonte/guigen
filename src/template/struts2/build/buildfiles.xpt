@@ -16,37 +16,31 @@ e le limitazioni secondo i termini della Licenza.
 «ENDREM»
 
 «IMPORT guigen»
+«IMPORT template::struts2::remoteResources»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
+«DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+	«EXPAND buildXML::antBuildFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildProperties::buildPropertiesFiles(skip_component_dir_creation) FOR this»
+	«EXPAND ivyXML::ivyFiles(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
 
 «REM»
-**************************************************************************************************************************
-Risorse statiche, casi:
-   2) M2, senza PortalProfile, modalità remote  ->  nuova alberatura, tutte le risorse in remoto
-   3) M2, senza PortalProfile, modalità local   ->  nuova alberatura, tutte le risorse in locale
-**************************************************************************************************************************
-«ENDREM»
+commentato liferay
+«DEFINE buildPortalFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPortalPropertiesFiles(skip_component_dir_creation) FOR this»
+	«EXPAND ivyPortalFiles(skip_component_dir_creation) FOR this»
+«ENDDEFINE»«ENDREM»
+
 
 «REM»
 ==========================================================================================================================
-BUILD FILES
+ANT FILES
 ===========================================================================================================================
 «ENDREM»
 
-«REM»buildfiles -> build.xml«ENDREM»
-«DEFINE antBuildFileUnzipJs FOR GUIModel»
-«ENDDEFINE»
-
-
-«REM»buildfiles -> build.properties«ENDREM»
-«DEFINE buildPropertiesFileStaticResources FOR GUIModel»
-«ENDDEFINE»
-
-
-
-
-
-
+«REM»genera il file di build di ant«ENDREM»
 
 

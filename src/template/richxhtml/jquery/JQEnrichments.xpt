@@ -17,31 +17,11 @@ e le limitazioni secondo i termini della Licenza.
 
 «IMPORT guigen»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+«DEFINE enrichmentStartup FOR ContentPanel»
 
+// startup dell arricchimento con JQuery
+$( function() { 
+«EXPAND template::richxhtml::enrichments::enrichmentsStartupStmts FOR this»	
+}); 
 
-
-
-«REM»
-	gestisce eventi di due tipi:
-	1) eventi con comandi senza restrizioni e esito in refresh parziale/totale
-	2) eventi con comandi ristretti all'ExecCommand ed esito JSON
-«ENDREM»
-«DEFINE handleEventInternal(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
-«LET this AS currEventHandler»	
-		String result = handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
-		if(result.startsWith("GO_TO_EX_"))
-		{
-			result=performJumpExt(result);
-		}
-			return result;
-	}
-	
-	
-	
-«ENDLET»
 «ENDDEFINE»

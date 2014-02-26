@@ -39,7 +39,7 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) della HEADER (chiamate tramite Struts2)«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 «REM»[DM] STDMDD-670: Header markup«ENDREM»
-«EXPAND template::struts2::view::staticResources::getHeaderMarkup(model, skip_component_dir_creation, true) FOR this»
+«EXPAND template::struts2::view::pageStructure::getHeaderMarkup(model, skip_component_dir_creation, true) FOR this»
 
 		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
 
@@ -55,7 +55,7 @@ Definizioni generali: header, footer, ecc
 
 			<!-- HEADER di PORTALE (con remincl) (facoltativo) -->
 			«REM»[DM] STDMDD-670: Application Header«ENDREM»
-			«EXPAND template::struts2::view::staticResources::getPortalHeader(model, skip_component_dir_creation) FOR this»
+			«EXPAND template::struts2::view::pageStructure::getPortalHeader(model, skip_component_dir_creation) FOR this»
 			<!-- fine HEADER di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
@@ -63,7 +63,7 @@ Definizioni generali: header, footer, ecc
 
 				<!-- HEADER di APPLICATIVO (con remincl) (facoltativo) -->
 				«REM»[DM] STDMDD-670: Application Header«ENDREM»
-				«EXPAND template::struts2::view::staticResources::getApplicationHeader(model, skip_component_dir_creation) FOR this»
+				«EXPAND template::struts2::view::pageStructure::getApplicationHeader(model, skip_component_dir_creation) FOR this»
 				<!-- fine HEADER di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
@@ -73,7 +73,7 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)«ENDREM»
 «DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 «REM»[DM] STDMDD-670: Header markup«ENDREM»
-«EXPAND template::struts2::view::staticResources::getHeaderMarkupNoStruts(model, skip_component_dir_creation, true) FOR this»
+«EXPAND template::struts2::view::pageStructure::getHeaderMarkupNoStruts(model, skip_component_dir_creation, true) FOR this»
 
 	</head>
 	<body>
@@ -83,7 +83,7 @@ Definizioni generali: header, footer, ecc
 
 			<!-- HEADER di PORTALE (con remincl) (facoltativo) -->
 			«REM»[DM] STDMDD-670: Application Header«ENDREM»
-			«EXPAND template::struts2::view::staticResources::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this»
+			«EXPAND template::struts2::view::pageStructure::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this»
 			<!-- fine HEADER di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
@@ -91,7 +91,7 @@ Definizioni generali: header, footer, ecc
 
 				<!-- HEADER di APPLICATIVO (con remincl) (facoltativo) -->
 				«REM»[DM] STDMDD-670: Application Header«ENDREM»
-				«EXPAND template::struts2::view::staticResources::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this»
+				«EXPAND template::struts2::view::pageStructure::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this»
 				<!-- fine HEADER di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
@@ -101,7 +101,7 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 <!-- STATIC LINKS -->
-«EXPAND template::struts2::view::staticResources::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
+«EXPAND template::struts2::view::pageStructure::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
 
 
@@ -111,7 +111,7 @@ Definizioni generali: header, footer, ecc
 			</div>
 			<!-- FINE APPICATION AREA (OBBLIGATORIO) -->
 
-«EXPAND template::struts2::view::staticResources::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+«EXPAND template::struts2::view::pageStructure::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 
 		</div>
 		<!-- FINE PAGE (OBBLIGATORIO) -->

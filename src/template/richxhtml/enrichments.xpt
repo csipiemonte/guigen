@@ -22,13 +22,42 @@ e le limitazioni secondo i termini della Licenza.
 «EXTENSION org::eclipse::xtend::util::stdlib::naming»
 «EXTENSION template::fatjs::FatJSExtensions»
 
+«REM»
+==========================================================================================================================
+ENRICHMENTS
+===========================================================================================================================
+«ENDREM»
+
+«REM»
+Crea i file JS di arricchimento delle pagine web
+[DM] STDMDD-621: i files JS degli arricchimenti verranno creati SEMPRE in LOCALE all'applicativo 
+nella directory src/web/
+«ENDREM»
+«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+	«FILE getLocalJsDir(model, true) + "/" + getEnrichmentFileWebRootRelative(this, model)»
+		«EXPAND template::richxhtml::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+	«ENDFILE-»
+«ENDDEFINE»
+
+«REM»
+Crea i file JS di arricchimento delle pagine web basate su liferay
+[DM] STDMDD-621: i files JS degli arricchimenti verranno creati SEMPRE in LOCALE all'applicativo 
+nella directory src/web/
+«ENDREM»
+«REM»
+ commentata liferay
+«DEFINE enrichmentDefsPortal(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+	«FILE getLocalJsDir(model, true) + "/" + getEnrichmentFileWebRootRelative(this, model)»
+		«EXPAND template::richxhtml::enrichmentsPortal::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+	«ENDFILE-»
+«ENDDEFINE»«ENDREM»
+
 
 «REM»crea i file JS di arricchimento delle pagine web«ENDREM»
 «REM»[DM] STDMDD-670: modificata chiamata«ENDREM»
-«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
-	«EXPAND staticResources::enrichmentDefsPortal(model, skip_component_dir_creation) FOR this»
-«ENDDEFINE»
-
+«REM»«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+	«EXPAND staticResources::enrichmentDefs(model, skip_component_dir_creation) FOR this»
+«ENDDEFINE»«ENDREM»
 
 
 «REM»Arricchimenti comuni«ENDREM»
@@ -70,7 +99,16 @@ function initUIStruct«name.toFirstUpper()»(){
 }
 
 Ext.onReady( function() { 
-	
+«EXPAND enrichmentsStartupStmts FOR this»	
+}); 
+«ENDDEFINE»
+
+«DEFINE enrichmentsStartup FOR ContentPanel-»
+«ERROR "impossibile stabilire la libreria di arricchimento da utilizzare - verificare il parametro 'enrichmentLibrary'"»
+«ENDDEFINE»
+
+«REM»richiamata via AOP dalle cartucce specifiche Ext/JQ«ENDREM»
+«DEFINE enrichmentsStartupStmts FOR ContentPanel-»
 	uiNRichLib.initStateManager();
 
 	initStdEnrichments4«name.toFirstUpper()»();
@@ -78,9 +116,8 @@ Ext.onReady( function() {
 	initUIStruct«name.toFirstUpper()»();
 	uiEnricherMgr.setReady(); 
 	uiEnricherMgr.applyAll("«name»"); 
-}); 
-«ENDDEFINE»
 
+«ENDDEFINE»
 
 «REM»struttura UI«ENDREM»
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR Panel-»
@@ -183,12 +220,9 @@ Ext.onReady( function() {
 «IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
 	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
-	
-	var «getWidgetName(this, contextPrefix)»UrlId = document.getElementById("«getWidgetName(this, contextPrefix)»UrlId").value;
-	
 	var addSuggestionsTo«name.toFirstUpper()» =  
 		function(){uiNRichLib.addTextSuggestionNRich(
-			«getWidgetName(this, contextPrefix)»UrlId,
+			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
 			'«getWidgetName(this, contextPrefix)»',
 			'«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
 			 «required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»)}; 
@@ -225,17 +259,10 @@ Ext.onReady( function() {
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ComboBox-»
 «IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
-	
-	var «getWidgetName(this, contextPrefix)»UrlId = document.getElementById("«getWidgetName(this, contextPrefix)»UrlId").value;//"<portlet:renderURL windowState='exclusive'><portlet:param name='struts.portlet.action' value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»' /></portlet:renderURL>";
-	
-	«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0-»
-	var «getWidgetName(this, contextPrefix)»VCUrlId = document.getElementById("«getWidgetName(this, contextPrefix)»VCUrlId").value;//"<portlet:renderURL windowState='exclusive'><portlet:param name='struts.portlet.action' value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»' /></portlet:renderURL>";
-	«ENDIF»
-	
 	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
 	var addSuggestionsTo«name.toFirstUpper()» =  
 		function(){uiNRichLib.addComboSuggestionNRich(
-			«getWidgetName(this, contextPrefix)»UrlId,
+			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
 			'«getWidgetName(this, contextPrefix)»',
 			'«getAppDataKey(databinding.appData)»',
 			'«keySelector»',
@@ -245,59 +272,7 @@ Ext.onReady( function() {
 			«LET (Panel)(this.eContainer) AS parentPanel-»
 			«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
 			'«FOREACH refreshIds AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»',«REM»targetIds«ENDREM»
-			«getWidgetName(this, contextPrefix)»VCUrlId,«REM»requestUri«ENDREM»
-			'«cp.name»',«REM»pageId«ENDREM»
-			'«cp.name»',«REM»formName«ENDREM»
-			«ENDLET-»
-			«ENDLET-»
-			«ENDLET-»
-			«ELSE-»
-			'',
-			'',
-			'',
-			'',
-			«ENDIF-»
-			«required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»)}; 
-	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
-«ENDLET-»
-«ELSE-»
-	«IF isEnrichmentEnabled()-»
-	«IF (!(databinding!=null && isBoundToArray(this.databinding)) ||
-          	  (databinding==null && dataType.metaType==TypedArray))-»
-	/// arricchimento per «this.metaType.name» [«name»]: autonarrowing
-	var addNarrowingTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.addComboNarrowingNRich(
-			'«getWidgetName(this, contextPrefix)»',
-			 «required ? "false" : "true"»)}; 
-	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addNarrowingTo«name.toFirstUpper()»);
-	«ENDIF»
-	«ENDIF-»
-«ENDIF»
-«ENDDEFINE»
-
-«DEFINE enrichmentPortalDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ComboBox-»
-«IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
-«LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
-	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazione server-side
-	
-	 var «getWidgetName(this, contextPrefix)»UrlId = "<portlet:renderURL windowState='exclusive'><portlet:param name='struts.portlet.action' value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»' /></portlet:renderURL>";
-	«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0-»
-	 var «getWidgetName(this, contextPrefix)»VCUrlId = "<portlet:renderURL windowState='exclusive'><portlet:param name='struts.portlet.action' value='«getPortalActionCompleteConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»' /></portlet:renderURL>";
-	«ENDIF»
-	
-	var addSuggestionsTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.addComboSuggestionNRich(
-			«getWidgetName(this, contextPrefix)»UrlId,
-			'«getWidgetName(this, contextPrefix)»',
-			'«getAppDataKey(databinding.appData)»',
-			'«keySelector»',
-			'«valueSelector»',
-			«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0-»
-			«LET getRefreshTargetIds(this) AS targetIdsTemp-»
-			«LET (Panel)(this.eContainer) AS parentPanel-»
-			«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
-			'«FOREACH refreshIds AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»',«REM»targetIds«ENDREM»
-			«getWidgetName(this, contextPrefix)»VCUrlId,«REM»requestUri«ENDREM»
+			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»',«REM»requestUri«ENDREM»
 			'«cp.name»',«REM»pageId«ENDREM»
 			'«cp.name»',«REM»formName«ENDREM»
 			«ENDLET-»
@@ -402,34 +377,4 @@ Ext.onReady( function() {
  «ENDLET-»							
 «ENDDEFINE»
 
-«REM»
-File di configurazione del caricamento risorse per tag csiui:header
-[DM] STDMDD-670: modificate chiamate
-«ENDREM»
-«DEFINE staticResourcesXML FOR GUIModel-»
-«FILE getWebModuleConfigDir(true)+"/staticResources.xml"»<?xml version="1.0" encoding="UTF-8"?>
-<files>
-	<!-- risorse caricate in ogni pagina -->
-	<file page="all">
-		«EXPAND staticResources::staticResourcesXML FOR this-»
-	</file>	
-	«LET (List[ContentPanel])getAllContentPanels(this.structure.appWindow.appArea) AS allCP-»
-		«EXPAND staticResourcesXML(this) FOREACH allCP-»
-	«ENDLET-»
-	«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-»
-	<!-- risorsa JS del fat client -->
-	<file page="main">
-		«EXPAND staticResources::staticResourcesXMLFatClient FOR this-»
-	</file>
-	«ENDIF-»
-</files>
-«ENDFILE»
-«ENDDEFINE»
 
-
-«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
-	<!-- risorse specifiche del ContentPanel [«name»] -->
-	<file page="«name»">
-		«EXPAND staticResources::staticResourcesXML(model) FOR this-»
-	</file>
-«ENDDEFINE»

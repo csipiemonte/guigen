@@ -1,0 +1,299 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+
+«REM»
+**************************************************************************************************************************
+File XML di descrizipone delle risorse statiche, utilizzato dal tag csiui:header.
+
+Casi:
+   2) M2, senza PortalProfile, modalità remote  ->  nuova alberatura, tutte le risorse in remoto
+   3) M2, senza PortalProfile, modalità local   ->  nuova alberatura, tutte le risorse in locale
+**************************************************************************************************************************
+«ENDREM»
+
+
+«REM»
+File di configurazione del caricamento risorse per tag csiui:header
+[DM] STDMDD-670: modificate chiamate
+«ENDREM»
+«DEFINE staticResourcesXMLFile FOR GUIModel-»
+«FILE getWebModuleConfigDir(true)+"/staticResources.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<files>
+	<!-- risorse caricate in ogni pagina -->
+	<file page="all">
+		«EXPAND staticResourcesXML FOR this-»
+	</file>	
+	«LET (List[ContentPanel])getAllContentPanels(this.structure.appWindow.appArea) AS allCP-»
+		«EXPAND staticResourcesXML(this) FOREACH allCP-»
+	«ENDLET-»
+	«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-»
+	<!-- risorsa JS del fat client -->
+	<file page="main">
+		«EXPAND staticResourcesXMLFatClient FOR this-»
+	</file>
+	«ENDIF-»
+</files>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»«DEFINE staticResourcesXMLFile(GUIModel model) FOR ContentPanel-»
+	<!-- risorse specifiche del ContentPanel [«name»] -->
+	<file page="«name»">
+		«EXPAND staticResourcesXML(model) FOR this-»
+	</file>
+«ENDDEFINE»«ENDREM»
+
+«REM»Configurazione singolo ContentPanel«ENDREM»
+«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
+	<!-- risorse specifiche del ContentPanel [«name»] -->
+	<file page="«name»">
+		«IF hasPortalProfile(model)-»
+			«EXPAND staticResourcesXMLPortalProfile(model) FOR this-»
+		«ELSE-»
+			«IF isRemote()-»
+				«EXPAND staticResourcesXMLRemote(model) FOR this-»
+			«ELSE-»
+				«EXPAND staticResourcesXMLLocal(model) FOR this-»
+			«ENDIF-»
+		«ENDIF-»
+	</file>
+«ENDDEFINE»
+
+
+«REM»Configurazione per Fat Client«ENDREM»
+«DEFINE staticResourcesXMLFatClient FOR GUIModel-»
+		«IF hasPortalProfile(this)-»
+			«EXPAND staticResourcesXMLFatClientPortalProfile FOR this-»
+		«ELSE-»
+			«IF isRemote()-»
+				«EXPAND staticResourcesXMLFatClientRemote FOR this-»
+			«ELSE-»
+				«EXPAND staticResourcesXMLFatClientLocal FOR this-»
+			«ENDIF-»
+		«ENDIF-»
+«ENDDEFINE»
+
+«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
+«DEFINE staticResourcesXML FOR GUIModel-»
+		«IF hasPortalProfile(this)-»
+			«EXPAND staticResourcesXMLPortalProfile FOR this-»
+		«ELSE-»
+			«IF isRemote()-»
+				«EXPAND staticResourcesXMLRemote FOR this-»
+			«ELSE-»
+				«EXPAND staticResourcesXMLLocal FOR this-»
+			«ENDIF-»
+		«ENDIF-»
+«ENDDEFINE»
+
+«REM»da staticResourcesPortalProfile«ENDREM»
+«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
+«DEFINE staticResourcesXMLPortalProfile FOR GUIModel-»
+	«ERROR "ERRORE: modalità portalProfile per risorse statiche non ancora supportata " + loc()»
+«ENDDEFINE»
+
+
+«REM»Configurazione singolo ContentPanel«ENDREM»
+«DEFINE staticResourcesXMLPortalProfile(GUIModel model) FOR ContentPanel-»
+	«ERROR "ERRORE: modalità portalProfile per risorse statiche non ancora supportata " + loc()»
+«ENDDEFINE»
+
+
+«REM»Configurazione per Fat Client«ENDREM»
+«DEFINE staticResourcesXMLFatClientPortalProfile FOR GUIModel-»
+	«ERROR "ERRORE: modalità portalProfile per risorse statiche non ancora supportata " + loc()»
+«ENDDEFINE»
+
+«REM»
+==========================================================================================================================
+ENRICHMENTS - REMOTE MODE
+===========================================================================================================================
+«ENDREM»
+
+«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
+«DEFINE staticResourcesXMLRemote FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalExtlibsthemeDir(true)»css/ext-all/resources/css/ext-all.css" />
+	«IF isMultiPortal(this)-»
+	<position value="«getGlobalExtlibsthemeDir(true)»css/{areaCode}/css/xtheme-{areaCode}.css" />
+	«ELSE-»
+	<position value="«getGlobalExtlibsthemeDir(true)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+	«ENDIF-»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(true)»ext-all/«getExtAllVersion()»/adapter/ext/ext-base.js" />
+	<position value="«getGlobalJslibDir(true)»ext-all/«getExtAllVersion()»/ext-all.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/util/Format.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/locale/ext-lang-it.js" />
+	<position value="«getGlobalJslibDir(true)»ckeditor/«getCKEditorVersion()»/ckeditor.js" />
+</resource>
+«ENDDEFINE»
+
+
+«REM»Configurazione singolo ContentPanel«ENDREM»
+«DEFINE staticResourcesXMLRemote(GUIModel model) FOR ContentPanel-»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/css/ajaxify.css" />
+	«IF hasGisMap()»
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/openlayers_style.css" />
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/grease.css" />
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/toolbar.css" />
+	«ENDIF»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/table-grid/TableGrid.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/miframe/miframe.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/enricher/enricher.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/menu/csimenu.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/toggle-panel/toggle.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/ajaxifyTag.js" />
+	«IF hasGisMap()»
+	<position value="«getGlobalJslibDir(true)»openlayers/«getOpenlayersVersion()»/core/OpenLayers.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/maps/map-setup.js" />
+	«ENDIF»
+	<!-- componente js dello skin -->
+	<position value="«getGlobalExtlibsthemeDir(true)»js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<!-- stilizzazioni JS locali (opz) -->
+	«IF isMultiPortal(model)-»
+	<position value="«getPathComponentDirMultiportal(model, true)»js/localStyle.js" />
+	«ELSE-»
+	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	«ENDIF-»
+	<!-- arricchimenti della schermata -->
+	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+</resource>
+«ENDDEFINE»
+
+
+«REM»Configurazione per Fat Client«ENDREM»
+«DEFINE staticResourcesXMLFatClientRemote FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/css/GridFilters.css" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/css/RangeMenu.css" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/multiselect/css/MultiSelect.css" />
+  	<position value="«getGlobalJslibDir(true)»extjscsimdd/«resolveVersionDirectory(getExtjsCsiMddVersion())»/core/css/core.css" />
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/menu/RangeMenu.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/menu/ListMenu.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/GridFilters.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/Filter.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/StringFilter.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/DateFilter.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/ListFilter.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/NumericFilter.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/BooleanFilter.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/multiselect/MultiSelect.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/multiselect/ItemSelector.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/tree-state/TreePanelStatefull_plugin.js" />
+  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/fileuploadfield/FileUploadField.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsimdd/«resolveVersionDirectory(getExtjsCsiMddVersion())»/core/core.js" />
+	<position value="«getJsDir(false)»fatclient.js" />
+</resource>
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+ENRICHMENTS - LOCAL MODE
+===========================================================================================================================
+«ENDREM»
+
+«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
+«DEFINE staticResourcesXMLLocal FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalExtlibsthemeDir(false)»css/ext-all/resources/css/ext-all.css" />
+	<position value="«getGlobalExtlibsthemeDir(false)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(false)»ext-all/«getExtAllVersion()»/adapter/ext/ext-base.js" />
+	<position value="«getGlobalJslibDir(false)»ext-all/«getExtAllVersion()»/ext-all.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/util/Format.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/locale/ext-lang-it.js" />
+</resource>
+«ENDDEFINE»
+
+
+«REM»Configurazione singolo ContentPanel«ENDREM»
+«DEFINE staticResourcesXMLLocal(GUIModel model) FOR ContentPanel-»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/css/ajaxify.css" />
+	«IF hasGisMap()»
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/openlayers_style.css" />
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/grease.css" />
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/toolbar.css" />
+	«ENDIF»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/table-grid/TableGrid.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/miframe/miframe.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/enricher/enricher.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/menu/csimenu.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/toggle-panel/toggle.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/ajaxifyTag.js" />
+	«IF hasGisMap()»
+	<position value="«getGlobalJslibDir(false)»openlayers/«getOpenlayersVersion()»/core/OpenLayers.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/maps/map-setup.js" />
+	«ENDIF»
+	<!-- componente js dello skin -->
+	<position value="«getGlobalExtlibsthemeDir(false)»js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+</resource>
+«ENDDEFINE»
+
+
+«REM»Configurazione per Fat Client«ENDREM»
+«DEFINE staticResourcesXMLFatClientLocal FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/css/GridFilters.css" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/css/RangeMenu.css" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/multiselect/css/MultiSelect.css" />
+  	<position value="«getGlobalJslibDir(false)»extjscsimdd/«resolveVersionDirectory(getExtjsCsiMddVersion())»/core/css/core.css" />
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/menu/RangeMenu.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/menu/ListMenu.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/GridFilters.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/Filter.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/StringFilter.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/DateFilter.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/ListFilter.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/NumericFilter.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/grid-filter/filter/BooleanFilter.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/multiselect/MultiSelect.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/multiselect/ItemSelector.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/tree-state/TreePanelStatefull_plugin.js" />
+  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/fileuploadfield/FileUploadField.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsimdd/«resolveVersionDirectory(getExtjsCsiMddVersion())»/core/core.js" />
+	<position value="«getJsDir(false)»fatclient.js" />
+</resource>
+«ENDDEFINE»
+
