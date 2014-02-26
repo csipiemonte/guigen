@@ -1,0 +1,43 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+«IMPORT guigen»
+
+«REM»
+**************************************************************************************************************************
+Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsistente)
+**************************************************************************************************************************
+«ENDREM»
+
+«AROUND template::richxhtml::staticResourcesXML::globalInclusionsJSLibSpecificRemote FOR GUIModel-»
+«EXPAND template::richxhtml::extjs::ResourcesInclusions::globalInclusionsJSLibSpecificRemote FOR this-»
+«ENDAROUND»
+
+«AROUND template::richxhtml::staticResourcesXML::globalInclusionsJSLibSpecificLocal FOR GUIModel-»
+«EXPAND template::richxhtml::extjs::ResourcesInclusions::globalInclusionsJSLibSpecificLocal FOR this-»
+«ENDAROUND»
+
+«AROUND template::richxhtml::staticResourcesXML::pageInclusionsJSLibSpecificRemote(GUIModel model) FOR ContentPanel-»
+«EXPAND template::richxhtml::extjs::ResourcesInclusions::pageInclusionsJSLibSpecificRemote(model) FOR this»
+«ENDAROUND»
+
+«AROUND template::richxhtml::staticResourcesXML::pageInclusionsJSLibSpecificLocal(GUIModel model) FOR ContentPanel-»
+«EXPAND template::richxhtml::extjs::ResourcesInclusions::pageInclusionsJSLibSpecificLocal(model) FOR this»
+«ENDAROUND»
+
+«AROUND template::richxhtml::enrichments::enrichmentsStartup FOR ContentPanel-»
+«EXPAND template::richxhtml::extjs::Enrichments::enrichmentStartup FOR this-»
+«ENDAROUND»

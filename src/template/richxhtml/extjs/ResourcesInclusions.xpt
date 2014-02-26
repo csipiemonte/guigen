@@ -1,0 +1,125 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+«EXTENSION template::richxhtml::extjs::Extensions»
+
+«REM»link specifici di extjs da includere globalmente nell'head in modalita' remoteResources=true«ENDREM»
+«DEFINE globalInclusionsJSLibSpecificRemote FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalExtlibsthemeDir(true)»css/ext-all/resources/css/ext-all.css" />
+	«IF isMultiPortal(this)-»
+	<position value="«getGlobalExtlibsthemeDir(true)»css/{areaCode}/css/xtheme-{areaCode}.css" />
+	«ELSE-»
+	<position value="«getGlobalExtlibsthemeDir(true)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+	«ENDIF-»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(true)»ext-all/«getExtAllVersion()»/adapter/ext/ext-base.js" />
+	<position value="«getGlobalJslibDir(true)»ext-all/«getExtAllVersion()»/ext-all.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/util/Format.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/locale/ext-lang-it.js" />
+	<position value="«getGlobalJslibDir(true)»ckeditor/«getCKEditorVersion()»/ckeditor.js" />
+</resource>
+«ENDDEFINE»
+
+«REM»link specifici di extjs da includere globalmente nell'head in modalita' remoteResources=false«ENDREM»
+«DEFINE globalInclusionsJSLibSpecificLocal FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalExtlibsthemeDir(false)»css/ext-all/resources/css/ext-all.css" />
+	<position value="«getGlobalExtlibsthemeDir(false)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(false)»ext-all/«getExtAllVersion()»/adapter/ext/ext-base.js" />
+	<position value="«getGlobalJslibDir(false)»ext-all/«getExtAllVersion()»/ext-all.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/util/Format.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/locale/ext-lang-it.js" />
+</resource>
+«ENDDEFINE»
+
+
+«REM»link specifici di extjs da includere per singola pagina nell'head in modalita' remoteResources=true«ENDREM»
+«DEFINE pageInclusionsJSLibSpecificRemote(GUIModel model) FOR ContentPanel»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/css/ajaxify.css" />
+	«IF hasGisMap()»
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/openlayers_style.css" />
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/grease.css" />
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/toolbar.css" />
+	«ENDIF»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/table-grid/TableGrid.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/miframe/miframe.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/enricher/enricher.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/menu/csimenu.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/toggle-panel/toggle.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/ajaxifyTag.js" />
+	«IF hasGisMap()»
+	<position value="«getGlobalJslibDir(true)»openlayers/«getOpenlayersVersion()»/core/OpenLayers.js" />
+	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/maps/map-setup.js" />
+	«ENDIF»
+	<!-- componente js dello skin -->
+	<position value="«getGlobalExtlibsthemeDir(true)»js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<!-- stilizzazioni JS locali (opz) -->
+	«IF isMultiPortal(model)-»
+	<position value="«getPathComponentDirMultiportal(model, true)»js/localStyle.js" />
+	«ELSE-»
+	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	«ENDIF-»
+	<!-- arricchimenti della schermata -->
+	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+</resource>
+
+«ENDDEFINE»
+
+«REM»link specifici di extjs da includere per singola pagina nell'head in modalita' remoteResources=false«ENDREM»
+«DEFINE pageInclusionsJSLibSpecificLocal(GUIModel model) FOR ContentPanel-»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/css/ajaxify.css" />
+	«IF hasGisMap()»
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/openlayers_style.css" />
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/grease.css" />
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/toolbar.css" />
+	«ENDIF»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/table-grid/TableGrid.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory(getExtjsCsiCoreVersion())»/miframe/miframe.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/enricher/enricher.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/menu/csimenu.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/toggle-panel/toggle.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/ajaxify-tag/ajaxifyTag.js" />
+	«IF hasGisMap()»
+	<position value="«getGlobalJslibDir(false)»openlayers/«getOpenlayersVersion()»/core/OpenLayers.js" />
+	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory(getExtjsCsiEnricherVersion())»/maps/map-setup.js" />
+	«ENDIF»
+	<!-- componente js dello skin -->
+	<position value="«getGlobalExtlibsthemeDir(false)»js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+</resource>
+«ENDDEFINE»

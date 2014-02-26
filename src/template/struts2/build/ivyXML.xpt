@@ -88,7 +88,7 @@ IVY FILES (gestione delle dipendenze)
 		«EXPAND strutsThemeIvy FOR this»
 
 		«REM»[DM] STDMDD-670: Dipendenze per risorse statiche«ENDREM»
-		«EXPAND ivyFileStaticResources FOR this»
+		«REM»«EXPAND ivyFileStaticResources FOR this»«ENDREM»
 		«IF targetPlatform.enableRichUIBehavior-»
 		<dependency org="others" name="flexjson" rev="2.1" />
 		<dependency org="csipiemonte" name="csiui" rev="1.4.1" />
@@ -252,7 +252,7 @@ NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«EN
 
 
 «REM»buildfiles -> ivy.xml«ENDREM»
-«DEFINE ivyFileStaticResources FOR GUIModel»
+«REM»«DEFINE ivyFileStaticResources FOR GUIModel»
 	«IF hasPortalProfile(this)-»
 			«EXPAND ivyFileStaticResourcesPortalProfile FOR this»
 		«ELSE-»
@@ -261,7 +261,7 @@ NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«EN
 			«ENDIF»	
 		«ENDIF»
 «ENDDEFINE»
-
+«ENDREM»
 
 «REM»buildfiles -> ivyconf.xml«ENDREM»
 «REM»«DEFINE ivyIvyConfFileStaticResources FOR GUIModel»
@@ -270,7 +270,7 @@ NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«EN
 
 
 «REM»buildfiles -> ivy.xml, modalità LOCAL«ENDREM»
-«DEFINE ivyFileStaticResourcesLocal FOR GUIModel»
+«REM»«DEFINE ivyFileStaticResourcesLocal FOR GUIModel»
 «IF targetPlatform.enableRichUIBehavior-»
 <!-- librerie js per rich u.i -->
 <dependency org="csipiemonte" name="extjscsicore" rev="«getExtjsCsiCoreVersion()»"/>
@@ -283,7 +283,7 @@ NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«EN
 «ENDIF-»
 «ENDIF»
 «ENDDEFINE»
-
+«ENDREM»
 
 «REM»buildfiles -> ivyconf.xml«ENDREM»
 «DEFINE ivyIvyConfFileStaticResources FOR GUIModel»
