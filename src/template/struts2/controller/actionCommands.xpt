@@ -969,6 +969,14 @@ public class ExecCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/ClearAppDataCommand.java"»
 package «getPresentationJavaPackage()»;
 
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Implementazione del comando ClearAppDataCommand.
  */
@@ -995,10 +1003,33 @@ public class ClearAppDataCommand implements ICommand {
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (_attributesToBeRemovedFromSession!=null && _attributesToBeRemovedFromSession.length!=0){
 			for (int i = 0; i < _attributesToBeRemovedFromSession.length; i++) {
-				strutsAction.getSession().remove("appData"+_attributesToBeRemovedFromSession[i]);				
+				clearAppDataFromModel(strutsAction.getModel(), "appData" + _attributesToBeRemovedFromSession[i]);				
 			}			 
 		}
 		return null;
+	}
+	
+	private void clearAppDataFromModel(Object model, String name){
+		Class modelClass = model.getClass();
+		try {
+			BeanInfo bi = Introspector.getBeanInfo(modelClass);
+			PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+			for (int i = 0; i < pds.length; i++) {
+				PropertyDescriptor currPD = pds[i];
+				if (currPD.getName().equals(name)){
+					Method writeMethod = currPD.getWriteMethod();
+					writeMethod.invoke(model, new Object[]{(Object)null});
+				}
+			}
+		} catch (IntrospectionException e) {
+			;;
+		} catch (IllegalArgumentException e) {
+			;;
+		} catch (IllegalAccessException e) {
+			;;
+		} catch (InvocationTargetException e) {
+			;;
+		}
 	}
 };
 «ENDFILE»
