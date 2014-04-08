@@ -264,12 +264,12 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 			FilterChain fchn) throws IOException, ServletException {
 		HttpServletRequest hreq = (HttpServletRequest) req;
 		Object marker = getMarker(hreq);
-
+«IF this.intAuthGuard!=null && this.intAuthGuard.loginModule!=null && !this.intAuthGuard.loginModule.internal-»
 		if (hreq.getRequestURI().indexOf(loginPage) > -1) {
 			fchn.doFilter(req, resp);
 			return;
 		}
-
+«ENDIF-»
 		if (marker != null)
 			fchn.doFilter(req, resp);
 		else {
@@ -447,7 +447,9 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	}
 
 	public void init(FilterConfig config) throws ServletException {
+		«IF this.intAuthGuard!=null && this.intAuthGuard.loginModule!=null && this.intAuthGuard.loginModule.internal-»
 		loginPage = config.getInitParameter("loginPage");
+		«ENDIF-»
 		«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»	
 		remoteValidationUrl = config.getInitParameter("remoteValidationUrl");
 		«ENDIF-»
