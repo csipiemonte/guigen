@@ -569,30 +569,30 @@ public class OnOffCommand implements ICommand {
 	String _containerName = null;
 	String[] _targetsWidgets = null;
 	String[] _targetsMenuElement = null;
-	boolean _show = true;
+	boolean _enable = true;
 
 	/**
 	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
 	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
-	 * @param show se vale true i widget saranno abilitati, altrimenti saranno disabilitati
+	 * @param enable se vale true i widget saranno abilitati, altrimenti saranno disabilitati
 	 */
-	public OnOffCommand(String containerName, String targetsWidgets[], boolean show) {
+	public OnOffCommand(String containerName, String targetsWidgets[], boolean enable) {
 		_containerName = containerName;
 		_targetsWidgets = targetsWidgets;
-		_show = show;
+		_enable = enable;
 	}
 	
 	/**
 	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
 	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
 	 * @param targetsMenuElement nomi dei menu da abilitare/disabilitare
-	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
+	 * @param enable se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
 	 */
-	public OnOffCommand(String containerName, String targetsWidgets[], String targetsMenuElement[], boolean show) {
+	public OnOffCommand(String containerName, String targetsWidgets[], String targetsMenuElement[], boolean enable) {
 		_containerName = containerName;
 		_targetsWidgets = targetsWidgets;
 		_targetsMenuElement = targetsMenuElement;
-		_show = show;
+		_enable = enable;
 	}
 	
 	/**
@@ -610,7 +610,7 @@ public class OnOffCommand implements ICommand {
 			}
 			for (int i = 0; i < _targetsWidgets.length; i++) {
 				cpWidgetsStatus.put(_targetsWidgets[i] + "_enabled",
-						Boolean.valueOf(_show));
+						Boolean.valueOf(_enable));
 			}
 		}
 		
@@ -624,7 +624,7 @@ public class OnOffCommand implements ICommand {
 			}
 			for (int i = 0; i < _targetsMenuElement.length; i++) {
 				menuOnOffMap.put(_targetsMenuElement[i] + "_enabled",
-						Boolean.valueOf(_show));
+						Boolean.valueOf(_enable));
 			}
 		}
 		return null;
