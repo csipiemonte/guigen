@@ -133,9 +133,9 @@ public class MethodProtectionInterceptor extends MethodFilterInterceptor {
 			m = invocation.getAction().getClass().getDeclaredMethod(methodName,
 					new Class[]{});
 		} catch (SecurityException e) {
-			e.printStackTrace();
+			m = null;
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
+			m = null;
 		}
 		if (m != null) {
 			MethodProtection prot = m.getAnnotation(MethodProtection.class);

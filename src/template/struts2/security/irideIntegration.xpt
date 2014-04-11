@@ -22,6 +22,7 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE iridePDCacheClass(GUIModel model) FOR SecurityModel»
 «FILE getIridePDCacheJavaFile(model,true)»package «getBaseJavaPackage(model)».business;
 
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Hashtable;
 
@@ -34,7 +35,7 @@ import it.csi.iride2.iridefed.entity.Ruolo;
 
 public class «getIridePDCacheClassName()» implements FunctHandler{
 
-	static HashMap<Iride2CallKey, Iride2CallValue> cache = new HashMap<Iride2CallKey, Iride2CallValue>();
+	static Map<Iride2CallKey, Iride2CallValue> cache = new HashMap<Iride2CallKey, Iride2CallValue>();
 
 	static final long TTL = 60 * 60 * 1000; // TTL = 1h
 

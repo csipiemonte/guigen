@@ -375,7 +375,7 @@ public class BeanMapping {
 	 * Elenco dei tipi base gestiti
 	 */		
 	@SuppressWarnings("unchecked")
-	private static final HashMap<Class, HashMap<String, Object>> inspections = new HashMap<Class, HashMap<String, Object>>();
+	private static final Map<Class, Map<String, Object>> inspections = new HashMap<Class, Map<String, Object>>();
 
 	/** Creates a new instance of BeanMapping */
 	private BeanMapping() {
@@ -537,8 +537,8 @@ public class BeanMapping {
 		// properties.
 		instances.put(bean, dest);
 
-		HashMap<String, Object> sourceProperties = inspectObject(bean);
-		HashMap<String, Object> destinationProperties = inspectObject(dest);
+		Map<String, Object> sourceProperties = inspectObject(bean);
+		Map<String, Object> destinationProperties = inspectObject(dest);
 
 		for (Iterator<String> it = sourceProperties.keySet().iterator(); it
 				.hasNext();) {
@@ -783,7 +783,7 @@ public class BeanMapping {
 	}
 
 	
-	private static HashMap<String, Object> inspectObject(Object o)
+	private static Map<String, Object> inspectObject(Object o)
 			throws IntrospectionException { 
 		if (inspections.containsKey(o.getClass())) {
 			return inspections.get(o.getClass());

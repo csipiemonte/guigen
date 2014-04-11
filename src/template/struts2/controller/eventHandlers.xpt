@@ -216,7 +216,7 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
      * di ciascun widget
      */
 	protected final ICommand initCommand(String sourceWidget, String eventType) {
-		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
+		Map<String, Map<String, ICommand>> cmdsByWidget = new HashMap<String, Map<String, ICommand>>();
 		
 	«EXPAND commandMapForEventSource(model, this, "") FOR this.panels-»
 	«EXPAND commandMapForEventSource(model, this, "") FOREACH this.dialogs-»
@@ -317,13 +317,13 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
      * di ciascun widget
      */
 	protected ICommand initCommand(String sourceWidget, String eventType) {
-		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
+		Map<String, Map<String, ICommand>> cmdsByWidget = new HashMap<String, Map<String, ICommand>>();
 		
 		«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
 		«IF eventSources.size>0-»
 		«FOREACH eventSources AS currEventSource-»
 		// contiene i comandi del menu «currEventSource.name» per ogni Ev.H.
-		HashMap<String, ICommand> cmds4«currEventSource.name»ByEvh = 
+		Map<String, ICommand> cmds4«currEventSource.name»ByEvh = 
 		  new HashMap<String, ICommand>();
 		«LET currEventSource.eventHandler AS evhs-»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
@@ -662,7 +662,7 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
 «IF eventHandlers.size>0-»
 	«LET this AS currEventSource-»
 		// contiene i comandi del widget «getFullID(currEventSource, contextPrefix)» per ogni Ev.H.
-		HashMap<String, ICommand> cmds4«getFullID(currEventSource, contextPrefix)»ByEvh = 
+		Map<String, ICommand> cmds4«getFullID(currEventSource, contextPrefix)»ByEvh = 
 		  new HashMap<String, ICommand>();
 				«LET (currEventSource).eventHandlers AS evhs-»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
