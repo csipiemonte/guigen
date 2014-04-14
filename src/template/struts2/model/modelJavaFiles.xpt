@@ -244,7 +244,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 «DEFINE property(GUIModel model) FOR Field»
 
 	/// Field [«name»]
-	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
+	private «toJavaType(this.type, model)» «this.name» = «defaultInitVal(this.type, model)»;
 	
 	«REM»STDMDD-159: visitor validator.«ENDREM»
 	/**
@@ -254,7 +254,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 	 */
 	«getValidatorFieldAnnotationForDTO(this)»
 	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
-		_«this.name» = val;
+		«this.name» = val;
 	}
 	
 	/**
@@ -262,7 +262,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 	 * @generated
 	 */
 	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
-		return _«this.name»;
+		return «this.name»;
 	}
 «ENDDEFINE»
 
@@ -272,7 +272,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 	 * Activation Param [«name»]
 	 * @generated
 	 */
-	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
+	private «toJavaType(this.type, model)» «this.name» = «defaultInitVal(this.type, model)»;
 	
 	/**
 	 * imposta il valore dell' Activation Param [«name»]
@@ -280,7 +280,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 	 * @generated
 	 */
 	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
-		_«this.name» = val;
+		«this.name» = val;
 	}
 	
 	/**
@@ -288,7 +288,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 	 * @generated
 	 */
 	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
-		return _«this.name»;
+		return «this.name»;
 	}
 «ENDDEFINE»
 
