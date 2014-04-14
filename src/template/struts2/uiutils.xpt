@@ -777,7 +777,6 @@ public final class DynamicComparator implements Comparator {
 			// Determine the return type
 			Method method = Utility.convertiMetodo(methodName, o1); // o1.getClass().getMethod(methodName, null);
 			Class c = method.getReturnType();
-			//System.out.println("return type is " + c);
 
 			// Invoke method to gather two comparable objects
 			java.lang.Object result1 = method.invoke(o1, (Object[]) null);
@@ -789,18 +788,15 @@ public final class DynamicComparator implements Comparator {
 			}
 
 			if (c.isAssignableFrom(Class.forName("java.util.Comparator"))) {
-				//System.out.println(c + " implements java.util.Comparator");
 				java.util.Comparator c1 = (java.util.Comparator) result1;
 				java.util.Comparator c2 = (java.util.Comparator) result2;
 				rv = c1.compare(c1, c2);
 			} else if (Class.forName("java.lang.Comparable")
 					.isAssignableFrom(c)) {
-				//System.out.println(c + "implements java.lang.Comparable");
 				java.lang.Comparable c1 = (java.lang.Comparable) result1;
 				java.lang.Comparable c2 = (java.lang.Comparable) result2;
 				rv = c1.compareTo(c2);
 			} else if (c.isPrimitive()) {
-				//System.out.println("c.isPrimitive");
 				long f1 = ((Number) result1).longValue();
 				long f2 = ((Number) result2).longValue();
 				if (f1 == f2)

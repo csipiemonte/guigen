@@ -48,7 +48,6 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			if (inPreChain) {
 				Iride2CallValue cachedResult = cache.get(call);
 				if (cachedResult != null) {
-					// System.out.println("PDCache: found result for " + call);
 					if ((System.currentTimeMillis() - cachedResult.birthTime) < TTL) {
 						prevres.setResult(cachedResult.result);
 						prevres.setSkipInvoke(true);
@@ -61,8 +60,6 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			else { // post chain
 				if (prevres.getException() == null) {
 					// metti in cache il risultato
-					// System.out.println("PDCache: caching result for " +
-					// call);
 					Iride2CallValue newVal = new Iride2CallValue(System
 							.currentTimeMillis(), prevres.getResult());
 					cache.put(call, newVal);

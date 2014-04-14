@@ -474,7 +474,7 @@ public class BeanMapping {
 			Object bean) throws IntrospectionException, ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			InvocationTargetException, MappingException {
-		// if null
+		// se nullo
 		if (bean == null) {
 			return null;
 		}
@@ -548,9 +548,6 @@ public class BeanMapping {
 				continue;
 			}
 
-			// System.out.println(destinationClass.getName() + " " +
-			// propertyName);
-
 			Object sourceAccessor = sourceProperties.get(propertyName);
 			Object destinationAccessor = destinationProperties
 					.get(propertyName);
@@ -600,7 +597,6 @@ public class BeanMapping {
 				} else if (isInterface(ArrayList.class, valueClass)
 						&& valueDestinationClass.isArray()) {
 					List list = (ArrayList) valueObject;
-					//Class arrayClass = resolveArray(mappings, valueDestinationClass.getComponentType());
 					Object[] destination = (Object[]) Array.newInstance(
 							valueDestinationClass.getComponentType(),list.size());
 					
@@ -661,7 +657,6 @@ public class BeanMapping {
 				if (valueClass.isArray() && valueObject != null
 						&& valueDestinationClass.isArray()) {
 					Object[] beans = (Object[]) valueObject;
-					//Class arrayClass = resolveArray(mappings, valueDestinationClass.getComponentType());
 					Object[] destination = (Object[]) Array.newInstance(
 							valueDestinationClass.getComponentType(), beans.length);
 
@@ -855,7 +850,6 @@ public class BeanMapping {
 	@SuppressWarnings("unchecked")
 	private static Class resolveClass(Properties mappings, Class clazz)
 			throws ClassNotFoundException {
-		// System.out.println("Resolving class: " + clazz.getName());
 		assert ((mappings != null) && (mappings.size() > 0));
 		assert (clazz != null);
 
@@ -874,7 +868,6 @@ public class BeanMapping {
 			String newClass = trimPackage(mappings
 					.getProperty(trimPackage(clazz.getName()) + ".*"))
 					+ "." + clazz.getSimpleName();
-			// System.out.println("Mapped to: " + newClass);
 
 			return Class.forName(newClass);
 		} else if (mappings.containsValue(trimPackage(clazz.getName()) + ".*")) {
@@ -886,7 +879,6 @@ public class BeanMapping {
 						.equals(trimPackage(clazz.getName()) + ".*")) {
 					String newClass = trimPackage(entry.getKey().toString())
 							+ "." + clazz.getSimpleName();
-					// System.out.println( "Mapped to: "+newClass);
 					return Class.forName(newClass);
 				}
 			}

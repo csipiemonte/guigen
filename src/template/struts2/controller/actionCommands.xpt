@@ -105,13 +105,13 @@ public class JumpCommand implements ICommand {
 	/**
 	 * nome del contnetPanel di partenza (serve in caso di pushCurrentPage)
 	 */
-	String _currentPageName = null;
+	String currentPageName = null;
 	
 	/**
 	 * se impostato a true, verra' inserita la pagina (content panel) corrente nello 
 	 * stack
 	 */
-	boolean _pushCurrent;
+	boolean pushCurrent;
 	
 	/**
 	 * @param panelName il nome del contentPanel a cui saltare
@@ -123,8 +123,8 @@ public class JumpCommand implements ICommand {
 	public JumpCommand(String panelName, String currentPageName,
 			boolean pushCurrent) {
 		name = panelName;
-		_pushCurrent = pushCurrent;
-		_currentPageName = currentPageName;
+		this.pushCurrent = pushCurrent;
+		this.currentPageName = currentPageName;
 	}
 	
 	/**
@@ -137,10 +137,10 @@ public class JumpCommand implements ICommand {
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 	//se prevista modalità PUSH_PAGE_CURRENT --> inserisci in queque currentPage 
-		if (_pushCurrent && (null!=_currentPageName && !"".equalsIgnoreCase(_currentPageName))) {
+		if (this.pushCurrent && (null!=this.currentPageName && !"".equalsIgnoreCase(this.currentPageName))) {
 			if (strutsAction.getAppDataNavigationQueue() == null)
 				strutsAction.setAppDataNavigationQueue(new java.util.LinkedList());
-			strutsAction.getAppDataNavigationQueue().add(_currentPageName);
+			strutsAction.getAppDataNavigationQueue().add(this.currentPageName);
 		} else {
 			if (strutsAction.getAppDataNavigationQueue() != null)
 				strutsAction.getAppDataNavigationQueue().clear();
@@ -228,9 +228,9 @@ public class RefreshViewCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	String _currentPanelName = null;
-	String [] _targetPanels=null;
-	String [] _targetWidgets=null;
+	String currentPanelName = null;
+	String [] targetPanels=null;
+	String [] targetWidgets=null;
 	
 	/**
 	 * @param currentPanelName il nome del ContentPanel su cui deve essere effettuato il refresh
@@ -239,9 +239,9 @@ public class RefreshViewCommand implements ICommand {
 	 */
 	public RefreshViewCommand(String currentPanelName, String [] targetPanelNames,
 			String  [] targetWidgetNames) {
-		_currentPanelName = currentPanelName;
-		_targetPanels = targetPanelNames;
-		_targetWidgets = targetWidgetNames;
+		this.currentPanelName = currentPanelName;
+		this.targetPanels = targetPanelNames;
+		this.targetWidgets = targetWidgetNames;
 	}
 	
 	
@@ -435,12 +435,12 @@ public class ScreenStateCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	String _containerName = null;
-	String _stateName = null;
-	String[] _widgetsOn = null;
-	String[] _widgetsOff = null;
-	String[] _widgetsShown = null;
-	String[] _widgetsHidden = null;
+	String containerName = null;
+	String stateName = null;
+	String[] widgetsOn = null;
+	String[] widgetsOff = null;
+	String[] widgetsShown = null;
+	String[] widgetsHidden = null;
 
 
 	/**
@@ -459,12 +459,12 @@ public class ScreenStateCommand implements ICommand {
 			String widgetsShown[],
 			String widgetsHidden[]
 			) {
-		_containerName = containerName;
-		_stateName = stateName;
-		_widgetsOn = widgetsOn;
-		_widgetsOff = widgetsOff;
-		_widgetsShown = widgetsShown;
-		_widgetsHidden = widgetsHidden;
+		this.containerName = containerName;
+		this.stateName = stateName;
+		this.widgetsOn = widgetsOn;
+		this.widgetsOff = widgetsOff;
+		this.widgetsShown = widgetsShown;
+		this.widgetsHidden = widgetsHidden;
 	}
 
 	/**
@@ -473,16 +473,16 @@ public class ScreenStateCommand implements ICommand {
 	 * iun widgetsOn/Off, widgetShown/Hidden.  
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
-		OnOffCommand turnOn = new OnOffCommand(_containerName, _widgetsOn, true);
-		OnOffCommand turnOff = new OnOffCommand(_containerName, _widgetsOff, false);
-		VisibilityCommand show = new VisibilityCommand(_containerName, _widgetsShown, true);
-		VisibilityCommand hide = new VisibilityCommand(_containerName, _widgetsHidden, false);
+		OnOffCommand turnOn = new OnOffCommand(this.containerName, this.widgetsOn, true);
+		OnOffCommand turnOff = new OnOffCommand(this.containerName, this.widgetsOff, false);
+		VisibilityCommand show = new VisibilityCommand(this.containerName, this.widgetsShown, true);
+		VisibilityCommand hide = new VisibilityCommand(this.containerName, this.widgetsHidden, false);
 		turnOn.doCommand(strutsAction);
 		turnOff.doCommand(strutsAction);
 		show.doCommand(strutsAction);
 		hide.doCommand(strutsAction);
-		if (_stateName != null){
-			strutsAction.getSession().put(_containerName+"_currentState",_stateName);
+		if (this.stateName != null){
+			strutsAction.getSession().put(this.containerName+"_currentState",this.stateName);
 		}
 		return null;
 	}
@@ -502,12 +502,12 @@ public class PDefStateCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	String _containerName = null;
-	String _stateName = null;
-	String[] _widgetsOn = null;
-	String[] _widgetsOff = null;
-	String[] _widgetsShown = null;
-	String[] _widgetsHidden = null;
+	String containerName = null;
+	String stateName = null;
+	String[] widgetsOn = null;
+	String[] widgetsOff = null;
+	String[] widgetsShown = null;
+	String[] widgetsHidden = null;
 
 	public PDefStateCommand(
 			String containerName,
@@ -517,12 +517,12 @@ public class PDefStateCommand implements ICommand {
 			String widgetsShown[],
 			String widgetsHidden[]
 			) {
-		_containerName = containerName;
-		_stateName = stateName;
-		_widgetsOn = widgetsOn;
-		_widgetsOff = widgetsOff;
-		_widgetsShown = widgetsShown;
-		_widgetsHidden = widgetsHidden;
+		this.containerName = containerName;
+		this.stateName = stateName;
+		this.widgetsOn = widgetsOn;
+		this.widgetsOff = widgetsOff;
+		this.widgetsShown = widgetsShown;
+		this.widgetsHidden = widgetsHidden;
 	}
 
 	
@@ -531,16 +531,16 @@ public class PDefStateCommand implements ICommand {
 	 * all'inizializzazione del comando.
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
-		OnOffCommand turnOn = new OnOffCommand(_containerName, _widgetsOn, true);
-		OnOffCommand turnOff = new OnOffCommand(_containerName, _widgetsOff, false);
-		VisibilityCommand show = new VisibilityCommand(_containerName, _widgetsShown, true);
-		VisibilityCommand hide = new VisibilityCommand(_containerName, _widgetsHidden, false);
+		OnOffCommand turnOn = new OnOffCommand(this.containerName, this.widgetsOn, true);
+		OnOffCommand turnOff = new OnOffCommand(this.containerName, this.widgetsOff, false);
+		VisibilityCommand show = new VisibilityCommand(this.containerName, this.widgetsShown, true);
+		VisibilityCommand hide = new VisibilityCommand(this.containerName, this.widgetsHidden, false);
 		turnOn.doCommand(strutsAction);
 		turnOff.doCommand(strutsAction);
 		show.doCommand(strutsAction);
 		hide.doCommand(strutsAction);
-		if (_stateName != null){
-			strutsAction.getSession().put(_containerName+"_currentState",_stateName);
+		if (this.stateName != null){
+			strutsAction.getSession().put(this.containerName+"_currentState",this.stateName);
 		}
 		return null;
 	}
@@ -566,10 +566,10 @@ public class OnOffCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	private static final String SESSION_MENU_ONOFF = "menuOnOffMap";
 
-	String _containerName = null;
-	String[] _targetsWidgets = null;
-	String[] _targetsMenuElement = null;
-	boolean _enable = true;
+	String containerName = null;
+	String[] targetsWidgets = null;
+	String[] targetsMenuElement = null;
+	boolean enable = true;
 
 	/**
 	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
@@ -577,9 +577,9 @@ public class OnOffCommand implements ICommand {
 	 * @param enable se vale true i widget saranno abilitati, altrimenti saranno disabilitati
 	 */
 	public OnOffCommand(String containerName, String targetsWidgets[], boolean enable) {
-		_containerName = containerName;
-		_targetsWidgets = targetsWidgets;
-		_enable = enable;
+		this.containerName = containerName;
+		this.targetsWidgets = targetsWidgets;
+		this.enable = enable;
 	}
 	
 	/**
@@ -589,10 +589,10 @@ public class OnOffCommand implements ICommand {
 	 * @param enable se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
 	 */
 	public OnOffCommand(String containerName, String targetsWidgets[], String targetsMenuElement[], boolean enable) {
-		_containerName = containerName;
-		_targetsWidgets = targetsWidgets;
-		_targetsMenuElement = targetsMenuElement;
-		_enable = enable;
+		this.containerName = containerName;
+		this.targetsWidgets = targetsWidgets;
+		this.targetsMenuElement = targetsMenuElement;
+		this.enable = enable;
 	}
 	
 	/**
@@ -601,30 +601,30 @@ public class OnOffCommand implements ICommand {
 	 */
 	public String doCommand(BaseAction strutsAction)
 			throws CommandExecutionException {
-		if (_targetsWidgets != null) {
+		if (this.targetsWidgets != null) {
 			Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
-					.get(_containerName);
+					.get(this.containerName);
 			if (cpWidgetsStatus == null) {
 				cpWidgetsStatus = new HashMap<String, Boolean>();
-				strutsAction.session.put(_containerName, cpWidgetsStatus);
+				strutsAction.session.put(this.containerName, cpWidgetsStatus);
 			}
-			for (int i = 0; i < _targetsWidgets.length; i++) {
-				cpWidgetsStatus.put(_targetsWidgets[i] + "_enabled",
-						Boolean.valueOf(_enable));
+			for (int i = 0; i < this.targetsWidgets.length; i++) {
+				cpWidgetsStatus.put(this.targetsWidgets[i] + "_enabled",
+						Boolean.valueOf(this.enable));
 			}
 		}
 		
 		
-		if (_targetsMenuElement != null) {
+		if (this.targetsMenuElement != null) {
 			Map<String, Boolean> menuOnOffMap = (Map<String, Boolean>) strutsAction.session
 					.get(SESSION_MENU_ONOFF);
 			if (menuOnOffMap == null) {
 				menuOnOffMap = new HashMap<String, Boolean>();
 				strutsAction.session.put(SESSION_MENU_ONOFF, menuOnOffMap);
 			}
-			for (int i = 0; i < _targetsMenuElement.length; i++) {
-				menuOnOffMap.put(_targetsMenuElement[i] + "_enabled",
-						Boolean.valueOf(_enable));
+			for (int i = 0; i < this.targetsMenuElement.length; i++) {
+				menuOnOffMap.put(this.targetsMenuElement[i] + "_enabled",
+						Boolean.valueOf(this.enable));
 			}
 		}
 		return null;
@@ -657,22 +657,22 @@ public class VisibilityCommand implements ICommand {
 	/**
 	 * containerName
 	 */
-	String _containerName = null;
+	String containerName = null;
 	
 	/**
 	 * targetsWidgets
 	 */
-	String[] _targetsWidgets = null;
+	String[] targetsWidgets = null;
 	
 	/**
 	 * targetsMenuElement
 	 */
-	String[] _targetsMenuElement = null;
+	String[] targetsMenuElement = null;
 	
 	/**
 	 * show?
 	 */
-	boolean _show = true;
+	boolean show = true;
 
 	/**
 	 * @param containerName il nome del content panel che contiene i widget da mostrare/nascondere
@@ -682,10 +682,10 @@ public class VisibilityCommand implements ICommand {
 	 */
 	public VisibilityCommand(String containerName, String targetsWidgets[], String targetsMenuElement[],
 			boolean show) {
-		_containerName = containerName;
-		_targetsWidgets = targetsWidgets;
-		_targetsMenuElement = targetsMenuElement;
-		_show = show;
+		this.containerName = containerName;
+		this.targetsWidgets = targetsWidgets;
+		this.targetsMenuElement = targetsMenuElement;
+		this.show = show;
 	}
 	
 	/**
@@ -695,9 +695,9 @@ public class VisibilityCommand implements ICommand {
 	 */
 	public VisibilityCommand(String containerName, String targetsWidgets[], 
 			boolean show) {
-		_containerName = containerName;
-		_targetsWidgets = targetsWidgets;
-		_show = show;
+		this.containerName = containerName;
+		this.targetsWidgets = targetsWidgets;
+		this.show = show;
 	}
 
     /**
@@ -708,27 +708,27 @@ public class VisibilityCommand implements ICommand {
 			throws CommandExecutionException {
 		
 		//Definzione Visibility Widgets per ContentPanel
-		if (_targetsWidgets != null) {
+		if (this.targetsWidgets != null) {
 			// lo stato di visibilita' dei widget e' mantenuto in sessione
 			// in una mappa a due livelli:
 			// - il primo livello contiene <nome cp, mappa per il cp>
 			// - il secondo livello contiene <[widget]_visible, true|false>
 			Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
-					.get(_containerName);
+					.get(this.containerName);
 			if (cpWidgetsStatus == null) {
 				cpWidgetsStatus = new HashMap<String, Boolean>();
-				strutsAction.session.put(_containerName, cpWidgetsStatus);
+				strutsAction.session.put(this.containerName, cpWidgetsStatus);
 			}
-			for (int i = 0; i < _targetsWidgets.length; i++) {
-				cpWidgetsStatus.put(_targetsWidgets[i] + "_visible",
-						Boolean.valueOf(_show));
+			for (int i = 0; i < this.targetsWidgets.length; i++) {
+				cpWidgetsStatus.put(this.targetsWidgets[i] + "_visible",
+						Boolean.valueOf(this.show));
 			}
 			
 		
 		}
 		
 		//Definzione Visibility MenuElement 
-		if(_targetsMenuElement !=null){
+		if(this.targetsMenuElement !=null){
 			// lo stato di visibilita' di una voce di menu e' contenuta in sessione
 			// in una mappa
 			Map<String, Boolean> menuVisibilityMap = (Map<String, Boolean>) strutsAction.session
@@ -742,9 +742,9 @@ public class VisibilityCommand implements ICommand {
 			}
 			// inserisco lo stato di visibilita' di tutti i target menu
 			// inserendo la coppia <[menu]_visible, true|false>
-			for (int i = 0; i < _targetsMenuElement.length; i++) {
-				menuVisibilityMap.put(_targetsMenuElement[i] + "_visible",
-						Boolean.valueOf(_show));
+			for (int i = 0; i < this.targetsMenuElement.length; i++) {
+				menuVisibilityMap.put(this.targetsMenuElement[i] + "_visible",
+						Boolean.valueOf(this.show));
 			}
 		}
 		return null;
@@ -778,27 +778,27 @@ public class ExecCommand implements ICommand {
 	/**
 	 * gli esiti possibili
 	 */
-	String _esiti[] = null;
+	String esiti[] = null;
 	
 	/**
 	 * le azioni corrispondenti agli esiti possibili
 	 */
-	ICommand _azioni[] = null;
+	ICommand azioni[] = null;
 	
 	/**
 	 * il nome del metodo da eseguire
 	 */
-	String _nomeMetodo = null;
+	String nomeMetodo = null;
 	
 	/**
 	 * gli appdata che la logica modifica
 	 */
-	String _appDataToStore[] = null;
+	String appDataToStore[] = null;
 	
 	/**
 	 * mappa <result,azione>
 	 */
-	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
+	java.util.Hashtable resultAzioni = new java.util.Hashtable();
 
 	/**
 	 * @param esiti elenco dei possibili esiti (restituiti dal metodo di business effettivo
@@ -807,14 +807,14 @@ public class ExecCommand implements ICommand {
 	 * @param appDataToStore elenco dei nomi degli application data modificati dalla logica di business
 	 */
 	public ExecCommand(String esiti[], ICommand[] azioni, String nomeMetodo, String appDataToStore[]) {
-		_esiti = esiti;
-		_azioni = azioni;
-		_nomeMetodo = nomeMetodo;
-		_appDataToStore = appDataToStore;
-		if (_esiti != null) {
+		this.esiti = esiti;
+		this.azioni = azioni;
+		this.nomeMetodo = nomeMetodo;
+		this.appDataToStore = appDataToStore;
+		if (this.esiti != null) {
 			// riempio la mappa <esiti,azioni>
-			for (int i = 0; i < _esiti.length; i++)
-				_resultAzioni.put(_esiti[i], _azioni[i]);
+			for (int i = 0; i < this.esiti.length; i++)
+				this.resultAzioni.put(this.esiti[i], this.azioni[i]);
 		}
 	}
 
@@ -846,16 +846,16 @@ public class ExecCommand implements ICommand {
 			strutsAction);
 		// determinazione esito e azione corrispondente
 		ICommand resultAction = null;
-		for (int i = 0; i<_esiti.length; i++){
-			if (_esiti[i].equals(result))
-				resultAction = _azioni[i];
+		for (int i = 0; i<this.esiti.length; i++){
+			if (this.esiti[i].equals(result))
+				resultAction = this.azioni[i];
 		}
 		// esecuzione azione conseguente all'esito
 		if(resultAction!=null){
 			return resultAction.doCommand(strutsAction);
 		}
 		else
-			throw new IllegalStateException("Il result code "+result+" non e' tra quelli previsti ("+_esiti+")");
+			throw new IllegalStateException("Il result code "+result+" non e' tra quelli previsti ("+(this.esiti)+")");
 	}
 	
 	/**
@@ -889,8 +889,8 @@ public class ExecCommand implements ICommand {
 	 * degli app data previsti dalla exec action
 	 */
 	public void storeAppData(ExecResults res, BaseAction strutsAction) throws CommandExecutionException {
-		for (int i = 0; i < _appDataToStore.length; i++) {
-				storeSpecificAppData(_appDataToStore[i], res.getModel(), strutsAction);
+		for (int i = 0; i < this.appDataToStore.length; i++) {
+				storeSpecificAppData(this.appDataToStore[i], res.getModel(), strutsAction);
 			}
 	}
 	
@@ -911,7 +911,7 @@ public class ExecCommand implements ICommand {
 				}
 			} catch (Exception ioe){
 				throw new CommandExecutionException(
-						"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+						"errore non gestito nell'esecuzione del metodo ["+ (this.nomeMetodo) + "]:"
 								+ ioe.getMessage(), ioe);
 		      } 
 	}
@@ -930,35 +930,35 @@ public class ExecCommand implements ICommand {
 		
 			watcher.start();
 			Class cl = backEnd.getClass();
-			Method m = cl.getMethod(_nomeMetodo, new Class[]{theModel.getClass()});
+			Method m = cl.getMethod(this.nomeMetodo, new Class[]{theModel.getClass()});
 			result = (ExecResults) m.invoke(backEnd, new Object[]{theModel});
 			
 
 			watcher.stop();
 			watcher.dumpElapsed("ExecCommand", "readOne()",
-					"chiamata verso BackEnd", _nomeMetodo);
+					"chiamata verso BackEnd", this.nomeMetodo);
 			return result;
 
 		} catch (NoSuchMethodException ensm){
 			throw new CommandExecutionException(
-					"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+					"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
 							+ ensm.getMessage(), ensm);
 		} catch (IllegalAccessException eiacc){
 			throw new CommandExecutionException(
-					"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+					"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
 							+ eiacc.getMessage(), eiacc);
 		} catch (IllegalArgumentException eiarg){
 			throw new CommandExecutionException(
-					"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+					"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
 							+ eiarg.getMessage(), eiarg);
 		} catch (InvocationTargetException einvoc){
 			if (einvoc.getTargetException() instanceof BEException ) {
 				throw new CommandExecutionException(
-						"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+						"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
 								+ einvoc.getMessage(), einvoc);
 			} else {
 				throw new CommandExecutionException(
-						"errore non gestito nell'esecuzione del metodo ["+ _nomeMetodo + "]:"
+						"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
 								+ einvoc.getMessage(), einvoc);
 			}
 		}
@@ -986,13 +986,13 @@ public class ClearAppDataCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	private String[] _attributesToBeRemovedFromSession = null;
+	private String[] attributesToBeRemovedFromSession = null;
 	
 	/**
 	 * @param nomi degli application data da cancellare
 	 */
 	public ClearAppDataCommand(String[] attributesToBeRemovedFromSession) {
-		this._attributesToBeRemovedFromSession = attributesToBeRemovedFromSession;
+		this.attributesToBeRemovedFromSession = attributesToBeRemovedFromSession;
 	}
 	
 	/**
@@ -1001,9 +1001,9 @@ public class ClearAppDataCommand implements ICommand {
 	 * agli application data elencati in attributesToBeRemovedFromSession
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
-		if (_attributesToBeRemovedFromSession!=null && _attributesToBeRemovedFromSession.length!=0){
-			for (int i = 0; i < _attributesToBeRemovedFromSession.length; i++) {
-				clearAppDataFromModel(strutsAction.getModel(), "appData" + _attributesToBeRemovedFromSession[i]);				
+		if (this.attributesToBeRemovedFromSession!=null && this.attributesToBeRemovedFromSession.length!=0){
+			for (int i = 0; i < this.attributesToBeRemovedFromSession.length; i++) {
+				clearAppDataFromModel(strutsAction.getModel(), "appData" + (this.attributesToBeRemovedFromSession[i]));				
 			}			 
 		}
 		return null;
@@ -1049,7 +1049,7 @@ public class ExecResults {
 	 * il codice di outcome
 	 * @generated
 	 */
-	private String _resultCode;
+	private String resultCode;
 	
 	/**
 	 * l'elenco degli errori associati ai field della schermata eventualmente inseriti 
@@ -1069,7 +1069,7 @@ public class ExecResults {
 	 * @generated
 	 */
 	private Collection<String> globalMessages=new ArrayList<String>();
-	private Object _model;
+	private Object model;
 	
 	/**
 	 * imposta il model del content panel
@@ -1077,7 +1077,7 @@ public class ExecResults {
 	 * @generated
 	 */
 	public void setModel(Object model){
-		_model=model;
+		this.model=model;
 	}
 	
 	/**
@@ -1085,7 +1085,7 @@ public class ExecResults {
 	 * @generated
 	 */
 	public Object getModel(){
-		return _model;
+		return this.model;
 	}
 	
 	
@@ -1094,7 +1094,7 @@ public class ExecResults {
 	 * @generated
 	 */
 	public void setResultCode(String code){
-		_resultCode = code; 
+		this.resultCode = code; 
 	}
 	
 	/** 
@@ -1102,7 +1102,7 @@ public class ExecResults {
 	 * @generated
 	 */
 	public String getResultCode(){
-		return _resultCode;
+		return this.resultCode;
 	}
 	
 	/**
@@ -1159,13 +1159,13 @@ public class SequenceCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	ICommand[] _actions;
+	ICommand[] actions;
 	
 	/** 
 	 * @param actions elenco degli ICommand da eseguire in sequenza
 	 */
 	public SequenceCommand(ICommand[] actions) {
-		_actions = actions;
+		this.actions = actions;
 	}
 	
 	/**
@@ -1175,9 +1175,9 @@ public class SequenceCommand implements ICommand {
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		String result=null;
-		if (_actions != null) {
-			for (int i = 0; i < _actions.length; i++) {
-				ICommand currAct = _actions[i];
+		if (this.actions != null) {
+			for (int i = 0; i < this.actions.length; i++) {
+				ICommand currAct = this.actions[i];
 				String currResult = currAct.doCommand(strutsAction);
 				if (currResult!=null)
 					result=currResult;
@@ -1388,10 +1388,10 @@ public class ChkEditStatusCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	ICommand _doIfChanged;
-	ICommand _doIfNotChanged;
-	String _checkAggr;
-	String [] _checkedData;
+	ICommand doIfChanged;
+	ICommand doIfNotChanged;
+	String checkAggr;
+	String [] checkedData;
 	
 	/**
 	 * @param checkedData il nome deli application data da esaminare
@@ -1405,10 +1405,10 @@ public class ChkEditStatusCommand implements ICommand {
 			String checkAggregation, 
 			ICommand doIfChanged,
 			ICommand doIfNotChanged) {
-		_checkedData=checkedData;
-		_checkAggr=checkAggregation;
-		_doIfChanged=doIfChanged;
-		_doIfNotChanged=doIfNotChanged;
+		this.checkedData=checkedData;
+		this.checkAggr=checkAggregation;
+		this.doIfChanged=doIfChanged;
+		this.doIfNotChanged=doIfNotChanged;
 	}
 
 	/**
@@ -1417,11 +1417,11 @@ public class ChkEditStatusCommand implements ICommand {
 	 * viene eseguito il comando contenuto in doIfChanged o doIfNotchanged
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
-		boolean changed = checkAppdata4Changes(_checkedData, _checkAggr, strutsAction);
+		boolean changed = checkAppdata4Changes(this.checkedData, this.checkAggr, strutsAction);
 		if (changed)
-			return _doIfChanged.doCommand(strutsAction);
+			return this.doIfChanged.doCommand(strutsAction);
 		else
-			return _doIfNotChanged.doCommand(strutsAction);
+			return this.doIfNotChanged.doCommand(strutsAction);
 	}
 
 	/**
@@ -1508,18 +1508,18 @@ public class DTOUtils {
 	/**
 	 * singleton
 	 */
-	private static DTOUtils _instance;
+	private static DTOUtils instance;
 	
 	static{
 		// creazione del singleton
-		_instance = new DTOUtils();
+		instance = new DTOUtils();
 	}
 	
 	/**
 	 * singleton instance
 	 */
 	public static DTOUtils getInstance(){
-		return _instance;
+		return instance;
 	}
 	
 	/**

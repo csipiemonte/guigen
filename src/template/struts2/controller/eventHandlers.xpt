@@ -377,7 +377,6 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpCommand-»
 	/// Jump Command begin
-	//JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage && cp != null»"«cp.name»",true«ELSE»null,false«ENDIF»);
 	
 	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage && cp != null»URL_BACK_COMMAND,true«ELSE»null,false«ENDIF»);
 	/// Jump Command end
