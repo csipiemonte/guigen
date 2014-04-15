@@ -1045,7 +1045,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsActionClassName(this)»::isWidgetDisabled] errore durante verifica->disable");
+				log.error("[«getStrutsActionClassName(this)»::isWidgetDisabled] errore durante verifica->disable", ex);
 				return true; // forzo la DISABILITAZIONE
 			}
 		}
@@ -1077,7 +1077,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsActionClassName(this)»::isWidgetVisible] errore durante verifica->hide");
+				log.error("[«getStrutsActionClassName(this)»::isWidgetVisible] errore durante verifica->hide", ex);
 				return false; // forzo l'invisibilita'
 			}
 		}
