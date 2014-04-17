@@ -403,7 +403,7 @@ public class TableDataArranger{
 						method = Utility.convertiMetodo(campo, oggetto);
 					} catch (SecurityException e1) {
 						throw new TableDataArrangerException(
-								"Errore su griglia filtrata", e1.getCause());
+								"Errore su griglia filtrata", e1);
 					}
 					/*filtro su campo di testo*/
 					if (dataFilter.getType().equalsIgnoreCase("string")) {
@@ -417,8 +417,7 @@ public class TableDataArranger{
 							}
 						} catch (Exception e) {
 							throw new TableDataArrangerException(
-									"Filtro campo testo non eseguito", e
-											.getCause());
+									"Filtro campo testo non eseguito", e);
 						}
 
 					}
@@ -440,8 +439,7 @@ public class TableDataArranger{
 							}
 						} catch (Exception e) {
 							throw new TableDataArrangerException(
-									"Filtro lista valori check non eseguito", e
-											.getCause());
+									"Filtro lista valori check non eseguito", e);
 						}
 					}
 					/*filtro su campo numerico*/
@@ -476,8 +474,7 @@ public class TableDataArranger{
 							}
 						} catch (Exception e) {
 							throw new TableDataArrangerException(
-									"Filtro campo numerico non eseguito", e
-											.getCause());
+									"Filtro campo numerico non eseguito", e);
 						}
 					}
 					/*filtro su campo data*/
@@ -514,8 +511,7 @@ public class TableDataArranger{
 
 						} catch (Exception e) {
 							throw new TableDataArrangerException(
-									"Filtro campo data non eseguito", e
-											.getCause());
+									"Filtro campo data non eseguito", e);
 						}
 					}
 					/*filtro su campo boolean*/
@@ -531,8 +527,7 @@ public class TableDataArranger{
 							}
 						} catch (Exception e) {
 							throw new TableDataArrangerException(
-									"Filtro campo boolean non eseguito", e
-											.getCause());
+									"Filtro campo boolean non eseguito", e);
 						}
 					}
 
@@ -605,16 +600,16 @@ public class TableDataArranger{
 				poss.add(dataPos);
 			} catch (SecurityException e1) {
 				throw new TableDataArrangerException(
-						"Errore su metodo injectPosictions", e1.getCause());
+						"Errore su metodo injectPosictions", e1);
 			} catch (IllegalArgumentException e2) {
 				throw new TableDataArrangerException(
-						"Errore su metodo injectPosictions", e2.getCause());
+						"Errore su metodo injectPosictions", e2);
 			} catch (IllegalAccessException e3) {
 				throw new TableDataArrangerException(
-						"Errore su metodo injectPosictions", e3.getCause());
+						"Errore su metodo injectPosictions", e3);
 			} catch (InvocationTargetException e4) {
 				throw new TableDataArrangerException(
-						"Errore su metodo injectPosictions", e4.getCause());
+						"Errore su metodo injectPosictions", e4);
 			}
 		}
 		return poss;
@@ -633,13 +628,13 @@ public class TableDataArranger{
 						(Object[]) null));
 			} catch (IllegalArgumentException e) {
 				throw new TableDataArrangerException(
-						"Errore su metodo getElementPosition", e.getCause());
+						"Errore su metodo getElementPosition", e);
 			} catch (IllegalAccessException e) {
 				throw new TableDataArrangerException(
-						"Errore su metodo getElementPosition", e.getCause());
+						"Errore su metodo getElementPosition", e);
 			} catch (InvocationTargetException e) {
 				throw new TableDataArrangerException(
-						"Errore su metodo getElementPosition", e.getCause());
+						"Errore su metodo getElementPosition", e);
 			}
 			
 			if(id.equalsIgnoreCase(idS)){
@@ -811,7 +806,8 @@ public final class DynamicComparator implements Comparator {
 								+ c.getName() + "''!");
 			}
 		} catch (Exception nsme) {
-			throw new DynamicComparatorException("Attenzione gli unici tipi primitivi supportati dal comparator sono i long e gli int", nsme.getCause());
+			throw new DynamicComparatorException(
+			"Attenzione gli unici tipi primitivi supportati dal comparator sono i long e gli int", nsme);
 		}
 		return rv * getSortOrder();
 	}
@@ -1078,7 +1074,7 @@ public class Utility {
 			PropertyDescriptor nameDescriptor = new PropertyDescriptor(metodo, oggetto.getClass());
 			method = nameDescriptor.getReadMethod();
 		} catch (IntrospectionException e) {
-			throw new RuntimeException("Metodo non trovato", e.getCause());
+			throw new RuntimeException("Metodo non trovato", e);
 		}
 
 		return method;
