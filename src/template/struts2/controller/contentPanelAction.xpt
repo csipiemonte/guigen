@@ -351,17 +351,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 			dataProviderStream = bais;
 			// risposta
 			return "provideData";
-		} catch (Throwable e) {
-			log.error("[MappaAction::refreshMapSingleService]", e);
-			BaseMapResponse res = new BaseMapResponse();
-			res.setErrorMsg("Errore nel recupero dei dati");
-			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
-			String response = serializer.exclude("*.class").deepSerialize(res);
-			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
-			dataProviderStream = bais;
-			// risposta
-			return "provideData";
-		}
+		} 
 	}
 	
 	/**
