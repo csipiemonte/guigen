@@ -88,8 +88,9 @@ import flexjson.JSON;
  */
 @Validation()
 @Conversion()
-public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» <«getModelDTOClassName(this,false,false,model)»>
-	implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model)»> {
+public class «getStrutsActionClassName(this)» 
+extends «getStrutsAbstractCPActionClassName(model)» <«getModelDTOClassName(this,false,false,model)»> 
+implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model)»>{
 	
 	/**
 	 * Il modello del content panel.
@@ -109,7 +110,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	
 	/**
 	 * Il modello del content panel.
-	 * Viene riempito a fornte delle interazioni con il browser e viene passato allo
+	 * Viene riempito a fronte delle interazioni con il browser e viene passato allo
 	 * strato di business.
 	 */
 	@VisitorFieldValidator (message ="", appendPrefix = false)
@@ -138,29 +139,19 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		model.setSession(session);
 	}
 	
-	/**
-	 * contiene le coppie <codice location, comando di jump corrispondente>
-	 */
-	private Map<String, JumpExtCommand> jumpExtCommands = new HashMap<String, JumpExtCommand>();
-
-	/**
-	 * contiene le coppie <codice location, comando di jump corrispondente>
-	 */
-	public Map<String, JumpExtCommand> getJumpExtCommands() {
-		return jumpExtCommands;
-	}
-
-	/**
-	 * contiene le coppie <codice location, comando di jump corrispondente>
-	 */
-	public void setJumpExtCommands(Map<String, JumpExtCommand> jumpExtCommands) {
-		this.jumpExtCommands = jumpExtCommands;
-	}
+	
 	
 	/**
 	 * nome del content panel
 	 */
 	private static final String CP_NAME= "«this.name»";
+	
+	/**
+	 * restituisce il nome del content panel
+	 */
+	protected String getCPName(){
+		return CP_NAME;
+	}
 	
 	private static final String URL_BACK_COMMAND = "«getContentPanelNamespace(this, false)»/"+CP_NAME;	
 	
@@ -173,40 +164,15 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
  
  	«LET getAllEventSourceWidgets() AS allEventSources»
 	«REM»«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»«ENDREM»
+	
 	/**
 	 * I singoli eventi sui singoli widget sono gestiti dai metodi specifici   
 	 * @return SUCCESS.
 	 */
 	@SkipValidation
 	public String execute() throws CommandExecutionException {
-		// esegue eventuali comandi di clear appdata
-		ICommand clearCmd = (ICommand)session.get(PENDING_CLEAR_COMMAND_ATTRIBUTE);
-		if (clearCmd != null){
-			// esegue la rimozione degli appdata a scope page, tramite l'apposito comando
-			clearCmd.doCommand(this);
-			// elimina il comando dalla sessione, in quanto ormai eseguito
-			session.remove(PENDING_CLEAR_COMMAND_ATTRIBUTE);
-		}
-		
-		«IF this.cpCommands!=null»
-			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
-		if(null==getCurrentContentPanel() || (null!=getCurrentContentPanel() && !CP_NAME.equalsIgnoreCase(getCurrentContentPanel()))){
-			// CpCommand OnEnter
-			//// inizializzazione
-			ICommand cmdOnEnter = initOnEnterCPCommand();
-			//// esecuzione
-			cmdOnEnter.doCommand(this);
-		}
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
-		
-		// imposta il nome del content panel corrente
-		setCurrentContentPanel(CP_NAME);
-		return SUCCESS;
+		return super.execute();
 	}
-
 
 «EXPAND performJumpExt FOR this»
 
@@ -748,92 +714,17 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	}
 	
 	
-	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
-	protected Map<String, UISecConstraint> allOnOffConstraints = null;
-
-	
-	public void setCPCommandInit«this.name.toFirstUpper()»(java.lang.Boolean value) {
-		getSession().put("CPCommandInit«this.name.toFirstUpper()»", value);
-	}
-				
-	public java.lang.Boolean getCPCommandInit«this.name.toFirstUpper()»() {
-		return (java.lang.Boolean) (getSession().get("CPCommandInit«this.name.toFirstUpper()»"));
-	}
-	
 	/**
 	 * Metodo di preparazione della schermata/action
 	 */
 	public void prepare() throws CommandExecutionException{
 	    super.prepare();
-	    
-	    // cancellazione eventuale degli errori di conversione non desiderati
-	    clearConversionErrorsIfSkipValidation();
-	     
-	    // caricamento struttura di constraints
-	    if (allVisibilityConstraints==null)
-	    	allVisibilityConstraints = getPageVisibilityUIConstraints();
-	    if (allOnOffConstraints==null)
-	    	allOnOffConstraints = getPageONOFFUIConstraints();
-	    
+	   
 		«IF defaultState!=null-»
 		«EXPAND defaultStateCode FOR this»
 		«ENDIF-»
-		      
-		      
-		ActionContext ctx = ActionContext.getContext();
-		String methodName = ctx.getActionInvocation().getProxy().getMethod();     
-
-		boolean onRefreshEvent = true;
 		
-					
-		«IF this.cpCommands!=null»
-			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnInit»
-					// CpCommand.ON_INIT: comandi eseguiti al primo accesso per sessione applicativa
-					
-					if (getCPCommandInit«this.name.toFirstUpper()»()==null) {
-						ICommand cmdOnInit = initOnInitCPCommand();
-						cmdOnInit.doCommand(this);
-						setCPCommandInit«this.name.toFirstUpper()»(true);
-					}
-					else
-						setCPCommandInit«this.name.toFirstUpper()»(false);
-					
-				«ENDFOREACH»
-				onRefreshEvent = (getCPCommandInit«this.name.toFirstUpper()»()==null || !getCPCommandInit«this.name.toFirstUpper()»())
-				«IF !this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER).isEmpty-»&&(CP_NAME.equalsIgnoreCase(getCurrentContentPanel()))«ENDIF»;
-		
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
-					// CpCommand.ON_REFRESH: comandi eseguiti ad ogni refresh per sessione applicativa
-					if(onRefreshEvent){
-						if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-							ICommand cmdOnRefresh = initOnRefreshCommand();
-							cmdOnRefresh.doCommand(this);
-						}
-					}
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
-		
-		
-		«IF this.onRefreshCommand!=null»
-		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
-		if(onRefreshEvent){
-			if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-				// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
-				ICommand cmd = initOnRefreshCommand();
-				cmd.doCommand(this);
-			}
-		}
-		«ENDIF»
-		
-		
-	
 	}
-	
-	
-	«EXPAND security::securedWidgetCheck(model) FOR this»
-
 	
 	«LET this.onRefreshCommand AS onRefreshAction»
 	«IF onRefreshAction != null»
@@ -883,45 +774,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	
 	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
 	
-	«EXPAND template::struts2::controller::eventHandlers::beforeAndAfterEventCommandsMethods(model) FOR this»
 	
-	/**  */
-	protected void dumpModel(boolean pre) {
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] START");
-			
-		
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] #### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [a] campi pubblici del model");
-		try {
-			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
-			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
-			for (int i = 0; i < props.length; i++) {
-				java.beans.PropertyDescriptor pd = props[i];
-				java.lang.reflect.Method m = pd.getReadMethod();
-				if (m != null) {
-					Object pval = m.invoke(this, new Object[]{});
-					log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+pd.getName() + ":" + pval);
-				}
-			}
-		}
-		catch (IllegalAccessException e) {
-			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
-					+ ", ignoro", e);
-		} catch (InvocationTargetException e) {
-			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
-					+ ", ignoro", e);
-		} catch (IntrospectionException e) {
-			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
-					+ ", ignoro", e);
-		}
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [b] stato dei widget");
-		Object cpWidgetStatus = session.get("«this.name»");
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+cpWidgetStatus);
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [c] sessione");
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+session);
-	}
-	
-	static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
 	 *  SAME_PAGE. 

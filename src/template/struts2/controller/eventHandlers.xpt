@@ -123,20 +123,17 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «REM»crea i metodi con la logica di before/after events da richiamare all'interno dei metodi handler«ENDREM»
-«DEFINE beforeAndAfterEventCommandsMethods(GUIModel model) FOR ContentPanel»
+«DEFINE beforeAndAfterEventCommandsMethods FOR GUIModel»
 	/**
 	 * comandi da eseguire prima di ciascun evento
 	 */
 	protected void doBeforeEventCommand() throws CommandExecutionException{
 		// comandi da eseguire prima dei comandi associati ad ogni evento
-		«IF this.cpCommands!=null»
-			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::BEFORE_EVENTS) AS cpBeforeEvent»
 		ICommand cmdBeforeEvent = initBeforeEventCPCommand();
-		cmdBeforeEvent.doCommand(this);
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
+		if (cmdBeforeEvent != null){
+			cmdBeforeEvent.doCommand(this);
+		}
+
 	}
 	
 	/**
@@ -144,14 +141,10 @@ e le limitazioni secondo i termini della Licenza.
 	 */
 	protected void doAfterEventCommand() throws CommandExecutionException{
 		// comandi da eseguire prima dei comandi associati ad ogni evento
-	«IF this.cpCommands!=null»
-			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::AFTER_EVENTS) AS cpBeforeEvent»
 		ICommand cmdAfterEvent = initAfterEventCPCommand();
-		cmdAfterEvent.doCommand(this);
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
+		if (cmdAfterEvent != null){
+			cmdAfterEvent.doCommand(this);
+		}
 	}
 		
 «ENDDEFINE»
@@ -248,7 +241,7 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
-	private ICommand initOnRefreshCommand() {
+	protected ICommand initOnRefreshCommand() {
 		«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this-»
 		return act_onRefresh_1; 
 	}
@@ -261,7 +254,7 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
-	private ICommand initOnInitCPCommand() {
+	protected ICommand initOnInitCPCommand() {
 		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
 		return act_onInitCPCommand_1; 
 	}
@@ -275,7 +268,7 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
-	private ICommand initOnEnterCPCommand() {
+	protected ICommand initOnEnterCPCommand() {
 		«EXPAND addActionCode("onEnterCPCommand",1, model, cp , "") FOR this-»
 		return act_onEnterCPCommand_1; 
 	}
@@ -289,7 +282,7 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
-	private ICommand initBeforeEventCPCommand() {
+	protected ICommand initBeforeEventCPCommand() {
 		«EXPAND addActionCode("beforeEventCPCommand",1, model, cp , "") FOR this-»
 		return act_beforeEventCPCommand_1; 
 	}
@@ -302,7 +295,7 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
-	private ICommand initAfterEventCPCommand() {
+	protected ICommand initAfterEventCPCommand() {
 		«EXPAND addActionCode("afterEventCPCommand",1, model, cp , "") FOR this-»
 		return act_afterEventCPCommand_1; 
 	}
@@ -431,7 +424,7 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere dell
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
 	/// Jump Ext Command begin
 	JumpExtCommand act_«actionsVarName»_«actionNumber» = new JumpExtCommand("«this.locationCode»","«this.staticUrl»", "«this.runtimeUrlProvider.name»", «this.binaryStream»);
-	jumpExtCommands.put("«this.locationCode»", act_«actionsVarName»_«actionNumber»);
+	getJumpExtCommands().put("«this.locationCode»", act_«actionsVarName»_«actionNumber»);
 	/// Jump Ext Command end
 «ENDDEFINE»
 

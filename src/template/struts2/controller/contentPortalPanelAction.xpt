@@ -813,24 +813,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		«ENDIF»
 		
 		
-		«IF this.onRefreshCommand!=null»
-		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
-		if(onRefreshEvent){
-			if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-				// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
-				ICommand cmd = initOnRefreshCommand();
-				cmd.doCommand(this);
-			}
-		}
-		«ENDIF»
-		
-		
 	
 	}
 	
 	
-	«EXPAND security::securedWidgetCheck(model) FOR this»
-
 	
 	«LET this.onRefreshCommand AS onRefreshAction»
 	«IF onRefreshAction != null»
@@ -880,7 +866,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	
 	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
 	
-	«EXPAND template::struts2::controller::eventHandlers::beforeAndAfterEventCommandsMethods(model) FOR this»
+	
 	
 	/**  */
 	protected void dumpModel(boolean pre) {
