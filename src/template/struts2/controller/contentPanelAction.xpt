@@ -52,6 +52,9 @@ import com.opensymphony.xwork2.ActionContext;
 
 import «getDTOBaseJavaPackage(model)».*;
 import «getModelDTOFQN(this, false, false, model)»;
+
+import «getCommandFactoryPkg(model)».*;
+
 «IF hasGisMap()»
 import «getDTOBaseJavaPackage(model)».greasemapfacade.*;
 import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
@@ -802,8 +805,6 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 	 	«ENDIF-»
 	 }
 
-	«REM»Espande la struttura della InitAction«ENDREM»
-    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(model) FOR this»
     
     @SkipValidation
     public String handleChangeTab() {

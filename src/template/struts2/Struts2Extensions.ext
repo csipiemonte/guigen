@@ -476,6 +476,18 @@ String getIridePDCacheFQN(GUIModel model) :
 String getIridePDCacheJavaFile(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/business/" + getIridePDCacheClassName() + ".java";
 
+/// Command Factory
+String getCommandFactoryPkg(GUIModel model):
+getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".command";
+
+String getCmdFactoryClassName():
+	"CommandFactory";
+	
+String getCmdFactoryFQN(GUIModel model):
+	getCommandFactoryPkg(model)+"."+getCmdFactoryClassName();
+
+String getCmdFactoryJavaFile(GUIModel model, boolean omit_root):
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/command/" + getCmdFactoryClassName() + ".java";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Action Struts2
@@ -1489,6 +1501,23 @@ String getCheckBoxesValueChangedHandlerNoScript(CheckBox rb, GUIModel model, Con
 
 String replaceFixNumberWithLatest(String actualVersion)  : JAVA
   it.csi.mddtools.guigen.genutils.GenUtils.replaceFixNumberWithLatest(java.lang.String);
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///  Serializzazioni JSON delle strutture di comandi
+///////////////////////////////////////////////////////////////////////////////////////////////
+String getCmdStructureJSONBasePath(GUIModel model, ContentPanel cp):
+if (cp != null) then 
+getPresentationJavaSrcDir(model, true) + "/" +getAppModuleAsFolder(cp, false, true) +"commands/"+ cp.name.toLowerCase()+"/"
+else
+getPresentationJavaSrcDir(model, true) + "/" +"commands/"+ "global"+"/";
+
+String getCmdStructureJSONFileName(GUIModel model, ContentPanel cp, String methodName): 
+getCmdStructureJSONBasePath(model, cp)+"/"+methodName+"_cmds.json";
+
+String getcommandFQN(Command c, GUIModel model) :
+getPresentationJavaPackage(model)+"."+(c.metaType.name.split("::").get(1));
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//

@@ -42,7 +42,7 @@ public interface ICommand extends java.io.Serializable {
 package «getPresentationJavaPackage()»;
 
 /**
- * Eccezione rilanciat ain caso di errori durante l'esecuzione della
+ * Eccezione rilanciatain caso di errori durante l'esecuzione della
  * catena di comandi.
  *
  */
@@ -72,7 +72,7 @@ public class NOPCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	
 	public NOPCommand() {
-		
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -102,16 +102,40 @@ public class JumpCommand implements ICommand {
 	 */
 	String name;
 	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+	
 	/**
-	 * nome del contnetPanel di partenza (serve in caso di pushCurrentPage)
+	 * nome del contentPanel di partenza (serve in caso di pushCurrentPage)
 	 */
 	String currentPageName = null;
+	
+	public void setCurrentPageName(String currentPageName){
+		this.currentPageName = currentPageName;
+	}
+	
+	public String getCurrentPageName(){
+		return this.currentPageName;
+	}
 	
 	/**
 	 * se impostato a true, verra' inserita la pagina (content panel) corrente nello 
 	 * stack
 	 */
 	boolean pushCurrent;
+	
+	public void setPushCurrent(boolean pushCurrent){
+		this.pushCurrent = pushCurrent;
+	}
+	
+	public boolean isPushCurrent(){
+		return this.pushCurrent;
+	}
 	
 	/**
 	 * @param panelName il nome del contentPanel a cui saltare
@@ -125,6 +149,13 @@ public class JumpCommand implements ICommand {
 		name = panelName;
 		this.pushCurrent = pushCurrent;
 		this.currentPageName = currentPageName;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public JumpCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -165,19 +196,30 @@ public class JumpBackCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	private java.util.LinkedList<java.lang.String> navigationQueue;
 	private String currentCPName;
+	
+	public void setCurrentCPName(String n){
+		this.currentCPName = n;
+	}
 
+	public String getCurrentCPName(){
+		return currentCPName;
+	}
+	
 	/**
 	 * @param currentCPName il nome del ContentPanel di partenza
 	 * @param navigationQueue la coda (stack) di navigazione, necessaria per capire a
 	 * che contentPanel tornare
 	 */
-	public JumpBackCommand(String currentCPName,
-			java.util.LinkedList<java.lang.String> navigationQueue) {
+	public JumpBackCommand(String currentCPName) {
 		this.currentCPName = currentCPName;
-		this.navigationQueue = navigationQueue;
-
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public JumpBackCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -194,8 +236,8 @@ public class JumpBackCommand implements ICommand {
 			throws CommandExecutionException {
 		// clear page scoped appdata
 		strutsAction.clearPageScopedAppData(currentCPName);
-
-			if (navigationQueue != null && !navigationQueue.isEmpty()) {
+		java.util.LinkedList<java.lang.String> navigationQueue=strutsAction.getAppDataNavigationQueue();
+		if (navigationQueue != null && !navigationQueue.isEmpty()) {
 			String backPage = navigationQueue.getLast();
 			if (null != backPage && !"".equalsIgnoreCase(backPage)) {
 				String[] splitArray = backPage.split("/");
@@ -229,8 +271,34 @@ public class RefreshViewCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	
 	String currentPanelName = null;
+	
+	public void setCurrentPanelName(String name){
+		currentPanelName = name;
+	}
+	
+	public String getCurrentPanelName(){
+		return currentPanelName;
+	}
+	
 	String [] targetPanels=null;
+	
+	public void setTargetPanels(String [] tp){
+		targetPanels = tp; //NOSONAR
+	}
+	
+	public String[] getTargetPanels(){
+		return targetPanels; //NOSONAR
+	}
+	
 	String [] targetWidgets=null;
+	
+	public void setTargetWidgets(String [] tw){
+		targetWidgets = tw; //NOSONAR
+	}
+	
+	public String[] getTargetWidgets(){
+		return targetWidgets; //NOSONAR
+	}
 	
 	/**
 	 * @param currentPanelName il nome del ContentPanel su cui deve essere effettuato il refresh
@@ -239,11 +307,17 @@ public class RefreshViewCommand implements ICommand {
 	 */
 	public RefreshViewCommand(String currentPanelName, String [] targetPanelNames,
 			String  [] targetWidgetNames) {
-		this.currentPanelName = currentPanelName;
-		this.targetPanels = targetPanelNames;
-		this.targetWidgets = targetWidgetNames;
+		this.currentPanelName = currentPanelName; 
+		this.targetPanels = targetPanelNames; //NOSONAR
+		this.targetWidgets = targetWidgetNames; //NOSONAR
 	}
 	
+	/**
+	 * costruttore di default
+	 */
+	public RefreshViewCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
 	
 	/**
 	 * Nell'implementazione struts l'esecuzione di questo comando e' completamente a carico dello 
@@ -273,8 +347,11 @@ public class JumpExtCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 
 	String locationCode;
+	
 	String staticUrl;
+	
 	String runtimeUrlProviderAppaData;
+	
 	boolean binaryStream;
 	
 	/**
@@ -295,6 +372,12 @@ public class JumpExtCommand implements ICommand {
 		this.binaryStream = binaryStream;
 	}
 	
+	/**
+	 * costruttore di default
+	 */
+	public JumpExtCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
 	/**
 	 * Esecuzione del comando JumpExtCommand. L'esecuzione si concretizza con la restituzione
 	 * al workflow di struts del result GO_TO_EX_<codice della location>.
@@ -378,8 +461,34 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	
 	String contentPanelName;
+	
+	public void setContentPanelName(String n){
+		this.contentPanelName = n;
+	}
+	
+	public String getContentPanelName(){
+		return this.contentPanelName;
+	}
+	
 	String containerName; 
+	
+	public void setContainerName(String n){
+		this.containerName = n;
+	}
+	
+	public String getContainerName(){
+		return this.containerName;
+	}
+	
 	String itemName;
+	
+	public void setItemName(String n){
+		this.itemName = n;
+	}
+	
+	public String getItemName(){
+		return this.itemName;
+	}
 	
 	/**
 	 * @param contentPanelName il nome del content panel
@@ -395,6 +504,13 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 		this.contentPanelName = contentPanelName;
 		this.containerName = containerName;
 		this.itemName = itemName;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public ActivateMultiPanelItemCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -436,12 +552,61 @@ public class ScreenStateCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	
 	String containerName = null;
+	
+	public void setContainerName(String n){
+		this.containerName = n;
+	}
+	
+	public String getContainerName(){
+		return this.containerName;
+	}
+	
 	String stateName = null;
+	
+	public void setStateName(String n){
+		this.stateName = n;
+	}
+	
+	public String getStateName(){
+		return this.stateName;
+	}
+	
 	String[] widgetsOn = null;
 	String[] widgetsOff = null;
 	String[] widgetsShown = null;
 	String[] widgetsHidden = null;
 
+	public String[] getWidgetsOn() {
+		return widgetsOn; //NOSONAR
+	}
+
+	public void setWidgetsOn(String[] widgetsOn) {
+		this.widgetsOn = widgetsOn; //NOSONAR
+	}
+
+	public String[] getWidgetsOff() {
+		return widgetsOff; //NOSONAR
+	}
+
+	public void setWidgetsOff(String[] widgetsOff) {
+		this.widgetsOff = widgetsOff; //NOSONAR
+	}
+
+	public String[] getWidgetsShown() {
+		return widgetsShown; //NOSONAR
+	}
+
+	public void setWidgetsShown(String[] widgetsShown) {
+		this.widgetsShown = widgetsShown; //NOSONAR
+	}
+
+	public String[] getWidgetsHidden() {
+		return widgetsHidden; //NOSONAR
+	}
+
+	public void setWidgetsHidden(String[] widgetsHidden) {
+		this.widgetsHidden = widgetsHidden; //NOSONAR
+	}
 
 	/**
 	 * @param containerName nome del content panel a cui fanno riferimento gli screen state
@@ -460,13 +625,20 @@ public class ScreenStateCommand implements ICommand {
 			String widgetsHidden[]
 			) {
 		this.containerName = containerName;
-		this.stateName = stateName;
-		this.widgetsOn = widgetsOn;
-		this.widgetsOff = widgetsOff;
-		this.widgetsShown = widgetsShown;
-		this.widgetsHidden = widgetsHidden;
+		this.stateName = stateName; //NOSONAR
+		this.widgetsOn = widgetsOn; //NOSONAR
+		this.widgetsOff = widgetsOff; //NOSONAR
+		this.widgetsShown = widgetsShown; //NOSONAR
+		this.widgetsHidden = widgetsHidden; //NOSONAR
 	}
 
+	/**
+	 * costruttore di default
+	 */
+	public ScreenStateCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
 	/**
 	 * Esecuzione del comando ScreenStateCommand. L'esecuzione di questo comando e' concretizzata
 	 * tramite l'esecuzione di una serie di comnadi ONOFF e Visibility a seconda di quanto descritto
@@ -495,19 +667,13 @@ package «getPresentationJavaPackage()»;
 import java.util.Map;
 import java.util.HashMap;
 
-public class PDefStateCommand implements ICommand {
+	/**
+	 * La logica &egrave; l astessa di ScreenStateCommand, poich&egrave; i nomi dei widget sono espansi
+	 * all'inizializzazione del comando.
+	 */
+public class PDefStateCommand extends ScreenStateCommand {
 
-	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
-	// solo per poter essere inserita in sessione web e non viene scambiata con altre
-	// componenti.
-	private static final long serialVersionUID = 1L;
 	
-	String containerName = null;
-	String stateName = null;
-	String[] widgetsOn = null;
-	String[] widgetsOff = null;
-	String[] widgetsShown = null;
-	String[] widgetsHidden = null;
 
 	public PDefStateCommand(
 			String containerName,
@@ -517,32 +683,14 @@ public class PDefStateCommand implements ICommand {
 			String widgetsShown[],
 			String widgetsHidden[]
 			) {
-		this.containerName = containerName;
-		this.stateName = stateName;
-		this.widgetsOn = widgetsOn;
-		this.widgetsOff = widgetsOff;
-		this.widgetsShown = widgetsShown;
-		this.widgetsHidden = widgetsHidden;
+		super(containerName, stateName, widgetsOn, widgetsOff, widgetsShown, widgetsHidden);
 	}
-
 	
 	/**
-	 * La logica &egrave; l astessa di ScreenStateCommand, poich&egrave; i nomi dei widget sono espansi
-	 * all'inizializzazione del comando.
+	 * costruttore di default
 	 */
-	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
-		OnOffCommand turnOn = new OnOffCommand(this.containerName, this.widgetsOn, true);
-		OnOffCommand turnOff = new OnOffCommand(this.containerName, this.widgetsOff, false);
-		VisibilityCommand show = new VisibilityCommand(this.containerName, this.widgetsShown, true);
-		VisibilityCommand hide = new VisibilityCommand(this.containerName, this.widgetsHidden, false);
-		turnOn.doCommand(strutsAction);
-		turnOff.doCommand(strutsAction);
-		show.doCommand(strutsAction);
-		hide.doCommand(strutsAction);
-		if (this.stateName != null){
-			strutsAction.getSession().put(this.containerName+"_currentState",this.stateName);
-		}
-		return null;
+	public PDefStateCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 }
 «ENDFILE»
@@ -571,6 +719,38 @@ public class OnOffCommand implements ICommand {
 	String[] targetsMenuElement = null;
 	boolean enable = true;
 
+	public String getContainerName() {
+		return containerName;
+	}
+
+	public void setContainerName(String containerName) {
+		this.containerName = containerName;
+	}
+
+	public String[] getTargetsWidgets() {
+		return targetsWidgets; //NOSONAR 
+	}
+
+	public void setTargetsWidgets(String[] targetsWidgets) {
+		this.targetsWidgets = targetsWidgets; //NOSONAR
+	}
+
+	public String[] getTargetsMenuElement() {
+		return targetsMenuElement; //NOSONAR
+	}
+
+	public void setTargetsMenuElement(String[] targetsMenuElement) {
+		this.targetsMenuElement = targetsMenuElement; //NOSONAR
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
 	/**
 	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
 	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
@@ -578,8 +758,15 @@ public class OnOffCommand implements ICommand {
 	 */
 	public OnOffCommand(String containerName, String targetsWidgets[], boolean enable) {
 		this.containerName = containerName;
-		this.targetsWidgets = targetsWidgets;
+		this.targetsWidgets = targetsWidgets; //NOSONAR
 		this.enable = enable;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public OnOffCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -590,8 +777,8 @@ public class OnOffCommand implements ICommand {
 	 */
 	public OnOffCommand(String containerName, String targetsWidgets[], String targetsMenuElement[], boolean enable) {
 		this.containerName = containerName;
-		this.targetsWidgets = targetsWidgets;
-		this.targetsMenuElement = targetsMenuElement;
+		this.targetsWidgets = targetsWidgets; //NOSONAR
+		this.targetsMenuElement = targetsMenuElement; //NOSONAR
 		this.enable = enable;
 	}
 	
@@ -674,6 +861,39 @@ public class VisibilityCommand implements ICommand {
 	 */
 	boolean show = true;
 
+
+	public String getContainerName() {
+		return containerName;
+	}
+
+	public void setContainerName(String containerName) {
+		this.containerName = containerName;
+	}
+
+	public String[] getTargetsWidgets() {
+		return targetsWidgets; //NOSONAR
+	}
+
+	public void setTargetsWidgets(String[] targetsWidgets) {
+		this.targetsWidgets = targetsWidgets; //NOSONAR
+	}
+
+	public String[] getTargetsMenuElement() {
+		return targetsMenuElement; //NOSONAR
+	}
+
+	public void setTargetsMenuElement(String[] targetsMenuElement) {
+		this.targetsMenuElement = targetsMenuElement; //NOSONAR
+	}
+
+	public boolean isShow() {
+		return show;
+	}
+
+	public void setShow(boolean show) {
+		this.show = show;
+	}
+	
 	/**
 	 * @param containerName il nome del content panel che contiene i widget da mostrare/nascondere
 	 * @param targetWidgets nomi dei widget da mostrare/nascondere
@@ -683,9 +903,16 @@ public class VisibilityCommand implements ICommand {
 	public VisibilityCommand(String containerName, String targetsWidgets[], String targetsMenuElement[],
 			boolean show) {
 		this.containerName = containerName;
-		this.targetsWidgets = targetsWidgets;
-		this.targetsMenuElement = targetsMenuElement;
+		this.targetsWidgets = targetsWidgets; //NOSONAR
+		this.targetsMenuElement = targetsMenuElement; //NOSONAR
 		this.show = show;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public VisibilityCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -696,7 +923,7 @@ public class VisibilityCommand implements ICommand {
 	public VisibilityCommand(String containerName, String targetsWidgets[], 
 			boolean show) {
 		this.containerName = containerName;
-		this.targetsWidgets = targetsWidgets;
+		this.targetsWidgets = targetsWidgets; //NOSONAR
 		this.show = show;
 	}
 
@@ -795,6 +1022,39 @@ public class ExecCommand implements ICommand {
 	 */
 	String appDataToStore[] = null;
 	
+	
+	public String[] getEsiti() {
+		return esiti;
+	}
+
+	public void setEsiti(String[] esiti) {
+		this.esiti = esiti; //NOSONAR
+	}
+
+	public ICommand[] getAzioni() {
+		return azioni; //NOSONAR
+	}
+
+	public void setAzioni(ICommand[] azioni) {
+		this.azioni = azioni; //NOSONAR
+	}
+
+	public String getNomeMetodo() {
+		return nomeMetodo;
+	}
+
+	public void setNomeMetodo(String nomeMetodo) {
+		this.nomeMetodo = nomeMetodo;
+	}
+
+	public String[] getAppDataToStore() {
+		return appDataToStore; //NOSONAR
+	}
+
+	public void setAppDataToStore(String[] appDataToStore) {
+		this.appDataToStore = appDataToStore; //NOSONAR
+	}
+	
 	/**
 	 * mappa <result,azione>
 	 */
@@ -807,17 +1067,27 @@ public class ExecCommand implements ICommand {
 	 * @param appDataToStore elenco dei nomi degli application data modificati dalla logica di business
 	 */
 	public ExecCommand(String esiti[], ICommand[] azioni, String nomeMetodo, String appDataToStore[]) {
-		this.esiti = esiti;
-		this.azioni = azioni;
+		this.esiti = esiti; //NOSONAR
+		this.azioni = azioni; //NOSONAR
 		this.nomeMetodo = nomeMetodo;
-		this.appDataToStore = appDataToStore;
-		if (this.esiti != null) {
+		this.appDataToStore = appDataToStore; //NOSONAR
+	}
+
+	/**
+	 * costruttore di default
+	 */
+	public ExecCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+
+	private void initCommand(){
+		if (this.esiti != null && this.resultAzioni.isEmpty()) {
 			// riempio la mappa <esiti,azioni>
 			for (int i = 0; i < this.esiti.length; i++)
 				this.resultAzioni.put(this.esiti[i], this.azioni[i]);
 		}
-	}
-
+	}	
+	
 	/**
 	 * Esecuzione della logica di business.
 	 * Il model su cui lavorera' il metodo di business e' estratto dalla action.
@@ -827,6 +1097,7 @@ public class ExecCommand implements ICommand {
 	 * dal metodo di business.
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		initCommand();
 		// action --> model
 		Object theModel = strutsAction.toModel();
 		// esecuzione azione
@@ -988,11 +1259,27 @@ public class ClearAppDataCommand implements ICommand {
 	
 	private String[] attributesToBeRemovedFromSession = null;
 	
+	public String[] getAttributesToBeRemovedFromSession() {
+		return attributesToBeRemovedFromSession; //NOSONAR
+	}
+
+	public void setAttributesToBeRemovedFromSession(
+			String[] attributesToBeRemovedFromSession) {
+		this.attributesToBeRemovedFromSession = attributesToBeRemovedFromSession; //NOSONAR
+	}
+	
 	/**
 	 * @param nomi degli application data da cancellare
 	 */
 	public ClearAppDataCommand(String[] attributesToBeRemovedFromSession) {
-		this.attributesToBeRemovedFromSession = attributesToBeRemovedFromSession;
+		this.attributesToBeRemovedFromSession = attributesToBeRemovedFromSession; //NOSONAR
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public ClearAppDataCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -1161,11 +1448,26 @@ public class SequenceCommand implements ICommand {
 	
 	ICommand[] actions;
 	
+	public ICommand[] getActions() {
+		return actions; //NOSONAR
+	}
+
+	public void setActions(ICommand[] actions) {
+		this.actions = actions; //NOSONAR
+	}
+	
 	/** 
 	 * @param actions elenco degli ICommand da eseguire in sequenza
 	 */
 	public SequenceCommand(ICommand[] actions) {
 		this.actions = actions;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public SequenceCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -1203,11 +1505,26 @@ public class ShowDialogCommand implements ICommand {
 	
 	String name;
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	/**
 	 * @param panelName il nome del DialogPanel da visualizzare
 	 */
 	public ShowDialogCommand(String panelName) {
 		name = panelName;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public ShowDialogCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -1241,12 +1558,27 @@ public class BeginEditCommand implements ICommand {
 	
 	String [] targetAppDataNames;
 	
+	public String[] getTargetAppDataNames() {
+		return targetAppDataNames;
+	}
+
+	public void setTargetAppDataNames(String[] targetAppDataNames) {
+		this.targetAppDataNames = targetAppDataNames;
+	}
+	
 	/**
 	 * @param targetAppDataNames i nomi degli applicaiton data da includere nella
 	 * sessione
 	 */
 	public BeginEditCommand(String [] targetAppDataNames) {
 		this.targetAppDataNames = targetAppDataNames;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public BeginEditCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -1324,6 +1656,23 @@ public class EndEditCommand implements ICommand {
 	String [] targetAppDataNames;
 	boolean undo;
 	
+	public String[] getTargetAppDataNames() {
+		return targetAppDataNames; //NOSONAR
+	}
+
+	public void setTargetAppDataNames(String[] targetAppDataNames) {
+		this.targetAppDataNames = targetAppDataNames; //NOSONAR
+	}
+
+	public boolean isUndo() {
+		return undo;
+	}
+
+	public void setUndo(boolean undo) {
+		this.undo = undo;
+	}
+	
+	
 	/**
 	 * @param targetAppDataNames i nomi degli application data da ripristinare (eventualmente)
 	 * @param undo se valorizzato a true, il valore degli appdata referenziati viene ripristinato a partire
@@ -1332,6 +1681,13 @@ public class EndEditCommand implements ICommand {
 	public EndEditCommand(String [] targetAppDataNames, boolean undo) {
 		this.targetAppDataNames = targetAppDataNames;
 		this.undo=undo;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public EndEditCommand(){
+		/// costruttore intenzionalmente vuoto
 	}
 	
 	/**
@@ -1393,6 +1749,39 @@ public class ChkEditStatusCommand implements ICommand {
 	String checkAggr;
 	String [] checkedData;
 	
+	public ICommand getDoIfChanged() {
+		return doIfChanged;
+	}
+
+	public void setDoIfChanged(ICommand doIfChanged) {
+		this.doIfChanged = doIfChanged;
+	}
+
+	public ICommand getDoIfNotChanged() {
+		return doIfNotChanged;
+	}
+
+	public void setDoIfNotChanged(ICommand doIfNotChanged) {
+		this.doIfNotChanged = doIfNotChanged;
+	}
+
+	public String getCheckAggr() {
+		return checkAggr;
+	}
+
+	public void setCheckAggr(String checkAggr) {
+		this.checkAggr = checkAggr;
+	}
+
+	public String[] getCheckedData() {
+		return checkedData; //NOSONAR
+	}
+
+	public void setCheckedData(String[] checkedData) {
+		this.checkedData = checkedData; //NOSONAR
+	}
+	
+	
 	/**
 	 * @param checkedData il nome deli application data da esaminare
 	 * @param checkAggregation modalita' di aggregazione dei risultati dei singoli check.
@@ -1411,6 +1800,13 @@ public class ChkEditStatusCommand implements ICommand {
 		this.doIfNotChanged=doIfNotChanged;
 	}
 
+	/**
+	 * costruttore di default
+	 */
+	public ChkEditStatusCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
 	/**
 	 * Esecuzione del comando. 
 	 * A seconda del risultato del check (che tiene conto del tipo di aggregazione)

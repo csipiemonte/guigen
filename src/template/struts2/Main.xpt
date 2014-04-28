@@ -33,6 +33,7 @@ e le limitazioni secondo i termini della Licenza.
 		«EXPAND template::struts2::i18n::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this»
 		«EXPAND template::struts2::javafiles::javaFiles(skip_component_dir_creation) FOR this»
 		«EXPAND contentPanelsFiles(skip_component_dir_creation) FOR this»
+		«EXPAND template::struts2::controller::jsonCmds::jsonCmdsFiles(this) FOR this.structure.appWindow.appArea»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -58,5 +59,6 @@ e le limitazioni secondo i termini della Licenza.
 	«IF model.targetPlatform.enableRichUIBehavior-»
 		«EXPAND template::richxhtml::enrichments::enrichmentDefs(model, skip_component_dir_creation) FOR this»
 	«ENDIF-»
+	«EXPAND template::struts2::controller::jsonCmds::jsonCmdsFiles(model) FOR this»
 «ENDDEFINE»
 

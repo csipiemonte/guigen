@@ -264,6 +264,12 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		setModel(t);	
 	}
     
+    
+    
+    
+    
+    
+    
     /**
      * metodo di utilita' per effettuare introspection.
      * @param name nome della property
@@ -624,10 +630,12 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	/**
 	 * metodo astratto che deve essere sovrascritto nelle action dei singoli ContentPanel per
 	 * l'inizializzazione dei vari comandi presenti nella schermata
+	 * @param moduleName il nome del modulo in cui e' contenuto il widget a cui e' associato l'evento
+	 * @param panelName il nome del pannello in cui e' contenuto il widget a cui e' associato l'evento
 	 * @param widgName il nome del widget a cui e' associato l'evento
 	 * @param eventName il nome dell'evento (es. CLICKED)
 	 */
-	abstract protected ICommand initCommand(String widgName, String eventName);
+	abstract protected ICommand initCommand(String moduleName, String panelName, String widgName, String eventName);
 	
 «IF targetPlatform.enableRichUIBehavior-»
 	«EXPAND getJSONSerializerMethod FOR this»
@@ -638,9 +646,9 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	 * @param widgName il nome del widget a cui e' associato l'evento
 	 * @param eventName il nome dell'evento (es. CLICKED)
 	 */
-	protected String handleEventInternal(String widgName, String eventName)
+	protected String handleEventInternal(String moduleName, String panelName, String widgName, String eventName)
 			throws CommandExecutionException {
-		ICommand action = initCommand(widgName, eventName);
+		ICommand action = initCommand(moduleName, panelName, widgName, eventName);
 		if (log.isDebugEnabled()) {
 			log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model before");
 			dumpModel(false);
@@ -902,6 +910,7 @@ import «getBaseJavaPackage(this)».util.*;
 import «getDTOBaseJavaPackage(this)».*;
 import «getBaseJavaPackage()».business.*;
 
+import «getCommandFactoryPkg(this)».*;
 import «getSecurityJavaPackage(this)».*;
 
 «IF this.targetPlatform.enableRichUIBehavior-»
@@ -1000,6 +1009,27 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 				.get(getCPName()+"_Initialized")); 
 		return b == null || b.booleanValue();
 	}
+	
+	
+	/**
+     * inizializza la struttura dei command da eseguire per ciascun event handler 
+     * di ciascun widget
+     */
+	protected final ICommand initCommand(String moduleName, String panelName, String sourceWidget, String eventType) {
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					moduleName, getCPName().toLowerCase(), sourceWidget+"_"+eventType);
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd;
+	}
+	
 	
 	/**
 	 * inizializza la struttura dei command da eseguire al refresh del pannello.

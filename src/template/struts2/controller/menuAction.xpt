@@ -44,6 +44,7 @@ import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(this)».*;
 import «getBaseJavaPackage()».business.*;
+import «getCommandFactoryPkg(this)».*;
 import «getInterceptorsJavaPackage(this)».FatClientOnly;
 
 /**
@@ -113,7 +114,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClass
 	public String goTo«tlmenu.name.toFirstUpper()»() throws CommandExecutionException{
 	    
 		// gestione degli eventi di tipo CLICKED
-		ICommand action = initCommand("«tlmenu.name»","CLICKED");
+		ICommand action = initCommand(null,"global","«tlmenu.name»","CLICKED");
 		String result = action.doCommand(this);
 		if (result != null) {
 			if (log.isDebugEnabled()){
@@ -141,7 +142,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClass
 	public String goTo«currMenu.name.toFirstUpper()»() throws CommandExecutionException{
 	    
 		// gestione degli eventi di tipo CLICKED
-		ICommand action = initCommand("«currMenu.name»","CLICKED");
+		ICommand action = initCommand(null, "global", "«currMenu.name»","CLICKED");
 		String result = action.doCommand(this);
 		if (result != null) {
 			if (log.isDebugEnabled()){

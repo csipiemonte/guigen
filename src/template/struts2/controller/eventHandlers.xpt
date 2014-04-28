@@ -158,6 +158,7 @@ e le limitazioni secondo i termini della Licenza.
 
 
 «LET this AS currEventHandler»
+«LET (AppModule)cp.eContainer AS enclosingAppModule-»
 	/**
 	 * Gestione dell'evento «currEventHandler.eventType.toString()» sul widget [«getFullID(currEventWidget, contextPrefix)»]
 	 */
@@ -169,7 +170,7 @@ e le limitazioni secondo i termini della Licenza.
 		throws CommandExecutionException
 	{
 	«IF proceedToJSon(currEventHandler, currEventWidget)-»
-		handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
+		handleEventInternal("«enclosingAppModule.name.toLowerCase()»","«cp.name.toLowerCase()»","«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
 		return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
 		}
 	«ELSE-»
@@ -180,7 +181,7 @@ e le limitazioni secondo i termini della Licenza.
 	«ENDIF-»
 	
 	
-	
+«ENDLET»	
 «ENDLET»
 
 
@@ -188,42 +189,18 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «DEFINE handleEventInternal(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
-«LET this AS currEventHandler»
-return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
+«LET this AS currEventHandler-»
+«LET (AppModule)cp.eContainer AS enclosingAppModule-»
+return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.name.toLowerCase()»", "«getFullID(currEventWidget, contextPrefix)»", "«currEventHandler.eventType»");
 
 }
-«ENDLET»
+«ENDLET-»
+«ENDLET-»
 «ENDDEFINE»
 
 
 
 
-«REM»STRUTTURA «ENDREM»
-
-«REM»richiamata dal template di definizione della classe Action per un dato 
-     content panel
-«ENDREM»
-«DEFINE actionStructureInit(GUIModel model) FOR ContentPanel»
-    /**
-     * inizializza la struttura dei command da eseguire per ciascun event handler 
-     * di ciascun widget
-     */
-	protected final ICommand initCommand(String sourceWidget, String eventType) {
-		Map<String, Map<String, ICommand>> cmdsByWidget = new HashMap<String, Map<String, ICommand>>();
-		
-	«EXPAND commandMapForEventSource(model, this, "") FOR this.panels-»
-	«EXPAND commandMapForEventSource(model, this, "") FOREACH this.dialogs-»
-		
-		ICommand ris = cmdsByWidget.get(sourceWidget).get(eventType);
-		if (ris != null)
-			return ris;
-		else
-			return new  NOPCommand();
-	}
-	
-	«EXPAND initCommandForEventHandler(model, this, "") FOR this.panels-»
-	«EXPAND initCommandForEventHandler(model, this, "") FOREACH this.dialogs-»
-«ENDDEFINE»
 
 
 «DEFINE actionStructureInit1(GUIModel model) FOR Command-»
@@ -231,77 +208,158 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
      * inizializza la struttura dei command da eseguire allo startup della sessione 
      */
 	private ICommand initCommand() {
-		«EXPAND addActionCode("onInit",1, model, (ContentPanel)null, "") FOR this-»
-		return act_onInit_1; 
+		«REM»«EXPAND addActionCode("onInit",1, model, (ContentPanel)null, "") FOR this-»
+		return act_onInit_1;«ENDREM»
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					null, "global", ""+"_"+"APP_INIT");
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd;  
 	}
 		
 «ENDDEFINE»
 
 «DEFINE actionStructureInit2(GUIModel model, ContentPanel cp) FOR Command-»
-    /**
+«LET ((AppModule)cp.eContainer) AS enclosingModule-»
+   	/**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initOnRefreshCommand() {
-		«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this-»
-		return act_onRefresh_1; 
+		«REM»«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this-»
+		return act_onRefresh_1;«ENDREM»
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"ON_REFRESH");
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd; 
 	}
-	
+«ENDLET-»
 
 	
 «ENDDEFINE»
 
 «DEFINE actionStructureOnInitCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
+«LET ((AppModule)cp.eContainer) AS enclosingModule-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initOnInitCPCommand() {
-		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
-		return act_onInitCPCommand_1; 
+«REM»		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
+		return act_onInitCPCommand_1;«ENDREM»
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"ON_INIT");
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd; 
+ 
 	}
 	
 
-	
+«ENDLET-»
 «ENDDEFINE»
 
 
 «DEFINE actionStructureOnEnterCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
+«LET ((AppModule)cp.eContainer) AS enclosingModule-»    
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initOnEnterCPCommand() {
-		«EXPAND addActionCode("onEnterCPCommand",1, model, cp , "") FOR this-»
-		return act_onEnterCPCommand_1; 
+		«REM»«EXPAND addActionCode("onEnterCPCommand",1, model, cp , "") FOR this-»
+		return act_onEnterCPCommand_1;«ENDREM» 
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"ON_ENTER");
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd; 
+		
 	}
 	
 
-	
+«ENDLET-»	
 «ENDDEFINE»
 
 
 «DEFINE actionStructureBeforeEventCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
+«LET ((AppModule)cp.eContainer) AS enclosingModule-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initBeforeEventCPCommand() {
-		«EXPAND addActionCode("beforeEventCPCommand",1, model, cp , "") FOR this-»
-		return act_beforeEventCPCommand_1; 
+		«REM»«EXPAND addActionCode("beforeEventCPCommand",1, model, cp , "") FOR this-»
+		return act_beforeEventCPCommand_1;«ENDREM»
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"BEFORE_EVENT");
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd; 
+		 
 	}
 	
 
-	
+«ENDLET-»	
 «ENDDEFINE»
 
 «DEFINE actionStructureAfterEventCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
+«LET ((AppModule)cp.eContainer) AS enclosingModule-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initAfterEventCPCommand() {
-		«EXPAND addActionCode("afterEventCPCommand",1, model, cp , "") FOR this-»
-		return act_afterEventCPCommand_1; 
+		«REM»«EXPAND addActionCode("afterEventCPCommand",1, model, cp , "") FOR this-»
+		return act_afterEventCPCommand_1;«ENDREM»
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"AFTER_EVENT");
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd; 
+		 
 	}
 	
 
-	
+«ENDLET-»	
 «ENDDEFINE»
 
 «DEFINE actionStructureInit(GUIModel model) FOR Menubar-»
@@ -309,8 +367,21 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	protected ICommand initCommand(String sourceWidget, String eventType) {
-		Map<String, Map<String, ICommand>> cmdsByWidget = new HashMap<String, Map<String, ICommand>>();
+	protected ICommand initCommand(String moduleName, String panelName, String sourceWidget, String eventType) {
+		ICommand cmd = null;
+		try {
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+					null, "global", "_"+sourceWidget.toLowerCase()+"_"+"CLICKED");
+		} catch (CommandExecutionException cee) {
+			log.error(
+					"Errore imprevisto nella creazione dei comandi:"
+							+ cee.getMessage() + ", restituisco NOPCommand",
+					cee);
+			cmd = new NOPCommand();
+		}
+		return cmd; 
+	 }
+«REM»		Map<String, Map<String, ICommand>> cmdsByWidget = new HashMap<String, Map<String, ICommand>>();
 		
 		«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
 		«IF eventSources.size>0-»
@@ -319,7 +390,6 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
 		Map<String, ICommand> cmds4«currEventSource.name»ByEvh = 
 		  new HashMap<String, ICommand>();
 		«LET currEventSource.eventHandler AS evhs-»
-		«REM»TODO prendere non solo il primo !!!«ENDREM»
 		«LET evhs AS currEvh»
 		cmds4«currEventSource.name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
 		«ENDLET-»
@@ -352,11 +422,12 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
 		«ENDFOREACH-»
 		«ENDIF-»
 	«ENDLET-»
+«ENDREM»
 	
 «ENDDEFINE»
 
 
-«DEFINE addActionsCode(String actionsVarName, GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
+«REM»«DEFINE addActionsCode(String actionsVarName, GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
     «LET this.command AS currAction-»
     «LET 1 AS actionNumber-»
     	«EXPAND addActionCode(actionsVarName,actionNumber, model, cp, contextPrefix) FOR currAction-»
@@ -387,11 +458,11 @@ return handleEventInternal("«getFullID(currEventWidget, contextPrefix)»", "«c
 		
 	/// Clear AppData Command end
 «ENDDEFINE»
-
+«ENDREM»
 
 «REM»[AM] Un refresh view attaccato ad un widget dentro un PanelDef può puntare SOLO a pannelli interni al paneldef. 
 questa è una limitazione da valutare ed eventualmente suggerire di mettere delle refresh più ampie a livello di onRefreshCommand ?«ENDREM»
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR RefreshViewCommand-»
+«REM»«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR RefreshViewCommand-»
 	/// Refresh Command begin
 	String [] act_«actionsVarName»_«actionNumber»_panels = new String[]{
 		«FOREACH targetPanels AS tp SEPARATOR ","-»
@@ -443,7 +514,7 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere dell
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpBackCommand-»
 	//JumpBack Command begin
-	JumpBackCommand act_«actionsVarName»_«actionNumber» = new JumpBackCommand("CP_NAME",getAppDataNavigationQueue());
+	JumpBackCommand act_«actionsVarName»_«actionNumber» = new JumpBackCommand("CP_NAME");
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand-»
@@ -460,10 +531,10 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere dell
 	SequenceCommand act_«actionsVarName»_«actionNumber» = new SequenceCommand(act_«actionsVarName»_«actionNumber»_steps);
 	// SequenceCommand end
 «ENDDEFINE»
-
+«ENDREM»
 «REM»TODO: visibility, on-off e screen state: limitazione con panel def: da dentro controllo i widget interni, da fuori solo
 quelli esterni!!! «ENDREM»
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ONOFFCommand-»
+«REM»«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ONOFFCommand-»
 	«LET cp!= null ? cp.name : "no-content-panel" AS containerName-»
 	// ONOFF Command begin
     //prepara i nomi dei componenti targetWidgets da abilitare/disabilitare
@@ -495,13 +566,13 @@ quelli esterni!!! «ENDREM»
 	«ENDLET-»
 	«ENDLET-»
 «ENDDEFINE»
-
+«ENDREM»
 
 «REM»il PDefStateCommand e' simile allo ScreenStateCommand, con la differenza che l'insieme dei
 widget presi in considerazioen non e' il totale dei widget nel content panel ma solo quelli contenuti
 nel panel def (use)
 «ENDREM»
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR PDefStateCommand-»
+«REM»«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR PDefStateCommand-»
 	«LET cp AS parentCP-»
 	«LET parentCP.name AS containerName-»
 	«LET (this.pDefUse != null ? this.pDefUse.panelDef.panel : (findParentPanelDef().panel)) AS pDefRootPanel-»
@@ -644,20 +715,19 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
 		);
 	/// Chk Edit Status Command end
 «ENDDEFINE»
-
+«ENDREM»
 «REM»
 	###########################
 	CREAZIONE Mappe dei comandi
 	###########################
 «ENDREM»
-«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
+«REM»«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
 «IF eventHandlers.size>0-»
 	«LET this AS currEventSource-»
 		// contiene i comandi del widget «getFullID(currEventSource, contextPrefix)» per ogni Ev.H.
 		Map<String, ICommand> cmds4«getFullID(currEventSource, contextPrefix)»ByEvh = 
 		  new HashMap<String, ICommand>();
 				«LET (currEventSource).eventHandlers AS evhs-»
-		«REM»TODO prendere non solo il primo !!!«ENDREM»
 					«FOREACH evhs AS currEvh-»
 		cmds4«getFullID(currEventSource, contextPrefix)»ByEvh.put("«currEvh.eventType.toString()»",initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
 					«ENDFOREACH-»
@@ -666,11 +736,11 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
 	«ENDLET-»
 «ENDIF-»
 «ENDDEFINE»
-
+«ENDREM»
 «REM»di default non fa niente. sovrascritto nei tipi di panel che 
 	 possono portare a event source widgets
 «ENDREM»
-«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
+«REM»«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
 «ENDDEFINE»
 
 «DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
@@ -714,7 +784,7 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
 «DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
 	«EXPAND commandMapForEventSource(model, cp, getChainedContext(contextPrefix, this.name)) FOR this.panelDef.panel-»
 «ENDDEFINE»
-
+«ENDREM»
 
 «REM»
 	##############################
@@ -724,9 +794,20 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
 
 «DEFINE initCommandForEventHandler(Widget currEventSource, GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
 «LET this AS currEvh»
-	private ICommand initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
-		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+getFullID(currEventSource, contextPrefix), model, cp, contextPrefix) FOR currEvh-»
-		return act_actions_«currEvh.eventType.toString().toLowerCase()»_«getFullID(currEventSource, contextPrefix)»_1; 
+	private ICommand initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»() {
+«REM»		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+getFullID(currEventSource, contextPrefix), model, cp, contextPrefix) FOR currEvh-»
+		return act_actions_«currEvh.eventType.toString().toLowerCase()»_«getFullID(currEventSource, contextPrefix)»_1;«ENDREM» 
+		«LET (AppModule)cp.eContainer AS enclosingAppModule-»
+		ICommand cmd = null;
+		try{
+			cmd = CommandFactory.getInstance().buildCmdStructure_internal("«enclosingAppModule.name.toLowerCase()»", getCPName().toLowerCase(), "«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»");
+		}
+		catch(CommandExecutionException cee){
+			log.error("Errore imprevisto nella creazione dei comandi:"+cee.getMessage()+", restituisco NOPCommand", cee);
+			cmd = new NOPCommand();
+		}
+		return cmd;
+		«ENDLET-»
 	}
 «ENDLET-»
 «ENDDEFINE»
