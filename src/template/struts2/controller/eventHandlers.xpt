@@ -226,105 +226,101 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 		
 «ENDDEFINE»
 
-«DEFINE actionStructureInit2(GUIModel model, ContentPanel cp) FOR Command-»
-«LET ((AppModule)cp.eContainer) AS enclosingModule-»
+«DEFINE actionStructureOnRefreshCPCommand FOR GUIModel-»
    	/**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initOnRefreshCommand() {
-		«REM»«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this-»
-		return act_onRefresh_1;«ENDREM»
+
 		ICommand cmd = null;
-		try {
-			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
-					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"ON_REFRESH");
-		} catch (CommandExecutionException cee) {
-			log.error(
-					"Errore imprevisto nella creazione dei comandi:"
-							+ cee.getMessage() + ", restituisco NOPCommand",
-					cee);
+		if (this.isImplicitEventDefined(IMPLICIT_EVENT_ON_REFRESH)) {
+			try {
+				cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+						getCPNamespace().toLowerCase(),
+						getCPName().toLowerCase(), "" + "_" + "ON_REFRESH");
+			} catch (CommandExecutionException cee) {
+				log.error("Errore imprevisto nella creazione dei comandi:"
+						+ cee.getMessage() + ", restituisco NOPCommand", cee);
+				cmd = new NOPCommand();
+			}
+		} else {
 			cmd = new NOPCommand();
 		}
-		return cmd; 
+		return cmd;
 	}
-«ENDLET-»
-
 	
 «ENDDEFINE»
 
-«DEFINE actionStructureOnInitCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
-«LET ((AppModule)cp.eContainer) AS enclosingModule-»
+«DEFINE actionStructureOnInitCPCommand FOR GUIModel-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initOnInitCPCommand() {
-«REM»		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
-		return act_onInitCPCommand_1;«ENDREM»
 		ICommand cmd = null;
-		try {
-			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
-					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"ON_INIT");
-		} catch (CommandExecutionException cee) {
-			log.error(
-					"Errore imprevisto nella creazione dei comandi:"
-							+ cee.getMessage() + ", restituisco NOPCommand",
-					cee);
+		if (this.isImplicitEventDefined(IMPLICIT_EVENT_ON_INIT)) {
+			try {
+				cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+						getCPNamespace().toLowerCase(),
+						getCPName().toLowerCase(), "" + "_" + "ON_INIT");
+			} catch (CommandExecutionException cee) {
+				log.error("Errore imprevisto nella creazione dei comandi:"
+						+ cee.getMessage() + ", restituisco NOPCommand", cee);
+				cmd = new NOPCommand();
+			}
+		} else {
 			cmd = new NOPCommand();
 		}
 		return cmd; 
- 
 	}
 	
 
-«ENDLET-»
 «ENDDEFINE»
 
 
-«DEFINE actionStructureOnEnterCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
-«LET ((AppModule)cp.eContainer) AS enclosingModule-»    
+«DEFINE actionStructureOnEnterCPCommand FOR GUIModel-»  
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
-	protected ICommand initOnEnterCPCommand() {
-		«REM»«EXPAND addActionCode("onEnterCPCommand",1, model, cp , "") FOR this-»
-		return act_onEnterCPCommand_1;«ENDREM» 
-		ICommand cmd = null;
-		try {
-			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
-					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"ON_ENTER");
-		} catch (CommandExecutionException cee) {
-			log.error(
-					"Errore imprevisto nella creazione dei comandi:"
-							+ cee.getMessage() + ", restituisco NOPCommand",
-					cee);
+	protected ICommand initOnEnterCPCommand() { 
+	ICommand cmd = null;
+		if (this.isImplicitEventDefined(IMPLICIT_EVENT_ON_ENTER)) {
+			try {
+				cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+						getCPNamespace().toLowerCase(),
+						getCPName().toLowerCase(), "" + "_" + "ON_ENTER");
+			} catch (CommandExecutionException cee) {
+				log.error("Errore imprevisto nella creazione dei comandi:"
+						+ cee.getMessage() + ", restituisco NOPCommand", cee);
+				cmd = new NOPCommand();
+			}
+		} else {
 			cmd = new NOPCommand();
 		}
-		return cmd; 
-		
+		return cmd;		
 	}
 	
 
-«ENDLET-»	
+
 «ENDDEFINE»
 
 
-«DEFINE actionStructureBeforeEventCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
-«LET ((AppModule)cp.eContainer) AS enclosingModule-»
+«DEFINE actionStructureBeforeEventCPCommand FOR GUIModel-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initBeforeEventCPCommand() {
-		«REM»«EXPAND addActionCode("beforeEventCPCommand",1, model, cp , "") FOR this-»
-		return act_beforeEventCPCommand_1;«ENDREM»
 		ICommand cmd = null;
-		try {
-			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
-					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"BEFORE_EVENT");
-		} catch (CommandExecutionException cee) {
-			log.error(
-					"Errore imprevisto nella creazione dei comandi:"
-							+ cee.getMessage() + ", restituisco NOPCommand",
-					cee);
+		if (this.isImplicitEventDefined(IMPLICIT_EVENT_BEFORE_EVENTS)) {
+			try {
+				cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+						getCPNamespace().toLowerCase(),
+						getCPName().toLowerCase(), "" + "_" + "BEFORE_EVENTS");
+			} catch (CommandExecutionException cee) {
+				log.error("Errore imprevisto nella creazione dei comandi:"
+						+ cee.getMessage() + ", restituisco NOPCommand", cee);
+				cmd = new NOPCommand();
+			}
+		} else {
 			cmd = new NOPCommand();
 		}
 		return cmd; 
@@ -332,34 +328,32 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 	}
 	
 
-«ENDLET-»	
 «ENDDEFINE»
 
-«DEFINE actionStructureAfterEventCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
-«LET ((AppModule)cp.eContainer) AS enclosingModule-»
+«DEFINE actionStructureAfterEventCPCommand FOR GUIModel-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	protected ICommand initAfterEventCPCommand() {
-		«REM»«EXPAND addActionCode("afterEventCPCommand",1, model, cp , "") FOR this-»
-		return act_afterEventCPCommand_1;«ENDREM»
 		ICommand cmd = null;
-		try {
-			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
-					"«enclosingModule.name.toLowerCase()»", getCPName().toLowerCase(), ""+"_"+"AFTER_EVENT");
-		} catch (CommandExecutionException cee) {
-			log.error(
-					"Errore imprevisto nella creazione dei comandi:"
-							+ cee.getMessage() + ", restituisco NOPCommand",
-					cee);
+		if (this.isImplicitEventDefined(IMPLICIT_EVENT_AFTER_EVENTS)) {
+			try {
+				cmd = CommandFactory.getInstance().buildCmdStructure_internal(
+						getCPNamespace().toLowerCase(),
+						getCPName().toLowerCase(), "" + "_" + "AFTER_EVENTS");
+			} catch (CommandExecutionException cee) {
+				log.error("Errore imprevisto nella creazione dei comandi:"
+						+ cee.getMessage() + ", restituisco NOPCommand", cee);
+				cmd = new NOPCommand();
+			}
+		} else {
 			cmd = new NOPCommand();
 		}
-		return cmd; 
+		return cmd;  
 		 
 	}
 	
 
-«ENDLET-»	
 «ENDDEFINE»
 
 «DEFINE actionStructureInit(GUIModel model) FOR Menubar-»
@@ -381,48 +375,6 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 		}
 		return cmd; 
 	 }
-«REM»		Map<String, Map<String, ICommand>> cmdsByWidget = new HashMap<String, Map<String, ICommand>>();
-		
-		«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
-		«IF eventSources.size>0-»
-		«FOREACH eventSources AS currEventSource-»
-		// contiene i comandi del menu «currEventSource.name» per ogni Ev.H.
-		Map<String, ICommand> cmds4«currEventSource.name»ByEvh = 
-		  new HashMap<String, ICommand>();
-		«LET currEventSource.eventHandler AS evhs-»
-		«LET evhs AS currEvh»
-		cmds4«currEventSource.name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
-		«ENDLET-»
-		«ENDLET-»
-		cmdsByWidget.put("«currEventSource.name»",cmds4«currEventSource.name»ByEvh);	
-		«ENDFOREACH-»
-		«ENDIF-»
-		«ENDLET-»
-		
-		
-		«IF getAllEventSourceMenus().size>0-»
-		return cmdsByWidget.get(sourceWidget).get(eventType);
-		«ELSE-»
-		return new NOPCommand();
-		«ENDIF-»
-	}
-	
-	
-	«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
-		«IF eventSources.size>0-»
-		«FOREACH eventSources AS currEventSource-»
-		«LET currEventSource.eventHandler AS evhs-»
-		«LET evhs AS currEvh-»
-		private ICommand initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
-		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+currEventSource.name, model, (ContentPanel)null, "") FOR currEvh-»
-			return act_actions_«currEvh.eventType.toString().toLowerCase()»_«currEventSource.name»_1; 
-		}
-		«ENDLET-»
-		«ENDLET-»	
-		«ENDFOREACH-»
-		«ENDIF-»
-	«ENDLET-»
-«ENDREM»
 	
 «ENDDEFINE»
 

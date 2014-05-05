@@ -937,10 +937,35 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 
 	protected static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
 	
+	
 	/**
 	 * restituisce il nome del content panel. Deve essere sovrascritto dalle sottocolassi.
 	 */
 	protected abstract String getCPName();
+	
+	/**
+	 * restituisce il nome del nanmespace che contiene il content panel. Deve essere sovrascritto dalle sottocolassi.
+	 */
+	protected abstract String getCPNamespace();
+	
+	/**
+	 * restituisce il nome completo del nanmespace che contiene il content panel (ovvero comprendente anche 
+	 * il prefisso "base" o "secure" e il separatore "/". Deve essere sovrascritto dalle sottocolassi.
+	 */
+	protected abstract String getCPFullNamespace();
+	
+	protected final static String IMPLICIT_EVENT_ON_REFRESH = "ON_REFRESH";
+	protected final static String IMPLICIT_EVENT_ON_ENTER = "ON_ENTER";
+	protected final static String IMPLICIT_EVENT_ON_INIT = "ON_INIT";
+	protected final static String IMPLICIT_EVENT_BEFORE_EVENTS = "BEFORE_EVENTS";
+	protected final static String IMPLICIT_EVENT_AFTER_EVENTS = "AFTER_EVENTS";
+	
+	/**
+	 * Deve essere ridefinito in tutte le action associate a content panel.
+	 * @return true se l'evento implicito di nome <i>implicitEventName</i> e' previsto per la schermata
+	 */
+	protected abstract boolean isImplicitEventDefined(String implicitEventName);
+	
 	
 	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
 	protected Map<String, UISecConstraint> allOnOffConstraints = null;
@@ -1007,9 +1032,45 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 	public boolean isCPAlreadyInitialized() {
 		Boolean b =(java.lang.Boolean) (getSession()
 				.get(getCPName()+"_Initialized")); 
-		return b == null || b.booleanValue();
+		return b != null && b.booleanValue();
 	}
 	
+	/**
+	 * 
+	 * @return true se si sta entrando nel content panel da un'altra schermata
+	 */
+	public boolean isEntering(){
+		return (null == getCurrentContentPanel()
+				|| (null != getCurrentContentPanel() && !getCPName()
+						.equalsIgnoreCase(getCurrentContentPanel())));
+	}
+	
+	/**
+	 * Questo metodo, che deve essere ridefinito in tutte le schermate, serve per capire se
+	 * il comando di ON_REFRESH deve essere eseguito nella nuova modalita' (quella prevista
+	 * daqi CPCommands) oppure ad ogni interazione (modalita' legacy prevista prima dell'
+	 * introduzione dei CPCommands.
+	 */
+	protected abstract boolean isOnRefreshLegacyMode();
+	
+	/**
+	 * Decide se deve essere eseguita la logica (eventualmente) modellata come evento implicito di ON_REFRESH. 
+	 * La logica applicativa e' eseguita ad ogni azione di interazione utente eseguita sulla schermata 
+	 * (ingresso nella schermata, evento di interazione con un widget, ...), con le seguenti eccezioni: 
+	 * - Se in pagina viene inserito un CPCommand ON_INIT allora l'ON_REFRESH non verrà eseguito al primo accesso alla schermata. 
+	 * - Se in pagina viene inserito un CPCommand ON_ENTER allora l'ON_REFRESH non verrà eseguito in concomitanza al nuovo ingresso al ContentPanel.
+	 * Queste eccezioni non valgono se il comando di ON_REFRESH e' stato modellato in modalita' legacy (non come CPCommand).  
+	 */
+	protected boolean mustExecuteOnRefreshCommand(){
+		if (isOnRefreshLegacyMode()){
+			return true;
+		}
+		else{
+			ICommand onInitCmd = initOnInitCPCommand();
+			ICommand onEnterCmd = initOnEnterCPCommand();
+			return (onInitCmd == null && onEnterCmd == null) || ((onInitCmd !=null || onEnterCmd != null) && !isEntering());
+		}
+	}
 	
 	/**
      * inizializza la struttura dei command da eseguire per ciascun event handler 
@@ -1031,50 +1092,15 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 	}
 	
 	
-	/**
-	 * inizializza la struttura dei command da eseguire al refresh del pannello.
-	 * L'implementazione base prevede che non siano stati definiti comandi. Deve essere ridefinito in
-	 * tutte le sottoclassi per le quali sia previsto un comando effettivo
-	 */
-	protected ICommand initOnRefreshCommand(){
-		return null;
-	};
-
-	/**
-	 * inizializza la struttura dei command da eseguire al refresh del pannello
-	 * L'implementazione base prevede che non siano stati definiti comandi. Deve essere ridefinito in
-	 * tutte le sottoclassi per le quali sia previsto un comando effettivo
-	 */
-	protected ICommand initOnInitCPCommand(){
-		return null;
-	};
-
-	/**
-	 * inizializza la struttura dei command da eseguire al refresh del pannello
-	 * L'implementazione base prevede che non siano stati definiti comandi. Deve essere ridefinito in
-	 * tutte le sottoclassi per le quali sia previsto un comando effettivo
-	 */
-	protected ICommand initOnEnterCPCommand(){
-		return null;
-	};
-
-	/**
-	 * inizializza la struttura dei command da eseguire al refresh del pannello
-	 * L'implementazione base prevede che non siano stati definiti comandi. Deve essere ridefinito in
-	 * tutte le sottoclassi per le quali sia previsto un comando effettivo
-	 */
-	protected ICommand initBeforeEventCPCommand(){
-		return null;
-	};
-
-	/**
-	 * inizializza la struttura dei command da eseguire al refresh del pannello
-	 * L'implementazione base prevede che non siano stati definiti comandi. Deve essere ridefinito in
-	 * tutte le sottoclassi per le quali sia previsto un comando effettivo
-	 */
-	protected ICommand initAfterEventCPCommand(){
-		return null;
-	};
+	«EXPAND template::struts2::controller::eventHandlers::actionStructureOnRefreshCPCommand FOR this»
+			
+	«EXPAND template::struts2::controller::eventHandlers::actionStructureOnInitCPCommand FOR this»
+			
+	«EXPAND template::struts2::controller::eventHandlers::actionStructureOnEnterCPCommand FOR this»
+			
+	«EXPAND template::struts2::controller::eventHandlers::actionStructureBeforeEventCPCommand FOR this»
+			
+	«EXPAND template::struts2::controller::eventHandlers::actionStructureAfterEventCPCommand FOR this»
 	
 	«EXPAND template::struts2::controller::eventHandlers::beforeAndAfterEventCommandsMethods FOR this»
 	
@@ -1137,7 +1163,7 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 			session.remove(PENDING_CLEAR_COMMAND_ATTRIBUTE);
 		}
 		
-		if(null==getCurrentContentPanel() || (null!=getCurrentContentPanel() && !getCPName().equalsIgnoreCase(getCurrentContentPanel()))){
+		if(isEntering()){
 			// CpCommand OnEnter
 			//// inizializzazione
 			ICommand cmdOnEnter = initOnEnterCPCommand();
@@ -1183,13 +1209,11 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 			}
 			markCPAsInitialized(); // marca in ogni caso come inizializzato
 		}
-		else {
-			markCPAsNotInitialized(); // ridondante...
-		}
 					
-		onRefreshEvent = (!isCPAlreadyInitialized() && (cmdOnEnter == null || cmdOnEnter != null && getCPName().equalsIgnoreCase(getCurrentContentPanel())));
-			«REM»	«IF !this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER).isEmpty-»&&(getCPName().equalsIgnoreCase(getCurrentContentPanel()))«ENDIF»;«ENDREM»
-		
+«REM»	//		onRefreshEvent = isOnRefreshLegacyMode() || 
+//			!isOnRefreshLegacyMode() && ((!isCPAlreadyInitialized() && (cmdOnEnter == null || cmdOnEnter != null && getCPName().equalsIgnoreCase(getCurrentContentPanel()))));
+			«IF !this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER).isEmpty-»&&(getCPName().equalsIgnoreCase(getCurrentContentPanel()))«ENDIF»;«ENDREM»
+		onRefreshEvent = mustExecuteOnRefreshCommand();	
 				
 		// CpCommand.ON_REFRESH: comandi eseguiti ad ogni refresh per sessione applicativa
 		if(onRefreshEvent){
