@@ -544,6 +544,12 @@ context Column ERROR "GUI-CMD-017: una colonna di una Table puo' essere dichiara
 		.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size == 1;
 
 
+context ContentPanel WARNING 
+	"GUI-CMD-018: l'utilizzo di azioni on-refresh legacy mode (comandi definiti come child del content panel)"+
+	" e' fortemente sconsigliato. Si consiglia di sostituire con il corrispondente CPCommand(ON_REFRESH) ristrutturando "+
+	" eventualmente la logica per sfruttare le varie tipologie di CPCommand (ON_ENTER, ON_INIT, ON_REFRESH, BEFORE/AFTER_EVENT):"+loc() :
+	this.onRefreshCommand == null;
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su binding
 context ContentPanel if (panels!=null) ERROR "GUI-032: Il content panel "+name+" non referenzia tutti gli Application Data "+
