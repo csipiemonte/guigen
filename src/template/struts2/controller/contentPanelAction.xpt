@@ -144,9 +144,47 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 	
 	
 	
+	/**
+	 * nome del content panel
+	 */
+	private static final String CP_NAME= "«this.name»";
+	
+	«LET (AppModule)eContainer AS enclosingModule-»
+	/**
+	 * nome del namespace che contiene il content panel
+	 */
+	private static final String CP_NAMESPACE= "«enclosingModule.name»";
+	
+	/**
+	 * nome completo del namespace che contiene il content panel
+	 */
+	private static final String CP_FULL_NAMESPACE= "«getContentPanelNamespace(this, false)»";
+	
+	«ENDLET-»
+	
+	/**
+	 * restituisce il nome del content panel
+	 */
+	public String getCPName(){
+		return CP_NAME;
+	}
+	
+	/**
+	 * restituisce il nome del namespace che contiene il content panel
+	 */
+	public String getCPNamespace(){
+		return CP_NAMESPACE;
+	}
 	
 	
-	«REM»private static final String URL_BACK_COMMAND = "«getContentPanelNamespace(this, false)»/"+getCPName();«ENDREM»	
+	/**
+	 * restituisce il nome del namespace che contiene il content panel, comprensivo di prefisso "base"/"secure"
+	 */
+	public String getCPFullNamespace(){
+		return CP_FULL_NAMESPACE;
+	}
+	
+	private static final String URL_BACK_COMMAND = "«getContentPanelNamespace(this, false)»/"+CP_NAME;	
 	
 	/**
 	 * classe model associata al ContentPanel

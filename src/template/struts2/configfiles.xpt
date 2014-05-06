@@ -803,12 +803,6 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «REM»Genera la direttiva <action> per un ContentPanel«ENDREM»
 «DEFINE contentPanelXmlConfig(GUIModel model) FOR ContentPanel»
 <action name="«getStrutsActionConfigName()»" class="«getStrutsActionFQN(this, model)»">
-	<!-- parametri specifici della action -->
-	<param name="CPName">«this.name»</param>
-	<param name="CPNamespace">«((AppModule)this.eContainer).name»</param>
-	<param name="CPFullNamespace">«getContentPanelNamespace(this, false)»</param>
-	
-	<!-- all possible results... -->
 	<result name="input">«getStrutsActionJspConfigName(this)»</result>
 	<result name="success">«getStrutsActionJspConfigName(this)»</result>
 	«REM»STDMDD-360: nel PanelDef non ci possono essere JumpCommand«ENDREM»

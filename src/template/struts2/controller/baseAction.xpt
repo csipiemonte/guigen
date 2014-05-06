@@ -937,46 +937,22 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 
 	protected static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
 	
-	private String cPName = null;
 	
 	/**
 	 * restituisce il nome del content panel. Deve essere sovrascritto dalle sottocolassi.
 	 */
-	public String getCPName(){
-		return this.cPName;
-	}
-	
-	public void setCPName(String v) {
-		this.cPName = v;
-	}
-	
-	private String cPNamespace = null;
-	 
+	public abstract String getCPName();
 	
 	/**
-	 * restituisce il nome del namespace che contiene il content panel. Deve essere sovrascritto dalle sottoclassi.
+	 * restituisce il nome del nanmespace che contiene il content panel. Deve essere sovrascritto dalle sottocolassi.
 	 */
-	public String getCPNamespace(){
-		return this.cPNamespace;
-	}
-	
-	public void setCPNamespace(String v){
-		this.cPNamespace = v;
-	} 
-	
-	private String cPFullNamespace = null;
+	public abstract String getCPNamespace();
 	
 	/**
-	 * restituisce il nome completo del namespace che contiene il content panel (ovvero comprendente anche 
-	 * il prefisso "base" o "secure" e il separatore "/". Deve essere sovrascritto dalle sottoclassi.
+	 * restituisce il nome completo del nanmespace che contiene il content panel (ovvero comprendente anche 
+	 * il prefisso "base" o "secure" e il separatore "/". Deve essere sovrascritto dalle sottocolassi.
 	 */
-	public String getCPFullNamespace() {
-		return this.cPFullNamespace;
-	}
-	
-	public void setCPFullNamespace(String v){
-		this.cPFullNamespace = v;
-	}
+	public abstract String getCPFullNamespace();
 	
 	protected final static String IMPLICIT_EVENT_ON_REFRESH = "ON_REFRESH";
 	protected final static String IMPLICIT_EVENT_ON_ENTER = "ON_ENTER";
