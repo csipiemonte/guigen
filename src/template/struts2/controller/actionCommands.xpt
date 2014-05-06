@@ -110,18 +110,6 @@ public class JumpCommand implements ICommand {
 		return this.name;
 	}
 	
-	/**
-	 * nome del contentPanel di partenza (serve in caso di pushCurrentPage)
-	 */
-	String currentPageName = null;
-	
-	public void setCurrentPageName(String currentPageName){
-		this.currentPageName = currentPageName;
-	}
-	
-	public String getCurrentPageName(){
-		return this.currentPageName;
-	}
 	
 	/**
 	 * se impostato a true, verra' inserita la pagina (content panel) corrente nello 
@@ -144,11 +132,9 @@ public class JumpCommand implements ICommand {
 	 * @param pushCurrentPage se impostato a true viene inserito il nome del contentPanel
      * corrente nello stack
 	 */
-	public JumpCommand(String panelName, String currentPageName,
-			boolean pushCurrent) {
+	public JumpCommand(String panelName, boolean pushCurrent) {
 		name = panelName;
 		this.pushCurrent = pushCurrent;
-		this.currentPageName = currentPageName;
 	}
 	
 	/**
@@ -166,19 +152,28 @@ public class JumpCommand implements ICommand {
 	 * il nome del contentPanel di partenza, contenuto in currentPageName.
 	 * Inoltre viene eseguita la pulizia degli application data di scope SAME_PAGE.
 	 */
-	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
-	//se prevista modalità PUSH_PAGE_CURRENT --> inserisci in queque currentPage 
-		if (this.pushCurrent && (null!=this.currentPageName && !"".equalsIgnoreCase(this.currentPageName))) {
-			if (strutsAction.getAppDataNavigationQueue() == null)
-				strutsAction.setAppDataNavigationQueue(new java.util.LinkedList());
-			strutsAction.getAppDataNavigationQueue().add(this.currentPageName);
-		} else {
-			if (strutsAction.getAppDataNavigationQueue() != null)
-				strutsAction.getAppDataNavigationQueue().clear();
+	public String doCommand(BaseAction strutsAction)
+			throws CommandExecutionException {
+		//se prevista modalità PUSH_PAGE_CURRENT --> inserisci in queque currentPage 
+		if (strutsAction instanceof AbstractCPAction) {
+			AbstractCPAction cpAction = (AbstractCPAction)strutsAction;
+			String currentPageName = cpAction.getCPFullNamespace()+"/"+cpAction.getCPName();
+			if (this.pushCurrent
+					&& (null != currentPageName && !""
+							.equalsIgnoreCase(currentPageName))) {
+				if (strutsAction.getAppDataNavigationQueue() == null)
+					strutsAction
+							.setAppDataNavigationQueue(new java.util.LinkedList());
+				strutsAction.getAppDataNavigationQueue().add(
+						currentPageName);
+			} else {
+				if (strutsAction.getAppDataNavigationQueue() != null)
+					strutsAction.getAppDataNavigationQueue().clear();
+			}
 		}
 		// clear page scoped appdata
 		strutsAction.clearPageScopedAppData(name);
-		return "GO_TO_"+name;
+		return "GO_TO_" + name;
 	}
 };
 «ENDFILE»
@@ -196,24 +191,7 @@ public class JumpBackCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	private String currentCPName;
 	
-	public void setCurrentCPName(String n){
-		this.currentCPName = n;
-	}
-
-	public String getCurrentCPName(){
-		return currentCPName;
-	}
-	
-	/**
-	 * @param currentCPName il nome del ContentPanel di partenza
-	 * @param navigationQueue la coda (stack) di navigazione, necessaria per capire a
-	 * che contentPanel tornare
-	 */
-	public JumpBackCommand(String currentCPName) {
-		this.currentCPName = currentCPName;
-	}
 	
 	/**
 	 * costruttore di default
@@ -235,8 +213,11 @@ public class JumpBackCommand implements ICommand {
 	public String doCommand(BaseAction strutsAction)
 			throws CommandExecutionException {
 		// clear page scoped appdata
-		strutsAction.clearPageScopedAppData(currentCPName);
-		java.util.LinkedList<java.lang.String> navigationQueue=strutsAction.getAppDataNavigationQueue();
+		if (strutsAction instanceof AbstractCPAction){
+			strutsAction.clearPageScopedAppData(((AbstractCPAction)strutsAction).getCPName());
+		}
+		java.util.LinkedList<java.lang.String> navigationQueue = strutsAction
+				.getAppDataNavigationQueue();
 		if (navigationQueue != null && !navigationQueue.isEmpty()) {
 			String backPage = navigationQueue.getLast();
 			if (null != backPage && !"".equalsIgnoreCase(backPage)) {
