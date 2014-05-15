@@ -1517,7 +1517,16 @@ String getCmdStructureJSONFileName(GUIModel model, ContentPanel cp, String metho
 getCmdStructureJSONBasePath(model, cp)+"/"+methodName+"_cmds.json";
 
 String getcommandFQN(Command c, GUIModel model) :
-getPresentationJavaPackage(model)+"."+(c.metaType.name.split("::").get(1));
+getPresentationJavaPackage(model)+"."+getcommandClassName(c);
+
+String getcommandClassName(Command c) :
+let cn = (c.metaType.name.split("::").get(1)) :
+switch (cn) {
+	case "ONOFFCommand" : 
+		"OnOffCommand"
+	default :
+		cn
+};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//

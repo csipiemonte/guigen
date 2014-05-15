@@ -532,16 +532,6 @@ public class ScreenStateCommand implements ICommand {
 	// componenti.
 	private static final long serialVersionUID = 1L;
 	
-	String containerName = null;
-	
-	public void setContainerName(String n){
-		this.containerName = n;
-	}
-	
-	public String getContainerName(){
-		return this.containerName;
-	}
-	
 	String stateName = null;
 	
 	public void setStateName(String n){
@@ -598,14 +588,12 @@ public class ScreenStateCommand implements ICommand {
 	 * @param widgetsHidden elenco dei nomi dei widget da nascondere
 	 */
 	public ScreenStateCommand(
-			String containerName,
 			String stateName, 
 			String widgetsOn[],
 			String widgetsOff[],
 			String widgetsShown[],
 			String widgetsHidden[]
 			) {
-		this.containerName = containerName;
 		this.stateName = stateName; //NOSONAR
 		this.widgetsOn = widgetsOn; //NOSONAR
 		this.widgetsOff = widgetsOff; //NOSONAR
@@ -626,16 +614,19 @@ public class ScreenStateCommand implements ICommand {
 	 * iun widgetsOn/Off, widgetShown/Hidden.  
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
-		OnOffCommand turnOn = new OnOffCommand(this.containerName, this.widgetsOn, true);
-		OnOffCommand turnOff = new OnOffCommand(this.containerName, this.widgetsOff, false);
-		VisibilityCommand show = new VisibilityCommand(this.containerName, this.widgetsShown, true);
-		VisibilityCommand hide = new VisibilityCommand(this.containerName, this.widgetsHidden, false);
-		turnOn.doCommand(strutsAction);
-		turnOff.doCommand(strutsAction);
-		show.doCommand(strutsAction);
-		hide.doCommand(strutsAction);
-		if (this.stateName != null){
-			strutsAction.getSession().put(this.containerName+"_currentState",this.stateName);
+		if (strutsAction instanceof AbstractCPAction){
+			String containerName = ((AbstractCPAction)strutsAction).getCPName();
+			OnOffCommand turnOn = new OnOffCommand(this.widgetsOn, true);
+			OnOffCommand turnOff = new OnOffCommand(this.widgetsOff, false);
+			VisibilityCommand show = new VisibilityCommand(this.widgetsShown, true);
+			VisibilityCommand hide = new VisibilityCommand(this.widgetsHidden, false);
+			turnOn.doCommand(strutsAction);
+			turnOff.doCommand(strutsAction);
+			show.doCommand(strutsAction);
+			hide.doCommand(strutsAction);
+			if (this.stateName != null){
+				strutsAction.getSession().put(containerName+"_currentState",this.stateName);
+			}
 		}
 		return null;
 	}
@@ -657,14 +648,13 @@ public class PDefStateCommand extends ScreenStateCommand {
 	
 
 	public PDefStateCommand(
-			String containerName,
 			String stateName, 
 			String widgetsOn[],
 			String widgetsOff[],
 			String widgetsShown[],
 			String widgetsHidden[]
 			) {
-		super(containerName, stateName, widgetsOn, widgetsOff, widgetsShown, widgetsHidden);
+		super(stateName, widgetsOn, widgetsOff, widgetsShown, widgetsHidden);
 	}
 	
 	/**
@@ -695,19 +685,11 @@ public class OnOffCommand implements ICommand {
 	private static final long serialVersionUID = 1L;
 	private static final String SESSION_MENU_ONOFF = "menuOnOffMap";
 
-	String containerName = null;
 	String[] targetsWidgets = null;
 	String[] targetsMenuElement = null;
 	boolean enable = true;
 
-	public String getContainerName() {
-		return containerName;
-	}
-
-	public void setContainerName(String containerName) {
-		this.containerName = containerName;
-	}
-
+	
 	public String[] getTargetsWidgets() {
 		return targetsWidgets; //NOSONAR 
 	}
@@ -733,12 +715,10 @@ public class OnOffCommand implements ICommand {
 	}
 
 	/**
-	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
 	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
 	 * @param enable se vale true i widget saranno abilitati, altrimenti saranno disabilitati
 	 */
-	public OnOffCommand(String containerName, String targetsWidgets[], boolean enable) {
-		this.containerName = containerName;
+	public OnOffCommand(String targetsWidgets[], boolean enable) {
 		this.targetsWidgets = targetsWidgets; //NOSONAR
 		this.enable = enable;
 	}
@@ -751,13 +731,11 @@ public class OnOffCommand implements ICommand {
 	}
 	
 	/**
-	 * @param containerName il nome del content panel che contiene i widget da abilitare/disabilitare
 	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
 	 * @param targetsMenuElement nomi dei menu da abilitare/disabilitare
 	 * @param enable se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
 	 */
-	public OnOffCommand(String containerName, String targetsWidgets[], String targetsMenuElement[], boolean enable) {
-		this.containerName = containerName;
+	public OnOffCommand(String targetsWidgets[], String targetsMenuElement[], boolean enable) {
 		this.targetsWidgets = targetsWidgets; //NOSONAR
 		this.targetsMenuElement = targetsMenuElement; //NOSONAR
 		this.enable = enable;
@@ -769,19 +747,21 @@ public class OnOffCommand implements ICommand {
 	 */
 	public String doCommand(BaseAction strutsAction)
 			throws CommandExecutionException {
-		if (this.targetsWidgets != null) {
-			Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
-					.get(this.containerName);
-			if (cpWidgetsStatus == null) {
-				cpWidgetsStatus = new HashMap<String, Boolean>();
-				strutsAction.session.put(this.containerName, cpWidgetsStatus);
-			}
-			for (int i = 0; i < this.targetsWidgets.length; i++) {
-				cpWidgetsStatus.put(this.targetsWidgets[i] + "_enabled",
-						Boolean.valueOf(this.enable));
+		if (strutsAction instanceof AbstractCPAction){
+			String containerName = ((AbstractCPAction)strutsAction).getCPName();
+			if (this.targetsWidgets != null) {
+				Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
+						.get(containerName);
+				if (cpWidgetsStatus == null) {
+					cpWidgetsStatus = new HashMap<String, Boolean>();
+					strutsAction.session.put(containerName, cpWidgetsStatus);
+				}
+				for (int i = 0; i < this.targetsWidgets.length; i++) {
+					cpWidgetsStatus.put(this.targetsWidgets[i] + "_enabled",
+							Boolean.valueOf(this.enable));
+				}
 			}
 		}
-		
 		
 		if (this.targetsMenuElement != null) {
 			Map<String, Boolean> menuOnOffMap = (Map<String, Boolean>) strutsAction.session
@@ -822,10 +802,6 @@ public class VisibilityCommand implements ICommand {
 	 */
 	private static final String SESSION_MENU_VISIBILITY = "menuVisibilityMap";
 
-	/**
-	 * containerName
-	 */
-	String containerName = null;
 	
 	/**
 	 * targetsWidgets
@@ -842,14 +818,6 @@ public class VisibilityCommand implements ICommand {
 	 */
 	boolean show = true;
 
-
-	public String getContainerName() {
-		return containerName;
-	}
-
-	public void setContainerName(String containerName) {
-		this.containerName = containerName;
-	}
 
 	public String[] getTargetsWidgets() {
 		return targetsWidgets; //NOSONAR
@@ -876,14 +844,12 @@ public class VisibilityCommand implements ICommand {
 	}
 	
 	/**
-	 * @param containerName il nome del content panel che contiene i widget da mostrare/nascondere
 	 * @param targetWidgets nomi dei widget da mostrare/nascondere
 	 * @param targetsMenuElement nomi dei menu da mostrare/nascondere
 	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
 	 */
-	public VisibilityCommand(String containerName, String targetsWidgets[], String targetsMenuElement[],
+	public VisibilityCommand(String targetsWidgets[], String targetsMenuElement[],
 			boolean show) {
-		this.containerName = containerName;
 		this.targetsWidgets = targetsWidgets; //NOSONAR
 		this.targetsMenuElement = targetsMenuElement; //NOSONAR
 		this.show = show;
@@ -897,13 +863,11 @@ public class VisibilityCommand implements ICommand {
 	}
 	
 	/**
-	 * @param containerName il nome del content panel che contiene i widget da mostrare/nascondere
 	 * @param targetWidgets nomi dei widget da mostrare/nascondere
 	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
 	 */
-	public VisibilityCommand(String containerName, String targetsWidgets[], 
+	public VisibilityCommand(String targetsWidgets[], 
 			boolean show) {
-		this.containerName = containerName;
 		this.targetsWidgets = targetsWidgets; //NOSONAR
 		this.show = show;
 	}
@@ -916,23 +880,26 @@ public class VisibilityCommand implements ICommand {
 			throws CommandExecutionException {
 		
 		//Definzione Visibility Widgets per ContentPanel
-		if (this.targetsWidgets != null) {
-			// lo stato di visibilita' dei widget e' mantenuto in sessione
-			// in una mappa a due livelli:
-			// - il primo livello contiene <nome cp, mappa per il cp>
-			// - il secondo livello contiene <[widget]_visible, true|false>
-			Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
-					.get(this.containerName);
-			if (cpWidgetsStatus == null) {
-				cpWidgetsStatus = new HashMap<String, Boolean>();
-				strutsAction.session.put(this.containerName, cpWidgetsStatus);
-			}
-			for (int i = 0; i < this.targetsWidgets.length; i++) {
-				cpWidgetsStatus.put(this.targetsWidgets[i] + "_visible",
-						Boolean.valueOf(this.show));
-			}
+		if (strutsAction instanceof AbstractCPAction){
+			String containerName = ((AbstractCPAction)strutsAction).getCPName();
+			if (this.targetsWidgets != null) {
+				// lo stato di visibilita' dei widget e' mantenuto in sessione
+				// in una mappa a due livelli:
+				// - il primo livello contiene <nome cp, mappa per il cp>
+				// - il secondo livello contiene <[widget]_visible, true|false>
+				Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
+						.get(containerName);
+				if (cpWidgetsStatus == null) {
+					cpWidgetsStatus = new HashMap<String, Boolean>();
+					strutsAction.session.put(containerName, cpWidgetsStatus);
+				}
+				for (int i = 0; i < this.targetsWidgets.length; i++) {
+					cpWidgetsStatus.put(this.targetsWidgets[i] + "_visible",
+							Boolean.valueOf(this.show));
+				}
+				
 			
-		
+			}
 		}
 		
 		//Definzione Visibility MenuElement 
