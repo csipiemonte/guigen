@@ -981,6 +981,7 @@ context InlineCodeSnippet if (this!=null && !this.snippetPosition.isNullOrEmpty(
 ERROR "GUI-068: Il valore snippetPosition "+this.snippetPosition+" non e' valido. Lista valori ammessi per ExecCommnad "+ getListPositionSnippetExecCmd()+loc():
 	!getListPositionSnippetExecCmd().select(e|e == this.snippetPosition).isEmpty;
 	
-context ContentPanel ERROR "GUI-069: Non e' (piu') possibile definire un ContentPanel non inserito in un AppModule:"+loc()+" spostarlo in un appmodule (anche interno al modello principale) :
+context ContentPanel 
+ERROR "GUI-069: Non e' (piu') possibile definire un ContentPanel non inserito in un AppModule:"+loc()+", spostarlo in un appmodule (anche interno al modello principale)" :
 	this.eContainer.metaType==AppModule;
 	
