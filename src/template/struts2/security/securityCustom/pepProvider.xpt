@@ -49,8 +49,14 @@ import it.csi.iride2.policy.exceptions.NoSuchApplicationException;
 import it.csi.iride2.policy.exceptions.NoSuchUseCaseException;
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 
+import org.apache.log4j.Logger;
+import it.csi.«model.codProdotto».«model.codComponente».util.*;
+
+
 «EXPAND template::struts2::generalTemplate::inlineDef("import","methodPrivate") FOR this.pepImpl-»
 public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService {
+
+	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE); 
 
 	«IF this.pepImpl !=null»
 	«LET this.pepImpl.params AS envConfigParams-»
@@ -331,9 +337,13 @@ import it.csi.csi.wrapper.UnrecoverableException;
 import it.csi.csi.wrapper.UserException;
 import «getPEPProviderJavaPackage(this)».*;
 
+import org.apache.log4j.Logger;
+import it.csi.«getUtilJavaPackage(this)».*;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
@@ -387,7 +397,7 @@ public class SpringPD extends AbstractPortaDelegata {
 					else {
 						Categories.getLogger(getAppContextName(),Categories.PA_WRAPPER_ADAPTER)
 						.error("Errore imprevisto sollevato dal servizio:"+ite.getTargetException());
-						ite.printStackTrace();
+						log.error("Si e' verificato un errore:", ite);
 						throw new UnrecoverableException("Errore imprevisto sollevato dal servizio:",ite.getTargetException());
 					}
 				}
@@ -395,7 +405,7 @@ public class SpringPD extends AbstractPortaDelegata {
 					// arrivo qui se ci sono problemi nel chiamare il servizio
 					Categories.getLogger(getAppContextName(),Categories.PA_WRAPPER_ADAPTER)
 					.error("Errore imprevisto nell'invocazione del servizio:"+iae);
-					iae.printStackTrace();
+					log.error("Si e' verificato un errore:", iae);
 					throw new UnrecoverableException("Errore imprevisto nell'invocazione del servizio",iae);
 				}
 			}

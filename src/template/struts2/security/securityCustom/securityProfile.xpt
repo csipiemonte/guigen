@@ -333,7 +333,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		try {
 			identita = new Identita(normalizedTicket);
 		} catch (MalformedIdTokenException e) {
-			e.printStackTrace();
+			log.error("Si e' verificato un errore:", e);
 		}
 	
 		if (identita != null){
@@ -408,11 +408,9 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 			responseBody = method.getResponseBody();
 
 		} catch (HttpException e) {
-			log.error("HttpException" + e.getMessage());
-			e.printStackTrace();
+			log.error("HttpException" + e.getMessage(), e);			
 		} catch (IOException e) {
-			log.error("IOException" + e.getMessage());
-			e.printStackTrace();
+			log.error("IOException" + e.getMessage(), e);
 		} finally {
 			method.releaseConnection();
 			return responseBody;
