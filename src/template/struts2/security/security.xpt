@@ -818,6 +818,7 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 «FILE getSecurityJavaSrcDir(this,true)+"/ComplexUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 
 import java.util.Map;
+import java.util.Arrays;
 import «getBaseJavaPackage()+".business.*;"»
 
 
@@ -839,7 +840,12 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	 * @generated
 	 */
 	public ComplexUISecConstraint(UISecConstraint [] constraints) {
-		this.constraints=constraints;
+		if (constraints != null){
+			this.constraints = Arrays.copyOf(constraints, constraints.length);
+		}
+		else{
+			this.constraints = null;
+		}
 	}
 	
 	/**

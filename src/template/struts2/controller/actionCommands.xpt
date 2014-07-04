@@ -241,6 +241,8 @@ public class JumpBackCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/RefreshViewCommand.java"»
 package «getPresentationJavaPackage()»;
 
+import java.util.Arrays;
+
 /**
  * Implementazione del comando RefreshViewCommand.
  */
@@ -264,21 +266,41 @@ public class RefreshViewCommand implements ICommand {
 	String [] targetPanels=null;
 	
 	public void setTargetPanels(String [] tp){
-		targetPanels = tp; //NOSONAR
+		if (tp != null){
+			this.targetPanels = Arrays.copyOf(tp, tp.length);
+		}
+		else{
+			this.targetPanels = null;
+		}
 	}
 	
 	public String[] getTargetPanels(){
-		return targetPanels; //NOSONAR
+		if(this.targetPanels != null){
+			return Arrays.copyOf(this.targetPanels, this.targetPanels.length);
+		}
+		else{
+			return null;
+		}
 	}
 	
 	String [] targetWidgets=null;
 	
 	public void setTargetWidgets(String [] tw){
-		targetWidgets = tw; //NOSONAR
+		if (tw != null){
+			this.targetWidgets = Arrays.copyOf(tw, tw.length);
+		}
+		else{
+			this.targetWidgets = null;
+		}
 	}
 	
 	public String[] getTargetWidgets(){
-		return targetWidgets; //NOSONAR
+		if (this.targetWidgets != null){
+			return Arrays.copyOf(this.targetWidgets, this.targetWidgets.length);
+		}
+		else{
+			return null;
+		}
 	}
 	
 	/**
@@ -289,8 +311,8 @@ public class RefreshViewCommand implements ICommand {
 	public RefreshViewCommand(String currentPanelName, String [] targetPanelNames,
 			String  [] targetWidgetNames) {
 		this.currentPanelName = currentPanelName; 
-		this.targetPanels = targetPanelNames; //NOSONAR
-		this.targetWidgets = targetWidgetNames; //NOSONAR
+		this.setTargetPanels(targetPanelNames);
+		this.setTargetWidgets(targetWidgetNames);
 	}
 	
 	/**
@@ -521,6 +543,7 @@ package «getPresentationJavaPackage()»;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Arrays;
 
 /**
  * Implementazione del comando ScreenStateCommand
@@ -548,35 +571,75 @@ public class ScreenStateCommand implements ICommand {
 	String[] widgetsHidden = null;
 
 	public String[] getWidgetsOn() {
-		return widgetsOn; //NOSONAR
+		if (this.widgetsOn != null){
+			return Arrays.copyOf(this.widgetsOn, this.widgetsOn.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setWidgetsOn(String[] widgetsOn) {
-		this.widgetsOn = widgetsOn; //NOSONAR
+		if (widgetsOn != null){
+			this.widgetsOn = Arrays.copyOf(widgetsOn, widgetsOn.length);
+		}
+		else{
+			this.widgetsOn = null;
+		}
 	}
 
 	public String[] getWidgetsOff() {
-		return widgetsOff; //NOSONAR
+		if (this.widgetsOff != null){
+			return Arrays.copyOf(this.widgetsOff, this.widgetsOff.length);
+		}
+		else{
+			return null;
+		} 
 	}
 
 	public void setWidgetsOff(String[] widgetsOff) {
-		this.widgetsOff = widgetsOff; //NOSONAR
+		if (widgetsOff != null){
+			this.widgetsOff = Arrays.copyOf(widgetsOff, widgetsOff.length);
+		}
+		else{
+			this.widgetsOff = null;
+		}
 	}
 
 	public String[] getWidgetsShown() {
-		return widgetsShown; //NOSONAR
+		if (this.widgetsShown != null){
+			return Arrays.copyOf(this.widgetsShown, this.widgetsShown.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setWidgetsShown(String[] widgetsShown) {
-		this.widgetsShown = widgetsShown; //NOSONAR
+		if (widgetsShown != null){
+			this.widgetsShown = Arrays.copyOf(widgetsShown, widgetsShown.length);
+		}
+		else{
+			this.widgetsShown = null;
+		}
 	}
 
 	public String[] getWidgetsHidden() {
-		return widgetsHidden; //NOSONAR
+		if (this.widgetsHidden != null){
+			return Arrays.copyOf(this.widgetsHidden, this.widgetsHidden.length);
+		}
+		else {
+			return null;
+		}
 	}
 
 	public void setWidgetsHidden(String[] widgetsHidden) {
-		this.widgetsHidden = widgetsHidden; //NOSONAR
+		if (widgetsHidden != null){
+			this.widgetsHidden = Arrays.copyOf(widgetsHidden, widgetsHidden.length);
+		}
+		else{
+			this.widgetsHidden = null;
+		}
 	}
 
 	/**
@@ -594,11 +657,11 @@ public class ScreenStateCommand implements ICommand {
 			String widgetsShown[],
 			String widgetsHidden[]
 			) {
-		this.stateName = stateName; //NOSONAR
-		this.widgetsOn = widgetsOn; //NOSONAR
-		this.widgetsOff = widgetsOff; //NOSONAR
-		this.widgetsShown = widgetsShown; //NOSONAR
-		this.widgetsHidden = widgetsHidden; //NOSONAR
+		this.stateName = stateName;
+		this.setWidgetsOn(widgetsOn);
+		this.setWidgetsOff(widgetsOff);
+		this.setWidgetsShown(widgetsShown);
+		this.setWidgetsHidden(widgetsHidden);
 	}
 
 	/**
@@ -673,6 +736,7 @@ package «getPresentationJavaPackage()»;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Arrays;
 
 /**
  * Implementazione del comando OnOffCommand 
@@ -691,19 +755,39 @@ public class OnOffCommand implements ICommand {
 
 	
 	public String[] getTargetsWidgets() {
-		return targetsWidgets; //NOSONAR 
+		if (this.targetsWidgets != null){
+			return Arrays.copyOf(this.targetsWidgets, this.targetsWidgets.length);
+		}
+		else{ 
+			return null;
+		} 
 	}
 
 	public void setTargetsWidgets(String[] targetsWidgets) {
-		this.targetsWidgets = targetsWidgets; //NOSONAR
+		if (targetsWidgets != null){
+			this.targetsWidgets = Arrays.copyOf(targetsWidgets, targetsWidgets.length);
+		}
+		else{
+			this.targetsWidgets = null;
+		}
 	}
 
 	public String[] getTargetsMenuElement() {
-		return targetsMenuElement; //NOSONAR
+		if (this.targetsMenuElement != null){
+			return Arrays.copyOf(this.targetsMenuElement, this.targetsMenuElement.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setTargetsMenuElement(String[] targetsMenuElement) {
-		this.targetsMenuElement = targetsMenuElement; //NOSONAR
+		if (targetsMenuElement != null){
+			this.targetsMenuElement = Arrays.copyOf(targetsMenuElement, targetsMenuElement.length);
+		}
+		else{
+			this.targetsMenuElement = null;
+		}
 	}
 
 	public boolean isEnable() {
@@ -719,7 +803,7 @@ public class OnOffCommand implements ICommand {
 	 * @param enable se vale true i widget saranno abilitati, altrimenti saranno disabilitati
 	 */
 	public OnOffCommand(String targetsWidgets[], boolean enable) {
-		this.targetsWidgets = targetsWidgets; //NOSONAR
+		this.setTargetsWidgets(targetsWidgets);
 		this.enable = enable;
 	}
 	
@@ -736,8 +820,8 @@ public class OnOffCommand implements ICommand {
 	 * @param enable se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
 	 */
 	public OnOffCommand(String targetsWidgets[], String targetsMenuElement[], boolean enable) {
-		this.targetsWidgets = targetsWidgets; //NOSONAR
-		this.targetsMenuElement = targetsMenuElement; //NOSONAR
+		this.setTargetsWidgets(targetsWidgets);
+		this.setTargetsMenuElement(targetsMenuElement);
 		this.enable = enable;
 	}
 	
@@ -785,7 +869,7 @@ package «getPresentationJavaPackage()»;
 
 import java.util.Map;
 import java.util.HashMap;
-
+import java.util.Arrays;
 
 /**
  * Implementazione dle comando VisibilityCommand
@@ -820,19 +904,39 @@ public class VisibilityCommand implements ICommand {
 
 
 	public String[] getTargetsWidgets() {
-		return targetsWidgets; //NOSONAR
+		if (this.targetsWidgets != null){
+			return Arrays.copyOf(this.targetsWidgets, this.targetsWidgets.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setTargetsWidgets(String[] targetsWidgets) {
-		this.targetsWidgets = targetsWidgets; //NOSONAR
+		if (targetsWidgets != null){
+			this.targetsWidgets = Arrays.copyOf(targetsWidgets, targetsWidgets.length);
+		}
+		else{
+			this.targetsWidgets = null;
+		}
 	}
 
 	public String[] getTargetsMenuElement() {
-		return targetsMenuElement; //NOSONAR
+		if (this.targetsMenuElement != null){
+			return Arrays.copyOf(this.targetsMenuElement, this.targetsMenuElement.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setTargetsMenuElement(String[] targetsMenuElement) {
-		this.targetsMenuElement = targetsMenuElement; //NOSONAR
+		if (targetsMenuElement != null){
+			this.targetsMenuElement = Arrays.copyOf(targetsMenuElement, targetsMenuElement.length);
+		}
+		else{
+			this.targetsMenuElement = null;
+		}
 	}
 
 	public boolean isShow() {
@@ -850,8 +954,8 @@ public class VisibilityCommand implements ICommand {
 	 */
 	public VisibilityCommand(String targetsWidgets[], String targetsMenuElement[],
 			boolean show) {
-		this.targetsWidgets = targetsWidgets; //NOSONAR
-		this.targetsMenuElement = targetsMenuElement; //NOSONAR
+		this.setTargetsWidgets(targetsWidgets);
+		this.setTargetsMenuElement(targetsMenuElement);
 		this.show = show;
 	}
 	
@@ -868,7 +972,7 @@ public class VisibilityCommand implements ICommand {
 	 */
 	public VisibilityCommand(String targetsWidgets[], 
 			boolean show) {
-		this.targetsWidgets = targetsWidgets; //NOSONAR
+		this.setTargetsWidgets(targetsWidgets);
 		this.show = show;
 	}
 
@@ -972,19 +1076,40 @@ public class ExecCommand implements ICommand {
 	
 	
 	public String[] getEsiti() {
-		return esiti;
+		if (esiti == null){
+			return null;
+		}
+		else{
+			return Arrays.copyOf(this.esiti, this.esiti.length);
+		}
 	}
 
 	public void setEsiti(String[] esiti) {
-		this.esiti = esiti; //NOSONAR
+		if (esiti != null){
+			this.esiti = Arrays.copyOf(esiti, esiti.length);
+		}
+		else{
+			this.esiti = null;
+		}
+		
 	}
 
 	public ICommand[] getAzioni() {
-		return azioni; //NOSONAR
+		if (this.azioni != null){
+			return Arrays.copyOf(this.azioni, this.azioni.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setAzioni(ICommand[] azioni) {
-		this.azioni = azioni; //NOSONAR
+		if (azioni != null){
+			this.azioni = Arrays.copyOf(azioni, azioni.length);
+		}
+		else{
+			this.azioni = null;
+		}
 	}
 
 	public String getNomeMetodo() {
@@ -996,11 +1121,21 @@ public class ExecCommand implements ICommand {
 	}
 
 	public String[] getAppDataToStore() {
-		return appDataToStore; //NOSONAR
+		if (this.appDataToStore !=null){
+			return Arrays.copyOf(this.appDataToStore, this.appDataToStore.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setAppDataToStore(String[] appDataToStore) {
-		this.appDataToStore = appDataToStore; //NOSONAR
+		if (appDataToStore != null){
+			this.appDataToStore = Arrays.copyOf(appDataToStore, appDataToStore.length);
+		}
+		else{
+			this.appDataToStore = null;
+		}
 	}
 	
 	/**
@@ -1015,10 +1150,10 @@ public class ExecCommand implements ICommand {
 	 * @param appDataToStore elenco dei nomi degli application data modificati dalla logica di business
 	 */
 	public ExecCommand(String esiti[], ICommand[] azioni, String nomeMetodo, String appDataToStore[]) {
-		this.esiti = esiti; //NOSONAR
-		this.azioni = azioni; //NOSONAR
+		this.setEsiti(esiti);
+		this.setAzioni(azioni);
 		this.nomeMetodo = nomeMetodo;
-		this.appDataToStore = appDataToStore; //NOSONAR
+		this.setAppDataToStore(appDataToStore);
 	}
 
 	/**
@@ -1195,6 +1330,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * Implementazione del comando ClearAppDataCommand.
@@ -1208,19 +1344,29 @@ public class ClearAppDataCommand implements ICommand {
 	private String[] attributesToBeRemovedFromSession = null;
 	
 	public String[] getAttributesToBeRemovedFromSession() {
-		return attributesToBeRemovedFromSession; //NOSONAR
+		if (this.attributesToBeRemovedFromSession != null){
+			return Arrays.copyOf(this.attributesToBeRemovedFromSession, this.attributesToBeRemovedFromSession.length); 
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setAttributesToBeRemovedFromSession(
 			String[] attributesToBeRemovedFromSession) {
-		this.attributesToBeRemovedFromSession = attributesToBeRemovedFromSession; //NOSONAR
+		if (attributesToBeRemovedFromSession != null){
+			this.attributesToBeRemovedFromSession = Arrays.copyOf(attributesToBeRemovedFromSession, attributesToBeRemovedFromSession.length);
+		}
+		else{
+			this.attributesToBeRemovedFromSession = null;
+		}
 	}
 	
 	/**
 	 * @param nomi degli application data da cancellare
 	 */
 	public ClearAppDataCommand(String[] attributesToBeRemovedFromSession) {
-		this.attributesToBeRemovedFromSession = attributesToBeRemovedFromSession; //NOSONAR
+		this.setAttributesToBeRemovedFromSession(attributesToBeRemovedFromSession);
 	}
 	
 	/**
@@ -1384,6 +1530,8 @@ public class ExecResults {
 «FILE getPresentationJavaSrcDir(true)+"/SequenceCommand.java"»
 package «getPresentationJavaPackage()»;
 
+import java.util.Arrays;
+
 /**
  * Implementazione del comando SequenceCommand.
  */
@@ -1397,18 +1545,28 @@ public class SequenceCommand implements ICommand {
 	ICommand[] actions;
 	
 	public ICommand[] getActions() {
-		return actions; //NOSONAR
+		if (this.actions == null){
+			return null;
+		}
+		else{
+			return Arrays.copyOf(this.actions, this.actions.length);
+		}
 	}
 
 	public void setActions(ICommand[] actions) {
-		this.actions = actions; //NOSONAR
+		if (actions != null){
+			this.actions = Arrays.copyOf(actions, actions.length);
+		}
+		else{
+			this.actions = null;
+		} 
 	}
 	
 	/** 
 	 * @param actions elenco degli ICommand da eseguire in sequenza
 	 */
 	public SequenceCommand(ICommand[] actions) {
-		this.actions = actions;
+		this.setActions(actions);
 	}
 	
 	/**
@@ -1493,6 +1651,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 /**
  * Implementazione del comando BeginEditCommand.
@@ -1507,11 +1666,21 @@ public class BeginEditCommand implements ICommand {
 	String [] targetAppDataNames;
 	
 	public String[] getTargetAppDataNames() {
-		return targetAppDataNames;
+		if (this.targetAppDataNames != null){
+			return Arrays.copyOf(this.targetAppDataNames, this.targetAppDataNames.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setTargetAppDataNames(String[] targetAppDataNames) {
-		this.targetAppDataNames = targetAppDataNames;
+		if (targetAppDataNames != null){
+			this.targetAppDataNames = Arrays.copyOf(targetAppDataNames, targetAppDataNames.length);
+		}
+		else{
+			this.targetAppDataNames = null;
+		}
 	}
 	
 	/**
@@ -1519,7 +1688,7 @@ public class BeginEditCommand implements ICommand {
 	 * sessione
 	 */
 	public BeginEditCommand(String [] targetAppDataNames) {
-		this.targetAppDataNames = targetAppDataNames;
+		this.setTargetAppDataNames(targetAppDataNames);
 	}
 	
 	/**
@@ -1590,6 +1759,7 @@ public class BeginEditCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/EndEditCommand.java"»
 package «getPresentationJavaPackage()»;
 
+import java.util.Arrays;
 
 /**
  * Implementazione del comando EndEditSession.
@@ -1605,11 +1775,21 @@ public class EndEditCommand implements ICommand {
 	boolean undo;
 	
 	public String[] getTargetAppDataNames() {
-		return targetAppDataNames; //NOSONAR
+		if (this.targetAppDataNames != null){
+			return Arrays.copyOf(this.targetAppDataNames, this.targetAppDataNames.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setTargetAppDataNames(String[] targetAppDataNames) {
-		this.targetAppDataNames = targetAppDataNames; //NOSONAR
+		if (targetAppDataNames != null){
+			this.targetAppDataNames = Arrays.copyOf(targetAppDataNames, targetAppDataNames.length);
+		}
+		else{
+			this.targetAppDataNames = null;
+		}
 	}
 
 	public boolean isUndo() {
@@ -1627,7 +1807,7 @@ public class EndEditCommand implements ICommand {
 	 * dal valore di backup effettuato durante l'esecuzione del BeginEditCommand corrispondente
 	 */
 	public EndEditCommand(String [] targetAppDataNames, boolean undo) {
-		this.targetAppDataNames = targetAppDataNames;
+		this.setTargetAppDataNames(targetAppDataNames);
 		this.undo=undo;
 	}
 	
@@ -1680,6 +1860,8 @@ public class EndEditCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/ChkEditStatusCommand.java"»
 package «getPresentationJavaPackage()»;
 
+import java.util.Arrays;
+
 /**
  * Implementazione del comando ChkEditStatusCommand. Permette di esaminare se il valore
  * di un ApplicationData coinvolto in una sessione di editing (tramite BeginEditSessionCommand)
@@ -1722,11 +1904,21 @@ public class ChkEditStatusCommand implements ICommand {
 	}
 
 	public String[] getCheckedData() {
-		return checkedData; //NOSONAR
+		if (this.checkedData != null){
+			return Arrays.copyOf(this.checkedData, this.checkedData.length);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public void setCheckedData(String[] checkedData) {
-		this.checkedData = checkedData; //NOSONAR
+		if (checkedData != null){
+			this.checkedData = Arrays.copyOf(checkedData, checkedData.length);
+		}
+		else{
+			this.checkedData = null;
+		}
 	}
 	
 	
@@ -1742,7 +1934,7 @@ public class ChkEditStatusCommand implements ICommand {
 			String checkAggregation, 
 			ICommand doIfChanged,
 			ICommand doIfNotChanged) {
-		this.checkedData=checkedData;
+		this.setCheckedData(checkedData);
 		this.checkAggr=checkAggregation;
 		this.doIfChanged=doIfChanged;
 		this.doIfNotChanged=doIfNotChanged;
