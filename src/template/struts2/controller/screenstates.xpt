@@ -39,7 +39,7 @@ public class «getScreenStatesClassName()» {
 	/**
 	 * Comando che pernmette di passare allo stato di default
 	 */
-	public final static ScreenStateCommand DEFAULT_STATE_COMMAND = «getScreenStateInnerClassName(this.defaultState)».COMMAND;
+	final static ScreenStateCommand DEFAULT_STATE_COMMAND = «getScreenStateInnerClassName(this.defaultState)».COMMAND;
 «ENDIF»
 	
 «IF this.states!=null && !this.states.states.isEmpty»
@@ -51,7 +51,10 @@ public class «getScreenStatesClassName()» {
 
 «DEFINE ScreenStateInnerClass(GUIModel model) FOR ScreenState»
 /**
- * Questa classe rappresenta lo ScreenState «name»
+ * Questa classe rappresenta lo ScreenState «name».
+ * NOTA BENE: questa classe e' attualmente non utilizzata (i widget visibili/abilitati sono
+ * contenuti nel file JSON che contiene il comando ScreenStateCommand.
+ * La classe e' pero' mantenuta per future evoluzioni. 
  */
 public static class «getScreenStateInnerClassName(this)» {
 
@@ -68,7 +71,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * widget abilitati nello stato
      */
-    public final static String[] WIDGETS_ON = new String[]{
+    final static String[] WIDGETS_ON = new String[]{
     «FOREACH this.widgetsOn AS currWidgOn SEPARATOR ","-»
     "«getFullID(currWidgOn, contextPrefix)»"
     «ENDFOREACH-»
@@ -77,7 +80,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * widget disabilitati nello stato
      */
-    public final static String[] WIDGETS_OFF = new String[]{
+    final static String[] WIDGETS_OFF = new String[]{
     «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
     "«getFullID((Widget)currWidgOff,contextPrefix)»"
     «ENDFOREACH-»
@@ -86,7 +89,7 @@ public static class «getScreenStateInnerClassName(this)» {
 	/**
      * widget visibili nello stato
      */
-    public final static String[] WIDGETS_SHOWN = new String[]{
+    final static String[] WIDGETS_SHOWN = new String[]{
     «FOREACH this.widgetsVisible AS currWidgVisible SEPARATOR ","-»
     "«getFullID(currWidgVisible, contextPrefix)»"
     «ENDFOREACH-»
@@ -95,7 +98,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * widget nascosti nello stato
      */
-    public final static String[] WIDGETS_HIDDEN = new String[]{
+    final static String[] WIDGETS_HIDDEN = new String[]{
     «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
     "«getFullID((Widget)currWidgHidden, contextPrefix)»"
     «ENDFOREACH-»
@@ -104,7 +107,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * Istanza del comando che permette di passare a questo stato
      */
-	public final static ScreenStateCommand COMMAND = new ScreenStateCommand(
+	final static ScreenStateCommand COMMAND = new ScreenStateCommand(
 		"«name»", 
 		WIDGETS_ON,
 		WIDGETS_OFF,
