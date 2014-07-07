@@ -34,9 +34,9 @@ Crea i file JS di arricchimento delle pagine web
 nella directory src/web/
 «ENDREM»
 «DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
-	«FILE getLocalJsDir(model, true) + "/" + getEnrichmentFileWebRootRelative(this, model)»
-		«EXPAND template::richxhtml::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
-	«ENDFILE-»
+«FILE getLocalJsDir(model, true) + "/" + getEnrichmentFileWebRootRelative(this, model)»
+«EXPAND template::richxhtml::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+«ENDFILE-»
 «ENDDEFINE»
 
 «REM»
@@ -68,11 +68,11 @@ nella directory src/web/
  */
 function initStdEnrichments4«name.toFirstUpper()»() {
 	var contentPanelName = "«name»";
-	«IF hasGisMap(this)-»
+«IF hasGisMap(this)-»
 	// impostazione immagini usate da openlayers
 	OpenLayers.ImgPath = '/ris/utheme/global/themes/openlayersthemeV1/css/im/';
-	«ENDIF-»
-	«EXPAND enrichmentDefs(model, this, "", null) FOR panels-»
+«ENDIF-»
+«EXPAND enrichmentDefs(model, this, "", null) FOR panels-»
 }
 
 /**
@@ -87,14 +87,14 @@ function initCustomEnrichments4«name.toFirstUpper()»(){
 	 * };
 	 * String customEnr_fragmentID = p_[id del pannello a cui deve essere associato l'arricchimento];
 	 * uiEnricherMgr.registerEnrichment(contentPanelName, customEnr_fragmentID, customEnr_n);
-	*/	
+	*/
 «ENDPROTECT»
 }
 
 function initUIStruct«name.toFirstUpper()»(){
 	var contentPanelName = "«name»";
-	var structure = 
-	«EXPAND uiStruct(this, "", (PDefUseConfig)null, 6) FOR this.panels-»;
+	var structure =
+«EXPAND uiStruct(this, "", (PDefUseConfig)null, 6) FOR this.panels-»;
 	uiEnricherMgr.setPageStructure(contentPanelName, structure);
 }
 
@@ -114,8 +114,8 @@ function initUIStruct«name.toFirstUpper()»(){
 	initStdEnrichments4«name.toFirstUpper()»();
 	initCustomEnrichments4«name.toFirstUpper()»();
 	initUIStruct«name.toFirstUpper()»();
-	uiEnricherMgr.setReady(); 
-	uiEnricherMgr.applyAll("«name»"); 
+	uiEnricherMgr.setReady();
+	uiEnricherMgr.applyAll("«name»");
 
 «ENDDEFINE»
 
@@ -175,28 +175,28 @@ function initUIStruct«name.toFirstUpper()»(){
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
-	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH subpanels-»
+«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH subpanels-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
-    «EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH panels-»
+«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH panels-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
-	«EXPAND enrichmentDefs(model, cp, getChainedContext(contextPrefix, this.name), this.config) FOR this.panelDef.panel-»
+«EXPAND enrichmentDefs(model, cp, getChainedContext(contextPrefix, this.name), this.config) FOR this.panelDef.panel-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
-	«REM»[LC] stdmdd-xxxx: cambio tipo di tooltip su label (commento la generazione del tooltip ricco)«ENDREM»«REM»«EXPAND toolTipEnrichments(model, cp, contextPrefix, pduc) FOR this-»«ENDREM»
-	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
+«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
-	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
+
+«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MenuPanel-»
-	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
+«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
 «ENDDEFINE»
 
 «REM»arricchimenti per i vari widget«ENDREM»
@@ -207,7 +207,9 @@ function initUIStruct«name.toFirstUpper()»(){
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Calendar-»
 «IF isEnrichmentEnabled()-»
 	/// arricchimento per «this.metaType.name» [«name»]: aggiunta datepicker
-	var addDateTo«name.toFirstUpper()» = function(){uiNRichLib.addDatePickerNRich("«getWidgetName(this, contextPrefix)»", «required ? "true" : "false"»)};
+	var addDateTo«name.toFirstUpper()» = function(){
+		uiNRichLib.addDatePickerNRich("«getWidgetName(this, contextPrefix)»", «required ? "true" : "false"»);
+	};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
 «ENDIF-»
 «ENDDEFINE»
@@ -220,40 +222,46 @@ function initUIStruct«name.toFirstUpper()»(){
 «IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
 	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
-	var addSuggestionsTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.addTextSuggestionNRich(
-			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
-			'«getWidgetName(this, contextPrefix)»',
-			'«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
-			 «required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»)}; 
+	var addSuggestionsTo«name.toFirstUpper()» =
+		function(){
+			uiNRichLib.addTextSuggestionNRich(
+				'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
+				'«getWidgetName(this, contextPrefix)»',
+				'«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
+			 	«required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»);
+		};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
 	«IF isEnrichmentEnabled()-»
 	/// arricchimento di base per «this.metaType.name» [«name»]
-	var addBasicEnrichmentTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.basicTextFieldNRich(
-			'«getWidgetName(this, contextPrefix)»',
-			 «required ? "true" : "false"», 
-			 '«toJavaType(this.dataType,model)»', 
-			 null)}; 
+	var addBasicEnrichmentTo«name.toFirstUpper()» =
+		function(){
+			uiNRichLib.basicTextFieldNRich(
+				'«getWidgetName(this, contextPrefix)»',
+			 	«required ? "true" : "false"»,
+			 	'«toJavaType(this.dataType,model)»',
+			 	null);
+		};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addBasicEnrichmentTo«name.toFirstUpper()»);
-	«ENDIF-»
+«ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
 
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TextArea-»
-	«IF isEnrichmentEnabled()-»
+«IF isEnrichmentEnabled()-»
 	/// arricchimento editor per «this.metaType.name» [«name»]
-	var addEditorEnrichmentTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.editorTextAreaNRich(
-			'«getWidgetName(this, contextPrefix)»',
-			 «required ? "true" : "false"», 
-			 '«toJavaType(this.dataType,model)»', 
-			 null)}; 
+	var addEditorEnrichmentTo«name.toFirstUpper()» =
+		function(){
+			uiNRichLib.editorTextAreaNRich(
+				'«getWidgetName(this, contextPrefix)»',
+			 	«required ? "true" : "false"»,
+			 	'«toJavaType(this.dataType,model)»',
+			 	null);
+		};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addEditorEnrichmentTo«name.toFirstUpper()»);
-	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ComboBox-»
@@ -261,30 +269,32 @@ function initUIStruct«name.toFirstUpper()»(){
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
 	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
 	var addSuggestionsTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.addComboSuggestionNRich(
-			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
-			'«getWidgetName(this, contextPrefix)»',
-			'«getAppDataKey(databinding.appData)»',
-			'«keySelector»',
-			'«valueSelector»',
-			«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0-»
-			«LET getRefreshTargetIds(this) AS targetIdsTemp-»
-			«LET (Panel)(this.eContainer) AS parentPanel-»
-			«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
-			'«FOREACH refreshIds AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»',«REM»targetIds«ENDREM»
-			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»',«REM»requestUri«ENDREM»
-			'«cp.name»',«REM»pageId«ENDREM»
-			'«cp.name»',«REM»formName«ENDREM»
-			«ENDLET-»
-			«ENDLET-»
-			«ENDLET-»
-			«ELSE-»
-			'',
-			'',
-			'',
-			'',
-			«ENDIF-»
-			«required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»)}; 
+		function(){
+			uiNRichLib.addComboSuggestionNRich(
+				'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
+				'«getWidgetName(this, contextPrefix)»',
+				'«getAppDataKey(databinding.appData)»',
+				'«keySelector»',
+				'«valueSelector»',
+«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0-»
+«LET getRefreshTargetIds(this) AS targetIdsTemp-»
+«LET (Panel)(this.eContainer) AS parentPanel-»
+«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
+				'«FOREACH refreshIds AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»',
+				'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»',
+				'«cp.name»',
+				'«cp.name»',
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ELSE-»
+				'',
+				'',
+				'',
+				'',
+«ENDIF-»
+				«required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»);
+			}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
@@ -292,13 +302,15 @@ function initUIStruct«name.toFirstUpper()»(){
 	«IF (!(databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray))-»
 	/// arricchimento per «this.metaType.name» [«name»]: autonarrowing
-	var addNarrowingTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.addComboNarrowingNRich(
-			'«getWidgetName(this, contextPrefix)»',
-			 «required ? "false" : "true"»)}; 
+	var addNarrowingTo«name.toFirstUpper()» =
+		function(){
+			uiNRichLib.addComboNarrowingNRich(
+				'«getWidgetName(this, contextPrefix)»',
+			 	«required ? "false" : "true"»);
+		};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addNarrowingTo«name.toFirstUpper()»);
-	«ENDIF»
-	«ENDIF-»
+«ENDIF»
+«ENDIF-»
 «ENDIF»
 «ENDDEFINE»
 
@@ -308,73 +320,78 @@ function initUIStruct«name.toFirstUpper()»(){
 	var «getFullID(this, contextPrefix)»Tips = [«FOREACH widgets.select(w|(!isNullOrEmpty(w.tooltip) && w.isEnrichmentEnabled())) AS currWidg SEPARATOR ","»
 		{id:'«getFullID(currWidg,contextPrefix)»Lbl', tip:«jsLiteralValue(currWidg.tooltip)»}«ENDFOREACH-»
 	];
-	var addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()» = function(){uiNRichLib.addTooltipsByIDNRich(«getFullID(this, contextPrefix)»Tips)};
+	var addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()» = 
+		function(){
+			uiNRichLib.addTooltipsByIDNRich(«getFullID(this, contextPrefix)»Tips);
+		};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getFullID(this,contextPrefix)»", addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()»);
 «ENDIF-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MapView-»
 	/// arricchimento per «this.metaType.name» [«name»]: mapView
-	var addMapTo«name.toFirstUpper()» = function(){new ExtCsi.ui.maps.InitMap({
-											idHiddenField: 'hidden_field_«this.name»',
-											idDivToolbar: 'toolbar_«this.name»',
-											idDivMappa: '«this.name»',
-											idMappa: '«this.mapId»',
-											actionName: contentPanelName,
-											actionNamespace: '«getMapEnrichmentAcionNamespace(cp, model)»',
-											appDataName: '«getAppDataPropertyName(this.databinding.appData).toFirstLower()»',
-											projectName: '«model.codComponente»'«IF eventHandlers!=null && eventHandlers.size > 0-»,
-											clickEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::CLICKED),null)»«getStrutsActionCompleteExtension()»',
-											refreshIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»]
-											«IF this.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
-											,
-											editingEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::EDIT_COMMITTED),null)»«getStrutsActionCompleteExtension()»',
-											refreshEditingIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»],
-											editingDataName: '«getAppDataPropertyName(this.editDataBinding.appData).toFirstLower()»',
-											noClickWhenDisabled: «jsLiteralValue(noClickWhenDisabled)»,
-											noEditWhenDisabled: «jsLiteralValue(noEditWhenDisabled)»,
-											noPanWhenDisabled: «jsLiteralValue(noPanWhenDisabled)»,
-											noZoomWhenDisabled: «jsLiteralValue(noZoomWhenDisabled)»
-											«EXPAND MapViewEditingConfig FOR this.gadgets»
-											«ENDIF-»										
-											«ENDIF-»											
-											«EXPAND MapViewGadgetConfig FOR this.gadgets»
-										}).init()};
+	var addMapTo«name.toFirstUpper()» = 
+		function(){
+			new ExtCsi.ui.maps.InitMap({
+				idHiddenField: 'hidden_field_«this.name»',
+				idDivToolbar: 'toolbar_«this.name»',
+				idDivMappa: '«this.name»',
+				idMappa: '«this.mapId»',
+				actionName: contentPanelName,
+				actionNamespace: '«getMapEnrichmentAcionNamespace(cp, model)»',
+				appDataName: '«getAppDataPropertyName(this.databinding.appData).toFirstLower()»',
+				projectName: '«model.codComponente»'«IF eventHandlers!=null && eventHandlers.size > 0-»,
+				clickEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::CLICKED),null)»«getStrutsActionCompleteExtension()»',
+				refreshIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»]
+				«IF this.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
+				,
+				editingEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::EDIT_COMMITTED),null)»«getStrutsActionCompleteExtension()»',
+				refreshEditingIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»],
+				editingDataName: '«getAppDataPropertyName(this.editDataBinding.appData).toFirstLower()»',
+				noClickWhenDisabled: «jsLiteralValue(noClickWhenDisabled)»,
+				noEditWhenDisabled: «jsLiteralValue(noEditWhenDisabled)»,
+				noPanWhenDisabled: «jsLiteralValue(noPanWhenDisabled)»,
+				noZoomWhenDisabled: «jsLiteralValue(noZoomWhenDisabled)»
+«EXPAND MapViewEditingConfig FOR this.gadgets»
+«ENDIF-»
+«ENDIF-»											
+«EXPAND MapViewGadgetConfig FOR this.gadgets»
+				}).init();
+									};
 	
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);
 «ENDDEFINE»
 
 «DEFINE MapViewGadgetConfig FOR MapViewGadgets-»
 «LET (MapView)eContainer AS mapview-»
-	«IF this != null-»
-											// configura gadget della mappa
-		«IF layerSwitcher-»
-											,
-											// switch sfondo
-											layerSwitcher: «jsLiteralValue(layerSwitcher)»,
-											idDivLayerSwitcher: 'layerswitcher_«mapview.name»',
-											backgroundMapMapServiceName: «jsLiteralValue(this.backgroundMapMapServiceName)»,
-											backgroundMapSwitcherLabel: «jsLiteralValue(this.backgroundMapSwitcherLabel)»,
-											backgroundPhotoAerialMapServiceName: «jsLiteralValue(this.backgroundPhotoAerialMapServiceName)»,
-											backgroundPhotoAerialSwitcherLabel: «jsLiteralValue(this.backgroundPhotoAerialSwitcherLabel)»
-		«ENDIF-»
-			
-	«ENDIF-»
+«IF this != null-»
+				// configura gadget della mappa
+«IF layerSwitcher-»
+				,
+				// switch sfondo
+				layerSwitcher: «jsLiteralValue(layerSwitcher)»,
+				idDivLayerSwitcher: 'layerswitcher_«mapview.name»',
+				backgroundMapMapServiceName: «jsLiteralValue(this.backgroundMapMapServiceName)»,
+				backgroundMapSwitcherLabel: «jsLiteralValue(this.backgroundMapSwitcherLabel)»,
+				backgroundPhotoAerialMapServiceName: «jsLiteralValue(this.backgroundPhotoAerialMapServiceName)»,
+				backgroundPhotoAerialSwitcherLabel: «jsLiteralValue(this.backgroundPhotoAerialSwitcherLabel)»
+«ENDIF-»
+«ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
 
 «DEFINE MapViewEditingConfig FOR MapViewGadgets-»
 «LET (MapView)eContainer AS mapview-»
-	«IF this != null-»
-	«IF mapview.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
-											,										
-											// funzioni di editing
-											pointEditingActive: «jsLiteralValue(this.pointEditingActive)»,
-											lineEditingActive: «jsLiteralValue(this.lineEditingActive)»,
-											polygonEditingActive: «jsLiteralValue(this.polygonEditingActive)»
-	«ENDIF-»							
-	«ENDIF-»	
- «ENDLET-»							
+«IF this != null-»
+«IF mapview.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
+				,										
+				// funzioni di editing
+				pointEditingActive: «jsLiteralValue(this.pointEditingActive)»,
+				lineEditingActive: «jsLiteralValue(this.lineEditingActive)»,
+				polygonEditingActive: «jsLiteralValue(this.polygonEditingActive)»
+«ENDIF-»
+«ENDIF-»
+«ENDLET-»						
 «ENDDEFINE»
 
 
