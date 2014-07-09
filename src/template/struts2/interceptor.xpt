@@ -132,9 +132,9 @@ public class MethodProtectionInterceptor extends MethodFilterInterceptor {
 		try {
 			m = invocation.getAction().getClass().getDeclaredMethod(methodName,
 					new Class[]{});
-		} catch (SecurityException e) {
+		} catch (SecurityException e) { «noSonarTag("dubbia classificazione severity")»
 			m = null;
-		} catch (NoSuchMethodException e) {
+		} catch (NoSuchMethodException e) { «noSonarTag("dubbia classificazione severity")»
 			m = null;
 		}
 		if (m != null) {
@@ -531,7 +531,7 @@ public class ParametersInterceptor extends MethodFilterInterceptor {
                 Object value = entry.getValue();
                 try {
                     stack.setValue(name, value);
-                } catch (RuntimeException e) {
+                } catch (RuntimeException e) { «noSonarTag("dubbia classificazione severity")»
                     if (devMode) {
                         String developerNotification = LocalizedTextUtil.findText(ParametersInterceptor.class, "devmode.notification", ActionContext.getContext().getLocale(), "Developer Notification:\n{0}", new Object[]{
                                 e.getMessage()

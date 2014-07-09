@@ -242,6 +242,7 @@ public class JumpBackCommand implements ICommand {
 package «getPresentationJavaPackage()»;
 
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando RefreshViewCommand.
@@ -266,41 +267,21 @@ public class RefreshViewCommand implements ICommand {
 	String [] targetPanels=null;
 	
 	public void setTargetPanels(String [] tp){
-		if (tp != null){
-			this.targetPanels = Arrays.copyOf(tp, tp.length);
-		}
-		else{
-			this.targetPanels = null;
-		}
+		this.targetPanels = (String[]) DTOUtils.arrayCopyOf(tp, String.class);
 	}
 	
 	public String[] getTargetPanels(){
-		if(this.targetPanels != null){
-			return Arrays.copyOf(this.targetPanels, this.targetPanels.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.targetPanels, String.class);
 	}
 	
 	String [] targetWidgets=null;
 	
 	public void setTargetWidgets(String [] tw){
-		if (tw != null){
-			this.targetWidgets = Arrays.copyOf(tw, tw.length);
-		}
-		else{
-			this.targetWidgets = null;
-		}
+		this.targetWidgets = (String[]) DTOUtils.arrayCopyOf(tw, String.class);
 	}
 	
 	public String[] getTargetWidgets(){
-		if (this.targetWidgets != null){
-			return Arrays.copyOf(this.targetWidgets, this.targetWidgets.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.targetWidgets, String.class);
 	}
 	
 	/**
@@ -544,6 +525,7 @@ package «getPresentationJavaPackage()»;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando ScreenStateCommand
@@ -571,75 +553,35 @@ public class ScreenStateCommand implements ICommand {
 	String[] widgetsHidden = null;
 
 	public String[] getWidgetsOn() {
-		if (this.widgetsOn != null){
-			return Arrays.copyOf(this.widgetsOn, this.widgetsOn.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsOn, String.class);
 	}
 
 	public void setWidgetsOn(String[] p_widgetsOn) {
-		if (p_widgetsOn != null){
-			this.widgetsOn = Arrays.copyOf(p_widgetsOn, p_widgetsOn.length);
-		}
-		else{
-			this.widgetsOn = null;
-		}
+		this.widgetsOn = (String[]) DTOUtils.arrayCopyOf(p_widgetsOn, String.class);
 	}
 
 	public String[] getWidgetsOff() {
-		if (this.widgetsOff != null){
-			return Arrays.copyOf(this.widgetsOff, this.widgetsOff.length);
-		}
-		else{
-			return null;
-		} 
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsOff, String.class); 
 	}
 
 	public void setWidgetsOff(String[] p_widgetsOff) {
-		if (p_widgetsOff != null){
-			this.widgetsOff = Arrays.copyOf(p_widgetsOff, p_widgetsOff.length);
-		}
-		else{
-			this.widgetsOff = null;
-		}
+		this.widgetsOff = (String[]) DTOUtils.arrayCopyOf(p_widgetsOff, String.class);
 	}
 
 	public String[] getWidgetsShown() {
-		if (this.widgetsShown != null){
-			return Arrays.copyOf(this.widgetsShown, this.widgetsShown.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsOn, String.class);
 	}
 
 	public void setWidgetsShown(String[] p_widgetsShown) {
-		if (p_widgetsShown != null){
-			this.widgetsShown = Arrays.copyOf(p_widgetsShown, p_widgetsShown.length);
-		}
-		else{
-			this.widgetsShown = null;
-		}
+		this.widgetsShown = (String[]) DTOUtils.arrayCopyOf(p_widgetsShown, String.class); 
 	}
 
 	public String[] getWidgetsHidden() {
-		if (this.widgetsHidden != null){
-			return Arrays.copyOf(this.widgetsHidden, this.widgetsHidden.length);
-		}
-		else {
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsHidden, String.class);
 	}
 
 	public void setWidgetsHidden(String[] p_widgetsHidden) {
-		if (p_widgetsHidden != null){
-			this.widgetsHidden = Arrays.copyOf(p_widgetsHidden, p_widgetsHidden.length);
-		}
-		else{
-			this.widgetsHidden = null;
-		}
+		this.widgetsHidden = (String[]) DTOUtils.arrayCopyOf(p_widgetsHidden, String.class);
 	}
 
 	/**
@@ -737,6 +679,7 @@ package «getPresentationJavaPackage()»;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando OnOffCommand 
@@ -755,39 +698,19 @@ public class OnOffCommand implements ICommand {
 
 	
 	public String[] getTargetsWidgets() {
-		if (this.targetsWidgets != null){
-			return Arrays.copyOf(this.targetsWidgets, this.targetsWidgets.length);
-		}
-		else{ 
-			return null;
-		} 
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsWidgets, String.class); 
 	}
 
 	public void setTargetsWidgets(String[] p_targetsWidgets) {
-		if (p_targetsWidgets != null){
-			this.targetsWidgets = Arrays.copyOf(p_targetsWidgets, p_targetsWidgets.length);
-		}
-		else{
-			this.targetsWidgets = null;
-		}
+		this.targetsWidgets = (String[]) DTOUtils.arrayCopyOf(p_targetsWidgets, String.class);
 	}
 
 	public String[] getTargetsMenuElement() {
-		if (this.targetsMenuElement != null){
-			return Arrays.copyOf(this.targetsMenuElement, this.targetsMenuElement.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsMenuElement, String.class);
 	}
 
 	public void setTargetsMenuElement(String[] p_targetsMenuElement) {
-		if (p_targetsMenuElement != null){
-			this.targetsMenuElement = Arrays.copyOf(p_targetsMenuElement, p_targetsMenuElement.length);
-		}
-		else{
-			this.targetsMenuElement = null;
-		}
+		this.targetsMenuElement = (String[]) DTOUtils.arrayCopyOf(p_targetsMenuElement, String.class);
 	}
 
 	public boolean isEnable() {
@@ -870,6 +793,7 @@ package «getPresentationJavaPackage()»;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione dle comando VisibilityCommand
@@ -904,39 +828,19 @@ public class VisibilityCommand implements ICommand {
 
 
 	public String[] getTargetsWidgets() {
-		if (this.targetsWidgets != null){
-			return Arrays.copyOf(this.targetsWidgets, this.targetsWidgets.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsWidgets, String.class);
 	}
 
 	public void setTargetsWidgets(String[] p_targetsWidgets) {
-		if (p_targetsWidgets != null){
-			this.targetsWidgets = Arrays.copyOf(p_targetsWidgets, p_targetsWidgets.length);
-		}
-		else{
-			this.targetsWidgets = null;
-		}
+		this.targetsWidgets = (String[]) DTOUtils.arrayCopyOf(p_targetsWidgets, String.class);
 	}
 
 	public String[] getTargetsMenuElement() {
-		if (this.targetsMenuElement != null){
-			return Arrays.copyOf(this.targetsMenuElement, this.targetsMenuElement.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsMenuElement, String.class);
 	}
 
 	public void setTargetsMenuElement(String[] p_targetsMenuElement) {
-		if (p_targetsMenuElement != null){
-			this.targetsMenuElement = Arrays.copyOf(p_targetsMenuElement, p_targetsMenuElement.length);
-		}
-		else{
-			this.targetsMenuElement = null;
-		}
+		this.targetsMenuElement = (String[]) DTOUtils.arrayCopyOf(p_targetsMenuElement, String.class); 
 	}
 
 	public boolean isShow() {
@@ -1076,40 +980,19 @@ public class ExecCommand implements ICommand {
 	
 	
 	public String[] getEsiti() {
-		if (esiti == null){
-			return null;
-		}
-		else{
-			return Arrays.copyOf(this.esiti, this.esiti.length);
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.esiti, String.class);
 	}
 
 	public void setEsiti(String[] p_esiti) {
-		if (p_esiti != null){
-			this.esiti = Arrays.copyOf(p_esiti, p_esiti.length);
-		}
-		else{
-			this.esiti = null;
-		}
-		
+		this.esiti = (String[]) DTOUtils.arrayCopyOf(p_esiti, String.class);
 	}
 
 	public ICommand[] getAzioni() {
-		if (this.azioni != null){
-			return Arrays.copyOf(this.azioni, this.azioni.length);
-		}
-		else{
-			return null;
-		}
+		return (ICommand[]) DTOUtils.arrayCopyOf(this.azioni, ICommand.class);
 	}
 
 	public void setAzioni(ICommand[] p_azioni) {
-		if (p_azioni != null){
-			this.azioni = Arrays.copyOf(p_azioni, p_azioni.length);
-		}
-		else{
-			this.azioni = null;
-		}
+		this.azioni = (ICommand[]) DTOUtils.arrayCopyOf(p_azioni, ICommand.class);
 	}
 
 	public String getNomeMetodo() {
@@ -1121,21 +1004,11 @@ public class ExecCommand implements ICommand {
 	}
 
 	public String[] getAppDataToStore() {
-		if (this.appDataToStore !=null){
-			return Arrays.copyOf(this.appDataToStore, this.appDataToStore.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.appDataToStore, String.class);
 	}
 
 	public void setAppDataToStore(String[] p_appDataToStore) {
-		if (p_appDataToStore != null){
-			this.appDataToStore = Arrays.copyOf(p_appDataToStore, p_appDataToStore.length);
-		}
-		else{
-			this.appDataToStore = null;
-		}
+		this.appDataToStore = (String[]) DTOUtils.arrayCopyOf(p_appDataToStore, String.class);
 	}
 	
 	/**
@@ -1331,6 +1204,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando ClearAppDataCommand.
@@ -1340,26 +1214,17 @@ public class ClearAppDataCommand implements ICommand {
 	// solo per poter essere inserita in sessione web e non viene scambiata con altre
 	// componenti.
 	private static final long serialVersionUID = 1L;
+	 
 	
 	private String[] attributesToBeRemovedFromSession = null;
 	
 	public String[] getAttributesToBeRemovedFromSession() {
-		if (this.attributesToBeRemovedFromSession != null){
-			return Arrays.copyOf(this.attributesToBeRemovedFromSession, this.attributesToBeRemovedFromSession.length); 
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.attributesToBeRemovedFromSession, String.class);
 	}
 
 	public void setAttributesToBeRemovedFromSession(
 			String[] p_attributesToBeRemovedFromSession) {
-		if (p_attributesToBeRemovedFromSession != null){
-			this.attributesToBeRemovedFromSession = Arrays.copyOf(p_attributesToBeRemovedFromSession, p_attributesToBeRemovedFromSession.length);
-		}
-		else{
-			this.attributesToBeRemovedFromSession = null;
-		}
+		this.attributesToBeRemovedFromSession = (String[]) DTOUtils.arrayCopyOf(p_attributesToBeRemovedFromSession, String.class);
 	}
 	
 	/**
@@ -1402,13 +1267,13 @@ public class ClearAppDataCommand implements ICommand {
 					writeMethod.invoke(model, new Object[]{(Object)null});
 				}
 			}
-		} catch (IntrospectionException e) {
+		} catch (IntrospectionException e) { «noSonarTag("dubbia classificazione severity")»
+			;; 
+		} catch (IllegalArgumentException e) { «noSonarTag("dubbia classificazione severity")»
+			;; 
+		} catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
 			;;
-		} catch (IllegalArgumentException e) {
-			;;
-		} catch (IllegalAccessException e) {
-			;;
-		} catch (InvocationTargetException e) {
+		} catch (InvocationTargetException e) { «noSonarTag("dubbia classificazione severity")»
 			;;
 		}
 	}
@@ -1531,6 +1396,7 @@ public class ExecResults {
 package «getPresentationJavaPackage()»;
 
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando SequenceCommand.
@@ -1545,21 +1411,11 @@ public class SequenceCommand implements ICommand {
 	ICommand[] actions;
 	
 	public ICommand[] getActions() {
-		if (this.actions == null){
-			return null;
-		}
-		else{
-			return Arrays.copyOf(this.actions, this.actions.length);
-		}
+		return (ICommand[]) DTOUtils.arrayCopyOf(this.actions, ICommand.class);
 	}
 
 	public void setActions(ICommand[] p_actions) {
-		if (p_actions != null){
-			this.actions = Arrays.copyOf(p_actions, p_actions.length);
-		}
-		else{
-			this.actions = null;
-		} 
+		this.actions = (ICommand[]) DTOUtils.arrayCopyOf(p_actions, ICommand.class); 
 	}
 	
 	/** 
@@ -1652,6 +1508,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando BeginEditCommand.
@@ -1666,21 +1523,11 @@ public class BeginEditCommand implements ICommand {
 	String [] targetAppDataNames;
 	
 	public String[] getTargetAppDataNames() {
-		if (this.targetAppDataNames != null){
-			return Arrays.copyOf(this.targetAppDataNames, this.targetAppDataNames.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.targetAppDataNames, String.class);
 	}
 
 	public void setTargetAppDataNames(String[] p_targetAppDataNames) {
-		if (p_targetAppDataNames != null){
-			this.targetAppDataNames = Arrays.copyOf(p_targetAppDataNames, p_targetAppDataNames.length);
-		}
-		else{
-			this.targetAppDataNames = null;
-		}
+		this.targetAppDataNames = (String[]) DTOUtils.arrayCopyOf(p_targetAppDataNames, String.class);
 	}
 	
 	/**
@@ -1709,7 +1556,7 @@ public class BeginEditCommand implements ICommand {
 				try{
 					storeBackup(currADName, strutsAction);
 				}
-				catch(CloneNotSupportedException cnse){
+				catch(CloneNotSupportedException cnse){ «noSonarTag("dubbia classificazione severity")»
 					throw new CommandExecutionException(
 						"Errore nella creazioene del backup dell'appdata ["+currADName+"]:"+cnse.getMessage(),cnse);
 				}
@@ -1746,9 +1593,9 @@ public class BeginEditCommand implements ICommand {
 			ObjectInputStream ois = new ObjectInputStream(bais);
 			Object clone = ois.readObject();
 			return clone;
-		} catch (IOException e) {
+		} catch (IOException e) { «noSonarTag("dubbia classificazione severity")»
 			throw new CloneNotSupportedException();
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) { «noSonarTag("dubbia classificazione severity")»
 			throw new CloneNotSupportedException();
 		}
 	}
@@ -1760,6 +1607,7 @@ public class BeginEditCommand implements ICommand {
 package «getPresentationJavaPackage()»;
 
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando EndEditSession.
@@ -1775,21 +1623,11 @@ public class EndEditCommand implements ICommand {
 	boolean undo;
 	
 	public String[] getTargetAppDataNames() {
-		if (this.targetAppDataNames != null){
-			return Arrays.copyOf(this.targetAppDataNames, this.targetAppDataNames.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.targetAppDataNames, String.class);
 	}
 
 	public void setTargetAppDataNames(String[] p_targetAppDataNames) {
-		if (p_targetAppDataNames != null){
-			this.targetAppDataNames = Arrays.copyOf(p_targetAppDataNames, p_targetAppDataNames.length);
-		}
-		else{
-			this.targetAppDataNames = null;
-		}
+		this.targetAppDataNames = (String[]) DTOUtils.arrayCopyOf(p_targetAppDataNames, String.class);
 	}
 
 	public boolean isUndo() {
@@ -1861,6 +1699,7 @@ public class EndEditCommand implements ICommand {
 package «getPresentationJavaPackage()»;
 
 import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
 
 /**
  * Implementazione del comando ChkEditStatusCommand. Permette di esaminare se il valore
@@ -1904,21 +1743,11 @@ public class ChkEditStatusCommand implements ICommand {
 	}
 
 	public String[] getCheckedData() {
-		if (this.checkedData != null){
-			return Arrays.copyOf(this.checkedData, this.checkedData.length);
-		}
-		else{
-			return null;
-		}
+		return (String[]) DTOUtils.arrayCopyOf(this.checkedData, String.class);
 	}
 
 	public void setCheckedData(String[] p_checkedData) {
-		if (p_checkedData != null){
-			this.checkedData = Arrays.copyOf(p_checkedData, p_checkedData.length);
-		}
-		else{
-			this.checkedData = null;
-		}
+		this.checkedData = (String[]) DTOUtils.arrayCopyOf(p_checkedData, String.class);
 	}
 	
 	
@@ -2059,6 +1888,26 @@ public class DTOUtils {
 	}
 	
 	/**
+	 * Restituisce una copia dell'array passato in input (vengono 
+	 * mantenuti i riferimenti agli elementi originali.
+	 * @param srcArr l'array di input
+	 * @param compType la classe degli elementi (deve coincidere con 
+	 * il componenttype dell'array - viene passato esplicitamente per 
+	 * gestire il caso array di zero elementi).
+	 * @return
+	 */
+	public static Object [] arrayCopyOf(Object[] srcArr, Class compType){
+		if (srcArr == null){
+			return null;
+		}
+		else{
+			Object [] destArr = (Object[]) Array.newInstance(compType, srcArr.length);
+			System.arraycopy(srcArr, 0, destArr, 0, srcArr.length - 0);
+			return destArr;
+		}
+	}
+	
+	/**
 	 * Effettua una verifica di uguaglianza in profondita' tra i due
 	 * oggetti in input
 	 * @param o1
@@ -2102,7 +1951,7 @@ public class DTOUtils {
 		try {
 			// l'accesso agli oggetti avviene mediante introspection
 			bi = Introspector.getBeanInfo(o1.getClass());
-		} catch (IntrospectionException e) {
+		} catch (IntrospectionException e) { «noSonarTag("dubbia classificazione severity")»
 			throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
 		}
 		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
@@ -2123,10 +1972,10 @@ public class DTOUtils {
 					if (!deepEquals(v1, v2))
 						return false; // basta uno diverso => false
 				} 
-				catch (IllegalAccessException e) {
+				catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
 				}
-				catch (InvocationTargetException e) {
+				catch (InvocationTargetException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
 				}
 			}
@@ -2197,15 +2046,15 @@ public class DTOUtils {
 					if (listaKeys != null && listaKeys.contains(codice)) {
 						res.add(elemento);
 					}
-				} catch (NoSuchMethodException e) {
+				} catch (NoSuchMethodException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new IllegalArgumentException(
 							"Il metodo richiesto non è stato trovato, controlla il nome del campo Key inserito: "
 									+ nomeCampoKey + e);
-				} catch (IllegalAccessException e) {
+				} catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new IllegalArgumentException(
 							"errore in lettura campi di " + elemento.getClass()
 									+ ":" + e);
-				} catch (InvocationTargetException e) {
+				} catch (InvocationTargetException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new IllegalArgumentException(
 							"errore in lettura campi di " + elemento.getClass()
 									+ ":" + e);
@@ -2231,9 +2080,9 @@ public class DTOUtils {
 			ObjectInputStream ois = new ObjectInputStream(bais);
 			Object clone = ois.readObject();
 			return clone;
-		} catch (IOException e) {
-			throw new CloneNotSupportedException();
-		} catch (ClassNotFoundException e) {
+		} catch (IOException e) { «noSonarTag("dubbia classificazione severity")»
+			throw new CloneNotSupportedException(); 
+		} catch (ClassNotFoundException e) { «noSonarTag("dubbia classificazione severity")»
 			throw new CloneNotSupportedException();
 		}
 	}

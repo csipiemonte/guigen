@@ -304,7 +304,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 		if (objectFactory instanceof ObjectFactoryDestroyable) {
 			try {
 				((ObjectFactoryDestroyable) objectFactory).destroy();
-			} catch (Exception e) {
+			} catch (Exception e) { «noSonarTag("dubbia classificazione severity")»
 				// catch any exception that may occurred during destroy() and log it
 				LOG.error("exception occurred while destroying ObjectFactory ["
 						+ objectFactory + "]", e);
@@ -435,13 +435,13 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 					ConfigurationProvider prov = (ConfigurationProvider) cls
 							.newInstance();
 					configurationManager.addContainerProvider(prov);
-				} catch (InstantiationException e) {
+				} catch (InstantiationException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new ConfigurationException(
 							"Unable to instantiate provider: " + cname, e);
-				} catch (IllegalAccessException e) {
+				} catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new ConfigurationException(
 							"Unable to access provider: " + cname, e);
-				} catch (ClassNotFoundException e) {
+				} catch (ClassNotFoundException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new ConfigurationException(
 							"Unable to locate provider class: " + cname, e);
 				}
@@ -630,7 +630,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 				request.setAttribute(
 						ServletActionContext.STRUTS_VALUESTACK_KEY, stack);
 			}
-		} catch (ConfigurationException e) {
+		} catch (ConfigurationException e) { «noSonarTag("dubbia classificazione severity")»
 			// WW-2874 Only log error if in devMode
 			if (devMode) {
 				String reqStr = request.getRequestURI();
@@ -768,7 +768,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 					try {
 						logMessage = "Could not find create multipart save directory '"
 								+ multipartSaveDir.getCanonicalPath() + "'.";
-					} catch (IOException e) {
+					} catch (IOException e) { «noSonarTag("dubbia classificazione severity")»
 						logMessage = "Could not find create multipart save directory '"
 								+ multipartSaveDir.toString() + "'.";
 					}
@@ -946,14 +946,14 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 				response.setContentType("text/html");
 				response.getWriter().write(writer.toString());
 				response.getWriter().close();
-			} catch (Exception exp) {
+			} catch (Exception exp) { «noSonarTag("dubbia classificazione severity")»
 				try {
 					if (LOG.isDebugEnabled()) {
 						LOG.debug("Cannot show problem report!", exp);
 					}
 					response.sendError(code, "Unable to show problem report:\n"
 							+ exp + "\n\n" + LocationUtils.getLocation(exp));
-				} catch (IOException ex) {
+				} catch (IOException ex) { «noSonarTag("dubbia classificazione severity")»
 					// we're already sending an error, not much else we can do if more stuff breaks
 				}
 			}
@@ -976,7 +976,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 
 				// send the error response
 				response.sendError(code, e.getMessage());
-			} catch (IOException e1) {
+			} catch (IOException e1) { «noSonarTag("dubbia classificazione severity")»
 				// we're already sending an error, not much else we can do if more stuff breaks
 			}
 		}

@@ -355,29 +355,12 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 				java.lang.reflect.Method currReadMethod = currPD
 						.getReadMethod();
 				if (currReadMethod != null) {
-					try {
-						Object srcVal = currReadMethod.invoke(this,
-								new Object[]{});
-						sb.append("\t\t" + currPD.getName() + "=" + srcVal
-								+ "\n");
-					} catch (IllegalArgumentException e) {
-						// questo caso non dovrebbe mai presentarsi
-						sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
-								+ "\n");
-					} catch (IllegalAccessException e) {
-						// questo caso non dovrebbe mai presentarsi
-						sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
-								+ "\n");
-					} catch (java.lang.reflect.InvocationTargetException e) {
-						// questo caso non dovrebbe mai presentarsi
-						sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
-								+ "\n");
-					}
+					appendPropertyText(currReadMethod, currPD, this, sb);
 				}
 			}
-		} catch (java.beans.IntrospectionException e) {
+		} catch (java.beans.IntrospectionException e) { «noSonarTag("dubbia classificazione severity")»
 			// questo caso non dovrebbe mai presentarsi
-			sb.append("<errore nell accesso ai campi>");
+			sb.append("<errore nell accesso ai campi>"); 
 		}
 
 		sb.append("\t\t");
@@ -386,6 +369,27 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 
 		sb.append("}\n");
 		return sb.toString();
+	}
+	
+	private void appendPropertyText(java.lang.reflect.Method currReadMethod, java.beans.PropertyDescriptor currPD, Object target, StringBuffer sb){
+		try {
+			Object srcVal = currReadMethod.invoke(target,
+					new Object[]{});
+			sb.append("\t\t" + currPD.getName() + "=" + srcVal
+					+ "\n");
+		} catch (IllegalArgumentException e) { «noSonarTag("dubbia classificazione severity")»
+			// questo caso non dovrebbe mai presentarsi
+			sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
+					+ "\n");
+		} catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
+			// questo caso non dovrebbe mai presentarsi
+			sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
+					+ "\n");
+		} catch (java.lang.reflect.InvocationTargetException e) { «noSonarTag("dubbia classificazione severity")»
+			// questo caso non dovrebbe mai presentarsi
+			sb.append("\t\t" + currPD.getName() + "= <errore nell'accesso>"
+					+ "\n");
+		}
 	}
 }
 «ENDFILE»

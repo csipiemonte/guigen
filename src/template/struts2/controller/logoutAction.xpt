@@ -176,7 +176,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 		if (session instanceof org.apache.struts2.dispatcher.SessionMap) {
 		    try {
 		        ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
-		    } catch (IllegalStateException e) {
+		    } catch (IllegalStateException e) { «noSonarTag("dubbia classificazione severity")»
 		        log.error("[«getStrutsLogoutClassName(this)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
 		    }
 		}
@@ -216,7 +216,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 			«ENDIF»
 		    try {
 		        ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
-		    } catch (IllegalStateException e) {
+		    } catch (IllegalStateException e) { «noSonarTag("dubbia classificazione severity")»
 		        log.error("[«getStrutsLogoutClassName(model)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
 		        // in caso di errore invalido almeno l'attributo di iride
 		        session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
