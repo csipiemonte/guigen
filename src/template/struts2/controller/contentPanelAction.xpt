@@ -410,6 +410,7 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			// risposta
 			return "provideData";
 		} catch (Exception e) {
+			log.error("[MappaAction::calcolaStartEnvelope«map.mapId.toFirstUpper()»]", e);
 			// RispostaObjDto res=new RispostaObjDto();
 			BaseMapResponse res = new BaseMapResponse();
 			res.setErrorMsg("Errore nel calcolo dell'estensione iniziale");
@@ -451,6 +452,7 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			// risposta
 			return "provideData";
 		} catch (Exception e) {
+			log.error("[MappaAction::calcolaMaxEnvelope«map.mapId.toFirstUpper()»]", e);
 			BaseMapResponse res = new BaseMapResponse();
 			res.setErrorMsg("Errore nel calcolo dell'estensione iniziale");
 			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
