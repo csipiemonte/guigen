@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,14 +13,14 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«DEFINE tabSetUtils(GUIModel model) FOR ContentPanel-»
-	«EXPAND tabSetUtils(model, this, "") FOR this.panels»
+Â«DEFINE tabSetUtils(GUIModel model) FOR ContentPanel-Â»
+	Â«EXPAND tabSetUtils(model, this, "") FOR this.panelsÂ»
 
 	/** 
 	 * Restituisce il tab correntemente visibile in un determinato tab set
@@ -30,43 +30,43 @@ e le limitazioni secondo i termini della Licenza.
 		return value;
 	}
 	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
-«ENDDEFINE»
+Â«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
-	«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH subpanels»
-«ENDDEFINE»
+Â«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-Â»
+	Â«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH subpanelsÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
-	public final static String MULTIPANEL_«getFullID(this, contextPrefix).toUpperCase()» = "«getFullID(this, contextPrefix)»";
-	«FOREACH this.panels AS currTab-»
-	public final static String MPI_«getFullID(this, contextPrefix).toUpperCase()»_«getFullID(currTab, contextPrefix).toUpperCase()» = 
-		CPNAME+"_"+MULTIPANEL_«getFullID(this, contextPrefix).toUpperCase()»+"_"+"«getFullID(currTab, contextPrefix)»";
-	«ENDFOREACH-»
-	«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-Â»
+	public static final String MULTIPANEL_Â«getFullID(this, contextPrefix).toUpperCase()Â» = "Â«getFullID(this, contextPrefix)Â»";
+	Â«FOREACH this.panels AS currTab-Â»
+	public static final String MPI_Â«getFullID(this, contextPrefix).toUpperCase()Â»_Â«getFullID(currTab, contextPrefix).toUpperCase()Â» = 
+		CPNAME+"_"+MULTIPANEL_Â«getFullID(this, contextPrefix).toUpperCase()Â»+"_"+"Â«getFullID(currTab, contextPrefix)Â»";
+	Â«ENDFOREACH-Â»
+	Â«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
-	public final static String WIZARD_«getFullID(this, contextPrefix).toUpperCase()» = "«getFullID(this, contextPrefix)»";
-	«FOREACH this.panels AS currTab-»
-	public final static String STEP_«getFullID(this, contextPrefix).toUpperCase()»_«getFullID(currTab, contextPrefix).toUpperCase()» = 
-		CPNAME+"_"+WIZARD_«getFullID(this, contextPrefix).toUpperCase()»+"_"+"«getFullID(currTab, contextPrefix)»";
-	«ENDFOREACH-»
-	«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-Â»
+	public static final String WIZARD_Â«getFullID(this, contextPrefix).toUpperCase()Â» = "Â«getFullID(this, contextPrefix)Â»";
+	Â«FOREACH this.panels AS currTab-Â»
+	public static final String STEP_Â«getFullID(this, contextPrefix).toUpperCase()Â»_Â«getFullID(currTab, contextPrefix).toUpperCase()Â» = 
+		CPNAME+"_"+WIZARD_Â«getFullID(this, contextPrefix).toUpperCase()Â»+"_"+"Â«getFullID(currTab, contextPrefix)Â»";
+	Â«ENDFOREACH-Â»
+	Â«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
-	public final static String TABSET_«getFullID(this, contextPrefix).toUpperCase()» = "«getFullID(this, contextPrefix)»";
-	«FOREACH this.panels AS currTab-»
-	public final static String TAB_«getFullID(this, contextPrefix).toUpperCase()»_«getFullID(currTab, contextPrefix).toUpperCase()» = 
-		CPNAME+"_"+TABSET_«getFullID(this, contextPrefix).toUpperCase()»+"_"+"«getFullID(currTab, contextPrefix)»";
-	«ENDFOREACH-»
-	«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH panels-»
+Â«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-Â»
+	public static final String TABSET_Â«getFullID(this, contextPrefix).toUpperCase()Â» = "Â«getFullID(this, contextPrefix)Â»";
+	Â«FOREACH this.panels AS currTab-Â»
+	public static final String TAB_Â«getFullID(this, contextPrefix).toUpperCase()Â»_Â«getFullID(currTab, contextPrefix).toUpperCase()Â» = 
+		CPNAME+"_"+TABSET_Â«getFullID(this, contextPrefix).toUpperCase()Â»+"_"+"Â«getFullID(currTab, contextPrefix)Â»";
+	Â«ENDFOREACH-Â»
+	Â«EXPAND tabSetUtils(model, cp, contextPrefix) FOREACH panels-Â»
 	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
-	«EXPAND tabSetUtils(model, cp, getChainedContext(contextPrefix, name)) FOR panelDef.panel»
-«ENDDEFINE»
+Â«DEFINE tabSetUtils(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUseÂ»
+	Â«EXPAND tabSetUtils(model, cp, getChainedContext(contextPrefix, name)) FOR panelDef.panelÂ»
+Â«ENDDEFINEÂ»

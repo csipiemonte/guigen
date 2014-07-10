@@ -14,7 +14,7 @@ public class GuigenExtensionSetup extends AbstractWorkflowComponent {
 
 	private Log log = LogFactory.getLog(getClass());
 
-	private final static String ECLIPSE_HOME_SYSPROP = "eclipse.home";
+	private static final String ECLIPSE_HOME_SYSPROP = "eclipse.home";
 
 	public void checkConfiguration(Issues issues) {
 		// TODO Auto-generated method stub
@@ -81,7 +81,7 @@ public class GuigenExtensionSetup extends AbstractWorkflowComponent {
 			log
 					.error("Impossibile registrare il plugin "
 							+ _pluginName
-							+ ": non è stata impostata la system property \"eclipse.home\"");
+							+ ": non ï¿½ stata impostata la system property \"eclipse.home\"");
 			throw new IllegalArgumentException("missing 'eclipse.home'");
 		}
 

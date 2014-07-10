@@ -39,7 +39,7 @@ public class «getScreenStatesClassName()» {
 	/**
 	 * Comando che pernmette di passare allo stato di default
 	 */
-	final static ScreenStateCommand DEFAULT_STATE_COMMAND = «getScreenStateInnerClassName(this.defaultState)».COMMAND;
+	static final ScreenStateCommand DEFAULT_STATE_COMMAND = «getScreenStateInnerClassName(this.defaultState)».COMMAND;
 	
 	/**
 	 * Restituisce il comando che pernmette di passare allo stato di default
@@ -78,7 +78,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * widget abilitati nello stato
      */
-    final static String[] WIDGETS_ON = new String[]{
+    static final String[] WIDGETS_ON = new String[]{
     «FOREACH this.widgetsOn AS currWidgOn SEPARATOR ","-»
     "«getFullID(currWidgOn, contextPrefix)»"
     «ENDFOREACH-»
@@ -87,7 +87,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * widget disabilitati nello stato
      */
-    final static String[] WIDGETS_OFF = new String[]{
+    static final String[] WIDGETS_OFF = new String[]{
     «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
     "«getFullID((Widget)currWidgOff,contextPrefix)»"
     «ENDFOREACH-»
@@ -96,7 +96,7 @@ public static class «getScreenStateInnerClassName(this)» {
 	/**
      * widget visibili nello stato
      */
-    final static String[] WIDGETS_SHOWN = new String[]{
+    static final String[] WIDGETS_SHOWN = new String[]{
     «FOREACH this.widgetsVisible AS currWidgVisible SEPARATOR ","-»
     "«getFullID(currWidgVisible, contextPrefix)»"
     «ENDFOREACH-»
@@ -105,7 +105,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * widget nascosti nello stato
      */
-    final static String[] WIDGETS_HIDDEN = new String[]{
+    static final String[] WIDGETS_HIDDEN = new String[]{
     «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
     "«getFullID((Widget)currWidgHidden, contextPrefix)»"
     «ENDFOREACH-»
@@ -114,7 +114,7 @@ public static class «getScreenStateInnerClassName(this)» {
     /**
      * Istanza del comando che permette di passare a questo stato
      */
-	final static ScreenStateCommand COMMAND = new ScreenStateCommand(
+	static final ScreenStateCommand COMMAND = new ScreenStateCommand(
 		"«name»", 
 		WIDGETS_ON,
 		WIDGETS_OFF,

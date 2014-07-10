@@ -143,9 +143,9 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 	///////////////////////////////////////////////////////////////////////////////
 	
 	«IF this.targetPlatform.securityProfile != null && this.targetPlatform.securityProfile.pepImpl.custom == true»
-	public final static String IRIDE_PEP_RESOURCE = "/META-INF/«getPEPProvideXMLPDName()»";
+	public static final String IRIDE_PEP_RESOURCE = "/META-INF/«getPEPProvideXMLPDName()»";
 	«ELSE»
-	public final static String IRIDE_PEP_RESOURCE = "/META-INF/iride2_pep_defPD_ejb.xml";
+	public static final String IRIDE_PEP_RESOURCE = "/META-INF/iride2_pep_defPD_ejb.xml";
 	«ENDIF»
 	
 	it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService iride = null;
@@ -200,7 +200,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		}
 	}
 	
-	public final static Application IRIDE2_APPLICATION = new Application("«getActualSecurityModel(this).securityAppID»");
+	public static final Application IRIDE2_APPLICATION = new Application("«getActualSecurityModel(this).securityAppID»");
 	
 	public boolean verifyCurrentUserForRole(Map session, String roleCode, String domainCode)
 			throws BEException {

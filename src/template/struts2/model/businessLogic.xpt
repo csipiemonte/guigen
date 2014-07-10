@@ -48,7 +48,7 @@ public class «getSpringBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
     «FOREACH (List[ApplicationData])getAllApplicationData(this) AS currAD»
     // ApplicationData: [«currAD.name», scope:«currAD.lifetimeExtent.toString()»]
-    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
+    public static final String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
     «ENDFOREACH» 
    
 
@@ -144,7 +144,7 @@ public class «getSpringCPBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
     «FOREACH this.appData AS currAD»
     // ApplicationData: [«currAD.name», scope:«currAD.lifetimeExtent.toString()»]
-    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
+    public static final String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
     «ENDFOREACH» 
    
 
@@ -153,7 +153,7 @@ public class «getSpringCPBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
 	
 	// nome del content panel associato al bean
-	public final static String CPNAME = "«name»"; 
+	public static final String CPNAME = "«name»"; 
 	
 	«EXPAND template::struts2::model::tabSetUtils::tabSetUtils(model) FOR this-»
 	

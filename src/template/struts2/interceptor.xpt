@@ -111,8 +111,8 @@ public class MethodProtectionInterceptor extends MethodFilterInterceptor {
 		}
 	}
 
-	final static String LOCK_ALL_MARKER = "__lockAllMethods";
-	final static String LOCK_SAME_MARKER_PREFIX = "__lockSameMethods_";
+	static final String LOCK_ALL_MARKER = "__lockAllMethods";
+	static final String LOCK_SAME_MARKER_PREFIX = "__lockSameMethods_";
 
 	protected String methodLockMarker(ActionInvocation invocation) {
 		return LOCK_SAME_MARKER_PREFIX + invocation.getProxy().getActionName()
@@ -255,19 +255,19 @@ public @interface MethodProtection {
 	 * Permette l'esecuzione contemporanea di qualsiasi metodo
 	 * @generated
 	 */
-	public final static String ALLOW_ALL = "ALLOW_ALL";
+	public static final String ALLOW_ALL = "ALLOW_ALL";
 	
 	/**
 	 * Permette l'esecuzione contemporanea di qualsiasi metodo tranne lo stesso metodo
 	 * @generated
 	 */
-	public final static String REJECT_SAME = "REJECT_SAME";
+	public static final String REJECT_SAME = "REJECT_SAME";
 	
 	/**
 	 * Non permette l'esecuzione contemporanea di nessun metodo
 	 * @generated
 	 */
-	public final static String REJECT_ALL = "REJECT_ALL";
+	public static final String REJECT_ALL = "REJECT_ALL";
 	
 	/**
 	 * il livello di protezione
