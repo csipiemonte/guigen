@@ -47,6 +47,8 @@ public class «getScreenStatesClassName()» {
 	public static ScreenStateCommand getDefaultState(){
 		return DEFAULT_STATE_COMMAND;
 	}
+	
+	
 «ENDIF»
 	
 «IF this.states!=null && !this.states.states.isEmpty»
@@ -63,13 +65,19 @@ public class «getScreenStatesClassName()» {
  * contenuti nel file JSON che contiene il comando ScreenStateCommand.
  * La classe e' pero' mantenuta per future evoluzioni. 
  */
-public static class «getScreenStateInnerClassName(this)» {
+public static final class «getScreenStateInnerClassName(this)» {
 
 «LET (ContentPanel)((ScreenStates)this.eContainer).eContainer AS cp»
 
 «EXPAND widgetSets(cp, model, "") FOR this»
 «ENDLET»
 
+	/**
+	 * Costruttore privato (questa e' una utility class)
+	 */
+	private «getScreenStateInnerClassName(this)»(){
+		// costruttore intenzionalmente vuoto
+	}
 } 
 «ENDDEFINE»
 
