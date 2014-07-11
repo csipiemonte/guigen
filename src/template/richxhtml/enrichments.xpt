@@ -269,7 +269,7 @@ function initUIStruct«name.toFirstUpper()»(){
 «IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
 	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
-	var addSuggestionsTo«name.toFirstUpper()» =  
+	var addSuggestionsTo«name.toFirstUpper()» =
 		function(){
 			uiNRichLib.addComboSuggestionNRich(
 				'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
@@ -331,7 +331,7 @@ function initUIStruct«name.toFirstUpper()»(){
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MapView-»
 	/// arricchimento per «this.metaType.name» [«name»]: mapView
-	var addMapTo«name.toFirstUpper()» = 
+	var addMapTo«name.toFirstUpper()» =
 		function(){
 			new ExtCsi.ui.maps.InitMap({
 				idHiddenField: 'hidden_field_«this.name»',
