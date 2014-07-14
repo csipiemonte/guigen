@@ -295,7 +295,7 @@ function initUIStruct«name.toFirstUpper()»(){
 				'',
 «ENDIF-»
 				«required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»);
-			}; 
+			};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
@@ -359,7 +359,7 @@ function initUIStruct«name.toFirstUpper()»(){
 «EXPAND MapViewGadgetConfig FOR this.gadgets»
 				}).init();
 									};
-	
+
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);
 «ENDDEFINE»
 
@@ -385,7 +385,7 @@ function initUIStruct«name.toFirstUpper()»(){
 «LET (MapView)eContainer AS mapview-»
 «IF this != null-»
 «IF mapview.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
-				,										
+				,			
 				// funzioni di editing
 				pointEditingActive: «jsLiteralValue(this.pointEditingActive)»,
 				lineEditingActive: «jsLiteralValue(this.lineEditingActive)»,
