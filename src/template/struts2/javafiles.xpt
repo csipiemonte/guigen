@@ -403,7 +403,7 @@ public class BeanMapping {
 			throws IntrospectionException, ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			InvocationTargetException, MappingException {
-		IdentityHashMap<Object, Object> instances = new IdentityHashMap<Object, Object>();
+		Map<Object, Object> instances = new IdentityHashMap<Object, Object>();
 
 		return convertInternal(instances, mappings, bean);
 	}
@@ -444,7 +444,7 @@ public class BeanMapping {
 	 */
 	@SuppressWarnings("unchecked")
 	private static void convertCollection(
-			IdentityHashMap<Object, Object> instances, Properties mappings,
+			Map<Object, Object> instances, Properties mappings,
 			Collection source, Collection destination)
 			throws IntrospectionException, ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
@@ -472,7 +472,7 @@ public class BeanMapping {
 	 */
 	@SuppressWarnings("unchecked")
 	private static Object convertInternal(
-			IdentityHashMap<Object, Object> instances, Properties mappings,
+			Map<Object, Object> instances, Properties mappings,
 			Object bean) throws IntrospectionException, ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			InvocationTargetException, MappingException {
@@ -751,7 +751,7 @@ public class BeanMapping {
 	 * @param destination
 	 */
 	@SuppressWarnings("unchecked")
-	private static void convertMap(IdentityHashMap<Object, Object> instances,
+	private static void convertMap(Map<Object, Object> instances,
 			Properties mappings, Map source, Map destination)
 			throws IntrospectionException, ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
