@@ -130,15 +130,15 @@ e le limitazioni secondo i termini della Licenza.
 
 
 «DEFINE property(String name, GUIModel model, String widgetValidation) FOR Type»
-	private «toJavaType(this, model)» «name»;
+	private «toJavaType(this, model)» «removeUnderscoreFromWidgPrefix(name)»;
 	
 	«widgetValidation»
 	public void set«name.toFirstUpper()»(«toJavaType(this, model)» value){
-		«name» = value;
+		«removeUnderscoreFromWidgPrefix(name)» = value;
 	}
 	
 	public «toJavaType(this, model)» get«name.toFirstUpper()»(){
-		return «name»;
+		return «removeUnderscoreFromWidgPrefix(name)»;
 	}
 «ENDDEFINE»
 

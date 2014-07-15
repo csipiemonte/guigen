@@ -955,6 +955,11 @@ String getTreeSelectionMultiplicity(TreeView t) :
 String getWidgetName(Widget w, String contextPrefix) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetName(it.csi.mddtools.guigen.Widget, java.lang.String);
 
+// pezz aper eliminare il "_" dal prefisso "widg_" (non si puo' eliminare da getWidgetName!)
+String removeUnderscoreFromWidgPrefix(String name) :
+	if (name.startsWith("widg_")) then 
+		"widg"+name.subString(5,name.length).toFirstUpper();
+
 String getFullID(Widget w, String contextPrefix) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getFullID(it.csi.mddtools.guigen.Widget, java.lang.String);
 
