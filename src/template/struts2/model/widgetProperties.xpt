@@ -150,55 +150,55 @@ e le limitazioni secondo i termini della Licenza.
 
 «DEFINE property(String name, GUIModel model, String widgetValidation) FOR FileUpload»
 	// FileUpload «name»
-	private File _«name»;               // The actual file
-	private String _«name»ContentType;  // The content type of the file 
-	private String _«name»FileName;     // The uploaded file name and path 
+	private File «name»;               // The actual file
+	private String «name»ContentType;  // The content type of the file 
+	private String «name»FileName;     // The uploaded file name and path 
 
 	public void set«name.toFirstUpper()»(File value) {
-		_«name» = value;
+		«name» = value;
 	}
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 	«ENDIF-»
 	public File get«name.toFirstUpper()»() {
 		«IF model.targetPlatform.enableFatClient-»
-		if(_«name» == null){
+		if(«name» == null){
 			String pathFile = (String) session.get("«name»_FileUpl");
 			if(pathFile != null){
-				_«name» = new File(pathFile);
+				«name» = new File(pathFile);
 			}
 		}
 		«ENDIF-»
-		return _«name»;
+		return «name»;
 	}
 
 	public void set«name.toFirstUpper()»ContentType(String value) {
-		_«name»ContentType = value;
+		«name»ContentType = value;
 	}
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 	«ENDIF-»
 	public String get«name.toFirstUpper()»ContentType() {
 		«IF model.targetPlatform.enableFatClient-»
-		if(_«name»ContentType == null){
+		if(«name»ContentType == null){
 			return (String) session .get("«name»ContentType");
 		}
 		«ENDIF-»
-		return _«name»ContentType;
+		return «name»ContentType;
 	}
 
 	public void set«name.toFirstUpper()»FileName(String value) {
-		_«name»FileName = value;
+		«name»FileName = value;
 	}
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 	«ENDIF-»
 	public String get«name.toFirstUpper()»FileName() {
 		«IF model.targetPlatform.enableFatClient-»
-		if(_«name»FileName == null){
+		if(«name»FileName == null){
 			return (String) session.get("«name»FileName");
 		}
 		«ENDIF-»
-		return _«name»FileName;
+		return «name»FileName;
 	}
 «ENDDEFINE»
