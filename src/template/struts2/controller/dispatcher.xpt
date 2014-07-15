@@ -452,13 +452,16 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 	private void init_FilterInitParameters() {
 		configurationManager.addContainerProvider(new ConfigurationProvider() {
 			public void destroy() {
+				// nothing to do
 			}
 
 			public void init(Configuration configuration)
 					throws ConfigurationException {
+				// nothing to do
 			}
 
 			public void loadPackages() throws ConfigurationException {
+				// nothing to do
 			}
 
 			public boolean needsReload() {
@@ -852,8 +855,9 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 	 * @see org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper
 	 * @throws java.io.IOException on any error.
 	 */
-	public HttpServletRequest wrapRequest(HttpServletRequest request,
+	public HttpServletRequest wrapRequest(HttpServletRequest pRequest,
 			ServletContext servletContext) throws IOException {
+		HttpServletRequest request = pRequest;
 		// don't wrap more than once
 		if (request instanceof StrutsRequestWrapper) {
 			return request;
@@ -1095,6 +1099,7 @@ public class «getMDDStrutsFilterClassName()» implements StrutsStatics, Filter 
      * Callback for post initialization
      */
     protected void postInit(Dispatcher dispatcher, FilterConfig filterConfig) {
+    		//nothing to do
     }
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {

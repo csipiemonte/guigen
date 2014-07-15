@@ -682,7 +682,7 @@ public class BeanMapping {
 				} else if (isInterface(ArrayList.class, valueClass)
 						&& valueDestinationClass.isArray()) {
 					List list = (ArrayList) valueObject;
-					if(list.size() > 0){
+					if(!list.isEmpty()){
 						Object[] destination = (Object[]) Array.newInstance(
 								valueDestinationClass.getComponentType(), list.size());
 	
@@ -852,7 +852,7 @@ public class BeanMapping {
 	@SuppressWarnings("unchecked")
 	private static Class resolveClass(Properties mappings, Class clazz)
 			throws ClassNotFoundException {
-		assert ((mappings != null) && (mappings.size() > 0));
+		assert ((mappings != null) && (!mappings.isEmpty()));
 		assert (clazz != null);
 
 		if (mappings.containsKey(clazz.getName())) {

@@ -384,11 +384,12 @@ public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedType
 
 	/**
 	 * reperisce il metodo di read nella classe
-	 * @param name
+	 * @param pName
 	 * @param cl
 	 * @throws IntrospectionException
 	 */
-	private Method findReadMethod(String name, Class cl) throws IntrospectionException {
+	private Method findReadMethod(String pName, Class cl) throws IntrospectionException {
+		String name = pName;
 		name = (name.startsWith("get") || name.startsWith("set") ? name
 				.substring(3) : name.startsWith("is")
 				? name.substring(2)
@@ -405,11 +406,12 @@ public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedType
 
 	/**
 	 * reperisce il metodo di write nella classe
-	 * @param name
+	 * @param pName
 	 * @param cl
 	 * @throws IntrospectionException
 	 */
-	private Method findWriteMethod(String name, Class cl) throws IntrospectionException {
+	private Method findWriteMethod(String pName, Class cl) throws IntrospectionException {
+		String name = pName;
 		name = (name.startsWith("get") || name.startsWith("set") ? name
 				.substring(3) : name.startsWith("is")
 				? name.substring(2)

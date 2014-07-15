@@ -272,11 +272,12 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
     
     /**
      * metodo di utilita' per effettuare introspection.
-     * @param name nome della property
+     * @param pName nome della property
      * @param cl classe in cui cercare
      */
-	protected java.lang.reflect.Method findReadMethod(String name, Class cl)
+	protected java.lang.reflect.Method findReadMethod(String pName, Class cl)
 			throws IntrospectionException {
+		String name = pName;	
 		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
 			:
 			name.startsWith("is")? name.substring(2) : name);
@@ -292,11 +293,12 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 
 	/**
      * metodo di utilita' per effettuare introspection.
-     * @param name nome della property
+     * @param pName nome della property
      * @param cl classe in cui cercare
      */
-	protected java.lang.reflect.Method findWriteMethod(String name, Class cl)
+	protected java.lang.reflect.Method findWriteMethod(String pName, Class cl)
 			throws IntrospectionException {
+		String name = pName;
 		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
 			:
 			name.startsWith("is")? name.substring(2) : name);
