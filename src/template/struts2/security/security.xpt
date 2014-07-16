@@ -945,8 +945,8 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	public static final String VALID_APP_SESSION_SESSIONATTR = "valid_app_session";
 
 	/**  */
-	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE		«noSonarTag("EIAS")»
-			+ ".security");																«noSonarTag("EIAS")»
+	protected static final Logger LOG = Logger.getLogger(Constants.APPLICATION_CODE
+			+ ".security");
 
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain fchn) throws IOException, ServletException{
@@ -954,7 +954,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 		String sessMark = (String)hreq.getSession().getAttribute(VALID_APP_SESSION_SESSIONATTR);
 		if (sessMark != null){
 			// sessione gia' valida: vai avanti
-			log.debug("[«getSessionGuardFilterClassName()»::doFilter] sessione applicativa valida. proseguo ");
+			LOG.debug("[«getSessionGuardFilterClassName()»::doFilter] sessione applicativa valida. proseguo ");
 			fchn.doFilter(req, resp);
 			return;
 		}
@@ -962,7 +962,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			// se la sessione non e' valida si discrimina in base alla pagina richiesta:
 			// HomePage, error &co o altra pagina?
 			if (isHomePage(hreq.getRequestURI())){
-				log.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta home page a sessione applicativa non valida: proseguo e imposto la validita'");
+				LOG.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta home page a sessione applicativa non valida: proseguo e imposto la validita'");
 				hreq.getSession().setAttribute(VALID_APP_SESSION_SESSIONATTR, VALID_APP_SESSION_SESSIONATTR);
 				fchn.doFilter(req, resp);
 				return;
@@ -974,7 +974,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 					return;
 			    }
 			    else{ 
-					log.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta pagina differente dalla home a sessione applicativa non valida: redirezione alla pagina di sessione scaduta");
+					LOG.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta pagina differente dalla home a sessione applicativa non valida: redirezione alla pagina di sessione scaduta");
 					/// REDIRECT....
 					HttpServletResponse hresp = (HttpServletResponse)resp;
 					hresp.sendRedirect(hreq.getContextPath() + "«getBaseNamespace(false)»/sessionExpired«getStrutsActionCompleteExtension()»");
@@ -1047,7 +1047,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsAbstractCPActionClassName()»::isWidgetDisabled] errore durante verifica->disable", ex);
+				LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetDisabled] errore durante verifica->disable", ex);
 				return true; // forzo la DISABILITAZIONE
 			}
 		}
@@ -1079,7 +1079,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsAbstractCPActionClassName()»::isWidgetVisible] errore durante verifica->hide", ex);
+				LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetVisible] errore durante verifica->hide", ex);
 				return false; // forzo l'invisibilita'
 			}
 		}

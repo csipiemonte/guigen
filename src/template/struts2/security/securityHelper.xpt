@@ -45,8 +45,8 @@ import «getBaseJavaPackage()».util.*;
 public class «getSpringSecurityHelperClassName()»{
 
     /**  */
-	protected static final Logger log =									«noSonarTag("EIAS")» 
-		Logger.getLogger(Constants.APPLICATION_CODE + ".security");     «noSonarTag("EIAS")»
+	protected static final Logger LOG =									
+		Logger.getLogger(Constants.APPLICATION_CODE + ".security");   
 
     //////////////////////////////////////////////////////////////////////////////
 	/// Metodi di supporto alla sicurezza.
@@ -90,7 +90,7 @@ public class «getSpringSecurityHelperClassName()»{
 			return true;
 		}
 		catch(Exception ex){
-			log.error("[SecurityHelper::customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
+			LOG.error("[SecurityHelper::customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
 			throw new BEException("Errore durante l'esecuzione del metodo customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»", ex);
 		}
 			«ENDPROTECT»
@@ -142,7 +142,7 @@ public class «getSpringSecurityHelperClassName()»{
 			return true;
 		}
 		catch(Exception ex){
-			log.error("[SecurityHelper::customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
+			LOG.error("[SecurityHelper::customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
 			throw new BEException("Errore durante l'esecuzione del metodo customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()»", ex);
 		}
 			«ENDPROTECT»

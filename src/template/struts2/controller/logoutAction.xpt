@@ -113,9 +113,9 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 	 * @return SSO_LOGOUT.
 	 */
 	public String ssoLogout() throws Exception {
-		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
+		LOG.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
 		invalidateLocalSession();
-		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] END");
+		LOG.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] END");
 		return "SSO_LOGOUT";
 	}
 
@@ -125,9 +125,9 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 	 * @return LOCAL_LOGOUT.
 	 */
 	public String localLogout() throws Exception {
-		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
+		LOG.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
 		invalidateLocalSession();
-		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] END");
+		LOG.debug("[«getStrutsLogoutClassName(this)»::localLogout] END");
 		return "LOCAL_LOGOUT";
 	}
 
@@ -177,7 +177,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 		    try {
 		        ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
 		    } catch (IllegalStateException e) { «noSonarTag("dubbia classificazione severity")»
-		        log.error("[«getStrutsLogoutClassName(this)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
+		        LOG.error("[«getStrutsLogoutClassName(this)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
 		    }
 		}
 	}
@@ -217,7 +217,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 		    try {
 		        ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
 		    } catch (IllegalStateException e) { «noSonarTag("dubbia classificazione severity")»
-		        log.error("[«getStrutsLogoutClassName(model)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
+		        LOG.error("[«getStrutsLogoutClassName(model)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
 		        // in caso di errore invalido almeno l'attributo di iride
 		        session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
 		    }

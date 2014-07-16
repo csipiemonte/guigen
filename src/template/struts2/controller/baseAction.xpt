@@ -90,8 +90,8 @@ import com.vividsolutions.jts.geom.*;
 public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSessionAwareDTO> extends ActionSupport implements SessionAware, Preparable {
 
 	/**  */
-	protected static final Logger log =								«noSonarTag("EIAS")» 
-	Logger.getLogger(Constants.APPLICATION_CODE + ".presentation"); «noSonarTag("EIAS")»
+	protected static final Logger LOG =	
+	Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
 
 	/** 
 	 * Riferimento alla sessione corrente
@@ -408,7 +408,7 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 				status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsBaseActionClassName(this)»::isMenuVisible] errore durante verifica->false", ex);
+				LOG.error("[«getStrutsBaseActionClassName(this)»::isMenuVisible] errore durante verifica->false", ex);
 				return false;
 			}
 		}
@@ -508,7 +508,7 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 				status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsBaseActionClassName(this)»::isMenuEnabled] errore durante verifica->false", ex);
+				LOG.error("[«getStrutsBaseActionClassName(this)»::isMenuEnabled] errore durante verifica->false", ex);
 				return false;
 			}
 		}
@@ -649,8 +649,8 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	protected String handleEventInternal(String moduleName, String panelName, String widgName, String eventName)
 			throws CommandExecutionException {
 		ICommand action = initCommand(moduleName, panelName, widgName, eventName);
-		if (log.isDebugEnabled()) {
-			log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model before");
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model before");
 			dumpModel(false);
 		}
 		
@@ -662,20 +662,20 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		doAfterEventCommand();
 
 		if (result != null) {
-			if (log.isDebugEnabled()) {
-				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
 				dumpModel(false);
-				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning result ["
+				LOG.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning result ["
 						+ result + "]");
 			}
 
 			return result;
 
 		} else {
-			if (log.isDebugEnabled()) {
-				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] dump model after");
 				dumpModel(false);
-				log.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning default result [SUCCESS]");
+				LOG.debug("["+getClass().getName()+"::handle"+widgName+"_"+eventName+"] returning default result [SUCCESS]");
 			}
 			return SUCCESS;
 
@@ -713,10 +713,10 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 				clearErrorsAndMessages();
 			}
 		} catch (SecurityException e) {
-			log.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
+			LOG.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
 					+ ", ignoro");
 		} catch (NoSuchMethodException e) {
-			log.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
+			LOG.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
 					+ ", ignoro");
 		}
 	}
@@ -935,6 +935,10 @@ import com.vividsolutions.jts.geom.*;
  */
 public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends BaseSessionAwareDTO> extends «getStrutsBaseActionClassName()»<T> {
 
+	/**
+	 * costante utilizzata dai metodi interni per inserire in sessione un comando di pulizia dati.
+	 * Il richiamo del comando viene effettuato nel metodo execute().
+	 */
 	protected static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
 	
 	
@@ -954,20 +958,50 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 	 */
 	public abstract String getCPFullNamespace();
 	
+	/**
+	 * nome dell'evento implicito che viene scatenato al refresh della schermata.
+	 */
 	protected static final String IMPLICIT_EVENT_ON_REFRESH = "ON_REFRESH";
+	
+	/**
+	 * nome dell'evento implicito che viene scatenato all'ingresso 
+	 * nella schermata.
+	 */
 	protected static final String IMPLICIT_EVENT_ON_ENTER = "ON_ENTER";
+	
+	/**
+	 * nome dell'evento implicito che viene scatenato al primo ingresso
+	 * nella schermata.
+	 */
 	protected static final String IMPLICIT_EVENT_ON_INIT = "ON_INIT";
+	
+	/**
+	 * nome dell'evento implicito che viene scatenato prima di ogni
+	 * evento esplicito avvenuto nella schermata.
+	 */
 	protected static final String IMPLICIT_EVENT_BEFORE_EVENTS = "BEFORE_EVENTS";
+	
+	/**
+	 * nome dell'evento implicito che viene scatenato dopo ogni
+	 * evento esplicito avvenuto nella schermata.
+	 */
 	protected static final String IMPLICIT_EVENT_AFTER_EVENTS = "AFTER_EVENTS";
 	
 	/**
 	 * Deve essere ridefinito in tutte le action associate a content panel.
-	 * @return true se l'evento implicito di nome <i>implicitEventName</i> e' previsto per la schermata
+	 * @return true se l'evento implicito di nome <i>implicitEventName</i> 
+	 * e' previsto per la schermata
 	 */
 	protected abstract boolean isImplicitEventDefined(String implicitEventName);
 	
-	
+	/**
+	 * elenco di tutti i constraint di visibilita' della schermata
+	 */
 	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
+	
+	/**
+	 * elenco di tutti i constraint di abilitazione della schermata
+	 */
 	protected Map<String, UISecConstraint> allOnOffConstraints = null;
 	
 	/**
@@ -975,8 +1009,9 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 	 */
 	protected void prepareSecurityConstraints(){if (allVisibilityConstraints == null)
 		allVisibilityConstraints = getPageVisibilityUIConstraints();
-	if (allOnOffConstraints == null)
-		allOnOffConstraints = getPageONOFFUIConstraints();
+		if (allOnOffConstraints == null){
+			allOnOffConstraints = getPageONOFFUIConstraints();
+		}
 	}
 	
 	/**
@@ -1079,10 +1114,11 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 	protected final ICommand initCommand(String moduleName, String panelName, String sourceWidget, String eventType) {
 		ICommand cmd = null;
 		try {
+			// carica la struttura di comandi dal file JSON corrispondente
 			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
 					moduleName, getCPName().toLowerCase(), sourceWidget+"_"+eventType);
 		} catch (CommandExecutionException cee) {
-			log.error(
+			LOG.error(
 					"Errore imprevisto nella creazione dei comandi:"
 							+ cee.getMessage() + ", restituisco NOPCommand",
 					cee);
@@ -1110,11 +1146,11 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 	
 	/**  */
 	protected void dumpModel(boolean pre) {
-		log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] START");
+		LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] START");
 			
 		
-		log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] #### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
-		log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] [a] campi pubblici del model");
+		LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] #### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
+		LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] [a] campi pubblici del model");
 		try {
 			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
 			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
@@ -1123,25 +1159,25 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 				java.lang.reflect.Method m = pd.getReadMethod();
 				if (m != null) {
 					Object pval = m.invoke(this, new Object[]{});
-					log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] "+pd.getName() + ":" + pval);
+					LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] "+pd.getName() + ":" + pval);
 				}
 			}
 		}
 		catch (IllegalAccessException e) {
-			log.error("[«getStrutsAbstractCPActionClassName()»::dumpmodel] Errore nel dump" + e
+			LOG.error("[«getStrutsAbstractCPActionClassName()»::dumpmodel] Errore nel dump" + e
 					+ ", ignoro", e);
 		} catch (InvocationTargetException e) {
-			log.error("[«getStrutsAbstractCPActionClassName()»::dumpmodel] Errore nel dump" + e
+			LOG.error("[«getStrutsAbstractCPActionClassName()»::dumpmodel] Errore nel dump" + e
 					+ ", ignoro", e);
 		} catch (IntrospectionException e) {
-			log.error("[«getStrutsAbstractCPActionClassName()»::dumpmodel] Errore nel dump" + e
+			LOG.error("[«getStrutsAbstractCPActionClassName()»::dumpmodel] Errore nel dump" + e
 					+ ", ignoro", e);
 		}
-		log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] [b] stato dei widget");
+		LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] [b] stato dei widget");
 		Object cpWidgetStatus = session.get(getCPName());
-		log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] "+cpWidgetStatus);
-		log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] [c] sessione");
-		log.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] "+session);
+		LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] "+cpWidgetStatus);
+		LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] [c] sessione");
+		LOG.debug("[«getStrutsAbstractCPActionClassName()»::dumpmodel] "+session);
 	}
 }
 «ENDFILE»

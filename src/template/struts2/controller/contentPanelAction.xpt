@@ -49,7 +49,6 @@ import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.validator.annotations.*;
 import com.opensymphony.xwork2.conversion.annotations.*;
 import com.opensymphony.xwork2.ActionContext;
-import org.apache.log4j.Logger;
 
 import it.csi.«model.codProdotto».«model.codComponente».util.*;
 import «getDTOBaseJavaPackage(model)».*;
@@ -96,8 +95,7 @@ import flexjson.JSON;
 public class «getStrutsActionClassName(this)» 
 extends «getStrutsAbstractCPActionClassName(model)» <«getModelDTOClassName(this,false,false,model)»> 
 implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model)»>{
-	
-	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE); 
+ 
 	
 	/**
 	 * Il modello del content panel.
@@ -343,7 +341,7 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			// risposta
 			return "provideData";
 		} catch (Exception e) {
-			log.error("[MappaAction::refreshMapSingleService]", e);
+			LOG.error("[MappaAction::refreshMapSingleService]", e);
 			BaseMapResponse res = new BaseMapResponse();
 			res.setErrorMsg("Errore nel recupero dei dati");
 			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
@@ -370,10 +368,10 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			
 
 		} catch (Exception e) {
-			log.error("[MappaAction::refreshMapStatus]", e);
+			LOG.error("[MappaAction::refreshMapStatus]", e);
 			throw e;
 		} finally {
-			log.debug("[MappaAction::refreshMapStatus] END");
+			LOG.debug("[MappaAction::refreshMapStatus] END");
 		}
 	}
 	
@@ -410,7 +408,7 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			// risposta
 			return "provideData";
 		} catch (Exception e) {
-			log.error("[MappaAction::calcolaStartEnvelope«map.mapId.toFirstUpper()»]", e);
+			LOG.error("[MappaAction::calcolaStartEnvelope«map.mapId.toFirstUpper()»]", e);
 			// RispostaObjDto res=new RispostaObjDto();
 			BaseMapResponse res = new BaseMapResponse();
 			res.setErrorMsg("Errore nel calcolo dell'estensione iniziale");
@@ -452,7 +450,7 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			// risposta
 			return "provideData";
 		} catch (Exception e) {
-			log.error("[MappaAction::calcolaMaxEnvelope«map.mapId.toFirstUpper()»]", e);
+			LOG.error("[MappaAction::calcolaMaxEnvelope«map.mapId.toFirstUpper()»]", e);
 			BaseMapResponse res = new BaseMapResponse();
 			res.setErrorMsg("Errore nel calcolo dell'estensione iniziale");
 			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
@@ -721,7 +719,7 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			// risposta
 			return "provideHtml";
 		} catch (java.io.UnsupportedEncodingException e) {			
-			log.error("Si e' verificato un errore:", e);
+			LOG.error("Si e' verificato un errore:", e);
 			throw new CommandExecutionException("errore provide Data", e);
 		}
 	}
@@ -739,7 +737,7 @@ implements Preparable, ModelDriven<«getModelDTOClassName(this,false,false,model
 			// risposta
 			return "provideData";
 		} catch (java.io.UnsupportedEncodingException e) {
-			log.error("Si e' verificato un errore:", e)
+			LOG.error("Si e' verificato un errore:", e)
 			throw new CommandExecutionException("errore provide Data", e);
 		}
 	}

@@ -319,8 +319,8 @@ import «getBaseJavaPackage(this)».util.*;
  */
 public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedTypeValidatorClassImpl(validatorName)» {
 
-	protected static final Logger log =												«noSonarTag("EIAS")»
-		Logger.getLogger(Constants.APPLICATION_CODE + ".presentation.validator");   «noSonarTag("EIAS")»
+	protected static final Logger LOG = 
+		Logger.getLogger(Constants.APPLICATION_CODE + ".presentation.validator");
 
 	/**
 	 * validazione effettiva
@@ -348,7 +348,7 @@ public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedType
 				return;
 			}
 		} catch (Exception e) {
-			log.error("[«validatorName.toFirstUpper()»::validate] Errore nel reperimento o invocazione del metodo getValue, classe:" + object.getClass().getName() + ": " + e, e);
+			LOG.error("[«validatorName.toFirstUpper()»::validate] Errore nel reperimento o invocazione del metodo getValue, classe:" + object.getClass().getName() + ": " + e, e);
 			throw new ValidationException("Errore nel reperimento o invocazione del metodo getValue, classe:"+ fieldObj.getClass().getName() + ": " + e);
 		}
 		

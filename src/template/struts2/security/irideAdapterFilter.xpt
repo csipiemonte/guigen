@@ -64,8 +64,8 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 	«ENDLET-»
 	
 	/**  */
-	protected static final Logger log =								«noSonarTag("EIAS")» 
-		Logger.getLogger(Constants.APPLICATION_CODE + ".security"); «noSonarTag("EIAS")»
+	protected static final Logger LOG =								
+		Logger.getLogger(Constants.APPLICATION_CODE + ".security"); 
 	
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain fchn) throws IOException, ServletException {
@@ -75,7 +75,7 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 			if (marker!=null){
 				try {
 					Identita identita = new Identita(normalizeToken(marker));
-					log.debug("[IrideIdAdapterFilter::doFilter] Inserito in sessione marcatore IRIDE:"+identita);
+					LOG.debug("[IrideIdAdapterFilter::doFilter] Inserito in sessione marcatore IRIDE:"+identita);
 					hreq.getSession().setAttribute(IRIDE_ID_SESSIONATTR, identita);
 					«LET ((List[Type])getAllTypes((GUIModel)model)).selectFirst(t | t.name=="UserInfo") AS userInfoType-»
 					«toJavaType(userInfoType, model)» userInfo = new «toJavaType(userInfoType, model)»();
@@ -88,14 +88,14 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 					userInfo.setIdIride(identita.toString());
 					hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
 				} catch (MalformedIdTokenException e) {
-					log.error("[IrideIdAdapterFilter::doFilter] "+e.toString(),e);
+					LOG.error("[IrideIdAdapterFilter::doFilter] "+e.toString(),e);
 				}
 			}
 			else {
 				// STDMDD-325: il marcatore deve sempre essere presente altrimenti e' una 
 				// condizione di errore (escluse le pagine home e di servizio)
 				if (mustCheckPage(hreq.getRequestURI())){
-					log.error("[IrideIdAdapterFilter::doFilter] Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+					LOG.error("[IrideIdAdapterFilter::doFilter] Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
 					throw new ServletException("Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
 				}
 			}

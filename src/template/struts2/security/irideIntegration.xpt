@@ -160,12 +160,12 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 					return this.iride;
 				} 
 				catch (Exception e) {
-					log.error("[SecurityHelper::getIridePEP] errore nella parsificazione della configurazione di IRIDE2:"+e,e);
+					LOG.error("[SecurityHelper::getIridePEP] errore nella parsificazione della configurazione di IRIDE2:"+e,e);
 					throw new IllegalArgumentException("errore nella parsificazione della configurazione di IRIDE2");
 				}
 			}
 			else 
-				log.error("[SecurityHelper::getIridePEP] configurazione di IRIDE2 non trovata");
+				LOG.error("[SecurityHelper::getIridePEP] configurazione di IRIDE2 non trovata");
 				throw new IllegalArgumentException("configurazione di IRIDE2 non trovata");
 		} 
 		else
@@ -179,7 +179,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 	{
 		Identita id = (Identita)session.get(IRIDE_ID_SESSIONATTR);
 		if (id == null){
-			log.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
+			LOG.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
 			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
 		}
 		else{
@@ -192,7 +192,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 	{
 		«toJavaType(currentUserAD.type, this)» userInfo = («toJavaType(currentUserAD.type, this)»)session.get("«getAppDataKey(currentUserAD)»");
 		if (userInfo == null){
-			log.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
+			LOG.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
 			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
 		}
 		else{
@@ -213,40 +213,40 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			return getIridePEP().isPersonaInRuolo(
 					getCurrentUser(session), rol);
 		} catch (InternalException e) {
-			log
+			LOG
 					.error(
 							"[SecurityHelper::verifyCurrentUserForRole] Errore interno in verifyCurrentUserForUC:"
 									+ e, e);
 			throw new BEException("Errore interno in verifyCurrentUserForRole:"
 					+ e, e);
 		} catch (IdentitaNonAutenticaException e) {
-			log
+			LOG
 					.error("[SecurityHelper::verifyCurrentUserForRole] identita' non autentica ["
 							+ currentUser + "]," + e);
 			throw new BEException(
 					"verifyCurrentUserForRole: identita' non autentica ["
 							+ currentUser + "]," + e, e);
 		} catch (BadRuoloException e) {
-			log.error("[SecurityHelper::verifyCurrentUserForRole] ruolo ["
+			LOG.error("[SecurityHelper::verifyCurrentUserForRole] ruolo ["
 					+ rol + "] non valido" + e);
 			throw new BEException("verifyCurrentUserForRole: ruolo [" + rol
 					+ "] non valido" + e, e);
 		} catch (UnrecoverableException e) {
-			log
+			LOG
 					.error(
 							"[SecurityHelper::verifyCurrentUserForRole] Errore non recuperabile in verifyCurrentUserForUC:"
 									+ e, e);
 			throw new BEException(
 					"Errore non recuperabile in verifyCurrentUserForRole:" + e, e);
 		} catch (SystemException e) {
-			log
+			LOG
 					.error(
 							"[SecurityHelper::verifyCurrentUserForRole] Errore di sistema in verifyCurrentUserForUC:"
 									+ e, e);
 			throw new BEException(
 					"Errore di sistema in verifyCurrentUserForRole:" + e, e);
 		} catch (Exception e) {
-			log
+			LOG
 					.error(
 							"[SecurityHelper::verifyCurrentUserForRole] Errore interno in verifyCurrentUserForUC:"
 									+ e, e);
@@ -307,26 +307,26 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 				return authorized;
 			}
 		} catch (InternalException e) {
-			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
+			LOG.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		} catch (IdentitaNonAutenticaException e) {
-			log.error("[SecurityHelper::verifyCurrentUserForUC] identita' non autentica ["+currentUser+"],"+e);
+			LOG.error("[SecurityHelper::verifyCurrentUserForUC] identita' non autentica ["+currentUser+"],"+e);
 			throw new BEException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e, e);
 		} catch (NoSuchUseCaseException e) {
-			log.error("[SecurityHelper::verifyCurrentUserForUC] use case ["+uc+"] non valido"+e);
+			LOG.error("[SecurityHelper::verifyCurrentUserForUC] use case ["+uc+"] non valido"+e);
 			throw new BEException("verifyCurrentUserForUC: use case ["+uc+"] non valido"+e, e);
 		} catch (NoSuchApplicationException e) {
-			log.error("[SecurityHelper::verifyCurrentUserForUC] applicazione "+IRIDE2_APPLICATION+" non valida"+e);
+			LOG.error("[SecurityHelper::verifyCurrentUserForUC] applicazione "+IRIDE2_APPLICATION+" non valida"+e);
 			throw new BEException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e, e);
 		} catch (UnrecoverableException e) {
-			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
+			LOG.error("[SecurityHelper::verifyCurrentUserForUC] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore non recuperabile in verifyCurrentUserForUC:"+e, e);
 		} catch (SystemException e) {
-			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore di sistema in verifyCurrentUserForUC:"+e,e);
+			LOG.error("[SecurityHelper::verifyCurrentUserForUC] Errore di sistema in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore di sistema in verifyCurrentUserForUC:"+e, e);
 		}
 		catch(Exception e){
-			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
+			LOG.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		}
 	}
@@ -352,23 +352,23 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			else
 				return false;
 		} catch (InternalException e) {
-			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e);
+			LOG.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e);
 			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		} catch (IdentitaNonAutenticaException e) {
-			log.error("[SecurityHelper::verifyCurentUserForActor] identita' non autentica ["+currentUser+"],"+e,e);
+			LOG.error("[SecurityHelper::verifyCurentUserForActor] identita' non autentica ["+currentUser+"],"+e,e);
 			throw new BEException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e, e);
 		} catch (NoSuchApplicationException e) {
-			log.error("[SecurityHelper::verifyCurentUserForActor] applicazione "+IRIDE2_APPLICATION+" non valida"+e,e);
+			LOG.error("[SecurityHelper::verifyCurentUserForActor] applicazione "+IRIDE2_APPLICATION+" non valida"+e,e);
 			throw new BEException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e, e);
 		} catch (UnrecoverableException e) {
-			log.error("[SecurityHelper::verifyCurentUserForActor] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
+			LOG.error("[SecurityHelper::verifyCurentUserForActor] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore non recuperabile in verifyCurrentUserForUC:"+e, e);
 		} catch (SystemException e) {
-			log.error("[SecurityHelper::verifyCurentUserForActor] Errore di sistema in verifyCurrentUserForUC:"+e,e);
+			LOG.error("[SecurityHelper::verifyCurentUserForActor] Errore di sistema in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore di sistema in verifyCurrentUserForUC:"+e, e);
 		}
 		catch(Exception e){
-			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e,e);
+			LOG.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		}
 	}

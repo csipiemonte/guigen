@@ -215,7 +215,7 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
 					null, "global", ""+"_"+"APP_INIT");
 		} catch (CommandExecutionException cee) {
-			log.error(
+			LOG.error(
 					"Errore imprevisto nella creazione dei comandi:"
 							+ cee.getMessage() + ", restituisco NOPCommand",
 					cee);
@@ -239,7 +239,7 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 						getCPNamespace().toLowerCase(),
 						getCPName().toLowerCase(), "" + "_" + "ON_REFRESH");
 			} catch (CommandExecutionException cee) {
-				log.error("Errore imprevisto nella creazione dei comandi:"
+				LOG.error("Errore imprevisto nella creazione dei comandi:"
 						+ cee.getMessage() + ", restituisco NOPCommand", cee);
 				cmd = new NOPCommand();
 			}
@@ -263,7 +263,7 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 						getCPNamespace().toLowerCase(),
 						getCPName().toLowerCase(), "" + "_" + "ON_INIT");
 			} catch (CommandExecutionException cee) {
-				log.error("Errore imprevisto nella creazione dei comandi:"
+				LOG.error("Errore imprevisto nella creazione dei comandi:"
 						+ cee.getMessage() + ", restituisco NOPCommand", cee);
 				cmd = new NOPCommand();
 			}
@@ -289,7 +289,7 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 						getCPNamespace().toLowerCase(),
 						getCPName().toLowerCase(), "" + "_" + "ON_ENTER");
 			} catch (CommandExecutionException cee) {
-				log.error("Errore imprevisto nella creazione dei comandi:"
+				LOG.error("Errore imprevisto nella creazione dei comandi:"
 						+ cee.getMessage() + ", restituisco NOPCommand", cee);
 				cmd = new NOPCommand();
 			}
@@ -316,7 +316,7 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 						getCPNamespace().toLowerCase(),
 						getCPName().toLowerCase(), "" + "_" + "BEFORE_EVENTS");
 			} catch (CommandExecutionException cee) {
-				log.error("Errore imprevisto nella creazione dei comandi:"
+				LOG.error("Errore imprevisto nella creazione dei comandi:"
 						+ cee.getMessage() + ", restituisco NOPCommand", cee);
 				cmd = new NOPCommand();
 			}
@@ -342,7 +342,7 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 						getCPNamespace().toLowerCase(),
 						getCPName().toLowerCase(), "" + "_" + "AFTER_EVENTS");
 			} catch (CommandExecutionException cee) {
-				log.error("Errore imprevisto nella creazione dei comandi:"
+				LOG.error("Errore imprevisto nella creazione dei comandi:"
 						+ cee.getMessage() + ", restituisco NOPCommand", cee);
 				cmd = new NOPCommand();
 			}
@@ -367,7 +367,7 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 			cmd = CommandFactory.getInstance().buildCmdStructure_internal(
 					null, "global", "_"+sourceWidget.toLowerCase()+"_"+"CLICKED");
 		} catch (CommandExecutionException cee) {
-			log.error(
+			LOG.error(
 					"Errore imprevisto nella creazione dei comandi:"
 							+ cee.getMessage() + ", restituisco NOPCommand",
 					cee);
@@ -755,7 +755,7 @@ String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButt
 			cmd = CommandFactory.getInstance().buildCmdStructure_internal("«enclosingAppModule.name.toLowerCase()»", getCPName().toLowerCase(), "«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»");
 		}
 		catch(CommandExecutionException cee){
-			log.error("Errore imprevisto nella creazione dei comandi:"+cee.getMessage()+", restituisco NOPCommand", cee);
+			LOG.error("Errore imprevisto nella creazione dei comandi:"+cee.getMessage()+", restituisco NOPCommand", cee);
 			cmd = new NOPCommand();
 		}
 		return cmd;

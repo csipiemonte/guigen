@@ -1914,7 +1914,7 @@ public class DTOUtils {
 	 * @param o2
 	 */
 	public boolean deepEquals(Object o1, Object o2){
-		if ((o1==null || o2==null) && (o1!=null || o2!=null)){
+		if ((o1==null) != (o2==null)){
 			// se uno solo dei due oggetti e' nullo allora non 
 			// possono essere uguali
 			return false;
@@ -1927,10 +1927,7 @@ public class DTOUtils {
 			return false;
 		// else: stesso tipo e nessuno dei due nullo
 		}
-		else if (o1 instanceof Integer || o1 instanceof Long
-				|| o1 instanceof Float || o1 instanceof Double
-				|| o1 instanceof String || o1 instanceof Byte 
-				|| o1 instanceof Boolean) {
+		else if (isSimpleType(o1)) {
 			// se sono tipi semplici utilizzo la funzione equals prevista
 			// per quei tipi
 			return o1.equals(o2);
@@ -1939,6 +1936,19 @@ public class DTOUtils {
 			// se sono oggetti complessi effettuo la verifica specifica
 			return deepEqualsBean(o1, o2);
 		}
+	}
+	
+	
+	/**
+	 * @param o l'oggetto di cui serve testare il tipo
+	 * @return true se l'oggetto in input e' un tipo smeplice
+	 * (Integer|Long|Float|Dlouble|String|Byte|Boolean)
+	 */
+	private boolean isSimpleType(Object o) {
+		return o instanceof Integer || o instanceof Long
+				|| o instanceof Float || o instanceof Double
+				|| o instanceof String || o instanceof Byte 
+				|| o instanceof Boolean;
 	}
 	
 	/**
@@ -1957,10 +1967,27 @@ public class DTOUtils {
 		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
 		for (int i = 0; i < pds.length; i++) {
 			PropertyDescriptor currPD = pds[i];
-			// ottengo il metodo di lettura della property corrente dai metadati
-			Method getter = currPD.getReadMethod();
+			if (!deepEqualsPropertyVal(currPD, o1, o2))
+				return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * verifica se il valore di una property e' identico per due oggetti
+	 * @param pd il property descriptor della property in questione (o1 e o2
+	 * devono essere della stessa classe e pd deve essere un valiudo property 
+	 * descriptor di quella classe.
+	 * @param o1
+	 * @param o2
+	 * @return true se il valore e' identico o se la property e' read-only 
+	 * (logica mantenuta da versione precedente)  
+	 */
+	private boolean deepEqualsPropertyVal(PropertyDescriptor pd, Object o1, Object o2) {
+	// ottengo il metodo di lettura della property corrente dai metadati
+			Method getter = pd.getReadMethod();
 			// ottengo il metodo di scrittura della property corrente dai metadati
-			Method setter = currPD.getWriteMethod();
+			Method setter = pd.getWriteMethod();
 			if (getter != null && setter != null){
 				// se la property non e' read only..
 				try {
@@ -1969,8 +1996,7 @@ public class DTOUtils {
 					// valore della property nell'oggetto 2
 					Object v2 = getter.invoke(o2, new Object[]{});
 					// richiamo ricorsivamente la verifica sui due valori
-					if (!deepEquals(v1, v2))
-						return false; // basta uno diverso => false
+					return deepEquals(v1, v2);
 				} 
 				catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
 					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
@@ -1979,8 +2005,9 @@ public class DTOUtils {
 					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
 				}
 			}
-		}
-		return true;
+			else{
+				return true; // le property read only vengono ignorate nel computo => true fittizio
+			}
 	}
 	
 	/**
@@ -2015,54 +2042,6 @@ public class DTOUtils {
 		}
 	}
 	
-		/**
-	 * 
-	 * @param lista
-	 *            di oggetti in cui effettuare la ricerca
-	 * @param lista
-	 *            delle chiavi usate per individuare gli elementi
-	 * @param nome
-	 *            del campo che rappresenta la chiave
-	 * @return l'array degli oggetti corrispondenti alle chiavi. Se non c'e'
-	 *         nessuna corrispondenza viene restituito un array vuoto.
-	 */
-	public static List findElementInListById(List lista,
-			List listaKeys, String nomeCampoKey) {
-		List res = new ArrayList();
-		if (listaKeys == null || listaKeys.isEmpty())
-			return res; // no keys => no results
-		else if (lista == null || lista.isEmpty())
-			return res; // no elements => no results
-		else if (nomeCampoKey == null || nomeCampoKey.length() == 0)
-			throw new IllegalArgumentException("nomeCampoKey is null or empty");
-		else {
-			String propMethodName = "get"+(nomeCampoKey.substring(0,1).toUpperCase())+nomeCampoKey.substring(1);
-			for (Object elemento : lista) {
-				Class classe = elemento.getClass();
-				try {
-					Method getCodice = classe.getMethod(propMethodName,
-							null);
-					Object codice = getCodice.invoke(elemento, new Object[] {});
-					if (listaKeys != null && listaKeys.contains(codice)) {
-						res.add(elemento);
-					}
-				} catch (NoSuchMethodException e) { «noSonarTag("dubbia classificazione severity")»
-					throw new IllegalArgumentException(
-							"Il metodo richiesto non è stato trovato, controlla il nome del campo Key inserito: "
-									+ nomeCampoKey + e);
-				} catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
-					throw new IllegalArgumentException(
-							"errore in lettura campi di " + elemento.getClass()
-									+ ":" + e);
-				} catch (InvocationTargetException e) { «noSonarTag("dubbia classificazione severity")»
-					throw new IllegalArgumentException(
-							"errore in lettura campi di " + elemento.getClass()
-									+ ":" + e);
-				}
-			}
-		}
-		return res;
-	}
 	
 	/**
 	 * Effettua un clone ricorsivo delle strutture dati in input.

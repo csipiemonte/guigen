@@ -79,7 +79,7 @@ import org.apache.log4j.Logger;
  */
 public class WhereAreYouFromRequestAdapterFilter implements Filter {
 
-	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation"); «noSonarTag("EIAS")»
+	protected static final Logger LOG = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
 
 
 	private String infoSourceType;
@@ -119,7 +119,7 @@ public class WhereAreYouFromRequestAdapterFilter implements Filter {
 				portal = getResolver().resolve(infoSourceName, hreq);
 			} catch (Exception e) {
 				// resolver non trovato secondo la configurazione: ERRORE
-				log.error("[WhereAreYouFromRequestAdapterFilter::doFilter] Type resolver sconosciuto. infoSourceType:" +
+				LOG.error("[WhereAreYouFromRequestAdapterFilter::doFilter] Type resolver sconosciuto. infoSourceType:" +
 						infoSourceType);
 				hresp.sendRedirect(MultiPortalUtil.NAMESPACE + MultiPortalUtil.ERROR_ACTION);
 				return;
@@ -127,7 +127,7 @@ public class WhereAreYouFromRequestAdapterFilter implements Filter {
 
 			if (StringUtils.isBlank(portal)) {
 				// informazione non trovata secondo il metodo indicato: ERRORE
-				log.error("[WhereAreYouFromRequestAdapterFilter::doFilter] Informazione sul portale non reperibile. infoSourceType:" +
+				LOG.error("[WhereAreYouFromRequestAdapterFilter::doFilter] Informazione sul portale non reperibile. infoSourceType:" +
 						infoSourceType + " infoSourceName:" + infoSourceName);
 				hresp.sendRedirect(MultiPortalUtil.NAMESPACE + MultiPortalUtil.ERROR_ACTION);
 				return;
@@ -139,11 +139,11 @@ public class WhereAreYouFromRequestAdapterFilter implements Filter {
 			if (decodedPortal != null) {
 				// setto l'informazione in request in modo che il filtro WhereAreYouFromFilter possa leggerlo
 				hreq.setAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE, decodedPortal);
-				log.info("[WhereAreYouFromRequestAdapterFilter::doFilter] Portale decodificato : " + decodedPortal);
+				LOG.info("[WhereAreYouFromRequestAdapterFilter::doFilter] Portale decodificato : " + decodedPortal);
 				fchn.doFilter(req, resp);
 				return;
 			} else {
-				log.error("[WhereAreYouFromRequestAdapterFilter::doFilter] informazione non decodificabile " + portal);
+				LOG.error("[WhereAreYouFromRequestAdapterFilter::doFilter] informazione non decodificabile " + portal);
 				hresp.sendRedirect(MultiPortalUtil.NAMESPACE + MultiPortalUtil.ERROR_ACTION);
 				return;
 			}
@@ -218,8 +218,8 @@ import org.apache.log4j.Logger;
  */
 public class WhereAreYouFromFilter implements Filter {
 
-	protected static final Logger log =									«noSonarTag("EIAS")» 
-		Logger.getLogger(Constants.APPLICATION_CODE + ".presentation"); «noSonarTag("EIAS")»
+	protected static final Logger LOG =									
+		Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
 
 
 	public void doFilter(ServletRequest req, ServletResponse resp,
@@ -236,7 +236,7 @@ public class WhereAreYouFromFilter implements Filter {
 
 		// il cookie di portale MDD esiste?
 		if (!MultiPortalUtil.isSetCookie(MultiPortalUtil.MDD_PORTAL_COOKIE_NAME, hreq.getCookies())) {
-			log.info("[WhereAreYouFromFilter::doFilter] COOKIE DI PORTALE NON SETTATO => DEVO SETTARLO");
+			LOG.info("[WhereAreYouFromFilter::doFilter] COOKIE DI PORTALE NON SETTATO => DEVO SETTARLO");
 
 			if (hreq.getAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE) != null) {
 				String decodedPortal = (String)hreq.getAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE);
@@ -251,7 +251,7 @@ public class WhereAreYouFromFilter implements Filter {
 				
 				// i parametri di sessione sono settati?
 				if (hreq.getSession().getAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR) == null) {
-					log.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
+					LOG.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
 					
 					hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR, decodedPortal);
 					
@@ -266,14 +266,14 @@ public class WhereAreYouFromFilter implements Filter {
 				return;
 			} else {
 				// NO parametro: ERRORE
-				log.error("[WhereAreYouFromFilter::doFilter] ERRORE: REQUEST ATTRIBUTE " + MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE + " MANCANTE");
+				LOG.error("[WhereAreYouFromFilter::doFilter] ERRORE: REQUEST ATTRIBUTE " + MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE + " MANCANTE");
 				hresp.sendRedirect(MultiPortalUtil.NAMESPACE + MultiPortalUtil.ERROR_ACTION);
 				return;
 			}
 		} else {
 			// il cookie esiste: i parametri in sessione sono settati ?
 			if (hreq.getSession().getAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR) == null) {
-				log.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
+				LOG.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
 			
 				String portalName = MultiPortalUtil.getResourceProvider(hreq.getCookies());
 				hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR, portalName);
