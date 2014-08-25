@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,143 +13,143 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::fatjs::FatJSExtensions»
-
-
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::fatjs::FatJSExtensionsÂ»
 
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR Panel»
-«ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR FormPanel»
+
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR PanelÂ»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR FormPanelÂ»
 			new ExtCsi.ui.panels.FormPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					collapsible: «jsLiteralValue(this.collapsible)»,
-					subpanels: [«EXPAND panelStruct(model, cp) FOREACH subpanels SEPARATOR ","»]
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					collapsible: Â«jsLiteralValue(this.collapsible)Â»,
+					subpanels: [Â«EXPAND panelStruct(model, cp) FOREACH subpanels SEPARATOR ","Â»]
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WidgetsPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WidgetsPanelÂ»
 			new ExtCsi.ui.panels.WidgetsPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					collapsible: «jsLiteralValue(this.collapsible)»,
-					widgets: [«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","»]
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					collapsible: Â«jsLiteralValue(this.collapsible)Â»,
+					widgets: [Â«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","Â»]
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR CommandPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR CommandPanelÂ»
 			new ExtCsi.ui.panels.CommandPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					widgets: [«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","»]
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					widgets: [Â«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","Â»]
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MultiPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MultiPanelÂ»
 			new ExtCsi.ui.panels.MultiPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					panels: [Â«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","Â»]
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR StdMessagePanelÂ»
 			new ExtCsi.ui.panels.StdMessagePanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					showGlobalMessages: «this.showGlobalMessages»,
-					showFieldErrorDetails: «this.showFieldErrorDetails»,
-					showFieldErrors: «this.showFieldErrors»
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					showGlobalMessages: Â«this.showGlobalMessagesÂ»,
+					showFieldErrorDetails: Â«this.showFieldErrorDetailsÂ»,
+					showFieldErrors: Â«this.showFieldErrorsÂ»
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MsgBoxPanelÂ»
 			new ExtCsi.ui.panels.MsgBoxPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					messageSeverity: '«this.messageSeverity»',
-					textMessages: [«EXPAND widgets::widgetStruct(model, cp) FOREACH textMessages SEPARATOR ","»]
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					messageSeverity: 'Â«this.messageSeverityÂ»',
+					textMessages: [Â«EXPAND widgets::widgetStruct(model, cp) FOREACH textMessages SEPARATOR ","Â»]
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR DialogPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR DialogPanelÂ»
 			new ExtCsi.ui.panels.DialogPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					msgBoxes: [«EXPAND panelStruct(model, cp) FOREACH msgBoxes SEPARATOR ","»],
-					commands: «EXPAND panelStruct(model, cp) FOR commands»
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					msgBoxes: [Â«EXPAND panelStruct(model, cp) FOREACH msgBoxes SEPARATOR ","Â»],
+					commands: Â«EXPAND panelStruct(model, cp) FOR commandsÂ»
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanelÂ»
 			new ExtCsi.ui.panels.TabSetPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					switcher: «IF switcher != null»«EXPAND widgets::widgetStruct(model, cp) FOR switcher»«ELSE»null«ENDIF»,
-					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					switcher: Â«IF switcher != nullÂ»Â«EXPAND widgets::widgetStruct(model, cp) FOR switcherÂ»Â«ELSEÂ»nullÂ«ENDIFÂ»,
+					panels: [Â«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","Â»]
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WizardPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WizardPanelÂ»
 			new ExtCsi.ui.panels.WizardPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
-					switcher: «IF switcher != null»«EXPAND widgets::widgetStruct(model, cp) FOR switcher»«ELSE»null«ENDIF»,
-					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
+					switcher: Â«IF switcher != nullÂ»Â«EXPAND widgets::widgetStruct(model, cp) FOR switcherÂ»Â«ELSEÂ»nullÂ«ENDIFÂ»,
+					panels: [Â«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","Â»]
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserDefinedPanelÂ»
 			new ExtCsi.ui.panels.UserDefinedPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»,
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»,
 					userDefinedFunction: function(){
-					«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(cp.name+"_"+getFullID(this.name))»
-					«ENDPROTECT»
+					Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(cp.name+"_"+getFullID(this.name))Â»
+					Â«ENDPROTECTÂ»
 					}
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserInfoPanelÂ»
 			new ExtCsi.ui.panels.UserInfoPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR Breadcrumb»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR BreadcrumbÂ»
 			new ExtCsi.ui.panels.Breadcrumb(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»
+					Â«EXPAND panelCommonProperties(model) FOR thisÂ»
 				}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE panelCommonProperties(GUIModel model) FOR Panel»
-					name: «jsLiteralValue(this.name)»,
-					label: «jsLiteralValue(this.label)»,
-					layout: «EXPAND layout::panelLayout FOR this.layout»,
-					layoutSpec: «IF layoutSpec!=null»«EXPAND layout::layoutSpec FOR this.layoutSpec»«ELSE» null«ENDIF»,
-					scrollable: «jsLiteralValue(this.scrollable)»
-«ENDDEFINE»
+Â«DEFINE panelCommonProperties(GUIModel model) FOR PanelÂ»
+					name: Â«jsLiteralValue(this.name)Â»,
+					label: Â«jsLiteralValue(this.label)Â»,
+					layout: Â«EXPAND layout::panelLayout FOR this.layoutÂ»,
+					layoutSpec: Â«IF layoutSpec!=nullÂ»Â«EXPAND layout::layoutSpec FOR this.layoutSpecÂ»Â«ELSEÂ» nullÂ«ENDIFÂ»,
+					scrollable: Â«jsLiteralValue(this.scrollable)Â»
+Â«ENDDEFINEÂ»
 

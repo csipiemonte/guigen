@@ -91,7 +91,7 @@ e le limitazioni secondo i termini della Licenza.
  */
 
 «EXPAND model::types::types FOR this»
-«EXPAND model::data::datas FOR this»
+«REM»«EXPAND model::data::datas FOR this»«ENDREM»
 «EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
 «ENDFILE»
 «ENDDEFINE»
@@ -103,7 +103,7 @@ var appArea = new ExtCsi.app.ApplicationArea(
 		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
 		homePage: '«getRegistryID(this.homePage)»',
 		«IF onInitCommand!=null-»
-		onInitCommand: «EXPAND controller::commands::cmd(model, null) FOR this.onInitCommand»
+«REM»		onInitCommand: «EXPAND controller::commands::cmd(model, null) FOR this.onInitCommand» «ENDREM»
 		«ELSE» onInitCommand: null
 		«ENDIF-»
 	}
@@ -156,9 +156,9 @@ Ext.onReady( function() {
 		new ExtCsi.ui.panels.ContentPanel(
 			{
 				name: '«name»',	
-				panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
+				panels: «EXPAND template::fatjs::view::panels::panelStruct(model, this) FOR panels»,
 				dataUrl: '«getDataDir()»/«this.name»_«getFormDataProviderMethodName()».txt',
-				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND template::fatjs::controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 			}
 		)
 	);
