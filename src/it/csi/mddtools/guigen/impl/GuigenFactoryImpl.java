@@ -46,7 +46,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 */
 	public static GuigenFactory init() {
 		try {
-			GuigenFactory theGuigenFactory = (GuigenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.csi.it/mddtools"); 
+			GuigenFactory theGuigenFactory = (GuigenFactory)EPackage.Registry.INSTANCE.getEFactory(GuigenPackage.eNS_URI);
 			if (theGuigenFactory != null) {
 				return theGuigenFactory;
 			}
@@ -231,6 +231,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.INLINE_CODE_SNIPPET: return createInlineCodeSnippet();
 			case GuigenPackage.ANNOTATION: return createAnnotation();
 			case GuigenPackage.ANNOTATION_DETAIL: return createAnnotationDetail();
+			case GuigenPackage.CAPTCHA: return createCaptcha();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1912,6 +1913,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public AnnotationDetail createAnnotationDetail() {
 		AnnotationDetailImpl annotationDetail = new AnnotationDetailImpl();
 		return annotationDetail;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Captcha createCaptcha() {
+		CaptchaImpl captcha = new CaptchaImpl();
+		return captcha;
 	}
 
 	/**

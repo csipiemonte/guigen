@@ -50,9 +50,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class MenuPanelItemProvider
-	extends PanelItemProvider
-	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+	extends PanelItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -277,6 +275,11 @@ public class MenuPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createMapView()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createCaptcha()));
 	}
 
 }

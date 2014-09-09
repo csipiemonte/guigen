@@ -10158,6 +10158,106 @@ public interface GuigenPackage extends EPackage {
 	int ANNOTATION_DETAIL_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CaptchaImpl <em>Captcha</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CaptchaImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCaptcha()
+	 * @generated
+	 */
+	int CAPTCHA = 171;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__NAME = WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__LABEL = WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__LAYOUT_SPEC = WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__TOOLTIP = WIDGET__TOOLTIP;
+
+	/**
+	 * The feature id for the '<em><b>Enable Enrichment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA__ENABLE_ENRICHMENT = WIDGET__ENABLE_ENRICHMENT;
+
+	/**
+	 * The number of structural features of the '<em>Captcha</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAPTCHA_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10165,7 +10265,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 171;
+	int WIDGET_DATA_TYPE = 172;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -10175,7 +10275,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 172;
+	int UDLRC_SPEC_CONSTANTS = 173;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -10185,7 +10285,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 173;
+	int METHOD_PROTECTION_TYPES = 174;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -10195,7 +10295,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 174;
+	int EVENT_TYPES = 175;
 
 
 	/**
@@ -10206,7 +10306,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 175;
+	int DATA_LIFETIME_TYPE = 176;
 
 
 	/**
@@ -10217,7 +10317,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 176;
+	int SIMPLE_TYPE_CODES = 177;
 
 
 	/**
@@ -10228,7 +10328,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 177;
+	int PORTAL_NAMES = 178;
 
 
 	/**
@@ -10239,7 +10339,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
 	 * @generated
 	 */
-	int LOGOUT_ACTION_TYPES = 178;
+	int LOGOUT_ACTION_TYPES = 179;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
@@ -10249,7 +10349,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 179;
+	int TARGET_PLATFORM_CODES = 180;
 
 
 	/**
@@ -10260,7 +10360,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 180;
+	int MESSAGE_SEVERITY = 181;
 
 
 	/**
@@ -10271,7 +10371,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 181;
+	int COMMAND_STYLES = 182;
 
 
 	/**
@@ -10282,7 +10382,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 182;
+	int LOGIC_AGGREGATION_TYPES = 183;
 
 
 	/**
@@ -10293,7 +10393,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 183;
+	int CUSTOM_CARTRIDGE_ID = 184;
 
 
 	/**
@@ -10304,7 +10404,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 184;
+	int COMMAND_FUNCTIONS = 185;
 
 
 	/**
@@ -10315,7 +10415,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 185;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 186;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -10325,7 +10425,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 186;
+	int STD_WEB_RES_MODULE_NAMES = 187;
 
 
 	/**
@@ -10336,7 +10436,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 187;
+	int REPART_MODULE_TYPES = 188;
 
 
 	/**
@@ -10347,7 +10447,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 188;
+	int WIZARD_NUMBERING_TYPES = 189;
 
 
 	/**
@@ -10358,7 +10458,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
 	 * @generated
 	 */
-	int CP_COMMAND_EXECUTION_TYPES = 189;
+	int CP_COMMAND_EXECUTION_TYPES = 190;
 
 
 	/**
@@ -10369,7 +10469,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTicketVerifyMethod()
 	 * @generated
 	 */
-	int TICKET_VERIFY_METHOD = 190;
+	int TICKET_VERIFY_METHOD = 191;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}' enum.
@@ -10379,7 +10479,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUITypes()
 	 * @generated
 	 */
-	int LOGIN_UI_TYPES = 191;
+	int LOGIN_UI_TYPES = 192;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.InfoSourceTypes <em>Info Source Types</em>}' enum.
@@ -10389,7 +10489,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInfoSourceTypes()
 	 * @generated
 	 */
-	int INFO_SOURCE_TYPES = 192;
+	int INFO_SOURCE_TYPES = 193;
 
 
 	/**
@@ -10400,7 +10500,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeSelectionTypes()
 	 * @generated
 	 */
-	int TREE_SELECTION_TYPES = 193;
+	int TREE_SELECTION_TYPES = 194;
 
 
 	/**
@@ -16206,6 +16306,16 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getAnnotationDetail_Value();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Captcha <em>Captcha</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Captcha</em>'.
+	 * @see it.csi.mddtools.guigen.Captcha
+	 * @generated
+	 */
+	EClass getCaptcha();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21142,6 +21252,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ANNOTATION_DETAIL__VALUE = eINSTANCE.getAnnotationDetail_Value();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CaptchaImpl <em>Captcha</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CaptchaImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCaptcha()
+		 * @generated
+		 */
+		EClass CAPTCHA = eINSTANCE.getCaptcha();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

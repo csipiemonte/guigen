@@ -54,9 +54,7 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
  * @generated
  */
 public class PDefStateCommandItemProvider
-	extends CommandItemProvider
-	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+	extends CommandItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

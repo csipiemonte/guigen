@@ -53,9 +53,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class CommandPanelItemProvider
-	extends PanelItemProvider
-	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+	extends PanelItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -309,6 +307,11 @@ public class CommandPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMMAND_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createMapView()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMMAND_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createCaptcha()));
 	}
 
 }

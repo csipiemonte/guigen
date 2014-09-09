@@ -48,9 +48,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class UCBasedSecurityConstraintItemProvider
-	extends UISecurityConstraintItemProvider
-	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+	extends UISecurityConstraintItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

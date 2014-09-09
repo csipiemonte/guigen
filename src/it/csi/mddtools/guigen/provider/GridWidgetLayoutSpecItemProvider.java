@@ -48,9 +48,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class GridWidgetLayoutSpecItemProvider
-	extends WidgetLayoutSpecifierItemProvider
-	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+	extends WidgetLayoutSpecifierItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

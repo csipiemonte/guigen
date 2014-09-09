@@ -1444,6 +1444,15 @@ public interface GuigenFactory extends EFactory {
 	AnnotationDetail createAnnotationDetail();
 
 	/**
+	 * Returns a new object of class '<em>Captcha</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Captcha</em>'.
+	 * @generated
+	 */
+	Captcha createCaptcha();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

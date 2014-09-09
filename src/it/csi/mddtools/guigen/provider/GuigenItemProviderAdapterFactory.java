@@ -3679,6 +3679,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Captcha} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CaptchaItemProvider captchaItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Captcha}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCaptchaAdapter() {
+		if (captchaItemProvider == null) {
+			captchaItemProvider = new CaptchaItemProvider(this);
+		}
+
+		return captchaItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3933,6 +3956,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (inlineCodeSnippetItemProvider != null) inlineCodeSnippetItemProvider.dispose();
 		if (annotationItemProvider != null) annotationItemProvider.dispose();
 		if (annotationDetailItemProvider != null) annotationDetailItemProvider.dispose();
+		if (captchaItemProvider != null) captchaItemProvider.dispose();
 	}
 
 }
