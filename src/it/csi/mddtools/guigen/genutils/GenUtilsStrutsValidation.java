@@ -127,8 +127,8 @@ public class GenUtilsStrutsValidation {
 	public static List<String> getGuigenCustomValidators() {
 		List<String> res = new ArrayList<String>();
 
-		// aggiungere alla lista i Custom Validators che Guigen genererà di default
-		// nel commento l'indice con cui si potrà accedere al validatore
+		// aggiungere alla lista i Custom Validators che Guigen genererï¿½ di default
+		// nel commento l'indice con cui si potrï¿½ accedere al validatore
 		res.add("csiDateValidator");             // 0
 		res.add("csiLongRangeValidator");			 // 1	
 		
@@ -380,7 +380,7 @@ public class GenUtilsStrutsValidation {
 		// required validation
 		if ( w.isRequired() ) {
 			String keyName = cp.getName() + "." + w.getName();
-			// i tipi DATA sono gestiti dal generatore come STRINGHE, e Calendar può essere solamente di tipo data
+			// i tipi DATA sono gestiti dal generatore come STRINGHE, e Calendar puï¿½ essere solamente di tipo data
 			res += getRequiredStringValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 		}
 
@@ -624,7 +624,7 @@ public class GenUtilsStrutsValidation {
 	public static String getRequiredValidator(String fieldName, String keyName, boolean expandFieldName) {
 		return "@RequiredFieldValidator(type = ValidatorType.FIELD, " + 
 					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "" ) +
-					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					" key = \"" + keyName + REQUIRED_VALIDATION_LABEL + "\"" +
 					")";
 	}
@@ -640,7 +640,7 @@ public class GenUtilsStrutsValidation {
 	public static String getRequiredStringValidator(String fieldName, String keyName, boolean expandFieldName) {
 		return "@RequiredStringValidator(type = ValidatorType.FIELD, " + 
 					(expandFieldName ? " fieldName = \"" + fieldName + "\", " : "") +
-					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					" key = \"" + keyName + REQUIRED_VALIDATION_LABEL + "\"" +
 					")";
 	}
@@ -680,7 +680,7 @@ public class GenUtilsStrutsValidation {
 			} else if ( GenUtils.isHour(type) ) {
 				res += applyHourValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else {
-				// sugli altri tipi è comunque definibile un validatore custom
+				// sugli altri tipi ï¿½ comunque definibile un validatore custom
 				res += applyCustomValidationRule(validationRule, fieldName, keyName, expandFieldName);
 			}
 		}
@@ -696,7 +696,7 @@ public class GenUtilsStrutsValidation {
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param keyName    Il nome da utilizzare nella chiave.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @param userDefined true se il SimpleType ï¿½ UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyStringValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
@@ -735,7 +735,7 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @param userDefined true se il SimpleType ï¿½ UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyNumericIntValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
@@ -765,7 +765,7 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @param userDefined true se il SimpleType ï¿½ UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyNumericLongValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
@@ -795,7 +795,7 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @param userDefined true se il SimpleType ï¿½ UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyNumericDecValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
@@ -826,7 +826,7 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @param userDefined true se il SimpleType ï¿½ UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyDateValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
@@ -858,7 +858,7 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @param userDefined true se il SimpleType ï¿½ UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyDateTimeValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
@@ -894,7 +894,7 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @param userDefined true se il SimpleType ï¿½ UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyHourValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
@@ -1003,7 +1003,7 @@ public class GenUtilsStrutsValidation {
 			} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
 				res += getHourValidationLabel(validationRule, fieldLabel);
 			} else {
-				// sugli altri tipi è comunque definibile un validatore custom
+				// sugli altri tipi ï¿½ comunque definibile un validatore custom
 				res += getCustomValidationLabel(validationRule, fieldLabel);
 			}
 		}
@@ -1222,7 +1222,7 @@ public class GenUtilsStrutsValidation {
 	 * </pre></blockquote>
 	 * dove<br>
 	 * <ul>
-	 * <li><b>validatore:</b> è il tipo di validatore da applicare al campo;</li>
+	 * <li><b>validatore:</b> ï¿½ il tipo di validatore da applicare al campo;</li>
 	 * <li><b>parametri:</b> (<i>opzionale</i>) parametri necessari alla validazione; variano a seconda del validatore</li>
 	 * </ul>
 	 * Si rimanda alla issue <b>STDMDD-12</b> di Jira per il dettaglio dei tipi di validazione ammessi per ciascun tipo
@@ -1300,7 +1300,7 @@ public class GenUtilsStrutsValidation {
 		if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 			res += "maxLength = \"" + range[1] + "\", ";
 		}
-		// message è obbligatorio: va settato a Stringa vuota se si usa key
+		// message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 		res += " message = \"\", ";
 		// chiave per i18n
 		res += getValidationKey(keyName);
@@ -1315,8 +1315,8 @@ public class GenUtilsStrutsValidation {
 		
 		res += "@RegexFieldValidator(type = ValidatorType.FIELD, " +
 				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") + 
-				"expression = \"" + validationRule[1] + "\", " +
-				"message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				"regex = \"" + validationRule[1] + "\", " +
+				"message = \"\", " + // message e' obbligatorio: va settato a Stringa vuota se si usa key
 				getValidationKey(keyName) + 
 				")";
 		
@@ -1338,7 +1338,7 @@ public class GenUtilsStrutsValidation {
 		if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 			res += "max = \"" + range[1] + "\", ";
 		}
-		// message è obbligatorio: va settato a Stringa vuota se si usa key
+		// message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 		res += " message = \"\", ";
 		// chiave per i18n
 		res += getValidationKey(keyName);
@@ -1362,7 +1362,7 @@ public class GenUtilsStrutsValidation {
 		if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 			res += "maxInclusive = \"" + range[1] + "\", ";
 		}
-		// message è obbligatorio: va settato a Stringa vuota se si usa key
+		// message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 		res += " message = \"\", ";
 		// chiave per i18n
 		res += getValidationKey(keyName);
@@ -1382,7 +1382,7 @@ public class GenUtilsStrutsValidation {
 		return "@CustomValidator(" +
 					"type = \"" + getGuigenCustomValidators().get(0) + "\", " +
 					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					getValidationKey(keyName) + ", " + 
 					"parameters = { @ValidationParameter( name = \"format\", value = \"" + format + "\" ) } " +
 			   ")";
@@ -1397,7 +1397,7 @@ public class GenUtilsStrutsValidation {
 		return "@CustomValidator(" +
 					"type = \"" + getGuigenCustomValidators().get(1) + "\", " +
 					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					getValidationKey(keyName) + " } " +
 			   ")";
 	}
@@ -1429,7 +1429,7 @@ public class GenUtilsStrutsValidation {
 		return "@CustomValidator(" +
 					"type = \"" + validator + "\", " +
 					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-					"message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					"message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					getValidationKey(keyName) + 
 				")";
 	}
@@ -1506,7 +1506,7 @@ public class GenUtilsStrutsValidation {
 		res += "@CustomValidator(" +
 					"type = \"csiUdStringRangeValidator\", " +
 					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					getValidationKey(keyName) + ", " + 
 					"parameters = { " ;
 						// minimo e massimo
@@ -1529,9 +1529,9 @@ public class GenUtilsStrutsValidation {
 		res += "@CustomValidator(" +
 					"type = \"csiUdStringRegexpValidator\", " +
 					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					getValidationKey(keyName) + ", " + 
-					"parameters = { @ValidationParameter( name = \"expression\", value = \"" + validationRule[1] + "\" ) } " +
+					"parameters = { @ValidationParameter( name = \"regex\", value = \"" + validationRule[1] + "\" ) } " +
 			   ")";
 		
 		return res;		
@@ -1544,7 +1544,7 @@ public class GenUtilsStrutsValidation {
 		res += "@CustomValidator(" +
 				"type = \"csiUdNumericIntValidator\", " +
 				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 				getValidationKey(keyName) + ", " + 
 				"parameters = { " ;
 					// minimo e massimo
@@ -1569,7 +1569,7 @@ public class GenUtilsStrutsValidation {
 		res += "@CustomValidator(" +
 				"type = \"csiUdLongRangeValidator\", " +
 				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 				getValidationKey(keyName) + ", " + 
 				"parameters = { " ;
 					// minimo e massimo
@@ -1594,7 +1594,7 @@ public class GenUtilsStrutsValidation {
 		res += "@CustomValidator(" +
 				"type = \"csiLongRangeValidator\", " +
 				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 				getValidationKey(keyName) + ", " + 
 				"parameters = { " ;
 					// minimo e massimo
@@ -1621,7 +1621,7 @@ public class GenUtilsStrutsValidation {
 		res += "@CustomValidator(" +
 				"type = \"csiUdNumericDecValidator\", " +
 				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 				getValidationKey(keyName) + ", " + 
 				"parameters = { " ;
 					// minimo e massimo
@@ -1643,7 +1643,7 @@ public class GenUtilsStrutsValidation {
 		res += "@CustomValidator(" +
 					"type = \"csiUdDateValidator\", " +
 					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
-					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					" message = \"\", " + // message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 					getValidationKey(keyName) + ", " + 
 					"parameters = { @ValidationParameter( name = \"format\", value = \"" + format + "\" ) } " +
 			   ")";		
@@ -1658,7 +1658,7 @@ public class GenUtilsStrutsValidation {
 	 * @return
 	 */
 	private static String getVisitorFieldValidatorAnnotation(String key) {
-		// message è obbligatorio: va settato a Stringa vuota se si usa key
+		// message ï¿½ obbligatorio: va settato a Stringa vuota se si usa key
 		return "@VisitorFieldValidator(message = \"\", key = \"" + key + "\", appendPrefix = true)";
 	}
 	

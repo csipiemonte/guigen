@@ -212,7 +212,7 @@ public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
 «FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
 
 import com.opensymphony.xwork2.validator.ValidationException;
-import com.opensymphony.xwork2.validator.validators.AbstractRangeValidator;
+import com.opensymphony.xwork2.validator.validators.LongRangeFieldValidator;
 
 
 /**
@@ -220,75 +220,7 @@ import com.opensymphony.xwork2.validator.validators.AbstractRangeValidator;
  *
  * @author GuiGen
  */
-public class «validatorName.toFirstUpper()» extends AbstractRangeValidator {
-
-	/**
-	 * max
-	 */
-	private Long max = null;
-	
-	/**
-	 * min
-	 */
-	private Long min = null;
-
-	/**
-	 * max
-	 */
-	public void setMax(Long max) {
-		this.max = max;
-	}
-
-	/**
-	 * max
-	 */
-	public Long getMax() {
-		return max;
-	}
-
-	/**
-	 * maxComparatorValue
-	 */
-	@SuppressWarnings("unchecked")
-	public Comparable getMaxComparatorValue() {
-		return max;
-	}
-
-	/**
-	 * min
-	 */
-	public void setMin(Long min) {
-		this.min = min;
-	}
-
-	/**
-	 * min
-	 */
-	public Long getMin() {
-		return min;
-	}
-
-	/**
-	 * minComparatorValue
-	 */
-	@SuppressWarnings("unchecked")
-	public Comparable getMinComparatorValue() {
-		return min;
-	}
-	
-	/**
-	 * validazione effettiva
-	 * @param object
-	 */
-	@Override
-	public void validate(Object object) throws ValidationException {
-		String fieldName = getFieldName();
-		Long value = (Long)this.getFieldValue(fieldName, object);
-		if (getMin() > value || (getMax()!=null && getMax() < value)) {
-			addFieldError(fieldName, object);
-		}
-	}
-
+public class «validatorName.toFirstUpper()» extends LongRangeFieldValidator {
 }
 «ENDFILE»
 «ENDLET»
@@ -473,7 +405,7 @@ if (val == null || val.length() <= 0) {
 	// use a required validator for these
 	return;
 }
-if (getTrim()) {
+if (isTrim()) {
 	val = val.trim();
 	if (val.length() <= 0) {
 		// use a required validator
@@ -505,9 +437,9 @@ if (str.length() == 0) {
 // match against expression
 java.util.regex.Pattern pattern;
 if (isCaseSensitive()) {
-	pattern = java.util.regex.Pattern.compile(getExpression());
+	pattern = java.util.regex.Pattern.compile(getRegex());
 } else {
-	pattern = java.util.regex.Pattern.compile(getExpression(), java.util.regex.Pattern.CASE_INSENSITIVE);
+	pattern = java.util.regex.Pattern.compile(getRegex(), java.util.regex.Pattern.CASE_INSENSITIVE);
 }
 
 String compare = (String) obj;
@@ -540,10 +472,10 @@ try {
 	return;
 }
 
-Double minInclusiveValue = parseDouble(getMinInclusive());
-Double maxInclusiveValue = parseDouble(getMaxInclusive());
-Double minExclusiveValue = parseDouble(getMinExclusive());
-Double maxExclusiveValue = parseDouble(getMaxExclusive());
+Double minInclusiveValue = getMinInclusive();
+Double maxInclusiveValue = getMaxInclusive();
+Double minExclusiveValue = getMinExclusive();
+Double maxExclusiveValue = getMaxExclusive();
 
 if ((maxInclusiveValue != null && value.compareTo(maxInclusiveValue) > 0) ||
 	(minInclusiveValue != null && value.compareTo(minInclusiveValue) < 0) ||
@@ -574,53 +506,10 @@ if (!validateStringDate(value)) {
 
 «REM»2«ENDREM»
 «DEFINE csiUdNumericIntValidatorMethods FOR GUIModel»
-	@Override
-    public Integer getMaxComparatorValue() {
-		try {
-			Object tmpObj = getObjClass().newInstance();
-			Method writeMethod = findWriteMethod("value", getObjClass());
-			if (writeMethod != null) {
-				writeMethod.invoke(tmpObj, new Object[]{getMax()});
-				return (Integer) tmpObj;
-			}
-			throw new IllegalArgumentException("Metodo getValue() non trovato");
-		} catch (Exception e) {
-			log.error("[CsiUdNumericIntValidator::getMaxComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e, e);
-			throw new IllegalArgumentException("[CsiUdNumericIntValidator::getMaxComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e);
-		}
-    }
-
-	@Override
-    public Integer getMinComparatorValue() {
-		try {
-			Object tmpObj = getObjClass().newInstance();
-			Method writeMethod = findWriteMethod("value", getObjClass());
-			if (writeMethod != null) {
-				writeMethod.invoke(tmpObj, new Object[]{getMin()});
-				return (Integer) tmpObj;
-			}
-			throw new IllegalArgumentException("Metodo getValue() non trovato");
-		} catch (Exception e) {
-			log.error("[CsiUdNumericIntValidator::getMinComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e, e);
-			throw new IllegalArgumentException("[CsiUdNumericIntValidator::getMinComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e);
-		}
-    }
-
 «ENDDEFINE»
 
 «REM»3«ENDREM»
 «DEFINE csiUdNumericDecValidatorMethods FOR GUIModel»
-private Double parseDouble (String value) {
-	if (value != null) {
-		try {
-			return Double.valueOf(value);
-		} catch (NumberFormatException e) {
-			log.warn("[CsiUdNumericDecValidator::parseDouble]: Unable to parse given double parameter " + value);
-		}
-	}
-	return null;
-}
-
 «ENDDEFINE»
 
 «REM»4«ENDREM»
