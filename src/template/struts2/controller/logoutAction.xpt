@@ -38,6 +38,10 @@ STRUTS2 ACTIONS FILES
 import java.util.*;
 
 import com.opensymphony.xwork2.ActionContext;
+import org.apache.struts2.ServletActionContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import «getDTOBaseJavaPackage(this)».*;
 
@@ -56,6 +60,23 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 		 throw new UnsupportedOperationException("Metodo setModel() intenzionalmente non implementato..");
 	}
 
+	/**
+	 * azzera il valore di tutti i cookie dalla response, per una azione
+	 * di logout pi&ugrave; sicura
+	 */
+	private void clearAllCookies(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		Cookie[] cookies = request.getCookies();
+  		if (cookies != null && cookies.length > 0) {
+   			for (Cookie cookie : cookies) {
+    			cookie.setValue("-");
+    			cookie.setMaxAge(0);
+    			response.addCookie(cookie);
+   			}
+  		}
+	}
+	
 	«IF isMultiPortal(this)»
 	private String savedPortalCode;
 
@@ -156,7 +177,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 	 * Invalida la sessione corrente
 	 */
 	protected void invalidateLocalSession(){
-	
+		clearAllCookies();
 	}
 
 «ELSE»
@@ -180,6 +201,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 		        LOG.error("[«getStrutsLogoutClassName(this)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
 		    }
 		}
+		clearAllCookies();
 	}
 «ENDDEFINE»
 
@@ -191,6 +213,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 	protected void invalidateLocalSession(){
 		session.remove(«getIrideIdAdapterFilterFQN(model)».AUTH_ID_MARKER);
 		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+		clearAllCookies();
 	}
 «ENDDEFINE»
 
@@ -201,6 +224,7 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 	protected void invalidateLocalSession(){
 		session.remove(«getIrideIdAdapterFilterFQN(model)».AUTH_ID_MARKER);
 		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+		clearAllCookies();
 	}
 «ENDDEFINE»
 
@@ -222,5 +246,6 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 		        session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
 		    }
 		}
+		clearAllCookies();
 	}
 «ENDDEFINE»
