@@ -313,6 +313,48 @@ boolean canResolveColumnBinding(Column c, String selectorPath) :
 	else
 		getSelectedField(null,bindingType, selectorPath)!= null;
 
+// ritorna: se tutto ok => OK, se no il messaggio di errore		
+String checkBindingValidation(DataWidget w) :
+	if (w.databinding==null) then
+		checkImplicitBindingValidation(w)
+	else 
+		checkExplicitBindingValidation(w);
+
+String checkImplicitBindingValidation(DataWidget w) :
+(if (!w.dataTypeModifier.isNullOrEmpty()) then
+		 	"OK"
+		 else
+		 	"il widget ha un binding implicito e non e' stato modellato nessun constraint di validazione sul widget."
+);
+
+// precondition: w.databinding <> null
+String checkExplicitBindingValidation(DataWidget w) :
+	if (w.databinding.appData != null) then
+		(if w.databinding.appData.type.metaType == ComplexType then
+		(let boundField = getSelectedField(null, (ComplexType)w.databinding.appData.type, w.databinding.path) :
+			if (boundField == null || !boundField.dataTypeModifier.isNullOrEmpty()) then "OK"
+			else
+			"il widget ha un binding esplicito con un Field ( campo["+boundField.name+"] del tipo ["+w.databinding.appData.type.name+"]) e non e' stato modellato nessun constraint di validazione sul Field."
+		)
+		else
+		"OK") // questo caso sarà da rivedere se si faranno funzionare i check su appdata semplici!!
+	else
+		"OK";
+
+/**
+ true se il tipo java corrispndente è Stirng => potenzialmente testo libero
+ */
+boolean isJavaTypePossiblyFreeText(Type t) :
+if (t.metaType == SimpleType && 
+	(
+	 ((SimpleType)t).code == SimpleTypeCodes::STRING ||
+     ((SimpleType)t).code == SimpleTypeCodes::DATE || 
+     ((SimpleType)t).code == SimpleTypeCodes::DATETIME || 
+     ((SimpleType)t).code == SimpleTypeCodes::HOURS 
+    )
+   ) 
+then true
+else false;  
 ////////////////////////////////////////////////////////////
 /// Estensioni legate a struttura e dinamiche UI          //
 ////////////////////////////////////////////////////////////

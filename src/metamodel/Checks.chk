@@ -6,6 +6,13 @@ extension template::GenericExtensions;
 extension template::struts2::Struts2Extensions;
 
 
+///////////////////////////////////
+// ultimi progressivi per tipologia
+// - GUI: ?
+// - GUI-UISTR: ?
+// - GUI-BIND: 27
+// - GUI-SEC: ?
+///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Check indipendenti dalla piattaforma target                                                                      //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -856,7 +863,18 @@ context ApplicationArea if (extModules.size>0 && ((GUIModel)eRootContainer).secu
 "GUI-BIND-025: Se e' presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\""+
 "- pannelli che non referenziano:"+extModules.contentPanels.select(cp|cp.appData.select(ab|ab.name=="currentUser").size==0).name :
 	extModules.contentPanels.appData.select(ab|ab.name=="currentUser").size==extModules.contentPanels.size;
-	
+
+// verifiche su datatype modifier pe revitare sql-injection o simili
+context DataWidget 
+if (dataType.metaType == SimpleType 
+	&& ((SimpleType)dataType).userDefined!=true 
+	&& dataType.isJavaTypePossiblyFreeText())
+WARNING "GUI-BIND-027: "+checkBindingValidation(this)+
+	" Un campo di input che corrisponde ad una proprieta' java di tipo stringa se non controllato puo' essere soggetto ad attacchi di tipo SQL-Injection, si consiglia pertanto di modellare"+
+	" un dataTypeModifier o di verificare il valore immesso nella business logic che lo utilizza. "+loc() :
+let bindingValidationCheckResult = checkBindingValidation(this) :
+	bindingValidationCheckResult  == "OK";
+
 context ApplicationArea ERROR "GUI-UISTR-043: E' necessario specificare una MenuBar (anche vuota) nell'ApplicationArea"+loc() :
 	menubar != null;	
 	
