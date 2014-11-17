@@ -475,12 +475,15 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
     private void init_FilterInitParameters() {
         configurationManager.addContainerProvider(new ConfigurationProvider() {
             public void destroy() {
+            	// intenzionalmente vuoto
             }
 
             public void init(Configuration configuration) throws ConfigurationException {
+            	// intenzionalmente vuoto
             }
 
             public void loadPackages() throws ConfigurationException {
+            	// intenzionalmente vuoto
             }
 
             public boolean needsReload() {
@@ -579,9 +582,12 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
      *                          would end up as a 5xx by the servlet container)
      * @param context Our ServletContext object
      */
-    public void serviceAction(HttpServletRequest request, HttpServletResponse response, ServletContext context,
-                              ActionMapping mapping) throws ServletException {
-
+    public void serviceAction(HttpServletRequest p_request, HttpServletResponse p_response, ServletContext p_context,
+                              ActionMapping p_mapping) throws ServletException {
+        HttpServletRequest request = p_request; 
+        HttpServletResponse response = p_response;
+        ServletContext context = p_context;                     
+		ActionMapping mapping = p_mapping;
         Map<String, Object> extraContext = createContextMap(request, response, mapping, context);
 
         // If there was a previous value stack, then create a new copy and pass it in to be used by the new Action
@@ -601,7 +607,6 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
         try {
             UtilTimerStack.push(timerKey);
             String namespace = mapping.getNamespace();
-            String name = mapping.getName();
 			// L'unica variazione inizia qui...
 			//// per qualche motivo con struts 2.3.16.3 il mapping non arriva correttamente configurato
 
@@ -632,7 +637,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
         } catch (ConfigurationException e) {
             logConfigurationException(request, e);
             sendError(request, response, context, HttpServletResponse.SC_NOT_FOUND, e);
-        } catch (Exception e) {
+        } catch (Exception e) { «noSonarTag("dubbia classificazione severity (gia' cosi' in src struts2")»
             if (handleException || devMode) {
                 sendError(request, response, context, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
             } else {
@@ -813,7 +818,6 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
         }
 
         extraContext.put(ActionContext.LOCALE, locale);
-        //extraContext.put(ActionContext.DEV_MODE, Boolean.valueOf(devMode));
 
         extraContext.put(StrutsStatics.HTTP_REQUEST, request);
         extraContext.put(StrutsStatics.HTTP_RESPONSE, response);
@@ -858,7 +862,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
                     String logMessage;
                     try {
                         logMessage = "Could not find create multipart save directory '" + multipartSaveDir.getCanonicalPath() + "'.";
-                    } catch (IOException e) {
+                    } catch (IOException e) { «noSonarTag("dubbia classificazione severity (gia' cosi' in src struts2")»
                         logMessage = "Could not find create multipart save directory '" + multipartSaveDir.toString() + "'.";
                     }
                     if (devMode) {
@@ -920,7 +924,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
                 // do not try to set encoding because it is useless and will cause an error
                 request.setCharacterEncoding(encoding);
             }
-        } catch (Exception e) {
+        } catch (Exception e) { «noSonarTag("dubbia classificazione severity (gia' cosi' in src struts2")»
             LOG.error("Error setting character encoding to '" + encoding + "' - ignoring.", e);
         }
     }
@@ -1039,7 +1043,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
                         LOG.debug("Cannot show problem report!", exp);
                     }
                     response.sendError(code, "Unable to show problem report:\n" + exp + "\n\n" + LocationUtils.getLocation(exp));
-                } catch (IOException ex) {
+                } catch (IOException ex) {  «noSonarTag("dubbia classificazione severity (gia' cosi' in src struts2")»
                     // we're already sending an error, not much else we can do if more stuff breaks
                 }
             }
@@ -1061,7 +1065,7 @@ public class «getMDDDispatcherClassName()» extends Dispatcher {
 
                 // send the error response
                 response.sendError(code, e.getMessage());
-            } catch (IOException e1) {
+            } catch (IOException e1) { «noSonarTag("dubbia classificazione severity (gia' cosi' in src struts2")»
                 // we're already sending an error, not much else we can do if more stuff breaks
             }
         }
