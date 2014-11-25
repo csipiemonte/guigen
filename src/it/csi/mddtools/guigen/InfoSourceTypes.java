@@ -70,7 +70,15 @@ public enum InfoSourceTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REQUEST_ATTRIBUTE(4, "REQUEST_ATTRIBUTE", "REQUEST_ATTRIBUTE");
+	REQUEST_ATTRIBUTE(4, "REQUEST_ATTRIBUTE", "REQUEST_ATTRIBUTE"), /**
+	 * The '<em><b>REQUEST URL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REQUEST_URL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	REQUEST_URL(6, "REQUEST_URL", "REQUEST_URL");
 
 	/**
 	 * The '<em><b>REQUEST PARAM</b></em>' literal value.
@@ -148,6 +156,21 @@ public enum InfoSourceTypes implements Enumerator {
 	public static final int REQUEST_ATTRIBUTE_VALUE = 4;
 
 	/**
+	 * The '<em><b>REQUEST URL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>REQUEST URL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #REQUEST_URL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int REQUEST_URL_VALUE = 6;
+
+	/**
 	 * An array of all the '<em><b>Info Source Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -160,6 +183,7 @@ public enum InfoSourceTypes implements Enumerator {
 			REQUEST_COOKIE,
 			SESSION_ATTRIBUTE,
 			REQUEST_ATTRIBUTE,
+			REQUEST_URL,
 		};
 
 	/**
@@ -215,6 +239,7 @@ public enum InfoSourceTypes implements Enumerator {
 			case REQUEST_COOKIE_VALUE: return REQUEST_COOKIE;
 			case SESSION_ATTRIBUTE_VALUE: return SESSION_ATTRIBUTE;
 			case REQUEST_ATTRIBUTE_VALUE: return REQUEST_ATTRIBUTE;
+			case REQUEST_URL_VALUE: return REQUEST_URL;
 		}
 		return null;
 	}

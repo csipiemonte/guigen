@@ -8543,6 +8543,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_COOKIE);
 		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.SESSION_ATTRIBUTE);
 		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_ATTRIBUTE);
+		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_URL);
 
 		initEEnum(treeSelectionTypesEEnum, TreeSelectionTypes.class, "TreeSelectionTypes");
 		addEEnumLiteral(treeSelectionTypesEEnum, TreeSelectionTypes.ALL_NODES);
