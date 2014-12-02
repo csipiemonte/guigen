@@ -318,10 +318,13 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «DEFINE envConfigForAuthorization(GUIModel model) FOR SecurityModel»
-	<!-- replace variabili di environment per opauth -->
-	<replace file="${build}/temp/«getSpringIRIDE2PDConfig(model)»" 
+	<!-- replace variabili di environment per iride2 -->
+	<replace file="${build}/temp/«getSpringIRIDE2PDEJBConfig(model)»" 
 		token="@IRIDE_PROVIDER_URL@"  
-		value="${iride2.pep.provider.url}"/>	
+		value="${iride2.pep.provider.url}"/>
+	<replace file="${build}/temp/«getSpringIRIDE2PDWSConfig(model)»" 
+		token="@IRIDE_WSFAD_URL@"  
+		value="${iride2.pep.wsfad.url}"/>	
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethod»
@@ -377,7 +380,7 @@ ssobart.logout.url = https://<ssobartserver>/ssobart/logout
 «DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModel»
 #-[configurazione iride2]--------------------------------------------------
 iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
-
+iride2.pep.wsfad.url = http://iridetest1wls1.csi.it:7107/pep_wsfad_nmsf_policy/services/PolicyEnforcerBase
 «ENDDEFINE»
 
 «DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethod»
@@ -435,7 +438,7 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 	«ENDIF»
 
 «EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)»
-«EXPAND template::struts2::security::irideIntegration::iride2PDFile FOR this»
+«EXPAND template::struts2::security::iride2PD::iride2PDFiles FOR this»
 «EXPAND extraConfigFiles(this) FOR getActualSecurityModel(this).autenticationMethod»
 
 	«IF this.targetPlatform.securityProfile != null»
