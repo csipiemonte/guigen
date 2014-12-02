@@ -128,6 +128,8 @@ IVY FILES (gestione delle dipendenze)
 			<artifact name="jaxb-ri-1.0" type="jar"/>
 			<artifact name="jaxb-xjc-1.0" type="jar"/>
 		</dependency>
+		
+    	«EXPAND wsadpDependencies FOR this»
     	
     	<dependency org="csipiemonte" name="coop-trace" rev="1.1.0" transitive="false">
       		<artifact name="coop-trace-1.1.0" type="jar" />
@@ -166,6 +168,8 @@ IVY FILES (gestione delle dipendenze)
     	
 		«ELSE»
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
+		
+		«EXPAND wsadpDependencies FOR this»
 		«REM»
 		<dependency org="others" name="jts" rev="1.9">
 			<artifact name="jts-1.9" type="jar"/>
@@ -175,8 +179,12 @@ IVY FILES (gestione delle dipendenze)
     	</dependency>
     	«ENDREM»
 		«ENDIF»
+		<!-- interfacce PD iride2-PEP (CSI + stub WS) -->
 		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" transitive="false" />
-
+		<dependency org="csipiemonte" name="iridev2-pep-nmsf" rev="1.0.0" transitive="false">
+			<artifact name="iridev2-pep-base-wsnmsf-1.0.0" type="jar" />
+		</dependency>
+		
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
 		<!-- Inserire qui le dipendenze aggiuntive -->
 		«ENDPROTECT»
@@ -223,7 +231,23 @@ IVY FILES (gestione delle dipendenze)
 «ENDDEFINE»
 
 
-
+«REM»dipendneze per PD WS«ENDREM»
+«DEFINE wsadpDependencies FOR GUIModel»
+		<!-- estensioni web-services di CSI (per PD WS) -->
+    	<dependency org="csipiemonte" name="wsadp" rev="2.1.0" transitive="false"/>
+    	<dependency org="csipiemonte" name="axiscsi" rev="1.0.0" transitive="false"/>
+    	<dependency org="apache" name="axis" rev="1.4" transitive="false">
+    		<artifact name="axis-jaxrpc-1.4" type="jar" />
+    	</dependency>
+    	<dependency org="apache" name="commons-discovery" rev="0.2" transitive = "false"/>
+    	<dependency org="csipiemonte" name="tokenretry" rev="2.0.0" transitive="false">
+    		<artifact name="token-retry-2.0.0" type="jar"/>
+    		<artifact name="token-retry-plugin-axis1.4-2.0.0" type="jar"/>
+    	</dependency>
+    	<dependency org="others" name="wsdl4j" rev="1.5.1" />
+    	<dependency org="apache" name="commons-discovery" rev="0.2" />
+    	
+«ENDDEFINE»
 
 «REM»Import delle librerie specifiche dell'Application Server (JBoss o WebLogic)«ENDREM»
 «DEFINE appServerLibsIvy FOR GUIModel»
