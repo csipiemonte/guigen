@@ -324,7 +324,10 @@ e le limitazioni secondo i termini della Licenza.
 		value="${iride2.pep.provider.url}"/>
 	<replace file="${build}/temp/«getSpringIRIDE2PDWSConfig(model)»" 
 		token="@IRIDE_WSFAD_URL@"  
-		value="${iride2.pep.wsfad.url}"/>	
+		value="${iride2.pep.wsfad.url}"/>
+	<replace file="${build}/temp/«getSpringWebConfigurationFile(model, true)»" 
+		token="@IRIDE_PD_PROTOCOL@"  
+		value="${iride2.pep.pd.protocol}"/>	
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethod»
@@ -381,6 +384,10 @@ ssobart.logout.url = https://<ssobartserver>/ssobart/logout
 #-[configurazione iride2]--------------------------------------------------
 iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 iride2.pep.wsfad.url = http://iridetest1wls1.csi.it:7107/pep_wsfad_nmsf_policy/services/PolicyEnforcerBase
+
+#- protocollo di comunicazione: puo' valere EJB o WS (default=EJB) (@since 3.0.1)
+iride2.pep.pd.protocol = EJB
+
 «ENDDEFINE»
 
 «DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethod»

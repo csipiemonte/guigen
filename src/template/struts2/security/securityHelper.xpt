@@ -54,6 +54,26 @@ public class «getSpringSecurityHelperClassName()»{
 	«EXPAND springSecurityHelperMethods FOR this»
 	
 	//////////////////////////////////////////////////////////////////////////////
+	/// properieta' di configurazione dell'helper
+	//////////////////////////////////////////////////////////////////////////////
+	
+	private String pdProtocol = "EJB";
+	
+	/**
+	 * @param prot protocollo di richiamo del PEP. Puo' valere: 
+	 * 1) EJB (default)
+	 * 2) WS
+	 * utilizzato solo se la security non e' custom
+	 */
+	public void setPDProtocol(String prot) {
+		pdProtocol = prot;
+	}
+	
+	public String getPDProtocol(){
+		return pdProtocol;
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////
 	/// Property aggiuntive del bean
 	//////////////////////////////////////////////////////////////////////////////
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperProperties")»

@@ -151,9 +151,36 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 	
 	it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService iride = null;
 	
+	
+	/**
+	 * restituisce il percorso effettivo della configurazione della PD
+	 * di IRIDE da caricare.
+	 * Se la security (e la pep-implementation) e' custom viene restituito sempre il 
+	 * valore della costante IRIDE_PEP_RESOURCE.
+	 * Se la security non e' custom viene restituito un valore differente a seconda del valore
+	 * della proeprty "pdProtocol":
+	 * <ul>
+	 * <li>EJB: IRIDE_PEP_RESOURCE</li>
+	 * <li>WS: IRIDE_PEP_WS_RESOURCE</li>
+	 * <li>(altro): IRIDE_PEP_RESOURCE</li>
+	 * </ul>  
+	 */
+	protected String getActualIridePepResource(){
+		if("WS".equals(pdProtocol)){
+			return IRIDE_PEP_WS_RESOURCE;
+		}
+		else{
+			return IRIDE_PEP_RESOURCE;
+		}
+	}
+	
+	/**
+	 * Carica la configurazione della PD del PEP e crea il proxy.
+	 * @return il proxy della PD del PEP. 
+	 */
 	protected PolicyEnforcerBaseService getIridePEP(){
 		if (this.iride==null){
-			InputStream is = getClass().getResourceAsStream(IRIDE_PEP_RESOURCE);
+			InputStream is = getClass().getResourceAsStream(getActualIridePepResource());
 			if (is != null){
 				try {
 					InfoPortaDelegata info = PDConfigReader.read(is);
@@ -162,12 +189,12 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 				} 
 				catch (Exception e) {
 					LOG.error("[SecurityHelper::getIridePEP] errore nella parsificazione della configurazione di IRIDE2:"+e,e);
-					throw new IllegalArgumentException("errore nella parsificazione della configurazione di IRIDE2");
+					throw new IllegalArgumentException("errore nella parsificazione della configurazione di IRIDE2", e);
 				}
 			}
 			else 
-				LOG.error("[SecurityHelper::getIridePEP] configurazione di IRIDE2 non trovata");
-				throw new IllegalArgumentException("configurazione di IRIDE2 non trovata");
+				LOG.error("[SecurityHelper::getIridePEP] configurazione di IRIDE2 non trovata, risorsa:"+getActualIridePepResource());
+				throw new IllegalArgumentException("configurazione di IRIDE2 non trovata, risorsa:"+getActualIridePepResource());
 		} 
 		else
 			return this.iride;
