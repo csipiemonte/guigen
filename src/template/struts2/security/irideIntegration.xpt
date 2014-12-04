@@ -26,14 +26,19 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Hashtable;
+
 import it.csi.csi.pfh.FHResult;
 import it.csi.csi.pfh.FunctHandler;
 import it.csi.csi.util.Param;
 import it.csi.csi.wrapper.CSIException;
-import it.csi.iride2.policy.entity.*;
-import it.csi.iride2.iridefed.entity.Ruolo;
 
-public class «getIridePDCacheClassName()» implements FunctHandler{
+
+
+
+public class IridePDCache implements FunctHandler {
 
 	static Map<Iride2CallKey, Iride2CallValue> cache = new HashMap<Iride2CallKey, Iride2CallValue>();
 
@@ -60,8 +65,8 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			else { // post chain
 				if (prevres.getException() == null) {
 					// metti in cache il risultato
-					Iride2CallValue newVal = new Iride2CallValue(System
-							.currentTimeMillis(), prevres.getResult());
+					Iride2CallValue newVal = new Iride2CallValue(
+							System.currentTimeMillis(), prevres.getResult());
 					cache.put(call, newVal);
 				}
 			}
@@ -78,7 +83,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			return false;
 
 	}
-	
+
 	class Iride2CallValue {
 		public long birthTime;
 		public Param result;
@@ -94,21 +99,113 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 
 		public Iride2CallKey(String methodName, Param[] params) {
 			paramsKey += methodName + ":";
-			Identita id = (Identita) (params[0].getValue());
-			paramsKey += id.getCodFiscale();
-			if (params[1].getType() == UseCase.class) {
+			Object id = (params[0].getValue()); // identita (csi o ws)
+			paramsKey += getIdentitaCodFiscaleValue(id);
+			if (isParamUseCase(params[1])) {
 				paramsKey += ",UC:"
-						+ ((UseCase) (params[1].getValue())).getId();
-			} else if (params[1].getType() == Actor.class) {
-				paramsKey += ",ACT:" + ((Actor) (params[1].getValue())).getId();
-			} else if (params[1].getType() == Ruolo.class) {
+						+ getUseCaseIdValue(params[1].getValue());
+			} else if (isParamActor(params[1])) {
+				paramsKey += ",ACT:" + getActorIdValue(params[1].getValue());
+			} else if (isParamRole(params[1])) {
 				paramsKey += ",ROL:"
-						+ ((Ruolo) (params[1].getValue())).getCodiceDominio()
+						+ getRuoloCodiceDominioValue(params[1].getValue())
 						+ "-"
-						+ ((Ruolo) (params[1].getValue())).getCodiceRuolo();
+						+ getRuoloCodiceRuoloValue(params[1].getValue());
 			}
 		}
 
+		/**
+		 * 
+		 * @param p
+		 * @return true se il parametro e' uno UseCase (csi o ws)
+		 */
+		private boolean isParamUseCase(Param p){
+			return p.getType().getName().endsWith("UseCase");
+		}
+		
+		/**
+		 * 
+		 * @param p
+		 * @return true se il parametro e' un Actor (csi o ws)
+		 */
+		private boolean isParamActor(Param p){
+			return p.getType().getName().endsWith("Actor");
+		}
+		
+		/**
+		 * 
+		 * @param p
+		 * @return true se il parametro e' un Role (csi o ws)
+		 */
+		private boolean isParamRole(Param p){
+			return p.getType().getName().endsWith("Role");
+		}
+		
+		/**
+		 * 
+		 * @return il valore della property codFiscale di un oggetto di tipo identita (csi o ws)
+		 */
+		private Object getIdentitaCodFiscaleValue(Object identita){
+			if (identita instanceof it.csi.iride2.policy.entity.Identita){
+				return ((it.csi.iride2.policy.entity.Identita)identita).getCodFiscale();
+			}
+			else{
+				return ((it.csi.iride2.policy.base.nsmf.stub.base.entity.Identita)identita).getCodFiscale();
+			}
+		}
+		
+		/**
+		 * 
+		 * @return il valore della property id di un oggetto di tipo use case (csi o ws)
+		 */
+		private Object getUseCaseIdValue(Object usecase){
+			if (usecase instanceof it.csi.iride2.policy.entity.UseCase){
+				return ((it.csi.iride2.policy.entity.UseCase)usecase).getId();
+			}
+			else{
+				return ((it.csi.iride2.policy.base.nsmf.stub.base.entity.UseCase)usecase).getId();
+			}
+		}
+		
+		/**
+		 * 
+		 * @return il valore della property id di un oggetto di tipo actor (csi o ws)
+		 */
+		private Object getActorIdValue(Object actor){
+			if (actor instanceof it.csi.iride2.policy.entity.Actor){
+				return ((it.csi.iride2.policy.entity.Actor)actor).getId();
+			}
+			else{
+				return ((it.csi.iride2.policy.base.nsmf.stub.base.entity.Actor)actor).getId();
+			}
+		}
+		
+		/**
+		 * 
+		 * @return il valore della property codiceRuolo di un oggetto di tipo ruolo (csi o ws)
+		 */
+		private Object getRuoloCodiceRuoloValue(Object ruolo){
+			if (ruolo instanceof it.csi.iride2.iridefed.entity.Ruolo){
+				return ((it.csi.iride2.iridefed.entity.Ruolo)ruolo).getCodiceRuolo();
+			}
+			else{
+				return ((it.csi.iride2.policy.base.nsmf.stub.iridefed.entity.Ruolo)ruolo).getCodiceRuolo();
+			}
+		}
+		
+		/**
+		 * 
+		 * @return il valore della property codiceDominio di un oggetto di tipo ruolo (csi o ws)
+		 */
+		private Object getRuoloCodiceDominioValue(Object ruolo){
+			if (ruolo instanceof it.csi.iride2.iridefed.entity.Ruolo){
+				return ((it.csi.iride2.iridefed.entity.Ruolo)ruolo).getCodiceDominio();
+			}
+			else{
+				return ((it.csi.iride2.policy.base.nsmf.stub.iridefed.entity.Ruolo)ruolo).getCodiceDominio();
+			}
+		}
+		
 		@Override
 		public boolean equals(Object obj) {
 			if (obj instanceof Iride2CallKey) {
