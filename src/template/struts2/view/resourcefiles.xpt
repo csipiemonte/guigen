@@ -30,10 +30,9 @@ e le limitazioni secondo i termini della Licenza.
 
 «REM»Genera un file di index con la redirect alla welcome action.«ENDREM»
 «DEFINE indexJspFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getIndexJspFile(this, skip_component_dir_creation)»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+«FILE getIndexJspFile(this, skip_component_dir_creation)»«getHTMLDoctype()»
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<html «getHTMLTnsUriDecl()» lang="it" xml:lang="it">
 	<head>
 		<title>Welcome</title>
 		<meta http-equiv="refresh" content="0;url=«getHomePageActionURL(true)»<%= (request.getQueryString() != null ? "?"+request.getQueryString() : "") %>"  />

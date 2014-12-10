@@ -591,6 +591,24 @@ String getJavascriptErrorActionURL(boolean omitRoot) :
 	"<%=request.getContextPath()%>" + getBaseNamespace(false) + "/javascriptError" + getStrutsActionCompleteExtension(); 
 
 
+boolean isHTML5ModeEnabled():
+let htmlMode = getProperty("guigen.html.mode") :
+	if (!htmlMode.isNullOrEmpty() && htmlMode == "html5") then true
+	else
+	false;
+	
+String getHTMLDoctype() :
+if (!isHTML5ModeEnabled()) then
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"
+else
+"<!DOCTYPE html>";
+
+String getHTMLTnsUriDecl() :
+if (!isHTML5ModeEnabled()) then
+"xmlns=\"http://www.w3.org/1999/xhtml\""
+else
+"";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Screen States per content panel
 String getScreenStatesClassName(ContentPanel cp) :
