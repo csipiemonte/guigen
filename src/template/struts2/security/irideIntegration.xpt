@@ -241,6 +241,7 @@ public class IridePDCache implements FunctHandler {
 	
 	«IF this.targetPlatform.securityProfile != null && this.targetPlatform.securityProfile.pepImpl.custom == true»
 	public static final String IRIDE_PEP_RESOURCE = "/META-INF/«getPEPProvideXMLPDName()»";
+	public static final String IRIDE_PEP_WS_RESOURCE = "/META-INF/«getPEPProvideXMLPDName()»"; // non usata in caso di custom security
 	«ELSE»
 	public static final String IRIDE_PEP_RESOURCE = "/META-INF/iride2_pep_defPD_ejb.xml";
 	public static final String IRIDE_PEP_WS_RESOURCE = "/META-INF/iride2_pep_defPD_ws.xml";
@@ -255,7 +256,7 @@ public class IridePDCache implements FunctHandler {
 	 * Se la security (e la pep-implementation) e' custom viene restituito sempre il 
 	 * valore della costante IRIDE_PEP_RESOURCE.
 	 * Se la security non e' custom viene restituito un valore differente a seconda del valore
-	 * della proeprty "pdProtocol":
+	 * della property "pdProtocol":
 	 * <ul>
 	 * <li>EJB: IRIDE_PEP_RESOURCE</li>
 	 * <li>WS: IRIDE_PEP_WS_RESOURCE</li>
