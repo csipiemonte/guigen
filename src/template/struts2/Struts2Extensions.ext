@@ -556,6 +556,22 @@ String getStrutsActionCompleteURL(ContentPanel panel, GUIModel model) :
 String getHomePageActionName() :
 	"HomePage";
 
+/// classi per widget captcha
+String getCaptchaServletClassName() :
+	"CaptchaServlet";
+		
+String getCaptchaServletFQN(GUIModel model):
+	getUIUtilsJavaPackage(model)+"."+getCaptchaServletClassName();
+
+String getCaptchaServletJavaFile(GUIModel model, boolean omit_root):
+	getUIUtilsJavaSrcDir(model, omit_root) + "/" + getCaptchaServletClassName() + ".java";
+
+
+
+
+
+	
+	
 String getHomePageActionNamespace(boolean omitRoot) :
 	getSecureNamespace(omitRoot);
 

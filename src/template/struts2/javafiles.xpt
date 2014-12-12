@@ -48,6 +48,7 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND typeConversion::decoratorsClassesFiles(skip_component_dir_creation) FOR this»
 	«EXPAND typeConversion::comparatorsClassesFiles(skip_component_dir_creation) FOR this»
 	«EXPAND interceptor::interceptorsClassesFiles(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::controller::captchaServlet::captchaServletFiles FOR this»
 	«IF targetPlatform.enableRichUIBehavior»
 		«EXPAND uiutils::uiutilsClassesFiles(skip_component_dir_creation) FOR this»
 	«ENDIF»
@@ -121,6 +122,12 @@ public final class Constants
      */
     public static final String APPLICATION_CODE = "«codComponente»";
     
+    /**
+     * nome dell'attributo di sessione in cui viene memorizzato il valore corrente del
+     * captcha 
+     */
+    public static final String CAPTCHA_SESSION_NAME = "current_captcha_value";
+     
     «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("Constants")»
     // Add here your constants
     «ENDPROTECT»

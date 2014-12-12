@@ -1027,6 +1027,11 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 <img src="«this.image»" alt="«this.label»"/>
 «ENDDEFINE»
 
+«REM»Genera la componente di markup (HTML) di un Captcha«ENDREM»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Captcha»
+<!-- widget «getFullID(this, contextPrefix)» -->
+<img src="<%=request.getContextPath()%>/base/captchaServlet" alt="captcha"/>
+«ENDDEFINE»
 
 «REM»
 Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag.
