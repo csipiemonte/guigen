@@ -47,11 +47,22 @@ e le limitazioni secondo i termini della Licenza.
     
       private static final long serialVersionUID = 1L;
     
+      /**
+       * dimensione orizzontale dell'immagine
+       */
+      private static final int HSIZE = 150;
+      
+      /**
+       * dimensione verticale dell'immagine
+       */
+      private static final int VSIZE = 40;
+      
+      
       @Override
       public void doGet(HttpServletRequest req, HttpServletResponse resp)
           throws ServletException, IOException {
     
-        Captcha captcha = new Captcha.Builder(130, 40)
+        Captcha captcha = new Captcha.Builder(HSIZE, VSIZE)
             .addBackground(new GradiatedBackgroundProducer())
             .addNoise(new CurvedLineNoiseProducer(Color.gray, 3))
             .addNoise(
