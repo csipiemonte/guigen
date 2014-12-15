@@ -50,6 +50,9 @@ e le limitazioni secondo i termini della Licenza.
 	«LET widgets.typeSelect(FileUpload) AS uplWidgets-»
 		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH uplWidgets-»
 	«ENDLET-»
+	«LET widgets.typeSelect(Captcha) AS captchaWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH captchaWidgets-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
@@ -201,4 +204,22 @@ e le limitazioni secondo i termini della Licenza.
 		«ENDIF-»
 		return «removeUnderscoreFromWidgPrefix(name)»FileName;
 	}
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Captcha»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, null) FOR this»
+«ENDDEFINE»
+
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR Captcha»
+	// Captcha «name» (readonly)
+	public boolean validateAnswerFor«name.toFirstUpper()»(String answer) {
+		nl.captcha.Captcha captcha = (nl.captcha.Captcha)(this.getSession().get(«getUtilJavaPackage(model)».Constants.CAPTCHA_SESSION_NAME));
+		if (captcha != null){
+			return captcha.isCorrect(answer);
+		}
+		else{
+			return false; // no captcha, no answer
+		} 
+	}
+	
 «ENDDEFINE»
