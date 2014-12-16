@@ -249,3 +249,26 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 		clearAllCookies();
 	}
 «ENDDEFINE»
+
+
+
+
+«DEFINE invalidateLocalSession(GUIModel model) FOR CustomAuthentication»
+	/**
+	 * Invalida la sessione corrente
+	 */
+	protected void invalidateLocalSession(){
+		if (session instanceof org.apache.struts2.dispatcher.SessionMap) {
+			«IF isMultiPortal(model)-»
+			// salvo il portal code dalla sessione
+			savePortalCode(getPortalCode());
+			«ENDIF»
+		    try {
+		        ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
+		    } catch (IllegalStateException e) { «noSonarTag("dubbia classificazione severity")»
+		        LOG.error("[«getStrutsLogoutClassName(model)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
+		    }
+		}
+		clearAllCookies();
+	}
+«ENDDEFINE»
