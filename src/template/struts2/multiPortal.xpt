@@ -670,6 +670,9 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 «DEFINE buildXmlLocalLogoutReplacement FOR GUIModel»
 «FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
 <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+	token="@LOGOUT_URL.«code»@"  
+	value="${logout.url.«code»}"/>
+<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 	token="@LOCAL_LOGOUT_URL.«code»@"  
 	value="${local.logout.url.«code»}"/>
 «ENDFOREACH-»
