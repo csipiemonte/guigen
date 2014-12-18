@@ -66,14 +66,36 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
 
 «IF model.targetPlatform.securityProfile != null»
-	<context-param>
-		<param-name>logoutURL</param-name>
-		<param-value>@LOGOUT_URL@</param-value>
-	</context-param>
+	«IF isMultiPortal(model)-»
+		«EXPAND securityRelatedContextParamsCustomMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND securityRelatedContextParamsCustomSP(model) FOR this-»
+	«ENDIF-»
 «ELSE»
 	«ERROR "authentication method non supportato:" + this.metaType»»
 «ENDIF»
 «ENDDEFINE»
+
+
+«DEFINE securityRelatedContextParamsCustomSP(GUIModel model) FOR CustomAuthentication»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParamsCustomMP(GUIModel model) FOR CustomAuthentication»
+	«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<context-param>
+		<param-name>logoutURL.«code»</param-name>
+		<param-value>@LOGOUT_URL.«code»@</param-value>
+	</context-param>
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+
+
+
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethod»
 «ERROR "authentication method non supportato:" + this.metaType»»
