@@ -152,18 +152,20 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «DEFINE property(String name, GUIModel model, String widgetValidation) FOR FileUpload»
+«LET (multiple? "List<File>": "File") AS fileActualType-»
+«LET (multiple? "List<String>": "String") AS stringActualType-»
 	// FileUpload «name»
-	private File «removeUnderscoreFromWidgPrefix(name)»;               // The actual file
-	private String «removeUnderscoreFromWidgPrefix(name)»ContentType;  // The content type of the file 
-	private String «removeUnderscoreFromWidgPrefix(name)»FileName;     // The uploaded file name and path 
+	private «fileActualType» «removeUnderscoreFromWidgPrefix(name)»;               // The actual file(s)
+	private «stringActualType» «removeUnderscoreFromWidgPrefix(name)»ContentType;  // The content type of the file(s) 
+	private «stringActualType» «removeUnderscoreFromWidgPrefix(name)»FileName;     // The uploaded file(s) name and path 
 
-	public void set«name.toFirstUpper()»(File value) {
+	public void set«name.toFirstUpper()»(«fileActualType» value) {
 		«removeUnderscoreFromWidgPrefix(name)» = value;
 	}
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 	«ENDIF-»
-	public File get«name.toFirstUpper()»() {
+	public «fileActualType» get«name.toFirstUpper()»() {
 		«IF model.targetPlatform.enableFatClient-»
 		if(«removeUnderscoreFromWidgPrefix(name)» == null){
 			String pathFile = (String) session.get("«name»_FileUpl");
@@ -175,13 +177,13 @@ e le limitazioni secondo i termini della Licenza.
 		return «removeUnderscoreFromWidgPrefix(name)»;
 	}
 
-	public void set«name.toFirstUpper()»ContentType(String value) {
+	public void set«name.toFirstUpper()»ContentType(«stringActualType» value) {
 		«removeUnderscoreFromWidgPrefix(name)»ContentType = value;
 	}
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 	«ENDIF-»
-	public String get«name.toFirstUpper()»ContentType() {
+	public «stringActualType» get«name.toFirstUpper()»ContentType() {
 		«IF model.targetPlatform.enableFatClient-»
 		if(«removeUnderscoreFromWidgPrefix(name)»ContentType == null){
 			return (String) session .get("«name»ContentType");
@@ -190,13 +192,13 @@ e le limitazioni secondo i termini della Licenza.
 		return «removeUnderscoreFromWidgPrefix(name)»ContentType;
 	}
 
-	public void set«name.toFirstUpper()»FileName(String value) {
+	public void set«name.toFirstUpper()»FileName(«stringActualType» value) {
 		«removeUnderscoreFromWidgPrefix(name)»FileName = value;
 	}
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
 	«ENDIF-»
-	public String get«name.toFirstUpper()»FileName() {
+	public «stringActualType» get«name.toFirstUpper()»FileName() {
 		«IF model.targetPlatform.enableFatClient-»
 		if(«removeUnderscoreFromWidgPrefix(name)»FileName == null){
 			return (String) session.get("«name»FileName");
@@ -204,6 +206,8 @@ e le limitazioni secondo i termini della Licenza.
 		«ENDIF-»
 		return «removeUnderscoreFromWidgPrefix(name)»FileName;
 	}
+«ENDLET-»
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Captcha»

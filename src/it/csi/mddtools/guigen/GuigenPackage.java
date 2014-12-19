@@ -7246,13 +7246,22 @@ public interface GuigenPackage extends EPackage {
 	int FILE_UPLOAD__ENABLE_ENRICHMENT = WIDGET__ENABLE_ENRICHMENT;
 
 	/**
+	 * The feature id for the '<em><b>Multiple</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__MULTIPLE = WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>File Upload</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_UPLOAD_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
+	int FILE_UPLOAD_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TabSwitcherImpl <em>Tab Switcher</em>}' class.
@@ -14243,6 +14252,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getFileUpload();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.FileUpload#isMultiple <em>Multiple</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multiple</em>'.
+	 * @see it.csi.mddtools.guigen.FileUpload#isMultiple()
+	 * @see #getFileUpload()
+	 * @generated
+	 */
+	EAttribute getFileUpload_Multiple();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TabSwitcher <em>Tab Switcher</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -19588,6 +19608,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FILE_UPLOAD = eINSTANCE.getFileUpload();
+
+		/**
+		 * The meta object literal for the '<em><b>Multiple</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE_UPLOAD__MULTIPLE = eINSTANCE.getFileUpload_Multiple();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TabSwitcherImpl <em>Tab Switcher</em>}' class.

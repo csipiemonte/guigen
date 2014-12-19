@@ -4813,6 +4813,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFileUpload_Multiple() {
+		return (EAttribute)fileUploadEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTabSwitcher() {
 		return tabSwitcherEClass;
 	}
@@ -7249,6 +7258,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(roleBasedSecurityConstraintEClass, ROLE_BASED_SECURITY_CONSTRAINT__ROLE);
 
 		fileUploadEClass = createEClass(FILE_UPLOAD);
+		createEAttribute(fileUploadEClass, FILE_UPLOAD__MULTIPLE);
 
 		tabSwitcherEClass = createEClass(TAB_SWITCHER);
 
@@ -8121,6 +8131,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getRoleBasedSecurityConstraint_Role(), this.getRole(), null, "role", null, 0, 1, RoleBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileUploadEClass, FileUpload.class, "FileUpload", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFileUpload_Multiple(), ecorePackage.getEBoolean(), "multiple", "false", 0, 1, FileUpload.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tabSwitcherEClass, TabSwitcher.class, "TabSwitcher", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
