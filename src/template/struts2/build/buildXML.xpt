@@ -273,6 +273,23 @@ e le limitazioni secondo i termini della Licenza.
 	«ENDLET»
   	<replace file="${temp}/conf/ejb/business/${contesto}/map-config/pd_gosgisso_baseservice.xml"  token="@@@gismap.provider.url@@@" value="${gosgisso.java.naming.provider.url}" />
 	«ENDIF»
+	<!-- gestione [devmode] (modalita' di sviluppo) -->
+	<if>
+		<equals arg1="${devmode}" arg2="true" />
+		<then><!-- se 'devmode' presente e valorizzato a true -->
+			<echo message="modalita' di sviluppo abilitata" />
+			<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+				token="@DEVMODE@"  
+				value="true"/>
+		</then>
+		<else><!-- se 'devmode' assente o valorizzato a false -->
+			<echo message="modalita' di sviluppo NON abilitata" />
+			<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+				token="@DEVMODE@"  
+				value="false"/>
+		</else>
+	</if>
+	
 	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43-»
 	<!-- gestone cookie path su JBoss -->
 	<if>

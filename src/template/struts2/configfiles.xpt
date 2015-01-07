@@ -201,6 +201,12 @@ e le limitazioni secondo i termini della Licenza.
 		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml«IF hasGisMap()»,/WEB-INF/gis-beans.xml«ENDIF»</param-value>
 	</context-param>
 
+	<!-- true: abilita la modalita' di sviluppo -->
+	<context-param>
+		<param-name>devmode</param-name>
+		<param-value>@DEVMODE@</param-value>
+	</context-param>
+	
 «IF getActualSecurityModel(this).autenticationMethod!=null»
 	«EXPAND template::struts2::security::security::securityRelatedContextParams(this) FOR getActualSecurityModel(this).autenticationMethod»
 «ENDIF»
