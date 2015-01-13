@@ -1009,3 +1009,16 @@ context ContentPanel
 ERROR "GUI-069: Non e' (piu') possibile definire un ContentPanel non inserito in un AppModule:"+loc()+", spostarlo in un appmodule (anche interno al modello principale)" :
 	this.eContainer.metaType==AppModule;
 	
+///// check temporanei
+context DataWidget 
+if dataType!=null && dataType.metaType==SimpleType && !((SimpleType)dataType).userDefined
+&& (
+	((SimpleType)dataType).code == SimpleTypeCodes::INT ||
+	((SimpleType)dataType).code == SimpleTypeCodes::FLOAT ||
+	((SimpleType)dataType).code == SimpleTypeCodes::LONG ||
+	((SimpleType)dataType).code == SimpleTypeCodes::DOUBLE
+)
+ERROR "Il SimpleType '"+dataType.name+ "' associato al widget ["+this.metaType.name+":"+name+"] non e' supportato da questa versione, a causa di un malfunzionamento introdotto dalla versione correntemente in uso di struts2 (v. rel. notes della v. 3.1.0). "+
+"Utilizzare il corrispondente tipo 'wrapped':"+loc() :
+ ((SimpleType)dataType).nillable == true;
+	
