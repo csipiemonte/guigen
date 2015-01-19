@@ -40,10 +40,32 @@ import it.csi.csi.wrapper.CSIException;
 
 public class IridePDCache implements FunctHandler {
 
+	/**
+	 * mantiene i dati della cache
+	 */
 	static Map<Iride2CallKey, Iride2CallValue> cache = new HashMap<Iride2CallKey, Iride2CallValue>();
 
+	/**
+	 * TTL = 1h
+	 */
 	static final long TTL = 60 * 60 * 1000; // TTL = 1h
 
+	/**
+	 * Gestisce il meccanismo di cache al momento dell'invocazione.
+	 * Solo i metodi per cui il risultato di <code>mustCache()</code> &egrave; true
+	 * sono gestiti con il meccanismo di cache.
+	 * Se il metodo &egrave; gestito in cache:
+	 * <ol>
+	 * <li>viene ricercata nella cache l'eventuale presenza del valore di una chiamata precedente
+	 *     con gli stessi parametri</li>
+	 * <li>se &egrave; presente il valore e questo non &egrave; troppo vecchio, esso viene inserito nel 
+	 * contesto come valore da restituire e viene istruita la PD in modo da non effettuare la chiamata
+	 * effettuva al servizio
+	 * <li>se non &egrave; presente il valore allora il giro normale prosegue e, nella catena di risposta
+	 *     il valore ottenuto dal servizio viene inserito in cache, per le future invocazioni</li> 
+	 * </ol>
+	 * 
+	 */
 	public FHResult doOnInvokeSynch(String methodName, Param[] params,
 			FHResult prevres, Hashtable bag, boolean inPreChain)
 			throws CSIException {
@@ -74,16 +96,32 @@ public class IridePDCache implements FunctHandler {
 		return prevres;
 	}
 
+	/**
+	 * attualmente i metodi gestiti dal meccanismo di cache sono solo i seguenti:
+	 * <ul>
+	 * <li>isPersonaInRuolo</li>
+	 * <li>isPersonaAutorizzataInUseCase</li>
+	 * <li>findActorsForPersonaInApplication</li>
+	 * <li>findRuoliForPersonaInUseCase</li>
+	 * </ul>
+	 */
 	private boolean mustCache(String methodName) {
 		if ("isPersonaInRuolo".equals(methodName)
 				|| "isPersonaAutorizzataInUseCase".equals(methodName)
-				|| "findActorsForPersonaInApplication".equals(methodName))
+				|| "findActorsForPersonaInApplication".equals(methodName)
+				|| "findRuoliForPersonaInUseCase".equals(methodName))
 			return true;
 		else
 			return false;
 
 	}
 
+	/**
+	 * Valore degli elementi della cache. Descrive l'output dell'invocazione
+	 * (funziona per i soli metodi gestiti).
+	 * E' corredata da un indicatore di istante di inserimento in cache, per verificarne
+	 * l'anzianit&agrave;
+	 */
 	class Iride2CallValue {
 		public long birthTime;
 		public Param result;
@@ -94,6 +132,11 @@ public class IridePDCache implements FunctHandler {
 		}
 	}
 
+	/**
+	 * Chiave degli elementi della cache. Descrive l'input dell'invocazione
+	 * (funziona per i soli metodi gestiti).
+	 * E' corredata da un indicatore di istante di inserimento in cache
+	 */
 	class Iride2CallKey {
 		public String paramsKey;
 
