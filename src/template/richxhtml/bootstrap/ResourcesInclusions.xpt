@@ -1,0 +1,189 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+«EXTENSION template::richxhtml::bootstrap::Extensions»
+
+«REM»link specifici di bootstrap da includere globalmente nell'head in modalita' remoteResources=true«ENDREM»
+«DEFINE globalInclusionsJSLibSpecificRemote FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalJQlibsthemeDir(true)»base/jquery.ui.all.css" />
+	«IF isMultiPortal(this)-»
+	<position value="«getGlobalJQlibsthemeDir(true)»css/{areaCode}/css/xtheme-{areaCode}.css" />
+	«ELSE-»
+	<position value="«getGlobalJQlibsthemeDir(true)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+	«ENDIF-»
+	<!-- bootstrap -->
+	<position value="«getGlobalJQlibsthemeDir(true)»/bootstrap/3.3.2/css/bootstrap.min.css" />
+	<position value="«getGlobalJQlibsthemeDir(true)»/bootstrap/3.3.2/css/bootstrap-theme.min.css" />
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(true)»jquery/«getJQVersion()»/jquery-«getJQVersion()».js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.core.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.widget.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.mouse.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.position.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.menu.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.datepicker.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.autocomplete.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.tooltip.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.button.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.dialog.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.draggable.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.droppable.js" />
+	<position value="«getGlobalJslibDir(true)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.resizable.js" />
+	<position value="«getGlobalJslibDir(true)»ckeditor/«getCKEditorVersion()»/ckeditor.js" />
+	<!-- bootstrap -->
+	<position value="«getGlobalJslibDir(true)»/bootstrap/3.3.2/js/bootstrap.min.js" />
+</resource>
+«ENDDEFINE»
+
+«REM»link specifici di jquery da includere globalmente nell'head in modalita' remoteResources=false«ENDREM»
+«DEFINE globalInclusionsJSLibSpecificLocal FOR GUIModel-»
+<resource type="text/css">
+	<position value="«getGlobalJQlibsthemeDir(false)»base/jquery.ui.all.css" />
+	<position value="«getGlobalJQlibsthemeDir(false)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+	<position value="«getGlobalJQlibsthemeDir(false)»/bootstrap/3.3.2/css/bootstrap.min.css" />
+	<position value="«getGlobalJQlibsthemeDir(false)»/bootstrap/3.3.2/css/bootstrap-theme.min.css" />
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(false)»jquery/«getJQVersion()»/jquery-«getJQVersion()».js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.core.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.mouse.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.widget.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.position.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.menu.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.datepicker.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.autocomplete.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.tooltip.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.button.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.dialog.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.draggable.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.droppable.js" />
+	<position value="«getGlobalJslibDir(false)»jqueryUI/«getJQUIVersion()»/ui/jquery.ui.resizable.js" />
+	<position value="«getGlobalJslibDir(false)»ckeditor/«getCKEditorVersion()»/ckeditor.js" />
+	<!-- bootstrap -->
+	<position value="«getGlobalJslibDir(false)»/bootstrap/3.3.2/js/bootstrap.min.js" />
+/resource>
+«ENDDEFINE»
+
+
+«REM»link specifici di jquery da includere per singola pagina nell'head in modalita' remoteResources=true«ENDREM»
+«DEFINE pageInclusionsJSLibSpecificRemote(GUIModel model) FOR ContentPanel»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/ajaxify-tag/css/ajaxify.css" />
+	«IF hasGisMap()»
+	<!-- pe rmappa GIS -->
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/openlayers_style.css" />
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/grease.css" />
+	<position value="«getGlobalOpenlayersthemeDir(true)»css/toolbar.css" />
+	«ENDIF»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/oojsutils/oojsutils.js" />
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/enricher/enricher.js" />
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/ajaxify-tag/ajaxifyTag.js" />
+	<!-- clessidra di attesa -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/blockui/jquery.blockUI.js" />
+	<!-- keyfilter -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/keyfilter/jquery.keyfilter.js" />
+	<!-- jqtooltip -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqtooltip/jqtooltip.js" />
+	<!-- jqmenu -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqmenu/sf/superfish.click.csi.js" />
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqmenu/jqmenu.js" />
+	<!-- jqpanel -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqpanel/jqpanel.js" />
+	<!-- ytoggle -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/ytoggle/ytoggle.js" />
+	<!-- jqbutton -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqbutton/jqbutton.js" />
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqbutton/jqbutton.init.js" />	
+	<!-- dialog -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/ui-dialogahah/ui-dialogahah.js" />
+	«IF hasGisMap()»
+	<!-- pe rmappa GIS -->
+	<position value="«getGlobalJslibDir(true)»openlayers/«getOpenlayersVersion()»/core/OpenLayers.js" />
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/maps/map-setup.js" />
+	«ENDIF»
+	<!-- componente js dello skin -->
+	<position value="«getGlobalJQlibsthemeDir(true)»js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<!-- stilizzazioni JS locali (opz) -->
+	«IF isMultiPortal(model)-»
+	<position value="«getPathComponentDirMultiportal(model, true)»js/localStyle.js" />
+	«ELSE-»
+	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	«ENDIF-»
+	<!-- arricchimenti della schermata -->
+	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+</resource>
+
+«ENDDEFINE»
+
+«REM»link specifici di jquery da includere per singola pagina nell'head in modalita' remoteResources=false«ENDREM»
+«DEFINE pageInclusionsJSLibSpecificLocal(GUIModel model) FOR ContentPanel-»
+<resource type="text/css">
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/ajaxify-tag/css/ajaxify.css" />
+«IF hasGisMap()»
+	<!-- pe rmappa GIS -->
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/openlayers_style.css" />
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/grease.css" />
+	<position value="«getGlobalOpenlayersthemeDir(false)»css/toolbar.css" />
+«ENDIF»
+</resource>
+<resource type="text/javascript">
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/oojsutils/oojsutils.js" />
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/enricher/enricher.js" />
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/ajaxify-tag/ajaxifyTag.js" />
+	<!-- clessidra di attesa -->
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/blockui/jquery.blockUI.js" />
+	<!-- keyfilter -->
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/keyfilter/jquery.keyfilter.js" />
+	<!-- jqtooltip -->
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqtooltip/jqtooltip.js" />
+	<!-- jqmenu -->
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqmenu/sf/superfish.click.csi.js" />
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqmenu/jqmenu.js" />
+	<!-- jqpanel -->
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqpanel/jqpanel.js" />
+	<!-- ytoggle -->
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/ytoggle/ytoggle.js" />
+	<!-- jqbutton -->
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqbutton/jqbutton.js" />
+	<position value="«getGlobalJslibDir(true)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/jqbutton/jqbutton.init.js" />
+	<!-- dialog -->
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/plugins/ui-dialogahah/ui-dialogahah.js" />
+	«IF hasGisMap()»
+	<!-- per mappa GIS --> 
+	<position value="«getGlobalJslibDir(false)»openlayers/«getOpenlayersVersion()»/core/OpenLayers.js" />
+	<position value="«getGlobalJslibDir(false)»jqcsienricher/«resolveVersionDirectory(getJQCsiEnricherVersion())»/maps/map-setup.js" />
+	«ENDIF»
+	<!-- componente js dello skin -->
+	<position value="«getGlobalJQlibsthemeDir(false)»js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+</resource>
+«ENDDEFINE»
