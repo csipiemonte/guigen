@@ -827,20 +827,14 @@ Gestione dei LAYOUT - PANNELLI
 «IF !this.widgets.isEmpty -»
 «IF !isNullOrEmpty(this.label)»<h4 class="wpLabel">«this.label» «getToggleHandleHtml(this,contextPrefix)»</h4>«ENDIF»
 <div class="widgetsPanel" id="«getFullID(this, contextPrefix)»">
-	«IF this.widgets.select(e|e.metaType == Table).size == 0 && this.widgets.select(e|e.metaType == MapView).size == 0»
-	<customtag:widgetsPanel id="«getFullID(this, contextPrefix)»Tbl" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable"
-		summary="«this.summary»" «IF !isRemote()» isStandalone="true"«ENDIF»
-		«getPanelGridPercentCols(this)»>
-	«ENDIF»
+	<div class="panel-body">
 «ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 «IF !this.widgets.isEmpty -»
-	«IF this.widgets.select(e|e.metaType == Table).size == 0 && this.widgets.select(e|e.metaType == MapView).size == 0»
-	</customtag:widgetsPanel>
-	«ENDIF»
+	</div>
 </div>
 «ENDIF-»
 «ENDDEFINE»
@@ -929,20 +923,19 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
-<customtag:widgetsPanelColumn «IF this.label != null» «!isNullOrEmpty(this.tooltip)?"tooltip=\""+this.tooltip+"\"":""» labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF»
-	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
+	<div class="form-group «getWidgetColSizes()»">
+		<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
-</customtag:widgetsPanelColumn>
+	</div>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
 «DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 «IF needHandleCustomtagCloseHspan(wp, this) -»
 <s:else>
-	<customtag:widgetsPanelColumn textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
 </s:else>
 «ENDIF-»
 «ENDDEFINE»
@@ -952,7 +945,6 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
-<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal(model, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
@@ -1014,7 +1006,6 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
-<customtag:widgetsPanelColumn «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
@@ -1181,3 +1172,5 @@ css.th.descending=desc
 css.tr.even=even
 css.tr.odd=odd
 «ENDDEFINE»
+
+

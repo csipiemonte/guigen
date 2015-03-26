@@ -1,0 +1,66 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
+ 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout RESPONSIVE                         //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+String getCSSClasses(TextField tf) :
+"form-control";
+
+String getCSSClasses(Button b) :
+"btn btn-default buttonWidget "+
+(switch (b.functionSpecifier){
+	case CommandFunctions::ADD_ITEM : "addItem"
+	case CommandFunctions::EDIT_ITEM : "editItem"
+	case CommandFunctions::DELETE_ITEM : "deleteItem"
+	case CommandFunctions::SEARCH : "search"
+	case CommandFunctions::SAVE : "save"
+	case CommandFunctions::LOAD : "load"
+	case CommandFunctions::DETAIL : "detail"
+	case CommandFunctions::LOOKUP : "lookup"
+	case CommandFunctions::PREVIOUS_ITEM : "previousItem"
+	case CommandFunctions::FIRST_ITEM : "firstItem"
+	case CommandFunctions::LAST_ITEM : "lastItem"
+	case CommandFunctions::CONFIRM : "confirm"
+	case CommandFunctions::CANCEL : "cancel"
+	case CommandFunctions::FORWARD : "forward"
+	case CommandFunctions::BACK : "back"
+	case CommandFunctions::SHOW_REPORT : "showReport"
+	case CommandFunctions::SHOW_HELP : "showHelp"
+	case CommandFunctions::SEND_MESSAGE : "sendMessage"
+	default : ""
+});
+
+String getCSSClasses(Calendar c) :
+"form-control calendar";
+	
+	
+//// classi per bootstrap
+String getWidgetColSizes(Widget w) :
+"col-md-4 col-sm-6 col-xs-12"; 

@@ -368,7 +368,7 @@ public class GenUtilsLayoutResponsive {
 	 */
 	public static String getCheckboxPortalStyle(GUIModel model) {
 		String res = "";
-		res = "cssClass=\"checkbox\"";
+		res = "class=\"checkbox\"";
 		return res;
 	}
 

@@ -21,6 +21,7 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT template::struts2::view::remoteResources»
 «IMPORT template::struts2::responsive::resourcefilesResponsive»
 «IMPORT template::struts2::responsive::remoteResourcesResponsive»
+«IMPORT template::struts2::responsive::widgets»
 
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::GenericExtensions»
@@ -207,6 +208,7 @@ Gestione dei LAYOUT - PANNELLI
 ************** WidgetsPanel e pannelli conteneti widgets (CommandPanel e MenuPanel) **************
 «ENDREM»
 
+
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «AROUND template::struts2::view::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::subPanelControlHeader(quadrante, cp, contextPrefix) FOR this»
@@ -286,139 +288,147 @@ Gestione dei LAYOUT - WIDGETS
 ==========================================================================================================================
 «ENDREM»
 
+«REM»--------------- Widget (NEW AOP's!)---------------«ENDREM»
+«AROUND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Widget»
+	«EXPAND template::struts2::responsive::widgetStructure::createAndAddWidgetMarkup(model, cp, wp, isFirst, isLast, contextPrefix, pduConf, isPortlet) FOR this»
+«ENDAROUND»
+
 «REM»--------------- Widget ---------------«ENDREM»
 
-«REM»Genera la header di un widget generico«ENDREM»
+«REM»Genera la header di un widget generico (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlHeader(model, wp, isFirst, isLast, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la footer di un widget generico«ENDREM»
+«REM»Genera la footer di un widget generico (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlFooter(model, wp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la clausola di chiusura di un widget generico«ENDREM»
+«REM»Genera la clausola di chiusura di un widget generico (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetClose(model, wp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
-
+«ENDREM»
 
 «REM»--------------- PlainText ---------------«ENDREM»
 
-«REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
+«REM»Genera la header di un widget di tipo PlainText per un FormPanel (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlHeader(model, wp, isFirst, isLast, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-«REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
+«REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlHeader(model, mbp, isFirst, isLast, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-«REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
+«REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlFooter(model, mbp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
-
+«ENDREM»
 
 «REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
 
-«REM»Genera la header di un widget di tipo Button«ENDREM»
+«REM»Genera la header di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlHeader(model, cmdp, isFirst, isLast, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«REM»Genera la footer di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlFooter(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«REM»Genera la clausola di chiusura di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetClose(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
-
+«ENDREM»
 
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
-«REM»Genera la header di un widget di tipo HiddenValue«ENDREM»
+«REM»Genera la header di un widget di tipo HiddenValue (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValue»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlHeader(model, cmdp, isFirst, isLast, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la footer di un widget di tipo HiddenValue«ENDREM»
+«REM»Genera la footer di un widget di tipo HiddenValue (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlFooter(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la clausola di chiusura di un widget di tipo HiddenValue«ENDREM»
+«REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetClose(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
-
+«ENDREM»
 
 «REM»--------------- MenuView ---------------«ENDREM»
 
-«REM»Genera la header di un widget di tipo Button«ENDREM»
+«REM»Genera la header di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuView»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlHeader(model, mp, isFirst, isLast, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«REM»Genera la footer di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlFooter(model, mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«REM»Genera la clausola di chiusura di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetClose(model, mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
-
+«ENDREM»
 
 «REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
 
-«REM»Genera la header di un widget di tipo Button«ENDREM»
+«REM»Genera la header di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TreeView»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlHeader(model, mp, isFirst, isLast, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«REM»Genera la footer di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetControlFooter(model, mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
+«ENDREM»
 
-
-«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«REM»Genera la clausola di chiusura di un widget di tipo Button (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetClose(model, mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
-
+«ENDREM»
 
 
 «REM»
 ************** Markup HTML dei Widgets specifici  **************
 «ENDREM»
 
-«REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
+«REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons). (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetMarkupHeader(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR RadioButtons»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetMarkupHeader(model, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
 
-«REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
+
+«REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons). (@overridden)
 «AROUND template::struts2::view::remoteResources::widgetMarkupFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtons»
 	«EXPAND template::struts2::responsive::remoteResourcesResponsive::widgetMarkupFooter(model, cp, contextPrefix) FOR this»
 «ENDAROUND»
-
+«ENDREM»
 
 «REM»
 *************** gestione arricchimenti disponibili solo per cartuccia universale *************

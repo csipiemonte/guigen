@@ -1,0 +1,140 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::responsive::Struts2ExtensionsNeutral»
+«EXTENSION template::struts2::responsive::BootstrapExtensions»
+
+
+
+«REM»#############################################«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Widget»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND createWidgetMarkup(model, cp, contextPrefix, pduConf, isPortlet) FOR this-»
+</s:if>
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Widget»
+«ERROR "createwidgetMarkup:"+this.metaType+" non gestito"»
+<span>widget «this.metaType» non gestito</span>
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TextField»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+		<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+<s:textfield 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+	cssClass="«getCSSClasses(this)»"
+/>
+</div>
+</div>
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR PlainText»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+		<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«IF this.databinding!=null-»
+<s:property value="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" escape="false" />
+«ELSE-»
+«IF !isNullOrEmpty(this.staticText)»<s:text name="«cp.name».«getFullID(this, contextPrefix)».statictext.label" />«ENDIF»
+«ENDIF-»
+</div>
+</div>
+«ENDDEFINE»
+
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Button»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix, isPortlet) FOR this-»
+«ENDIF-»
+<s:submit type="button" name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»"
+	key="«cp.name».«getFullID(this, contextPrefix)».label" cssClass="«getCSSClasses(this)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
+</div>
+</div>
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Calendar»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+		<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+<s:textfield 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+	size="10" maxlength="10" 
+	cssClass="«getCSSClasses(this)»"
+/> «getCalendarImageByLayout(model, this)»
+</div>
+</div>
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR CheckBox»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
+«ENDIF-»
+<s:if test="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
+<s:set var="«getFullID(this, contextPrefix)»_disabled" value="disabled='disabled'"></s:set>
+</s:if>
+<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />
+<input type="checkbox" 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+	${«getFullID(this, contextPrefix)»_disabled}
+	«getCheckboxPortalStyle(model)»
+	«getCheckBoxesValueChangedHandlerJS(this, model, cp, contextPrefix)»«REM»STDMDD-163: Check box: implementazione evento di click«ENDREM»
+	/> 
+</label>
+<s:if test="!isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
+	<s:hidden name="__checkbox_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__checkbox_«getWidgetName(this, contextPrefix)»" />
+</s:if>
+«IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
+</div>
+</div>
+«ENDDEFINE»
