@@ -290,7 +290,7 @@ e riscrivere secondo le necessita'
 		<display:column headerClass="nosort" media="html">
 		«IF this.databinding.appData.type.metaType == SimpleType -»
 			<s:radio list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" 
-				cssClass="hidden"
+				theme="csi"
 			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
 				«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
 				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
