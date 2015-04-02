@@ -17,6 +17,7 @@ e le limitazioni secondo i termini della Licenza.
 
 «IMPORT guigen»
 
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::struts2::bootstrap::Struts2ExtensionsNeutral»
@@ -24,7 +25,11 @@ e le limitazioni secondo i termini della Licenza.
 
 
 
-«REM»#############################################«ENDREM»
+«REM»###############################################################
+copiare le definizioni originali da struts2::view::resourcefiles.xpt 
+e riscrivere secondo le necessita'
+####################################################################
+«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Widget»
 <s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
 «EXPAND createWidgetMarkup(model, cp, contextPrefix, pduConf, isPortlet) FOR this-»
@@ -34,38 +39,6 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Widget»
 «ERROR "createwidgetMarkup:"+this.metaType+" non gestito"»
 <span>widget «this.metaType» non gestito</span>
-«ENDDEFINE»
-
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TextField»
-<!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
-		<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
-<s:textfield 
-	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
-	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
-	
-	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
-	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
-	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
-	cssClass="«getCSSClasses(this)»"
-/>
-</div>
-</div>
-«ENDDEFINE»
-
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR PlainText»
-<!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
-		<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
-«IF this.databinding!=null-»
-<s:property value="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" escape="false" />
-«ELSE-»
-«IF !isNullOrEmpty(this.staticText)»<s:text name="«cp.name».«getFullID(this, contextPrefix)».statictext.label" />«ENDIF»
-«ENDIF-»
-</div>
-</div>
 «ENDDEFINE»
 
 
@@ -92,14 +65,14 @@ e le limitazioni secondo i termini della Licenza.
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
-		<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
 <s:textfield 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
 	
 	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
-	size="10" maxlength="10" 
+	maxlength="10" 
 	cssClass="«getCSSClasses(this)»"
 /> «getCalendarImageByLayout(model, this)»
 </div>
@@ -117,7 +90,8 @@ e le limitazioni secondo i termini della Licenza.
 <s:if test="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
 <s:set var="«getFullID(this, contextPrefix)»_disabled" value="disabled='disabled'"></s:set>
 </s:if>
-<label for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />
+<div class="checkbox">
+<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />
 <input type="checkbox" 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -128,6 +102,7 @@ e le limitazioni secondo i termini della Licenza.
 	«getCheckBoxesValueChangedHandlerJS(this, model, cp, contextPrefix)»«REM»STDMDD-163: Check box: implementazione evento di click«ENDREM»
 	/> 
 </label>
+</div>
 <s:if test="!isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
 	<s:hidden name="__checkbox_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__checkbox_«getWidgetName(this, contextPrefix)»" />
 </s:if>
@@ -138,3 +113,369 @@ e le limitazioni secondo i termini della Licenza.
 </div>
 </div>
 «ENDDEFINE»
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR ComboBox»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+«IF !isNullOrEmpty(this.label)»
+		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«ENDIF-»
+«LET getRefreshTargetIds(this) AS targetIdsTemp-»
+«LET (Panel)(this.eContainer) AS parentPanel-»
+«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
+«IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero una suggestion con bind su chiave e valore«ENDREM»
+<s:textfield 
+
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»«REM»[LC] stdmdd-1072 - In caso di funzionalita' Value Changed, si accoda, nel testo del tooltip, l'avviso«ENDREM»
+		title="«this.tooltip» - Attenzione. Dopo aver selezionato un valore, la pagina verra' aggiornata automaticamente"
+	«ELSE-»
+		title="«this.tooltip»"
+	«ENDIF-»
+	
+	name="«getAppDataKey(databinding.appData)».«valueSelector»"
+	id="«getWidgetName(this, contextPrefix)»"
+	size="«fieldLength»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+	/>
+«REM»«EXPAND createComboBoxNoscriptMarkup(model, cp, contextPrefix, pduConf) FOR this-» [DM] SDTMDD-1084: rimozione noscript«ENDREM»
+«ELSE-»
+«IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
+
+<s:url id="«getWidgetName(this, contextPrefix)»urlComboBoxValueChange"
+   «getUrlWidgetValueChange(this, model, cp, contextPrefix)» 
+   includeParams="all" portletUrlType="action" 
+/>
+«ENDIF-»
+<s:select name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+	 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»«REM»[LC] stdmdd-1072 - In caso di funzionalita' Value Changed, si accoda, nel testo del tooltip, l'avviso«ENDREM»
+		title="«this.tooltip» - Attenzione. Dopo aver selezionato un valore, la pagina verra' aggiornata automaticamente"
+	«ELSE-»
+		title="«this.tooltip»"
+	«ENDIF-»
+			
+	  «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
+	  list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
+	  disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+	  «IF (databinding!=null && isBoundToArray(this.databinding)) ||
+	  	  (databinding==null && dataType.metaType==TypedArray)-»
+	  multiple="true"
+	  cssClass="«getCSSClasses()» selectMultiple"          
+	  «IF visibleLines>0»size="«visibleLines»"«ENDIF»
+	  «ELSE-»
+	  cssClass="«getCSSClasses()»"
+	  «ENDIF-»
+	  «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
+	  «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
+	  «getComboBoxValueChangedHandlerJS(this, model, cp, contextPrefix)»
+	  />
+«getComboBoxValueChangedHandlerNoScript(this, model, cp, contextPrefix)»
+«IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDIF-»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+</div>
+</div>
+«ENDDEFINE»
+
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR PlainText»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+«IF !isNullOrEmpty(this.label)»
+		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«ENDIF-»
+<p class="form-control-static">
+«IF this.databinding!=null-»
+<s:property value="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" escape="false" />
+«ELSE-»
+«IF !isNullOrEmpty(this.staticText)»<s:text name="«cp.name».«getFullID(this, contextPrefix)».statictext.label" />«ENDIF»
+«ENDIF-»
+</p>
+</div>
+</div>
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR RadioButtons»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form">
+	<div class="form-group «getWidgetColSizes()»">
+		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
+«ENDIF-»
+«REM»«EXPAND remoteResources::widgetMarkupHeader(model, cp, contextPrefix, pduConf) FOR this»«ENDREM»
+«FOREACH this.radio AS currRadio ITERATOR iter-»
+«EXPAND createWidgetMarkup(model, cp, this, contextPrefix, pduConf,iter.counter1, isPortlet) FOR currRadio»
+«ENDFOREACH-»
+«getRadioButtonsValueChangedHandlerNoScript(this, model, cp, contextPrefix)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
+«REM»«EXPAND remoteResources::widgetMarkupFooter(model, cp, contextPrefix) FOR this»«ENDREM»
+«IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
+	</div>
+	</div>
+«ENDDEFINE»
+
+
+
+
+
+
+«REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf,Integer cont, boolean isPortlet) FOR RadioButton»
+
+«IF cont==1 && parent.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1»
+<s:url id="«getWidgetName(parent, contextPrefix)»urlRadioButtonValueChange"
+   «getUrlParentWidgetValueChange(parent, model, cp, contextPrefix)» 
+   includeParams="all" portletUrlType="action" 
+/>
+«ENDIF»
+«IF parent.layout==null || parent.layout.metaType == HorizontalFlowPanelLayout»
+«EXPAND createHorizontalRadioMarkup( model, cp, parent, contextPrefix, pduConf, cont, isPortlet) FOR this»
+«ELSE»
+«EXPAND createVerticalRadioMarkup( model, cp, parent, contextPrefix, pduConf, cont, isPortlet) FOR this»
+«ENDIF»
+«REM»
+<s:radio
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	id="«getWidgetName(this, contextPrefix)»" name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»"
+	list="#{«getFixedRadioButtonList(this)»}"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(parent, contextPrefix)»')"
+	«getRadioPortalStyle(model)»
+	«getRadioButtonsValueChangedHandlerJS(parent, model, cp, contextPrefix)»
+	/>
+«ENDREM»
+«ENDDEFINE»
+
+«REM»
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+    Option one is this and that&mdash;be sure to include why it's great
+  </label>
+</div>
+«ENDREM»
+«DEFINE createVerticalRadioMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf,Integer cont, boolean isPortlet) FOR RadioButton»
+<div class="radio">
+	<label>
+		<input type="radio" 
+			id="«getWidgetName(this, contextPrefix)»"
+			name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»"
+			value="«value»"
+			«getRadioButtonsValueChangedHandlerJS(parent, model, cp, contextPrefix)»
+		>
+		<s:text name="«cp.name».«getFullID(parent, contextPrefix)».«name».label" />
+	</label>
+</div>
+«ENDDEFINE»
+
+«REM»
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+</label>
+«ENDREM»
+«DEFINE createHorizontalRadioMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf,Integer cont, boolean isPortlet) FOR RadioButton»
+<label class="radio-inline">
+	<input type="radio" 
+			id="«getWidgetName(this, contextPrefix)»"
+			name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»" value="«value»">
+	<s:text name="«cp.name».«getFullID(parent, contextPrefix)».«name».label" />
+</label>
+«ENDDEFINE»
+
+
+
+
+
+
+
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Table»
+<!-- widget «getFullID(this, contextPrefix)» -->
+«LET (Panel)(this.eContainer) AS parentPanel-»
+«LET getRefreshTargetIds(this) AS targetIdsTemp-»
+«LET targetIdsTemp!=null ? addTableRefreshTargetId(targetIdsTemp, getFragmentId(parentPanel)) : {getFragmentId(parentPanel)} AS targetIds-»
+«IF model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader((List[String])targetIds, model, cp, contextPrefix) FOR this-»
+«ENDIF-»
+«LET this.enableExport ? "true" : "false" AS exportEnabled-»
+<s:set name="«cp.name»_«getFullID(this, contextPrefix)»_clearStatus" value="isTableClearStatus('«cp.name»_«getFullID(this, contextPrefix)»')" />
+<s:url id="«getStrutsActionConfigName(cp)»ViewUrl"						   
+					   action="«getStrutsActionConfigName(cp)»"
+					   namespace="«getContentPanelNamespace(cp, false)»"/>
+<display:table name="«getNameDisplayTable(this, contextPrefix, pduConf)»"  				
+			   «excludeParamas()-»
+			   export="«enableExport»"
+               id="«getWidgetName(this, contextPrefix)»"
+               pagesize="«this.pageSize»"
+               keepStatus="true"
+               requestURI="${«getStrutsActionConfigName(cp)»ViewUrl}"  
+               clearStatus="${«cp.name»_«getFullID(this, contextPrefix)»_clearStatus}"
+               uid="row_«getFullID(this, contextPrefix)»"
+               summary="«this.summary»" «REM»STDMDD-332«ENDREM»
+               «IF customDecorator-»decorator="«getTableDecoratorFQN(model, this)»"«ENDIF-»
+               class="«getCSSClasses(this)»" >
+	«REM»<display:caption>se label!=null</display:caption>«ENDREM»
+	«IF this.databinding != null -»
+		<display:column headerClass="nosort" media="html">
+		«IF this.databinding.appData.type.metaType == SimpleType -»
+			<s:radio list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getRadioPortalStyle(model)»
+			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
+				«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
+				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
+				«ENDLET-»
+			«ENDIF-»
+			/>
+		«ELSEIF this.databinding.appData.type.metaType == TypedArray -»
+			<s:checkboxlist list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getCheckboxPortalStyle(model)»
+			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
+			«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
+				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
+			«ENDLET-» 
+			«ENDIF-»
+			/>
+		«ELSEIF this.databinding.appData.type.metaType == ComplexType -»
+			«REM»COME FARE SE SIAMO IN QUESTO CASO?«ENDREM»
+			«ERROR "Databinding a ComplexType non ancora gestito sul widget Table " + loc()»
+		«ENDIF-»
+		</display:column>
+		«IF enableExport-»«REM»STDMDD-479«ENDREM»
+		<display:column headerClass="nosort" media="excel pdf">
+		</display:column>
+		«ENDIF-»
+	«ENDIF-»
+	«LET this.columnModel AS tabColMod-»
+	«FOREACH getCustomizedColumnsList(this, pduConf) AS currCol-»
+		«IF currCol.editable-»
+			«IF currCol.editableFlagSelector != null-»
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" 
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html"
+			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-»>
+				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
+		</display:column>
+			«ELSE-»
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnComparator(model, currCol, this)»
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html"
+			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-»>
+				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
+		</display:column>
+			«ENDIF-»
+		«REM»[SC] Jira STDMDD-536 Introdotta gestione dell'Active Flag Selector «ENDREM»
+		«ELSEIF currCol.eventActive && currCol.activeFlagSelector!=null -»
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
+						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html"
+						«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-»>
+				<s:if test="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.activeFlagSelector» == true}">
+					<s:url id="targetUrlLinkableCell"						   
+						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»"
+						   namespace="«getContentPanelNamespace(cp, false)»"
+						   includeParams="none">
+						<s:param name="idRiga"  value="%{#attr.row_«getFullID(this, contextPrefix)».«this.columnModel.valueSelector»}"/>
+						<s:param name="idColonna">«currCol.selector»</s:param>
+					</s:url>
+					<s:a href="%{targetUrlLinkableCell}" id="id_linkable_cell">
+						<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
+					</s:a>
+				</s:if>
+				<s:else>
+					<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
+				</s:else>
+		</display:column>
+		«ELSE-»
+		<display:column «IF !currCol.eventActive-»property="«currCol.selector»"«ENDIF» titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" 
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
+			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)»  media="html"
+			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-» >
+			«IF currCol.eventActive-»
+			<s:url id="targetUrlLinkableCell"						   
+					action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»"
+					namespace="«getContentPanelNamespace(cp, false)»"
+					includeParams="none">
+				<s:param name="idRiga"  value="%{#attr.row_«getFullID(this, contextPrefix)».«this.columnModel.valueSelector»}"/>
+				<s:param name="idColonna">«currCol.selector»</s:param>
+			</s:url>
+			<s:a href="%{targetUrlLinkableCell}" id="id_linkable_cell">
+				<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
+			</s:a>
+			«ENDIF»
+		</display:column>
+		«ENDIF-»
+		«IF enableExport-»«REM»STDMDD-694«ENDREM»
+		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».export.label"
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
+			«getColumnComparator(model, currCol, this)»
+			media="excel" />
+		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».export.label"
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
+			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)»
+			media="pdf" />	
+		«ENDIF-»
+	«ENDFOREACH-»
+	«ENDLET-»
+</display:table>
+«REM»STDMDD-416 - creato un Custom Interceptor per la gestione (TableSelectionInterceptor)«ENDREM»
+«IF this.databinding != null && this.databinding.appData.type.metaType == TypedArray -»
+<s:hidden name="__tableselectionempty_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__tableselectionempty_«getWidgetName(this, contextPrefix)»" />
+«ENDIF-»
+
+«IF model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ENDDEFINE»
+
+
+
+
+
+
+
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TextField»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+<s:textfield 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+	cssClass="«getCSSClasses(this)»"
+/>
+</div>
+</div>
+«ENDDEFINE»
+
+
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Captcha»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+«IF !isNullOrEmpty(this.label)»
+		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«ENDIF-»
+<img src="<%=request.getContextPath()%>/base/captchaServlet" alt="captcha"/>
+</div>
+</div>
+«ENDDEFINE»
+

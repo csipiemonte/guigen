@@ -22,6 +22,7 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT template::struts2::bootstrap::resourcefilesResponsive»
 «IMPORT template::struts2::bootstrap::remoteResourcesResponsive»
 «IMPORT template::struts2::bootstrap::widgets»
+«IMPORT template::struts2::bootstrap::pageStructure»
 
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::GenericExtensions»
@@ -622,4 +623,130 @@ Gestione dei files di CONFIGURAZIONE => file: configfiles.xpt
 «REM»Genera la porzione del file di configurazione della DisplayTag che potrebbe variare a seconda dei portali«ENDREM»
 «AROUND template::struts2::view::remoteResources::displayTagConfigurationFile FOR GUIModel»
 	«EXPAND template::struts2::bootstrap::remoteResourcesResponsive::displayTagConfigurationFile FOR this-»
+«ENDAROUND»
+
+
+
+«REM»
+========================================================================
+override di tutte le definizioni di struts2::view::pageStructure
+e' necessario ridefinire tutto poichè serve maggiore flessibilita' nella
+definizione dell'html. si preferisce agire a questo livello invece
+che a livello ancora superiore, per non rischiare di perdere le logiche
+di espansione.
+Se non sara' sufficiente in futuro si potra' pensare di sovrascrivere
+il livello precedente.
+========================================================================
+«ENDREM»
+«REM»comment«ENDREM»
+«AROUND template::struts2::view::pageStructure::getHeaderMarkupPortalProfile(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+	«EXPAND template::struts2::bootstrap::pageStructure::getHeaderMarkupPortalProfile(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«AROUND template::struts2::view::pageStructure::getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getHeaderMarkup(model, skip_component_dir_creation, isRemote) FOR this»
+«ENDAROUND»
+
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)«ENDREM»
+«AROUND template::struts2::view::pageStructure::getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getHeaderMarkupNoStruts(model, skip_component_dir_creation, isRemote) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
+«REM»«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getPortalHeader(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)«ENDREM»
+«REM»«DEFINE getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
+«REM»«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getApplicationHeader(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)«ENDREM»
+«REM»«DEFINE getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+«REM»[DM] STDMDD-911: modellazione meta attributes«ENDREM»
+«AROUND template::struts2::view::pageStructure::getMetaAttributes(GUIModel model) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getMetaAttributes(model) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«REM»«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+		«EXPAND staticResourcesM2::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«REM»«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+		«EXPAND staticResourcesM2::getFooterMarkup(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+
+«REM»
+==========================================================================================================================
+STATIC RESORCES HTML (per cartuccia NEUTRALE)
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)«ENDREM»
+«AROUND template::struts2::view::pageStructure::getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)«ENDREM»
+«AROUND template::struts2::view::pageStructure::getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO) (per pagine SENZA Struts2)«ENDREM»
+«AROUND template::struts2::view::pageStructure::getHeaderMarkupNoStrutsRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getHeaderMarkupNoStrutsRemote(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
+«AROUND template::struts2::view::pageStructure::getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getPortalHeader(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)«ENDREM»
+«AROUND template::struts2::view::pageStructure::getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
+«AROUND template::struts2::view::pageStructure::getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getApplicationHeader(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)«ENDREM»
+«AROUND template::struts2::view::pageStructure::getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«EXPAND template::struts2::bootstrap::pageStructure::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«AROUND template::struts2::view::pageStructure::getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«EXPAND template::struts2::bootstrap::pageStructure::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«AROUND template::struts2::view::pageStructure::getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«EXPAND template::struts2::bootstrap::pageStructure::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 «ENDAROUND»

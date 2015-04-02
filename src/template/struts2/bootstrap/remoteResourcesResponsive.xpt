@@ -190,7 +190,7 @@ Nota: non ha né header, né footer né graficazione, perché se non sono riusci
 <fmt:setBundle basename="globalMessages" />
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
-	<div id="contentPanel">
+	<div id="contentPanel" class="container">
 		<div id="centerWrapper" class="floatWrapper">
 			<div id="centerPanel">
 			«REM»stdmdd-1068: creo un'ancora che viene richiamata dal link "Vai al contenuto principale" presente nel portal_header.html«ENDREM»
@@ -246,7 +246,7 @@ Nota: non ha né header, né footer né graficazione, perché se non sono riusci
 	«ENDIF-»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
-	<div id="contentPanel">
+	<div id="contentPanel" class="container">
 		<div id="centerWrapper" class="floatWrapper">
 			<div id="centerPanel">
 			«REM»stdmdd-1068: creo un'ancora che viene richiamata dal link "Vai al contenuto principale" presente nel portal_header.html«ENDREM»
@@ -279,7 +279,7 @@ Nota: non ha né header, né footer né graficazione, perché se non sono riusci
 	«ENDIF-»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
-	<div id="contentPanel">
+	<div id="contentPanel" class="container">
 		<div id="centerWrapper" class="floatWrapper">
 			<div id="centerPanel">
 			«REM»stdmdd-1068: creo un'ancora che viene richiamata dal link "Vai al contenuto principale" presente nel portal_header.html«ENDREM»
@@ -472,6 +472,7 @@ Gestione dei PANNELLI
 
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
 «DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR FormPanel»
+<div id="contentPanel" class="container">
 	«IF this.layout.metaType == VerticalFlowPanelLayout-»
 		«EXPAND setupVFL(model, skip_component_dir_creation, cp, contextPrefix, pduConf, isPortlet) FOR this»
 	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
@@ -479,13 +480,13 @@ Gestione dei PANNELLI
 	«ELSE-»
 		«ERROR "Layout " + this.layout.metaType + " non gestito al primo livello per portale " + getPortalName()»
 	«ENDIF-»
+</div>
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="contentPanel">
 	<div id="centerWrapper" class="floatWrapper">
 		<div id="centerPanel">
 		«REM»stdmdd-1068: creo un'ancora che viene richiamata dal link "Vai al contenuto principale" presente nel portal_header.html«ENDREM»
@@ -505,7 +506,6 @@ Gestione dei PANNELLI
 			</div>
 		</div>
 	</div>
-</div>
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
@@ -513,7 +513,6 @@ Gestione dei PANNELLI
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
 «DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="contentPanel">
 
 	«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 	«IF upPanel != null -»
@@ -781,7 +780,7 @@ Gestione dei LAYOUT - PANNELLI
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
 «IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
 «IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
-<h4 class="fpLabel"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />«getToggleHandleHtml(this,contextPrefix)»</h4>
+<h4><span class="label label-default"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />«getToggleHandleHtml(this,contextPrefix)»</span></h4>
 «ENDIF-»
 <div class="formPanel«IF this.layout.metaType == UDLRCPanelLayout» floatWrapper«ENDIF»" id="«getFullID(this, contextPrefix)»">
 «ENDIF-»
@@ -825,8 +824,10 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 «IF !this.widgets.isEmpty -»
-«IF !isNullOrEmpty(this.label)»<h4 class="wpLabel">«this.label» «getToggleHandleHtml(this,contextPrefix)»</h4>«ENDIF»
-<div class="widgetsPanel" id="«getFullID(this, contextPrefix)»">
+<div class="panel panel-default" id="«getFullID(this, contextPrefix)»">
+«IF !isNullOrEmpty(this.label)»
+	<div class="panel-heading"><h4 class="panel-title">«this.label» «getToggleHandleHtml(this,contextPrefix)»</h4></div>«ENDIF»
+
 	<div class="panel-body">
 «ENDIF-»
 «ENDDEFINE»
@@ -868,7 +869,7 @@ Gestione dei LAYOUT - PANNELLI
 <s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" namespace="«getContentPanelNamespace(cp, false)»" method="post">
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
-	<div id="contentPanel">
+	<div id="contentPanel" class="container">
 		<div id="centerWrapper" class="floatWrapper">
 			<div id="centerPanel">
 			«REM»stdmdd-1068: creo un'ancora che viene richiamata dal link "Vai al contenuto principale" presente nel portal_header.html«ENDREM»
@@ -1125,7 +1126,7 @@ Gestione dei files di CONFIGURAZIONE => file: configfiles.xpt
 ############################################################################
 # MESSAGES
 
-basic.msg.empty_list=<div class="feedSearch">Non ci sono elementi da visualizzare.</div>
+basic.msg.empty_list=<div class="alert alert-info"><p>Non ci sono elementi da visualizzare.</p></div>
 basic.msg.empty_list_row=<tr class="empty"><td colspan="{0}">Non ci sono elementi da visualizzare.</td></tr>
 error.msg.invalid_page=pagina non valida
 
@@ -1138,14 +1139,14 @@ paging.banner.one_item_found=<div class="paging"><div class="pagingLeft">Un {0} 
 paging.banner.all_items_found=<div class="paging"><div class="pagingLeft">{0} {1} trovati, tutti i {2} visualizzati.</div>
 paging.banner.some_items_found=<div class="paging"><div class="pagingLeft">{0} {1} trovati ({5} pagine)</div>
 
-paging.banner.full=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}" title="Prima pagina">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}" title="Pagina precedente"><abbr title="precedente">prec</abbr></a></span><span class="separator"> | </span><span class="nextPage"><a href="{3}" title="Pagina successiva"><abbr title="successiva">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}" title="Ultima pagina">ultima</a></span></span></div></div>
-paging.banner.first=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="nextPage"><a href="{3}" title="Pagina successiva"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}" title="Ultima pagina">ultima</a></span></span></div></div>
-paging.banner.last=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}" title="Prima pagina">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}" title="Pagina precedente"><abbr title="precedente">prec</abbr></a></span></span></div></div>
-paging.banner.onepage=<div class="pagingRight"><span class="pageNumbers">pagina {0}</span></div></div>
+paging.banner.full=<nav><ul class="pagination"><li><a href="{1}" title="Prima pagina">&laquo;</a></li><li class="previousPage"><a href="{2}" aria-label="Previous" title="Pagina precedente">&lt;</a></li>{0}<li><a href="{3}" aria-label="Next" title="Pagina successiva">&gt;</a></li><li><a href="{4}" title="Ultima pagina">&raquo;</a></li></div></ul></nav>
+paging.banner.first=<nav><ul class="pagination">{0}<li><a href="{3}" aria-label="Next" title="Pagina successiva">&gt;</a></li><li><a href="{4}" title="Ultima pagina">&raquo;</a></li></div></ul></nav>
+paging.banner.last=<nav><ul class="pagination"><li><a href="{1}" title="Prima pagina">&laquo;</a></li><li class="previousPage"><a href="{2}" aria-label="Previous" title="Pagina precedente">&lt;</a></li>{0}</div></ul></nav>
+paging.banner.onepage=<nav><ul class="pagination"><li><a href="{1}" title="Prima pagina">&laquo;</a></li><li class="previousPage"><a href="{2}" aria-label="Previous" title="Pagina precedente">&lt;</a></li>{0}<li><a href="{3}" aria-label="Next" title="Pagina successiva">&gt;</a></li><li><a href="{4}" title="Ultima pagina">&raquo;</a></li></div></ul></nav>
 
-paging.banner.page.selected=<span class="currentPage">{0}</span>
-paging.banner.page.link=<a href="{1}" title="Vai a pagina {0}">{0}</a>
-paging.banner.page.separator=<span class="separator"> | </span>
+paging.banner.page.selected=<li class="active"><a>{0}</a></li>
+paging.banner.page.link=<li><a href="{1}" title="Vai a pagina {0}">{0}</a></li>
+paging.banner.page.separator=
 
 
 #EXPORT
