@@ -132,6 +132,7 @@ e riscrivere secondo le necessita'
 	name="«getAppDataKey(databinding.appData)».«valueSelector»"
 	id="«getWidgetName(this, contextPrefix)»"
 	size="«fieldLength»"
+	cssClass="form-control"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	/>
 «REM»«EXPAND createComboBoxNoscriptMarkup(model, cp, contextPrefix, pduConf) FOR this-» [DM] SDTMDD-1084: rimozione noscript«ENDREM»
@@ -208,12 +209,10 @@ e riscrivere secondo le necessita'
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
 «ENDIF-»
-«REM»«EXPAND remoteResources::widgetMarkupHeader(model, cp, contextPrefix, pduConf) FOR this»«ENDREM»
 «FOREACH this.radio AS currRadio ITERATOR iter-»
 «EXPAND createWidgetMarkup(model, cp, this, contextPrefix, pduConf,iter.counter1, isPortlet) FOR currRadio»
 «ENDFOREACH-»
 «getRadioButtonsValueChangedHandlerNoScript(this, model, cp, contextPrefix)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
-«REM»«EXPAND remoteResources::widgetMarkupFooter(model, cp, contextPrefix) FOR this»«ENDREM»
 «IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
@@ -230,65 +229,29 @@ e riscrivere secondo le necessita'
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf,Integer cont, boolean isPortlet) FOR RadioButton»
 
+<div class="radio">
 «IF cont==1 && parent.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1»
 <s:url id="«getWidgetName(parent, contextPrefix)»urlRadioButtonValueChange"
    «getUrlParentWidgetValueChange(parent, model, cp, contextPrefix)» 
    includeParams="all" portletUrlType="action" 
 />
 «ENDIF»
-«IF parent.layout==null || parent.layout.metaType == HorizontalFlowPanelLayout»
-«EXPAND createHorizontalRadioMarkup( model, cp, parent, contextPrefix, pduConf, cont, isPortlet) FOR this»
-«ELSE»
-«EXPAND createVerticalRadioMarkup( model, cp, parent, contextPrefix, pduConf, cont, isPortlet) FOR this»
-«ENDIF»
-«REM»
 <s:radio
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
 	
 	id="«getWidgetName(this, contextPrefix)»" name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»"
 	list="#{«getFixedRadioButtonList(this)»}"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(parent, contextPrefix)»')"
+	labelPosition="top"
+	«!isNullOrEmpty(this.tooltip)?"tooltip=\""+this.tooltip+"\"":""»
 	«getRadioPortalStyle(model)»
-	«getRadioButtonsValueChangedHandlerJS(parent, model, cp, contextPrefix)»
-	/>
-«ENDREM»
-«ENDDEFINE»
-
-«REM»
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-    Option one is this and that&mdash;be sure to include why it's great
-  </label>
-</div>
-«ENDREM»
-«DEFINE createVerticalRadioMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf,Integer cont, boolean isPortlet) FOR RadioButton»
-<div class="radio">
-	<label>
-		<input type="radio" 
-			id="«getWidgetName(this, contextPrefix)»"
-			name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»"
-			value="«value»"
-			«getRadioButtonsValueChangedHandlerJS(parent, model, cp, contextPrefix)»
-		>
-		<s:text name="«cp.name».«getFullID(parent, contextPrefix)».«name».label" />
-	</label>
+	«getRadioButtonsValueChangedHandlerJS(parent, model, cp, contextPrefix)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
+	/> 
 </div>
 «ENDDEFINE»
 
-«REM»
-<label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
-</label>
-«ENDREM»
-«DEFINE createHorizontalRadioMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf,Integer cont, boolean isPortlet) FOR RadioButton»
-<label class="radio-inline">
-	<input type="radio" 
-			id="«getWidgetName(this, contextPrefix)»"
-			name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»" value="«value»">
-	<s:text name="«cp.name».«getFullID(parent, contextPrefix)».«name».label" />
-</label>
-«ENDDEFINE»
+
 
 
 
@@ -326,7 +289,8 @@ e riscrivere secondo le necessita'
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort" media="html">
 		«IF this.databinding.appData.type.metaType == SimpleType -»
-			<s:radio list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getRadioPortalStyle(model)»
+			<s:radio list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" 
+				cssClass="hidden"
 			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
 				«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
 				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
