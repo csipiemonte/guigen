@@ -83,26 +83,21 @@ e riscrivere secondo le necessita'
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
+«IF !isNullOrEmpty(this.label)»
+		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«ENDIF-»
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
 «ENDIF-»
-<s:if test="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
-<s:set var="«getFullID(this, contextPrefix)»_disabled" value="disabled='disabled'"></s:set>
-</s:if>
-<div class="checkbox">
-<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />
-<input type="checkbox" 
+<s:checkbox 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
 	
 	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
-	${«getFullID(this, contextPrefix)»_disabled}
-	«getCheckboxPortalStyle(model)»
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getCheckBoxesValueChangedHandlerJS(this, model, cp, contextPrefix)»«REM»STDMDD-163: Check box: implementazione evento di click«ENDREM»
 	/> 
-</label>
-</div>
 <s:if test="!isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
 	<s:hidden name="__checkbox_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__checkbox_«getWidgetName(this, contextPrefix)»" />
 </s:if>
