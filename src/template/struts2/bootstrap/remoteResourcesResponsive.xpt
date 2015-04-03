@@ -341,9 +341,23 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 
 «REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-<div id="mainMenu">
-	<h3>Menu di navigazione</h3>
-	<ul>
+<div id="responsiveMenu">
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+data-target="#mainMenu-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Menu</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="mainMenu-collapse">
+	<ul class="nav navbar-nav">
 	«LET 1 AS level -»
 	«FOREACH this.topLevelMenu AS tlmenu -»
 		«IF tlmenu.submenu.size > 0»
@@ -358,6 +372,8 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 		«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-»
 	«ENDIF-»
 	</ul>
+	</div>
+	</nav>
 </div>
 «ENDDEFINE»
 
@@ -393,12 +409,15 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
-			<li«getMenuWithChildCssResponsive(this, level)»>
+			<li«getMenuWithChildCssResponsive(this, level)» class="dropdown" >
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
-				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-					<span>«getMenuWithChildLabelResponsive(this, level)»</span>
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" 
+					id="menu_items_«this.name»"
+					class="dropdown-toggle"
+					role="button" data-toggle="dropdown" aria-expanded="false" >
+					<span>«getMenuWithChildLabelResponsive(this, level)»</span><span class="caret"></span>
 				</s:a>
-				<ul>
+				<ul class="dropdown-menu" role="menu">
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 				</ul>
 			</li>
@@ -412,8 +431,17 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li«getMenuWithChildCssResponsive(this, level)»><span>«getMenuWithChildLabelResponsive(this, level)»</span>
-			<ul>
+		<li«getMenuWithChildCssResponsive(this, level)» class="dropdown">
+		
+		
+		<s:a href="#" 
+					id="menu_items_«this.name»"
+					class="dropdown-toggle"
+					role="button" data-toggle="dropdown" aria-expanded="false" >
+					<span>«getMenuWithChildLabelResponsive(this, level)»</span><span class="caret"></span>
+		</s:a>
+		
+			<ul class="dropdown-menu" role="menu">
 				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 			</ul>
 		</li>
