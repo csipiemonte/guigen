@@ -432,7 +432,7 @@ public class GenUtilsLayoutResponsive {
 	 * @author [DM]
 	 */	
 	public static String getColumnEditableTextfieldPortalStyle(GUIModel model) {
-		String res = "";
+		String res = "cssClass=\"form-control\"";
 
 		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
 		//res = "cssClass=\"inputDataMed\"";
