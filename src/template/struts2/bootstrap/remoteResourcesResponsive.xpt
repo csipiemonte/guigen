@@ -753,19 +753,37 @@ Gestione dei PANNELLI
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
 
-«REM»[DM] STDMDD-904 e STDMDD-905: conferma logout e modellazione scelta local/sso logout mode«ENDREM»
+«REM»[DM] STDMDD-904 e STDMDD-905: conferma logout e modellazione scelta local/sso logout mode
+
+
+<div class="panel panel-user row-fluid">
+  <div class="span10">
+    <dl class="dl-horizontal">
+     <dt class=""><i class="icon-user"></i>&nbsp;Utente</dt>
+      <dd>Nome Cognome</dd>
+     <dt class="ente">&nbsp;Ente</dt>
+       <dd>Regione</dd>
+    </dl>
+  </div>
+  <div class="span2"> <a href="#" class="btn btn-default">esci&nbsp;<i class="icon-signout"></i></a> </div>
+</div>
+
+«ENDREM»
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanel»
 «LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
-<div class="userInfoPanel" id="«getFullID(this, contextPrefix)»">
-	<div class="userData">
-		<span class="user">Utente: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></span></span>
-		<span class="organization">Ente: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».ente" /></span></span>
-		<span class="role">Ruolo: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></span></span>
+<div class="panel panel-user row-fluid" id="«getFullID(this, contextPrefix)»">
+	<div class="span10">
+	<dl class="dl-horizontal">
+		<dt class=""><i class="icon-user"></i>&nbsp;Utente: </dt>
+		<dd><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></dd>
+		<dt>&nbsp;Ente: </dt><dd><s:property value="«getAppDataKey(currentUserAD)».ente" /></dd>
+		<dt>Ruolo: </dt><dd><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></dd>
+	</dl>
 	</div>
-	<div class="userInfoActions">
+	<div class="span2">
 		<!-- uscita dal servizio e/o cambio ruolo -->
 		<s:url id="logoutUrl" action="«getLogoutActionName()»" namespace="«getLogoutActionNamespace(false)»" method="«getUserInfoPanelLogoutMethod(model)»" />
-		<s:a href="%{logoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a>
+		<s:a href="%{logoutUrl}" title="chiudi: questo link fa uscire dal servizio" cssClass="btn btn-default">esci&nbsp;<i class="icon-signout"></i></s:a>
 	</div>
 </div>
 «ENDLET-»
