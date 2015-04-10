@@ -36,6 +36,26 @@ e riscrivere secondo le necessita'
 </s:if>
 «ENDDEFINE»
 
+«DEFINE prefixedLabelMarkup(ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR DataWidget»
+«IF !isNullOrEmpty(this.label)-»
+<s:label 
+			cssClass="control-label" 
+			for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"
+			«IF this.required-»requiredLabel="true" requiredPosition="right"«ENDIF-» 
+			key="«cp.name».«getFullID(this, contextPrefix)».label"></s:label>
+<s:fielderror fieldName="«getWidgetName(this, contextPrefix)»"></s:fielderror>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE prefixedLabelMarkup(ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
+«IF !isNullOrEmpty(this.label)-»
+<s:label 
+			cssClass="control-label" 
+			for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"
+			key="«cp.name».«getFullID(this, contextPrefix)».label"></s:label>
+«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Widget»
 «ERROR "createwidgetMarkup:"+this.metaType+" non gestito"»
 <span>widget «this.metaType» non gestito</span>
@@ -65,7 +85,7 @@ e riscrivere secondo le necessita'
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
-		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 <s:textfield 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -83,9 +103,7 @@ e riscrivere secondo le necessita'
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
-«IF !isNullOrEmpty(this.label)»
-		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
-«ENDIF-»
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
@@ -113,9 +131,7 @@ e riscrivere secondo le necessita'
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
-«IF !isNullOrEmpty(this.label)»
-		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
-«ENDIF-»
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 «LET getRefreshTargetIds(this) AS targetIdsTemp-»
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
@@ -186,9 +202,7 @@ e riscrivere secondo le necessita'
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
-«IF !isNullOrEmpty(this.label)»
-		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
-«ENDIF-»
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 <p class="form-control-static">
 «IF this.databinding!=null-»
 <s:property value="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" escape="false" />
@@ -204,7 +218,7 @@ e riscrivere secondo le necessita'
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form">
 	<div class="form-group «getWidgetColSizes()»">
-		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
@@ -410,11 +424,10 @@ e riscrivere secondo le necessita'
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
-		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 <s:textfield 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
-	
 	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
@@ -424,15 +437,75 @@ e riscrivere secondo le necessita'
 </div>
 «ENDDEFINE»
 
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TextArea»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+<s:textarea 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+	«IF this.rows != null»rows="«this.rows»"«ENDIF»
+	«IF this.columns != null»cols="«this.columns»"«ENDIF»
+	></s:textarea>
+	</div>
+	</div>
+«ENDDEFINE»
+
+
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TreeView»
+	<div class="form-inline">
+	<div class="form-group «getWidgetColSizes()»">
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
+«ENDIF-»
+	<customtag:tree
+		name="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
+		cssUlClass="tree"
+        cssRootClass="treeRoot" cssFolderOpenClass="treeFolderOpen"
+        cssFolderClosedClass="treeFolderClosed" cssDotClass="treeDot"
+		linkOnTree="true" id="«name»"
+		selectionMultiplicity="«getTreeSelectionMultiplicity(this)»"
+		«IF this.databinding!=null»selectionType="«this.nodeSelectionType.toString().toLowerCase()-»" 
+		«IF getTreeSelectionMultiplicity(this)=="single"»selectionName="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»"
+		«ELSEIF getTreeSelectionMultiplicity(this)=="multiple"»selectionName="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»"
+		«ENDIF-»
+		«ENDIF-»
+		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
+		requestURI="«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»"
+		«ELSE-»
+		requestURI="«getStrutsActionCompleteURL(cp, model)»"
+		«ENDIF-»
+		nameSpace="«getContentPanelNamespace(cp, false)»"
+		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::NODE_EXPANDED).size==1-»
+		«IF isPortlet»
+		nodeExpandedRequestURI="«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::NODE_EXPANDED).first(), contextPrefix)»"
+		«ELSE»
+		nodeExpandedRequestURI="«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::NODE_EXPANDED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»"
+		«ENDIF»
+		«ENDIF-»
+		showChildNumber="false">
+	</customtag:tree>
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
+	</div>
+	</div>
+«ENDDEFINE»
 
 
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Captcha»
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="form-inline">
 	<div class="form-group «getWidgetColSizes()»">
-«IF !isNullOrEmpty(this.label)»
-		<label class="control-label" for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></label>
-«ENDIF-»
+«EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 <img src="<%=request.getContextPath()%>/base/captchaServlet" alt="captcha"/>
 </div>
 </div>
