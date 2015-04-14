@@ -108,7 +108,7 @@ Gestione dei Widget
 	«REM»Pulsanti posizionati a SINISTRA«ENDREM»
 	«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::LEFT) AS leftButtons»
 	«IF leftButtons != null && leftButtons.size > 0»
-	<div class="button left">
+	<div class="form-group puls-group pull-left">
 	«FOREACH leftButtons AS currWidg ITERATOR wi-»
 		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf, isPortlet) FOR currWidg»
 	«ENDFOREACH-»
@@ -119,7 +119,7 @@ Gestione dei Widget
 	«REM»Pulsanti posizionati al CENTRO«ENDREM»
 	«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::CENTER) AS centerButtons»
 	«IF centerButtons != null && centerButtons.size > 0»
-	<div class="button center">
+	<div class="form-group puls-group center">
 	«FOREACH centerButtons AS currWidg ITERATOR wi-»
 		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf, isPortlet) FOR currWidg»
 	«ENDFOREACH-»
@@ -130,7 +130,7 @@ Gestione dei Widget
 	«REM»Pulsanti posizionati a DESTRA«ENDREM»
 	«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::RIGHT) AS rightButtons»
 	«IF rightButtons != null && rightButtons.size > 0»
-	<div class="button right">
+	<div class="form-group puls-group pull-right">
 	«FOREACH rightButtons AS currWidg ITERATOR wi-»
 		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf, isPortlet) FOR currWidg»
 	«ENDFOREACH-»
