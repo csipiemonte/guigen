@@ -208,7 +208,7 @@ Gestione dei PANNELLI
 «ENDIF-»
 «LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) : null AS switchHnd-»
 <div class="wizardPanel" id="«getFullID(this, contextPrefix)»">
-	<ol>
+	<ul class="nav nav-pills">
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="handleChangeTab" includeParams="get">
@@ -229,19 +229,19 @@ Gestione dei PANNELLI
 		«ENDLET-»
 		«ENDLET-»
 	«ENDFOREACH-»
-	</ol>
+	</ul>
 </div>
 «ENDLET-»
 «ENDDEFINE»
 
 «DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber, String decodedStepNumber, ContentPanel cp, String contextPrefix) FOR Panel-»
 	«LET this AS currStep-»
-	<li class="item-«stepNumber» active"><span class="activeItem">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span><span class="separator"> | </span></li>
+	<li role="presentation" class="item-«stepNumber» active"><a href="#"><span class="activeItem">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span></a></li>
 	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, String decodedStepNumber, TabSwitcher switcher, EventHandler switchEvent, ContentPanel cp, String contextPrefix) FOR Panel»
-	<li class="item-«stepNumber»">
+	<li role="presentation" class="item-«stepNumber»">
 	«LET this AS currStep-»
 	«IF switchEvent != null-»
 		«IF model.targetPlatform.enableRichUIBehavior-»
@@ -254,9 +254,8 @@ Gestione dei PANNELLI
         «IF model.targetPlatform.enableRichUIBehavior-»
         	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR switcher-»
         «ENDIF-»
-        <span class="separator"> | </span>
 	«ELSE-»
-		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a><span class="separator"> | </span>
+		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
 	«ENDIF-»
 	«ENDLET-»
 	</li>
@@ -264,7 +263,7 @@ Gestione dei PANNELLI
 
 «DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, String decodedStepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
 	«LET this AS currStep-»
-	<li class="item-«stepNumber»"><span class="wizardItem">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span><span class="separator"> | </span></li>
+	<li role="presentation" class="item-«stepNumber»"><a href="#"><span class="wizardItem">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span></a></li>
 	«ENDLET-»
 «ENDDEFINE»
 
