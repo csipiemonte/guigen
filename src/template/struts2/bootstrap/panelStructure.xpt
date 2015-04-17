@@ -163,7 +163,7 @@ Gestione dei PANNELLI
 <h4 class="tspLabel"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></h4>
 «ENDIF-»
 <div class="tabSetPanel" id="«getFullID(this, contextPrefix)»">
-	<ul>
+	<ul class="nav nav-tabs">
 	«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED)) : null AS switchHnd-»
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
@@ -172,11 +172,11 @@ Gestione dei PANNELLI
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab, cp, contextPrefix)»'}" />
 		</s:url>
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currTab, cp, contextPrefix)»'«stepExtraCondition»}">
-			<li class="item-«i.counter1» active"><span class="activeItem"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></span></li>
+			<li role="presentation" class="item-«i.counter1» active"><a href="#"><span class="activeItem"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></span></a></li>
 		</s:if>
 		«IF switchHnd != null-»
 		<s:else>
-			<li class="item-«i.counter1»">
+			<li role="presentation" class="item-«i.counter1»">
 				«IF model.targetPlatform.enableRichUIBehavior-»
 					«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(model, cp, this, currTab, contextPrefix) FOR this.switcher-»
 				«ENDIF-»
@@ -191,7 +191,7 @@ Gestione dei PANNELLI
 		</s:else>
 		«ELSE-»
 		<s:else>
-			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
+			<li role="presentation" class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
 		</s:else>
 		«ENDIF-»
 		«ENDLET-»
