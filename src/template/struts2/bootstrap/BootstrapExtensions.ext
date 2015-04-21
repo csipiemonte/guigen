@@ -26,10 +26,83 @@ extension template::struts2::Struts2Extensions;
  
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2 e layout RESPONSIVE                         //
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout RESPONSIVE                       //
+///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////
+// calcolo dimensioni dei widget
+/////////////////////////////////////////////////////////
 
+String getWidgetLabelSizeClasses(Widget w) : 
+getWidgetLabel_sm_SizeClasses(w)+" "+getWidgetLabel_md_SizeClasses(w)+" "+getWidgetLabel_xs_SizeClasses(w);
+
+String getWidgetControlSizeClasses(Widget w) :
+getWidgetControl_sm_SizeClasses(w)+" "+getWidgetControl_md_SizeClasses(w)+" "+getWidgetControl_xs_SizeClasses(w);
+
+
+String getWidgetLabel_sm_SizeClasses(Widget w) :
+"col-sm-"+getBlockSize(w,true);
+
+String getWidgetLabel_md_SizeClasses(Widget w) :
+"";
+
+String getWidgetLabel_xs_SizeClasses(Widget w) :
+"";
+
+
+String getWidgetControl_sm_SizeClasses(Widget w) :
+"col-sm-"+getBlockSize(w,false);
+
+String getWidgetControl_md_SizeClasses(Widget w) :
+"";
+
+String getWidgetControl_xs_SizeClasses(Widget w) :
+"";
+
+int getBlockSize(Widget w, boolean isForLabel):
+let container = (Panel)w.eContainer :
+let containerLayout = container.layout :
+if (container == null && containerLayout == null) then // plain text sintetici per fill grid???
+	0 
+else
+	getBlockSize(w, container, containerLayout, isForLabel);
+
+
+int getBlockSize(Widget w, Panel container, PanelLayout layout, boolean isForLabel) :
+1000;
+
+int getBlockSize(Widget w, WidgetsPanel wp, VerticalFlowPanelLayout layout, boolean isForLabel) : 
+	normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
+
+int getBlockSize(Widget w, WidgetsPanel wp, HorizontalFlowPanelLayout layout, boolean isForLabel) :
+normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
+
+int getBlockSize(Widget w, WidgetsPanel wp, GridPanelLayout layout, boolean isForLabel) :
+normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
+
+
+// getColumnPercent: restituisce la percentuale (0-100) del pezzo di widget (label o controllo) 
+// considerando eventuali percentuali custom
+
+int getColumnPercent(Widget w, WidgetsPanel wp, PanelLayout layout, boolean isForLabel) :
+if (isForLabel) then 25 else 75;
+
+int getColumnPercent(Button b, WidgetsPanel wp, PanelLayout layout, boolean isForLabel) :
+if (isForLabel) then 0 else 100;
+
+int normalizeTo12(int percent) :
+(12*percent)/100; // !!!!!
+
+//// classi per bootstrap
+//String getWidgetColSizes(Widget w) :
+//"col-md-4 col-sm-6 col-xs-12"; 
+
+
+/////////////////////////////////////////////////////////
+// altre classi (verificare?)
+/////////////////////////////////////////////////////////
 String getCSSClasses(Table t) :
 "table table-hover table-striped table-bordered";
 
@@ -38,7 +111,7 @@ String getCSSClasses(TextField tf) :
 "form-control";
 
 String getCSSClasses(Button b) :
-"btn btn-default buttonWidget "+
+"btn btn-default btn-lg "+
 (switch (b.functionSpecifier){
 	case CommandFunctions::ADD_ITEM : "addItem"
 	case CommandFunctions::EDIT_ITEM : "editItem"
@@ -68,6 +141,3 @@ String getCSSClasses(ComboBox cb) :
 "form-control";
 
 	
-//// classi per bootstrap
-String getWidgetColSizes(Widget w) :
-"col-md-4 col-sm-6 col-xs-12"; 

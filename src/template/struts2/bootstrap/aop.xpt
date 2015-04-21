@@ -209,7 +209,9 @@ Gestione dei LAYOUT - PANNELLI
 ************** WidgetsPanel e pannelli conteneti widgets (CommandPanel e MenuPanel) **************
 «ENDREM»
 
-
+«AROUND template::struts2::view::resourcefiles::createWidgets(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR WidgetsPanel»
+	«EXPAND template::struts2::bootstrap::panelStructure::createWidgets(model, cp, contextPrefix, pduConf, isPortlet) FOR this»
+«ENDAROUND»
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «AROUND template::struts2::view::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 	«EXPAND template::struts2::bootstrap::panelStructure::subPanelControlHeader(quadrante, cp, contextPrefix) FOR this»
@@ -289,10 +291,17 @@ Gestione dei LAYOUT - WIDGETS
 ==========================================================================================================================
 «ENDREM»
 
-«REM»--------------- Widget (NEW AOP's!)---------------«ENDREM»
+«REM»--------------- Widget in widgetsPanel (NEW AOP's!)---------------«ENDREM»
 «AROUND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Widget»
 	«EXPAND template::struts2::bootstrap::widgetStructure::createAndAddWidgetMarkup(model, cp, wp, isFirst, isLast, contextPrefix, pduConf, isPortlet) FOR this»
 «ENDAROUND»
+
+«REM»--------------- Button in CommandsPanel (NEW AOP's!)---------------«ENDREM»
+«AROUND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, CommandPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Button»
+	«EXPAND template::struts2::bootstrap::widgetStructure::createAndAddWidgetMarkup(model, cp, wp, isFirst, isLast, contextPrefix, pduConf, isPortlet) FOR this»
+«ENDAROUND»
+
+
 
 «REM»--------------- Widget ---------------«ENDREM»
 

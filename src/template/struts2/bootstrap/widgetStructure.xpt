@@ -36,10 +36,19 @@ e riscrivere secondo le necessita'
 </s:if>
 «ENDDEFINE»
 
+«REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo Button [Button, ConfirmButton, ResetButton] (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, CommandPanel cmdp, Boolean isFirst, Boolean isLast, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Button»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND createWidgetMarkup(model, cp, contextPrefix, pduConf, isPortlet) FOR this-»
+</s:if>
+«ENDDEFINE»
+
+
+
 «DEFINE prefixedLabelMarkup(ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR DataWidget»
 «IF !isNullOrEmpty(this.label)-»
 <s:label 
-			cssClass="control-label" 
+			cssClass="control-label «getWidgetLabelSizeClasses()»" 
 			for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"
 			«IF this.required-»requiredLabel="true" requiredPosition="right"«ENDIF-» 
 			key="«cp.name».«getFullID(this, contextPrefix)».label"></s:label>
@@ -50,7 +59,7 @@ e riscrivere secondo le necessita'
 «DEFINE prefixedLabelMarkup(ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
 «IF !isNullOrEmpty(this.label)-»
 <s:label 
-			cssClass="control-label" 
+			cssClass="control-label «this.getWidgetLabelSizeClasses()»" 
 			for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"
 			key="«cp.name».«getFullID(this, contextPrefix)».label"></s:label>
 «ENDIF-»
@@ -68,8 +77,7 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Button»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
+	<div class="«this.getWidgetControlSizeClasses()»">
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix, isPortlet) FOR this-»
@@ -82,7 +90,6 @@ e riscrivere secondo le necessita'
 «ENDIF-»
 «ENDLET-»
 </div>
-</div>
 «ENDDEFINE»
 
 
@@ -93,9 +100,8 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Calendar»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+	<div class="«getWidgetControlSizeClasses()»">
 <s:textfield 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -105,8 +111,7 @@ e riscrivere secondo le necessita'
 	maxlength="10" 
 	cssClass="«getCSSClasses(this)»"
 /> «getCalendarImageByLayout(model, this)»
-</div>
-</div>
+	</div>
 «ENDDEFINE»
 
 
@@ -117,9 +122,8 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR CheckBox»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+	<div class="«getWidgetControlSizeClasses()»">
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
@@ -139,8 +143,7 @@ e riscrivere secondo le necessita'
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
 «ENDLET-»
-</div>
-</div>
+	</div>
 «ENDDEFINE»
 
 
@@ -151,9 +154,8 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR ComboBox»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+	<div class="«getWidgetControlSizeClasses()»">
 «LET getRefreshTargetIds(this) AS targetIdsTemp-»
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
@@ -215,8 +217,7 @@ e riscrivere secondo le necessita'
 «ENDLET-»
 «ENDLET-»
 «ENDLET-»
-</div>
-</div>
+	</div>
 «ENDDEFINE»
 
 
@@ -227,9 +228,8 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR PlainText»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+<div class="«getWidgetControlSizeClasses()»">
 <p class="form-control-static">
 «IF this.databinding!=null-»
 <s:property value="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" escape="false" />
@@ -237,7 +237,6 @@ e riscrivere secondo le necessita'
 «IF !isNullOrEmpty(this.staticText)»<s:text name="«cp.name».«getFullID(this, contextPrefix)».statictext.label" />«ENDIF»
 «ENDIF-»
 </p>
-</div>
 </div>
 «ENDDEFINE»
 
@@ -250,9 +249,8 @@ e riscrivere secondo le necessita'
 
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR RadioButtons»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+	<div class="«getWidgetControlSizeClasses()»">
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
@@ -265,7 +263,6 @@ e riscrivere secondo le necessita'
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
 «ENDLET-»
-	</div>
 	</div>
 «ENDDEFINE»
 
@@ -448,9 +445,8 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TextField»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+	<div class="«getWidgetControlSizeClasses()»">
 <s:textfield 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -459,7 +455,6 @@ e riscrivere secondo le necessita'
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	cssClass="«getCSSClasses(this)»"
 />
-</div>
 </div>
 «ENDDEFINE»
 
@@ -470,9 +465,8 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TextArea»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+	<div class="«getWidgetControlSizeClasses()»">
 <s:textarea 
 	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
@@ -483,7 +477,6 @@ e riscrivere secondo le necessita'
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»
 	></s:textarea>
 	</div>
-	</div>
 «ENDDEFINE»
 
 
@@ -493,9 +486,9 @@ e riscrivere secondo le necessita'
 ##########################
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR TreeView»
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+<!-- widget «getFullID(this, contextPrefix)» -->
+	<div class="«getWidgetControlSizeClasses()»">
 
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
@@ -533,7 +526,6 @@ e riscrivere secondo le necessita'
 «ENDIF-»
 «ENDLET-»
 	</div>
-	</div>
 «ENDDEFINE»
 
 
@@ -544,11 +536,9 @@ e riscrivere secondo le necessita'
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Captcha»
 <!-- widget «getFullID(this, contextPrefix)» -->
-	<div class="form-inline">
-	<div class="form-group «getWidgetColSizes()»">
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
+	<div class="«getWidgetControlSizeClasses()»">
 <img src="<%=request.getContextPath()%>/base/captchaServlet" alt="captcha"/>
-</div>
 </div>
 «ENDDEFINE»
 

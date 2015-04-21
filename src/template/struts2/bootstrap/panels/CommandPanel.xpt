@@ -1,0 +1,53 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::bootstrap::Struts2ExtensionsNeutral»
+
+«REM»
+==========================================================================================================================
+Gestione dei PANNELLI
+==========================================================================================================================
+«ENDREM»
+
+
+
+
+«REM»
+==========================================================================================================================
+Gestione dei LAYOUT - PANNELLI
+==========================================================================================================================
+«ENDREM»
+
+
+«REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+«LET (this.cmdStyle == CommandStyles::NAVIGATION ? " navigation" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? " functional" : "" ) ) AS ptype-»
+<div class="col-md-12" id="«getFullID(this, contextPrefix)»">
+«ENDLET-»
+«ENDDEFINE»
+
+
+«REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+</div>
+«ENDDEFINE»
+
