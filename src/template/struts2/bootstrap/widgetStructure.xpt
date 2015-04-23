@@ -76,6 +76,16 @@ e riscrivere secondo le necessita'
 ##########################
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Button»
+«LET this.eContainer AS container-»
+«IF container.metaType == WidgetsPanel-»
+«EXPAND createWidgetMarkupForWidgetsPanel(model,cp, (WidgetsPanel)container, contextPrefix, pduConf, isPortlet) FOR this-»
+«ELSE-»
+«EXPAND createWidgetMarkupForCommandPanel(model,cp, (CommandPanel)container, contextPrefix, pduConf, isPortlet) FOR this-»
+«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkupForWidgetsPanel(GUIModel model, ContentPanel cp, WidgetsPanel container, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Button»
 <!-- widget «getFullID(this, contextPrefix)» -->
 	<div class="«this.getWidgetControlSizeClasses()»">
 «LET getRefreshTargetIds(this) AS refreshIds-»
@@ -90,6 +100,21 @@ e riscrivere secondo le necessita'
 «ENDIF-»
 «ENDLET-»
 </div>
+«ENDDEFINE»
+
+«DEFINE createWidgetMarkupForCommandPanel(GUIModel model, ContentPanel cp, CommandPanel container, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Button»
+<!-- widget «getFullID(this, contextPrefix)» -->
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix, isPortlet) FOR this-»
+«ENDIF-»
+<s:submit type="button" name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»"
+	key="«cp.name».«getFullID(this, contextPrefix)».label" cssClass="«getCSSClasses(this)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 
