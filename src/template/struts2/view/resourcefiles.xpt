@@ -1192,6 +1192,8 @@ come target di refresh.
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
+«ELSEIF refreshIds==null && model.targetPlatform.enableRichUIBehavior && enableEnrichment-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader({"p_"+((Panel)this.eContainer).name},cp, contextPrefix) FOR this-»
 «ENDIF-»
 	<customtag:tree
 		name="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
@@ -1221,6 +1223,8 @@ come target di refresh.
 		showChildNumber="false">
 	</customtag:tree>
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ELSEIF refreshIds==null && model.targetPlatform.enableRichUIBehavior && this.enableEnrichment-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
 «ENDLET-»
