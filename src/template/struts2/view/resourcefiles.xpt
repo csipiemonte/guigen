@@ -30,16 +30,14 @@ e le limitazioni secondo i termini della Licenza.
 
 «REM»Genera un file di index con la redirect alla welcome action.«ENDREM»
 «DEFINE indexJspFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getIndexJspFile(this, skip_component_dir_creation)»«getHTMLDoctype()»
-
-<html «getHTMLTnsUriDecl()» lang="it" xml:lang="it">
-	<head>
-		<title>Welcome</title>
-		<meta http-equiv="refresh" content="0;url=«getHomePageActionURL(true)»<%= (request.getQueryString() != null ? "?"+request.getQueryString() : "") %>"  />
-	</head>
-	<body>
-	</body>
-</html>
+«FILE getIndexJspFile(this, skip_component_dir_creation)»<% 
+	if (request.getQueryString()==null||request.getQueryString().length()==0){
+  		response.sendRedirect(request.getContextPath() + "«getHomePageActionNamespace(false)»/«getHomePageActionName()»«getStrutsActionCompleteExtension()»");
+	}
+	else{
+		response.sendRedirect(request.getContextPath() + "«getHomePageActionNamespace(false)»/«getHomePageActionName()»«getStrutsActionCompleteExtension()»?"+request.getQueryString());
+	}
+%>
 «ENDFILE»
 «ENDDEFINE»
 
