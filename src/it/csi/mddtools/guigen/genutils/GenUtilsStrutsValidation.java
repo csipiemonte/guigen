@@ -106,7 +106,7 @@ public class GenUtilsStrutsValidation {
 	static {
 		simpleTypeUdValidators.put("csiUdStringRangeValidator",  "StringLengthFieldValidator");	 // 0	
 		simpleTypeUdValidators.put("csiUdStringRegexpValidator", "RegexFieldValidator");         // 1
-		simpleTypeUdValidators.put("csiUdNumericIntValidator",   "IntRangeFieldValidator");      // 2
+		simpleTypeUdValidators.put("csiUdNumericIntValidator",   "RangeValidatorSupport<Integer>");      // 2
 		simpleTypeUdValidators.put("csiUdNumericDecValidator",   "DoubleRangeFieldValidator");   // 3
 		simpleTypeUdValidators.put("csiUdDateValidator",         "CsiDateValidator");            // 4
 		simpleTypeUdValidators.put("csiUdLongRangeValidator",    "CsiLongRangeValidator");       // 5
