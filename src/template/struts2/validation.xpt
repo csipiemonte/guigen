@@ -212,7 +212,7 @@ public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
 «FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
 
 import com.opensymphony.xwork2.validator.ValidationException;
-import com.opensymphony.xwork2.validator.validators.LongRangeFieldValidator;
+import com.opensymphony.xwork2.validator.validators.RangeValidatorSupport;
 
 
 /**
@@ -220,7 +220,11 @@ import com.opensymphony.xwork2.validator.validators.LongRangeFieldValidator;
  *
  * @author GuiGen
  */
-public class «validatorName.toFirstUpper()» extends LongRangeFieldValidator {
+public class «validatorName.toFirstUpper()» extends RangeValidatorSupport<Long> {
+
+	protected «validatorName.toFirstUpper()»() {
+		super(Long.class);
+	}
 }
 «ENDFILE»
 «ENDLET»
@@ -506,6 +510,9 @@ if (!validateStringDate(value)) {
 
 «REM»2«ENDREM»
 «DEFINE csiUdNumericIntValidatorMethods FOR GUIModel»
+	protected CsiUdNumericIntValidator() {
+		super(Integer.class);
+	}
 «ENDDEFINE»
 
 «REM»3«ENDREM»
