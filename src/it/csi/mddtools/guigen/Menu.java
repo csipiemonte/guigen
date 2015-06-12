@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Menu#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Menu#getLabel <em>Label</em>}</li>
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Menu#getSecurityConstraints <em>Security Constraints</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Menu#getEventHandler <em>Event Handler</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMenu()
  * @model annotation="logicpkg pkg='ui.menu'"

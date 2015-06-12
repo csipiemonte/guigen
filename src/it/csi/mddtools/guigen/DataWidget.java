@@ -34,13 +34,13 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDataTypeModifier <em>Data Type Modifier</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDatabinding <em>Databinding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#isRequired <em>Required</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getDataWidget()
  * @model annotation="logicpkg pkg='ui.widgets'"

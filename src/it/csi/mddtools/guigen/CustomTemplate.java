@@ -36,12 +36,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.CustomTemplate#getTplID <em>Tpl ID</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.CustomTemplate#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.CustomTemplate#getModelSlots <em>Model Slots</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCustomTemplate()
  * @model

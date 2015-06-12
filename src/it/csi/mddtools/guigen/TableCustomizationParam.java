@@ -39,10 +39,10 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TableCustomizationParam#getBaseTable <em>Base Table</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTableCustomizationParam()
  * @model

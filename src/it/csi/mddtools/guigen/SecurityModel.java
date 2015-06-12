@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getAutenticationMethod <em>Autentication Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getActors <em>Actors</em>}</li>
@@ -44,7 +45,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getUserInfoLogoutAction <em>User Info Logout Action</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#isAskForConfirmationOnLogout <em>Ask For Confirmation On Logout</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel()
  * @model annotation="logicpkg pkg='security'"

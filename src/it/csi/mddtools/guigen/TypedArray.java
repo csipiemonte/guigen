@@ -32,10 +32,10 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TypedArray#getComponentType <em>Component Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTypedArray()
  * @model annotation="logicpkg pkg='mdl.types'"

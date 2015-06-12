@@ -34,10 +34,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.CommandWidgetImpl#getFunctionSpecifier <em>Function Specifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

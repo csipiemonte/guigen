@@ -46,11 +46,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnModelImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnModelImpl#getValueSelector <em>Value Selector</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

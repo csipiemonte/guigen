@@ -22,13 +22,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getSnippetPosition <em>Snippet Position</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getSnippetName <em>Snippet Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getSnippetCode <em>Snippet Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InlineCodeSnippetImpl#getLang <em>Lang</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

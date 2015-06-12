@@ -44,12 +44,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#getWidgets <em>Widgets</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#getSummary <em>Summary</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#isCollapsible <em>Collapsible</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

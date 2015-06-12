@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getPanels <em>Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getName <em>Name</em>}</li>
@@ -46,7 +47,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getDefaultState <em>Default State</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getCpCommands <em>Cp Commands</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel()
  * @model annotation="logicpkg pkg='ui.panels'"

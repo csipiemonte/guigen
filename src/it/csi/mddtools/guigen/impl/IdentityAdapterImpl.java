@@ -31,13 +31,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getInfoSourceName <em>Info Source Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

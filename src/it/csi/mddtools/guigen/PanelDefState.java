@@ -37,12 +37,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PanelDefState#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PanelDefState#getWidgetsOn <em>Widgets On</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PanelDefState#getWidgetsVisible <em>Widgets Visible</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefState()
  * @model

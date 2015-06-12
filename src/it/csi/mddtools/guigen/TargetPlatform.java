@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
@@ -42,7 +43,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getWayfProfile <em>Wayf Profile</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getSecurityProfile <em>Security Profile</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform()
  * @model

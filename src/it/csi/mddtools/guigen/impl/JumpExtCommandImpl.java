@@ -37,13 +37,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getStaticUrl <em>Static Url</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getRuntimeUrlProvider <em>Runtime Url Provider</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getLocationCode <em>Location Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#isBinaryStream <em>Binary Stream</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

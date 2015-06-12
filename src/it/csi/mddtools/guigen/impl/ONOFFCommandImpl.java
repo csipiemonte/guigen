@@ -44,12 +44,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl#getTargetWidgets <em>Target Widgets</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl#getTargetMenuElement <em>Target Menu Element</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl#isEnable <em>Enable</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

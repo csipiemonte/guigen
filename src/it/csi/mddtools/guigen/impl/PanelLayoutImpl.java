@@ -35,10 +35,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelLayoutImpl#getColumnSizes <em>Column Sizes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

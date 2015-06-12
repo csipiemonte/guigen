@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridPanelLayoutImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridPanelLayoutImpl#getRows <em>Rows</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

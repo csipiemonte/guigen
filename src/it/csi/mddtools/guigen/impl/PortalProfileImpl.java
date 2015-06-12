@@ -46,13 +46,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getResModules <em>Res Modules</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getWhereAreYouFromPortalCode <em>Where Are You From Portal Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getResourceProviderCode <em>Resource Provider Code</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

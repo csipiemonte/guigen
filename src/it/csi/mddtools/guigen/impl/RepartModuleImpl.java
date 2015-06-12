@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.RepartModuleImpl#getOrganization <em>Organization</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.RepartModuleImpl#getName <em>Name</em>}</li>
@@ -54,7 +55,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.RepartModuleImpl#getType <em>Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.RepartModuleImpl#getArtifacts <em>Artifacts</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

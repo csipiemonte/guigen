@@ -26,11 +26,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.InternalAuthenticationGuardImpl#getLoginModule <em>Login Module</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InternalAuthenticationGuardImpl#getParams <em>Params</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

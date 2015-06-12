@@ -47,11 +47,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefUseImpl#getPanelDef <em>Panel Def</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefUseImpl#getConfig <em>Config</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

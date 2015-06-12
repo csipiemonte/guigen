@@ -51,13 +51,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getDataChecked <em>Data Checked</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getCheckAggregation <em>Check Aggregation</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getDoIfChanged <em>Do If Changed</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getDoIfNotChanged <em>Do If Not Changed</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getChkEditStatusCommand()
  * @model annotation="logicpkg pkg='cmd'"

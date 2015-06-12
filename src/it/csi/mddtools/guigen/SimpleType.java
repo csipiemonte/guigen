@@ -34,6 +34,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.SimpleType#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SimpleType#isNillable <em>Nillable</em>}</li>
@@ -41,7 +42,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link it.csi.mddtools.guigen.SimpleType#getDataTypeModifiers <em>Data Type Modifiers</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SimpleType#getEditHintMsg <em>Edit Hint Msg</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getSimpleType()
  * @model annotation="logicpkg pkg='mdl.types'"

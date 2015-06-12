@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getLabel <em>Label</em>}</li>
@@ -56,7 +57,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getSecurityConstraints <em>Security Constraints</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getEventHandler <em>Event Handler</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

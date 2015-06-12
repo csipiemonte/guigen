@@ -15,13 +15,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetPosition <em>Snippet Position</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetName <em>Snippet Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getSnippetCode <em>Snippet Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InlineCodeSnippet#getLang <em>Lang</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getInlineCodeSnippet()
  * @model

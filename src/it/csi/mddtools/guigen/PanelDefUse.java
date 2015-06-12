@@ -34,11 +34,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PanelDefUse#getPanelDef <em>Panel Def</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PanelDefUse#getConfig <em>Config</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefUse()
  * @model

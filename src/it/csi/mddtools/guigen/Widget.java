@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Widget#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Widget#getLabel <em>Label</em>}</li>
@@ -46,7 +47,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Widget#getTooltip <em>Tooltip</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Widget#getEnableEnrichment <em>Enable Enrichment</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getWidget()
  * @model abstract="true"

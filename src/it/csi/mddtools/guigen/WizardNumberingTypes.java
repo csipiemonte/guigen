@@ -214,6 +214,8 @@ public enum WizardNumberingTypes implements Enumerator {
 	 * Returns the '<em><b>Wizard Numbering Types</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static WizardNumberingTypes get(String literal) {
@@ -230,6 +232,8 @@ public enum WizardNumberingTypes implements Enumerator {
 	 * Returns the '<em><b>Wizard Numbering Types</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static WizardNumberingTypes getByName(String name) {
@@ -246,6 +250,8 @@ public enum WizardNumberingTypes implements Enumerator {
 	 * Returns the '<em><b>Wizard Numbering Types</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static WizardNumberingTypes get(int value) {

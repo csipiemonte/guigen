@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.SecurityProfile#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityProfile#getExtAuthGuard <em>Ext Auth Guard</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.SecurityProfile#getIdAdapter <em>Id Adapter</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityProfile#getPepImpl <em>Pep Impl</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityProfile()
  * @model

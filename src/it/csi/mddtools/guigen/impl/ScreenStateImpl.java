@@ -42,12 +42,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ScreenStateImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ScreenStateImpl#getWidgetsOn <em>Widgets On</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ScreenStateImpl#getWidgetsVisible <em>Widgets Visible</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -33,12 +33,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationData#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationData#getLifetimeExtent <em>Lifetime Extent</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationData#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationData()
  * @model annotation="logicpkg pkg='mdl.data'"

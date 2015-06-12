@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getLabel <em>Label</em>}</li>
@@ -59,7 +60,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getTooltip <em>Tooltip</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getEnableEnrichment <em>Enable Enrichment</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

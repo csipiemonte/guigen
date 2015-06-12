@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getStructure <em>Structure</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getBeahviors <em>Beahviors</em>}</li>
@@ -48,7 +49,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTargetPlatform <em>Target Platform</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getActivationModel <em>Activation Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel()
  * @model

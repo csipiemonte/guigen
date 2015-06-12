@@ -50,13 +50,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getFields <em>Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#isInitFields <em>Init Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getExtends <em>Extends</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getTypeAnnotation <em>Type Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

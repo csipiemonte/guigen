@@ -56,6 +56,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getResults <em>Results</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getMethodName <em>Method Name</em>}</li>
@@ -64,7 +65,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getExtraModels <em>Extra Models</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand()
  * @model annotation="logicpkg pkg='cmd'"

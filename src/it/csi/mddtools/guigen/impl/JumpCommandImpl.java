@@ -37,11 +37,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpCommandImpl#getJumpTo <em>Jump To</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpCommandImpl#isPushCurrentPage <em>Push Current Page</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

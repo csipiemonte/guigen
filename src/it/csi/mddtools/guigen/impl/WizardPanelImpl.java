@@ -37,12 +37,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WizardPanelImpl#isNavigatorActive <em>Navigator Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WizardPanelImpl#getSwitcher <em>Switcher</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WizardPanelImpl#getNumberingSchema <em>Numbering Schema</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

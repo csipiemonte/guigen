@@ -47,12 +47,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.CustomCartridgeImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.CustomCartridgeImpl#getCrtID <em>Crt ID</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.CustomCartridgeImpl#getTemplates <em>Templates</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

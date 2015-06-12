@@ -37,10 +37,10 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.BeginEditCommand#getDataEdited <em>Data Edited</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getBeginEditCommand()
  * @model annotation="logicpkg pkg='cmd'"

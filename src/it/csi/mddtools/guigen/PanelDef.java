@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PanelDef#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PanelDef#getPanel <em>Panel</em>}</li>
@@ -49,7 +50,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.PanelDef#getStates <em>States</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PanelDef#getDefaultState <em>Default State</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef()
  * @model

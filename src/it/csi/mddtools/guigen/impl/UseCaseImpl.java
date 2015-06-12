@@ -43,11 +43,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.UseCaseImpl#getPermission <em>Permission</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.UseCaseImpl#getCode <em>Code</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

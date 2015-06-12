@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Menubar#getTopLevelMenu <em>Top Level Menu</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Menubar#isRemoteInfoBox <em>Remote Info Box</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMenubar()
  * @model annotation="logicpkg pkg='ui.menu'"

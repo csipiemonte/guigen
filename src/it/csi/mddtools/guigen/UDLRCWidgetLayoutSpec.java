@@ -33,10 +33,10 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUDLRCWidgetLayoutSpec()
  * @model annotation="logicpkg pkg='ui.layout'"

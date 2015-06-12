@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getCodCanale <em>Cod Canale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getCodApplicativo <em>Cod Applicativo</em>}</li>
@@ -51,7 +52,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getMetaAttributes <em>Meta Attributes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#isLayerSwitcher <em>Layer Switcher</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#getBackgroundMapMapServiceName <em>Background Map Map Service Name</em>}</li>
@@ -47,7 +48,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#isPolygonEditingActive <em>Polygon Editing Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#isModifyEditingActive <em>Modify Editing Active</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

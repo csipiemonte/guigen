@@ -33,11 +33,11 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.JumpCommand#getJumpTo <em>Jump To</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.JumpCommand#isPushCurrentPage <em>Push Current Page</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getJumpCommand()
  * @model annotation="logicpkg pkg='cmd'"

@@ -2923,6 +2923,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getColumn_CustomSortPropertySelector() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCommand() {
 		return commandEClass;
 	}
@@ -6977,6 +6986,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(columnEClass, COLUMN__ACTIVE_FLAG_SELECTOR);
 		createEAttribute(columnEClass, COLUMN__FIELD_MAX_LENGTH);
 		createEAttribute(columnEClass, COLUMN__CUSTOM_DECORATOR);
+		createEAttribute(columnEClass, COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR);
 
 		commandEClass = createEClass(COMMAND);
 
@@ -7848,6 +7858,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getColumn_ActiveFlagSelector(), ecorePackage.getEString(), "activeFlagSelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_FieldMaxLength(), ecorePackage.getEInt(), "fieldMaxLength", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_CustomDecorator(), ecorePackage.getEBoolean(), "customDecorator", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_CustomSortPropertySelector(), ecorePackage.getEString(), "customSortPropertySelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandEClass, Command.class, "Command", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

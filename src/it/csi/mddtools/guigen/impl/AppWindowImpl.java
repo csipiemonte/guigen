@@ -41,12 +41,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppWindowImpl#getFooter <em>Footer</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppWindowImpl#getHeader <em>Header</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppWindowImpl#getAppArea <em>App Area</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

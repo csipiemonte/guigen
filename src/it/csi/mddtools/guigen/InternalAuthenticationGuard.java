@@ -15,11 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginModule <em>Login Module</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getParams <em>Params</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getInternalAuthenticationGuard()
  * @model

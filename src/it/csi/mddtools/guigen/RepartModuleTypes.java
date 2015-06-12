@@ -136,6 +136,8 @@ public enum RepartModuleTypes implements Enumerator {
 	 * Returns the '<em><b>Repart Module Types</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static RepartModuleTypes get(String literal) {
@@ -152,6 +154,8 @@ public enum RepartModuleTypes implements Enumerator {
 	 * Returns the '<em><b>Repart Module Types</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static RepartModuleTypes getByName(String name) {
@@ -168,6 +172,8 @@ public enum RepartModuleTypes implements Enumerator {
 	 * Returns the '<em><b>Repart Module Types</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static RepartModuleTypes get(int value) {

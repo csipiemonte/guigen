@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getAutenticationMethod <em>Autentication Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getActors <em>Actors</em>}</li>
@@ -59,7 +60,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getUserInfoLogoutAction <em>User Info Logout Action</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#isAskForConfirmationOnLogout <em>Ask For Confirmation On Logout</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

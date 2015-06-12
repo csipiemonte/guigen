@@ -32,10 +32,10 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ScreenStateCommand#getGoTo <em>Go To</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getScreenStateCommand()
  * @model annotation="logicpkg pkg='cmd'"

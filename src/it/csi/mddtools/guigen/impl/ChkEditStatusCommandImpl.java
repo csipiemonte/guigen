@@ -46,13 +46,13 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl#getDataChecked <em>Data Checked</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl#getCheckAggregation <em>Check Aggregation</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl#getDoIfChanged <em>Do If Changed</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl#getDoIfNotChanged <em>Do If Not Changed</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

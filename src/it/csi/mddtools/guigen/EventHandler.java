@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getEventType <em>Event Type</em>}</li>
@@ -41,7 +42,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getMethodProtection <em>Method Protection</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getEventSpecifiers <em>Event Specifiers</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler()
  * @model annotation="logicpkg pkg='ui.event'"

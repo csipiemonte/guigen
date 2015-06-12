@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getPanels <em>Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getName <em>Name</em>}</li>
@@ -61,7 +62,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getDefaultState <em>Default State</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getCpCommands <em>Cp Commands</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

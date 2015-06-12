@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TypeNamespace#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TypeNamespace#getTypes <em>Types</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTypeNamespace()
  * @model annotation="logicpkg pkg='mdl.types'"

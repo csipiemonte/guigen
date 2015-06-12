@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Column#getSelector <em>Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getLabel <em>Label</em>}</li>
@@ -48,8 +49,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getFieldMaxLength <em>Field Max Length</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#isCustomDecorator <em>Custom Decorator</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getCustomSortPropertySelector <em>Custom Sort Property Selector</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getColumn()
  * @model annotation="logicpkg pkg='ui.widgets.table'"
@@ -484,5 +485,33 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setCustomDecorator(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Custom Sort Property Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Opzionale. Permette di indicare un campo differente da 
+	 * utilizzare per l'ordinamento della colonna. Utile in caso di decorator o in quei
+	 * casi in cui serva un ordinamento custom dei valori della colonna (esempio: 
+	 * ordinamento dei valori della colonna senza tener conto di articoli, etc..)
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Custom Sort Property Selector</em>' attribute.
+	 * @see #setCustomSortPropertySelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_CustomSortPropertySelector()
+	 * @model
+	 * @generated
+	 */
+	String getCustomSortPropertySelector();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getCustomSortPropertySelector <em>Custom Sort Property Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Custom Sort Property Selector</em>' attribute.
+	 * @see #getCustomSortPropertySelector()
+	 * @generated
+	 */
+	void setCustomSortPropertySelector(String value);
 
 } // Column

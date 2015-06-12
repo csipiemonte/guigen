@@ -17,12 +17,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#getParams <em>Params</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#isCustom <em>Custom</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPEPImplementation()
  * @model

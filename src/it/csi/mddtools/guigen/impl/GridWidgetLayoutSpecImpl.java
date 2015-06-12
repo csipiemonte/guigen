@@ -35,13 +35,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getRow <em>Row</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getColumn <em>Column</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getHspan <em>Hspan</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getVspan <em>Vspan</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

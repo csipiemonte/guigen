@@ -28,6 +28,7 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.MapView#getMapId <em>Map Id</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapView#getStartEnvelopeSpec <em>Start Envelope Spec</em>}</li>
@@ -41,7 +42,6 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.MapView#isNoZoomWhenDisabled <em>No Zoom When Disabled</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapView#isNoPanWhenDisabled <em>No Pan When Disabled</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMapView()
  * @model annotation="logicpkg pkg='ui.widgets'"

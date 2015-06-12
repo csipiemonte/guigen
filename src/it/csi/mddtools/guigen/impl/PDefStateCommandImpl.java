@@ -38,11 +38,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PDefStateCommandImpl#getGoTo <em>Go To</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PDefStateCommandImpl#getPDefUse <em>PDef Use</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

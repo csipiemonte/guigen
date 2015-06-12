@@ -44,13 +44,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuItemImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuItemImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuItemImpl#getEventHandler <em>Event Handler</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuItemImpl#getSecurityConstraints <em>Security Constraints</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.RepartModule#getOrganization <em>Organization</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.RepartModule#getName <em>Name</em>}</li>
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.RepartModule#getType <em>Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.RepartModule#getArtifacts <em>Artifacts</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getRepartModule()
  * @model

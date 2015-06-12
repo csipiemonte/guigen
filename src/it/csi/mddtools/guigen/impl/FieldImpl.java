@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getType <em>Type</em>}</li>
@@ -51,7 +52,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getDataTypeModifier <em>Data Type Modifier</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

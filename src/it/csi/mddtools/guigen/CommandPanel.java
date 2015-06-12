@@ -36,11 +36,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.CommandPanel#getCmdStyle <em>Cmd Style</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.CommandPanel#getWidgets <em>Widgets</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandPanel()
  * @model annotation="uipaneldoc description='<p>\r\nIl <b>CommandPanel</b> &egrave; un pannello utilizzato per realizzare pulsantiere,\r\novvero gruppi di <b>Button</b> destinati ad eseguire funzioni di business.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pulsanti disponibili.\r\n</p>'"

@@ -39,13 +39,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDataTypeModifier <em>Data Type Modifier</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDatabinding <em>Databinding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDataType <em>Data Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#isRequired <em>Required</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

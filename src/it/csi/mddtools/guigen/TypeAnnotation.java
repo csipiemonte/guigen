@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TypeAnnotation#getLanguage <em>Language</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TypeAnnotation#getFqn <em>Fqn</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTypeAnnotation()
  * @model

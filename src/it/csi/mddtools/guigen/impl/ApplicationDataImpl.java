@@ -39,12 +39,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl#getLifetimeExtent <em>Lifetime Extent</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

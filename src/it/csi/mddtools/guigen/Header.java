@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Header#getCodCanale <em>Cod Canale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Header#getCodApplicativo <em>Cod Applicativo</em>}</li>
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Header#getTitle <em>Title</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Header#getMetaAttributes <em>Meta Attributes</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getHeader()
  * @model

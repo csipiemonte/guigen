@@ -33,10 +33,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.CustomSecurityConstraintImpl#getMethodNameSuffix <em>Method Name Suffix</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

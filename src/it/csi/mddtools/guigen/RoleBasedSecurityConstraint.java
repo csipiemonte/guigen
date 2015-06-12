@@ -32,10 +32,10 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.RoleBasedSecurityConstraint#getRole <em>Role</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getRoleBasedSecurityConstraint()
  * @model annotation="logicpkg pkg='security'"

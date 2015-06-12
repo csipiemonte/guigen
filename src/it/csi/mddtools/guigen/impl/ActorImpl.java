@@ -40,11 +40,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ActorImpl#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ActorImpl#getRoles <em>Roles</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

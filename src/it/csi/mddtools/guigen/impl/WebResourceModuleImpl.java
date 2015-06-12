@@ -49,13 +49,13 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl#getDeploymentType <em>Deployment Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl#getRepartModule <em>Repart Module</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

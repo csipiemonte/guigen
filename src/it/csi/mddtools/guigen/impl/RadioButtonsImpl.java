@@ -45,11 +45,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.RadioButtonsImpl#getRadio <em>Radio</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.RadioButtonsImpl#getLayout <em>Layout</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

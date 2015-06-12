@@ -28,10 +28,10 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TypeDefMappingPDefVal#getActualTypeDef <em>Actual Type Def</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTypeDefMappingPDefVal()
  * @model

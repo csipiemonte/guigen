@@ -40,11 +40,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.EndEditCommandImpl#getDataEdited <em>Data Edited</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.EndEditCommandImpl#isUndo <em>Undo</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

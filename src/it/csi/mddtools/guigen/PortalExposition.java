@@ -36,11 +36,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PortalExposition#getPortal <em>Portal</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PortalExposition#getAreaCode <em>Area Code</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPortalExposition()
  * @model

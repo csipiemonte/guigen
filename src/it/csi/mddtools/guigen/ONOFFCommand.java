@@ -33,10 +33,10 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ONOFFCommand#isEnable <em>Enable</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getONOFFCommand()
  * @model annotation="logicpkg pkg='cmd'"

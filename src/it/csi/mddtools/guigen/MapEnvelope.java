@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.MapEnvelope#getNorthEast <em>North East</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapEnvelope#getSouthWest <em>South West</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMapEnvelope()
  * @model annotation="logicpkg pkg='ui.widgets.mapview'"

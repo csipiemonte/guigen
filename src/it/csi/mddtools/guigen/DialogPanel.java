@@ -34,11 +34,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.DialogPanel#getCommands <em>Commands</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DialogPanel#getMsgBoxes <em>Msg Boxes</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getDialogPanel()
  * @model annotation="uipaneldoc description='<p>\r\nIl <b>DialogPanel</b> &egrave; un pannello utilizzato per realizzare funzioni di feedback utente\r\n(messaggi informativi, dichieste di conferme). E\'associato all\'intera schermata e, quando &egrave; \r\nattivato, mostra all\'utente i messaggi previsti sostituendo completamente la schermata operativa.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire solo quelle tipologie di pannelli che servono per:\r\n<ul>\r\n<li>mostrare messaggi formattati all\'utente (<b>MsgBoxPanel</b>)</li>\r\n<li>fornire all\'utente i comandi per &quot;rispondere&quot; al feedback, ovvero uno o pi&ugrave;\r\npulsanti di conferma o cancellazione (<b>CommandPanel</b>)</li>\r\n</ul>\r\n</p>'"

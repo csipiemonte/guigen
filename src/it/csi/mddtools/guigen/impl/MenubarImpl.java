@@ -46,11 +46,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenubarImpl#getTopLevelMenu <em>Top Level Menu</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenubarImpl#isRemoteInfoBox <em>Remote Info Box</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

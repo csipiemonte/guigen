@@ -46,11 +46,11 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PDefStateCommand#getGoTo <em>Go To</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PDefStateCommand#getPDefUse <em>PDef Use</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPDefStateCommand()
  * @model

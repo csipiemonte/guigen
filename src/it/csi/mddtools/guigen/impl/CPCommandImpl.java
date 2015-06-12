@@ -26,11 +26,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.CPCommandImpl#getExecute <em>Execute</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.CPCommandImpl#getCommand <em>Command</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

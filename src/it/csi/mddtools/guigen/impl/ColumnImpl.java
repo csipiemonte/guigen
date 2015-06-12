@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getSelector <em>Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getLabel <em>Label</em>}</li>
@@ -54,8 +55,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getFieldMaxLength <em>Field Max Length</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isCustomDecorator <em>Custom Decorator</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getCustomSortPropertySelector <em>Custom Sort Property Selector</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -329,6 +330,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected boolean customDecorator = CUSTOM_DECORATOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCustomSortPropertySelector() <em>Custom Sort Property Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCustomSortPropertySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCustomSortPropertySelector() <em>Custom Sort Property Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCustomSortPropertySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String customSortPropertySelector = CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -670,6 +691,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getCustomSortPropertySelector() {
+		return customSortPropertySelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCustomSortPropertySelector(String newCustomSortPropertySelector) {
+		String oldCustomSortPropertySelector = customSortPropertySelector;
+		customSortPropertySelector = newCustomSortPropertySelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR, oldCustomSortPropertySelector, customSortPropertySelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -715,6 +757,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return getFieldMaxLength();
 			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
 				return isCustomDecorator();
+			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
+				return getCustomSortPropertySelector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -768,6 +812,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
 				setCustomDecorator((Boolean)newValue);
+				return;
+			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
+				setCustomSortPropertySelector((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -823,6 +870,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
 				setCustomDecorator(CUSTOM_DECORATOR_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
+				setCustomSortPropertySelector(CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -863,6 +913,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return fieldMaxLength != FIELD_MAX_LENGTH_EDEFAULT;
 			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
 				return customDecorator != CUSTOM_DECORATOR_EDEFAULT;
+			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
+				return CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT == null ? customSortPropertySelector != null : !CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT.equals(customSortPropertySelector);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -903,6 +955,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(fieldMaxLength);
 		result.append(", customDecorator: ");
 		result.append(customDecorator);
+		result.append(", customSortPropertySelector: ");
+		result.append(customSortPropertySelector);
 		result.append(')');
 		return result.toString();
 	}

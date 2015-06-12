@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getMapId <em>Map Id</em>}</li>
@@ -55,7 +56,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#isNoZoomWhenDisabled <em>No Zoom When Disabled</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#isNoPanWhenDisabled <em>No Pan When Disabled</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

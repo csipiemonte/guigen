@@ -55,6 +55,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getPanel <em>Panel</em>}</li>
@@ -68,7 +69,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getStates <em>States</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getDefaultState <em>Default State</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

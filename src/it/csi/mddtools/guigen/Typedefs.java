@@ -35,12 +35,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Typedefs#getTypes <em>Types</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Typedefs#getNamespaces <em>Namespaces</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Typedefs#getExtNamespaces <em>Ext Namespaces</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs()
  * @model annotation="logicpkg pkg='mdl.types'"

@@ -36,10 +36,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.MultiDataWidget#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMultiDataWidget()
  * @model annotation="logicpkg pkg='ui.widgets'"

@@ -42,11 +42,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.DialogPanelImpl#getCommands <em>Commands</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.DialogPanelImpl#getMsgBoxes <em>Msg Boxes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

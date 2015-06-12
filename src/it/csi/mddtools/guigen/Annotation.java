@@ -17,11 +17,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Annotation#getSource <em>Source</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Annotation#getDetails <em>Details</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getAnnotation()
  * @model

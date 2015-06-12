@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getEventType <em>Event Type</em>}</li>
@@ -51,7 +52,6 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getMethodProtection <em>Method Protection</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getEventSpecifiers <em>Event Specifiers</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getMenubar <em>Menubar</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getTitlebar <em>Titlebar</em>}</li>
@@ -48,7 +49,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getExtModules <em>Ext Modules</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getHomePage <em>Home Page</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea()
  * @model annotation="logicpkg pkg='app'"

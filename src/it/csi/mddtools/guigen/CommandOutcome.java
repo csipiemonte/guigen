@@ -33,11 +33,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.CommandOutcome#getResultCode <em>Result Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.CommandOutcome#getCommand <em>Command</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOutcome()
  * @model annotation="logicpkg pkg='cmd'"

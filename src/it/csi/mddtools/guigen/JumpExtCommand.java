@@ -32,13 +32,13 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getStaticUrl <em>Static Url</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getRuntimeUrlProvider <em>Runtime Url Provider</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getLocationCode <em>Location Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#isBinaryStream <em>Binary Stream</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getJumpExtCommand()
  * @model annotation="logicpkg pkg='cmd'"

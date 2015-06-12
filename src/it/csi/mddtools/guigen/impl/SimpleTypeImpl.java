@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.SimpleTypeImpl#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SimpleTypeImpl#isNillable <em>Nillable</em>}</li>
@@ -46,7 +47,6 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.SimpleTypeImpl#getDataTypeModifiers <em>Data Type Modifiers</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SimpleTypeImpl#getEditHintMsg <em>Edit Hint Msg</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

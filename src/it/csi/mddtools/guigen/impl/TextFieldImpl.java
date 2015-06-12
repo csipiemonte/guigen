@@ -39,12 +39,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TextFieldImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TextFieldImpl#getFieldLength <em>Field Length</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TextFieldImpl#getFieldMaxLength <em>Field Max Length</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

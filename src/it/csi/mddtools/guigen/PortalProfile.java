@@ -39,13 +39,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getResModules <em>Res Modules</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getWhereAreYouFromPortalCode <em>Where Are You From Portal Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getResourceProviderCode <em>Resource Provider Code</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPortalProfile()
  * @model

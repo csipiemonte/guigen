@@ -574,6 +574,8 @@ public enum CommandFunctions implements Enumerator {
 	 * Returns the '<em><b>Command Functions</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static CommandFunctions get(String literal) {
@@ -590,6 +592,8 @@ public enum CommandFunctions implements Enumerator {
 	 * Returns the '<em><b>Command Functions</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static CommandFunctions getByName(String name) {
@@ -606,6 +610,8 @@ public enum CommandFunctions implements Enumerator {
 	 * Returns the '<em><b>Command Functions</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static CommandFunctions get(int value) {

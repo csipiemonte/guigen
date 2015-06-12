@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityProfileImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityProfileImpl#getExtAuthGuard <em>Ext Auth Guard</em>}</li>
@@ -35,7 +36,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityProfileImpl#getIdAdapter <em>Id Adapter</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityProfileImpl#getPepImpl <em>Pep Impl</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

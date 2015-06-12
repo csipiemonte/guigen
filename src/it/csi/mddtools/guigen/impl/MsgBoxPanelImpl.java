@@ -47,12 +47,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#getMessageSeverity <em>Message Severity</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#getTextMessages <em>Text Messages</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#isShowStdLegend <em>Show Std Legend</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

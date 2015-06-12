@@ -37,10 +37,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableCustomizationParamImpl#getBaseTable <em>Base Table</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

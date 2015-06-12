@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getResults <em>Results</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getMethodName <em>Method Name</em>}</li>
@@ -58,7 +59,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getExtraModels <em>Extra Models</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

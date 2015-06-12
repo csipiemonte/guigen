@@ -46,12 +46,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TypedefsImpl#getTypes <em>Types</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TypedefsImpl#getNamespaces <em>Namespaces</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TypedefsImpl#getExtNamespaces <em>Ext Namespaces</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

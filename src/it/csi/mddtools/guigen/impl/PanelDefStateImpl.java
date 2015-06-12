@@ -43,12 +43,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefStateImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefStateImpl#getWidgetsOn <em>Widgets On</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefStateImpl#getWidgetsVisible <em>Widgets Visible</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

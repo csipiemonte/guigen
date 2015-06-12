@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.UseCase#getPermission <em>Permission</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.UseCase#getCode <em>Code</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUseCase()
  * @model annotation="logicpkg pkg='security'"

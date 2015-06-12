@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
@@ -56,7 +57,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getWayfProfile <em>Wayf Profile</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getSecurityProfile <em>Security Profile</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -38,11 +38,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalExpositionImpl#getPortal <em>Portal</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalExpositionImpl#getAreaCode <em>Area Code</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

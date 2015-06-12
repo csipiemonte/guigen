@@ -34,11 +34,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.CommandOnWidgets#getTargetWidgets <em>Target Widgets</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.CommandOnWidgets#getTargetMenuElement <em>Target Menu Element</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOnWidgets()
  * @model abstract="true"

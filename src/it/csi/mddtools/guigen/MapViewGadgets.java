@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#isLayerSwitcher <em>Layer Switcher</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundMapMapServiceName <em>Background Map Map Service Name</em>}</li>
@@ -40,7 +41,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#isPolygonEditingActive <em>Polygon Editing Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#isModifyEditingActive <em>Modify Editing Active</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMapViewGadgets()
  * @model annotation="logicpkg pkg='ui.widgets.mapview'"

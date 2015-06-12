@@ -47,11 +47,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableCustomizationPDefValImpl#getExtraCols <em>Extra Cols</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableCustomizationPDefValImpl#getHiddenCols <em>Hidden Cols</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

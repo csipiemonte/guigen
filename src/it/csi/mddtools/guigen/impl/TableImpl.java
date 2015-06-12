@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getColumnModel <em>Column Model</em>}</li>
@@ -48,7 +49,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#isCustomDecorator <em>Custom Decorator</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getSummary <em>Summary</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -33,12 +33,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#getParams <em>Params</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#isCustom <em>Custom</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

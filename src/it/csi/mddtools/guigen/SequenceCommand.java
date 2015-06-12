@@ -34,10 +34,10 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.SequenceCommand#getCommands <em>Commands</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getSequenceCommand()
  * @model annotation="logicpkg pkg='cmd'"

@@ -48,13 +48,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getContentPanels <em>Content Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getExtSecurityModel <em>Ext Security Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#isSecure <em>Secure</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

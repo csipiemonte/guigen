@@ -34,13 +34,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.MenuItem#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MenuItem#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MenuItem#getEventHandler <em>Event Handler</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MenuItem#getSecurityConstraints <em>Security Constraints</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMenuItem()
  * @model

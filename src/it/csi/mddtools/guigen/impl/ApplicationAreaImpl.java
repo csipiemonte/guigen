@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getMenubar <em>Menubar</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getTitlebar <em>Titlebar</em>}</li>
@@ -64,7 +65,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getExtModules <em>Ext Modules</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getHomePage <em>Home Page</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

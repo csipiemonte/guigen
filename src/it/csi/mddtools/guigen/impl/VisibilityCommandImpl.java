@@ -44,12 +44,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl#getTargetWidgets <em>Target Widgets</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl#getTargetMenuElement <em>Target Menu Element</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl#isShow <em>Show</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

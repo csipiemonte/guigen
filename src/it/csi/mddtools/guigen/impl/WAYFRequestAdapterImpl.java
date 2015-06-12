@@ -23,11 +23,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WAYFRequestAdapterImpl#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WAYFRequestAdapterImpl#getInfoSourceName <em>Info Source Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

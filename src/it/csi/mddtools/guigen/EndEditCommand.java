@@ -49,11 +49,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.EndEditCommand#getDataEdited <em>Data Edited</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EndEditCommand#isUndo <em>Undo</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getEndEditCommand()
  * @model annotation="logicpkg pkg='cmd'"

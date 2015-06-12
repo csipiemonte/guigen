@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ActivationParam#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ActivationParam#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getActivationParam()
  * @model annotation="logicpkg pkg='app'"

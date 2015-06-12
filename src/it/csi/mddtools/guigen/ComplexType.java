@@ -35,13 +35,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#getFields <em>Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#isInitFields <em>Init Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#getExtends <em>Extends</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#getTypeAnnotation <em>Type Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getComplexType()
  * @model annotation="logicpkg pkg='mdl.types'"

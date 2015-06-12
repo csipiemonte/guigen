@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getStructure <em>Structure</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getBeahviors <em>Beahviors</em>}</li>
@@ -61,7 +62,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTargetPlatform <em>Target Platform</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getActivationModel <em>Activation Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

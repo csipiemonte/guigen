@@ -37,12 +37,12 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.WizardPanel#isNavigatorActive <em>Navigator Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.WizardPanel#getSwitcher <em>Switcher</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.WizardPanel#getNumberingSchema <em>Numbering Schema</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getWizardPanel()
  * @model annotation="uipaneldoc description='<p>\r\nIl <b>WizardPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate\r\na <i>wizard</i>:\r\nPrevede due sezioni visibili:\r\n<ol>\r\n<li>la lista di &quot; etichette &quot; che servono per attivare i vari <i>step</i> \r\n(con evidenza visiva dello step correntemente selezionato)</li>\r\n<li>la sezione in cui viene visualizzato il contenuto dello <i>step</i> corrente.</li>\r\n</ol>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\nIl <b>WizardPanel</b> pu&ograve; funzionare in tre differenti modalit&agrave;:\r\n<ol>\r\n<li>wizard <b>passivo</b>: la navigazione tra gli step deve essere comandata dalla business\r\nlogic (es. tasti di &quot;avanti&quot; o &quot;indietro&quot; all\'interno dello step)</li>\r\n<li>wizard <b>attivo</b>: la navigazione tra gli step pu&ograve; essere comandata sia dalla\r\nbusiness logic (es. tasti di &quot;avanti&quot; o &quot;indietro&quot; all\'interno dello step) sia\r\ntramite click sulle etichette dei vari step.</li>\r\n</ol>\r\n</p>'"

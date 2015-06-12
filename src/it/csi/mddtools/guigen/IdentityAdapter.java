@@ -16,13 +16,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getInfoSourceName <em>Info Source Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getIdentityAdapter()
  * @model

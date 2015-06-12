@@ -32,13 +32,13 @@ package it.csi.mddtools.guigen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getRow <em>Row</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getColumn <em>Column</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getHspan <em>Hspan</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getVspan <em>Vspan</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getGridWidgetLayoutSpec()
  * @model annotation="logicpkg pkg='ui.layout'"

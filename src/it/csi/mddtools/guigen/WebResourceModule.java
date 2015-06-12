@@ -36,13 +36,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.WebResourceModule#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.WebResourceModule#getVersion <em>Version</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.WebResourceModule#getDeploymentType <em>Deployment Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.WebResourceModule#getRepartModule <em>Repart Module</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getWebResourceModule()
  * @model abstract="true"
