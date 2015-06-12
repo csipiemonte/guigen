@@ -1132,6 +1132,7 @@ come target di refresh.
 		<display:column «IF !currCol.eventActive-»property="«currCol.selector»"«ENDIF» titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" 
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
 			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)»  media="html"
+			«IF !currCol.customSortPropertySelector.isNullOrEmpty()»sortProperty="«currCol.customSortPropertySelector»"«ENDIF»
 			«IF currCol.customDecorator-»decorator="«getColumnDecoratorFQN(model, this, currCol)»"«ENDIF-» >
 			«IF currCol.eventActive-»
 			<s:url id="targetUrlLinkableCell"						   
