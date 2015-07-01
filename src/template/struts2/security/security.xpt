@@ -540,22 +540,88 @@ public abstract class AbstractUISecConstraint implements UISecConstraint{
 protected int constrainedBehavior = UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR;
 
 /**
+ * Imposta il comportamento oggetto di constraint (visibilita' / abilitazione)
+ * @param value 
+ */
+public void setConstrainedBehavior(int value){
+	constrainedBehavior = value;
+}
+
+/**
+ * @return il comportamento oggetto di constraint
+ */
+public int getConstrainedBehavior(){
+	return constrainedBehavior;
+}
+
+/**
  * lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
  * @generated
  */
-protected final boolean defaultState;
+protected boolean defaultState;
+
+/**
+ * imposta lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ * @param value
+ */
+public void setDefaultState(boolean value){
+	defaultState = value;
+}
+
+/**
+ * @return lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ */
+public boolean getDefaultState(){
+	return defaultState;
+}
 
 /**
  * nome del content panel che contiene il widget oggetto di constraint
  * @param
  */
-protected final String nomeContainer;
+protected String nomeContainer;
+
+/**
+ * imposta il nome del content panel che contiene il widget oggetto di constraint
+ * @param value
+ */
+public void setNomeContainer(String value){
+	nomeContainer = value;
+}
+
+/**
+ * @return il nome del content panel che contiene il widget oggetto di constraint
+ */
+public String getNomeContainer(){
+	return nomeContainer;
+}
 
 /**
  * nome del widget oggetto di constraint
  * @generated
  */
-protected final String nomeWidget;
+protected String nomeWidget;
+
+/**
+ * imposta il nome del widget oggetto di constraint
+ * @param value
+ */
+public void setNomeWidget(String value){
+	nomeWidget = value;
+}
+
+/**
+ * @return il nome del widget oggetto di constraint
+ */
+public String getNomeWidget(){
+	return nomeWidget;
+}
+
+/**
+ * costruttore vuoto
+ */
+public AbstractUISecConstraint(){
+}
 
 /**
  * costruttore
@@ -866,6 +932,21 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	 * @generated
 	 */
 	protected UISecConstraint [] constraints = null;
+	
+	/**
+	 * imposta l'elenco dei constraint da verificare
+	 * @param value
+	 */
+	public void setConstraints(UISecConstraint[] value){
+		constraints = (UISecConstraint[]) DTOUtils.arrayCopyOf(value, UISecConstraint.class);
+	}
+	
+	/**
+	 * @return l'elenco dei constraint da verificare
+	 */
+	public UISecConstraint[] getConstraints(){
+		return constraints;
+	}
 	
 	/**
 	 * costruttore

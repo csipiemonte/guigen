@@ -1577,6 +1577,34 @@ switch (cn) {
 		cn
 };
 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///  Serializzazioni JSON delle strutture di constraints
+///////////////////////////////////////////////////////////////////////////////////////////////
+String getConstraintStructureJSONBasePath(GUIModel model, ContentPanel cp):
+if (cp != null) then 
+getPresentationJavaSrcDir(model, true) + "/" +getAppModuleAsFolder(cp, false, true) +"constraints/"+ cp.name.toLowerCase()+"/"
+else
+getPresentationJavaSrcDir(model, true) + "/" +"constraints/"+ "global"+"/";
+
+String getConstraintStructureJSONFileName(GUIModel model, ContentPanel cp, String widgetName, String constrainedBehavior): 
+getConstraintStructureJSONBasePath(model, cp)+"/"+widgetName+"_"+constrainedBehavior+"_constraints.json";
+
+String getconstraintFQN(UISecurityConstraint c, GUIModel model) :
+getPresentationJavaPackage(model)+"."+getconstraintClassName(c);
+
+String getconstraintClassName(UISecurityConstraint c) :
+let cn = (c.metaType.name.split("::").get(1)) :
+switch (cn) {
+	case "ONOFFCommand" : 
+		"OnOffCommand"
+	case "ClearAppdataCommand" :
+		"ClearAppDataCommand"
+	default :
+		cn
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//
 // ATTENZIONE!!! NOTA PER GLI SVILUPPATORI
