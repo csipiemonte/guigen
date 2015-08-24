@@ -994,37 +994,7 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 	 */
 	protected abstract boolean isImplicitEventDefined(String implicitEventName);
 	
-	/**
-	 * elenco di tutti i constraint di visibilita' della schermata
-	 */
-	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
 	
-	/**
-	 * elenco di tutti i constraint di abilitazione della schermata
-	 */
-	protected Map<String, UISecConstraint> allOnOffConstraints = null;
-	
-	/**
-	 * Prepara la struttura di security constraints della schermata (visibilita' + abilitazione)
-	 */
-	protected void prepareSecurityConstraints(){if (allVisibilityConstraints == null)
-		allVisibilityConstraints = getPageVisibilityUIConstraints();
-		if (allOnOffConstraints == null){
-			allOnOffConstraints = getPageONOFFUIConstraints();
-		}
-	}
-	
-	/**
-	 * Questo metodo astratto deve essere ridefinito dalle sottoclassi in modo
-	 * da costruire la struttura di constraints di visibilita' della schermata
-	 */
-	protected abstract Map<String, UISecConstraint> getPageVisibilityUIConstraints();
-	
-	/**
-	 * Questo metodo astratto deve essere ridefinito dalle sottoclassi in modo
-	 * da costruire la struttura di constraints di abilitazione della schermata
-	 */
-	protected abstract Map<String, UISecConstraint> getPageONOFFUIConstraints();
 	
 	«EXPAND security::securedWidgetCheck FOR this»
 	
@@ -1225,8 +1195,6 @@ public abstract class «getStrutsAbstractCPActionClassName(this)» <T extends Ba
 		// cancellazione eventuale degli errori di conversione non desiderati
 	    clearConversionErrorsIfSkipValidation();
 	    
-	    // creazione della strttura di security constraints
-	    prepareSecurityConstraints();
 	    
 		ActionContext ctx = ActionContext.getContext();
 		String methodName = ctx.getActionInvocation().getProxy().getMethod();     

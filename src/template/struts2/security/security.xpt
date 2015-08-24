@@ -744,6 +744,23 @@ import «getBaseJavaPackage()+".business.*;"»
 public class CustomUISecConstraint extends AbstractUISecConstraint {
 
 	/**
+	 * costrutto vuoto
+	 */
+	public CustomUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+	
+	private String methodNameSuffix;
+	
+	/**
+	 * @param val il suffisso del metodo da richiamare per l'implementazione del 
+	 * custom constraint (il metodo si chiama customCheck{methodNameSuffix}() )
+	 */
+	public void setMethodNameSuffix(String val){
+		this.methodNameSuffix = val;
+	}
+	
+	/**
 	 * costruttore
      * @param nomeContainer il nome del content panel che contiene il widget oggetto di constraint
      * @param nomeWidget il nome del widget oggetto di constraint
@@ -756,13 +773,27 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 	}
 	
 	/**
-	 * Implementazione da ridefinire nelle sottoclassi specifiche. Se non ridefinito restutuisce sempre true
+	 * L'implementazione specifica del check e' delegata al SecurityHelper: viene invocato
+	 * il metodo dal nome customCheck{methodNamesuffix}.
 	 * @generated
 	 */
 	@Override
 	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
-		// viene sempre ridefinito
-		return true;
+		// richiama dinamicamente il metodo customCheck{methodNamesuffix} nel security helper
+		try{
+			java.lang.reflect.Method checkMethod = sh.getClass().getDeclaredMethod("customCheck"+methodNameSuffix, Map.class);
+			Object res = checkMethod.invoke(sh, session);
+			return (Boolean)res;
+		}
+		catch(NoSuchMethodException nsme){
+			throw new BEException("il metodo di check customCheck"+methodNameSuffix+"() non e' stato trovato nel SecurityHelper", nsme);
+		}
+		catch(java.lang.reflect.InvocationTargetException ite){
+			throw new BEException("errore nell'invocazione del check customCheck"+methodNameSuffix+"()", ite);
+		}
+		catch(IllegalAccessException iae){
+			throw new BEException("errore nell'invocazione del check customCheck"+methodNameSuffix+"()", iae);
+		}
 	}
 
 }
@@ -783,7 +814,21 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 	 * il codice dell'actor di cui verificare l'impersonificazione
 	 * @generated
 	 */
-	private final String actorCode;
+	private String actorCode;
+	
+	/**
+	 * @param val il codice dell'Actor
+	 */
+	public void setActorCode(String val){
+		this.actorCode = val;
+	}
+	
+	/**
+	 * costrutto vuoto
+	 */
+	public ActorBasedUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
 	
 	/**
 	 * costruttore
@@ -829,13 +874,34 @@ public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 	 * il codice del ruolo da verificare
 	 * @generated
 	 */
-	private final String roleCode;
+	private String roleCode;
+	
+	/**
+	 * @param val il codice del ruolo
+	 */
+	public void setRoleCode(String val){
+		this.roleCode = val;
+	}
 	
 	/**
 	 * il codice del dominio a cui appartiene il ruolo da verificare
 	 * @generated
 	 */
-	private final String domainCode;
+	private String domainCode;
+	
+	/**
+	 * @param val il codice del dominio
+	 */
+	public void setDomainCode(String val){
+		this.domainCode = val;
+	}
+	
+	/**
+	 * costrutto vuoto
+	 */
+	public RoleBasedUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
 	
 	/**
 	 * costruttore
@@ -882,7 +948,21 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 	 * il codice dello use case di cui verificare l'abilitazione
 	 * @generated
 	 */
-	private final String useCaseCode;
+	private String useCaseCode;
+	
+	/**
+	 * @param il codice dello use case
+	 */
+	public void setUseCaseCode(String val){
+		this.useCaseCode = val;
+	}
+	
+	/**
+	 * costrutto vuoto
+	 */
+	public UCBasedUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
 	
 	/**
 	 * costruttore.
@@ -927,6 +1007,13 @@ import «getDTOBaseJavaPackage()».DTOUtils;
  */
 public class ComplexUISecConstraint implements UISecConstraint {
 
+	/**
+	 * costrutto vuoto
+	 */
+	public ComplexUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+	 
 	/**
 	 * i constraint da verificare
 	 * @generated
@@ -991,10 +1078,18 @@ import «getBaseJavaPackage()+".business.*;"»
  */
 public class DummyUISecConstraint extends AbstractUISecConstraint {
 
+
 	/**
 	 * @generated
 	 */
-	private final boolean fixedValue;
+	private boolean fixedValue;
+
+	/**
+	 * costrutto vuoto
+	 */
+	public DummyUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
 
 	/**
 	 * costruttore
@@ -1011,6 +1106,13 @@ public class DummyUISecConstraint extends AbstractUISecConstraint {
 		this.fixedValue = fixedValue;
 	}
 
+	/**
+	 * @param val il valore che indica se il constraint ritorna sempre true o false 
+	 */
+	public void setFixedValue(boolean val){
+		this.fixedValue = val;
+	}
+	
 	/**
 	 * restituisce il valore fisso fornito nel costruttore
 	 * @generated
@@ -1152,7 +1254,15 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	public boolean isWidgetDisabled(String cpName, String widgShortName) {
 		// recupero l'elenco del security constraint preparati in fase di
 		// inizializzazione del pannello
-		UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
+		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
+		UISecConstraint ctr = null;
+		try {
+			ctr = ctrFct.buildCtrStructure_internal(getCPNamespace(), cpName.toLowerCase(), widgShortName, "enabled");
+		} catch (CommandExecutionException e) {
+			LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetDisabled] errore durante verifica->disable", e);
+			return true; // forzo la DISABILITAZIONE
+		}
+		//UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
 		if (ctr!=null){
 			try{
 				// se sono presenti dei constraint, li eseguo per conoscere lo stato
@@ -1184,7 +1294,15 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	public boolean isWidgetVisible(String cpName, String widgShortName) {
 		// recupero l'elenco del security constraint preparati in fase di
 		// inizializzazione del pannello
-		UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
+		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
+		UISecConstraint ctr = null;
+		try {
+			ctr = ctrFct.buildCtrStructure_internal(getCPNamespace(), cpName.toLowerCase(), widgShortName, "visible");
+		} catch (CommandExecutionException e) {
+			LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetVisible] errore durante verifica->hide", e);
+			return false; // forzo l'invisibilita'
+		}
+		//UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
 		if (ctr!=null){
 			try{
 				// se sono presenti dei constraint, li eseguo per conoscere lo stato

@@ -25,11 +25,11 @@ e le limitazioni secondo i termini della Licenza.
 
 «REM»per menu non per i singoli pannelli!!!!«ENDREM»
 «DEFINE jsonConstraintsFiles(GUIModel model) FOR ApplicationArea»
-«REM»
+
 «IF this.menubar!=null»
 «EXPAND jsonConstraintsFiles(model) FOR this.menubar»
 «ENDIF»
-«ENDREM»
+
 «ENDDEFINE»
 
 «DEFINE jsonConstraintsFiles(GUIModel model) FOR Menubar»
@@ -43,14 +43,14 @@ e le limitazioni secondo i termini della Licenza.
 
 «REM»richiamato direttamente, non dal template per application area!!!!«ENDREM»
 «DEFINE jsonConstraintsFiles(GUIModel model) FOR ContentPanel»
-«REM»
+
 «LET this.panels.findAllWidgetsInPanel() AS allWidgets»
 «FOREACH (List[Widget])allWidgets AS currWidget»
 «EXPAND initJsonConstraint(currWidget, model, this, "", "visible", currWidget.defaultVisible) FOR currWidget»
 «EXPAND initJsonConstraint(currWidget, model, this, "", "enabled", currWidget.defaultEnabled) FOR currWidget»
 «ENDFOREACH»
 «ENDLET»
-«ENDREM»
+
 «ENDDEFINE»
 
 «DEFINE initJsonConstraint(Widget currWidget, GUIModel model, ContentPanel cp, String contextPrefix, String constrainedBehavior, boolean defaultState) FOR Widget-»
@@ -60,6 +60,11 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 
+«DEFINE initJsonConstraint(Widget currWidget, GUIModel model, ContentPanel cp, String contextPrefix, String constrainedBehavior, boolean defaultState) FOR Menu-»
+«FILE getConstraintStructureJSONFileName(model, null, this.name, constrainedBehavior)»
+«EXPAND jsonSer(model, cp, contextPrefix, constrainedBehavior) FOR this-»
+«ENDFILE»
+«ENDDEFINE»
 
 
 
@@ -69,26 +74,62 @@ e le limitazioni secondo i termini della Licenza.
 #######################################
 «ENDREM»
 
-«DEFINE jsonSer(GUIModel model, ContentPanel parentCP, String contextPrefix, String constrainedBehavior) FOR Widget-»
+«DEFINE jsonSer(GUIModel model, ContentPanel parentCP, String contextPrefix, String constrainedBehavior) FOR Menu-»
 «LET this.securityConstraints.select(sc| constrainedBehavior == "visible" ? sc.visible : sc.enabled) AS currConstraints-»
-{ "class": "«getPresentationJavaPackage(model)».ComplexUISecConstraint",
-  "constrainedBehavior": "«constrainedBehavior»",
-  "defaultState": "«constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled»",
-  "containerName": "«parentCP.name»",
-  "widgetName": "«name»",
+{ "class": "«getSecurityJavaPackage(model)».ComplexUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": true,
+  "nomeContainer": "???",
+  "nomeWidget": "????",
   "constraints": [
-«EXPAND jsonSer(model, parentCP, contextPrefix, constrainedBehavior, (constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled)) FOREACH currConstraints SEPARATOR ","»
+«IF currConstraints.size>0-»
+«EXPAND jsonSer(model, parentCP, "???_mainMenu???", contextPrefix, constrainedBehavior, true) FOREACH currConstraints SEPARATOR ","»
+«ELSE-»
+{ "class": "«getSecurityJavaPackage(model)».DummyUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": true,
+  "nomeContainer": "???",
+  "nomeWidget": "????",
+  "fixedValue": true
+}
+«ENDIF-»
+
   ]
 }
 «ENDLET-»
 «ENDDEFINE»
 
-«DEFINE jsonSer(GUIModel model, ContentPanel parentCP, String contextPrefix, String constrainedBehavior, boolean defaultState) FOR UISecurityConstraint-»
+«DEFINE jsonSer(GUIModel model, ContentPanel parentCP, String contextPrefix, String constrainedBehavior) FOR Widget-»
+«LET this.securityConstraints.select(sc| constrainedBehavior == "visible" ? sc.visible : sc.enabled) AS currConstraints-»
+{ "class": "«getSecurityJavaPackage(model)».ComplexUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": «constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled»,
+  "nomeContainer": "«parentCP.name»",
+  "nomeWidget": "«name»",
+  "constraints": [
+«IF currConstraints.size>0-»
+«EXPAND jsonSer(model, parentCP, name ,contextPrefix, constrainedBehavior, (constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled)) FOREACH currConstraints SEPARATOR ","»
+«ELSE-»
+{ "class": "«getSecurityJavaPackage(model)».DummyUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": «constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled»,
+  "nomeContainer": "«parentCP.name»",
+  "nomeWidget": "«name»",
+  "fixedValue": true
+}
+«ENDIF-»
+
+  ]
+}
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE jsonSer(GUIModel model, ContentPanel parentCP, String widgetName, String contextPrefix, String constrainedBehavior, boolean defaultState) FOR UISecurityConstraint-»
 { "class": "«this.getconstraintFQN(model)»",
-  "constrainedBehavior": "«constrainedBehavior»",
-  "defaultState": "«defaultState»",
-  "containerName": "---",
-  "widgetName": "---",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": «defaultState»,
+  "nomeContainer": "«parentCP.name»",
+  "nomeWidget": "«widgetName»",
  «EXPAND jsonSer_internal(model, parentCP, contextPrefix) FOR this-»
 }
 «ENDDEFINE»
@@ -107,12 +148,12 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR RoleBasedSecurityConstraint-»
-	"roleCode": "«this.role.code»"
+	"roleCode": "«this.role.code»",
 	"domainCode": "«this.role.domainCode»"
 «ENDDEFINE»
 
 «DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR CustomSecurityConstraint-»
-	"methodNameSuffix": "«this.methodNameSuffix»"
+	"methodNameSuffix": "«this.methodNameSuffix.toFirstUpper()»"
 «ENDDEFINE»
 «REM»
 «DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR NOPCommand-»

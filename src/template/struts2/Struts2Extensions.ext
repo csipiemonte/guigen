@@ -497,6 +497,22 @@ String getCmdFactoryFQN(GUIModel model):
 String getCmdFactoryJavaFile(GUIModel model, boolean omit_root):
 	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/command/" + getCmdFactoryClassName() + ".java";
 
+/// Constraint Factory
+String getConstraintFactoryPkg(GUIModel model):
+getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".security";
+
+String getConstraintFactoryClassName():
+	"ConstraintFactory";
+	
+String getConstraintFactoryFQN(GUIModel model):
+	getConstraintFactoryPkg(model)+"."+getConstraintFactoryClassName();
+
+String getConstraintFactoryJavaFile(GUIModel model, boolean omit_root):
+	getBaseJavaSrcDir(model, omit_root)  + "/presentation/" + model.codComponente + "/security/" + getConstraintFactoryClassName() + ".java";
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Action Struts2
 
@@ -1592,15 +1608,19 @@ String getConstraintStructureJSONFileName(GUIModel model, ContentPanel cp, Strin
 getConstraintStructureJSONBasePath(model, cp)+"/"+widgetName+"_"+constrainedBehavior+"_constraints.json";
 
 String getconstraintFQN(UISecurityConstraint c, GUIModel model) :
-getPresentationJavaPackage(model)+"."+getconstraintClassName(c);
+getSecurityJavaPackage(model)+"."+getconstraintClassName(c);
 
 String getconstraintClassName(UISecurityConstraint c) :
 let cn = (c.metaType.name.split("::").get(1)) :
 switch (cn) {
-	case "ONOFFCommand" : 
-		"OnOffCommand"
-	case "ClearAppdataCommand" :
-		"ClearAppDataCommand"
+	case "ActorBasedSecurityConstraint" : 
+		"ActorBasedUISecConstraint"
+	case "UCBasedSecurityConstraint" : 
+		"UCBasedUISecConstraint"
+	case "RoleBasedSecurityConstraint" : 
+		"RoleBasedUISecConstraint"
+	case "CustomSecurityConstraint" : 
+		"CustomUISecConstraint"
 	default :
 		cn
 };
