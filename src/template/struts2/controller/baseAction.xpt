@@ -398,10 +398,18 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	 */
 	public boolean isMenuVisible(String menuName) {
 	«IF getActualSecurityModel(this)!=null-»
-		// recupero l'elenco di security constraints associati al menu
-		// preparati in precedenza
-		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
+		// recupero l'elenco di security constraints tramite l'apposita factory
+		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
+		UISecConstraint ctr = null;
 		boolean status;
+		
+		try {
+			ctr = ctrFct.buildCtrStructure_internal("", "global", menuName, "visible");
+		} catch (CommandExecutionException e) {
+			LOG.error("[«getStrutsBaseActionClassName()»::isMenuVisible] errore durante verifica->hide", e);
+			return false; // forzo l'invisibilita'
+		}
+		
 		if (ctr!=null){
 			try{
 				// eseguo la valutazione dei constraints
@@ -499,9 +507,18 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	 */
 	public boolean isMenuEnabled(String menuName) {
 	«IF getActualSecurityModel(this)!=null-»
-		// recupero i constraint preparati in precedenza
-		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
+		// recupero l'elenco di security constraints tramite l'apposita factory
+		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
+		UISecConstraint ctr = null;
 		boolean status;
+		
+		try {
+			ctr = ctrFct.buildCtrStructure_internal("", "global", menuName, "enabled");
+		} catch (CommandExecutionException e) {
+			LOG.error("[«getStrutsBaseActionClassName()»::isMenuEnabled] errore durante verifica->disable", e);
+			return false; // forzo la disabilitazione
+		}
+		
 		if (ctr!=null){
 			try{
 				// valuto i constraint per veirifcare lo stato di abilitazione
