@@ -203,31 +203,13 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	public static final int ERROR_LEVEL_NO_ERROR = -1;
 	«ENDIF»
 
-	/**
-	 * mappa <menu,constraints di visibilita'>
-	 */
-	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;
-	
-	/**
-	 * mappa <menu,constraints di abilitazione>
-	 */
-	protected Map<String, UISecConstraint> allMenuOnOffConstraints = null;
-	
 	
 	/**
 	 * metodo di preparazioen della action.
 	 */
 	public void prepare() throws CommandExecutionException{
 	
-		«IF getActualSecurityModel(this)!=null»
-	    // caricamento struttura di constraints di visibilita' del menu
-	    if (allMenuVisibilityConstraints==null)
-	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
-	    // caricamento struttura di constraints di abilitazione del menu
-	    if (allMenuOnOffConstraints==null)
-	    	allMenuOnOffConstraints = getMenuONOFFUIConstraints();
-	
-		«ENDIF»
+		// NOP
 	}
 	
     ////////////////////////////////////////////////////////////////////////
@@ -749,9 +731,6 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 	«EXPAND template::struts2::view::richFeatures::dataProviderStreamProperty FOR this-»
 	«ENDIF-»
 	
-	«IF getActualSecurityModel(this)!=null && structure.appWindow.appArea.menubar!=null»
-	«EXPAND template::struts2::security::securityConstraints::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
-	«ENDIF»
 	
 	«IF isMultiPortal(this)»
 	«EXPAND template::struts2::multiPortal::baseActionMethods FOR this-»
