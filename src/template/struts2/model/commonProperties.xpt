@@ -24,12 +24,14 @@ e le limitazioni secondo i termini della Licenza.
 - idNodo per gestire eventuali click su un treeView
 - idCella per gestire eventuali click sulla cella di una tabella
 «ENDREM»
-«DEFINE commonProperties FOR ContentPanel»
-	/////////////////////////////////////////
+«DEFINE commonProperties FOR GUIModel»
+	////////////////////////////////////////////////////////
 	/// property comuni a tutte le action
-	/////////////////////////////////////////
+	/// (possono essere utilizzate effettivamente o meno
+	/// a seconda che il ContentPanel  contenga o meno un
+	/// TreeView, una Table, dei tab/wizard) 
+	////////////////////////////////////////////////////////
 
-	«IF hasTree(this)»
 	// nodo selezionato in un eventuale tree
 	private String _idNodo = "";
 
@@ -40,9 +42,7 @@ e le limitazioni secondo i termini della Licenza.
 	public String getIdNodo(){
 		return _idNodo;
 	}
-	«ENDIF»
 
-	«IF hasTable(this)»
 	// riga selezionata in una eventuale tabella
 	// NOTA: l'id della cella selezionata e' data da idRiga + idColonna
 	private String idRiga = "";
@@ -66,7 +66,7 @@ e le limitazioni secondo i termini della Licenza.
 	public String getIdColonna(){
 		return idColonna;
 	}
-    «ENDIF»
+
     
     /// parametri per cambio TAB
     

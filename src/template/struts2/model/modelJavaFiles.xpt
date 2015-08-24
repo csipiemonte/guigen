@@ -303,8 +303,13 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 «FILE getDTOBaseSrcDir()+"/BaseSessionAwareDTO.java"»package «getDTOBaseJavaPackage()»;
 
 import java.util.Map;
+import java.util.List;
 import org.apache.log4j.*;
 import «getBaseJavaPackage()».util.*;
+«IF model.targetPlatform.enableRichUIBehavior-»
+import «getUIUtilsJavaPackage(model)».*;
+import flexjson.JSON;
+«ENDIF-»
 
 /**
  * Superclasse astratta di tutti i DTO associati ai ContentPanel. 
@@ -331,6 +336,12 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 	public Map getSession(){
 		return this.session;
 	}
+	
+	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
+	«ENDIF-»
 	
 	/**  
 	 * @generated
@@ -749,14 +760,9 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessio
 	////////////////////////////////////////////////////////////////////
 	«EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR this»
 	
-	////////////////////////////////////////////////////////////////////
-	/// ulteriori campi comuni 
-	////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
 	
-	«IF model.targetPlatform.enableRichUIBehavior-»
-	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
-	«ENDIF-»
+	
+	
 	
 	«IF model.targetPlatform.enableFatClient-»
 	//***lista delle tabelle che hanno clearStatus settato a true
