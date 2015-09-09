@@ -1256,7 +1256,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
 		UISecConstraint ctr = null;
 		try {
-			ctr = ctrFct.buildCtrStructure_internal(getCPNamespace(), cpName.toLowerCase(), widgShortName, "enabled");
+			ctr = ctrFct.buildCtrStructure_internal((""+getCPNamespace()).toLowerCase(), cpName.toLowerCase(), widgShortName, "enabled");
 		} catch (CommandExecutionException e) {
 			LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetDisabled] errore durante verifica->disable", e);
 			return true; // forzo la DISABILITAZIONE
@@ -1295,7 +1295,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
 		UISecConstraint ctr = null;
 		try {
-			ctr = ctrFct.buildCtrStructure_internal(getCPNamespace(), cpName.toLowerCase(), widgShortName, "visible");
+			ctr = ctrFct.buildCtrStructure_internal((""+getCPNamespace()).toLowerCase(), cpName.toLowerCase(), widgShortName, "visible");
 		} catch (CommandExecutionException e) {
 			LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetVisible] errore durante verifica->hide", e);
 			return false; // forzo l'invisibilita'
