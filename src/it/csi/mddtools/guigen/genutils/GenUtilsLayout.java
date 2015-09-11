@@ -94,7 +94,7 @@ public class GenUtilsLayout {
 	 * Restituisce il sottopannello di un FormPanel di primo livello situato nella posizione indicata.
 	 * Vengono fatte, per semplificare la generazione, le seguenti assunzioni:
 	 * - il layout UDLRC viene applicato solo al primo livello (check)
-	 * - è ammesso un solo sottopannello per ciascuno dei cinque quadranti (check)
+	 * - ï¿½ ammesso un solo sottopannello per ciascuno dei cinque quadranti (check)
 	 * - non sono ammessi direttamente widget come figli di un pannello di primo livello con layout UDLRC
 	 * 
 	 * @param firstLevPanel
@@ -217,15 +217,15 @@ public class GenUtilsLayout {
 		// widget non trovato:
 		if ( res == null ) {
 			if ( hspan > 0 ) {
-				// non c'è perchè non ci deve essere causa colspan di una cella precedente:
+				// non c'e' perche' non ci deve essere causa colspan di una cella precedente:
 				// tutto bene, ritorno null e lo gestisco nel metodo chiamante
 				hspan = hspan - 1;
 			} else {
-				// non c'è perchè ci dovrebbe essere ma è stato dimenticato:
+				// non c'e' perche' ci dovrebbe essere ma e' stato dimenticato:
 				// aggiungo un PlainText vuoto
 				res = GuigenFactory.eINSTANCE.createPlainText();
 				res.setLabel(null);
-				res.setName(p.getName() + "_" + row + "_" + col);
+				res.setName(p.getName() + "_" + row + "_" + col+"_fictitious_");
 				GridWidgetLayoutSpec wls = GuigenFactory.eINSTANCE.createGridWidgetLayoutSpec();
 				wls.setColumn(col);
 				wls.setRow(row);
@@ -488,7 +488,7 @@ public class GenUtilsLayout {
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Metodi generici per funzionalità specifiche per layout: 
+	// Metodi generici per funzionalitï¿½ specifiche per layout: 
 	// verranno ridefinite (ove necessario) mediante AOP
 	
 	/**
@@ -641,8 +641,8 @@ public class GenUtilsLayout {
 	
 	/**
 	 * Restituisce la classe per un CheckBox
-	 * NOTA: Anche se il codice è semplice (e potrebbe stare in .ext) DEVE rimanere qui
-	 *       in Java poichè questo metodo è chiamato anche da GenUtils.
+	 * NOTA: Anche se il codice ï¿½ semplice (e potrebbe stare in .ext) DEVE rimanere qui
+	 *       in Java poichï¿½ questo metodo ï¿½ chiamato anche da GenUtils.
 	 * 
 	 * Viene ridefinito tramite AOP per i seguenti portali:
 	 * - SistemaPiemonte
@@ -679,8 +679,8 @@ public class GenUtilsLayout {
 	
 	/**
 	 * Restituisce la classe per un TextField in una Table.
-	 * NOTA: Anche se il codice è semplice (e potrebbe stare in .ext) DEVE rimanere qui
-	 *       in Java poichè questo metodo è chiamato anche da GenUtils.
+	 * NOTA: Anche se il codice ï¿½ semplice (e potrebbe stare in .ext) DEVE rimanere qui
+	 *       in Java poichï¿½ questo metodo ï¿½ chiamato anche da GenUtils.
 	 *  
 	 * Viene ridefinito tramite AOP per i seguenti portali:
 	 * - SistemaPiemonte
@@ -715,7 +715,7 @@ public class GenUtilsLayout {
 			return index;
 		} 
 		else if ( parent instanceof WizardPanel ) {
-			// ho un WizardPanel: devo aggiungere all'indice già composto quello dello step
+			// ho un WizardPanel: devo aggiungere all'indice giï¿½ composto quello dello step
 			String newIndex = "";
 			int i = 1;
 			for ( Panel p : ((WizardPanel) parent).getPanels() ) {

@@ -1249,9 +1249,15 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	 * - stato comandato da ScreenStateCommand
 	 * - security constraint
 	 * @param cpName nome del content panel
-	 * @param widgShortName nome del widget 
+	 * @param widgShortName nome del widget (se il nome termina con "_fictitious_" allora
+	 *        il widget non deve essere considerato => restituisco sempre false)
 	 */
 	public boolean isWidgetDisabled(String cpName, String widgShortName) {
+		// verifico se si tratta di un widget fittizio
+		if (widgShortName.endsWith("_fictitious_")){
+			return false;
+		}
+		// ELSE...
 		// recupero l'elenco del security constraint tramite l'apposita factory
 		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
 		UISecConstraint ctr = null;
@@ -1288,9 +1294,15 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	 * - stato comandato da ScreenStateCommand
 	 * - security constraint
 	 * @param cpName nome del content panel
-	 * @param widgShortName nome del widget 
+	 * @param widgShortName nome del widget (se il nome termina con "_fictitious_" allora
+	 *        il widget non deve essere considerato => restituisco sempre true)
 	 */
 	public boolean isWidgetVisible(String cpName, String widgShortName) {
+		// verifico se si tratta di un widget fittizio
+		if (widgShortName.endsWith("_fictitious_")){
+			return true;
+		}
+		// ELSE...
 		// recupero l'elenco del security constraint tramite la apposita factory
 		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
 		UISecConstraint ctr = null;
