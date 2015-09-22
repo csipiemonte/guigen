@@ -52,6 +52,15 @@ e le limitazioni secondo i termini della Licenza.
 «EXPAND initJsonConstraint(currWidget, model, this, "", "enabled", currWidget.defaultEnabled) FOR currWidget»
 «ENDFOREACH»
 «ENDLET»
+«FOREACH dialogs AS currDialog-»
+«LET currDialog.findAllWidgetsInPanel() AS allWidgets»
+«FOREACH (List[Widget])allWidgets AS currWidget»
+«EXPAND initJsonConstraint(currWidget, model, this, "", "visible", currWidget.defaultVisible) FOR currWidget»
+«EXPAND initJsonConstraint(currWidget, model, this, "", "enabled", currWidget.defaultEnabled) FOR currWidget»
+«ENDFOREACH»
+«ENDLET»
+
+«ENDFOREACH-»
 
 «ENDDEFINE»
 
