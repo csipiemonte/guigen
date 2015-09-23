@@ -23,25 +23,26 @@ e le limitazioni secondo i termini della Licenza.
 «REM»Definizione e Mapping Authentication Filter da modellazione SecurityProfile«ENDREM»
 «DEFINE authenticationFilterSecurityProfile(GUIModel model) FOR SecurityProfile» 
 «IF this.intAuthGuard != null-»
-	«EXPAND internalAuthenticationFilter(model) FOR this.intAuthGuard-»
+	«EXPAND internalAuthenticationFilter(model, this.idAdapter) FOR this.intAuthGuard-»
 «ENDIF-»
 «IF this.extAuthGuard != null-»
-	«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»
+	«EXPAND externalAuthenticationFilter(model, this.idAdapter) FOR this.extAuthGuard-»
 «ENDIF-»
 
 «ENDDEFINE»
 
 
-«DEFINE externalAuthenticationFilter(GUIModel model) FOR ExternalAuthenticationGuard»
+«DEFINE externalAuthenticationFilter(GUIModel model, IdentityAdapter idAdp) FOR ExternalAuthenticationGuard»
 
 	<filter>
 		<filter-name>ID Adapter Custom</filter-name>
 		<filter-class>«getIdAdapterCustomFilterFQN(model)»</filter-class>
-		
+		«IF idAdp != null && idAdp.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
     	<init-param>
     		<param-name>remoteValidationUrl</param-name>    	
       		<param-value>@idAdapter.remoteValidationUrl@</param-value>
       	</init-param>
+      	«ENDIF-»
 	</filter>
   
 	<!-- ################################################################
@@ -63,7 +64,7 @@ e le limitazioni secondo i termini della Licenza.
 
 
 «REM»Definizione InternalAuthenticationGuard«ENDREM»
-«DEFINE internalAuthenticationFilter(GUIModel model) FOR InternalAuthenticationGuard» 
+«DEFINE internalAuthenticationFilter(GUIModel model, IdentityAdapter idAdp) FOR InternalAuthenticationGuard» 
 
 	<!-- ############################################################### 
          definizione filter per autenticazione interna
@@ -110,10 +111,12 @@ e le limitazioni secondo i termini della Licenza.
       		<param-value>@loginUi.external@</param-value>
       		«ENDIF-»
     	</init-param>
+    	«IF idAdp != null && idAdp.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
     	<init-param>
     		<param-name>remoteValidationUrl</param-name>    	
       		<param-value>@idAdapter.remoteValidationUrl@</param-value>
       	</init-param>
+      	«ENDIF-»
     	«ENDIF-»
 	</filter>
   
@@ -147,9 +150,11 @@ e le limitazioni secondo i termini della Licenza.
 		token="@loginUi.external@"  
 		value="${loginUi.external}"/>
 		«ENDIF»
+		«IF this.idAdapter.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@idAdapter.remoteValidationUrl@"  
 		value="${idAdapter.remoteValidationUrl}"/>
+		«ENDIF-»
 		«IF this.intAuthGuard.params!=null-»
 			«LET this.intAuthGuard.params.params AS envConfigParams-»
 			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
@@ -185,7 +190,9 @@ e le limitazioni secondo i termini della Licenza.
 		«IF this.intAuthGuard.loginModule.internal == false»
 	loginUi.external = 	
 		«ENDIF»
+		«IF this.idAdapter.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
 	idAdapter.remoteValidationUrl =
+		«ENDIF-»
 		«IF this.intAuthGuard.params!=null-»
 			«LET this.intAuthGuard.params.params AS envConfigParams-»
 			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
