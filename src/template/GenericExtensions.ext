@@ -277,7 +277,7 @@ List[Command] getLeafCommands(Command cmd) :
 	{cmd}; // for leafs...
 	
 List[Command] getLeafCommands(SequenceCommand cmd) :
-	cmd.commands.getLeafCommands();
+	cmd.commands.last().getLeafCommands();
 
 List[Command] getLeafCommands(ExecCommand cmd) :
 	cmd.results.getLeafCommands();
