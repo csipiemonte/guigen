@@ -70,19 +70,82 @@ else
 	getBlockSize(w, container, containerLayout, isForLabel);
 
 
+//////////////////////////////////
+/// get block size             ///
+//////////////////////////////////
+
 int getBlockSize(Widget w, Panel container, PanelLayout layout, boolean isForLabel) :
 1000;
 
+
+/*****************************************************************************
+ * true se il widget non ha label e quindi deve occupare sia lo spazio della *
+ * label che quello del controllo.                                           *
+ * - Button (e sottoclassi)                                                  *
+ * - PlainText con label == null                                             *
+ ****************************************************************************/
+boolean isWidgetWithoutLabel(Widget w) :
+if (w.metaType.isAssignableFrom(Button)) then 
+	true
+else if (w.metaType==PlainText && w.label.isNullOrEmpty()) then
+	true
+else false;  // altri casi?????
+
+/****************************************************************************
+ * nel layout verticale ci possono solo essere due numeri: il primo         *
+ * viene restituito per le label e il secondo per il controllo              * 
+ * nei casi senza label (plain text senza label, button) restituito sempre  *
+ * 12.                                                                      *
+ * Il default column sizes se non specificato e' 3,9                        *
+ ****************************************************************************/
+//int getBlockSize(Widget w, WidgetsPanel wp, VerticalFlowPanelLayout layout, boolean isForLabel) : 
+//	normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
+
 int getBlockSize(Widget w, WidgetsPanel wp, VerticalFlowPanelLayout layout, boolean isForLabel) : 
-	normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
+let actualColumnSizes = ((String)(layout.columnSizes.isNullOrEmpty() ? "3,9" : layout.columnSizes)).split(",") :
+if (isForLabel) then 
+	actualColumnSizes.get(0).asInteger()
+else if (isWidgetWithoutLabel(w)) then
+	(actualColumnSizes.get(1).asInteger())+(actualColumnSizes.get(0).asInteger())
+else actualColumnSizes.get(1).asInteger();
 
 int getBlockSize(Widget w, WidgetsPanel wp, HorizontalFlowPanelLayout layout, boolean isForLabel) :
 normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
 
+
+/*****************************************************************************
+ * nel layout a griglia ci sono (2*n_colonne) numeri.
+ * per il widget in posizione r,c:
+ * - se è un widget con label:
+ * -- per la label viene preso il valore Sz(c*2-1)
+ * -- se il widget ha span 1 
+ * --- per il controllo viene preso il valore Sz(c*2)
+ * -- se il widget ha span > 1
+ * --- per il controllo viene presa la somma tra il valore Sx(c*2) e la
+ *     somma dei valori Sz((c + i)*2 - 1) , Sz((c + i)*2) con i da 2 a span incluso
+ * -- (unificando i due casi: Sz(c*2) + Sum[i=1..span]{Sz((c + i)*2)}) 
+ * - se è un widget senza label:
+ * -- il calcolo è lo stesso del caso controllo con label, ma con in più il valore 
+ *    che sarebbe stato della label, ovvero il Sz(c*2-1)
+ *****************************************************************************/
+//int getBlockSize(Widget w, WidgetsPanel wp, GridPanelLayout layout, boolean isForLabel) :
+//normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
+
 int getBlockSize(Widget w, WidgetsPanel wp, GridPanelLayout layout, boolean isForLabel) :
-normalizeTo12(getColumnPercent(w, wp, layout, isForLabel));
+let actualColumnSizes = ((String)(layout.columnSizes.isNullOrEmpty() ? getDefaultGridColSizes(layout) : layout.columnSizes)).split(",") :
+let column = ((GridWidgetLayoutSpec)w.layoutSpec).column : // da 1
+if (isForLabel) then actualColumnSizes.get((2*column -1)-1).asInteger()
+else actualColumnSizes.get(2*column - 1).asInteger();
 
-
+String getDefaultGridColSizes(GridPanelLayout layout):
+if (layout.columns == 1) then
+"3,9"
+else if (layout.columns == 1) then
+"2,4,2,4"
+else if (layout.columns == 1) then
+"1,3,1,3,1,3"
+else "errore";
+ 
 // getColumnPercent: restituisce la percentuale (0-100) del pezzo di widget (label o controllo) 
 // considerando eventuali percentuali custom
 

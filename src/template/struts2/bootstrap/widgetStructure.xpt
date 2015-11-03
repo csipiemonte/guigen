@@ -48,11 +48,16 @@ e riscrivere secondo le necessita'
 «DEFINE prefixedLabelMarkup(ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR DataWidget»
 «IF !isNullOrEmpty(this.label)-»
 <s:label 
+			theme="csibootstrap"
+			template="LabelWError"
 			cssClass="control-label «getWidgetLabelSizeClasses()»" 
+			cssErrorClass="has-error"
 			for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"
 			«IF this.required-»requiredLabel="true" requiredPosition="right"«ENDIF-» 
-			key="«cp.name».«getFullID(this, contextPrefix)».label"></s:label>
-<s:fielderror fieldName="«getWidgetName(this, contextPrefix)»"></s:fielderror>
+			key="«cp.name».«getFullID(this, contextPrefix)».label"
+			forName="«getWidgetName(this, contextPrefix)»" ></s:label>
+			
+«REM»<s:fielderror fieldName="«getWidgetName(this, contextPrefix)»"></s:fielderror>«ENDREM»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -60,6 +65,7 @@ e riscrivere secondo le necessita'
 «IF !isNullOrEmpty(this.label)-»
 <s:label 
 			cssClass="control-label «this.getWidgetLabelSizeClasses()»" 
+			cssErrorClass="has-error"
 			for="«getWidgetLabelFor(this, contextPrefix, pduConf)»"
 			key="«cp.name».«getFullID(this, contextPrefix)».label"></s:label>
 «ENDIF-»
@@ -126,15 +132,15 @@ e riscrivere secondo le necessita'
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Calendar»
 <!-- widget «getFullID(this, contextPrefix)» -->
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
-	<div class="«getWidgetControlSizeClasses()»">
+<div class="«getWidgetControlSizeClasses()»">
 <s:textfield 
-	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
 	
 	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	maxlength="10" 
 	cssClass="«getCSSClasses(this)»"
+	cssErrorClass="has-error has-feedback"
 /> «getCalendarImageByLayout(model, this)»
 	</div>
 «ENDDEFINE»
@@ -473,12 +479,14 @@ e riscrivere secondo le necessita'
 «EXPAND prefixedLabelMarkup(cp, contextPrefix, pduConf) FOR this»
 	<div class="«getWidgetControlSizeClasses()»">
 <s:textfield 
-	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	theme="csibootstrap"
+	template="TextFieldWError"
 	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
 	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	cssClass="«getCSSClasses(this)»"
+	cssErrorClass="has-error"
 />
 </div>
 «ENDDEFINE»

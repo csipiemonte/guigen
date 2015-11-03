@@ -186,11 +186,16 @@ WidgetsPanel (-> AOP*)
 «ENDDEFINE»
 
 «DEFINE createWidgetsGrid(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR WidgetsPanel»
-«FOREACH (List[Widget])getWidgetsByOrder(this) AS currWidg ITERATOR wi-»
+«LET getWidgetRows(this) AS allRows-»
+«FOREACH allRows AS currRow ITERATOR currRowIndex-»
+    <!-- row # «currRowIndex.counter1» -->
 	<div class="form-group">
+«FOREACH ((List[Widget])currRow) AS currWidg ITERATOR wi-»
 	«EXPAND template::struts2::bootstrap::widgetStructure::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf, isPortlet) FOR currWidg»
+«ENDFOREACH-»
 	</div>
 «ENDFOREACH-»
+«ENDLET-»
 «ENDDEFINE»
 
 «REM»
