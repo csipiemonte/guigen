@@ -260,7 +260,21 @@ public class GenUtilsLayout {
 		return res;
 	}
 	
+	public static List<Widget> getWidgetsByRowNum(WidgetsPanel p, Integer row) {
+		return getWidgetsByRow(p, row);
+	}
 
+	
+	public static List<List<Widget>> getWidgetRows(WidgetsPanel wp){
+		GridPanelLayout layout = (GridPanelLayout)wp.getLayout();
+		int n_rows = layout.getRows();
+		List<List<Widget>> rows = new ArrayList<List<Widget>>();
+		for (int currRowIdx = 0; currRowIdx<n_rows; currRowIdx++){
+			List<Widget> currRow = getWidgetsByRowNum(wp, currRowIdx+1);
+			rows.add(currRow);
+		}
+		return rows;
+	}
 	/**
 	 * Restituisce la posizione (first, last oppure niente) del widget da impostare sulla componente <code>&lt;customtag:column&gt;</code>.
 	 * 

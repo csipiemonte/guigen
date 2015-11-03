@@ -150,7 +150,7 @@ public class GenUtilsChecks {
 	 * 
 	 * @param cp
 	 *            Il ContentPanel da verificare.
-	 * @return La lista dei DataBinding che non è possibile risolvere.
+	 * @return La lista dei DataBinding che non ï¿½ possibile risolvere.
 	 */
 	public static ArrayList<ApplicationData> findUnresolvedAppDataBinding(
 			ContentPanel cp) {
@@ -159,7 +159,7 @@ public class GenUtilsChecks {
 		// - quelli collegati ad un collection databinding ad un widget
 		// - quelli referenziati in un parametro di PanelDFefUse
 		// per semplicita' la gestione degli AppData derivanti da PanelDef 
-		// è trattata a parte mantenendo la logica presistente per gli altri casi
+		// ï¿½ trattata a parte mantenendo la logica presistente per gli altri casi
 		
 		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
 		ArrayList<Widget> cpWidgets = GenUtils.findAllWidgetsInContentPanel(cp);
@@ -270,7 +270,7 @@ public class GenUtilsChecks {
 
 	/**
 	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
-	 * corretto, cioè composto da numeri interi.
+	 * corretto, cioï¿½ composto da numeri interi.
 	 * 
 	 * @param wp Il WidgetsPanel da verificare.
 	 * @return true se l'attributo &egrave; corretto, false altrimenti.
@@ -305,19 +305,18 @@ public class GenUtilsChecks {
 			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
 			int colsSum = 0;
 			while (st.hasMoreTokens()) {
-				// non ci deve essere eccezione perchè prima ho verificato che siano tutti numeri
+				// non ci deve essere eccezione perchï¿½ prima ho verificato che siano tutti numeri
 				colsSum += Integer.parseInt(st.nextToken());
 			}
 			
-			// verifico che la somma di tutte le colonne corrisponda a 100
-			if (colsSum != 100) {
+			// verifico che la somma di tutte le colonne corrisponda a 100 o a 12
+			if (colsSum != 100 && colsSum != 12) {
 				return false;
 			}
 		}
 		// tutto bene, ritorno true
 		return true;
 	}	
-	
 	
 	/**
 	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
@@ -589,7 +588,7 @@ public class GenUtilsChecks {
 	
 	/**
 	 * Metodo che prende in input la lista di tutti gli appData "agganciati" 
-	 * al modello e ne verifica l'univocità a livello della property name
+	 * al modello e ne verifica l'univocitï¿½ a livello della property name
 	 * @param appDataList
 	 * @return
 	 */
