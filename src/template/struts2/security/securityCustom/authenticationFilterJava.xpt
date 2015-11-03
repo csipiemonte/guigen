@@ -40,6 +40,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 /**
  *
  * @author CSIPiemonte
@@ -86,30 +87,7 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 		return 	hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
 	}
 	
-	private Object getTicket(HttpServletRequest hreq){
-	«IF this.intAuthGuard.loginModule.internal == true-»
-		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(TICKET)	: null;
-	«ELSE-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
-		return hreq.getParameter(TICKET);
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_HEADER)==0-»
-		return hreq.getHeader(TICKET);
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
-		Cookie c = getCookie(TICKET, hreq.getCookies());
-		return c!=null ? c.getValue(): null;
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
-		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(TICKET)	: null;
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
-		return hreq.getAttribute(TICKET);
-		«ENDIF-»
-	«ENDIF-»
-	}
+	«EXPAND getTicketMethod FOR this»
 	
 	«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
 	public static Cookie getCookie(String cookieName, Cookie[] cookies) {
@@ -129,4 +107,97 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 	}
 }
 «ENDFILE»
+«ENDDEFINE»
+
+«REM»getTicket()...«ENDREM»
+
+«DEFINE getTicketMethod FOR SecurityProfile»
+private Object getTicket(HttpServletRequest hreq){
+	«IF this.intAuthGuard.loginModule.internal == true-»
+		«EXPAND getTicketBodyForSESSION_ATTRIBUTE(this.idAdapter.getInfoSourceNames()) FOR this-»
+	«ELSE-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
+		«EXPAND getTicketBodyForREQUEST_PARAM(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_HEADER)==0-»
+		«EXPAND getTicketBodyForREQUEST_HEADER(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
+		«EXPAND getTicketBodyForREQUEST_COOKIE(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
+		«EXPAND getTicketBodyForSESSION_ATTRIBUTE(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
+		«EXPAND getTicketBodyForREQUEST_ATTRIBUTE(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+	«ENDIF-»
+	}
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_PARAM(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		return hreq.getParameter(TICKET);
+«ELSE-»
+		java.util.Map<String,String> ticketBag = new java.util.HashMap<String, String>();
+		«FOREACH infoSourceNames AS currSN»
+		ticketBag.put("«currSN»",hreq.getParameter("«currSN»"));
+		«ENDFOREACH»
+		return ticketBag;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_ATTRIBUTE(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		return hreq.getAttribute(TICKET);
+«ELSE-»
+		java.util.Map<String,Object> ticketBag = new java.util.HashMap<String, Object>();
+		«FOREACH infoSourceNames AS currSN»
+		ticketBag.put("«currSN»",hreq.getAttribute("«currSN»"));
+		«ENDFOREACH»
+		return ticketBag;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_HEADER(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		return hreq.getHeader(TICKET);
+«ELSE-»
+		java.util.Map<String,String> ticketBag = new java.util.HashMap<String, String>();
+		«FOREACH infoSourceNames AS currSN»
+		ticketBag.put("«currSN»",hreq.getHeader("«currSN»"));
+		«ENDFOREACH»
+		return ticketBag;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_COOKIE(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		Cookie c = getCookie(TICKET, hreq.getCookies());
+		return c!=null ? c.getValue(): null;
+«ELSE-»
+		java.util.Map<String,Cookie> ticketBag = new java.util.HashMap<String, Cookie>();
+		«FOREACH infoSourceNames AS currSN»
+		Cookie c_«currSN» = getCookie("«currSN»", hreq.getCookies());
+		ticketBag.put("«currSN»", c_«currSN»);
+		«ENDFOREACH»
+		return ticketBag;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForSESSION_ATTRIBUTE(List[String] infoSourceNames) FOR SecurityProfile-»
+		HttpSession session = hreq.getSession();
+«IF infoSourceNames.size==1-»
+		
+		return session != null ? (String) session.getAttribute(TICKET)	: null;
+«ELSE-»
+		if (session == null){ return null; }
+		else {
+			java.util.Map<String,Object> ticketBag = new java.util.HashMap<String, Object>();
+		«FOREACH infoSourceNames AS currSN»
+			ticketBag.put("«currSN»",session.getAttribute("«currSN»"));
+		«ENDFOREACH»
+			return ticketBag;
+		}
+«ENDIF-»
 «ENDDEFINE»

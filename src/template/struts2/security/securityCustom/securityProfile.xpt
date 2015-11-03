@@ -236,6 +236,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
 import org.apache.log4j.Logger;
 import it.csi.«model.codProdotto».«model.codComponente».util.*;
@@ -289,30 +290,20 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		return hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
 	}
 	
-	private Object getTicket(HttpServletRequest hreq){
-	«IF this.intAuthGuard.loginModule.internal == true-»
-		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(TICKET)	: null;
-	«ELSE-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
-		return hreq.getParameter(TICKET);
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_HEADER)==0-»
-		return hreq.getHeader(TICKET);
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
-		Cookie c = getCookie(TICKET, hreq.getCookies());
-		return c!=null ? c.getValue(): null;
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
-		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(TICKET)	: null;
-		«ENDIF-»
-		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
-		return hreq.getAttribute(TICKET);
-		«ENDIF-»
-	«ENDIF-»
+	«EXPAND template::struts2::security::securityCustom::authenticationFilterJava::getTicketMethod FOR this»
+	
+	«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
+	public static Cookie getCookie(String cookieName, Cookie[] cookies) {
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					return cookie;
+				}
+			}
+		}
+		return null;
 	}
+	«ENDIF-»
 	
 	/**
 	 * Estrae dalla «this.idAdapter.sourceType» il ticket (nel parametro "«this.idAdapter.infoSourceName»") e lo valida
