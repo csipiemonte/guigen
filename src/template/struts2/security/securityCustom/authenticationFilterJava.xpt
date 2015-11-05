@@ -112,6 +112,18 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 «REM»getTicket()...«ENDREM»
 
 «DEFINE getTicketMethod FOR SecurityProfile»
+«LET this.idAdapter.getInfoSourceNames() AS sourceNames-»
+/**
+ * Restituisce il ticket. 
+ * Fonte: «this.idAdapter.infoSourceName» : «this.idAdapter.sourceType»
+ * @param hreq la request http da cui estrarre il ticket
+ «IF sourceNames.size==1-»
+ * @return una stringa contenente il valore del ticket se il ticket e' presente; null altrimenti
+ «ELSE-»
+ * @return una Map contenente coppie <"nomeTicket", valoreTicket> se almeno una delle componenti
+ * e' presente, null altrimenti
+ «ENDIF-»
+ */
 private Object getTicket(HttpServletRequest hreq){
 	«IF this.intAuthGuard.loginModule.internal == true-»
 		«EXPAND getTicketBodyForSESSION_ATTRIBUTE(this.idAdapter.getInfoSourceNames()) FOR this-»
@@ -133,6 +145,7 @@ private Object getTicket(HttpServletRequest hreq){
 		«ENDIF-»
 	«ENDIF-»
 	}
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE getTicketBodyForREQUEST_PARAM(List[String] infoSourceNames) FOR SecurityProfile-»
@@ -141,9 +154,11 @@ private Object getTicket(HttpServletRequest hreq){
 «ELSE-»
 		java.util.Map<String,String> ticketBag = new java.util.HashMap<String, String>();
 		«FOREACH infoSourceNames AS currSN»
-		ticketBag.put("«currSN»",hreq.getParameter("«currSN»"));
+		if (hreq.getParameter("«currSN»")!=null) {
+			ticketBag.put("«currSN»", hreq.getParameter("«currSN»"));
+		}
 		«ENDFOREACH»
-		return ticketBag;
+		return ticketBag.size()>0 ? ticketBag : null;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -153,9 +168,11 @@ private Object getTicket(HttpServletRequest hreq){
 «ELSE-»
 		java.util.Map<String,Object> ticketBag = new java.util.HashMap<String, Object>();
 		«FOREACH infoSourceNames AS currSN»
-		ticketBag.put("«currSN»",hreq.getAttribute("«currSN»"));
+		if (hreq.getParameter("«currSN»")!=null) {
+			ticketBag.put("«currSN»",hreq.getAttribute("«currSN»"));
+		}
 		«ENDFOREACH»
-		return ticketBag;
+		return ticketBag.size()>0 ? ticketBag : null;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -165,9 +182,11 @@ private Object getTicket(HttpServletRequest hreq){
 «ELSE-»
 		java.util.Map<String,String> ticketBag = new java.util.HashMap<String, String>();
 		«FOREACH infoSourceNames AS currSN»
-		ticketBag.put("«currSN»",hreq.getHeader("«currSN»"));
+		if (hreq.getParameter("«currSN»")!=null) {
+			ticketBag.put("«currSN»",hreq.getHeader("«currSN»"));
+		}
 		«ENDFOREACH»
-		return ticketBag;
+		return ticketBag.size()>0 ? ticketBag : null;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -179,9 +198,11 @@ private Object getTicket(HttpServletRequest hreq){
 		java.util.Map<String,Cookie> ticketBag = new java.util.HashMap<String, Cookie>();
 		«FOREACH infoSourceNames AS currSN»
 		Cookie c_«currSN» = getCookie("«currSN»", hreq.getCookies());
-		ticketBag.put("«currSN»", c_«currSN»);
+		if (c_«currSN» != null){
+			ticketBag.put("«currSN»", c_«currSN»);
+		}
 		«ENDFOREACH»
-		return ticketBag;
+		return ticketBag.size()>0 ? ticketBag : null;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -195,9 +216,11 @@ private Object getTicket(HttpServletRequest hreq){
 		else {
 			java.util.Map<String,Object> ticketBag = new java.util.HashMap<String, Object>();
 		«FOREACH infoSourceNames AS currSN»
-			ticketBag.put("«currSN»",session.getAttribute("«currSN»"));
+			if (hreq.getParameter("«currSN»")!=null) {
+				ticketBag.put("«currSN»",session.getAttribute("«currSN»"));
+			}
 		«ENDFOREACH»
-			return ticketBag;
+			return ticketBag.size()>0 ? ticketBag : null;
 		}
 «ENDIF-»
 «ENDDEFINE»
