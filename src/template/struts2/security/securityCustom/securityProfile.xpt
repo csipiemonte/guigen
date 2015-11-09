@@ -118,6 +118,18 @@ e le limitazioni secondo i termini della Licenza.
       	</init-param>
       	«ENDIF-»
     	«ENDIF-»
+    	«IF idAdp.params!=null-»
+    	«LET idAdp.params.params AS envConfigParams-»
+    	«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+    	«FOREACH envConfigParams AS envConfigParam-»
+    	<init-param>
+      		<param-name>«envConfigParam.name»</param-name>
+      		<param-value>@«envConfigParam.name»@</param-value>
+    	</init-param>
+    	«ENDFOREACH-»
+    	«ENDIF-»
+    	«ENDLET-»
+    	«ENDIF-» 
 	</filter>
   
 	<!-- ################################################################
@@ -166,6 +178,19 @@ e le limitazioni secondo i termini della Licenza.
 			«ENDIF-»
 			«ENDLET-»
 		«ENDIF-» 
+		
+		«IF this.idAdapter.params!=null-»
+			«LET this.idAdapter.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@«envConfigParam.name»@"  
+		value="${«envConfigParam.name»}"/>
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-»
+		
 	«ELSE-»
 		<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@idAdapter.remoteValidationUrl@"  
@@ -208,6 +233,17 @@ e le limitazioni secondo i termini della Licenza.
 	idAdapter.remoteValidationUrl =
 ---------------------------------------------------------------------------------	
 	«ENDIF»
+#-[configurazione id adapter]----------------------------------------------------
+	«IF this.idAdapter.params!=null-»
+			«LET this.idAdapter.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+	«envConfigParam.name» =  
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+	«ENDIF-»
+
 	«IF this.pepImpl !=null»
 	«LET this.pepImpl.params AS envConfigParams-»
 #-[configurazione pepImpl]--------------------------------------------------
@@ -442,6 +478,33 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		// NOP
 	}
 
+	«IF this.idAdapter.params != null»
+	«FOREACH idAdapter.params.params AS currEnvParam»
+	/**
+	 * nome del parametro «currEnvParam.name». La costante puo' essere utilizzata come
+	 * parametro del metodo <code>getConfigParameter()</code>
+	 */
+	private static final String «currEnvParam.name.toUpperCase()»_PARAM_NAME = "«currEnvParam.name»";
+	«ENDFOREACH»
+	«ENDIF»
+	
+	/**
+	 * @param paramName il nome del parametro di configurazione da leggere
+	 * (i nomi dei parametri sono definiti da alcune costanti con suffisso "_PARAM_NAME").
+	 * @return il valore del parametro di configurazione specificato
+	 */
+	private String getConfigParameter(String paramName){
+		return config.getInitParameter(paramName);
+	}
+	
+	private FilterConfig config = null;
+	 
+	/**
+	 * inizializzazione del filter.
+	 * viene salvata la configurazione in modo che si possano 
+	 * utilizzare eventuali EnvConfigParam all'interno delle 
+	 * regioni protette, tramite il metodo privato getConfigParameter
+	 */
 	public void init(FilterConfig config) throws ServletException {
 		«IF this.intAuthGuard!=null && this.intAuthGuard.loginModule!=null && this.intAuthGuard.loginModule.internal-»
 		loginPage = config.getInitParameter("loginPage");
@@ -449,6 +512,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»	
 		remoteValidationUrl = config.getInitParameter("remoteValidationUrl");
 		«ENDIF-»
+		this.config = config; 
 	}
 
 }

@@ -9927,13 +9927,22 @@ public interface GuigenPackage extends EPackage {
 	int IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDENTITY_ADAPTER__PARAMS = 4;
+
+	/**
 	 * The number of structural features of the '<em>Identity Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTITY_ADAPTER_FEATURE_COUNT = 4;
+	int IDENTITY_ADAPTER_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.EnvConfigParamImpl <em>Env Config Param</em>}' class.
@@ -16131,6 +16140,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getIdentityAdapter_InlineCodeSnippets();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.IdentityAdapter#getParams <em>Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Params</em>'.
+	 * @see it.csi.mddtools.guigen.IdentityAdapter#getParams()
+	 * @see #getIdentityAdapter()
+	 * @generated
+	 */
+	EReference getIdentityAdapter_Params();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EnvConfigParam <em>Env Config Param</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21135,6 +21155,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS = eINSTANCE.getIdentityAdapter_InlineCodeSnippets();
+
+		/**
+		 * The meta object literal for the '<em><b>Params</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IDENTITY_ADAPTER__PARAMS = eINSTANCE.getIdentityAdapter_Params();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EnvConfigParamImpl <em>Env Config Param</em>}' class.

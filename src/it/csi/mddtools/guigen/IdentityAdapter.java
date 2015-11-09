@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getInfoSourceName <em>Info Source Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getParams <em>Params</em>}</li>
  * </ul>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getIdentityAdapter()
@@ -164,5 +165,31 @@ public interface IdentityAdapter extends EObject {
 	 * @generated
 	 */
 	EList<InlineCodeSnippet> getInlineCodeSnippets();
+
+	/**
+	 * Returns the value of the '<em><b>Params</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Params</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Params</em>' containment reference.
+	 * @see #setParams(EnvConfigParams)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getIdentityAdapter_Params()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EnvConfigParams getParams();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.IdentityAdapter#getParams <em>Params</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Params</em>' containment reference.
+	 * @see #getParams()
+	 * @generated
+	 */
+	void setParams(EnvConfigParams value);
 
 } // IdentityAdapter

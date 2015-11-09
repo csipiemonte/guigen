@@ -152,6 +152,7 @@ public class IdentityAdapterItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS);
+			childrenFeatures.add(GuigenPackage.Literals.IDENTITY_ADAPTER__PARAMS);
 		}
 		return childrenFeatures;
 	}
@@ -212,6 +213,7 @@ public class IdentityAdapterItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
+			case GuigenPackage.IDENTITY_ADAPTER__PARAMS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -233,6 +235,11 @@ public class IdentityAdapterItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS,
 				 GuigenFactory.eINSTANCE.createInlineCodeSnippet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.IDENTITY_ADAPTER__PARAMS,
+				 GuigenFactory.eINSTANCE.createEnvConfigParams()));
 	}
 
 	/**

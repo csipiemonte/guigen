@@ -6379,6 +6379,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getIdentityAdapter_Params() {
+		return (EReference)identityAdapterEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEnvConfigParam() {
 		return envConfigParamEClass;
 	}
@@ -7494,6 +7503,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__INFO_SOURCE_NAME);
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__TICKET_VERIFY_METHOD);
 		createEReference(identityAdapterEClass, IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS);
+		createEReference(identityAdapterEClass, IDENTITY_ADAPTER__PARAMS);
 
 		envConfigParamEClass = createEClass(ENV_CONFIG_PARAM);
 		createEAttribute(envConfigParamEClass, ENV_CONFIG_PARAM__NAME);
@@ -8368,6 +8378,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getIdentityAdapter_InfoSourceName(), ecorePackage.getEString(), "infoSourceName", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIdentityAdapter_TicketVerifyMethod(), this.getTicketVerifyMethod(), "ticketVerifyMethod", "LOCAL", 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIdentityAdapter_InlineCodeSnippets(), this.getInlineCodeSnippet(), null, "inlineCodeSnippets", null, 0, -1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIdentityAdapter_Params(), this.getEnvConfigParams(), null, "params", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(envConfigParamEClass, EnvConfigParam.class, "EnvConfigParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEnvConfigParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnvConfigParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

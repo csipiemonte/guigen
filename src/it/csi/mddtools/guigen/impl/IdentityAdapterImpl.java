@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.EnvConfigParams;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.IdentityAdapter;
 import it.csi.mddtools.guigen.InfoSourceTypes;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getInfoSourceName <em>Info Source Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getInlineCodeSnippets <em>Inline Code Snippets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getParams <em>Params</em>}</li>
  * </ul>
  *
  * @generated
@@ -111,6 +113,16 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	 * @ordered
 	 */
 	protected EList<InlineCodeSnippet> inlineCodeSnippets;
+
+	/**
+	 * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParams()
+	 * @generated
+	 * @ordered
+	 */
+	protected EnvConfigParams params;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -211,11 +223,56 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EnvConfigParams getParams() {
+		return params;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetParams(EnvConfigParams newParams, NotificationChain msgs) {
+		EnvConfigParams oldParams = params;
+		params = newParams;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.IDENTITY_ADAPTER__PARAMS, oldParams, newParams);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setParams(EnvConfigParams newParams) {
+		if (newParams != params) {
+			NotificationChain msgs = null;
+			if (params != null)
+				msgs = ((InternalEObject)params).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.IDENTITY_ADAPTER__PARAMS, null, msgs);
+			if (newParams != null)
+				msgs = ((InternalEObject)newParams).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.IDENTITY_ADAPTER__PARAMS, null, msgs);
+			msgs = basicSetParams(newParams, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.IDENTITY_ADAPTER__PARAMS, newParams, newParams));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
 				return ((InternalEList<?>)getInlineCodeSnippets()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.IDENTITY_ADAPTER__PARAMS:
+				return basicSetParams(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -236,6 +293,8 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return getTicketVerifyMethod();
 			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
 				return getInlineCodeSnippets();
+			case GuigenPackage.IDENTITY_ADAPTER__PARAMS:
+				return getParams();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -262,6 +321,9 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				getInlineCodeSnippets().clear();
 				getInlineCodeSnippets().addAll((Collection<? extends InlineCodeSnippet>)newValue);
 				return;
+			case GuigenPackage.IDENTITY_ADAPTER__PARAMS:
+				setParams((EnvConfigParams)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -286,6 +348,9 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
 				getInlineCodeSnippets().clear();
 				return;
+			case GuigenPackage.IDENTITY_ADAPTER__PARAMS:
+				setParams((EnvConfigParams)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -306,6 +371,8 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return ticketVerifyMethod != TICKET_VERIFY_METHOD_EDEFAULT;
 			case GuigenPackage.IDENTITY_ADAPTER__INLINE_CODE_SNIPPETS:
 				return inlineCodeSnippets != null && !inlineCodeSnippets.isEmpty();
+			case GuigenPackage.IDENTITY_ADAPTER__PARAMS:
+				return params != null;
 		}
 		return super.eIsSet(featureID);
 	}
