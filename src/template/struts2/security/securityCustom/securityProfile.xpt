@@ -155,7 +155,13 @@ e le limitazioni secondo i termini della Licenza.
 
 
 «DEFINE envConfigForAuthentication(GUIModel model) FOR SecurityProfile»
-
+	<!-- replace variabili di environment per security custom -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${logout.url}"/>
 	«IF this.intAuthGuard!=null»
 		«IF this.intAuthGuard.loginModule.internal == false»
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
@@ -210,6 +216,8 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR SecurityProfile»
+#-[configurazioni generali custom security --------------------------------------
+	logout.url = 
 	«IF this.intAuthGuard!=null»
 #-[configurazione intAuthGuard]--------------------------------------------------
 		«IF this.intAuthGuard.loginModule.internal == false»
