@@ -9,6 +9,11 @@
 	-->
 	<property name="target-platform" value="struts2"/>
 	
+	<!-- sostituisce il parametro "portal" -->
+	<property name="template-name" value="${templateName}" />
+	
+	<property name="template-version" value="${templateVersion}" />
+	
 	<!-- set up EMF for standalone execution -->
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" >
 		<platformUri value=".." />
@@ -34,12 +39,20 @@
 		<checkFile value="metamodel::Checks" />
 		<emfAllChildrenSlot value="model" />
 	</component>
-	
-	<!-- check model (cartridge [=layout] checks) -->
+
+	<!-- check model (template-name commons) -->
 	<component class="org.eclipse.xtend.check.CheckComponent">
 		<metaModel id="mm"
 			class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
-		<checkFile value="template::${target-platform}::${portal}::Checks" />
+		<checkFile value="template::${target-platform}::${template-name}::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+
+	<!-- check model (template-name + template-version specific) -->
+	<component class="org.eclipse.xtend.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
+		<checkFile value="template::${target-platform}::${template-name}::${template-version}::Checks" />
 		<emfAllChildrenSlot value="model" />
 	</component>
 

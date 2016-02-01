@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <workflow>
+	
 
+	
     <!-- *****************************************************
 	     determina il tipo di applicazione da generare (e i
 	     template da utilizzare).
@@ -12,6 +14,11 @@
 	<property name="portal-platform" value="struts2"/>
 	
 	<!--<property name="jsPlatform" value="${jsPlatform}" />-->
+	
+	<!-- sostituisce il parametro "portal" -->
+	<property name="template-name" value="${templateName}" />
+	
+	<property name="template-version" value="${templateVersion}" />
 
 	<!-- valorizzare con il nome del progetto eclipse target dove verranno
 	     generati gli artefatti. Corrisponde la nome del progetto SVN relativo
@@ -27,6 +34,8 @@
 
 	<!-- EXTERNAL DAO: valore di default se non specificato -->
 	<property name="useExternalDaoBeans" value="false" />
+
+
 
 	<!-- TRACK! -->
 	<bean class="it.csi.mddtools.guigen.workflow.component.TrackingInvoker">
@@ -75,22 +84,31 @@
 		<emfAllChildrenSlot value="model" />
 	</component>
 
-	<!-- check model (cartridge [=layout] checks) -->
+	<!-- check model (template-name commons) -->
 	<component class="org.eclipse.xtend.check.CheckComponent">
 		<metaModel id="mm"
 			class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
-		<checkFile value="template::${target-platform}::${portal}::Checks" />
+		<checkFile value="template::${target-platform}::${template-name}::Checks" />
 		<emfAllChildrenSlot value="model" />
 	</component>
 
+	<!-- check model (template-name + template-version specific) -->
+	<component class="org.eclipse.xtend.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
+		<checkFile value="template::${target-platform}::${template-name}::${template-version}::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+	
+	
 	<!--  generate code -->
 	<component class="org.eclipse.xpand2.Generator" id="mygenerator">
 		<metaModel idRef="mm"/>
 		<expand
-			value="template::${target-platform}::Main::main(true, ${useExternalDaoBeans}, '${portal}') FOR model" />
+			value="template::${target-platform}::Main::main(true, ${useExternalDaoBeans}, '${templateName}') FOR model" />
 
 		<!-- AOP definition for extensions -->
-		<extensionAdvice value="template::${target-platform}::${portal}::aopExtension,template::${portal-platform}::aopExtension"/>
+		<extensionAdvice value="template::${target-platform}::${template-name}::${template-version}::aopExtension,template::${portal-platform}::aopExtension"/>
 
 		<!--  protected regions configurator -->
 	    <prSrcPaths value="${src-gen}" />
@@ -105,7 +123,7 @@
 
 	<!-- AOP definition for expand templates -->
 	<component adviceTarget="mygenerator" class="org.eclipse.xpand2.GeneratorAdvice" id="myxptaop">
-		<advices value="template::struts2::${portal}::aop,template::richxhtml::${jsPlatform}::aop,${extra-xpt},template::${portal-platform}::aop"/>
+		<advices value="template::struts2::${template-name}::${template-version}::aop,template::richxhtml::${jsPlatform}::${template-version}::aop,${extra-xpt},template::${portal-platform}::aop"/>
 	</component>
 
 </workflow>
