@@ -16,7 +16,7 @@ context Header if isRemote() ERROR "E' necessario impostare il codice 'applicati
 					 "(serve per referenziare le risorse remote)" :
 	codApplicativo != null && codApplicativo != "";
 
-context Header if isRemote() WARNING "Il codice 'canale' nell'oggetto Header è opzionale: verificare se sia necessario impostarlo "+
+context Header if isRemote() WARNING "Il codice 'canale' nell'oggetto Header ï¿½ opzionale: verificare se sia necessario impostarlo "+
 					 "per referenziare le risorse remote" :
 	codCanale != null && codCanale != "";
 
@@ -24,13 +24,13 @@ context Header if isRemote() WARNING "Il codice 'canale' nell'oggetto Header è o
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
-// Il layout di un FormPanel di 2° livello non è più ininfluente
-context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo può avere un layout di tipo: [a] VerticalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
+// Il layout di un FormPanel di 2ï¿½ livello non ï¿½ piï¿½ ininfluente
+context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo puï¿½ avere un layout di tipo: [a] VerticalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
 	this.layout != null && formPanelLayoutCheckNeutral(this);
 
 // [DM] check su CommandPanel
-// 3) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (LEFT, CENTER, RIGHT)
-context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
+// 3) puï¿½ avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (LEFT, CENTER, RIGHT)
+context CommandPanel ERROR "Un CommandPanel puï¿½ avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
 	commandPanelLayoutCheckNeutral(this);
 
 //context GridWidgetLayoutSpec ERROR "GridLayout: vertical span non implementato in questa cartuccia" :
@@ -44,11 +44,11 @@ context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // [DM] STDMDD-368: TabSwitcher implementato e check rimosso
-//context TabSwitcher ERROR "Il tab Switcher non è attualmente supportato su questo portale" :
+//context TabSwitcher ERROR "Il tab Switcher non ï¿½ attualmente supportato su questo portale" :
 //	false;
 
 // [DM] STDMDD-823
-context WizardPanel ERROR "Un WizardPanel non può avere più di 26 step (numero delle lettere dell'alfabeto) " + loc() :
+context WizardPanel ERROR "Un WizardPanel non puï¿½ avere piï¿½ di 26 step (numero delle lettere dell'alfabeto) " + loc() :
 	this.panels.size < 27;
 
 
@@ -73,10 +73,10 @@ context PortalProfile ERROR "Il PortalProfile " + this.name + " non dichiara un 
 ///// Validazione su pannelli
 
 // [DM] check su WidgetsPanel
-context WidgetsPanel if this.widgets.select(w|w.metaType==Table).size > 0 ERROR "Un WidgetsPanel che contiene uno o più Table non può contenere altri tipi di widgets " + loc() :
+context WidgetsPanel if this.widgets.select(w|w.metaType==Table).size > 0 ERROR "Un WidgetsPanel che contiene uno o piï¿½ Table non puï¿½ contenere altri tipi di widgets " + loc() :
 	 this.widgets.select(w|w.metaType!=Table).size == 0;
 	 
-context WidgetsPanel if this.widgets.select(w|w.metaType==MapView).size > 0 ERROR "Un WidgetsPanel che contiene uno o più MapView non può contenere altri tipi di widgets " + loc() :
+context WidgetsPanel if this.widgets.select(w|w.metaType==MapView).size > 0 ERROR "Un WidgetsPanel che contiene uno o piï¿½ MapView non puï¿½ contenere altri tipi di widgets " + loc() :
 	 this.widgets.select(w|w.metaType!=MapView).size == 0;
 	 
 // [DM] check su tipo di databinding su una combo che ha un eventhandler di tipo KEY_PRESSED	
@@ -88,7 +88,7 @@ context ComboBox if this.eventHandlers.select(evh|evh.eventType==EventTypes::KEY
  * [LC] stdmdd-1060: Avviso per requisito accessibilita' non soddisfatto: manca sia la Label che il Tooltip
  */
 String getAccessibilityAlertMsg(Widget w) : 
-"Accessibilità: si suggerisce di specificare almeno la Label o il Tooltip di questo elemento:'"+w.metaType.name+"' - Rif. tecnica di verifica wcag2 H65";
+"Accessibilitï¿½: si suggerisce di specificare almeno la Label o il Tooltip di questo elemento:'"+w.metaType.name+"' - Rif. tecnica di verifica wcag2 H65";
 
 context TextField WARNING getAccessibilityAlertMsg(this) :
 	!isNullOrEmpty(this.label) || !isNullOrEmpty(this.tooltip);
