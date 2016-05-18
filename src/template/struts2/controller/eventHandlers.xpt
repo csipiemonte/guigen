@@ -412,8 +412,8 @@ return handleEventInternal("«enclosingAppModule.name.toLowerCase()»", "«cp.na
 «ENDDEFINE»
 «ENDREM»
 
-«REM»[AM] Un refresh view attaccato ad un widget dentro un PanelDef può puntare SOLO a pannelli interni al paneldef. 
-questa è una limitazione da valutare ed eventualmente suggerire di mettere delle refresh più ampie a livello di onRefreshCommand ?«ENDREM»
+«REM»[AM] Un refresh view attaccato ad un widget dentro un PanelDef puo' puntare SOLO a pannelli interni al paneldef. 
+questa e' una limitazione da valutare ed eventualmente suggerire di mettere delle refresh piu' ampie a livello di onRefreshCommand ?«ENDREM»
 «REM»«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR RefreshViewCommand-»
 	/// Refresh Command begin
 	String [] act_«actionsVarName»_«actionNumber»_panels = new String[]{
@@ -431,7 +431,7 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere dell
 	"«cp.name»", act_«actionsVarName»_«actionNumber»_panels, act_«actionsVarName»_«actionNumber»_widgets
 	);
 	«ELSE-»
-	«ERROR "refresh view può essere collegata solo a un widget in un content panel"-»
+	«ERROR "refresh view puo' essere collegata solo a un widget in un content panel"-»
 	«ENDIF-»
 	
 	/// Refresh Command end
