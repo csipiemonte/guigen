@@ -182,7 +182,7 @@ Crea la pagina di conferma chiusura sessione utente (conferma logout)
 
 «REM»
 [DM] STDMDD-621: Crea la pagina di errore Portale Sconosciuto (multiportale)
-Nota: non ha né header, né footer né graficazione, perché se non sono riuscito a decodificare il portale
+Nota: non ha ne' header, ne' footer ne' graficazione, perche' se non sono riuscito a decodificare il portale
       non sono in grado di dare una veste grafica alla pagina.
 «ENDREM»
 «DEFINE getJspUnknownPortalFile(boolean skip_component_dir_creation) FOR GUIModel»<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -361,9 +361,9 @@ data-target="#mainMenu-collapse">
 	«LET 1 AS level -»
 	«FOREACH this.topLevelMenu AS tlmenu -»
 		«IF tlmenu.submenu.size > 0»
-			«EXPAND expandMenuWithChild(level) FOR tlmenu -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
+			«EXPAND expandMenuWithChild(level) FOR tlmenu -»«REM»Il menu ha dei figli: e' un sovramenu«ENDREM»
 		«ELSE»
-			«EXPAND expandMenuNoChild(level) FOR tlmenu -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
+			«EXPAND expandMenuNoChild(level) FOR tlmenu -»«REM»Il menu non ha dei figli: non e' un sovramenu«ENDREM»
 		«ENDIF»
 	«ENDFOREACH-»
 	«ENDLET-»
@@ -473,9 +473,9 @@ data-target="#mainMenu-collapse">
 «REM»Genera un sottoMenu«ENDREM»
 «DEFINE expandSubMenu(int level) FOR Menu»
 «IF this.submenu.size > 0»
-	«EXPAND expandMenuWithChild(level) FOR this -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
+	«EXPAND expandMenuWithChild(level) FOR this -»«REM»Il menu ha dei figli: e' un sovramenu«ENDREM»
 «ELSE»
-	«EXPAND expandMenuNoChild(level) FOR this -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
+	«EXPAND expandMenuNoChild(level) FOR this -»«REM»Il menu non ha dei figli: non e' un sovramenu«ENDREM»
 «ENDIF»
 «ENDDEFINE»
 
