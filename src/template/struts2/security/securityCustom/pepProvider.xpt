@@ -440,13 +440,13 @@ public class SpringPD extends AbstractPortaDelegata {
 
 	/**
 	 * Questo metodo ricerca tramite introspection l'oggetto Method corrispondente al nome
-	 * (methodName) e ai parametri (param[]). Poichè RMI/EJB non riescono a serializzare oggetti
+	 * (methodName) e ai parametri (param[]). Poiche' RMI/EJB non riescono a serializzare oggetti
 	 * Class che rappresentano tipi semplici a causa di un baco della JVM di SUN (Bug Id  4171142),
-	 * nell'oggetto param, in caso di tipo semplice c'è il campo "simple" = true. A differenza dai
+	 * nell'oggetto param, in caso di tipo semplice c'e' il campo "simple" = true. A differenza dai
 	 * metadata CSI la reflection riesce a trovare correttamente i metodi che prendono tipi semplici,
-	 * passando al metodo getMethod() come classi i tipi semplici. Per far ciò occorre ritrasformare
+	 * passando al metodo getMethod() come classi i tipi semplici. Per far cio' occorre ritrasformare
 	 * eventuali coppie <wrapper di tipo semplice, simple=true> nel corrispondente tipo semplice.
-	 * Poi l'introspection farà il resto.
+	 * Poi l'introspection fara' il resto.
 	 * @param srv
 	 * @param methodName
 	 * @param params
@@ -483,10 +483,10 @@ public class SpringPD extends AbstractPortaDelegata {
 				continue;
 			}
 		}
-		/// secondo ciclo: se non l'ho trovato prima provo a cercare più a fondo
+		/// secondo ciclo: se non l'ho trovato prima provo a cercare piu' a fondo
 		/// utilizzando tipi semplici dove ci sono wrapper di tipi semplici, per
 		/// ovviare al problema del Proxy dinamico che non permette (?) di sapere se
-		/// il tipo di un parametro attuale è primitivo o davvero un wrapper.
+		/// il tipo di un parametro attuale e' primitivo o davvero un wrapper.
 		for (int ii=0; ii<interfaces.length;ii++){
 			Class currInt=interfaces[ii];
 			try {
@@ -506,7 +506,7 @@ public class SpringPD extends AbstractPortaDelegata {
 						parClasses[j]=Byte.TYPE;
 					else if (currClass.equals(Boolean.class))
 						parClasses[j]=Boolean.TYPE;
-					// se no lascia tutto com'è
+					// se no lascia tutto com'e'
 					//}
 				}
 				Method m = currInt.getMethod(methodName, parClasses);
@@ -533,7 +533,7 @@ public class SpringPD extends AbstractPortaDelegata {
 	public static Param buildRetVal(Object value, Class<?> declaredRetType){
 		Class actType = declaredRetType;
 		Param p = null;
-		// se il value è null il tipo lo metto = Object (non usato)
+		// se il value e' null il tipo lo metto = Object (non usato)
 		if (value == null){
 			actType = Object.class;
 			p = new Param("retval", actType, value, "");
@@ -545,7 +545,7 @@ public class SpringPD extends AbstractPortaDelegata {
 				p = new Param("retval", dummyArr.getClass(), true, value, "");
 				return p;
 			}
-			// serve per mettere il tipo più specifico possibile
+			// serve per mettere il tipo piu' specifico possibile
 			else if (declaredRetType.isAssignableFrom(value.getClass())){
 				actType = value.getClass();
 				p=new Param("retval",actType, value, "");
