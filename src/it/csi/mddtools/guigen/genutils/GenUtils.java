@@ -144,7 +144,7 @@ public class GenUtils {
 	 * @return la stringa ripulita deiccaratteri che danno fastidio a JSON: (")
 	 */
 	public String makeJSonCompatible(String s){
-		return s.replace("\"", "\\\"");
+		return s.replace("\"", "\\\"").replace("\n\r", " ").replace("\r\n"," ");
 	}
 
 	/**
