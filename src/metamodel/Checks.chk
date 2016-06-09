@@ -9,7 +9,7 @@ extension template::struts2::Struts2Extensions;
 ///////////////////////////////////
 // ultimi progressivi per tipologia
 // - GUI: ?
-// - GUI-UISTR: ?
+// - GUI-UISTR: 043
 // - GUI-BIND: 28
 // - GUI-SEC: ?
 ///////////////////////////////////
@@ -798,19 +798,24 @@ context OPAUTHSSO ERROR "GUI-SEC-002: I liveli minimi di autenticazione possibil
 context CustomSecurityConstraint ERROR "GUI-SEC-003: E' necessario specificare il nome del metodo: "+loc() :
 	!isNullOrEmpty(this.methodNameSuffix);
 
-context UISecurityConstraint if (this.eRootContainer.metaType==GUIModel) 
+context UISecurityConstraint if (this.eRootContainer.metaType==GUIModel  && this.metaType != DeclarativeUIConstraint && this.metaType != CustomSecurityConstraint) 
 ERROR "GUI-SEC-003: Non e' possibile specificare constraint di AUTORIZZAZIONE "+
 "se non e' specificato un metodo di AUTENTICAZIONE "+loc() :
 	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null ||
 	((GUIModel)this.eRootContainer).extSecurityModel.autenticationMethod != null;
 
-context UISecurityConstraint if (this.eRootContainer.metaType==AppModule) ERROR "GUI-SEC-004: Non e' possibile specificare constraint di AUTORIZZAZIONE "+
+context UISecurityConstraint if (this.eRootContainer.metaType==AppModule && this.metaType != DeclarativeUIConstraint && this.metaType != CustomSecurityConstraint) ERROR "GUI-SEC-004: Non e' possibile specificare constraint di AUTORIZZAZIONE "+
 "se non e' specificato un metodo di AUTENTICAZIONE. "+
 "E' necessario referenziare nell' AppModule "+ ((AppModule)this.eRootContainer).name + " l' extSecurityModel "
 +loc() :
 	((AppModule)this.eRootContainer).extSecurityModel.autenticationMethod != null;
 
-
+context Widget ERROR "GUI-UISTR-044: E' possibile specificare solo un DeclarativeUIConstraint per ciascun Widget e per ciascun comportamento: "+loc() :
+	this.securityConstraints.typeSelect(DeclarativeUIConstraint).select(c|c.enabled && !c.visible).size <=1 &&
+	this.securityConstraints.typeSelect(DeclarativeUIConstraint).select(c|!c.enabled && c.visible).size <=1;
+	
+context DeclarativeUIConstraint ERROR "GUI-UISTR-045: E' necessario specificare lo script del constraint: "+loc() :
+	!this.script.isNullOrEmpty();
 	
 context Actor ERROR "GUI-SEC-005: E'necessario specificare il codice IRIDE2 dell'actor "+loc() :
 	code!=null;

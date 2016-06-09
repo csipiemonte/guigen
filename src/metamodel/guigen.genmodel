@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/guigen/src"
-    editDirectory="/guigen/src" modelPluginID="guigen" modelName="Guigen" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="5.0" copyrightFields="false">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/guigen/src" editDirectory="/guigen/src" modelPluginID="guigen"
+    modelName="Guigen" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false">
   <foreignModel>guigen.ecore</foreignModel>
   <genPackages prefix="Guigen" basePackage="it.csi.mddtools" disposableProviderFactory="true"
       ecorePackage="guigen.ecore#/">
@@ -74,6 +73,9 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//CommandStyles">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandStyles/FUNCTIONAL"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandStyles/NAVIGATION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//InlineScriptingLanguage">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//InlineScriptingLanguage/beanshell"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//LogicAggregationTypes">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//LogicAggregationTypes/OR"/>
@@ -172,6 +174,7 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//InfoSourceTypes/REQUEST_COOKIE"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//InfoSourceTypes/SESSION_ATTRIBUTE"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//InfoSourceTypes/REQUEST_ATTRIBUTE"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//InfoSourceTypes/REQUEST_URL"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//TreeSelectionTypes">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TreeSelectionTypes/ALL_NODES"/>
@@ -346,6 +349,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/activeFlagSelector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/fieldMaxLength"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/customDecorator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/customSortPropertySelector"/>
     </genClasses>
     <genClasses image="false" ecoreClass="guigen.ecore#//Command"/>
     <genClasses ecoreClass="guigen.ecore#//CommandEvent"/>
@@ -371,6 +375,7 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecCommand/customTemplate"/>
       <genFeatures notify="false" createChild="false" propertyCategory="advanced"
           propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecCommand/extraModels"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecCommand/inlineCodeSnippets"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//EventHandler">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//EventHandler/command"/>
@@ -469,6 +474,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//Field/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Field/required"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Field/dataTypeModifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Field/annotations"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//ApplicationDataDefs">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationDataDefs/appData"/>
@@ -550,6 +556,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpExtCommand/staticUrl"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//JumpExtCommand/runtimeUrlProvider"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpExtCommand/locationCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpExtCommand/binaryStream"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//TargetPlatform">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TargetPlatform/code"/>
@@ -612,7 +619,13 @@
       <genFeatures createChild="false" propertyDescription="" propertySortChoices="true"
           ecoreFeature="ecore:EReference guigen.ecore#//RoleBasedSecurityConstraint/role"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//FileUpload"/>
+    <genClasses ecoreClass="guigen.ecore#//DeclarativeUIConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//DeclarativeUIConstraint/language"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute guigen.ecore#//DeclarativeUIConstraint/script"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//FileUpload">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//FileUpload/multiple"/>
+    </genClasses>
     <genClasses ecoreClass="guigen.ecore#//TabSwitcher"/>
     <genClasses ecoreClass="guigen.ecore#//PanelDef">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//PanelDef/name"/>
@@ -842,6 +855,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//IdentityAdapter/infoSourceName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//IdentityAdapter/ticketVerifyMethod"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//IdentityAdapter/inlineCodeSnippets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//IdentityAdapter/params"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//EnvConfigParam">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//EnvConfigParam/name"/>
@@ -855,9 +869,22 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//PEPImplementation/inlineCodeSnippets"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//InlineCodeSnippet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//InlineCodeSnippet/snippetPosition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//InlineCodeSnippet/snippetName"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute guigen.ecore#//InlineCodeSnippet/snippetCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//InlineCodeSnippet/lang"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="guigen.ecore#//AnnotatedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//AnnotatedElement/annotations"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//Annotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Annotation/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Annotation/details"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//AnnotationDetail">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//AnnotationDetail/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//AnnotationDetail/value"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//Captcha"/>
   </genPackages>
 </genmodel:GenModel>

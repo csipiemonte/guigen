@@ -243,6 +243,11 @@ public class MenuItemItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU_ITEM__SECURITY_CONSTRAINTS,
 				 GuigenFactory.eINSTANCE.createRoleBasedSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_ITEM__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createDeclarativeUIConstraint()));
 	}
 
 	/**

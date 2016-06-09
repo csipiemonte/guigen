@@ -931,6 +931,15 @@ public interface GuigenFactory extends EFactory {
 	RoleBasedSecurityConstraint createRoleBasedSecurityConstraint();
 
 	/**
+	 * Returns a new object of class '<em>Declarative UI Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Declarative UI Constraint</em>'.
+	 * @generated
+	 */
+	DeclarativeUIConstraint createDeclarativeUIConstraint();
+
+	/**
 	 * Returns a new object of class '<em>File Upload</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

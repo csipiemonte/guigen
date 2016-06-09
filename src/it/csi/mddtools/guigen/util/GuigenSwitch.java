@@ -836,6 +836,13 @@ public class GuigenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.DECLARATIVE_UI_CONSTRAINT: {
+				DeclarativeUIConstraint declarativeUIConstraint = (DeclarativeUIConstraint)theEObject;
+				T result = caseDeclarativeUIConstraint(declarativeUIConstraint);
+				if (result == null) result = caseUISecurityConstraint(declarativeUIConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GuigenPackage.FILE_UPLOAD: {
 				FileUpload fileUpload = (FileUpload)theEObject;
 				T result = caseFileUpload(fileUpload);
@@ -2887,6 +2894,21 @@ public class GuigenSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRoleBasedSecurityConstraint(RoleBasedSecurityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Declarative UI Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Declarative UI Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDeclarativeUIConstraint(DeclarativeUIConstraint object) {
 		return null;
 	}
 

@@ -163,6 +163,11 @@ e le limitazioni secondo i termini della Licenza.
 	"domainCode": "«this.role.domainCode»"
 «ENDDEFINE»
 
+«DEFINE jsonSer_internal(GUIModel model, String parentCPName, String contextPrefix) FOR DeclarativeUIConstraint-»
+	"language": "«this.language»",
+	"script": "«this.script.makeJSonCompatible()»"
+«ENDDEFINE»
+
 «DEFINE jsonSer_internal(GUIModel model, String parentCPName, String contextPrefix) FOR CustomSecurityConstraint-»
 	"methodNameSuffix": "«this.methodNameSuffix.toFirstUpper()»"
 «ENDDEFINE»

@@ -75,6 +75,7 @@ import it.csi.mddtools.guigen.CustomSecurityConstraint;
 import it.csi.mddtools.guigen.CustomTemplate;
 import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
+import it.csi.mddtools.guigen.DeclarativeUIConstraint;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.DisabledComponentSet;
 import it.csi.mddtools.guigen.EndEditCommand;
@@ -104,6 +105,7 @@ import it.csi.mddtools.guigen.IdentityAdapter;
 import it.csi.mddtools.guigen.Image;
 import it.csi.mddtools.guigen.InfoSourceTypes;
 import it.csi.mddtools.guigen.InlineCodeSnippet;
+import it.csi.mddtools.guigen.InlineScriptingLanguage;
 import it.csi.mddtools.guigen.InternalAuthenticationGuard;
 import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
@@ -1007,6 +1009,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass declarativeUIConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass fileUploadEClass = null;
 
 	/**
@@ -1512,6 +1521,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum commandStylesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum inlineScriptingLanguageEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4813,6 +4829,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDeclarativeUIConstraint() {
+		return declarativeUIConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeclarativeUIConstraint_Language() {
+		return (EAttribute)declarativeUIConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeclarativeUIConstraint_Script() {
+		return (EAttribute)declarativeUIConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFileUpload() {
 		return fileUploadEClass;
 	}
@@ -6685,6 +6728,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getInlineScriptingLanguage() {
+		return inlineScriptingLanguageEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getLogicAggregationTypes() {
 		return logicAggregationTypesEEnum;
 	}
@@ -7276,6 +7328,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		roleBasedSecurityConstraintEClass = createEClass(ROLE_BASED_SECURITY_CONSTRAINT);
 		createEReference(roleBasedSecurityConstraintEClass, ROLE_BASED_SECURITY_CONSTRAINT__ROLE);
 
+		declarativeUIConstraintEClass = createEClass(DECLARATIVE_UI_CONSTRAINT);
+		createEAttribute(declarativeUIConstraintEClass, DECLARATIVE_UI_CONSTRAINT__LANGUAGE);
+		createEAttribute(declarativeUIConstraintEClass, DECLARATIVE_UI_CONSTRAINT__SCRIPT);
+
 		fileUploadEClass = createEClass(FILE_UPLOAD);
 		createEAttribute(fileUploadEClass, FILE_UPLOAD__MULTIPLE);
 
@@ -7547,6 +7603,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		targetPlatformCodesEEnum = createEEnum(TARGET_PLATFORM_CODES);
 		messageSeverityEEnum = createEEnum(MESSAGE_SEVERITY);
 		commandStylesEEnum = createEEnum(COMMAND_STYLES);
+		inlineScriptingLanguageEEnum = createEEnum(INLINE_SCRIPTING_LANGUAGE);
 		logicAggregationTypesEEnum = createEEnum(LOGIC_AGGREGATION_TYPES);
 		customCartridgeIDEEnum = createEEnum(CUSTOM_CARTRIDGE_ID);
 		commandFunctionsEEnum = createEEnum(COMMAND_FUNCTIONS);
@@ -7661,6 +7718,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		screenStateCommandEClass.getESuperTypes().add(this.getCommand());
 		shibbolethSSOEClass.getESuperTypes().add(this.getAutenticationMethod());
 		roleBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
+		declarativeUIConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
 		fileUploadEClass.getESuperTypes().add(this.getWidget());
 		tabSwitcherEClass.getESuperTypes().add(this.getCommandWidget());
 		appDataMappingParamEClass.getESuperTypes().add(this.getPDefParam());
@@ -8151,6 +8209,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(roleBasedSecurityConstraintEClass, RoleBasedSecurityConstraint.class, "RoleBasedSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRoleBasedSecurityConstraint_Role(), this.getRole(), null, "role", null, 0, 1, RoleBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(declarativeUIConstraintEClass, DeclarativeUIConstraint.class, "DeclarativeUIConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDeclarativeUIConstraint_Language(), this.getInlineScriptingLanguage(), "language", "beanshell", 0, 1, DeclarativeUIConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeclarativeUIConstraint_Script(), ecorePackage.getEString(), "script", null, 0, 1, DeclarativeUIConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(fileUploadEClass, FileUpload.class, "FileUpload", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFileUpload_Multiple(), ecorePackage.getEBoolean(), "multiple", "false", 0, 1, FileUpload.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -8478,6 +8540,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(commandStylesEEnum, CommandStyles.class, "CommandStyles");
 		addEEnumLiteral(commandStylesEEnum, CommandStyles.FUNCTIONAL);
 		addEEnumLiteral(commandStylesEEnum, CommandStyles.NAVIGATION);
+
+		initEEnum(inlineScriptingLanguageEEnum, InlineScriptingLanguage.class, "InlineScriptingLanguage");
+		addEEnumLiteral(inlineScriptingLanguageEEnum, InlineScriptingLanguage.BEANSHELL);
 
 		initEEnum(logicAggregationTypesEEnum, LogicAggregationTypes.class, "LogicAggregationTypes");
 		addEEnumLiteral(logicAggregationTypesEEnum, LogicAggregationTypes.OR);
@@ -9195,6 +9260,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   });	
 		addAnnotation
 		  (roleBasedSecurityConstraintEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });	
+		addAnnotation
+		  (declarativeUIConstraintEClass, 
 		   source, 
 		   new String[] {
 			 "pkg", "security"

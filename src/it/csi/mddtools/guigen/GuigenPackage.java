@@ -4628,7 +4628,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotatedElement()
 	 * @generated
 	 */
-	int ANNOTATED_ELEMENT = 168;
+	int ANNOTATED_ELEMENT = 169;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7164,6 +7164,61 @@ public interface GuigenPackage extends EPackage {
 	int ROLE_BASED_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.DeclarativeUIConstraintImpl <em>Declarative UI Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.DeclarativeUIConstraintImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDeclarativeUIConstraint()
+	 * @generated
+	 */
+	int DECLARATIVE_UI_CONSTRAINT = 110;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATIVE_UI_CONSTRAINT__VISIBLE = UI_SECURITY_CONSTRAINT__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATIVE_UI_CONSTRAINT__ENABLED = UI_SECURITY_CONSTRAINT__ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATIVE_UI_CONSTRAINT__LANGUAGE = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Script</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATIVE_UI_CONSTRAINT__SCRIPT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Declarative UI Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATIVE_UI_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.FileUploadImpl <em>File Upload</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7171,7 +7226,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFileUpload()
 	 * @generated
 	 */
-	int FILE_UPLOAD = 110;
+	int FILE_UPLOAD = 111;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7280,7 +7335,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTabSwitcher()
 	 * @generated
 	 */
-	int TAB_SWITCHER = 111;
+	int TAB_SWITCHER = 112;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7389,7 +7444,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDef()
 	 * @generated
 	 */
-	int PANEL_DEF = 112;
+	int PANEL_DEF = 113;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7507,7 +7562,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefParam()
 	 * @generated
 	 */
-	int PDEF_PARAM = 113;
+	int PDEF_PARAM = 114;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7535,7 +7590,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataMappingParam()
 	 * @generated
 	 */
-	int APP_DATA_MAPPING_PARAM = 114;
+	int APP_DATA_MAPPING_PARAM = 115;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7572,7 +7627,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypeDefMappingParam()
 	 * @generated
 	 */
-	int TYPE_DEF_MAPPING_PARAM = 115;
+	int TYPE_DEF_MAPPING_PARAM = 116;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7609,7 +7664,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUseCaseMappingParam()
 	 * @generated
 	 */
-	int USE_CASE_MAPPING_PARAM = 116;
+	int USE_CASE_MAPPING_PARAM = 117;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7646,7 +7701,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleMappingParam()
 	 * @generated
 	 */
-	int ROLE_MAPPING_PARAM = 117;
+	int ROLE_MAPPING_PARAM = 118;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7683,7 +7738,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorMappingParam()
 	 * @generated
 	 */
-	int ACTOR_MAPPING_PARAM = 118;
+	int ACTOR_MAPPING_PARAM = 119;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7720,7 +7775,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefUse()
 	 * @generated
 	 */
-	int PANEL_DEF_USE = 119;
+	int PANEL_DEF_USE = 120;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7802,7 +7857,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefParamVal()
 	 * @generated
 	 */
-	int PDEF_PARAM_VAL = 120;
+	int PDEF_PARAM_VAL = 121;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -7830,7 +7885,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataMappingPDefVal()
 	 * @generated
 	 */
-	int APP_DATA_MAPPING_PDEF_VAL = 121;
+	int APP_DATA_MAPPING_PDEF_VAL = 122;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -7867,7 +7922,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypeDefMappingPDefVal()
 	 * @generated
 	 */
-	int TYPE_DEF_MAPPING_PDEF_VAL = 122;
+	int TYPE_DEF_MAPPING_PDEF_VAL = 123;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -7904,7 +7959,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUCMappingPDefVal()
 	 * @generated
 	 */
-	int UC_MAPPING_PDEF_VAL = 123;
+	int UC_MAPPING_PDEF_VAL = 124;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -7941,7 +7996,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleMappingPDefVal()
 	 * @generated
 	 */
-	int ROLE_MAPPING_PDEF_VAL = 124;
+	int ROLE_MAPPING_PDEF_VAL = 125;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -7978,7 +8033,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorMappingPDefVal()
 	 * @generated
 	 */
-	int ACTOR_MAPPING_PDEF_VAL = 125;
+	int ACTOR_MAPPING_PDEF_VAL = 126;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -8015,7 +8070,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefUseConfig()
 	 * @generated
 	 */
-	int PDEF_USE_CONFIG = 126;
+	int PDEF_USE_CONFIG = 127;
 
 	/**
 	 * The feature id for the '<em><b>Param Values</b></em>' containment reference list.
@@ -8043,7 +8098,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActivationModel()
 	 * @generated
 	 */
-	int ACTIVATION_MODEL = 127;
+	int ACTIVATION_MODEL = 128;
 
 	/**
 	 * The feature id for the '<em><b>Activation Params</b></em>' containment reference list.
@@ -8071,7 +8126,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActivationParam()
 	 * @generated
 	 */
-	int ACTIVATION_PARAM = 128;
+	int ACTIVATION_PARAM = 129;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8108,7 +8163,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getBeginEditCommand()
 	 * @generated
 	 */
-	int BEGIN_EDIT_COMMAND = 129;
+	int BEGIN_EDIT_COMMAND = 130;
 
 	/**
 	 * The feature id for the '<em><b>Data Edited</b></em>' reference list.
@@ -8136,7 +8191,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEndEditCommand()
 	 * @generated
 	 */
-	int END_EDIT_COMMAND = 130;
+	int END_EDIT_COMMAND = 131;
 
 	/**
 	 * The feature id for the '<em><b>Data Edited</b></em>' reference list.
@@ -8173,7 +8228,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getChkEditStatusCommand()
 	 * @generated
 	 */
-	int CHK_EDIT_STATUS_COMMAND = 131;
+	int CHK_EDIT_STATUS_COMMAND = 132;
 
 	/**
 	 * The feature id for the '<em><b>Data Checked</b></em>' reference list.
@@ -8228,7 +8283,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefState()
 	 * @generated
 	 */
-	int PANEL_DEF_STATE = 132;
+	int PANEL_DEF_STATE = 133;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8274,7 +8329,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefStateCommand()
 	 * @generated
 	 */
-	int PDEF_STATE_COMMAND = 133;
+	int PDEF_STATE_COMMAND = 134;
 
 	/**
 	 * The feature id for the '<em><b>Go To</b></em>' reference.
@@ -8311,7 +8366,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefStates()
 	 * @generated
 	 */
-	int PANEL_DEF_STATES = 134;
+	int PANEL_DEF_STATES = 135;
 
 	/**
 	 * The feature id for the '<em><b>States</b></em>' containment reference list.
@@ -8339,7 +8394,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTableCustomizationParam()
 	 * @generated
 	 */
-	int TABLE_CUSTOMIZATION_PARAM = 135;
+	int TABLE_CUSTOMIZATION_PARAM = 136;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8376,7 +8431,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExtraColumn()
 	 * @generated
 	 */
-	int EXTRA_COLUMN = 136;
+	int EXTRA_COLUMN = 137;
 
 	/**
 	 * The feature id for the '<em><b>Selector</b></em>' attribute.
@@ -8539,7 +8594,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTableCustomizationPDefVal()
 	 * @generated
 	 */
-	int TABLE_CUSTOMIZATION_PDEF_VAL = 137;
+	int TABLE_CUSTOMIZATION_PDEF_VAL = 138;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -8585,7 +8640,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridge()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE = 138;
+	int CUSTOM_CARTRIDGE = 139;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8631,7 +8686,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomTemplate()
 	 * @generated
 	 */
-	int CUSTOM_TEMPLATE = 139;
+	int CUSTOM_TEMPLATE = 140;
 
 	/**
 	 * The feature id for the '<em><b>Tpl ID</b></em>' attribute.
@@ -8677,7 +8732,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getModelSlotDef()
 	 * @generated
 	 */
-	int MODEL_SLOT_DEF = 140;
+	int MODEL_SLOT_DEF = 141;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8714,7 +8769,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getModelSlot()
 	 * @generated
 	 */
-	int MODEL_SLOT = 141;
+	int MODEL_SLOT = 142;
 
 	/**
 	 * The feature id for the '<em><b>Def</b></em>' reference.
@@ -8751,7 +8806,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getClearAppdataCommand()
 	 * @generated
 	 */
-	int CLEAR_APPDATA_COMMAND = 142;
+	int CLEAR_APPDATA_COMMAND = 143;
 
 	/**
 	 * The feature id for the '<em><b>App Data</b></em>' reference list.
@@ -8779,7 +8834,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapView()
 	 * @generated
 	 */
-	int MAP_VIEW = 143;
+	int MAP_VIEW = 144;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9023,7 +9078,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 144;
+	int POINT = 145;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -9060,7 +9115,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapEnvelope()
 	 * @generated
 	 */
-	int MAP_ENVELOPE = 145;
+	int MAP_ENVELOPE = 146;
 
 	/**
 	 * The feature id for the '<em><b>North East</b></em>' containment reference.
@@ -9097,7 +9152,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalProfile()
 	 * @generated
 	 */
-	int PORTAL_PROFILE = 146;
+	int PORTAL_PROFILE = 147;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9152,7 +9207,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResourceModule()
 	 * @generated
 	 */
-	int WEB_RESOURCE_MODULE = 147;
+	int WEB_RESOURCE_MODULE = 148;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9207,7 +9262,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResourceModule()
 	 * @generated
 	 */
-	int STD_WEB_RESOURCE_MODULE = 148;
+	int STD_WEB_RESOURCE_MODULE = 149;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9271,7 +9326,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartArtifact()
 	 * @generated
 	 */
-	int REPART_ARTIFACT = 149;
+	int REPART_ARTIFACT = 150;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9308,7 +9363,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModule()
 	 * @generated
 	 */
-	int REPART_MODULE = 150;
+	int REPART_MODULE = 151;
 
 	/**
 	 * The feature id for the '<em><b>Organization</b></em>' attribute.
@@ -9372,7 +9427,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getBreadcrumb()
 	 * @generated
 	 */
-	int BREADCRUMB = 151;
+	int BREADCRUMB = 152;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9436,7 +9491,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapViewGadgets()
 	 * @generated
 	 */
-	int MAP_VIEW_GADGETS = 152;
+	int MAP_VIEW_GADGETS = 153;
 
 	/**
 	 * The feature id for the '<em><b>Layer Switcher</b></em>' attribute.
@@ -9536,7 +9591,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalExposition()
 	 * @generated
 	 */
-	int PORTAL_EXPOSITION = 153;
+	int PORTAL_EXPOSITION = 154;
 
 	/**
 	 * The feature id for the '<em><b>Portal</b></em>' reference.
@@ -9573,7 +9628,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommand()
 	 * @generated
 	 */
-	int CP_COMMAND = 154;
+	int CP_COMMAND = 155;
 
 	/**
 	 * The feature id for the '<em><b>Execute</b></em>' attribute.
@@ -9610,7 +9665,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommands()
 	 * @generated
 	 */
-	int CP_COMMANDS = 155;
+	int CP_COMMANDS = 156;
 
 	/**
 	 * The feature id for the '<em><b>Commands</b></em>' containment reference list.
@@ -9638,7 +9693,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSecurityProfile()
 	 * @generated
 	 */
-	int SECURITY_PROFILE = 156;
+	int SECURITY_PROFILE = 157;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9702,7 +9757,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExternalAuthenticationGuard()
 	 * @generated
 	 */
-	int EXTERNAL_AUTHENTICATION_GUARD = 157;
+	int EXTERNAL_AUTHENTICATION_GUARD = 158;
 
 	/**
 	 * The number of structural features of the '<em>External Authentication Guard</em>' class.
@@ -9721,7 +9776,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInternalAuthenticationGuard()
 	 * @generated
 	 */
-	int INTERNAL_AUTHENTICATION_GUARD = 158;
+	int INTERNAL_AUTHENTICATION_GUARD = 159;
 
 	/**
 	 * The feature id for the '<em><b>Login Module</b></em>' containment reference.
@@ -9758,7 +9813,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWAYFRequestAdapter()
 	 * @generated
 	 */
-	int WAYF_REQUEST_ADAPTER = 159;
+	int WAYF_REQUEST_ADAPTER = 160;
 
 	/**
 	 * The feature id for the '<em><b>Source Type</b></em>' attribute.
@@ -9795,7 +9850,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWAYFProfile()
 	 * @generated
 	 */
-	int WAYF_PROFILE = 160;
+	int WAYF_PROFILE = 161;
 
 	/**
 	 * The feature id for the '<em><b>Request Adapter</b></em>' containment reference.
@@ -9823,7 +9878,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUI()
 	 * @generated
 	 */
-	int LOGIN_UI = 161;
+	int LOGIN_UI = 162;
 
 	/**
 	 * The feature id for the '<em><b>Ui Type</b></em>' attribute.
@@ -9851,7 +9906,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginModule()
 	 * @generated
 	 */
-	int LOGIN_MODULE = 162;
+	int LOGIN_MODULE = 163;
 
 	/**
 	 * The feature id for the '<em><b>Internal</b></em>' attribute.
@@ -9888,7 +9943,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getIdentityAdapter()
 	 * @generated
 	 */
-	int IDENTITY_ADAPTER = 163;
+	int IDENTITY_ADAPTER = 164;
 
 	/**
 	 * The feature id for the '<em><b>Source Type</b></em>' attribute.
@@ -9952,7 +10007,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEnvConfigParam()
 	 * @generated
 	 */
-	int ENV_CONFIG_PARAM = 164;
+	int ENV_CONFIG_PARAM = 165;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9980,7 +10035,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEnvConfigParams()
 	 * @generated
 	 */
-	int ENV_CONFIG_PARAMS = 165;
+	int ENV_CONFIG_PARAMS = 166;
 
 	/**
 	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -10008,7 +10063,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPEPImplementation()
 	 * @generated
 	 */
-	int PEP_IMPLEMENTATION = 166;
+	int PEP_IMPLEMENTATION = 167;
 
 	/**
 	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -10054,7 +10109,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInlineCodeSnippet()
 	 * @generated
 	 */
-	int INLINE_CODE_SNIPPET = 167;
+	int INLINE_CODE_SNIPPET = 168;
 
 	/**
 	 * The feature id for the '<em><b>Snippet Position</b></em>' attribute.
@@ -10127,7 +10182,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 169;
+	int ANNOTATION = 170;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' attribute.
@@ -10164,7 +10219,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAnnotationDetail()
 	 * @generated
 	 */
-	int ANNOTATION_DETAIL = 170;
+	int ANNOTATION_DETAIL = 171;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -10201,7 +10256,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCaptcha()
 	 * @generated
 	 */
-	int CAPTCHA = 171;
+	int CAPTCHA = 172;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -10301,7 +10356,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 172;
+	int WIDGET_DATA_TYPE = 173;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -10311,7 +10366,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 173;
+	int UDLRC_SPEC_CONSTANTS = 174;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -10321,7 +10376,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 174;
+	int METHOD_PROTECTION_TYPES = 175;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -10331,7 +10386,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 175;
+	int EVENT_TYPES = 176;
 
 
 	/**
@@ -10342,7 +10397,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 176;
+	int DATA_LIFETIME_TYPE = 177;
 
 
 	/**
@@ -10353,7 +10408,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 177;
+	int SIMPLE_TYPE_CODES = 178;
 
 
 	/**
@@ -10364,7 +10419,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 178;
+	int PORTAL_NAMES = 179;
 
 
 	/**
@@ -10375,7 +10430,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
 	 * @generated
 	 */
-	int LOGOUT_ACTION_TYPES = 179;
+	int LOGOUT_ACTION_TYPES = 180;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
@@ -10385,7 +10440,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 180;
+	int TARGET_PLATFORM_CODES = 181;
 
 
 	/**
@@ -10396,7 +10451,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 181;
+	int MESSAGE_SEVERITY = 182;
 
 
 	/**
@@ -10407,8 +10462,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 182;
+	int COMMAND_STYLES = 183;
 
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.InlineScriptingLanguage <em>Inline Scripting Language</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.InlineScriptingLanguage
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInlineScriptingLanguage()
+	 * @generated
+	 */
+	int INLINE_SCRIPTING_LANGUAGE = 184;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LogicAggregationTypes <em>Logic Aggregation Types</em>}' enum.
@@ -10418,7 +10483,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 183;
+	int LOGIC_AGGREGATION_TYPES = 185;
 
 
 	/**
@@ -10429,7 +10494,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 184;
+	int CUSTOM_CARTRIDGE_ID = 186;
 
 
 	/**
@@ -10440,7 +10505,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 185;
+	int COMMAND_FUNCTIONS = 187;
 
 
 	/**
@@ -10451,7 +10516,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 186;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 188;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -10461,7 +10526,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 187;
+	int STD_WEB_RES_MODULE_NAMES = 189;
 
 
 	/**
@@ -10472,7 +10537,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 188;
+	int REPART_MODULE_TYPES = 190;
 
 
 	/**
@@ -10483,7 +10548,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 189;
+	int WIZARD_NUMBERING_TYPES = 191;
 
 
 	/**
@@ -10494,7 +10559,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
 	 * @generated
 	 */
-	int CP_COMMAND_EXECUTION_TYPES = 190;
+	int CP_COMMAND_EXECUTION_TYPES = 192;
 
 
 	/**
@@ -10505,7 +10570,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTicketVerifyMethod()
 	 * @generated
 	 */
-	int TICKET_VERIFY_METHOD = 191;
+	int TICKET_VERIFY_METHOD = 193;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}' enum.
@@ -10515,7 +10580,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUITypes()
 	 * @generated
 	 */
-	int LOGIN_UI_TYPES = 192;
+	int LOGIN_UI_TYPES = 194;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.InfoSourceTypes <em>Info Source Types</em>}' enum.
@@ -10525,7 +10590,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInfoSourceTypes()
 	 * @generated
 	 */
-	int INFO_SOURCE_TYPES = 193;
+	int INFO_SOURCE_TYPES = 195;
 
 
 	/**
@@ -10536,7 +10601,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeSelectionTypes()
 	 * @generated
 	 */
-	int TREE_SELECTION_TYPES = 194;
+	int TREE_SELECTION_TYPES = 196;
 
 
 	/**
@@ -14280,6 +14345,38 @@ public interface GuigenPackage extends EPackage {
 	EReference getRoleBasedSecurityConstraint_Role();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.DeclarativeUIConstraint <em>Declarative UI Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Declarative UI Constraint</em>'.
+	 * @see it.csi.mddtools.guigen.DeclarativeUIConstraint
+	 * @generated
+	 */
+	EClass getDeclarativeUIConstraint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.DeclarativeUIConstraint#getLanguage <em>Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Language</em>'.
+	 * @see it.csi.mddtools.guigen.DeclarativeUIConstraint#getLanguage()
+	 * @see #getDeclarativeUIConstraint()
+	 * @generated
+	 */
+	EAttribute getDeclarativeUIConstraint_Language();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.DeclarativeUIConstraint#getScript <em>Script</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Script</em>'.
+	 * @see it.csi.mddtools.guigen.DeclarativeUIConstraint#getScript()
+	 * @see #getDeclarativeUIConstraint()
+	 * @generated
+	 */
+	EAttribute getDeclarativeUIConstraint_Script();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FileUpload <em>File Upload</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16493,6 +16590,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getCommandStyles();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.InlineScriptingLanguage <em>Inline Scripting Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Inline Scripting Language</em>'.
+	 * @see it.csi.mddtools.guigen.InlineScriptingLanguage
+	 * @generated
+	 */
+	EEnum getInlineScriptingLanguage();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.LogicAggregationTypes <em>Logic Aggregation Types</em>}'.
@@ -19657,6 +19764,32 @@ public interface GuigenPackage extends EPackage {
 		EReference ROLE_BASED_SECURITY_CONSTRAINT__ROLE = eINSTANCE.getRoleBasedSecurityConstraint_Role();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.DeclarativeUIConstraintImpl <em>Declarative UI Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.DeclarativeUIConstraintImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDeclarativeUIConstraint()
+		 * @generated
+		 */
+		EClass DECLARATIVE_UI_CONSTRAINT = eINSTANCE.getDeclarativeUIConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DECLARATIVE_UI_CONSTRAINT__LANGUAGE = eINSTANCE.getDeclarativeUIConstraint_Language();
+
+		/**
+		 * The meta object literal for the '<em><b>Script</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DECLARATIVE_UI_CONSTRAINT__SCRIPT = eINSTANCE.getDeclarativeUIConstraint_Script();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FileUploadImpl <em>File Upload</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -21465,6 +21598,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum COMMAND_STYLES = eINSTANCE.getCommandStyles();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.InlineScriptingLanguage <em>Inline Scripting Language</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.InlineScriptingLanguage
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInlineScriptingLanguage()
+		 * @generated
+		 */
+		EEnum INLINE_SCRIPTING_LANGUAGE = eINSTANCE.getInlineScriptingLanguage();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.LogicAggregationTypes <em>Logic Aggregation Types</em>}' enum.

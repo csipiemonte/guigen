@@ -340,6 +340,11 @@ public class WidgetItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.WIDGET__SECURITY_CONSTRAINTS,
 				 GuigenFactory.eINSTANCE.createRoleBasedSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGET__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createDeclarativeUIConstraint()));
 	}
 
 	/**

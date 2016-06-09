@@ -993,6 +993,106 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 }
 «ENDFILE»
 
+
+«FILE getSecurityJavaSrcDir(this,true)+"/DeclarativeUIConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+/**
+ * Security constraint basato sull'abilitazione dell'utente corrente 
+ * ad uno specifico ruolo (identificato dalla coppia codice ruolo / dominio)
+ * @generated
+ */
+public class DeclarativeUIConstraint extends AbstractUISecConstraint {
+
+	/**
+	 * il codice del linguaggio in cui e' scritto il constraint.
+	 * i valori validi sono:
+	 * - beanshell
+	 * @generated
+	 */
+	private String language;
+	
+	/**
+	 * @param val il codice del linguaggio utilizzato
+	 */
+	public void setLanguage(String val){
+		this.language = val;
+	}
+	
+	/**
+	 * il constraint da verificare
+	 * @generated
+	 */
+	private String script;
+	
+	/**
+	 * @param val lo script da verificare
+	 */
+	public void setScript(String val){
+		this.script = val;
+	}
+	
+	/**
+	 * costrutto vuoto
+	 */
+	public DeclarativeUIConstraint(){
+	  // intenzionalmente vuoto
+	} 
+	
+	/**
+	 * costruttore
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param language il codice del linguaggio in cui e' scritto il constraint
+	 * @param script il constraint
+	 * @generated
+	 */
+	public DeclarativeUIConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String roleCode, String domainCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.language=language;
+		this.script=script;
+	}
+	
+	/**
+	 * realizza la verifica specifica
+	 * @generated
+	 */
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh) throws BEException {
+		if (script != null && script.length()>0){
+			return evalScript(session);
+		}
+		else
+			throw new IllegalArgumentException("Script non impostato");
+	}
+
+	/**
+	 * 
+	 * @param session la sessione
+	 * @return il valore dell'esecuzione dello script
+	 * @throws IllegalArgumentException se accade qualcosa durante l'esecuzione dello script
+	 */
+	private boolean evalScript(Map session) throws IllegalArgumentException{
+		bsh.Interpreter bsh = new bsh.Interpreter();
+		try {
+			bsh.set("session", session);
+			bsh.eval("Boolean _retval = "+ script+";");
+			return (Boolean)bsh.get("_retval");
+			
+		} catch (bsh.EvalError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+}
+«ENDFILE»
+
 «FILE getSecurityJavaSrcDir(this,true)+"/ComplexUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 
 import java.util.Map;
@@ -1051,16 +1151,34 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	 * @param sh il security helper
 	 * @generated
 	 */
-	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
-		if (constraints!=null && constraints.length>0){
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException {
+		if (constraints != null && constraints.length > 0) {
 			boolean verified = false;
+			boolean declarativeConstraintResult = true;
+			// prima valuto il Declarative constraint
 			for (int i = 0; i < constraints.length && !verified; i++) {
 				UISecConstraint currCtr = constraints[i];
-				verified |= currCtr.verifyConstraint(session, checkedBehavior, sh);
+				if (currCtr instanceof DeclarativeUIConstraint &&
+						((DeclarativeUIConstraint) currCtr).getConstrainedBehavior()==checkedBehavior) {
+					declarativeConstraintResult &= currCtr.verifyConstraint(session, checkedBehavior, sh);
+				}
+			}
+			// poi, se ancora necessario, valuto i security constraints
+			if (declarativeConstraintResult) {
+				for (int i = 0; i < constraints.length && !verified; i++) {
+					UISecConstraint currCtr = constraints[i];
+					if (currCtr instanceof DeclarativeUIConstraint) {
+						verified &= currCtr.verifyConstraint(session, checkedBehavior, sh);
+					} else {
+						verified |= currCtr.verifyConstraint(session, checkedBehavior, sh);
+					}
+				}
+			}
+			else{
+				return false; // se il declarative dice off => non serve vedere i security
 			}
 			return verified;
-		}
-		else
+		} else
 			return true;
 	}
 

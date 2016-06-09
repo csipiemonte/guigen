@@ -174,6 +174,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.SHIBBOLETH_SSO: return createShibbolethSSO();
 			case GuigenPackage.ROLE: return createRole();
 			case GuigenPackage.ROLE_BASED_SECURITY_CONSTRAINT: return createRoleBasedSecurityConstraint();
+			case GuigenPackage.DECLARATIVE_UI_CONSTRAINT: return createDeclarativeUIConstraint();
 			case GuigenPackage.FILE_UPLOAD: return createFileUpload();
 			case GuigenPackage.TAB_SWITCHER: return createTabSwitcher();
 			case GuigenPackage.PANEL_DEF: return createPanelDef();
@@ -267,6 +268,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createMessageSeverityFromString(eDataType, initialValue);
 			case GuigenPackage.COMMAND_STYLES:
 				return createCommandStylesFromString(eDataType, initialValue);
+			case GuigenPackage.INLINE_SCRIPTING_LANGUAGE:
+				return createInlineScriptingLanguageFromString(eDataType, initialValue);
 			case GuigenPackage.LOGIC_AGGREGATION_TYPES:
 				return createLogicAggregationTypesFromString(eDataType, initialValue);
 			case GuigenPackage.CUSTOM_CARTRIDGE_ID:
@@ -326,6 +329,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertMessageSeverityToString(eDataType, instanceValue);
 			case GuigenPackage.COMMAND_STYLES:
 				return convertCommandStylesToString(eDataType, instanceValue);
+			case GuigenPackage.INLINE_SCRIPTING_LANGUAGE:
+				return convertInlineScriptingLanguageToString(eDataType, instanceValue);
 			case GuigenPackage.LOGIC_AGGREGATION_TYPES:
 				return convertLogicAggregationTypesToString(eDataType, instanceValue);
 			case GuigenPackage.CUSTOM_CARTRIDGE_ID:
@@ -1350,6 +1355,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DeclarativeUIConstraint createDeclarativeUIConstraint() {
+		DeclarativeUIConstraintImpl declarativeUIConstraint = new DeclarativeUIConstraintImpl();
+		return declarativeUIConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public FileUpload createFileUpload() {
 		FileUploadImpl fileUpload = new FileUploadImpl();
 		return fileUpload;
@@ -2142,6 +2157,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertCommandStylesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InlineScriptingLanguage createInlineScriptingLanguageFromString(EDataType eDataType, String initialValue) {
+		InlineScriptingLanguage result = InlineScriptingLanguage.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertInlineScriptingLanguageToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

@@ -526,6 +526,10 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createRoleBasedSecurityConstraintAdapter();
 			}
 			@Override
+			public Adapter caseDeclarativeUIConstraint(DeclarativeUIConstraint object) {
+				return createDeclarativeUIConstraintAdapter();
+			}
+			@Override
 			public Adapter caseFileUpload(FileUpload object) {
 				return createFileUploadAdapter();
 			}
@@ -2330,6 +2334,20 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRoleBasedSecurityConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.DeclarativeUIConstraint <em>Declarative UI Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.DeclarativeUIConstraint
+	 * @generated
+	 */
+	public Adapter createDeclarativeUIConstraintAdapter() {
 		return null;
 	}
 

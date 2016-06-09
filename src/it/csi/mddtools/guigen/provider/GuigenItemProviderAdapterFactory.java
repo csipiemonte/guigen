@@ -2368,6 +2368,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.DeclarativeUIConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeclarativeUIConstraintItemProvider declarativeUIConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.DeclarativeUIConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDeclarativeUIConstraintAdapter() {
+		if (declarativeUIConstraintItemProvider == null) {
+			declarativeUIConstraintItemProvider = new DeclarativeUIConstraintItemProvider(this);
+		}
+
+		return declarativeUIConstraintItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.FileUpload} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3899,6 +3922,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (shibbolethSSOItemProvider != null) shibbolethSSOItemProvider.dispose();
 		if (roleItemProvider != null) roleItemProvider.dispose();
 		if (roleBasedSecurityConstraintItemProvider != null) roleBasedSecurityConstraintItemProvider.dispose();
+		if (declarativeUIConstraintItemProvider != null) declarativeUIConstraintItemProvider.dispose();
 		if (fileUploadItemProvider != null) fileUploadItemProvider.dispose();
 		if (tabSwitcherItemProvider != null) tabSwitcherItemProvider.dispose();
 		if (panelDefItemProvider != null) panelDefItemProvider.dispose();

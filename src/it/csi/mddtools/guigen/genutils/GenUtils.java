@@ -138,6 +138,14 @@ public class GenUtils {
 		}
 	}
 
+	/**
+	 * 
+	 * @param s la stringa iniziale
+	 * @return la stringa ripulita deiccaratteri che danno fastidio a JSON: (")
+	 */
+	public String makeJSonCompatible(String s){
+		return s.replace("\"", "\\\"");
+	}
 
 	/**
 	 * Genera un ID univoco da assegnare ad una Protected Region.

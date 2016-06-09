@@ -2294,6 +2294,28 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeUIConstraint" eSuperTypes="#//UISecurityConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="UI constraint basato sull'esecuzione di uno script durante la fase di&#xD;&#xA;rendering dell'elemento di UI.&#xD;&#xA;Lo script deve essere codificato come espressione booleana nel linguaggio&#xD;&#xA;definito dalla property &quot;language&quot;. All'interno dell'espressione possono &#xD;&#xA;essere utilizzati tutti i campi che sono disponibili nel model della schermata"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="#//InlineScriptingLanguage"
+        defaultValueLiteral="beanshell">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il linguaggio in cui deve essere scritta l'espressione del constraint"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="script" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Lo script del constraint. deve essere una espressione booleana. Pu&amp;ograve;&#xD;&#xA;utilizzare tutte le properties disponibili nel model del ContentPanel e deve avere un&#xD;&#xA;valore booleano."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="InlineScriptingLanguage">
+    <eLiterals name="beanshell"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileUpload" eSuperTypes="#//Widget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Widget per la selezione e l'upload di un file"/>
