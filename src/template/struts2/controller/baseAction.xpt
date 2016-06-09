@@ -395,7 +395,7 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		if (ctr!=null){
 			try{
 				// eseguo la valutazione dei constraints
-				status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+				status = ctr.verifyConstraint(getModel(), session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
 				LOG.error("[«getStrutsBaseActionClassName(this)»::isMenuVisible] errore durante verifica->false", ex);
@@ -504,7 +504,7 @@ public abstract class «getStrutsBaseActionClassName(this)» <T extends BaseSess
 		if (ctr!=null){
 			try{
 				// valuto i constraint per veirifcare lo stato di abilitazione
-				status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+				status = ctr.verifyConstraint(getModel(), session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
 				LOG.error("[«getStrutsBaseActionClassName(this)»::isMenuEnabled] errore durante verifica->false", ex);

@@ -493,6 +493,7 @@ iride2.pep.pd.protocol = EJB
 «FILE getSecurityJavaSrcDir(this,true)+"/UISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
 import «getBaseJavaPackage(this)+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Interfaccia dei security constraints
@@ -519,13 +520,14 @@ public interface UISecConstraint {
 	 * @param sh il security helper a cui e' possibile delegare le richieste specifiche
 	 * @generated
 	 */
-	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException;
+	public boolean verifyConstraint(BaseSessionAwareDTO model, Map session, int checkedBehavior, SecurityHelper sh) throws BEException;
 }
 «ENDFILE»
 
 «FILE getSecurityJavaSrcDir(this,true)+"/AbstractUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Classe astratta superclasse di tutti i constraint di sicurezza
@@ -664,7 +666,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * @param sh il security constraint
 	 * @return
 	 */
-	protected boolean combineAll(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+	protected boolean combineAll(BaseSessionAwareDTO model, Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
 		if(checkedBehavior!=this.constrainedBehavior)
 			return false; // se il comportamento osservato e' un'altro passo oltre
 		else{
@@ -674,7 +676,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 			if (currentState.booleanValue() == false)
 				return false;
 			else
-				return specificCheck(session, sh);
+				return specificCheck(model, session, sh);
 		}
 	}
 
@@ -715,9 +717,9 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * @param sh il security helper a cui delegare parte delle verifiche
 	 * @generated
 	 */
-	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+	public boolean verifyConstraint(BaseSessionAwareDTO model, Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
 		
-		return combineAll(session, checkedBehavior, sh);
+		return combineAll(model, session, checkedBehavior, sh);
 	}
 	
 	/**
@@ -727,7 +729,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * @param sh il security helper
 	 * @return
 	 */
-	public abstract boolean specificCheck(Map session, SecurityHelper sh) throws BEException;
+	public abstract boolean specificCheck(BaseSessionAwareDTO model, Map session, SecurityHelper sh) throws BEException;
 	
 }
 «ENDFILE»
@@ -736,6 +738,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Superclasse di tutti i custom security Constraints.
@@ -778,7 +781,7 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 	 * @generated
 	 */
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+	public boolean specificCheck(BaseSessionAwareDTO model, Map session, SecurityHelper sh)  throws BEException{
 		// richiama dinamicamente il metodo customCheck{methodNamesuffix} nel security helper
 		try{
 			java.lang.reflect.Method checkMethod = sh.getClass().getDeclaredMethod("customCheck"+methodNameSuffix, Map.class);
@@ -802,6 +805,7 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 «FILE getSecurityJavaSrcDir(this,true)+"/ActorBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Security constraint basato sull'impersonificazione dell'utente corrente 
@@ -852,7 +856,7 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 	 * @generated
 	 */
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+	public boolean specificCheck(BaseSessionAwareDTO model, Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForActor(session, actorCode);
 	}
 
@@ -862,6 +866,7 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 «FILE getSecurityJavaSrcDir(this,true)+"/RoleBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Security constraint basato sull'abilitazione dell'utente corrente 
@@ -925,7 +930,7 @@ public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 	 * @generated
 	 */
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+	public boolean specificCheck(BaseSessionAwareDTO model, Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForRole(session, roleCode, domainCode);
 	}
 
@@ -936,6 +941,7 @@ public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Security constraint basato sull'abilitazione dell'utente corrente 
@@ -986,7 +992,7 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 	 * @generated
 	 */
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+	public boolean specificCheck(BaseSessionAwareDTO model, Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForUC(session, useCaseCode);
 	}
 
@@ -997,6 +1003,7 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 «FILE getSecurityJavaSrcDir(this,true)+"/DeclarativeUIConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Security constraint basato sull'abilitazione dell'utente corrente 
@@ -1062,12 +1069,8 @@ public class DeclarativeUIConstraint extends AbstractUISecConstraint {
 	 * @generated
 	 */
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh) throws BEException {
-		if (script != null && script.length()>0){
-			return evalScript(session);
-		}
-		else
-			throw new IllegalArgumentException("Script non impostato");
+	public boolean specificCheck(BaseSessionAwareDTO model, Map session, SecurityHelper sh) throws BEException {
+		return evalScript(model, session);
 	}
 
 	/**
@@ -1076,17 +1079,16 @@ public class DeclarativeUIConstraint extends AbstractUISecConstraint {
 	 * @return il valore dell'esecuzione dello script
 	 * @throws IllegalArgumentException se accade qualcosa durante l'esecuzione dello script
 	 */
-	private boolean evalScript(Map session) throws IllegalArgumentException{
+	private boolean evalScript(BaseSessionAwareDTO model, Map session) throws BEException{
 		bsh.Interpreter bsh = new bsh.Interpreter();
 		try {
 			bsh.set("session", session);
+			bsh.set("model", model);
 			bsh.eval("Boolean _retval = "+ script+";");
 			return (Boolean)bsh.get("_retval");
 			
 		} catch (bsh.EvalError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
+			throw new BEException("Errore in eval constraint "+script+":"+e+", "+e.getMessage(), e);
 		}
 	}
 
@@ -1098,6 +1100,7 @@ public class DeclarativeUIConstraint extends AbstractUISecConstraint {
 import java.util.Map;
 import java.util.Arrays;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 import «getDTOBaseJavaPackage()».DTOUtils;
 
 
@@ -1151,7 +1154,7 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	 * @param sh il security helper
 	 * @generated
 	 */
-	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException {
+	public boolean verifyConstraint(BaseSessionAwareDTO model, Map session, int checkedBehavior, SecurityHelper sh) throws BEException {
 		if (constraints != null && constraints.length > 0) {
 			boolean verified = false;
 			boolean declarativeConstraintResult = true;
@@ -1160,7 +1163,7 @@ public class ComplexUISecConstraint implements UISecConstraint {
 				UISecConstraint currCtr = constraints[i];
 				if (currCtr instanceof DeclarativeUIConstraint &&
 						((DeclarativeUIConstraint) currCtr).getConstrainedBehavior()==checkedBehavior) {
-					declarativeConstraintResult &= currCtr.verifyConstraint(session, checkedBehavior, sh);
+					declarativeConstraintResult &= currCtr.verifyConstraint(model, session, checkedBehavior, sh);
 				}
 			}
 			// poi, se ancora necessario, valuto i security constraints
@@ -1168,9 +1171,9 @@ public class ComplexUISecConstraint implements UISecConstraint {
 				for (int i = 0; i < constraints.length && !verified; i++) {
 					UISecConstraint currCtr = constraints[i];
 					if (currCtr instanceof DeclarativeUIConstraint) {
-						verified &= currCtr.verifyConstraint(session, checkedBehavior, sh);
+						verified &= currCtr.verifyConstraint(model, session, checkedBehavior, sh);
 					} else {
-						verified |= currCtr.verifyConstraint(session, checkedBehavior, sh);
+						verified |= currCtr.verifyConstraint(model, session, checkedBehavior, sh);
 					}
 				}
 			}
@@ -1189,6 +1192,7 @@ public class ComplexUISecConstraint implements UISecConstraint {
 
 import java.util.Map;
 import «getBaseJavaPackage()+".business.*;"»
+import «getBaseJavaPackage(this)+".dto.*;"»
 
 /**
  * Security constraint fittizio ad effetto null (always on/off a seconda del valore di inizializzazione)
@@ -1236,7 +1240,7 @@ public class DummyUISecConstraint extends AbstractUISecConstraint {
 	 * @generated
 	 */
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh)
+	public boolean specificCheck(BaseSessionAwareDTO model, Map session, SecurityHelper sh)
 			throws BEException {
 		return this.fixedValue;
 	}
@@ -1390,7 +1394,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			try{
 				// se sono presenti dei constraint, li eseguo per conoscere lo stato
 				// di abilitazione del widget
-				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+				return !ctr.verifyConstraint(getModel(), session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
 				LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetDisabled] errore durante verifica->disable", ex);
@@ -1435,7 +1439,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			try{
 				// se sono presenti dei constraint, li eseguo per conoscere lo stato
 				// di visibilita' del widget
-				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+				return ctr.verifyConstraint(getModel(), session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
 				LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetVisible] errore durante verifica->hide", ex);
