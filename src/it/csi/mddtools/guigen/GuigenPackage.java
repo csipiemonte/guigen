@@ -2181,13 +2181,40 @@ public interface GuigenPackage extends EPackage {
 	int CALENDAR__REQUIRED = DATA_WIDGET__REQUIRED;
 
 	/**
+	 * The feature id for the '<em><b>Select Year</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__SELECT_YEAR = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Select Month</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__SELECT_MONTH = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Select Year Range</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__SELECT_YEAR_RANGE = DATA_WIDGET_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Calendar</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALENDAR_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 0;
+	int CALENDAR_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -11272,6 +11299,39 @@ public interface GuigenPackage extends EPackage {
 	EClass getCalendar();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Calendar#isSelectYear <em>Select Year</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Select Year</em>'.
+	 * @see it.csi.mddtools.guigen.Calendar#isSelectYear()
+	 * @see #getCalendar()
+	 * @generated
+	 */
+	EAttribute getCalendar_SelectYear();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Calendar#isSelectMonth <em>Select Month</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Select Month</em>'.
+	 * @see it.csi.mddtools.guigen.Calendar#isSelectMonth()
+	 * @see #getCalendar()
+	 * @generated
+	 */
+	EAttribute getCalendar_SelectMonth();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Calendar#getSelectYearRange <em>Select Year Range</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Select Year Range</em>'.
+	 * @see it.csi.mddtools.guigen.Calendar#getSelectYearRange()
+	 * @see #getCalendar()
+	 * @generated
+	 */
+	EAttribute getCalendar_SelectYearRange();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ComboBox <em>Combo Box</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17268,6 +17328,30 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CALENDAR = eINSTANCE.getCalendar();
+
+		/**
+		 * The meta object literal for the '<em><b>Select Year</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CALENDAR__SELECT_YEAR = eINSTANCE.getCalendar_SelectYear();
+
+		/**
+		 * The meta object literal for the '<em><b>Select Month</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CALENDAR__SELECT_MONTH = eINSTANCE.getCalendar_SelectMonth();
+
+		/**
+		 * The meta object literal for the '<em><b>Select Year Range</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CALENDAR__SELECT_YEAR_RANGE = eINSTANCE.getCalendar_SelectYearRange();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ComboBoxImpl <em>Combo Box</em>}' class.

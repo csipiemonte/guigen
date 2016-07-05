@@ -23,12 +23,14 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.Calendar;
 
+import it.csi.mddtools.guigen.GuigenPackage;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemFontProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -36,6 +38,8 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.guigen.Calendar} object.
@@ -66,8 +70,77 @@ public class CalendarItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addSelectYearPropertyDescriptor(object);
+			addSelectMonthPropertyDescriptor(object);
+			addSelectYearRangePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Select Year feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSelectYearPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Calendar_selectYear_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Calendar_selectYear_feature", "_UI_Calendar_type"),
+				 GuigenPackage.Literals.CALENDAR__SELECT_YEAR,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Select Month feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSelectMonthPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Calendar_selectMonth_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Calendar_selectMonth_feature", "_UI_Calendar_type"),
+				 GuigenPackage.Literals.CALENDAR__SELECT_MONTH,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Select Year Range feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSelectYearRangePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Calendar_selectYearRange_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Calendar_selectYearRange_feature", "_UI_Calendar_type"),
+				 GuigenPackage.Literals.CALENDAR__SELECT_YEAR_RANGE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -105,6 +178,14 @@ public class CalendarItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(Calendar.class)) {
+			case GuigenPackage.CALENDAR__SELECT_YEAR:
+			case GuigenPackage.CALENDAR__SELECT_MONTH:
+			case GuigenPackage.CALENDAR__SELECT_YEAR_RANGE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

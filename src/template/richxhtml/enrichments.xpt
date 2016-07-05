@@ -209,7 +209,8 @@ function initUIStruct«name.toFirstUpper()»(){
 «IF isEnrichmentEnabled()-»
 	/// arricchimento per «this.metaType.name» [«name»]: aggiunta datepicker
 	var addDateTo«name.toFirstUpper()» = function(){
-		uiNRichLib.addDatePickerNRich("«getWidgetName(this, contextPrefix)»", «required ? "true" : "false"»);
+		uiNRichLib.addDatePickerNRich("«getWidgetName(this, contextPrefix)»", 
+		«required ? "true" : "false"», «selectYear ? "true" : "false"», "«selectYearRange»", «selectMonth ? "true" : "false"»);
 	};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
 «ENDIF-»

@@ -2237,6 +2237,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCalendar_SelectYear() {
+		return (EAttribute)calendarEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCalendar_SelectMonth() {
+		return (EAttribute)calendarEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCalendar_SelectYearRange() {
+		return (EAttribute)calendarEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getComboBox() {
 		return comboBoxEClass;
 	}
@@ -6947,6 +6974,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(textAreaEClass, TEXT_AREA__COLUMNS);
 
 		calendarEClass = createEClass(CALENDAR);
+		createEAttribute(calendarEClass, CALENDAR__SELECT_YEAR);
+		createEAttribute(calendarEClass, CALENDAR__SELECT_MONTH);
+		createEAttribute(calendarEClass, CALENDAR__SELECT_YEAR_RANGE);
 
 		comboBoxEClass = createEClass(COMBO_BOX);
 		createEAttribute(comboBoxEClass, COMBO_BOX__KEY_SELECTOR);
@@ -7826,6 +7856,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getTextArea_Columns(), ecorePackage.getEInt(), "columns", "30", 0, 1, TextArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(calendarEClass, Calendar.class, "Calendar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCalendar_SelectYear(), ecorePackage.getEBoolean(), "selectYear", "false", 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCalendar_SelectMonth(), ecorePackage.getEBoolean(), "selectMonth", "false", 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCalendar_SelectYearRange(), ecorePackage.getEString(), "selectYearRange", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(comboBoxEClass, ComboBox.class, "ComboBox", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComboBox_KeySelector(), ecorePackage.getEString(), "keySelector", null, 0, 1, ComboBox.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
