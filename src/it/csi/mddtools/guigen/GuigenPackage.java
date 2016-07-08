@@ -10376,6 +10376,178 @@ public interface GuigenPackage extends EPackage {
 	int CAPTCHA_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.SliderImpl <em>Slider</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.SliderImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSlider()
+	 * @generated
+	 */
+	int SLIDER = 173;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__NAME = DATA_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__LABEL = DATA_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__LAYOUT_SPEC = DATA_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
+	 * The feature id for the '<em><b>Enable Enrichment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__ENABLE_ENRICHMENT = DATA_WIDGET__ENABLE_ENRICHMENT;
+
+	/**
+	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__REQUIRED = DATA_WIDGET__REQUIRED;
+
+	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Use Collection Data As</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__USE_COLLECTION_DATA_AS = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Static Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__STATIC_LOWER_BOUND = DATA_WIDGET_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Static Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__STATIC_UPPER_BOUND = DATA_WIDGET_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Slider</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 4;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10383,7 +10555,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 173;
+	int WIDGET_DATA_TYPE = 174;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -10393,7 +10565,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 174;
+	int UDLRC_SPEC_CONSTANTS = 175;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -10403,7 +10575,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 175;
+	int METHOD_PROTECTION_TYPES = 176;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -10413,7 +10585,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 176;
+	int EVENT_TYPES = 177;
 
 
 	/**
@@ -10424,7 +10596,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 177;
+	int DATA_LIFETIME_TYPE = 178;
 
 
 	/**
@@ -10435,7 +10607,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 178;
+	int SIMPLE_TYPE_CODES = 179;
 
 
 	/**
@@ -10446,7 +10618,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 179;
+	int PORTAL_NAMES = 180;
 
 
 	/**
@@ -10457,7 +10629,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
 	 * @generated
 	 */
-	int LOGOUT_ACTION_TYPES = 180;
+	int LOGOUT_ACTION_TYPES = 181;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
@@ -10467,7 +10639,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 181;
+	int TARGET_PLATFORM_CODES = 182;
 
 
 	/**
@@ -10478,7 +10650,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 182;
+	int MESSAGE_SEVERITY = 183;
 
 
 	/**
@@ -10489,7 +10661,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 183;
+	int COMMAND_STYLES = 184;
 
 
 	/**
@@ -10500,7 +10672,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInlineScriptingLanguage()
 	 * @generated
 	 */
-	int INLINE_SCRIPTING_LANGUAGE = 184;
+	int INLINE_SCRIPTING_LANGUAGE = 185;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LogicAggregationTypes <em>Logic Aggregation Types</em>}' enum.
@@ -10510,7 +10682,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 185;
+	int LOGIC_AGGREGATION_TYPES = 186;
 
 
 	/**
@@ -10521,7 +10693,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 186;
+	int CUSTOM_CARTRIDGE_ID = 187;
 
 
 	/**
@@ -10532,7 +10704,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 187;
+	int COMMAND_FUNCTIONS = 188;
 
 
 	/**
@@ -10543,7 +10715,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 188;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 189;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -10553,7 +10725,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 189;
+	int STD_WEB_RES_MODULE_NAMES = 190;
 
 
 	/**
@@ -10564,7 +10736,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 190;
+	int REPART_MODULE_TYPES = 191;
 
 
 	/**
@@ -10575,7 +10747,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 191;
+	int WIZARD_NUMBERING_TYPES = 192;
 
 
 	/**
@@ -10586,7 +10758,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
 	 * @generated
 	 */
-	int CP_COMMAND_EXECUTION_TYPES = 192;
+	int CP_COMMAND_EXECUTION_TYPES = 193;
 
 
 	/**
@@ -10597,7 +10769,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTicketVerifyMethod()
 	 * @generated
 	 */
-	int TICKET_VERIFY_METHOD = 193;
+	int TICKET_VERIFY_METHOD = 194;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}' enum.
@@ -10607,7 +10779,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUITypes()
 	 * @generated
 	 */
-	int LOGIN_UI_TYPES = 194;
+	int LOGIN_UI_TYPES = 195;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.InfoSourceTypes <em>Info Source Types</em>}' enum.
@@ -10617,7 +10789,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInfoSourceTypes()
 	 * @generated
 	 */
-	int INFO_SOURCE_TYPES = 195;
+	int INFO_SOURCE_TYPES = 196;
 
 
 	/**
@@ -10628,7 +10800,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeSelectionTypes()
 	 * @generated
 	 */
-	int TREE_SELECTION_TYPES = 196;
+	int TREE_SELECTION_TYPES = 197;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.SliderCollectionValuesUsageTypes <em>Slider Collection Values Usage Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.SliderCollectionValuesUsageTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSliderCollectionValuesUsageTypes()
+	 * @generated
+	 */
+	int SLIDER_COLLECTION_VALUES_USAGE_TYPES = 198;
 
 
 	/**
@@ -16542,6 +16725,49 @@ public interface GuigenPackage extends EPackage {
 	EClass getCaptcha();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Slider <em>Slider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Slider</em>'.
+	 * @see it.csi.mddtools.guigen.Slider
+	 * @generated
+	 */
+	EClass getSlider();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Slider#getUseCollectionDataAs <em>Use Collection Data As</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Use Collection Data As</em>'.
+	 * @see it.csi.mddtools.guigen.Slider#getUseCollectionDataAs()
+	 * @see #getSlider()
+	 * @generated
+	 */
+	EAttribute getSlider_UseCollectionDataAs();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Slider#getStaticLowerBound <em>Static Lower Bound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Static Lower Bound</em>'.
+	 * @see it.csi.mddtools.guigen.Slider#getStaticLowerBound()
+	 * @see #getSlider()
+	 * @generated
+	 */
+	EAttribute getSlider_StaticLowerBound();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Slider#getStaticUpperBound <em>Static Upper Bound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Static Upper Bound</em>'.
+	 * @see it.csi.mddtools.guigen.Slider#getStaticUpperBound()
+	 * @see #getSlider()
+	 * @generated
+	 */
+	EAttribute getSlider_StaticUpperBound();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16780,6 +17006,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getTreeSelectionTypes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.SliderCollectionValuesUsageTypes <em>Slider Collection Values Usage Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Slider Collection Values Usage Types</em>'.
+	 * @see it.csi.mddtools.guigen.SliderCollectionValuesUsageTypes
+	 * @generated
+	 */
+	EEnum getSliderCollectionValuesUsageTypes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -21574,6 +21810,40 @@ public interface GuigenPackage extends EPackage {
 		EClass CAPTCHA = eINSTANCE.getCaptcha();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.SliderImpl <em>Slider</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.SliderImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSlider()
+		 * @generated
+		 */
+		EClass SLIDER = eINSTANCE.getSlider();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Collection Data As</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SLIDER__USE_COLLECTION_DATA_AS = eINSTANCE.getSlider_UseCollectionDataAs();
+
+		/**
+		 * The meta object literal for the '<em><b>Static Lower Bound</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SLIDER__STATIC_LOWER_BOUND = eINSTANCE.getSlider_StaticLowerBound();
+
+		/**
+		 * The meta object literal for the '<em><b>Static Upper Bound</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SLIDER__STATIC_UPPER_BOUND = eINSTANCE.getSlider_StaticUpperBound();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -21812,6 +22082,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum TREE_SELECTION_TYPES = eINSTANCE.getTreeSelectionTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.SliderCollectionValuesUsageTypes <em>Slider Collection Values Usage Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.SliderCollectionValuesUsageTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSliderCollectionValuesUsageTypes()
+		 * @generated
+		 */
+		EEnum SLIDER_COLLECTION_VALUES_USAGE_TYPES = eINSTANCE.getSliderCollectionValuesUsageTypes();
 
 	}
 

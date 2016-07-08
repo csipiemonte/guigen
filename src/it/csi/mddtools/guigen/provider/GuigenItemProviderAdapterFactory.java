@@ -3725,6 +3725,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Slider} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SliderItemProvider sliderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Slider}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSliderAdapter() {
+		if (sliderItemProvider == null) {
+			sliderItemProvider = new SliderItemProvider(this);
+		}
+
+		return sliderItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3981,6 +4004,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (annotationItemProvider != null) annotationItemProvider.dispose();
 		if (annotationDetailItemProvider != null) annotationDetailItemProvider.dispose();
 		if (captchaItemProvider != null) captchaItemProvider.dispose();
+		if (sliderItemProvider != null) sliderItemProvider.dispose();
 	}
 
 }

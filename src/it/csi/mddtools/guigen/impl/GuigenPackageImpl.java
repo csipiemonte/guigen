@@ -169,6 +169,8 @@ import it.csi.mddtools.guigen.ShibbolethSSO;
 import it.csi.mddtools.guigen.ShowDialogCommand;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
+import it.csi.mddtools.guigen.Slider;
+import it.csi.mddtools.guigen.SliderCollectionValuesUsageTypes;
 import it.csi.mddtools.guigen.StaticLinks;
 import it.csi.mddtools.guigen.Statusbar;
 import it.csi.mddtools.guigen.StdMessagePanel;
@@ -1450,6 +1452,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass sliderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1612,6 +1621,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum treeSelectionTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum sliderCollectionValuesUsageTypesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -6656,6 +6672,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSlider() {
+		return sliderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSlider_UseCollectionDataAs() {
+		return (EAttribute)sliderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSlider_StaticLowerBound() {
+		return (EAttribute)sliderEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSlider_StaticUpperBound() {
+		return (EAttribute)sliderEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -6865,6 +6917,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getTreeSelectionTypes() {
 		return treeSelectionTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getSliderCollectionValuesUsageTypes() {
+		return sliderCollectionValuesUsageTypesEEnum;
 	}
 
 	/**
@@ -7621,6 +7682,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		captchaEClass = createEClass(CAPTCHA);
 
+		sliderEClass = createEClass(SLIDER);
+		createEAttribute(sliderEClass, SLIDER__USE_COLLECTION_DATA_AS);
+		createEAttribute(sliderEClass, SLIDER__STATIC_LOWER_BOUND);
+		createEAttribute(sliderEClass, SLIDER__STATIC_UPPER_BOUND);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -7646,6 +7712,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		loginUITypesEEnum = createEEnum(LOGIN_UI_TYPES);
 		infoSourceTypesEEnum = createEEnum(INFO_SOURCE_TYPES);
 		treeSelectionTypesEEnum = createEEnum(TREE_SELECTION_TYPES);
+		sliderCollectionValuesUsageTypesEEnum = createEEnum(SLIDER_COLLECTION_VALUES_USAGE_TYPES);
 	}
 
 	/**
@@ -7775,6 +7842,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		stdWebResourceModuleEClass.getESuperTypes().add(this.getWebResourceModule());
 		breadcrumbEClass.getESuperTypes().add(this.getPanel());
 		captchaEClass.getESuperTypes().add(this.getWidget());
+		sliderEClass.getESuperTypes().add(this.getDataWidget());
+		sliderEClass.getESuperTypes().add(this.getMultiDataWidget());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -8505,6 +8574,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(captchaEClass, Captcha.class, "Captcha", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(sliderEClass, Slider.class, "Slider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSlider_UseCollectionDataAs(), this.getSliderCollectionValuesUsageTypes(), "useCollectionDataAs", null, 0, 1, Slider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSlider_StaticLowerBound(), ecorePackage.getEIntegerObject(), "staticLowerBound", null, 0, 1, Slider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSlider_StaticUpperBound(), ecorePackage.getEIntegerObject(), "staticUpperBound", null, 0, 1, Slider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -8680,6 +8754,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(treeSelectionTypesEEnum, TreeSelectionTypes.ALL_NODES);
 		addEEnumLiteral(treeSelectionTypesEEnum, TreeSelectionTypes.LEAF_NODES_ONLY);
 		addEEnumLiteral(treeSelectionTypesEEnum, TreeSelectionTypes.NON_LEAF_NODES_ONLY);
+
+		initEEnum(sliderCollectionValuesUsageTypesEEnum, SliderCollectionValuesUsageTypes.class, "SliderCollectionValuesUsageTypes");
+		addEEnumLiteral(sliderCollectionValuesUsageTypesEEnum, SliderCollectionValuesUsageTypes.RANGE_BOUNDS);
+		addEEnumLiteral(sliderCollectionValuesUsageTypesEEnum, SliderCollectionValuesUsageTypes.DISCRETE_VALUES);
 
 		// Create resource
 		createResource(eNS_URI);

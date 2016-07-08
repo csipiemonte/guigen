@@ -1243,6 +1243,15 @@ public class GuigenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.SLIDER: {
+				Slider slider = (Slider)theEObject;
+				T result = caseSlider(slider);
+				if (result == null) result = caseDataWidget(slider);
+				if (result == null) result = caseMultiDataWidget(slider);
+				if (result == null) result = caseWidget(slider);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -3839,6 +3848,21 @@ public class GuigenSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCaptcha(Captcha object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Slider</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Slider</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSlider(Slider object) {
 		return null;
 	}
 

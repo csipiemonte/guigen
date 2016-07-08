@@ -280,6 +280,11 @@ public class MenuPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createCaptcha()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createSlider()));
 	}
 
 }

@@ -1,0 +1,6496 @@
+% This file was created using the TeX documentation generator.
+% Creation date: Fri Jun 10 13:55:33 CEST 2016
+\section[guigen]{The \textsc{guigen} metamodel}
+\label{guigen}
+
+Contiene le classi con cui è possibile modellare l'applicazione.
+\paragraph{EPackage properties:} \hspace{0pt} \\ \indent
+\textbf{Namespace Prefix:} \texttt{guigen}
+
+\textbf{Namespace URI:} \texttt{http://www.csi.it/mddtools}
+
+\subsection[ActivateMultiPanelItemCommand]{ActivateMultiPanelItemCommand}
+\label{guigenActivateMultiPanelItemCommand}
+
+Permette di visualizzare uno degli item di un  (o di una delle sue sottoclassi  o ).
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{activeItem}
+ & 
+\textbf{T:} \texttt{Panel}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Unsettable}
+ & L'item da visualizzare. Se impostato a "null" non verr visualizzato nessun pannello(vale solo per il ).\\ \hline
+\texttt{multipanel}
+ & 
+\textbf{T:} \texttt{MultiPanel}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il multipanel del quale si desidera cambiare l'item visualizzato.\\ \hline
+\end{tabularx}
+\caption{References of the ActivateMultiPanelItemCommand EClass}
+\label{guigenActivateMultiPanelItemCommandref}
+\end{table}
+\subsection[ActivationModel]{ActivationModel}
+\label{guigenActivationModel}
+
+Modello di attivazione dell'applicazione.Opzionale
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{activationParams}
+ & 
+\textbf{T:} \texttt{ActivationParam}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & elenco dei parametri di attivazione dell'applicazione. Il valore effettivo dei parametri disponibile nella logica di business associata all' dell'applicazione.\\ \hline
+\end{tabularx}
+\caption{References of the ActivationModel EClass}
+\label{guigenActivationModelref}
+\end{table}
+\subsection[ActivationParam]{ActivationParam}
+\label{guigenActivationParam}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the ActivationParam EClass}
+\label{guigenActivationParamattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{type}
+ & 
+\textbf{T:} \texttt{SimpleType}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the ActivationParam EClass}
+\label{guigenActivationParamref}
+\end{table}
+\subsection[Actor]{Actor}
+\label{guigenActor}
+
+Actor IRIDE2
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{code}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo (come censito in IRIDE2)\\ \hline
+\end{tabularx}
+\caption{Attributes of the Actor EClass}
+\label{guigenActorattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{roles}
+ & 
+\textbf{T:} \texttt{Role}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Ruoli impersonificati dall'actor.\\ \hline
+\end{tabularx}
+\caption{References of the Actor EClass}
+\label{guigenActorref}
+\end{table}
+\subsection[ActorBasedSecurityConstraint]{ActorBasedSecurityConstraint}
+\label{guigenActorBasedSecurityConstraint}
+
+Security constraint basato sull'impersonificazione dell'utente corrente di un particolare Actor
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{UISecurityConstraint}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actor}
+ & 
+\textbf{T:} \texttt{Actor}
+\newline
+\textbf{Cardinality:} [0..1]
+ & L'Actor di riferimento\\ \hline
+\end{tabularx}
+\caption{References of the ActorBasedSecurityConstraint EClass}
+\label{guigenActorBasedSecurityConstraintref}
+\end{table}
+\subsection[ActorMappingPDefVal]{ActorMappingPDefVal}
+\label{guigenActorMappingPDefVal}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParamVal}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actualActor}
+ & 
+\textbf{T:} \texttt{Actor}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the ActorMappingPDefVal EClass}
+\label{guigenActorMappingPDefValref}
+\end{table}
+\subsection[ActorMappingParam]{ActorMappingParam}
+\label{guigenActorMappingParam}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParam}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{defActor}
+ & 
+\textbf{T:} \texttt{Actor}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the ActorMappingParam EClass}
+\label{guigenActorMappingParamref}
+\end{table}
+\subsection[AnnotatedElement]{AnnotatedElement}
+\label{guigenAnnotatedElement}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Interface}
+, 
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{annotations}
+ & 
+\textbf{T:} \texttt{Annotation}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the AnnotatedElement EClass}
+\label{guigenAnnotatedElementref}
+\end{table}
+\subsection[Annotation]{Annotation}
+\label{guigenAnnotation}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{source}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the Annotation EClass}
+\label{guigenAnnotationattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{details}
+ & 
+\textbf{T:} \texttt{AnnotationDetail}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the Annotation EClass}
+\label{guigenAnnotationref}
+\end{table}
+\subsection[AnnotationDetail]{AnnotationDetail}
+\label{guigenAnnotationDetail}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{key}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{value}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the AnnotationDetail EClass}
+\label{guigenAnnotationDetailattr}
+\end{table}
+\subsection[AppDataBinding]{AppDataBinding}
+\label{guigenAppDataBinding}
+
+Collegamento con un application data o con una parte di esso.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{path}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se specificato fain modo che il binding non sia sul valore dell'application data, masu uno specifico field del record.Ad esempio se un application data "titolare" ha come tipo un di nome , con un campo ,  possibileassociare un textfield a tale campo impostando nell':E'ovviamente possibile utilizzare  pi complessi(es. "persona.indirizzo.numCivico").\\ \hline
+\end{tabularx}
+\caption{Attributes of the AppDataBinding EClass}
+\label{guigenAppDataBindingattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{appData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..1]
+ & L'application data collegato\\ \hline
+\end{tabularx}
+\caption{References of the AppDataBinding EClass}
+\label{guigenAppDataBindingref}
+\end{table}
+\subsection[AppDataGroup]{AppDataGroup}
+\label{guigenAppDataGroup}
+
+Raggruppamento logico di application data. da mantenere in modello separato.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo del gruppo. Ha valenza esclusivamente menmonica.\\ \hline
+\end{tabularx}
+\caption{Attributes of the AppDataGroup EClass}
+\label{guigenAppDataGroupattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{appData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & elenco degli application data compresi nel gruppo.\\ \hline
+\end{tabularx}
+\caption{References of the AppDataGroup EClass}
+\label{guigenAppDataGroupref}
+\end{table}
+\subsection[AppDataMappingPDefVal]{AppDataMappingPDefVal}
+\label{guigenAppDataMappingPDefVal}
+
+Valorizzazione di parametro di  che permette di rimpiazzare l'application data fittizio con quello reale nel 
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParamVal}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actualAppData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the AppDataMappingPDefVal EClass}
+\label{guigenAppDataMappingPDefValref}
+\end{table}
+\subsection[AppDataMappingParam]{AppDataMappingParam}
+\label{guigenAppDataMappingParam}
+
+Definizione di parametro di  che permette di rimpiazzare l'application data fittizio con quello reale nel 
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParam}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{defAppData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the AppDataMappingParam EClass}
+\label{guigenAppDataMappingParamref}
+\end{table}
+\subsection[AppModule]{AppModule}
+\label{guigenAppModule}
+
+Modulo dell'applicativo. Da mantenere in un file separato.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice identificativo del modulo. Deve essere univoco all'interno dell'applicazione e deve essere un identificativo valido di package java.\\ \hline
+\texttt{secure}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the AppModule EClass}
+\label{guigenAppModuleattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{contentPanels}
+ & 
+\textbf{T:} \texttt{ContentPanel}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco delle schermate che costituiscono il modulo.\\ \hline
+\texttt{extSecurityModel}
+ & 
+\textbf{T:} \texttt{SecurityModel}
+\newline
+\textbf{Cardinality:} [0..1]
+ & riferimento al modello di sicurezza.\\ \hline
+\end{tabularx}
+\caption{References of the AppModule EClass}
+\label{guigenAppModuleref}
+\end{table}
+\subsection[AppWindow]{AppWindow}
+\label{guigenAppWindow}
+
+Finestra applicativa comprendente le parti comuni a tutte le schermate e laparte variabile.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{appArea}
+ & 
+\textbf{T:} \texttt{ApplicationArea}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Porzione di finestra dipendente dall'applicazione\\ \hline
+\texttt{footer}
+ & 
+\textbf{T:} \texttt{Footer}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Footer del portale. Comune a tutte le schermate.\\ \hline
+\texttt{header}
+ & 
+\textbf{T:} \texttt{Header}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Header del portale. Comune a tutte le schermate.\\ \hline
+\end{tabularx}
+\caption{References of the AppWindow EClass}
+\label{guigenAppWindowref}
+\end{table}
+\subsection[ApplicationArea]{ApplicationArea}
+\label{guigenApplicationArea}
+
+Rappresenta l'area di user interface specifica dell'applicazione, innestata nella struttura comune solitamente definita dagli standarddel sito di esposizione.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{contentPanels}
+ & 
+\textbf{T:} \texttt{ContentPanel}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Contiene i ContentPanel che costituiscono le schermate dell'applicazione.Deprecato (dalla v.1.3): definire le schermate in uno o più AppModule, preferibilmente mantenuti su file separati.\\ \hline
+\texttt{extModules}
+ & 
+\textbf{T:} \texttt{AppModule}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Moduli applicativi (insiemi di ContentPanel). Gli  devono essere mantenuti su file separati.\\ \hline
+\texttt{homePage}
+ & 
+\textbf{T:} \texttt{ContentPanel}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il content panel che deve essere considerato la Home Page dell'applicativo.\\ \hline
+\texttt{menubar}
+ & 
+\textbf{T:} \texttt{Menubar}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Struttura del menu dell'applicazione.Il menu deve essere definito in questo punto, mentre la visualizzazione effettiva dipende dalla particolare cartuccia di layout.In alcuni layout potrebbe esserci un unico modo di visualizzare il menu e la visualizzazione potrebbe essere di default(es. in alto sotto al banner dell'applicativo).In altri layout il menu deve essere inserito esplicitamente tramite un particolarewidget denominato MenuView che viene espanso con la struttura del menudefinita in questo elemento.\\ \hline
+\texttt{modules}
+ & 
+\textbf{T:} \texttt{AppModule}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Moduli applicativi (insiemi di ContentPanel). Deprecato: utilizzare  e mantenere gli su file separati.\\ \hline
+\texttt{onInitCommand}
+ & 
+\textbf{T:} \texttt{Command}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Comandi che vengono eseguiti all'inizializzazione dell'applicazione\\ \hline
+\texttt{staticLinks}
+ & 
+\textbf{T:} \texttt{StaticLinks}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & {TODO: add documentation here}\\ \hline
+\texttt{statusbar}
+ & 
+\textbf{T:} \texttt{Statusbar}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & {TODO: add documentation here}\\ \hline
+\texttt{titlebar}
+ & 
+\textbf{T:} \texttt{Titlebar}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & {TODO: add documentation here}\\ \hline
+\end{tabularx}
+\caption{References of the ApplicationArea EClass}
+\label{guigenApplicationArearef}
+\end{table}
+\subsection[ApplicationData]{ApplicationData}
+\label{guigenApplicationData}
+
+Rappresenta l'astrazione di una variabile applicativa.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{lifetimeExtent}
+ & 
+\textbf{T:} \texttt{DataLifetimeType}
+\newline
+\textbf{Cardinality:} [0..1]
+ & specifica la persistenza del valore impostato nell'application data.\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & nome simbolico. Deve essere univoco all'interno dell'applicazione e deve essere un codice valido secondo java.\\ \hline
+\end{tabularx}
+\caption{Attributes of the ApplicationData EClass}
+\label{guigenApplicationDataattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{type}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il tipo del valore contenuto nell'application data\\ \hline
+\end{tabularx}
+\caption{References of the ApplicationData EClass}
+\label{guigenApplicationDataref}
+\end{table}
+\subsection[ApplicationDataDefs]{ApplicationDataDefs}
+\label{guigenApplicationDataDefs}
+
+Insieme delle definizioni di application data utilizzati nell'applicativo
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{appData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & DEPRECATO: utilizzare application data definiti all'interno di mantenuti esternamente e referenziati in \\ \hline
+\texttt{extGroups}
+ & 
+\textbf{T:} \texttt{AppDataGroup}
+\newline
+\textbf{Cardinality:} [0..*]
+ & referenzia gli  definiti esternamente e utilizzati nell'applicazione.\\ \hline
+\texttt{groups}
+ & 
+\textbf{T:} \texttt{AppDataGroup}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & DEPRECATO: utilizzare \\ \hline
+\end{tabularx}
+\caption{References of the ApplicationDataDefs EClass}
+\label{guigenApplicationDataDefsref}
+\end{table}
+\subsection[AutenticationMethod]{AutenticationMethod}
+\label{guigenAutenticationMethod}
+
+Superclasse di tutti i possibili meccanismi di autenticazione.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\subsection[BeginEditCommand]{BeginEditCommand}
+\label{guigenBeginEditCommand}
+
+Dichiara l'inizio di una sessione di editing, effettuando un backup in memoriadegli  specificati.La copia di backup sar realizzata per valore e potr essere utilizzataper ripristinare il valore originario (funzione di  richiamatautilizzando .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{dataEdited}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Elenco dei dati oggetto dell'editing.\\ \hline
+\end{tabularx}
+\caption{References of the BeginEditCommand EClass}
+\label{guigenBeginEditCommandref}
+\end{table}
+\subsection[Breadcrumb]{Breadcrumb}
+\label{guigenBreadcrumb}
+
+Rappresenta il cosiddetto filo d'arianna, utilizzabile per mostrareall'utnete collegato il contesto applicativo in cui si trova (es.funzionalit corrente, livello di dettaglio, ...).E' un  collegabile ad di tipo array di stringhe che  utilizzato per mantenere l'elencodegli step del filo d'arianna. La costruzione degli step deve essereeffettuata tramite logica di business.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\subsection[Button]{Button}
+\label{guigenButton}
+
+Superclasse di tutti i pulsanti.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{CommandWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{image}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & PER FUTURE ESPANSIONI\\ \hline
+\end{tabularx}
+\caption{Attributes of the Button EClass}
+\label{guigenButtonattr}
+\end{table}
+\subsection[CPCommand]{CPCommand}
+\label{guigenCPCommand}
+
+Comando asosciato al Content Panel che viene eseguito a seconda di quantospecificato in .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{execute}
+ & 
+\textbf{T:} \texttt{CPCommandExecutionTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the CPCommand EClass}
+\label{guigenCPCommandattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{command}
+ & 
+\textbf{T:} \texttt{Command}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the CPCommand EClass}
+\label{guigenCPCommandref}
+\end{table}
+\subsection[CPCommandExecutionTypes]{CPCommandExecutionTypes}
+\label{guigenCPCommandExecutionTypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{ON\_INIT} & 0 &
+Il comando viene eseguito al primo ingresso nel content panel. Serve pertantoper l'inizializzazione del ContentPanel \\ \hline
+\texttt{ON\_ENTER} & 1 &
+Il comando viene eseguito ad ogni ingresso nel content panel (proveniente daun a differente schermata). Serve pertanto per quei casi in cui sianecessaria una inizializzazione del ContentPanel che non possa essere effettuatauna tantum, ma debba essere ripetuta ad ogni ingresso. \\ \hline
+\texttt{BEFORE\_EVENTS} & 2 &
+Il comando viene eseguito prima dell'esecuzione di ogni evento esplicito su uno deiwidget della schermata.  \\ \hline
+\texttt{AFTER\_EVENTS} & 3 &
+Il comando viene eseguito al termine dell'esecuzione di ogni evento esplicito su uno deiwidget della schermata (prima dell'eventuale cambio di schermata) \\ \hline
+\texttt{ON\_REFRESH} & 4 &
+Il comando viene eseguito ad ogni refresh della schermata; se il refresh scatenato da un evento su un widget, il comando viene eseguito prima dell'esecuzione ddell'evento.  \\ \hline
+\end{tabularx}
+\caption{Literals of the CPCommandExecutionTypes EEnum}
+\label{guigenCPCommandExecutionTypeslit}
+\end{table}
+\subsection[CPCommands]{CPCommands}
+\label{guigenCPCommands}
+
+Contenitore dei comandi associati al content panel (vengono eseguiti in differenti momenti a seconda del tipo di esecuzione del singolo comando)
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{commands}
+ & 
+\textbf{T:} \texttt{CPCommand}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & L'elenco dei comandi\\ \hline
+\end{tabularx}
+\caption{References of the CPCommands EClass}
+\label{guigenCPCommandsref}
+\end{table}
+\subsection[Calendar]{Calendar}
+\label{guigenCalendar}
+
+Campo di immissione per date, con strumento per la selezione della data(date picker).
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}
+\subsection[Captcha]{Captcha}
+\label{guigenCaptcha}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\subsection[CheckBox]{CheckBox}
+\label{guigenCheckBox}
+
+Vidget a due valori: on/off. Il tipo associato deve essere un Boolean
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}
+\subsection[ChkEditStatusCommand]{ChkEditStatusCommand}
+\label{guigenChkEditStatusCommand}
+
+Permette di verificare se, all'interno di una sessione di editing, vi sono statedelle variazioni al valore di uno o pi .Affinch il check sia veritiero è necessario che gli oggetto di verifica siano un sottoinsieme dell'insieme di indicati nel comando  che ha originatola sessione di editing (altrimenti non sar disponibile il valore originariocon il quale effettuare il check di modifica).A fronte dell'esito del check sarà possibile proseguire l'esecuzione con uno tra due comandi (referenziati nei due elementi di tipo ).Mediante l'attributo E'possibile specificare la logica di aggregazione del check relativamenteai vari  referenziati:
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{checkAggregation}
+ & 
+\textbf{T:} \texttt{LogicAggregationTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{OR}
+ & Tipo di aggregazione dei check sui dati. Possibilit:\\ \hline
+\end{tabularx}
+\caption{Attributes of the ChkEditStatusCommand EClass}
+\label{guigenChkEditStatusCommandattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{dataChecked}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Elenco dei dati oggetto della verifica. Devono essere un sottoinsieme dei dati referenziati nel corrispondente .\\ \hline
+\texttt{doIfChanged}
+ & 
+\textbf{T:} \texttt{CommandOutcome}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Specifica il branch di elaborazione da eseguire nel caso che i checkspecificati indichino che ci sono state delle modifiche.\\ \hline
+\texttt{doIfNotChanged}
+ & 
+\textbf{T:} \texttt{CommandOutcome}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Specifica il branch di elaborazione da eseguire nel caso che i checkspecificati indichino che  ci sono state delle modifiche.\\ \hline
+\end{tabularx}
+\caption{References of the ChkEditStatusCommand EClass}
+\label{guigenChkEditStatusCommandref}
+\end{table}
+\subsection[ClearAppdataCommand]{ClearAppdataCommand}
+\label{guigenClearAppdataCommand}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{appData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the ClearAppdataCommand EClass}
+\label{guigenClearAppdataCommandref}
+\end{table}
+\subsection[Column]{Column}
+\label{guigenColumn}
+
+Modello della singola colonna di una .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{activeFlagSelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Permette di stabilire a runtime se una cella della colonna (che deve esseredichiarata ) sarà effettivamente attiva (ovvero sarà "cliccabile").Rappresenta il selettore di un field del record di cui  costituitala collezione collegata alla tabella: questo field deve essere di tipo boolean.\\ \hline
+\texttt{customDecorator}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true abilita la definizione di un CustomDecorator, per impostazioni grafiche particolari da effettuarsi a livello della singola colonna.\\ \hline
+\texttt{customSortPropertySelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Opzionale. Permette di indicare un campo differente da utilizzare per l'ordinamento della colonna. Utile in caso di decorator o in queicasi in cui serva un ordinamento custom dei valori della colonna (esempio: ordinamento dei valori della colonna senza tener conto di articoli, etc..)\\ \hline
+\texttt{editable}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a  la colonna  editabile. Il widgetutilizzato per l'editing della colonna dipende dal tipo del field associatoalla colonna (tramite la property ):Inoltre, se sono impostate le property  o , che comportano la possibilitdi scegliere il valore da una lista di valori, sar utilizzata una\\ \hline
+\texttt{editableFlagSelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Permette di stabilire a runtime se una cella della colonna (che deve esseredichiarata editabile) sarà effettivamente editabile.Rappresenta il selettore di un field del record di cui  costituitala collezione collegata alla tabella: questo field deve essere di tipo boolean.\\ \hline
+\texttt{eventActive}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Indica che la colonna è cliccabile. Il click permette di scatenare l'evento CLICKEDsulla tabella. deve essere utilizzato in congiunzione con un event handlernella , altrimenti non ha nessun effetto.\\ \hline
+\texttt{fieldMaxLength}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & In caso di colonna editabile se specificato rappresenta il massimo numerodi caratteri digitabili. Se il valore specificato  zero il campo non ha limiti.\\ \hline
+\texttt{label}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Etichetta della testata della colonna\\ \hline
+\texttt{multidataKeySelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Utilizzato in congiunzione con  o .Seleziona il field da utilizzare come chiave-valore della combo.\\ \hline
+\texttt{multidataPropertySelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Permette di associare ad una colonna editabile la possibilitdi scegliere il valore della cella a partire da una collezione di coppiechiave/valore. Per specificare quale campo del record di cui  costituita questa collezione ausiliariautilizzare come chiave e come descrizione, occorre impostare le property e .L'insieme dei valori è differenziato riga per riga .Nel caso sia sufficiente uno stesso insieme di valori per tutte le righe utilizzare\\ \hline
+\texttt{multidataValueSelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Utilizzato in congiunzione con  o .Seleziona il field da utilizzare come label descrittiva nella combo.\\ \hline
+\texttt{selector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Seleziona il field del record di cui è costituita la collezione associata allatabella.\\ \hline
+\texttt{sortable}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostata a  la colonna è ordinabile cliccando sulla testata.\\ \hline
+\texttt{tooltip}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & tooltip associato all'header della colonna\\ \hline
+\end{tabularx}
+\caption{Attributes of the Column EClass}
+\label{guigenColumnattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{multiDataBinding}
+ & 
+\textbf{T:} \texttt{AppDataBinding}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Permette di associare ad una colonna editabile la possibilitdi scegliere il valore della cella a partire da una collezione di coppiechiave/valore. Per specificare quale campo del record di cui è costituita questa collezione ausiliariautilizzare come chiave e come descrizione, occorre impostare le property e .La collezione è la stessa per tutte le righe. Nel caso sia necessario differenziare l'insieme di valori a seconda della riga,utilizzare .\\ \hline
+\end{tabularx}
+\caption{References of the Column EClass}
+\label{guigenColumnref}
+\end{table}
+\subsection[ColumnModel]{ColumnModel}
+\label{guigenColumnModel}
+
+Modello delle colonne di una tabella (). Determina quali colonne vengono visualizzate, in che ordine e altre caratteristiche della tabella.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{valueSelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & seleziona il field del record di cui è composta la collezione collegataalla Table che deve essere utilizzato come valore di selezione.Utilizzato solo in congiunzione con un value-binding (quindi con possibilitàdi selezione).Es: se:Allora selezionando una riga della tabella l'application data di value-binding sarà impostato con il codice fiscale del record corrispondente.\\ \hline
+\end{tabularx}
+\caption{Attributes of the ColumnModel EClass}
+\label{guigenColumnModelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{columns}
+ & 
+\textbf{T:} \texttt{Column}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco (ordinato) delle colonne che devono essere visualizzate.\\ \hline
+\end{tabularx}
+\caption{References of the ColumnModel EClass}
+\label{guigenColumnModelref}
+\end{table}
+\subsection[ComboBox]{ComboBox}
+\label{guigenComboBox}
+
+MultiDataWidget che permette la selezione di uno o più valori all'interno di un elenco di possibili opzioni.Se il value-binding  impostato su un  di tipoSimple la combo sar a selezione singola; se il value-binding  impostato su un  di tipoTypedArray (con component type Simple) la combo sar a selezione multipla.Alla combo  possibile associare un event handler relativo all'eventoVALUE\_CHANGED, che viene scatenato nel momento un cui viene modificata la selezione.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}, 
+\texttt{MultiDataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{fieldLength}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{15}
+ & Dimensione in caratteri dell area visibile del campo.\\ \hline
+\texttt{keySelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & nome del campo che deve essere considerato come "key". Il campo devecorrispondere ad un field del complex type di cui è costituito l'arraycollegato alla combo (tramite multi-data-binding).\\ \hline
+\texttt{omitHeaderValue}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se impostato a true non viene inserita la entry relativa allo stato di selezione nulla.\\ \hline
+\texttt{valueSelector}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & nome del campo che deve essere utilizzato come descrizione visualizzata. Il campo devecorrispondere ad un field del complex type di cui è costituito l'arraycollegato alla combo (tramite multi-data-binding).\\ \hline
+\texttt{visibleLines}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & numero di linee visibili senza bisogno di utilizzare la scrollbar in caso di  a selezione . Se impostato a zero il numero di linee visualizzabili non  predicibile. Nel caso di selezione singola invecel'attributo non ha effetto.\\ \hline
+\end{tabularx}
+\caption{Attributes of the ComboBox EClass}
+\label{guigenComboBoxattr}
+\end{table}
+\subsection[Command]{Command}
+\label{guigenCommand}
+
+Classe astratta d acui discendono tutte le classi del framework di comandi.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\subsection[CommandEvent]{CommandEvent}
+\label{guigenCommandEvent}
+
+{TODO: add documentation here}
+ 
+\subsection[CommandFunctions]{CommandFunctions}
+\label{guigenCommandFunctions}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{UNSPECIFIED} & 0 &
+ \\ \hline
+\texttt{ADD\_ITEM} & 101 &
+ \\ \hline
+\texttt{EDIT\_ITEM} & 102 &
+ \\ \hline
+\texttt{DELETE\_ITEM} & 103 &
+ \\ \hline
+\texttt{SEARCH} & 104 &
+ \\ \hline
+\texttt{SAVE} & 105 &
+ \\ \hline
+\texttt{LOAD} & 106 &
+ \\ \hline
+\texttt{DETAIL} & 107 &
+ \\ \hline
+\texttt{LOOKUP} & 108 &
+ \\ \hline
+\texttt{NEXT\_ITEM} & 201 &
+ \\ \hline
+\texttt{PREVIOUS\_ITEM} & 202 &
+ \\ \hline
+\texttt{FIRST\_ITEM} & 203 &
+ \\ \hline
+\texttt{LAST\_ITEM} & 204 &
+ \\ \hline
+\texttt{CONFIRM} & 301 &
+ \\ \hline
+\texttt{CANCEL} & 302 &
+ \\ \hline
+\texttt{FORWARD} & 401 &
+ \\ \hline
+\texttt{BACK} & 402 &
+ \\ \hline
+\texttt{SHOW\_REPORT} & 501 &
+ \\ \hline
+\texttt{SHOW\_HELP} & 502 &
+ \\ \hline
+\texttt{SEND\_MESSAGE} & 503 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the CommandFunctions EEnum}
+\label{guigenCommandFunctionslit}
+\end{table}
+\subsection[CommandOnPanels]{CommandOnPanels}
+\label{guigenCommandOnPanels}
+
+Classe astratta da cui discendono i comandi che agiscono su un elenco di pannelli
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{targetPanels}
+ & 
+\textbf{T:} \texttt{Panel}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Ii pannelli su cui agisce il comando.\\ \hline
+\end{tabularx}
+\caption{References of the CommandOnPanels EClass}
+\label{guigenCommandOnPanelsref}
+\end{table}
+\subsection[CommandOnWidgets]{CommandOnWidgets}
+\label{guigenCommandOnWidgets}
+
+Classe astratta da cui discendono i comandi che agiscono su un elenco di widget,o di elementi di menu
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{targetMenuElement}
+ & 
+\textbf{T:} \texttt{Menu}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Gli elementi del menu su cui opera il comando.\\ \hline
+\texttt{targetWidgets}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [1..*]
+ & I widget su cui opera il comando.\\ \hline
+\end{tabularx}
+\caption{References of the CommandOnWidgets EClass}
+\label{guigenCommandOnWidgetsref}
+\end{table}
+\subsection[CommandOutcome]{CommandOutcome}
+\label{guigenCommandOutcome}
+
+Possibile esito di un .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{resultCode}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice identificativo dell'esito. Deve essere univoco all'interno del content panele deve essere un identificativo valido secondo java.\\ \hline
+\end{tabularx}
+\caption{Attributes of the CommandOutcome EClass}
+\label{guigenCommandOutcomeattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{command}
+ & 
+\textbf{T:} \texttt{Command}
+\newline
+\textbf{Cardinality:} [1..1]
+\newline
+\textbf{Containment}
+ & Il comando che viene eseguito nel caso in cui questo sia quello prescelto nella logica dell'.\\ \hline
+\end{tabularx}
+\caption{References of the CommandOutcome EClass}
+\label{guigenCommandOutcomeref}
+\end{table}
+\subsection[CommandPanel]{CommandPanel}
+\label{guigenCommandPanel}
+
+Pannello destinato a contenere esclusivamente widget di comando (es. pulsanti).
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{cmdStyle}
+ & 
+\textbf{T:} \texttt{CommandStyles}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Permette di differenziare stilisticamente (ove previsto dai pattern di portale)tra pulsanti ad uso "funzionale" e pulsanti ad uso "navigazione".\\ \hline
+\end{tabularx}
+\caption{Attributes of the CommandPanel EClass}
+\label{guigenCommandPanelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{widgets}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Ristretto a commandWidgets.\\ \hline
+\end{tabularx}
+\caption{References of the CommandPanel EClass}
+\label{guigenCommandPanelref}
+\end{table}
+\subsection[CommandStyles]{CommandStyles}
+\label{guigenCommandStyles}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{FUNCTIONAL} & 0 &
+ \\ \hline
+\texttt{NAVIGATION} & 1 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the CommandStyles EEnum}
+\label{guigenCommandStyleslit}
+\end{table}
+\subsection[CommandWidget]{CommandWidget}
+\label{guigenCommandWidget}
+
+Classe astratta di widget con funzione di comando (es pulsanti)
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{functionSpecifier}
+ & 
+\textbf{T:} \texttt{CommandFunctions}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{0}
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the CommandWidget EClass}
+\label{guigenCommandWidgetattr}
+\end{table}
+\subsection[ComplexType]{ComplexType}
+\label{guigenComplexType}
+
+Struttura dati definita da utente. Nel caso di questa sottoclasse di  l'attributo deve essere un identificativo valido per java.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Type}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{initFields}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se impostato a true, i field di tipo complex sono inizializzati(con struttura vuota al momento dell'istaziazione di oggetti di questo tipo).Es. Se un tipo "Persona" contiene un field "residenza" di tipo "Indirizzo" e  impostato a true, allora il field "residenza" viene impostato conun'oggetto di tipo "Indirizzo".\\ \hline
+\end{tabularx}
+\caption{Attributes of the ComplexType EClass}
+\label{guigenComplexTypeattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{extends}
+ & 
+\textbf{T:} \texttt{ComplexType}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{fields}
+ & 
+\textbf{T:} \texttt{Field}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Insieme dei campi di cui  costituita la struttura dati.\\ \hline
+\texttt{typeAnnotation}
+ & 
+\textbf{T:} \texttt{TypeAnnotation}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the ComplexType EClass}
+\label{guigenComplexTyperef}
+\end{table}
+\begin{table}[H]
+\small
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Operations}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{getAllFields}
+ & 
+\textbf{T:} \texttt{Field}
+\newline
+\textbf{Cardinality:} [0..*]
+%\newline
+%\textbf{Returns:}
+%Field[0..*]
+ & \\ \hline
+\end{tabularx}
+\caption{Operations of the ComplexType EClass}
+\label{guigenComplexTypeop}
+\end{table}
+\subsection[ConfirmButton]{ConfirmButton}
+\label{guigenConfirmButton}
+
+Pulsante utilizzabile per l'esecuzione di azioni (salvataggio, ricerca, .....).E' possibile associare un evneto di tipo CLICKED a questo widget.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Button}
+\subsection[ContentPanel]{ContentPanel}
+\label{guigenContentPanel}
+
+Il  rappresenta la singola schermatadell'applicativo. Pu contenere pannelli strutturati con differentitipi di layout.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome identificativo del content panel. Deve essee univoco all'interno dell'applicazione.Deve essere un identificatore valido nello stile Java.\\ \hline
+\end{tabularx}
+\caption{Attributes of the ContentPanel EClass}
+\label{guigenContentPanelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{appData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Elenco degli  utilizzabili per i binding di dati. Deprecato: definire gli  in uno o pi , mantenuti in file separati.\\ \hline
+\texttt{cpCommands}
+ & 
+\textbf{T:} \texttt{CPCommands}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Contenitore dei comandi associati al content panel (vengono eseguiti in differenti momenti a seconda del tipo di esecuzione del singolo comando)\\ \hline
+\texttt{defaultState}
+ & 
+\textbf{T:} \texttt{ScreenState}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Stato di attivazione del ContentPanel di default.\\ \hline
+\texttt{dialogs}
+ & 
+\textbf{T:} \texttt{DialogPanel}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco dei  di feedback associati al content panel.Devono essere attivati mediante il comando .\\ \hline
+\texttt{onRefreshCommand}
+ & 
+\textbf{T:} \texttt{Command}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Comando che viene eseguito ad ogni refresh della pagina, sia che sia conseguente all'invocazione di un event handler, sia che si tratti di unpuro refresh o della visualizzazione iniziale.Nel caso sia conseguente all'invocazione di un questo comando viene eseguito  del comando associato.\\ \hline
+\texttt{panels}
+ & 
+\textbf{T:} \texttt{Panel}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Il pannello principale inserito nel content Panel.\\ \hline
+\texttt{states}
+ & 
+\textbf{T:} \texttt{ScreenStates}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Stati di attivazione del ContentPanel\\ \hline
+\end{tabularx}
+\caption{References of the ContentPanel EClass}
+\label{guigenContentPanelref}
+\end{table}
+\subsection[CustomAuthentication]{CustomAuthentication}
+\label{guigenCustomAuthentication}
+
+Meccanismo di autenticazione custom
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{AutenticationMethod}
+\subsection[CustomCartridge]{CustomCartridge}
+\label{guigenCustomCartridge}
+
+Cartuccia custom da utilizzare per la  in un .La definizione di una   considerata una feature avanzata.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{crtID}
+ & 
+\textbf{T:} \texttt{CustomCartridgeID}
+\newline
+\textbf{Cardinality:} [0..1]
+ & id della cartuccia\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome mnemonico della cartuccia.\\ \hline
+\end{tabularx}
+\caption{Attributes of the CustomCartridge EClass}
+\label{guigenCustomCartridgeattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{templates}
+ & 
+\textbf{T:} \texttt{CustomTemplate}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Template messi a disposizione dalla cartuccia.\\ \hline
+\end{tabularx}
+\caption{References of the CustomCartridge EClass}
+\label{guigenCustomCartridgeref}
+\end{table}
+\subsection[CustomCartridgeID]{CustomCartridgeID}
+\label{guigenCustomCartridgeID}
+
+Elenco dei codici che possono essere utilizzati per classificare le cartucce.
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{PLATF\_1} & 101 &
+ \\ \hline
+\texttt{PLATF\_2} & 102 &
+ \\ \hline
+\texttt{PLATF\_3} & 103 &
+ \\ \hline
+\texttt{PLATF\_4} & 104 &
+ \\ \hline
+\texttt{PLATF\_5} & 105 &
+ \\ \hline
+\texttt{CUSTOM\_1} & 201 &
+ \\ \hline
+\texttt{CUSTOM\_2} & 202 &
+ \\ \hline
+\texttt{CUSTOM\_3} & 203 &
+ \\ \hline
+\texttt{TECH\_1} & 301 &
+ \\ \hline
+\texttt{TECH\_2} & 302 &
+ \\ \hline
+\texttt{TECH\_3} & 303 &
+ \\ \hline
+\texttt{TECH\_4} & 304 &
+ \\ \hline
+\texttt{TECH\_5} & 305 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the CustomCartridgeID EEnum}
+\label{guigenCustomCartridgeIDlit}
+\end{table}
+\subsection[CustomCommand]{CustomCommand}
+\label{guigenCustomCommand}
+
+{TODO: add documentation here}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\subsection[CustomSecurityConstraint]{CustomSecurityConstraint}
+\label{guigenCustomSecurityConstraint}
+
+Security constraint a logica custom
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{UISecurityConstraint}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{methodNameSuffix}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & suffisso del nome del metodo nel quale dovr essere codificata la logica del constraint.\\ \hline
+\end{tabularx}
+\caption{Attributes of the CustomSecurityConstraint EClass}
+\label{guigenCustomSecurityConstraintattr}
+\end{table}
+\subsection[CustomTemplate]{CustomTemplate}
+\label{guigenCustomTemplate}
+
+Un template custom da utilizzarsi per la generazione  del codice a fronte di un . 
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & nome del template\\ \hline
+\texttt{tplID}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & ID mnemonico del template. Il valore di questo attributo sar a disposizione del codiuce che implementa il template , e dovrà essere utilizzato per instradare la logica di generazione verso il template corretto.\\ \hline
+\end{tabularx}
+\caption{Attributes of the CustomTemplate EClass}
+\label{guigenCustomTemplateattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{modelSlots}
+ & 
+\textbf{T:} \texttt{ModelSlotDef}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Dichiarazione degli  (opzionali) destinati a contenere eventuali modelli ausiliarii.\\ \hline
+\end{tabularx}
+\caption{References of the CustomTemplate EClass}
+\label{guigenCustomTemplateref}
+\end{table}
+\subsection[DataLifetimeType]{DataLifetimeType}
+\label{guigenDataLifetimeType}
+
+Possibili modi di persistenza dell'application data.
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{USER\_ACTION} & 0 &
+Il valore  disponibile solo fino al termine dell'azione utente corrente. \\ \hline
+\texttt{USER\_SESSION} & 1 &
+Il valore  disponibile per tutta la durata della sessioen utente, a meno che non venga esplicitamente rimosso. \\ \hline
+\texttt{SAME\_PAGE} & 2 &
+Il valore  disponibile finch il flusso non passa a dun content panel differente, tramite un . \\ \hline
+\end{tabularx}
+\caption{Literals of the DataLifetimeType EEnum}
+\label{guigenDataLifetimeTypelit}
+\end{table}
+\subsection[DataWidget]{DataWidget}
+\label{guigenDataWidget}
+
+Classe astratta dalla quale discendono tutte le classi che rappresentanowidget associabili a dati (). Un ha un concetto di  del widget che rappresenta l'input inserito.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{dataTypeModifier}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & {TODO: add documentation here}\\ \hline
+\texttt{required}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Configurazione di validazione che indica che il valore associato al widget è obbligatorio. Utilizzato solo nel caso di binding ad un application data non strutturato.Nel caso di binding con un field di un application data di tipo strutturato, l'eventuale constraint di obbligatoriet deve essere impostato nel .\\ \hline
+\end{tabularx}
+\caption{Attributes of the DataWidget EClass}
+\label{guigenDataWidgetattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{dataType}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Tipo del valore atteso. Deve essere un  e deve corrispondenre con il tipo delbinding eventualmente associato.Se non viene associato nessun binding, esiste comunque un binding implicitoa scope USER\_ACTION (sconsigliato).\\ \hline
+\texttt{databinding}
+ & 
+\textbf{T:} \texttt{AppDataBinding}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Il binding verso l'  nel quale deve essere inseritoil valore immesso dall'utente tramite il widget.\\ \hline
+\end{tabularx}
+\caption{References of the DataWidget EClass}
+\label{guigenDataWidgetref}
+\end{table}
+\subsection[DeclarativeUIConstraint]{DeclarativeUIConstraint}
+\label{guigenDeclarativeUIConstraint}
+
+UI constraint basato sull'esecuzione di uno script durante la fase direndering dell'elemento di UI.Lo script deve essere codificato come espressione booleana nel linguaggiodefinito dalla property "language". All'interno dell'espressione possono essere utilizzati tutti i campi che sono disponibili nel model della schermata
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{UISecurityConstraint}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{language}
+ & 
+\textbf{T:} \texttt{InlineScriptingLanguage}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{beanshell}
+ & Il linguaggio in cui deve essere scritta l'espressione del constraint\\ \hline
+\texttt{script}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Lo script del constraint. deve essere una espressione booleana. Puutilizzare tutte le properties disponibili nel model del ContentPanel e deve avere unvalore booleano.\\ \hline
+\end{tabularx}
+\caption{Attributes of the DeclarativeUIConstraint EClass}
+\label{guigenDeclarativeUIConstraintattr}
+\end{table}
+\subsection[DialogPanel]{DialogPanel}
+\label{guigenDialogPanel}
+
+Pagina utilizzabile per messaggi di feedback/conferme etc.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{commands}
+ & 
+\textbf{T:} \texttt{CommandPanel}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & I pulsanti associati al dialog.\\ \hline
+\texttt{msgBoxes}
+ & 
+\textbf{T:} \texttt{MsgBoxPanel}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & I messaggi di feedback da visualizzare devono essere inseriti in uno o più.\\ \hline
+\end{tabularx}
+\caption{References of the DialogPanel EClass}
+\label{guigenDialogPanelref}
+\end{table}
+\subsection[DisabledComponentSet]{DisabledComponentSet}
+\label{guigenDisabledComponentSet}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\subsection[EndEditCommand]{EndEditCommand}
+\label{guigenEndEditCommand}
+
+Permette di terminare una sessione di editing su un certo insieme di ,con la possibilità di effettuare un  sui dati specificati.Utilizzato in congiunzione con . Nota: data la struttura dei due comandi di inizio e fine della sessione diediting  possibile effettuare l' di una parte degliapplication data specificati nel comando di inizio editing (specificandonel  solo una parte degli application dataprecedentemente specificati nel .Si consiglia, in questi casi, di terminare correttamente la sessione di editing per  gli application data per evitar eche rimangano in memoria dati di backup obsoleti.Per far ci  sufficiente utilizzare due volte il comando: la prima volta con  impostato atrue (e specificando solo i dati di cui si vuole effettuare l'undo) euna seconda volta con  impostato a false, specificando i restanti dati.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{undo}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true viene ripristinato il valore originario di tutti gli indicati.\\ \hline
+\end{tabularx}
+\caption{Attributes of the EndEditCommand EClass}
+\label{guigenEndEditCommandattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{dataEdited}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Elenco dei dati oggetto dell'editing.\\ \hline
+\end{tabularx}
+\caption{References of the EndEditCommand EClass}
+\label{guigenEndEditCommandref}
+\end{table}
+\subsection[EnvConfigParam]{EnvConfigParam}
+\label{guigenEnvConfigParam}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the EnvConfigParam EClass}
+\label{guigenEnvConfigParamattr}
+\end{table}
+\subsection[EnvConfigParams]{EnvConfigParams}
+\label{guigenEnvConfigParams}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{params}
+ & 
+\textbf{T:} \texttt{EnvConfigParam}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the EnvConfigParams EClass}
+\label{guigenEnvConfigParamsref}
+\end{table}
+\subsection[EventHandler]{EventHandler}
+\label{guigenEventHandler}
+
+Gestore di un evento di User Interaction.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{eventSpecifiers}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Permette di specificare ulteriormente la gestione dell'evento. E' possibile inserire 0, 1 o molti specificatori:\\ \hline
+\texttt{eventType}
+ & 
+\textbf{T:} \texttt{EventTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Specifica il tipo di evento per cui  definito questo event handler.\\ \hline
+\texttt{methodProtection}
+ & 
+\textbf{T:} \texttt{MethodProtectionTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{REJECT\_SAME}
+ & Permette di proteggere l'esecuzione del metodo associato all'da effetti indesiderati derivanti dal'eventuale esecuzione contemporanea di altri metodi.Le possibili protezioni sono:\\ \hline
+\texttt{skipValidation}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true non saranno eseguite le logiche automatiche di conversione/validazionea fronte dell'occorrenza dell'evento specificato.Serve per gestire casi in cui la non conformit dei dati immessi non importante, anzi deve essere ignorata (es. il tasto "indietro" o "annulla").\\ \hline
+\end{tabularx}
+\caption{Attributes of the EventHandler EClass}
+\label{guigenEventHandlerattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{command}
+ & 
+\textbf{T:} \texttt{Command}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & A fronte dell'evento specificato in  sar eseguitoil comando specificato in questo elemento.\\ \hline
+\end{tabularx}
+\caption{References of the EventHandler EClass}
+\label{guigenEventHandlerref}
+\end{table}
+\subsection[EventTypes]{EventTypes}
+\label{guigenEventTypes}
+
+tipologie di eventi a cui  possibile associare un event handler.
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{CLICKED} & 0 &
+Evento di click su un controllo. Esempi: \\ \hline
+\texttt{VALUE\_CHANGED} & 1 &
+Evento che modifica il vlaore di un controllo. Esempi: \\ \hline
+\texttt{FOCUS\_GAINED} & 2 &
+Rappresenta l'acquisizione del focus d aparte di un controllo.PER FUTURE EVOLUZIONI. \\ \hline
+\texttt{FOCUS\_LOST} & 3 &
+Rappresenta la perdita del focus d aparte di un controllo.PER FUTURE EVOLUZIONI. \\ \hline
+\texttt{KEY\_PRESSED} & 4 &
+ \\ \hline
+\texttt{NODE\_EXPANDED} & 5 &
+Rappresenta l'evento di apertura di un nodo in un Tree (applicabile solo a) \\ \hline
+\texttt{EDIT\_COMMITTED} & 5 &
+Rappresenta l'evento di conferma di un'attivit di editing complesso.Valido solo per : serve per recepire le modifiche effettuatesulla mappa. \\ \hline
+\end{tabularx}
+\caption{Literals of the EventTypes EEnum}
+\label{guigenEventTypeslit}
+\end{table}
+\subsection[ExecCommand]{ExecCommand}
+\label{guigenExecCommand}
+
+Permette di eseguire logica custom all'intenro di una catena di comandi.Al metodo specificato in  sar passata una strutturadati contenente:Nel metodo il programmatore potr eseguire qualsiasi tipo di logica ed in particolare:Al termine dell'esecuzione del metodo il flusso proseguir con il comandoinserito nel  specificato al termine della logica.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{methodName}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome del metodo nel quale sarà contenuta la logica effettiva.L'implementazione dipende dalla particolare cartuccia di generazione.Nel caso della cartuccia "struts2" verr generato un metodo nellostrato spring, contenente una regione protetta nel quale il programamtoredovr inserire la logica effettiva.\\ \hline
+\end{tabularx}
+\caption{Attributes of the ExecCommand EClass}
+\label{guigenExecCommandattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{customTemplate}
+ & 
+\textbf{T:} \texttt{CustomTemplate}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{extraModels}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEObject}}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Eventuali modelli (porzioni di modello) aggiuntivi utilizzabili dalle varie cartuccedi generazione 100% (es. modello del mapping RDB, ... modello di unainterfaccia di servizio, ...): Questa opzione  da considerarsi una possibilit  da utilizzarsi con cautela.\\ \hline
+\texttt{inlineCodeSnippets}
+ & 
+\textbf{T:} \texttt{InlineCodeSnippet}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{postExecData}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Occorre dichiarare preventivamente gli application data che saranno modificati nella logica applicativa.\\ \hline
+\texttt{results}
+ & 
+\textbf{T:} \texttt{CommandOutcome}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & L'elenco delle possibili prosecuzioni a fronte dell'esecuzione del comando.\\ \hline
+\end{tabularx}
+\caption{References of the ExecCommand EClass}
+\label{guigenExecCommandref}
+\end{table}
+\subsection[ExternalAuthenticationGuard]{ExternalAuthenticationGuard}
+\label{guigenExternalAuthenticationGuard}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\subsection[ExtraColumn]{ExtraColumn}
+\label{guigenExtraColumn}
+
+Tipo specifico di 
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Column}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{insertAfter}
+ & 
+\textbf{T:} \texttt{Column}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Indica in che posizione deve essere aggiunta la nuova colonna:\\ \hline
+\end{tabularx}
+\caption{References of the ExtraColumn EClass}
+\label{guigenExtraColumnref}
+\end{table}
+\subsection[Field]{Field}
+\label{guigenField}
+
+Il campo di un .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{dataTypeModifier}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Tutti i controlli modellabili mediante l'attributo dataTypeModifier del widget devono avere formato{validatore}:{regole}.Per i dettagli circa i possibili vlaidatori utilizzabili si rimanda al seguente\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & nome del campo. deve essere un identificativo valido per Java.\\ \hline
+\texttt{required}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true il campo sarà considerato obbligatorio.\\ \hline
+\end{tabularx}
+\caption{Attributes of the Field EClass}
+\label{guigenFieldattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{annotations}
+ & 
+\textbf{T:} \texttt{Annotation}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{type}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..1]
+ & tipo del campo.\\ \hline
+\end{tabularx}
+\caption{References of the Field EClass}
+\label{guigenFieldref}
+\end{table}
+\subsection[FileUpload]{FileUpload}
+\label{guigenFileUpload}
+
+Widget per la selezione e l'upload di un file
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{multiple}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & se  = , sar possibile selezionare pi di un file. Il valore di default : \\ \hline
+\end{tabularx}
+\caption{Attributes of the FileUpload EClass}
+\label{guigenFileUploadattr}
+\end{table}
+\subsection[Footer]{Footer}
+\label{guigenFooter}
+
+Footer dell'applicativo (comune a tutti i )
+ 
+\subsection[FormPanel]{FormPanel}
+\label{guigenFormPanel}
+
+Pannello destinato a contenere sottopannelli. Serve principlamente per definirela struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)sono disponibili pe rtutte le cartucce di layout/portale.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{collapsible}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se  il pannello  collassabile.\\ \hline
+\end{tabularx}
+\caption{Attributes of the FormPanel EClass}
+\label{guigenFormPanelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{subpanels}
+ & 
+\textbf{T:} \texttt{Panel}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Un  contiene uno o più sottopannelli organizzati in vari tipi di layout. La disposizione effettiva dei sottopannelli all'interno del dipende da:\\ \hline
+\texttt{widgets}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & OBSOLETO: NON UTILIZZARE: utilizzare un  o un interni al  ed inserire lì iwidget.\\ \hline
+\end{tabularx}
+\caption{References of the FormPanel EClass}
+\label{guigenFormPanelref}
+\end{table}
+\subsection[GUIBehaviors]{GUIBehaviors}
+\label{guigenGUIBehaviors}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\subsection[GUIModel]{GUIModel}
+\label{guigenGUIModel}
+
+Modello di un'applicazione
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{codComponente}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice componente (caratteri minuscoli)\\ \hline
+\texttt{codProdotto}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice prodotto (caratteri minuscoli)\\ \hline
+\texttt{portale}
+ & 
+\textbf{T:} \texttt{PortalNames}
+\newline
+\textbf{Cardinality:} [0..1]
+ & OBSOLETE. Il poretale/cartuccia di layout èeve essere impostata nel workflow di generazione.\\ \hline
+\texttt{versioneComponente}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & versione del componente\\ \hline
+\texttt{versioneProdotto}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & versione del prodotto\\ \hline
+\end{tabularx}
+\caption{Attributes of the GUIModel EClass}
+\label{guigenGUIModelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{activationModel}
+ & 
+\textbf{T:} \texttt{ActivationModel}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Configurazione delle (eventuali) specifiche di attivazione dell'applicazione.\\ \hline
+\texttt{appDataDefs}
+ & 
+\textbf{T:} \texttt{ApplicationDataDefs}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Definizione degli application data utilizzati nell'applicazione\\ \hline
+\texttt{beahviors}
+ & 
+\textbf{T:} \texttt{GUIBehaviors}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & {TODO: add documentation here}\\ \hline
+\texttt{extSecurityModel}
+ & 
+\textbf{T:} \texttt{SecurityModel}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Modello di sicurezza dell'applicazione.Deve essere definito esternamente in un modello apposito.\\ \hline
+\texttt{securityModel}
+ & 
+\textbf{T:} \texttt{SecurityModel}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Modello di sicurezza dell'applicazione.DEPRECATO: utilizzare un securitymodel definito esternamente e referenziatonella property extSecurityModel\\ \hline
+\texttt{structure}
+ & 
+\textbf{T:} \texttt{GUIStructure}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Struttura della user interface\\ \hline
+\texttt{targetPlatform}
+ & 
+\textbf{T:} \texttt{TargetPlatform}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Serve per generare un pacchetto deployabile su un application server piuttosto che per un altro.\\ \hline
+\texttt{typedefs}
+ & 
+\textbf{T:} \texttt{Typedefs}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Tipi utilizzati nell'applicazione.\\ \hline
+\end{tabularx}
+\caption{References of the GUIModel EClass}
+\label{guigenGUIModelref}
+\end{table}
+\subsection[GUIStructure]{GUIStructure}
+\label{guigenGUIStructure}
+
+Struttura della user interface
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{appWindow}
+ & 
+\textbf{T:} \texttt{AppWindow}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & porzione di schermata dipendente dall'applicazione\\ \hline
+\end{tabularx}
+\caption{References of the GUIStructure EClass}
+\label{guigenGUIStructureref}
+\end{table}
+\subsection[GridPanelLayout]{GridPanelLayout}
+\label{guigenGridPanelLayout}
+
+Layout a griglia.I widget vengono inseriti in una griglia delle dimensioni specificate da  e .Ogni cella contiene un widget e la corrispondente label, se specificata.Per specificare la posizione nella griglia di un widget occorre utilizzare il  per ogni widget contenuto nel pannello che ha questo layout.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PanelLayout}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{columns}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Dimensione orizzontale della griglia\\ \hline
+\texttt{rows}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Dimensione verticale della griglia.\\ \hline
+\end{tabularx}
+\caption{Attributes of the GridPanelLayout EClass}
+\label{guigenGridPanelLayoutattr}
+\end{table}
+\subsection[GridWidgetLayoutSpec]{GridWidgetLayoutSpec}
+\label{guigenGridWidgetLayoutSpec}
+
+Specifica di posizionamento di widget in un layout a griglia
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{WidgetLayoutSpecifier}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{column}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Colonna in cui deve essere posizionato il Widget (prima colonna = 1)\\ \hline
+\texttt{hspan}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Numero di colonne di occupazione del widget. Se non specificato si assume l'occupazione di una colonna.Il widget occuper le colonne da  a  comprese.\\ \hline
+\texttt{row}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Riga in cui deve essere posizionato il Widget (prima riga = 1)\\ \hline
+\texttt{vspan}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Numero di righe di occupazione del widget. Se non specificato si assume l'occupazione di una riga.Il widget occuper le righe da  a  comprese.\\ \hline
+\end{tabularx}
+\caption{Attributes of the GridWidgetLayoutSpec EClass}
+\label{guigenGridWidgetLayoutSpecattr}
+\end{table}
+\subsection[Header]{Header}
+\label{guigenHeader}
+
+Header dell'applicazione. comune a tutti i 
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{codApplicativo}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice dell'applicativo come codificato nel portale\\ \hline
+\texttt{codCanale}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice del canale all'interno del portale.\\ \hline
+\texttt{linkCanale}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Link della home page del canale tematico\\ \hline
+\texttt{nomeApplicativo}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome descrittivo dell'applicativo\\ \hline
+\texttt{nomeCanale}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & nome descrittivo del canale tematico.\\ \hline
+\texttt{title}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the Header EClass}
+\label{guigenHeaderattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{metaAttributes}
+ & 
+\textbf{T:} \texttt{HeaderMetaAttr}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the Header EClass}
+\label{guigenHeaderref}
+\end{table}
+\subsection[HeaderMetaAttr]{HeaderMetaAttr}
+\label{guigenHeaderMetaAttr}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{useHttpEquiv}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & \\ \hline
+\texttt{value}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the HeaderMetaAttr EClass}
+\label{guigenHeaderMetaAttrattr}
+\end{table}
+\subsection[HiddenValue]{HiddenValue}
+\label{guigenHiddenValue}
+
+widget senza rendering
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}
+\subsection[HorizontalFlowPanelLayout]{HorizontalFlowPanelLayout}
+\label{guigenHorizontalFlowPanelLayout}
+
+Gli elementi sono posizionati l'uno a fianco all'altro, da sinistra a destra.Non è necessario nessun specificatore per i singoli elementi
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PanelLayout}
+\subsection[IdentityAdapter]{IdentityAdapter}
+\label{guigenIdentityAdapter}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{infoSourceName}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{sourceType}
+ & 
+\textbf{T:} \texttt{InfoSourceTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{ticketVerifyMethod}
+ & 
+\textbf{T:} \texttt{TicketVerifyMethod}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{LOCAL}
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the IdentityAdapter EClass}
+\label{guigenIdentityAdapterattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{inlineCodeSnippets}
+ & 
+\textbf{T:} \texttt{InlineCodeSnippet}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{params}
+ & 
+\textbf{T:} \texttt{EnvConfigParams}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the IdentityAdapter EClass}
+\label{guigenIdentityAdapterref}
+\end{table}
+\subsection[Image]{Image}
+\label{guigenImage}
+
+Utilizzato per la visualizzazione di immagini statiche all'interno della struttura UI.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{image}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il percorso dell'immagine. Il valore può variare a seconda della cartuccia digenerazione. Nel caso della cartuccia  il valore è inserito as-isnel tag .\\ \hline
+\end{tabularx}
+\caption{Attributes of the Image EClass}
+\label{guigenImageattr}
+\end{table}
+\subsection[InfoSourceTypes]{InfoSourceTypes}
+\label{guigenInfoSourceTypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{REQUEST\_PARAM} & 1 &
+ \\ \hline
+\texttt{REQUEST\_HEADER} & 2 &
+ \\ \hline
+\texttt{REQUEST\_COOKIE} & 3 &
+ \\ \hline
+\texttt{SESSION\_ATTRIBUTE} & 5 &
+ \\ \hline
+\texttt{REQUEST\_ATTRIBUTE} & 4 &
+ \\ \hline
+\texttt{REQUEST\_URL} & 6 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the InfoSourceTypes EEnum}
+\label{guigenInfoSourceTypeslit}
+\end{table}
+\subsection[InlineCodeSnippet]{InlineCodeSnippet}
+\label{guigenInlineCodeSnippet}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{lang}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{snippetCode}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{snippetName}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{snippetPosition}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the InlineCodeSnippet EClass}
+\label{guigenInlineCodeSnippetattr}
+\end{table}
+\subsection[InlineScriptingLanguage]{InlineScriptingLanguage}
+\label{guigenInlineScriptingLanguage}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{beanshell} & 0 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the InlineScriptingLanguage EEnum}
+\label{guigenInlineScriptingLanguagelit}
+\end{table}
+\subsection[InternalAuthenticationGuard]{InternalAuthenticationGuard}
+\label{guigenInternalAuthenticationGuard}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{loginModule}
+ & 
+\textbf{T:} \texttt{LoginModule}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{params}
+ & 
+\textbf{T:} \texttt{EnvConfigParams}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the InternalAuthenticationGuard EClass}
+\label{guigenInternalAuthenticationGuardref}
+\end{table}
+\subsection[JumpBackCommand]{JumpBackCommand}
+\label{guigenJumpBackCommand}
+
+Permette di ritornare alla schemata precedente. Da utilizzarsi in congiunzione con  e .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\subsection[JumpCommand]{JumpCommand}
+\label{guigenJumpCommand}
+
+Permette di passare alla visualizzazione di un differente.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{pushCurrentPage}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Salva in uno stack la pagina corrente prima di effettuare il salto.Da utilizzarsi in congiunzione con .\\ \hline
+\end{tabularx}
+\caption{Attributes of the JumpCommand EClass}
+\label{guigenJumpCommandattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{jumpTo}
+ & 
+\textbf{T:} \texttt{ContentPanel}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il  a cui saltare.\\ \hline
+\end{tabularx}
+\caption{References of the JumpCommand EClass}
+\label{guigenJumpCommandref}
+\end{table}
+\subsection[JumpExtCommand]{JumpExtCommand}
+\label{guigenJumpExtCommand}
+
+Permette di far passare il flusso di esecuzione ad una pagina esterna all'applicativo.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{binaryStream}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & \\ \hline
+\texttt{locationCode}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo della locazione. A solo scopo menmonico. deve essere univoco all'interno del .\\ \hline
+\texttt{staticUrl}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se specificato l'effetto del comando sarà la redirezione del flusso applicativo all'url specificato.\\ \hline
+\end{tabularx}
+\caption{Attributes of the JumpExtCommand EClass}
+\label{guigenJumpExtCommandattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{runtimeUrlProvider}
+ & 
+\textbf{T:} \texttt{ApplicationData}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se specificato il flusso applicativo verr rediretto all'url fornito dinamicamente (a runtime) dall'application data specificato.\\ \hline
+\end{tabularx}
+\caption{References of the JumpExtCommand EClass}
+\label{guigenJumpExtCommandref}
+\end{table}
+\subsection[LogicAggregationTypes]{LogicAggregationTypes}
+\label{guigenLogicAggregationTypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{OR} & 1 &
+ \\ \hline
+\texttt{AND} & 2 &
+ \\ \hline
+\texttt{XOR} & 3 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the LogicAggregationTypes EEnum}
+\label{guigenLogicAggregationTypeslit}
+\end{table}
+\subsection[LoginModule]{LoginModule}
+\label{guigenLoginModule}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{internal}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the LoginModule EClass}
+\label{guigenLoginModuleattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{loginUI}
+ & 
+\textbf{T:} \texttt{LoginUI}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the LoginModule EClass}
+\label{guigenLoginModuleref}
+\end{table}
+\subsection[LoginUI]{LoginUI}
+\label{guigenLoginUI}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{uiType}
+ & 
+\textbf{T:} \texttt{LoginUITypes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the LoginUI EClass}
+\label{guigenLoginUIattr}
+\end{table}
+\subsection[LoginUITypes]{LoginUITypes}
+\label{guigenLoginUITypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{USERNAME\_PASSWORD} & 1 &
+ \\ \hline
+\texttt{USERNAME\_PASSWORD\_PIN} & 2 &
+ \\ \hline
+\texttt{CUSTOM} & 4 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the LoginUITypes EEnum}
+\label{guigenLoginUITypeslit}
+\end{table}
+\subsection[LogoutActionTypes]{LogoutActionTypes}
+\label{guigenLogoutActionTypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{LOCAL\_LOGOUT} & 0 &
+ \\ \hline
+\texttt{SSO\_LOGOUT} & 1 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the LogoutActionTypes EEnum}
+\label{guigenLogoutActionTypeslit}
+\end{table}
+\subsection[MapEnvelope]{MapEnvelope}
+\label{guigenMapEnvelope}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{northEast}
+ & 
+\textbf{T:} \texttt{Point}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{southWest}
+ & 
+\textbf{T:} \texttt{Point}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the MapEnvelope EClass}
+\label{guigenMapEnveloperef}
+\end{table}
+\subsection[MapView]{MapView}
+\label{guigenMapView}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}, 
+\texttt{MultiDataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{mapId}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{noClickWhenDisabled}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{true}
+ & Se impostato a  quando il widget  disabilitato viene disabilitatoanche un eventuale possibilit di scatenare un evento di sulla mappa\\ \hline
+\texttt{noEditWhenDisabled}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{true}
+ & Se impostato a  quando il widget  disabilitato viene disabilitatoanche un eventuale possibilit di effettuare editing di geometriesulla mappa\\ \hline
+\texttt{noPanWhenDisabled}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se impostato a  quando il widget  disabilitato viene disabilitatala funzione di  a comando utente (in tutte le sue modalit)\\ \hline
+\texttt{noZoomWhenDisabled}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se impostato a  quando il widget  disabilitato viene disabilitatala funzione di  a comando utente (in tutte le sue modalit)\\ \hline
+\texttt{numLevels}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the MapView EClass}
+\label{guigenMapViewattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{editDataBinding}
+ & 
+\textbf{T:} \texttt{AppDataBinding}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{gadgets}
+ & 
+\textbf{T:} \texttt{MapViewGadgets}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{maxEnvelopeSpec}
+ & 
+\textbf{T:} \texttt{MapEnvelope}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{scaleEnvelopeSpec}
+ & 
+\textbf{T:} \texttt{MapEnvelope}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{startEnvelopeSpec}
+ & 
+\textbf{T:} \texttt{MapEnvelope}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the MapView EClass}
+\label{guigenMapViewref}
+\end{table}
+\subsection[MapViewGadgets]{MapViewGadgets}
+\label{guigenMapViewGadgets}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{backgroundMapMapServiceName}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{backgroundMapSwitcherLabel}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{backgroundPhotoAerialMapServiceName}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{backgroundPhotoAerialSwitcherLabel}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{layerSwitcher}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & \\ \hline
+\texttt{lineEditingActive}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{modifyEditingActive}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{pointEditingActive}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{polygonEditingActive}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the MapViewGadgets EClass}
+\label{guigenMapViewGadgetsattr}
+\end{table}
+\subsection[Menu]{Menu}
+\label{guigenMenu}
+
+Voce di menu
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{label}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il menu viene visualizzato con questa etichetta.\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice simbolico della voce di menu. Deve essere univoco all'interno dellastruttura di menu e deve essere un identificativo valido secondo Java.\\ \hline
+\end{tabularx}
+\caption{Attributes of the Menu EClass}
+\label{guigenMenuattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{eventHandler}
+ & 
+\textbf{T:} \texttt{EventHandler}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Il menu supporta un handler per l'evento CLICKED. Se non viene specificatonessun event handler il menu sarà completamente inattivo.\\ \hline
+\texttt{item}
+ & 
+\textbf{T:} \texttt{MenuItem}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & OBSOLETO: non utilizzare. Utilizzare l'elemento .\\ \hline
+\texttt{securityConstraints}
+ & 
+\textbf{T:} \texttt{UISecurityConstraint}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & elenco dei secirity constraints associati a questa voce di menu.\\ \hline
+\texttt{submenu}
+ & 
+\textbf{T:} \texttt{Menu}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco dei sottomenu di questo menu.\\ \hline
+\end{tabularx}
+\caption{References of the Menu EClass}
+\label{guigenMenuref}
+\end{table}
+\subsection[MenuItem]{MenuItem}
+\label{guigenMenuItem}
+
+OBSOLETO: non utilizzare (utilizzare Menu)
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{label}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & {TODO: add documentation here}\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & {TODO: add documentation here}\\ \hline
+\end{tabularx}
+\caption{Attributes of the MenuItem EClass}
+\label{guigenMenuItemattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{eventHandler}
+ & 
+\textbf{T:} \texttt{EventHandler}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & {TODO: add documentation here}\\ \hline
+\texttt{securityConstraints}
+ & 
+\textbf{T:} \texttt{UISecurityConstraint}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & {TODO: add documentation here}\\ \hline
+\end{tabularx}
+\caption{References of the MenuItem EClass}
+\label{guigenMenuItemref}
+\end{table}
+\subsection[MenuPanel]{MenuPanel}
+\label{guigenMenuPanel}
+
+Pannello destinato a contenere una .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{widgets}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & I widget inseribili in questo tipo di pannello sono solo:\\ \hline
+\end{tabularx}
+\caption{References of the MenuPanel EClass}
+\label{guigenMenuPanelref}
+\end{table}
+\subsection[MenuView]{MenuView}
+\label{guigenMenuView}
+
+Permette di visualizzare la struttura di menu definita nella .Deve essere inserito in un .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{CommandWidget}
+\subsection[Menubar]{Menubar}
+\label{guigenMenubar}
+
+Contiene la struttura del menu. 
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{remoteInfoBox}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the Menubar EClass}
+\label{guigenMenubarattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{topLevelMenu}
+ & 
+\textbf{T:} \texttt{Menu}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Contiene il primo livello di voci di menu.\\ \hline
+\end{tabularx}
+\caption{References of the Menubar EClass}
+\label{guigenMenubarref}
+\end{table}
+\subsection[MessageSeverity]{MessageSeverity}
+\label{guigenMessageSeverity}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{INFO} & 0 &
+ \\ \hline
+\texttt{WARN} & 1 &
+ \\ \hline
+\texttt{ERROR} & 2 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the MessageSeverity EEnum}
+\label{guigenMessageSeveritylit}
+\end{table}
+\subsection[MethodProtectionTypes]{MethodProtectionTypes}
+\label{guigenMethodProtectionTypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{REJECT\_SAME} & 1 &
+ \\ \hline
+\texttt{ALLOW\_ALL} & 0 &
+ \\ \hline
+\texttt{REJECT\_ALL} & 2 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the MethodProtectionTypes EEnum}
+\label{guigenMethodProtectionTypeslit}
+\end{table}
+\subsection[ModelSlot]{ModelSlot}
+\label{guigenModelSlot}
+
+Valorizzazione di uno slot con un modello utilizzabile dal custom template
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{def}
+ & 
+\textbf{T:} \texttt{ModelSlotDef}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Definizione del model slot di cui questo  rappresenta lavalorizzazione.\\ \hline
+\texttt{val}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEObject}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Valore dello slot. Il tipo dell'elemento associato deve corrispondere conquanto dichiarato nell'attributo  dell'oggetto  corrispondente.\\ \hline
+\end{tabularx}
+\caption{References of the ModelSlot EClass}
+\label{guigenModelSlotref}
+\end{table}
+\subsection[ModelSlotDef]{ModelSlotDef}
+\label{guigenModelSlotDef}
+
+Definizione di uno slot destinato a contenere un modello ausiliario utilizzabileda un custom template.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{modelClass}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & full qualified name della classe Java corrispondente alla classe EMF degli elementi associabili allo slot.\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & nome mnemonico dello slot\\ \hline
+\end{tabularx}
+\caption{Attributes of the ModelSlotDef EClass}
+\label{guigenModelSlotDefattr}
+\end{table}
+\subsection[MsgBoxPanel]{MsgBoxPanel}
+\label{guigenMsgBoxPanel}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{messageSeverity}
+ & 
+\textbf{T:} \texttt{MessageSeverity}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Tipologia del messaggio (utilizzato solo se il pannello  contenuto in un.\\ \hline
+\texttt{showStdLegend}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & se impostato a i fa si che nel pannello siano mostrate le voci dellalegenda standard (es. indicazione del significato del '*'), prima di tutti i testicustom. Il valore di default   \\ \hline
+\end{tabularx}
+\caption{Attributes of the MsgBoxPanel EClass}
+\label{guigenMsgBoxPanelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{textMessages}
+ & 
+\textbf{T:} \texttt{PlainText}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & contengono il testo vero e proprio\\ \hline
+\end{tabularx}
+\caption{References of the MsgBoxPanel EClass}
+\label{guigenMsgBoxPanelref}
+\end{table}
+\subsection[MultiDataWidget]{MultiDataWidget}
+\label{guigenMultiDataWidget}
+
+Classe astratta dalla quale discendono tutte le classi che rappresentanowidget associabili a collezioni. Un ha un concetto di  del widget che rappresenta l'insieme finito di possibili valori selezionabili.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{multiDataBinding}
+ & 
+\textbf{T:} \texttt{AppDataBinding}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Il binding all' nel quale sono contenuti gli elementi dell'insiemedi possibili valori. Il tipo dell'oggetto puntato deve essere un  e il  di questo  deve essere un , poich necessario poter specificare il valore selezionato e la label descrittiva di tale valore (perci servono almeno due field).\\ \hline
+\end{tabularx}
+\caption{References of the MultiDataWidget EClass}
+\label{guigenMultiDataWidgetref}
+\end{table}
+\subsection[MultiPanel]{MultiPanel}
+\label{guigenMultiPanel}
+
+Pannello a visualizzazione alternativa. Permette di visualizzare uno solo dei pannelli definiti nella collezione .Per visualizzare uno specifico pannello occorre utilizzare il comando.Lo statoiniziale di questo pannello  la non visualizzazione di nessun pannello.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{panels}
+ & 
+\textbf{T:} \texttt{Panel}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & I pannelli visualizzabili in alternativa\\ \hline
+\end{tabularx}
+\caption{References of the MultiPanel EClass}
+\label{guigenMultiPanelref}
+\end{table}
+\subsection[NOPCommand]{NOPCommand}
+\label{guigenNOPCommand}
+
+No OPeration command. Serve da tappo per chiudere delle catene in cui occorra rimanere nella stessa schermata.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\subsection[ONOFFCommand]{ONOFFCommand}
+\label{guigenONOFFCommand}
+
+Permette di abilitare/disabilitare i widget e/o menu specificati. Lo stato di abilitazionerimane persistente in sessione.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}, 
+\texttt{CommandOnWidgets}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{enable}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true il comando ha effetto di abilitare i widget; se impostato a false ha l'effetto di disabilitazione.\\ \hline
+\end{tabularx}
+\caption{Attributes of the ONOFFCommand EClass}
+\label{guigenONOFFCommandattr}
+\end{table}
+\subsection[OPAUTHSSO]{OPAUTHSSO}
+\label{guigenOPAUTHSSO}
+
+Meccanismo di autenticazione basato su Single Sign On di Oracle Portal
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{AutenticationMethod}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{minAuthLevel}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{1}
+ & livello minimo di autenticazione: \\ \hline
+\end{tabularx}
+\caption{Attributes of the OPAUTHSSO EClass}
+\label{guigenOPAUTHSSOattr}
+\end{table}
+\subsection[PDefParam]{PDefParam}
+\label{guigenPDefParam}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the PDefParam EClass}
+\label{guigenPDefParamattr}
+\end{table}
+\subsection[PDefParamVal]{PDefParamVal}
+\label{guigenPDefParamVal}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{param}
+ & 
+\textbf{T:} \texttt{PDefParam}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the PDefParamVal EClass}
+\label{guigenPDefParamValref}
+\end{table}
+\subsection[PDefStateCommand]{PDefStateCommand}
+\label{guigenPDefStateCommand}
+
+Permette di far passare un  nello stato specificato. Pu essere utilizzato in due modi:
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{goTo}
+ & 
+\textbf{T:} \texttt{PanelDefState}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Lo stato in cui si desidera far passare il \\ \hline
+\texttt{pDefUse}
+ & 
+\textbf{T:} \texttt{PanelDefUse}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il  a cui deve essere indirizzato il comando. Deve essere utilizzato solonel caso di utilizzo del comando esterno al .\\ \hline
+\end{tabularx}
+\caption{References of the PDefStateCommand EClass}
+\label{guigenPDefStateCommandref}
+\end{table}
+\subsection[PDefUseConfig]{PDefUseConfig}
+\label{guigenPDefUseConfig}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{paramValues}
+ & 
+\textbf{T:} \texttt{PDefParamVal}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Insieme delle valorizzazioni di tutti i parametri previsti dal .\\ \hline
+\end{tabularx}
+\caption{References of the PDefUseConfig EClass}
+\label{guigenPDefUseConfigref}
+\end{table}
+\subsection[PEPImplementation]{PEPImplementation}
+\label{guigenPEPImplementation}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{custom}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the PEPImplementation EClass}
+\label{guigenPEPImplementationattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{inlineCodeSnippets}
+ & 
+\textbf{T:} \texttt{InlineCodeSnippet}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{params}
+ & 
+\textbf{T:} \texttt{EnvConfigParam}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the PEPImplementation EClass}
+\label{guigenPEPImplementationref}
+\end{table}
+\subsection[Panel]{Panel}
+\label{guigenPanel}
+
+Classe astratta dalla quale discendono tutti i pannelli
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{label}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Etichetta descrittiva del pannello. Il rendering e l'utilizzo di questo elementodipende dal particolare sottotipo di pannello e dalla cartuccia di layout/portale.\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice identificativo del pannello. Deve essere univoco all'interno del e deve essere un identificatore valido java.\\ \hline
+\texttt{scrollable}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Determina la presenza di una cornice scrollabile attorno al pannello.Default = \\ \hline
+\end{tabularx}
+\caption{Attributes of the Panel EClass}
+\label{guigenPanelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{layout}
+ & 
+\textbf{T:} \texttt{PanelLayout}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Il layout con cui devono essere organizzati visivamente gli elementi internial pannello, che possono essere, a seconda del sottotipo di pannello,dei sottopannelli o dei widget.L'impostazioen della disposizione effettiva degli elementi interni, fissato un particolare layout,deve essere completata tramite un LayoutSpecifier (su ciascun elemento interno)coerente con il tipo di layout scelto (es. Se il layout è un GridLayout, negli elementi interni occorre specificare un GrigWidgetLayoutSpec).\\ \hline
+\texttt{layoutSpec}
+ & 
+\textbf{T:} \texttt{WidgetLayoutSpecifier}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Specificatore del posizionamento di questo pannello all'intenro del layoutdel pannello contenitore.\\ \hline
+\end{tabularx}
+\caption{References of the Panel EClass}
+\label{guigenPanelref}
+\end{table}
+\subsection[PanelDef]{PanelDef}
+\label{guigenPanelDef}
+
+Definizione di pannello riusabile. Deve essere definita in un modello esternoe referenziata tramite l'oggetto .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice menmonico identificativo della definizione\\ \hline
+\end{tabularx}
+\caption{Attributes of the PanelDef EClass}
+\label{guigenPanelDefattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actors}
+ & 
+\textbf{T:} \texttt{Actor}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Definizione di attori fittizi che servono per impostare i security constraints.\\ \hline
+\texttt{appDataDefs}
+ & 
+\textbf{T:} \texttt{ApplicationDataDefs}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Definizione di application data fittizi che servono per impostare i binding dei dati.\\ \hline
+\texttt{defaultState}
+ & 
+\textbf{T:} \texttt{PanelDefState}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{onRefreshCommand}
+ & 
+\textbf{T:} \texttt{Command}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & PER FUTURI SVILUPPI\\ \hline
+\texttt{panel}
+ & 
+\textbf{T:} \texttt{Panel}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Contiene la struttura del pannello.\\ \hline
+\texttt{params}
+ & 
+\textbf{T:} \texttt{PDefParam}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Dichiarazione dei parametri di configurazione del frammento.Per ogni parametro definito qui, nel  occorre specificareuna valorizzazione del parametro.\\ \hline
+\texttt{roles}
+ & 
+\textbf{T:} \texttt{Role}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Definizione di ruoli fittizi che servono per impostare i security constraints.\\ \hline
+\texttt{states}
+ & 
+\textbf{T:} \texttt{PanelDefStates}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{typeDefs}
+ & 
+\textbf{T:} \texttt{Typedefs}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Definizione di tipi fittizi utilizzati negli application data fittizi.\\ \hline
+\texttt{useCases}
+ & 
+\textbf{T:} \texttt{UseCase}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Definizione di use case fittizi che servono per impostare i security constraints.\\ \hline
+\end{tabularx}
+\caption{References of the PanelDef EClass}
+\label{guigenPanelDefref}
+\end{table}
+\subsection[PanelDefState]{PanelDefState}
+\label{guigenPanelDefState}
+
+Stato di visibili / abilitazione dei widget contenuti in un . Per passare da uno stato all'altro  necessario utilizzare il comando .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo dello stato. Deve essere univoco nel .\\ \hline
+\end{tabularx}
+\caption{Attributes of the PanelDefState EClass}
+\label{guigenPanelDefStateattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{widgetsOn}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+ & elenco dei widget che devono essere resi editabili se il  in questo stato.\\ \hline
+\texttt{widgetsVisible}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+ & elenco dei widget che devono essere resi visibili se il  in questo stato.\\ \hline
+\end{tabularx}
+\caption{References of the PanelDefState EClass}
+\label{guigenPanelDefStateref}
+\end{table}
+\subsection[PanelDefStates]{PanelDefStates}
+\label{guigenPanelDefStates}
+
+elenco delgi stati disponibili per un determinato .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{states}
+ & 
+\textbf{T:} \texttt{PanelDefState}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the PanelDefStates EClass}
+\label{guigenPanelDefStatesref}
+\end{table}
+\subsection[PanelDefUse]{PanelDefUse}
+\label{guigenPanelDefUse}
+
+Serve per utilizzare in una applicazione reale un .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{config}
+ & 
+\textbf{T:} \texttt{PDefUseConfig}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Configurazione del componente\\ \hline
+\texttt{panelDef}
+ & 
+\textbf{T:} \texttt{PanelDef}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the PanelDefUse EClass}
+\label{guigenPanelDefUseref}
+\end{table}
+\subsection[PanelLayout]{PanelLayout}
+\label{guigenPanelLayout}
+
+superclasse di tutte le classi che definiscono un particolare layout
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{columnSizes}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & impostazione percentuale della dimensione delle colonne. Varia a seconda del particolare tipo di layout. Per ogni colonna logica (destinata a contenere un widget composto da label+controllo)è necessario impostare due valori separati da virgola: i valori in posizionedispari (1,3,...) determinano la percentuale da assegnare alla label, mentrei valori in posizione pari (2,4,...) determinano la percentuale da assegnareal controllo vero e proprio.Es: per un GridLayout di 2 colonne una possibile impostazione :"20,30,25,25", che equivale ad una occupazone delle due colonne logiche del 50% dello spazio e, all'intenro della prima colonna logica il 20% dello spazio sarà assegnato alla label mentre il restante 30% sarà assegnato al controllo.\\ \hline
+\end{tabularx}
+\caption{Attributes of the PanelLayout EClass}
+\label{guigenPanelLayoutattr}
+\end{table}
+\subsection[PlainText]{PlainText}
+\label{guigenPlainText}
+
+Permette la visualizzazione di testo, fisso o proveniente da application data, senza possibilità di editing.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{staticText}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato il widget visualizzer il testo html specificato a fianco alla label.In caso contrario, e se sar specificato un data binding, ilvalore visualizzato sar preso dall'application data referenziato.\\ \hline
+\end{tabularx}
+\caption{Attributes of the PlainText EClass}
+\label{guigenPlainTextattr}
+\end{table}
+\subsection[Point]{Point}
+\label{guigenPoint}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{x}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEDouble}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{y}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEDouble}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the Point EClass}
+\label{guigenPointattr}
+\end{table}
+\subsection[PortalExposition]{PortalExposition}
+\label{guigenPortalExposition}
+
+Rappresenta la singola esposizione di un'applicazione su uno specificoportale, nell'ambito di una esposizione multi-portale.Nel caso in cui il portale preveda differenti aree tematiche qui si specifica anche su qyale delle aree tematiche l'applicativo deve essere esposto
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{areaCode}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice dell'area tematica del portale nella quale  esposto l'applicativo.In caso di portali che non prevedano aree tematiche differenziate occorrespecificare l'area tematica general\\ \hline
+\end{tabularx}
+\caption{Attributes of the PortalExposition EClass}
+\label{guigenPortalExpositionattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{portal}
+ & 
+\textbf{T:} \texttt{PortalProfile}
+\newline
+\textbf{Cardinality:} [0..1]
+ & riferimento al profilo del portale di esposizione\\ \hline
+\end{tabularx}
+\caption{References of the PortalExposition EClass}
+\label{guigenPortalExpositionref}
+\end{table}
+\subsection[PortalNames]{PortalNames}
+\label{guigenPortalNames}
+
+{TODO: add documentation here}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{SISTEMA\_PIEMONTE} & 0 &
+ \\ \hline
+\texttt{INTRANET\_RUPARPIEMONTE} & 1 &
+ \\ \hline
+\texttt{NEUTRAL} & -1 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the PortalNames EEnum}
+\label{guigenPortalNameslit}
+\end{table}
+\subsection[PortalProfile]{PortalProfile}
+\label{guigenPortalProfile}
+
+Definisce alcune caratteristiche dipendenti dal portale di esposizione.In particolare l'elenco delle risorse statiche che devono essere referenziatedall'applicazione e in che modo deve avvenire tale utilizzo.Permette di modellare tutte le varie combinazioni di possibli utilizzidi librerie javascript, temi, risorse da includere, modalit remote/locali
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome logico (carattere informativo) del portale\\ \hline
+\texttt{resourceProviderCode}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice utilizzato per discriminare i  relativi ai differentiportali nell'ambito di una esposizione multi-portale.\\ \hline
+\texttt{whereAreYouFromPortalCode}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice identificativo del portale per il meccanismo di riconoscimento della provenienza ()).Il codice pu essere fornito dal meccanismo di autenticazione (seprevisto) oppure come parametro esplicito: per ogni portale il codice deve essere lo stesso nei due casi.\\ \hline
+\end{tabularx}
+\caption{Attributes of the PortalProfile EClass}
+\label{guigenPortalProfileattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{resModules}
+ & 
+\textbf{T:} \texttt{WebResourceModule}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Risorse statiche necessarie per l'esposizione dell'applicazione sul portale\\ \hline
+\end{tabularx}
+\caption{References of the PortalProfile EClass}
+\label{guigenPortalProfileref}
+\end{table}
+\subsection[RadioButton]{RadioButton}
+\label{guigenRadioButton}
+
+Singolo elemento di un .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{value}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Valore associato al radiobutton.Il testo descrittivo visualizzato deve essere impostato nella property "label"\\ \hline
+\end{tabularx}
+\caption{Attributes of the RadioButton EClass}
+\label{guigenRadioButtonattr}
+\end{table}
+\subsection[RadioButtons]{RadioButtons}
+\label{guigenRadioButtons}
+
+Widget a selezione alternativa tra un insieme statico di valori.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{layout}
+ & 
+\textbf{T:} \texttt{PanelLayout}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Orientamento dei singoli . Valori ammessi:\\ \hline
+\texttt{radio}
+ & 
+\textbf{T:} \texttt{RadioButton}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Insieme dei radiobutton che determina l'insieme dei valori possibili\\ \hline
+\end{tabularx}
+\caption{References of the RadioButtons EClass}
+\label{guigenRadioButtonsref}
+\end{table}
+\subsection[RefreshViewCommand]{RefreshViewCommand}
+\label{guigenRefreshViewCommand}
+
+Permette di effettuare il re-rendering di una porzione di ContentPanel.Funziona solo se sono abilitate le fatures di interazione "ricca", nell'elemento.Al fine di garnatire l'accessibilit, Nel caso della cartuccia "struts2", se il browser non supporta javascript, la feature effettua un "downgrade" automatico mantenendo il funzionamentoseppur perdendo la funzione ricca (ovvero si ha il refresh completo della pagina).Essendo sottoclasse di  e   possibile specificare la porzione di  che deve essere aggiornata.L'interpretazione delle proeprty  e dipende dalla particolare cartuccia di generazione utilizzata.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}, 
+\texttt{CommandOnWidgets}, 
+\texttt{CommandOnPanels}
+\subsection[RepartArtifact]{RepartArtifact}
+\label{guigenRepartArtifact}
+
+Rappresenta un  all'interno di un  disponibilesul repository degli artefatti.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome dell'artefatto, tipicamente coincidente col nome del file presentesul repository delgi artefatti.\\ \hline
+\texttt{type}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Tipo dell'artefatto. Tipicamente coincidente con l'estensione del filepresente sul repository\\ \hline
+\end{tabularx}
+\caption{Attributes of the RepartArtifact EClass}
+\label{guigenRepartArtifactattr}
+\end{table}
+\subsection[RepartModule]{RepartModule}
+\label{guigenRepartModule}
+
+Rappresenta un  di  disponibilesul repository degli artefatti.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [1..1]
+ & nome del modulo\\ \hline
+\texttt{organization}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [1..1]
+ & organizzazione a cui appartiene il modulo\\ \hline
+\texttt{type}
+ & 
+\textbf{T:} \texttt{RepartModuleTypes}
+\newline
+\textbf{Cardinality:} [1..1]
+ & tipo di modulo\\ \hline
+\texttt{version}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [1..1]
+ & versione del modulo\\ \hline
+\end{tabularx}
+\caption{Attributes of the RepartModule EClass}
+\label{guigenRepartModuleattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{artifacts}
+ & 
+\textbf{T:} \texttt{RepartArtifact}
+\newline
+\textbf{Cardinality:} [1..*]
+\newline
+\textbf{Containment}
+ & Elenco degli artefatti contenuti nel modulo\\ \hline
+\end{tabularx}
+\caption{References of the RepartModule EClass}
+\label{guigenRepartModuleref}
+\end{table}
+\subsection[RepartModuleTypes]{RepartModuleTypes}
+\label{guigenRepartModuleTypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{java} & 1 &
+ \\ \hline
+\texttt{webres} & 2 &
+ \\ \hline
+\texttt{javascript} & 3 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the RepartModuleTypes EEnum}
+\label{guigenRepartModuleTypeslit}
+\end{table}
+\subsection[ResetButton]{ResetButton}
+\label{guigenResetButton}
+
+Pulsante con funzione di reset della form.Non è possibile associare alcun event handler a questo pulsante.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Button}
+\subsection[Role]{Role}
+\label{guigenRole}
+
+Ruolo come definito in IRIDE2
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{code}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo (come censito in IRIDE2)\\ \hline
+\texttt{domainCode}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice del dominio di validit del ruolo (come censito in IRIDE2)\\ \hline
+\end{tabularx}
+\caption{Attributes of the Role EClass}
+\label{guigenRoleattr}
+\end{table}
+\subsection[RoleBasedSecurityConstraint]{RoleBasedSecurityConstraint}
+\label{guigenRoleBasedSecurityConstraint}
+
+Security constraint basato sull'appartenenza dell'utente corrente ad un particolare Role
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{UISecurityConstraint}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{role}
+ & 
+\textbf{T:} \texttt{Role}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il role di riferimento\\ \hline
+\end{tabularx}
+\caption{References of the RoleBasedSecurityConstraint EClass}
+\label{guigenRoleBasedSecurityConstraintref}
+\end{table}
+\subsection[RoleMappingPDefVal]{RoleMappingPDefVal}
+\label{guigenRoleMappingPDefVal}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParamVal}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actualRole}
+ & 
+\textbf{T:} \texttt{Role}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the RoleMappingPDefVal EClass}
+\label{guigenRoleMappingPDefValref}
+\end{table}
+\subsection[RoleMappingParam]{RoleMappingParam}
+\label{guigenRoleMappingParam}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParam}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{defRole}
+ & 
+\textbf{T:} \texttt{Role}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the RoleMappingParam EClass}
+\label{guigenRoleMappingParamref}
+\end{table}
+\subsection[SSOBARTSSO]{SSOBARTSSO}
+\label{guigenSSOBARTSSO}
+
+Meccanismo di autenticazione basato su Sistema di Single Sign On SSOBART
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{AutenticationMethod}
+\subsection[ScreenState]{ScreenState}
+\label{guigenScreenState}
+
+Stato di visibili / abilitazione dei widget contenuti in un . Per passare da uno stato all'altro  necessario utilizzare il comando .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo dello stato. Deve essere univoco nel content panel.\\ \hline
+\end{tabularx}
+\caption{Attributes of the ScreenState EClass}
+\label{guigenScreenStateattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{widgetsOn}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+ & elenco dei widget che devono essere resi editabili se il  in questo stato.\\ \hline
+\texttt{widgetsVisible}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+ & elenco dei widget che devono essere resi visibili se il  in questo stato.\\ \hline
+\end{tabularx}
+\caption{References of the ScreenState EClass}
+\label{guigenScreenStateref}
+\end{table}
+\subsection[ScreenStateCommand]{ScreenStateCommand}
+\label{guigenScreenStateCommand}
+
+Permette di far passare un  nello stato specificato
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{goTo}
+ & 
+\textbf{T:} \texttt{ScreenState}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Lo stato in cui si desidera far passare il \\ \hline
+\end{tabularx}
+\caption{References of the ScreenStateCommand EClass}
+\label{guigenScreenStateCommandref}
+\end{table}
+\subsection[ScreenStates]{ScreenStates}
+\label{guigenScreenStates}
+
+elenco delgi stati disponibili per un determinato .
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{states}
+ & 
+\textbf{T:} \texttt{ScreenState}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the ScreenStates EClass}
+\label{guigenScreenStatesref}
+\end{table}
+\subsection[SecurityModel]{SecurityModel}
+\label{guigenSecurityModel}
+
+Caratteristiche di sicurezza dell'applicazione
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{askForConfirmationOnLogout}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostata a  all'azione di logout viene chiesta conferma all'utente.\\ \hline
+\texttt{securityAppID}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice identificativo dell'applicazione, come censito in IRIDE2\\ \hline
+\texttt{userInfoLogoutAction}
+ & 
+\textbf{T:} \texttt{LogoutActionTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{LOCAL\_LOGOUT}
+ & Azione che viene associata al link  presente sullo .\\ \hline
+\end{tabularx}
+\caption{Attributes of the SecurityModel EClass}
+\label{guigenSecurityModelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actors}
+ & 
+\textbf{T:} \texttt{Actor}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco degli  dell'applicazione (secondo la terminologia di IRIDE2)\\ \hline
+\texttt{autenticationMethod}
+ & 
+\textbf{T:} \texttt{AutenticationMethod}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Specifica la modalit di autenticazione prevista per l'applicazione\\ \hline
+\texttt{roles}
+ & 
+\textbf{T:} \texttt{Role}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco dei  dell'applicazione (secondo la terminologia di IRIDE2)\\ \hline
+\texttt{useCases}
+ & 
+\textbf{T:} \texttt{UseCase}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco degli  dell'applicazione (secondo la terminologia di IRIDE2)\\ \hline
+\end{tabularx}
+\caption{References of the SecurityModel EClass}
+\label{guigenSecurityModelref}
+\end{table}
+\subsection[SecurityProfile]{SecurityProfile}
+\label{guigenSecurityProfile}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the SecurityProfile EClass}
+\label{guigenSecurityProfileattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{extAuthGuard}
+ & 
+\textbf{T:} \texttt{ExternalAuthenticationGuard}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{idAdapter}
+ & 
+\textbf{T:} \texttt{IdentityAdapter}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{intAuthGuard}
+ & 
+\textbf{T:} \texttt{InternalAuthenticationGuard}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\texttt{pepImpl}
+ & 
+\textbf{T:} \texttt{PEPImplementation}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the SecurityProfile EClass}
+\label{guigenSecurityProfileref}
+\end{table}
+\subsection[SequenceCommand]{SequenceCommand}
+\label{guigenSequenceCommand}
+
+Permette di eseguire in sequenza i comandi specificati. I codice di ritorno del comando  il codice dell'ultimo dei comandi.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{commands}
+ & 
+\textbf{T:} \texttt{Command}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Gli elementi della sequenza di comandi.\\ \hline
+\end{tabularx}
+\caption{References of the SequenceCommand EClass}
+\label{guigenSequenceCommandref}
+\end{table}
+\subsection[ShibbolethSSO]{ShibbolethSSO}
+\label{guigenShibbolethSSO}
+
+Meccanismo di autenticazione basato su SHIBBOLETH
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{AutenticationMethod}
+\subsection[ShowDialogCommand]{ShowDialogCommand}
+\label{guigenShowDialogCommand}
+
+Attiva un 
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{dialog}
+ & 
+\textbf{T:} \texttt{DialogPanel}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Il dialog da attivare.\\ \hline
+\end{tabularx}
+\caption{References of the ShowDialogCommand EClass}
+\label{guigenShowDialogCommandref}
+\end{table}
+\subsection[SimpleType]{SimpleType}
+\label{guigenSimpleType}
+
+Tipo base (semplice).
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Type}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{code}
+ & 
+\textbf{T:} \texttt{SimpleTypeCodes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice che serve per discriminare il tipo base (scalare) specifico.Se  impostato  a false allora il tipocorrisponde ad un tipo base del linguaggio host (es int, java.lang.Double).Se invece   impostato a true, viene generatoun nuovo tipo di dato astratto basato sul tipo scalare corrispondente e nel quale  possibile specificare meglio il dominio di valori ammessi ealcune caratteristiche di formattazione.\\ \hline
+\texttt{dataTypeModifiers}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Utilizzato solo se  = true.Permette di specificare il tipo di dato, in termini di restrizioni sul dominiodi valori ammessi, opzioni di formattazione etc.{TODO: documentare sintassi }\\ \hline
+\texttt{editHintMsg}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Utilizzato solo se  == true.Permette di specificare il messaggio che deve essere utilizzato per descrivereil range di valori ammessi. Può essere utilizzato, a seconda delle cartucce di generazione, come tooltip oppure come messaggio di errore in caso di immissione di un valore scorretto.\\ \hline
+\texttt{nillable}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true, il tipo ammette il vlaore  nel suo dominio.\\ \hline
+\texttt{userDefined}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se impostato a true viene generata una classe che rappresenta il tipo di datoe everr utilizzata questa classe al posto del tipo scalare corrispondente,che sar utilizzato come contenitore del dato internamente alla classe.\\ \hline
+\end{tabularx}
+\caption{Attributes of the SimpleType EClass}
+\label{guigenSimpleTypeattr}
+\end{table}
+\subsection[SimpleTypeCodes]{SimpleTypeCodes}
+\label{guigenSimpleTypeCodes}
+
+Codici dei tipi base
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{INT} & 0 &
+ \\ \hline
+\texttt{LONG} & 1 &
+ \\ \hline
+\texttt{FLOAT} & 2 &
+ \\ \hline
+\texttt{DOUBLE} & 3 &
+ \\ \hline
+\texttt{STRING} & 4 &
+ \\ \hline
+\texttt{DATE} & 5 &
+ \\ \hline
+\texttt{DATETIME} & 6 &
+ \\ \hline
+\texttt{HOURS} & 7 &
+ \\ \hline
+\texttt{BOOLEAN} & 8 &
+ \\ \hline
+\texttt{BYTE} & 9 &
+ \\ \hline
+\texttt{TREE\_NODE} & 10 &
+Rappresenta il tipo degli elementi di una struttura a tree \\ \hline
+\end{tabularx}
+\caption{Literals of the SimpleTypeCodes EEnum}
+\label{guigenSimpleTypeCodeslit}
+\end{table}
+\subsection[StaticLinks]{StaticLinks}
+\label{guigenStaticLinks}
+
+Placeholder per link statici (es. contatti, help, manuali).
+ 
+\subsection[Statusbar]{Statusbar}
+\label{guigenStatusbar}
+
+{TODO: add documentation here}
+ 
+\subsection[StdMessagePanel]{StdMessagePanel}
+\label{guigenStdMessagePanel}
+
+Pannello di visualizzazione di messaggi.Permette di visualizzare:
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{showFieldErrorDetails}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Impostare a true se si desidera visualizzare i messaggi di errore relativi ai vari field.\\ \hline
+\texttt{showFieldErrors}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Impostare a true se si desidera visualizzare i messaggi di errore\\ \hline
+\texttt{showGlobalMessages}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Impostare a true se si desidera visualizzare i messaggi di errore globali\\ \hline
+\end{tabularx}
+\caption{Attributes of the StdMessagePanel EClass}
+\label{guigenStdMessagePanelattr}
+\end{table}
+\subsection[StdWebResModuleNames]{StdWebResModuleNames}
+\label{guigenStdWebResModuleNames}
+
+Moduli standard di risorse web
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{ext\_all} & 101 &
+Libreria Javascript , utilizzata per la realizzazione delle funzioni ricche.Tipologia: javascript \\ \hline
+\texttt{openlayers} & 102 &
+Libreria Javascript , utilizzata per la realizzazione delle funzionalit GIS (widget ).Tipologia: javascript \\ \hline
+\texttt{extjscsicore} & 201 &
+Libreria Javascript  (estensione di ExtJS per larealizzazione di widget/funzioni ricche utilizzate dalla modalit di guigen).Tipologia: javascript \\ \hline
+\texttt{extjscsienricher} & 202 &
+Libreria Javascript  (estensione di ExtJS per larealizzazione del meccanismo di  disponibile in guigen).Tipologia: javascript \\ \hline
+\texttt{extjscsimdd} & 203 &
+Libreria Javascript  (estensione di ExtJS per larealizzazione dello strato completo di presentation in modalit di guigen).Tipologia: javascript \\ \hline
+\texttt{extlibstheme} & 301 &
+Stilizzazione di base delle estensioni alla user interface fornite dalla libreria.E' specifica di ogni portale.Tipologia: javascript \\ \hline
+\texttt{xstructure} & 302 &
+Impostazione della struttura portante necessaria per realizzarei vari tipi di layout per XHTML universale.E' specifica di ogni portale.Tipologia: stili CSS. \\ \hline
+\texttt{areabrand} & 303 &
+Stilizzazione specifica della singola area tematica atta a realizzarne il.Agisce come specializzazione di .E' specifica di ogni portale e di ogni area tematica. Anche l'area tematicadi default (general) deve essere stilizzata in questo modo.Tipologia: stili CSS. \\ \hline
+\texttt{extlibsareabrand} & 304 &
+Stilizzazione specifica della singola area tematica atta a realizzarne il.Agisce come specializzazione di quanto definito in .E' specifica di ogni portale e di ogni area tematica. Anche l'area tematicadi default (general) deve essere stilizzata in questo modo.Tipologia: stili css \\ \hline
+\texttt{openlayerstheme} & 305 &
+Stilizzazione di base delle estensioni alla user interface fornite dalla libreria.E' specifica di ogni portale.Tipologia: javascript \\ \hline
+\texttt{openlayersareabrand} & 306 &
+Stilizzazione specifica della singola area tematica atta a realizzarne il.Agisce come specializzazione di quanto definito in .E' specifica di ogni portale e di ogni area tematica. Anche l'area tematicadi default (general) deve essere stilizzata in questo modo.Tipologia: stili css \\ \hline
+\texttt{enrichments} & 401 &
+Arricchimenti specifici della singola applicazione.Tipologia: javascript \\ \hline
+\texttt{globalinclusions} & 501 &
+Frammenti html inclusi globalmente.Tipologia: risorse web di varia natura (tipicamente html) \\ \hline
+\end{tabularx}
+\caption{Literals of the StdWebResModuleNames EEnum}
+\label{guigenStdWebResModuleNameslit}
+\end{table}
+\subsection[StdWebResourceModule]{StdWebResourceModule}
+\label{guigenStdWebResourceModule}
+
+Modulo standard di risorse web attualmente utilizzabili nell'applicazione.L'utilizzo effettivo di ciascuna tipologia dipende dal tipo di modulo(attributo )
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{WebResourceModule}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{stdName}
+ & 
+\textbf{T:} \texttt{StdWebResModuleNames}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the StdWebResourceModule EClass}
+\label{guigenStdWebResourceModuleattr}
+\end{table}
+\subsection[TabSetPanel]{TabSetPanel}
+\label{guigenTabSetPanel}
+
+Tipo specifico di  corredato di componente di controlloa "tab": per passare da un tab all'altro è sufficiente selezionare la "linguetta" corrispondente.Come per tutti i  il programmatore avrà nel model le informazioniriguardanti:Il primo tab è quello visualizzato di default.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{MultiPanel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{switcher}
+ & 
+\textbf{T:} \texttt{TabSwitcher}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Il   un widget fittizio che, se inserito, permettedi effettuar eil post dei dati e l'esecuzione di logica a fronte dell'evento diselezione (click) delle "linguette".\\ \hline
+\end{tabularx}
+\caption{References of the TabSetPanel EClass}
+\label{guigenTabSetPanelref}
+\end{table}
+\subsection[TabSwitcher]{TabSwitcher}
+\label{guigenTabSwitcher}
+
+Widget fittizio utilizzabile esclusivamente in un o un  che permette l'associazione di un event handlerall'evento di selezione (CLICK) su un tab o uno step.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{CommandWidget}
+\subsection[Table]{Table}
+\label{guigenTable}
+
+Tabella di visualizzazione dati. Permette di visualizzare in formato tabellareuna collezione di record.Mette a disposizione alcune funzioni avanzate:
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}, 
+\texttt{MultiDataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{customDecorator}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true abilita la definizione di un CustomDecorator, per impostazioni grafiche particolari a livello di intera riga\\ \hline
+\texttt{enableExport}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{true}
+ & Se impostato a true abilita l'export della tabella.\\ \hline
+\texttt{pageSize}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Numero di record max visualizzati in una pagina. Un valore di "0" significa che la paginazione  disabilitata: in questo caso vengono visualizzati tutti i record.\\ \hline
+\texttt{summary}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the Table EClass}
+\label{guigenTableattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{columnModel}
+ & 
+\textbf{T:} \texttt{ColumnModel}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Il modello delle colonne che la tabella dovr visualizzare.\\ \hline
+\end{tabularx}
+\caption{References of the Table EClass}
+\label{guigenTableref}
+\end{table}
+\subsection[TableCustomizationPDefVal]{TableCustomizationPDefVal}
+\label{guigenTableCustomizationPDefVal}
+
+Valorizzazione di parametro di  che permette di personalizzareuna  per la quale  stata prevista la personalizzabilit(tramite un .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParamVal}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{extraCols}
+ & 
+\textbf{T:} \texttt{ExtraColumn}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & L'elenco delle colonne da aggiungere alle colonne preesistenti nella tabellabase. Le colonne saranno aggiunte secondo quanto specificato nell'attributo  dell'oggetto  corrispondente.Se due  presentano lo stesso valore di tale attributo, essesaranno inserite nell'ordine in cui sono presenti in questo elenco.\\ \hline
+\texttt{hiddenCols}
+ & 
+\textbf{T:} \texttt{Column}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Elenco delle colonne della  base che devono essere nascoste.\\ \hline
+\end{tabularx}
+\caption{References of the TableCustomizationPDefVal EClass}
+\label{guigenTableCustomizationPDefValref}
+\end{table}
+\subsection[TableCustomizationParam]{TableCustomizationParam}
+\label{guigenTableCustomizationParam}
+
+Definizione di parametro di  che permette di personalizzareuna  contenuta nel .La personalizzazione consiste nella possibilit di:
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParam}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{baseTable}
+ & 
+\textbf{T:} \texttt{Table}
+\newline
+\textbf{Cardinality:} [0..1]
+ & La  su cui  possibile effettuare la personalizzazione.\\ \hline
+\end{tabularx}
+\caption{References of the TableCustomizationParam EClass}
+\label{guigenTableCustomizationParamref}
+\end{table}
+\subsection[TargetPlatform]{TargetPlatform}
+\label{guigenTargetPlatform}
+
+specifica della target platform per cui deve essere generato il pacchetto, pi altre caratteristiche tecniche.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{code}
+ & 
+\textbf{T:} \texttt{TargetPlatformCodes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice della piattaforma target\\ \hline
+\texttt{enableFatClient}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se impostato a true sono abilitati i comportamenti "ricchi" di User Interaction.\\ \hline
+\texttt{enableRichUIBehavior}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se impostato a true sono abilitati i comportamenti "ricchi" di User Interaction.\\ \hline
+\end{tabularx}
+\caption{Attributes of the TargetPlatform EClass}
+\label{guigenTargetPlatformattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{portalExpositions}
+ & 
+\textbf{T:} \texttt{PortalExposition}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco dei portali di esposizione dell'applicativo, nell'ambito di una esposizionemulti-portale \\ \hline
+\texttt{securityProfile}
+ & 
+\textbf{T:} \texttt{SecurityProfile}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{wayfProfile}
+ & 
+\textbf{T:} \texttt{WAYFProfile}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the TargetPlatform EClass}
+\label{guigenTargetPlatformref}
+\end{table}
+\subsection[TargetPlatformCodes]{TargetPlatformCodes}
+\label{guigenTargetPlatformCodes}
+
+codici di piattaforma target disponibili
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{WLS92} & 0 &
+ \\ \hline
+\texttt{JBoss43} & 1 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the TargetPlatformCodes EEnum}
+\label{guigenTargetPlatformCodeslit}
+\end{table}
+\subsection[TextArea]{TextArea}
+\label{guigenTextArea}
+
+Campo di immissione testo multilinea.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{columns}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{30}
+ & Dimensione in colonne dell'area di input. Se nell'input si supera il numerodi colonne specificate appare una scrollbar orizzontale.\\ \hline
+\texttt{rows}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{10}
+ & Dimensione in righe dell'area di input. Se nell'input si supera il numerodi righe specificate appare una scrollbar verticale.\\ \hline
+\end{tabularx}
+\caption{Attributes of the TextArea EClass}
+\label{guigenTextAreaattr}
+\end{table}
+\subsection[TextField]{TextField}
+\label{guigenTextField}
+
+DataWidget per l'immissione di testo.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}, 
+\texttt{MultiDataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{fieldLength}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{15}
+ & Dimensione in caratteri dell area visibile del campo.\\ \hline
+\texttt{fieldMaxLength}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEInt}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Numero massimo di caratteri digitabili\\ \hline
+\end{tabularx}
+\caption{Attributes of the TextField EClass}
+\label{guigenTextFieldattr}
+\end{table}
+\subsection[TicketVerifyMethod]{TicketVerifyMethod}
+\label{guigenTicketVerifyMethod}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{LOCAL} & 0 &
+ \\ \hline
+\texttt{REMOTE\_HTTP} & 1 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the TicketVerifyMethod EEnum}
+\label{guigenTicketVerifyMethodlit}
+\end{table}
+\subsection[Titlebar]{Titlebar}
+\label{guigenTitlebar}
+
+{TODO: add documentation here}
+ 
+\subsection[TreeSelectionTypes]{TreeSelectionTypes}
+\label{guigenTreeSelectionTypes}
+
+Determina il tipo di selezione permessa sull'albero:
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{ALL\_NODES} & 0 &
+ \\ \hline
+\texttt{LEAF\_NODES\_ONLY} & 1 &
+ \\ \hline
+\texttt{NON\_LEAF\_NODES\_ONLY} & 2 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the TreeSelectionTypes EEnum}
+\label{guigenTreeSelectionTypeslit}
+\end{table}
+\subsection[TreeView]{TreeView}
+\label{guigenTreeView}
+
+Widget che permette di visualizzare una struttura ad albero.La struttura dati deve essere mantenuta in un application data di tipo TreeNode.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{DataWidget}, 
+\texttt{MultiDataWidget}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{nodeSelectionType}
+ & 
+\textbf{T:} \texttt{TreeSelectionTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{ALL\_NODES}
+ & Determina il tipo di selezione permessa sull'albero:\\ \hline
+\end{tabularx}
+\caption{Attributes of the TreeView EClass}
+\label{guigenTreeViewattr}
+\end{table}
+\subsection[Type]{Type}
+\label{guigenType}
+
+Classe astratta dalla quale discendono tutti i tipi.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome identificativo del tipo.\\ \hline
+\end{tabularx}
+\caption{Attributes of the Type EClass}
+\label{guigenTypeattr}
+\end{table}
+\subsection[TypeAnnotation]{TypeAnnotation}
+\label{guigenTypeAnnotation}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{fqn}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{language}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the TypeAnnotation EClass}
+\label{guigenTypeAnnotationattr}
+\end{table}
+\subsection[TypeDefMappingPDefVal]{TypeDefMappingPDefVal}
+\label{guigenTypeDefMappingPDefVal}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParamVal}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actualTypeDef}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the TypeDefMappingPDefVal EClass}
+\label{guigenTypeDefMappingPDefValref}
+\end{table}
+\subsection[TypeDefMappingParam]{TypeDefMappingParam}
+\label{guigenTypeDefMappingParam}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParam}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{defTypeDef}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the TypeDefMappingParam EClass}
+\label{guigenTypeDefMappingParamref}
+\end{table}
+\subsection[TypeNamespace]{TypeNamespace}
+\label{guigenTypeNamespace}
+
+Namespace (package) di tipi.
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo del namespace: deve essere univoco all'interno dell'applicazione e deve essere un identificatore di package java valido.\\ \hline
+\end{tabularx}
+\caption{Attributes of the TypeNamespace EClass}
+\label{guigenTypeNamespaceattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{types}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & tipi contenuti nel package\\ \hline
+\end{tabularx}
+\caption{References of the TypeNamespace EClass}
+\label{guigenTypeNamespaceref}
+\end{table}
+\subsection[TypedArray]{TypedArray}
+\label{guigenTypedArray}
+
+Array tipato. Il nome impostato  solo mnemonico.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Type}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{componentType}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Tipo degli elementi di cui sar costituito l'array.\\ \hline
+\end{tabularx}
+\caption{References of the TypedArray EClass}
+\label{guigenTypedArrayref}
+\end{table}
+\subsection[Typedefs]{Typedefs}
+\label{guigenTypedefs}
+
+Insieme dei tipi definiti nell'applicazione
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{extNamespaces}
+ & 
+\textbf{T:} \texttt{TypeNamespace}
+\newline
+\textbf{Cardinality:} [0..*]
+ & Riferimento ai  utilizzati nell'applicazione.\\ \hline
+\texttt{namespaces}
+ & 
+\textbf{T:} \texttt{TypeNamespace}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & DEPRECATO: utilizzare .\\ \hline
+\texttt{types}
+ & 
+\textbf{T:} \texttt{Type}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & DEPRECATO: utilizzare tipi definiti in  esternie referenziati in .\\ \hline
+\end{tabularx}
+\caption{References of the Typedefs EClass}
+\label{guigenTypedefsref}
+\end{table}
+\subsection[UCBasedSecurityConstraint]{UCBasedSecurityConstraint}
+\label{guigenUCBasedSecurityConstraint}
+
+Security constraint basato sull'abilitazione dell'utente corrente ad un particolare UseCase
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{UISecurityConstraint}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{useCase}
+ & 
+\textbf{T:} \texttt{UseCase}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Lo UseCase di riferimento\\ \hline
+\end{tabularx}
+\caption{References of the UCBasedSecurityConstraint EClass}
+\label{guigenUCBasedSecurityConstraintref}
+\end{table}
+\subsection[UCMappingPDefVal]{UCMappingPDefVal}
+\label{guigenUCMappingPDefVal}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParamVal}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{actualUseCase}
+ & 
+\textbf{T:} \texttt{UseCase}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the UCMappingPDefVal EClass}
+\label{guigenUCMappingPDefValref}
+\end{table}
+\subsection[UDLRCPanelLayout]{UDLRCPanelLayout}
+\label{guigenUDLRCPanelLayout}
+
+Specifica di posizionamento di widget in un layout UDLRC (Up/Down/Left/Right/Center).I valori ammissibili sono contenuti nella Enumeration .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PanelLayout}
+\subsection[UDLRCSpecConstants]{UDLRCSpecConstants}
+\label{guigenUDLRCSpecConstants}
+
+Valori ammissibili per l' .
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{UP} & 0 &
+ \\ \hline
+\texttt{DOWN} & 1 &
+ \\ \hline
+\texttt{LEFT} & 2 &
+ \\ \hline
+\texttt{RIGHT} & 3 &
+ \\ \hline
+\texttt{CENTER} & 4 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the UDLRCSpecConstants EEnum}
+\label{guigenUDLRCSpecConstantslit}
+\end{table}
+\subsection[UDLRCWidgetLayoutSpec]{UDLRCWidgetLayoutSpec}
+\label{guigenUDLRCWidgetLayoutSpec}
+
+Specificatore di posizionamento di un elemento all'interno di un contenitoredotato di layout .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{WidgetLayoutSpecifier}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{value}
+ & 
+\textbf{T:} \texttt{UDLRCSpecConstants}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Indica in quale dei 5 quadranti (UP/DOWN/LEFT/RIGHT/CENTER) deveessere posizionato l'elemento\\ \hline
+\end{tabularx}
+\caption{Attributes of the UDLRCWidgetLayoutSpec EClass}
+\label{guigenUDLRCWidgetLayoutSpecattr}
+\end{table}
+\subsection[UISecurityConstraint]{UISecurityConstraint}
+\label{guigenUISecurityConstraint}
+
+Superclasse di tutti i security constraints applicabili a widget e menu.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{enabled}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & in alternativa a . Se impostato a true il comportamento condizionato sar l'abilitazione.\\ \hline
+\texttt{visible}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & in alternativa a . Se impostato a true il comportamento condizionato sar la visibilit\\ \hline
+\end{tabularx}
+\caption{Attributes of the UISecurityConstraint EClass}
+\label{guigenUISecurityConstraintattr}
+\end{table}
+\subsection[UseCase]{UseCase}
+\label{guigenUseCase}
+
+codice identificativo (come censito in IRIDE2)
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{code}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & codice identificativo (come censito in IRIDE2)\\ \hline
+\end{tabularx}
+\caption{Attributes of the UseCase EClass}
+\label{guigenUseCaseattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{permission}
+ & 
+\textbf{T:} \texttt{Actor}
+\newline
+\textbf{Cardinality:} [0..*]
+ & {TODO: add documentation here}\\ \hline
+\end{tabularx}
+\caption{References of the UseCase EClass}
+\label{guigenUseCaseref}
+\end{table}
+\subsection[UseCaseMappingParam]{UseCaseMappingParam}
+\label{guigenUseCaseMappingParam}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PDefParam}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{defUseCase}
+ & 
+\textbf{T:} \texttt{UseCase}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{References of the UseCaseMappingParam EClass}
+\label{guigenUseCaseMappingParamref}
+\end{table}
+\subsection[UserDefinedPanel]{UserDefinedPanel}
+\label{guigenUserDefinedPanel}
+
+Permette la definizione di un pannello in modalit custom.L'implementazione di questo pannello dipende dalla cartuccia di generazione.Nel caso "struts2", ad esempio, questo pannello di concretizza in un frammento JSP incluso.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\subsection[UserDefinedWidget]{UserDefinedWidget}
+\label{guigenUserDefinedWidget}
+
+Permette di inserire un frammento di codice definito manualmente.Nella cartuccia di generazioen "struts2" questo corrisponde ad un frammento JSP.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Widget}
+\subsection[UserInfoPanel]{UserInfoPanel}
+\label{guigenUserInfoPanel}
+
+Pannello per la visualizzazione delle informazioni identificative dell'utente loggato.Un  che contiene uno  deve referenziare l'application data .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\subsection[VerticalFlowPanelLayout]{VerticalFlowPanelLayout}
+\label{guigenVerticalFlowPanelLayout}
+
+Gli elementi sono posizionati l'uno sotto l'altro, dall'alto in basso.Non è necessario nessun specificatore per i singoli elementi.E'possibile impostare la percentuale delle colonne associate alla labeled al controllo della singola colonna implicitamente definita da questo tipo di layout.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{PanelLayout}
+\subsection[VisibilityCommand]{VisibilityCommand}
+\label{guigenVisibilityCommand}
+
+Permette di mostrare/nascondere i widget e/o menu specificati. Lo stato di visibilitrimane persistente in sessione.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Command}, 
+\texttt{CommandOnWidgets}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{show}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a true il comando ha effetto di rendere visibile i widget; se impostato a false ha l'effetto di renderli invisibili.\\ \hline
+\end{tabularx}
+\caption{Attributes of the VisibilityCommand EClass}
+\label{guigenVisibilityCommandattr}
+\end{table}
+\subsection[WAYFProfile]{WAYFProfile}
+\label{guigenWAYFProfile}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{requestAdapter}
+ & 
+\textbf{T:} \texttt{WAYFRequestAdapter}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & \\ \hline
+\end{tabularx}
+\caption{References of the WAYFProfile EClass}
+\label{guigenWAYFProfileref}
+\end{table}
+\subsection[WAYFRequestAdapter]{WAYFRequestAdapter}
+\label{guigenWAYFRequestAdapter}
+
+\textsc{\color{red}{Missing Documentation!}}
+ 
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{infoSourceName}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\texttt{sourceType}
+ & 
+\textbf{T:} \texttt{InfoSourceTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the WAYFRequestAdapter EClass}
+\label{guigenWAYFRequestAdapterattr}
+\end{table}
+\subsection[WebResModuleDeployTypes]{WebResModuleDeployTypes}
+\label{guigenWebResModuleDeployTypes}
+
+Possibili tipologie di  del modulo (e degli artefatti corrispondenti)
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{APPSERVER} & 0 &
+Gli artefatti relativi al modulo sono contenuti nel pacchetto applicativoche sarà installato nell'application server (es. nell'EAR) \\ \hline
+\texttt{WEBSERVER\_GLOBAL} & 0 &
+Gli artefatti relativi al modulo sono referenziati in una cartella del  che espone l'applicazione che è disponibile con ciclodi vita indipendente dall'applicazione (cartella globale) \\ \hline
+\texttt{WEBSERVER\_LOCAL} & 0 &
+Gli artefatti relativi al modulo sono installati e in una cartella del  che espone l'applicazione. La cartella segue ilciclo di vita dell'applicazione (cartella locale). Le risorse sono poi referenziate dalle componenti applicative puntando a quellacartella \\ \hline
+\end{tabularx}
+\caption{Literals of the WebResModuleDeployTypes EEnum}
+\label{guigenWebResModuleDeployTypeslit}
+\end{table}
+\subsection[WebResourceModule]{WebResourceModule}
+\label{guigenWebResourceModule}
+
+Modulo di risorse web che l'applicazione utilizza in vario modo. Preferibilmente si utilizza la sottoclasse .
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{deploymentType}
+ & 
+\textbf{T:} \texttt{WebResModuleDeployTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Determina:\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Nome logico del modulo. Non  necessario che corrisponda al nomedel modulo disponibile su repart.\\ \hline
+\texttt{version}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Versione del modulo. Non  necessario che corrisponda alla versionedel modulo disponibile su repart.\\ \hline
+\end{tabularx}
+\caption{Attributes of the WebResourceModule EClass}
+\label{guigenWebResourceModuleattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{repartModule}
+ & 
+\textbf{T:} \texttt{RepartModule}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Unsettable}
+\newline
+\textbf{Containment}
+ & Modulo effettivo disponibile su repart.\\ \hline
+\end{tabularx}
+\caption{References of the WebResourceModule EClass}
+\label{guigenWebResourceModuleref}
+\end{table}
+\subsection[Widget]{Widget}
+\label{guigenWidget}
+
+Classe astratta dalla quale discendono tutti i vari tipi di widget.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{defaultEnabled}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{true}
+ & stato di abilitazione di default del widget\\ \hline
+\texttt{defaultVisible}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{true}
+ & stato di visibilit di default del widget\\ \hline
+\texttt{enableEnrichment}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBooleanObject}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Se impostato a  e se le features ricche sono abilitate (nella ) allora il widget sar arricchito, altrimenti nonsar applicato nessun arricchimento.Il valore di default è  \\ \hline
+\texttt{label}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Etichetta associata al widget.\\ \hline
+\texttt{name}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & Codice identificativo del widget. Deve essere univoco all'interno del  che lo contiene e deve essere un identificativovalido java.\\ \hline
+\texttt{tooltip}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & tooltip associato alla etichetta del widget\\ \hline
+\end{tabularx}
+\caption{Attributes of the Widget EClass}
+\label{guigenWidgetattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{eventHandlers}
+ & 
+\textbf{T:} \texttt{EventHandler}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Gestori degli eventi associati al widget. Le tipologie di evento gestite sonodipendenti dal particolare tipo di widget.\\ \hline
+\texttt{layoutSpec}
+ & 
+\textbf{T:} \texttt{WidgetLayoutSpecifier}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Specifica di posizionamento del widget all'interno del pannello che lo contiene.Il tipo dell'oggetto associato deve essere coerente con il tipo di layout delpannello contenitore.\\ \hline
+\texttt{securityConstraints}
+ & 
+\textbf{T:} \texttt{UISecurityConstraint}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & E' possibile specificare uno o pi security constraints sul widget, chepermettono di rendere condizionata la visualizzazione o la abilitazione delwidget a fronte delle condizioni descritte nel constraint.I constraint sono additivi (nel senso booleano) per ciascun (comportamento condizionato = {visibilit / abilitazione}): se almeno unconstraint  verificato il comportamento condizionato sar abilitato(visibilit / editabilit).Se nessun constraint sar verificato, la visualizzazioen/abilitazione sarà condizionata solo allo statodi default / comandato, ovvero al valore delle proprietà  o  se non è stato in precedenza utilizzato nessuncomando di tipo  o ; se tali comandi sono stati utilizzati allora "vince" l'impostazione derivante daquesti comandi.Se, infine, un constraint  verificato, comunque un eventualedisabilitazione/invisibilit comandata (tramite o ) vince.\\ \hline
+\end{tabularx}
+\caption{References of the Widget EClass}
+\label{guigenWidgetref}
+\end{table}
+\subsection[WidgetDataType]{WidgetDataType}
+\label{guigenWidgetDataType}
+
+{TODO: add documentation here}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{STRINGA} & 0 &
+ \\ \hline
+\texttt{NUMERICO} & 0 &
+ \\ \hline
+\texttt{DATA} & 0 &
+ \\ \hline
+\texttt{ORA} & 0 &
+ \\ \hline
+\texttt{DATAORA} & 0 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the WidgetDataType EEnum}
+\label{guigenWidgetDataTypelit}
+\end{table}
+\subsection[WidgetLayoutSpecifier]{WidgetLayoutSpecifier}
+\label{guigenWidgetLayoutSpecifier}
+
+Superclasse di tutte le classi di specificazione del posizionamento degli elementi in un pannello
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Abstract}
+\subsection[WidgetTargetAction]{WidgetTargetAction}
+\label{guigenWidgetTargetAction}
+
+{TODO: add documentation here}
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Interface}
+, 
+\textbf{Abstract}
+\subsection[WidgetsPanel]{WidgetsPanel}
+\label{guigenWidgetsPanel}
+
+Pannello destinato a contenere Widget.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{Panel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{collapsible}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{false}
+ & Se  il pannello  collassabile.\\ \hline
+\texttt{summary}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEString}}
+\newline
+\textbf{Cardinality:} [0..1]
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the WidgetsPanel EClass}
+\label{guigenWidgetsPanelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{widgets}
+ & 
+\textbf{T:} \texttt{Widget}
+\newline
+\textbf{Cardinality:} [0..*]
+\newline
+\textbf{Containment}
+ & Elenco dei widget contenuti. I Widget sono organizzati secondo il layoutassociato al pannello e secondo gli eventuali specificatori associati a ciascun widget.\\ \hline
+\end{tabularx}
+\caption{References of the WidgetsPanel EClass}
+\label{guigenWidgetsPanelref}
+\end{table}
+\subsection[WizardNumberingTypes]{WizardNumberingTypes}
+\label{guigenWizardNumberingTypes}
+
+\textsc{\color{red}{Missing Documentation!}}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Literals}} \\
+\hline
+Name & Value & Documentation \\ \hline \hline
+\texttt{NO\_NUMBERING} & 0 &
+ \\ \hline
+\texttt{ARABIC\_NUMERALS} & 1 &
+ \\ \hline
+\texttt{LOWERCASE\_ALPHA} & 2 &
+ \\ \hline
+\texttt{UPPERCASE\_ALPHA} & 3 &
+ \\ \hline
+\texttt{UPPERCASE\_ROMAN\_NUMERALS} & 4 &
+ \\ \hline
+\texttt{LOWERCASE\_ROMAN\_NUMERALS} & 5 &
+ \\ \hline
+\end{tabularx}
+\caption{Literals of the WizardNumberingTypes EEnum}
+\label{guigenWizardNumberingTypeslit}
+\end{table}
+\subsection[WizardPanel]{WizardPanel}
+\label{guigenWizardPanel}
+
+Particolare tipo di  che prevede una sezione dinavigazione in alto che rappresenta la sequenza degli step del wizard.Il naviogatore pu essere attivo o passivo. Nel caso in cui il navigatoresia passivo per passare d auno step all'altro  necessario utilizzareil comando  agganciato ad un evento collegato ad un pulsante interno al pannello che descrive ciascuno step.
+ 
+\paragraph{EClass properties:} \hspace{0pt} \\ \indent
+\textbf{Supertypes: }
+\texttt{MultiPanel}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{Attributes}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{navigatorActive}
+ & 
+\textbf{T:} \texttt{\nameref{ecoreEBoolean}}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{true}
+ & Se impostato a true la sezione di navigazione sar cliccabile, permettendo cos il salto libero da uno step all'altro.\\ \hline
+\texttt{numberingSchema}
+ & 
+\textbf{T:} \texttt{WizardNumberingTypes}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Default:} \texttt{NO\_NUMBERING}
+ & \\ \hline
+\end{tabularx}
+\caption{Attributes of the WizardPanel EClass}
+\label{guigenWizardPanelattr}
+\end{table}
+\begin{table}[H]
+\footnotesize
+\begin{tabularx}{\textwidth}{|c| p{4 cm} | X |}
+\hline
+\multicolumn{3}{|c|}{\textbf{References}} \\
+\hline
+Name & Properties & Documentation \\ \hline \hline
+\texttt{switcher}
+ & 
+\textbf{T:} \texttt{TabSwitcher}
+\newline
+\textbf{Cardinality:} [0..1]
+\newline
+\textbf{Containment}
+ & Widget fittizio che permette di associare un event handler all'evento diCLICK sullo step (utilizzabile solo in modalit attiva).\\ \hline
+\end{tabularx}
+\caption{References of the WizardPanel EClass}
+\label{guigenWizardPanelref}
+\end{table}

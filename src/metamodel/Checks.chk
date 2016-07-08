@@ -615,7 +615,8 @@ WARNING "GUI-BIND-019: Il tipo del widget non corrisponde con il tipo del databi
 
 // il TextField necessita del binding solo se ha un KEY_PRESSED attivo => suggestion
 // la MapView necessita di collection binding solo in caso di acetate layer (geometrie)
-context MultiDataWidget if (metaType != TextField && metaType != MapView) 
+// lo slider ha il collection binding opzionale (in altro controllo verifica se static bounds)
+context MultiDataWidget if (metaType != TextField && metaType != MapView && metaType != Slider) 
 ERROR "GUI-BIND-020: E' necessario impostare il collection-binding "+loc() :
 	multiDataBinding != null;
 

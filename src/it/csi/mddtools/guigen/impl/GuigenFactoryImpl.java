@@ -233,6 +233,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.ANNOTATION: return createAnnotation();
 			case GuigenPackage.ANNOTATION_DETAIL: return createAnnotationDetail();
 			case GuigenPackage.CAPTCHA: return createCaptcha();
+			case GuigenPackage.SLIDER: return createSlider();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -294,6 +295,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createInfoSourceTypesFromString(eDataType, initialValue);
 			case GuigenPackage.TREE_SELECTION_TYPES:
 				return createTreeSelectionTypesFromString(eDataType, initialValue);
+			case GuigenPackage.SLIDER_COLLECTION_VALUES_USAGE_TYPES:
+				return createSliderCollectionValuesUsageTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -355,6 +358,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertInfoSourceTypesToString(eDataType, instanceValue);
 			case GuigenPackage.TREE_SELECTION_TYPES:
 				return convertTreeSelectionTypesToString(eDataType, instanceValue);
+			case GuigenPackage.SLIDER_COLLECTION_VALUES_USAGE_TYPES:
+				return convertSliderCollectionValuesUsageTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1945,6 +1950,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Slider createSlider() {
+		SliderImpl slider = new SliderImpl();
+		return slider;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -2417,6 +2432,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertTreeSelectionTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SliderCollectionValuesUsageTypes createSliderCollectionValuesUsageTypesFromString(EDataType eDataType, String initialValue) {
+		SliderCollectionValuesUsageTypes result = SliderCollectionValuesUsageTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSliderCollectionValuesUsageTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

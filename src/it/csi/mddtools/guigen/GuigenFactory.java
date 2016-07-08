@@ -1462,6 +1462,15 @@ public interface GuigenFactory extends EFactory {
 	Captcha createCaptcha();
 
 	/**
+	 * Returns a new object of class '<em>Slider</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Slider</em>'.
+	 * @generated
+	 */
+	Slider createSlider();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
