@@ -266,6 +266,38 @@ function initUIStruct«name.toFirstUpper()»(){
 «ENDIF-»
 «ENDDEFINE»
 
+
+«REM»(widgetId, required,
+		dataType, dataTypeModifier, boundsType, fixedLB, fixedUB, sliderType)«ENDREM»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Slider-»
+«IF isEnrichmentEnabled()-»
+«LET dataType.metaType == TypedArray ? "double" : "single" AS sliderType-»
+«LET staticLowerBound != null && staticUpperBound != null ? "fixed" : "dynamic" AS boundsType-»
+«LET boundsType == "fixed" ? staticLowerBound : 0 AS optionalFixedLB»
+«LET boundsType == "fixed" ? staticUpperBound : 0 AS optionalFixedUB»
+
+	/// arricchimento editor per «this.metaType.name» [«name»]
+	var addSliderEnrichmentTo«name.toFirstUpper()» =
+		function(){
+			uiNRichLib.sliderNRich(
+				'«getWidgetName(this, contextPrefix)»',
+			 	«required ? "true" : "false"»,
+			 	null,
+			 	'',
+			 	'«boundsType»',
+			 	«optionalFixedLB»,
+			 	«optionalFixedUB»,
+			 	'«sliderType»');
+		};
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSliderEnrichmentTo«name.toFirstUpper()»);
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
+«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ComboBox-»
 «IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
