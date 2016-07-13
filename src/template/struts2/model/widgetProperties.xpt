@@ -131,6 +131,13 @@ e le limitazioni secondo i termini della Licenza.
 	«ENDLET»
 «ENDDEFINE»
 
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Slider»
+	// Slider «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, (String)widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
 
 «DEFINE property(String name, GUIModel model, String widgetValidation) FOR Type»
 	private «toJavaType(this, model)» «removeUnderscoreFromWidgPrefix(name)»;

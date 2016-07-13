@@ -1244,6 +1244,24 @@ come target di refresh.
 /> «getCalendarImageByLayout(model, this)»
 «ENDDEFINE»
 
+«REM»Genera la componente di markup (HTML) di uno Slider.«ENDREM»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf, boolean isPortlet) FOR Slider»
+<!-- widget «getFullID(this, contextPrefix)» -->
+<input id="«getWidgetName(this, contextPrefix)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"/>
+«IF this.dataType.metaType == TypedArray»
+<s:hidden id="«getWidgetName(this, contextPrefix)»_LB_selected" type = "hidden" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»[0]"></s:hidden>
+<s:hidden id="«getWidgetName(this, contextPrefix)»_UB_selected" type = "hidden" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»[1]"></s:hidden>
+«ELSE»
+<s:hidden id="«getWidgetName(this, contextPrefix)»_LB_selected" type = "hidden" name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»"></s:hidden>
+«ENDIF»
+«IF multiDataBinding != null && useCollectionDataAs == SliderCollectionValuesUsageTypes::RANGE_BOUNDS -»
+«LET  getOGNLForWidgetMultiValue(contextPrefix, pduConf) AS collOgnl-»
+<s:hidden id="«getWidgetName(this, contextPrefix)»_LB" type = "hidden" disabled="disabled" name="«collOgnl»[0]"></s:hidden>
+<s:hidden id="«getWidgetName(this, contextPrefix)»_UB" type = "hidden" disabled="disabled" name="«collOgnl»[1]"></s:hidden>
+«ENDLET-»
+«ENDIF-»
+«ENDDEFINE»
 
 «REM»
 Genera la componente di markup (HTML) di uno UserDefinedWidget.
