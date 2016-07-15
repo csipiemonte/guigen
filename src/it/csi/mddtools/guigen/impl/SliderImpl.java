@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.SliderImpl#getUseCollectionDataAs <em>Use Collection Data As</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SliderImpl#getStaticLowerBound <em>Static Lower Bound</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SliderImpl#getStaticUpperBound <em>Static Upper Bound</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.SliderImpl#getStaticStep <em>Static Step</em>}</li>
  * </ul>
  *
  * @generated
@@ -71,7 +72,7 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer STATIC_LOWER_BOUND_EDEFAULT = null;
+	protected static final Float STATIC_LOWER_BOUND_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getStaticLowerBound() <em>Static Lower Bound</em>}' attribute.
@@ -81,7 +82,7 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * @generated
 	 * @ordered
 	 */
-	protected Integer staticLowerBound = STATIC_LOWER_BOUND_EDEFAULT;
+	protected Float staticLowerBound = STATIC_LOWER_BOUND_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getStaticUpperBound() <em>Static Upper Bound</em>}' attribute.
@@ -91,7 +92,7 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer STATIC_UPPER_BOUND_EDEFAULT = null;
+	protected static final Float STATIC_UPPER_BOUND_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getStaticUpperBound() <em>Static Upper Bound</em>}' attribute.
@@ -101,7 +102,27 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * @generated
 	 * @ordered
 	 */
-	protected Integer staticUpperBound = STATIC_UPPER_BOUND_EDEFAULT;
+	protected Float staticUpperBound = STATIC_UPPER_BOUND_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStaticStep() <em>Static Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStaticStep()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Float STATIC_STEP_EDEFAULT = new Float(1.0F);
+
+	/**
+	 * The cached value of the '{@link #getStaticStep() <em>Static Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStaticStep()
+	 * @generated
+	 * @ordered
+	 */
+	protected Float staticStep = STATIC_STEP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -191,7 +212,7 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getStaticLowerBound() {
+	public Float getStaticLowerBound() {
 		return staticLowerBound;
 	}
 
@@ -200,8 +221,8 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStaticLowerBound(Integer newStaticLowerBound) {
-		Integer oldStaticLowerBound = staticLowerBound;
+	public void setStaticLowerBound(Float newStaticLowerBound) {
+		Float oldStaticLowerBound = staticLowerBound;
 		staticLowerBound = newStaticLowerBound;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.SLIDER__STATIC_LOWER_BOUND, oldStaticLowerBound, staticLowerBound));
@@ -212,7 +233,7 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getStaticUpperBound() {
+	public Float getStaticUpperBound() {
 		return staticUpperBound;
 	}
 
@@ -221,11 +242,32 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStaticUpperBound(Integer newStaticUpperBound) {
-		Integer oldStaticUpperBound = staticUpperBound;
+	public void setStaticUpperBound(Float newStaticUpperBound) {
+		Float oldStaticUpperBound = staticUpperBound;
 		staticUpperBound = newStaticUpperBound;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.SLIDER__STATIC_UPPER_BOUND, oldStaticUpperBound, staticUpperBound));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Float getStaticStep() {
+		return staticStep;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStaticStep(Float newStaticStep) {
+		Float oldStaticStep = staticStep;
+		staticStep = newStaticStep;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.SLIDER__STATIC_STEP, oldStaticStep, staticStep));
 	}
 
 	/**
@@ -258,6 +300,8 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 				return getStaticLowerBound();
 			case GuigenPackage.SLIDER__STATIC_UPPER_BOUND:
 				return getStaticUpperBound();
+			case GuigenPackage.SLIDER__STATIC_STEP:
+				return getStaticStep();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -277,10 +321,13 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 				setUseCollectionDataAs((SliderCollectionValuesUsageTypes)newValue);
 				return;
 			case GuigenPackage.SLIDER__STATIC_LOWER_BOUND:
-				setStaticLowerBound((Integer)newValue);
+				setStaticLowerBound((Float)newValue);
 				return;
 			case GuigenPackage.SLIDER__STATIC_UPPER_BOUND:
-				setStaticUpperBound((Integer)newValue);
+				setStaticUpperBound((Float)newValue);
+				return;
+			case GuigenPackage.SLIDER__STATIC_STEP:
+				setStaticStep((Float)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -306,6 +353,9 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 			case GuigenPackage.SLIDER__STATIC_UPPER_BOUND:
 				setStaticUpperBound(STATIC_UPPER_BOUND_EDEFAULT);
 				return;
+			case GuigenPackage.SLIDER__STATIC_STEP:
+				setStaticStep(STATIC_STEP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -326,6 +376,8 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 				return STATIC_LOWER_BOUND_EDEFAULT == null ? staticLowerBound != null : !STATIC_LOWER_BOUND_EDEFAULT.equals(staticLowerBound);
 			case GuigenPackage.SLIDER__STATIC_UPPER_BOUND:
 				return STATIC_UPPER_BOUND_EDEFAULT == null ? staticUpperBound != null : !STATIC_UPPER_BOUND_EDEFAULT.equals(staticUpperBound);
+			case GuigenPackage.SLIDER__STATIC_STEP:
+				return STATIC_STEP_EDEFAULT == null ? staticStep != null : !STATIC_STEP_EDEFAULT.equals(staticStep);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -378,6 +430,8 @@ public class SliderImpl extends DataWidgetImpl implements Slider {
 		result.append(staticLowerBound);
 		result.append(", staticUpperBound: ");
 		result.append(staticUpperBound);
+		result.append(", staticStep: ");
+		result.append(staticStep);
 		result.append(')');
 		return result.toString();
 	}

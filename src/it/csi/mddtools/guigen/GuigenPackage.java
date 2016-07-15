@@ -10539,13 +10539,22 @@ public interface GuigenPackage extends EPackage {
 	int SLIDER__STATIC_UPPER_BOUND = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Static Step</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLIDER__STATIC_STEP = DATA_WIDGET_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Slider</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SLIDER_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 4;
+	int SLIDER_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -16768,6 +16777,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getSlider_StaticUpperBound();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Slider#getStaticStep <em>Static Step</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Static Step</em>'.
+	 * @see it.csi.mddtools.guigen.Slider#getStaticStep()
+	 * @see #getSlider()
+	 * @generated
+	 */
+	EAttribute getSlider_StaticStep();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21842,6 +21862,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SLIDER__STATIC_UPPER_BOUND = eINSTANCE.getSlider_StaticUpperBound();
+
+		/**
+		 * The meta object literal for the '<em><b>Static Step</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SLIDER__STATIC_STEP = eINSTANCE.getSlider_StaticStep();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

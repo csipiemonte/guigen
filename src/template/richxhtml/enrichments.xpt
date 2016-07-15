@@ -272,6 +272,8 @@ function initUIStruct«name.toFirstUpper()»(){
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Slider-»
 «IF isEnrichmentEnabled()-»
+«LET dataType.metaType == TypedArray ? toJavaType(((TypedArray)this.dataType).componentType,model) : toJavaType(this.dataType,model) AS valueType-»
+
 «LET dataType.metaType == TypedArray ? "double" : "single" AS sliderType-»
 «LET staticLowerBound != null && staticUpperBound != null ? "fixed" : "dynamic" AS boundsType-»
 «LET boundsType == "fixed" ? staticLowerBound : 0 AS optionalFixedLB»
@@ -283,14 +285,16 @@ function initUIStruct«name.toFirstUpper()»(){
 			uiNRichLib.sliderNRich(
 				'«getWidgetName(this, contextPrefix)»',
 			 	«required ? "true" : "false"»,
-			 	null,
+			 	'«valueType»',
 			 	'',
 			 	'«boundsType»',
 			 	«optionalFixedLB»,
 			 	«optionalFixedUB»,
+			 	«this.staticStep != null? this.staticStep : 1»,
 			 	'«sliderType»');
 		};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSliderEnrichmentTo«name.toFirstUpper()»);
+«ENDLET-»
 «ENDLET-»
 «ENDLET-»
 «ENDLET-»

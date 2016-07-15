@@ -15,6 +15,7 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.Slider#getUseCollectionDataAs <em>Use Collection Data As</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Slider#getStaticLowerBound <em>Static Lower Bound</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Slider#getStaticUpperBound <em>Static Upper Bound</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Slider#getStaticStep <em>Static Step</em>}</li>
  * </ul>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getSlider()
@@ -60,12 +61,12 @@ public interface Slider extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Static Lower Bound</em>' attribute.
-	 * @see #setStaticLowerBound(Integer)
+	 * @see #setStaticLowerBound(Float)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSlider_StaticLowerBound()
 	 * @model
 	 * @generated
 	 */
-	Integer getStaticLowerBound();
+	Float getStaticLowerBound();
 
 	/**
 	 * Sets the value of the '{@link it.csi.mddtools.guigen.Slider#getStaticLowerBound <em>Static Lower Bound</em>}' attribute.
@@ -75,7 +76,7 @@ public interface Slider extends DataWidget, MultiDataWidget {
 	 * @see #getStaticLowerBound()
 	 * @generated
 	 */
-	void setStaticLowerBound(Integer value);
+	void setStaticLowerBound(Float value);
 
 	/**
 	 * Returns the value of the '<em><b>Static Upper Bound</b></em>' attribute.
@@ -86,12 +87,12 @@ public interface Slider extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Static Upper Bound</em>' attribute.
-	 * @see #setStaticUpperBound(Integer)
+	 * @see #setStaticUpperBound(Float)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSlider_StaticUpperBound()
 	 * @model
 	 * @generated
 	 */
-	Integer getStaticUpperBound();
+	Float getStaticUpperBound();
 
 	/**
 	 * Sets the value of the '{@link it.csi.mddtools.guigen.Slider#getStaticUpperBound <em>Static Upper Bound</em>}' attribute.
@@ -101,6 +102,33 @@ public interface Slider extends DataWidget, MultiDataWidget {
 	 * @see #getStaticUpperBound()
 	 * @generated
 	 */
-	void setStaticUpperBound(Integer value);
+	void setStaticUpperBound(Float value);
+
+	/**
+	 * Returns the value of the '<em><b>Static Step</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Static Step</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Static Step</em>' attribute.
+	 * @see #setStaticStep(Float)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getSlider_StaticStep()
+	 * @model default="1"
+	 * @generated
+	 */
+	Float getStaticStep();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Slider#getStaticStep <em>Static Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Static Step</em>' attribute.
+	 * @see #getStaticStep()
+	 * @generated
+	 */
+	void setStaticStep(Float value);
 
 } // Slider

@@ -51,6 +51,7 @@ public class SliderItemProvider extends DataWidgetItemProvider {
 			addUseCollectionDataAsPropertyDescriptor(object);
 			addStaticLowerBoundPropertyDescriptor(object);
 			addStaticUpperBoundPropertyDescriptor(object);
+			addStaticStepPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -113,6 +114,28 @@ public class SliderItemProvider extends DataWidgetItemProvider {
 				 getString("_UI_Slider_staticUpperBound_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Slider_staticUpperBound_feature", "_UI_Slider_type"),
 				 GuigenPackage.Literals.SLIDER__STATIC_UPPER_BOUND,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Static Step feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStaticStepPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Slider_staticStep_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Slider_staticStep_feature", "_UI_Slider_type"),
+				 GuigenPackage.Literals.SLIDER__STATIC_STEP,
 				 true,
 				 false,
 				 false,
@@ -194,6 +217,7 @@ public class SliderItemProvider extends DataWidgetItemProvider {
 			case GuigenPackage.SLIDER__USE_COLLECTION_DATA_AS:
 			case GuigenPackage.SLIDER__STATIC_LOWER_BOUND:
 			case GuigenPackage.SLIDER__STATIC_UPPER_BOUND:
+			case GuigenPackage.SLIDER__STATIC_STEP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.SLIDER__MULTI_DATA_BINDING:
