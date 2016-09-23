@@ -24,6 +24,10 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE main(boolean skip_component_dir_creation, boolean useExternalDaoBeans, String portal) FOR GUIModel»
 	
 	«REM»[DM] STDMDD-1123: disabilitazione/rimozione delle cartucce differenti dalla neutral«ENDREM»
+	«IF getProperty("guigen.clientLibs.enableAutoServicePack") == "false"»
+		«ERROR "\n\n\n\nAttenzione: la property [guigen.clientLibs.enableAutoServicePack] non puo' piu' essere impostata a [false]."»
+		«ERROR "verra' assunto il valore di default [true]\n\n\n\n"»
+	«ENDIF»
 	«IF !isValidPortal(portal)»
 		«ERROR "Attenzione: la cartuccia '" + portal + "' non esiste. Verificare la proprieta' portal del proprio file di workflow."»
 	«ELSE»
