@@ -1,0 +1,276 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+
+
+«REM»
+==========================================================================================================================
+STATIC RESORCES HTML (per cartuccia BOOTSTRAP)
+derivato da template::struts2::view::pageStructure e modificato per:
+1) eliminare i link ai css della xstructure
+2) aggiungere (se non modellato) il meta atribute necessario per bootstrap
+3) ...
+===========================================================================================================================
+«ENDREM»
+
+«REM»comment«ENDREM»
+«DEFINE getHeaderMarkupPortalProfile(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+	«ERROR "ERRORE: modalita' portalProfile per risorse statiche non ancora supportata " + loc()»
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -»
+		«IF hasPortalProfile(model)-»
+			«EXPAND getHeaderMarkupPortalProfile(model, skip_component_dir_creation) FOR this-»
+		«ELSE»	
+			«IF isRemote»
+				«EXPAND getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this-»
+			«ELSE»
+				«EXPAND getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-»
+			«ENDIF»
+		«ENDIF»
+«ENDDEFINE»
+
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)«ENDREM»
+«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -»
+		«IF hasPortalProfile(model)-»
+			«EXPAND getHeaderMarkupPortalProfile(model, skip_component_dir_creation) FOR this-»
+		«ELSE»	
+			«IF isRemote»
+				«EXPAND getHeaderMarkupNoStrutsRemote(model, skip_component_dir_creation) FOR this-»
+			«ELSE»
+				«EXPAND getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-»
+			«ENDIF»
+		«ENDIF»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
+«REM»«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getPortalHeader(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)«ENDREM»
+«REM»«DEFINE getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
+«REM»«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getApplicationHeader(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)«ENDREM»
+«REM»«DEFINE getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+		«EXPAND staticResourcesM2::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+«REM»[DM] STDMDD-911: modellazione meta attributes«ENDREM»
+«DEFINE getMetaAttributes(GUIModel model) FOR Header -»
+«FOREACH this.metaAttributes AS metaAttribute-»
+<meta «IF metaAttribute.useHttpEquiv»http-equiv="«metaAttribute.name»"«ELSE»name="«metaAttribute.name»"«ENDIF» content="«metaAttribute.value»" />
+«ENDFOREACH-»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«REM»«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+		«EXPAND staticResourcesM2::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«REM»«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+		«EXPAND staticResourcesM2::getFooterMarkup(model, skip_component_dir_creation) FOR this-»
+«ENDDEFINE»«ENDREM»
+
+
+
+«REM»
+==========================================================================================================================
+STATIC RESORCES HTML (per cartuccia NEUTRALE)
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)«ENDREM»
+«DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«REM»<!-- TODO eliminare definitivamente (refuso di cartuccia neutral) 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/globalPortal.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/xhtmlStructureUniversal.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/«getNomeCanale(model)»/theme.css" media="screen" />
+-->«ENDREM»
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»css/«codApplicativo».css" media="screen" />
+«REM»<!-- 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/corner/corner.css" media="screen" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/ie6.css" media="screen" />
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/ie7.css" media="screen" />
+<![endif]-->
+-->«ENDREM»
+<!-- funzioni e definizioni javascript -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»js/jsFunctions.js"></script>
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)«ENDREM»
+«DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«IF isMultiPortal(model)-»
+<s:set name="mddPortalCode" value="getPortalCode()" />
+<s:set name="mddChannelCode" value="getChannelCode()" />
+<s:set name="applicationCssUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»css/«codApplicativo».css')" />
+«ENDIF-»
+«getHTMLDoctype()» 
+<html «getHTMLTnsUriDecl()» lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		«EXPAND template::struts2::view::pageStructure::getMetaAttributes(model) FOR this»«REM»[DM] STDMDD-911«ENDREM»
+		<title>«this.title»</title>
+		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+«REM»<!--		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/globalPortal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/xhtmlStructureUniversal.css" media="screen" />
+-->	«ENDREM»	
+		«IF isMultiPortal(model)»
+«REM»<!--		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/<s:property value="mddChannelCode" />/theme.css" media="screen" /> -->«ENDREM»
+		<link rel="stylesheet" type="text/css" href="<s:property value="applicationCssUrl" />" media="screen" />		
+		«ELSE»
+«REM»<!--		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/«getNomeCanale(model)»/theme.css" media="screen" /> -->«ENDREM»
+		<link rel="stylesheet" type="text/css" href="«getPathComponentDir(model, true)»css/«codApplicativo».css" media="screen" />
+		«ENDIF»
+«REM»		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/corner/corner.css" media="screen" />
+		<!--[if lte IE 6]>
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie6.css" media="screen" />
+		<![endif]-->
+		<!--[if IE 7]>
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie7.css" media="screen" />
+		<![endif]-->
+«ENDREM»
+		<!-- funzioni e definizioni javascript -->
+		<script type="text/javascript" src="«getJsFunctionsFilePath()»"></script>
+«ENDDEFINE»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO) (per pagine SENZA Struts2)«ENDREM»
+«DEFINE getHeaderMarkupNoStrutsRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«IF isMultiPortal(model)-»
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+«ENDIF-»
+«getHTMLDoctype()»
+<html «getHTMLTnsUriDecl()» lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		«EXPAND template::struts2::view::pageStructure::getMetaAttributes(model) FOR this»«REM»[DM] STDMDD-911«ENDREM»
+		<title>«this.title»</title>
+		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+«REM»		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/globalPortal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/xhtmlStructureUniversal.css" media="screen" />
+«ENDREM»
+		«IF isMultiPortal(model)»
+«REM»		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/theme.css" media="screen" />«ENDREM»
+		<link rel="stylesheet" type="text/css" href="/ris/utheme/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/«codApplicativo»/css/«codApplicativo».css" media="screen" />		
+		«ELSE»
+«REM»		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/«getNomeCanale(model)»/theme.css" media="screen" />«ENDREM»
+		<link rel="stylesheet" type="text/css" href="«getPathComponentDir(model, true)»css/«codApplicativo».css" media="screen" />
+		«ENDIF»
+«REM»		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/corner/corner.css" media="screen" />
+		<!--[if lte IE 6]>
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie6.css" media="screen" />
+		<![endif]-->
+		<!--[if IE 7]>
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie7.css" media="screen" />
+		<![endif]-->
+«ENDREM»
+		<!-- funzioni e definizioni javascript -->
+		<script type="text/javascript" src="«getJsFunctionsFilePath()»"></script>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
+«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«IF isMultiPortal(model)-»
+<r:include url="«getPortalPageInclusionPath()»portal_header.html" resourceProvider="${mddPortalCode}" />
+«ELSE-»
+<r:include url="«getPortalPageInclusionPath()»portal_header.html" resourceProvider="sp" />
+«ENDIF-»
+«ENDDEFINE»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)«ENDREM»
+«DEFINE getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«IF isMultiPortal(model)-»
+<r:include url='«getPortalPageInclusionPath()»portal_header.html' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
+«ELSE-»
+<r:include url="«getPortalPageInclusionPath()»portal_header.html" resourceProvider="sp" />
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
+«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«IF isMultiPortal(model)-»
+<s:set name="applicationHeaderUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»include/application_header.html')" />
+<r:include url="${applicationHeaderUrl}" resourceProvider="${mddPortalCode}" />
+«ELSE-»
+<r:include url="«getPathComponentDir(model, true)»include/application_header.html" resourceProvider="sp" />
+«ENDIF-»
+«ENDDEFINE»
+
+«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)«ENDREM»
+«DEFINE getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«IF isMultiPortal(model)-»
+<r:include url='<%="/ris/utheme/"+(String)session.getAttribute("MDD_CHANNEL_CODE")+"/«codApplicativo»/include/application_header.html" %>' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
+«ELSE-»
+<r:include url="«getPathComponentDir(model, true)»include/application_header.html" resourceProvider="sp" />
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«LET model.structure.appWindow.header.codCanale AS codCanale-»
+«LET model.structure.appWindow.header.codApplicativo AS codApplicativo-»
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+«IF isMultiPortal(model)-»
+<s:set name="mddPortalCode" value="getPortalCode()" />	
+<s:set name="staticLinksUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»include/static_links.html')" />
+<c:catch var="ex">
+	<r:include url='${staticLinksUrl}' resourceProvider='${mddPortalCode}' />
+«ELSE-»
+<c:catch var="ex">
+	<r:include url="«getPathComponentDir(model, true)»include/static_links.html" resourceProvider="sp" />
+«ENDIF-»
+</c:catch>
+«ENDLET-»
+«ENDLET-»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«IF isMultiPortal(model)-»
+<r:include url='«getPortalPageInclusionPath()»portal_footer.html' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
+«ELSE-»
+<r:include url="«getPortalPageInclusionPath()»portal_footer.html" resourceProvider="sp" />
+«ENDIF-»
+«ENDDEFINE»

@@ -1,0 +1,209 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
+
+«REM»Genera una Action Struts2 per mappare il menu.«ENDREM»
+«DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+import java.util.*;
+
+//import org.apache.struts2.interceptor.validation.SkipValidation;
+
+//import com.opensymphony.xwork2.ModelDriven;
+//import com.opensymphony.xwork2.validator.annotations.*;
+
+import «getDTOBaseJavaPackage(this)».*;
+import «getBaseJavaPackage()».business.*;
+import «getCommandFactoryPkg(this)».*;
+//import «getInterceptorsJavaPackage(this)».FatClientOnly;
+
+/**
+ * «getStrutsMenuClassName(this)» Action Class.
+ *
+ * @author GuiGen
+ */
+//@Validation()
+public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» <«getModelDTOClassName(null,true,false,this)»>  /* implements ModelDriven<«getModelDTOClassName(null,true,false,this)»>*/ {
+	
+	private «getModelDTOClassName(null,true,false,this)» model;	
+
+	public «getModelDTOClassName(null,true,false,this)» getModel()   {
+		return model;
+	}
+	
+	public  void setModel(«getModelDTOClassName(null,true,false,this)» modello) {
+		this.model = modello;
+	}
+	
+	@Override
+	public void setSession(Map session) {
+		// TODO Auto-generated method stub
+		super.setSession(session);
+		if(model == null) {
+			 model = new «getModelDTOClassName(null,true,false,this)»();	 
+		}
+		model.setSession(session);
+	}
+	
+	private Map<String, JumpExtCommand> jumpExtCommands = new HashMap<String, JumpExtCommand>();
+
+	public Map<String, JumpExtCommand> getJumpExtCommands() {
+		return jumpExtCommands;
+	}
+
+	public void setJumpExtCommands(Map<String, JumpExtCommand> jumpExtCommands) {
+		this.jumpExtCommands = jumpExtCommands;
+	}
+	
+	/**
+	 * classe model associata
+	 */
+	public Class modelClass(){
+		return «getModelDTOFQN(null, true, false, this)».class;
+	}
+	 
+	/**
+	 *
+	 * @return Il risultato delle azioni, SUCCESS altrimenti.
+	 */
+//	@SkipValidation
+	public String execute() throws CommandExecutionException {
+//		return SUCCESS;
+		return "SUCCESS";
+	}
+	
+	«IF this.targetPlatform.enableFatClient»
+	«EXPAND template::springmvc::controller::execCommandMethods::execCommandMethods(this) FOR this.structure.appWindow.appArea.menubar»
+	«ENDIF»
+		
+	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
+		«IF tlmenu.eventHandler!=null»
+	/**
+	 * 
+	 * @return SUCCESS result.
+	 */
+	public String goTo«tlmenu.name.toFirstUpper()»() throws CommandExecutionException{
+	    
+		// gestione degli eventi di tipo CLICKED
+		ICommand action = initCommand(null,"global","«tlmenu.name»","CLICKED");
+		String result = action.doCommand(this);
+		if (result != null) {
+			if (LOG.isDebugEnabled()){
+				LOG.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning result [" + result + "]");
+			}
+			setActiveMenu("«tlmenu.name»");
+			return result;
+		} else {
+			if (LOG.isDebugEnabled()){
+				LOG.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning default result [SUCCESS]");
+			}
+			setActiveMenu("«tlmenu.name»");
+			return SUCCESS;
+		}
+	}		
+		«ENDIF»
+		
+		«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu»
+		«IF currMenu.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenu.eventHandler.command AS currAction»
+	/**
+	 * 
+	 * @return SUCCESS result.
+	 */
+	public String goTo«currMenu.name.toFirstUpper()»() throws CommandExecutionException{
+	    
+		// gestione degli eventi di tipo CLICKED
+		ICommand action = initCommand(null, "global", "«currMenu.name»","CLICKED");
+		String result = action.doCommand(this);
+		if (result != null) {
+			if (LOG.isDebugEnabled()){
+				LOG.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning result [" + result + "]");
+			}
+			setActiveMenu("«currMenu.name»");
+			return result;
+		} else {
+			if (LOG.isDebugEnabled()){
+				LOG.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning default result [SUCCESS]");
+			}
+			setActiveMenu("«currMenu.name»");
+			return SUCCESS;
+		}
+	}
+
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»		
+		
+		
+	«ENDFOREACH»
+
+    public static final String ACTIVE_MENU_ATTRNAME = "active_menu";
+    
+	public void setActiveMenu(String menuName){
+		session.put(ACTIVE_MENU_ATTRNAME, "menu_items_" + menuName);
+	}
+	
+    «EXPAND template::springmvc::controller::eventHandlers::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
+    
+    
+   	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsMenuClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+    
+    /**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	public void clearPageScopedAppData(String targetContentPanelName){
+	 	// non sapendo quale content panel si sta abbandonando vengono rimossi tutti
+	 	// gli appdata a scope PAGE
+	 	«FOREACH this.structure.appWindow.appArea.contentPanels.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAD»
+	 	getSession().remove("«getAppDataKey(currAD)»");
+	 	«ENDFOREACH»
+	}
+	 
+	protected void dumpModel(boolean pre){
+	  // metodo intenzionalmente vuoto
+	}
+	 
+	protected void doBeforeEventCommand(){
+		// il menu e' globale: non sono previsti before/after event commands
+	}
+	
+	protected void doAfterEventCommand(){
+		// il menu e' globale: non sono previsti before/after event commands
+	}
+}
+«ENDFILE»
+«ENDDEFINE»

@@ -1,0 +1,260 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+«EXTENSION template::springmvc::security::securityCustom::SecurityProfileExtensions»
+
+
+«DEFINE iride2PDFiles FOR GUIModel»
+	«EXPAND iride2PDEJBFile FOR this»
+	«EXPAND iride2PDWSFile FOR this»
+«ENDDEFINE»
+
+«DEFINE iride2PDServicesXMLDef FOR GUIModel»
+  <services>
+    <service
+      name="PolicyEnforcerBase"
+      public-interface-class="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService">
+      <operations>
+        <operation name="identificaUserPassword" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaUserPasswordPIN" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+            <param name="pin" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaCertificato" type="synch-call">
+          <param-list>
+            <param name="certificato" type="byte[]" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="isPersonaAutorizzataInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="isPersonaInRuolo" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="ruolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findRuoliForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findRuoliForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findUseCasesForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.UseCase[]"/>
+        </operation>
+        <operation name="findActorsForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+        <operation name="isIdentitaAutentica" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaSchema" type="synch-call">
+          <param-list>
+            <param name="codRuolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findActorsForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+      </operations>
+    </service>
+  </services>
+«ENDDEFINE»
+
+«DEFINE iride2PDWSFile FOR GUIModel»
+«FILE getSpringIRIDE2PDWSConfig()»<porta-delegata name="PolicyEnforcerBase">
+  «EXPAND iride2PDServicesXMLDef FOR this»
+  <config>
+    <url-pa>multi://</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd name="policyEnf"
+                    class="it.csi.csi.porte.jaxrpc.PortaDelegataWS" url-pa="***" url-qm="">
+        <properties>
+
+          <property name="csi.wrapper.wsinterf.class"
+                     value="it.csi.iride2.policy.base.nmsf.stub.interf.PolicyEnforcerBase" />
+          <!-- puo' valere 'java-net'(default), 'commons-http', 'apache-soap' -->
+          <property name="csi.http.transport.type" value="commons-http" />
+          <property name="csi.http.timeout" value="10000" />
+          <!-- ereditato dalla superclasse ClassAdapter - rappresenta la classe
+               della factory di stub (che implementa javax.xml.rpc.Service). Tale classe
+               deve avere un costruttore vuoto. -->
+          <property name="class"
+                    value="it.csi.iride2.policy.base.nmsf.stub.interf.PolicyEnforcerBaseServiceLocator" />
+
+          <!-- : l'url dell'endpoint del servizio (se non specificato, in genere
+                 i toolkit wsdl inseriscono quello che era riportato nel wsdl). -->
+          <property name="javax.xml.rpc.service.endpoint.address"
+                    value="@IRIDE_WSFAD_URL@" />
+           <!-- OAUTH In questo caso non usato -->
+          <property name="csi.use.oauth" value="false" />
+
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <pre-function-handler-list>
+      <pluggable-fh name="isoint_pre"
+                    class="it.csi.csi.porte.jaxrpc.pfh.IsoIntTransformer">
+        <properties>
+          <property name="source.interface"
+                    value="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService" />
+          <property name="target.interface"
+                    value="it.csi.iride2.policy.base.nmsf.stub.interf.PolicyEnforcerBase" />
+          <property name="pkg-map-1"
+                    value="it.csi.iride2.policy.entity=it.csi.iride2.policy.base.nmsf.stub.base.entity"/>
+         <property name="pkg-map-2"
+                    value="it.csi.iride2.policy.exceptions=it.csi.iride2.policy.base.nmsf.stub.base.exceptions"/>
+         <property name="pkg-map-3"
+                    value="it.csi.iride2.iridefed.entity=it.csi.iride2.policy.base.nmsf.stub.iridefed.entity"/>
+		 <property name="pkg-map-4"
+                    value="it.csi.iride2.iridefed.exceptions=it.csi.iride2.policy.base.nmsf.stub.iridefed.exceptions"/>
+         <property name="pkg-map-5"
+                    value="it.csi.csi.wrapper=it.csi.iride2.policy.base.nmsf.stub.csi.exceptions"/>
+        </properties>
+      </pluggable-fh>
+      <pluggable-fh
+         name="CACHE PRE"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </pre-function-handler-list>
+    <post-function-handler-list>
+      <pluggable-fh
+         name="CACHE POST"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+      <pluggable-fh name="isoint_pre"
+                    class="it.csi.csi.porte.jaxrpc.pfh.IsoIntTransformer">
+        <properties>
+         <property name="source.interface"
+                    value="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService" />
+         <property name="target.interface"
+                    value="it.csi.iride2.policy.base.nmsf.stub.interf.PolicyEnforcerBase" />
+                    
+         <property name="pkg-map-1"
+                    value="it.csi.iride2.policy.entity=it.csi.iride2.policy.base.nmsf.stub.base.entity"/>
+         <property name="pkg-map-2"
+                    value="it.csi.iride2.policy.exceptions=it.csi.iride2.policy.base.nmsf.stub.base.exceptions"/>
+         <property name="pkg-map-3"
+                    value="it.csi.iride2.iridefed.entity=it.csi.iride2.policy.base.nmsf.stub.iridefed.entity"/>
+		 <property name="pkg-map-4"
+                    value="it.csi.iride2.iridefed.exceptions=it.csi.iride2.policy.base.nmsf.stub.iridefed.exceptions"/>
+         <property name="pkg-map-5"
+                    value="it.csi.csi.wrapper=it.csi.iride2.policy.base.nmsf.stub.csi.exceptions"/>
+        </properties>
+      </pluggable-fh>
+    </post-function-handler-list>
+    <queue-manager url="rmi://:2001/QMgrCli"/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE iride2PDEJBFile FOR GUIModel»
+«FILE getSpringIRIDE2PDEJBConfig()»<porta-delegata name="PolicyEnforcerBase">
+  «EXPAND iride2PDServicesXMLDef FOR this»
+  <config>
+    <url-pa>multi://</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd
+        name="policyEnf"
+        class="it.csi.csi.porte.ejb.PortaDelegataEJB"
+        url-pa="iride2/policy/PolicyEnforcementPoint_PA" >
+        <properties>
+          <property name="java.naming.provider.url" value="@IRIDE_PROVIDER_URL@" />
+          <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+          <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          <property name="csi.auth.basic" value="" />
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <pre-function-handler-list>
+    	<pluggable-fh
+         name="CACHE PRE"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </pre-function-handler-list>
+    <post-function-handler-list>
+    	<pluggable-fh
+         name="CACHE POST"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </post-function-handler-list>
+    <queue-manager url="rmi://:2001/QMgrCli"/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»

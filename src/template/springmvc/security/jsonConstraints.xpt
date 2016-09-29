@@ -1,0 +1,280 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«IMPORT template::springmvc::actionImplJavaFiles»
+«IMPORT template::springmvc::security»
+«IMPORT template::springmvc::typeConversion»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+«REM»per menu non per i singoli pannelli!!!!«ENDREM»
+«DEFINE jsonConstraintsFiles(GUIModel model) FOR ApplicationArea»
+
+«IF this.menubar!=null»
+«EXPAND jsonConstraintsFiles(model) FOR this.menubar»
+«ENDIF»
+
+«ENDDEFINE»
+
+«DEFINE jsonConstraintsFiles(GUIModel model) FOR Menubar»
+«EXPAND jsonConstraintsFiles(model) FOREACH this.topLevelMenu»
+«ENDDEFINE»
+
+«DEFINE jsonConstraintsFiles(GUIModel model) FOR Menu»
+«EXPAND initJsonConstraint(model, "", "visible", true) FOR this»
+«EXPAND initJsonConstraint(model, "", "enabled", true) FOR this»
+«EXPAND jsonConstraintsFiles(model) FOREACH this.submenu»
+«ENDDEFINE»
+
+
+«REM»richiamato direttamente, non dal template per application area!!!!«ENDREM»
+«DEFINE jsonConstraintsFiles(GUIModel model) FOR ContentPanel»
+
+«LET this.panels.findAllWidgetsInPanel() AS allWidgets»
+«FOREACH (List[Widget])allWidgets AS currWidget»
+«EXPAND initJsonConstraint(currWidget, model, this, "", "visible", currWidget.defaultVisible) FOR currWidget»
+«EXPAND initJsonConstraint(currWidget, model, this, "", "enabled", currWidget.defaultEnabled) FOR currWidget»
+«ENDFOREACH»
+«ENDLET»
+«FOREACH dialogs AS currDialog-»
+«LET currDialog.findAllWidgetsInPanel() AS allWidgets»
+«FOREACH (List[Widget])allWidgets AS currWidget»
+«EXPAND initJsonConstraint(currWidget, model, this, "", "visible", currWidget.defaultVisible) FOR currWidget»
+«EXPAND initJsonConstraint(currWidget, model, this, "", "enabled", currWidget.defaultEnabled) FOR currWidget»
+«ENDFOREACH»
+«ENDLET»
+
+«ENDFOREACH-»
+
+«ENDDEFINE»
+
+«DEFINE initJsonConstraint(Widget currWidget, GUIModel model, ContentPanel cp, String contextPrefix, String constrainedBehavior, boolean defaultState) FOR Widget-»
+«FILE getConstraintStructureJSONFileName(model, cp, getFullID(currWidget, contextPrefix),constrainedBehavior)»
+«EXPAND jsonSer(model, cp.name, contextPrefix, constrainedBehavior) FOR this-»
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE initJsonConstraint(GUIModel model, String contextPrefix, String constrainedBehavior, boolean defaultState) FOR Menu-»
+«FILE getConstraintStructureJSONFileName(model, null, this.name, constrainedBehavior)»
+«EXPAND jsonSer(model, null, contextPrefix, constrainedBehavior) FOR this-»
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+#######################################
+####### JSON serialization ############
+#######################################
+«ENDREM»
+
+«DEFINE jsonSer(GUIModel model, ContentPanel parentCP, String contextPrefix, String constrainedBehavior) FOR Menu-»
+«LET this.securityConstraints.select(sc| constrainedBehavior == "visible" ? sc.visible : sc.enabled) AS currConstraints-»
+{ "class": "«getSecurityJavaPackage(model)».ComplexUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": true,
+  "nomeContainer": "_menu",
+  "nomeWidget": "«name»",
+  "constraints": [
+«IF currConstraints.size>0-»
+«EXPAND jsonSer(model, "_menu", name, contextPrefix, constrainedBehavior, true) FOREACH currConstraints SEPARATOR ","»
+«ELSE-»
+{ "class": "«getSecurityJavaPackage(model)».DummyUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": true,
+  "nomeContainer": "_menu",
+  "nomeWidget": "«name»",
+  "fixedValue": true
+}
+«ENDIF-»
+
+  ]
+}
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE jsonSer(GUIModel model, String parentCPName, String contextPrefix, String constrainedBehavior) FOR Widget-»
+«LET this.securityConstraints.select(sc| constrainedBehavior == "visible" ? sc.visible : sc.enabled) AS currConstraints-»
+{ "class": "«getSecurityJavaPackage(model)».ComplexUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": «constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled»,
+  "nomeContainer": "«parentCPName»",
+  "nomeWidget": "«name»",
+  "constraints": [
+«IF currConstraints.size>0-»
+«EXPAND jsonSer(model, parentCPName, name ,contextPrefix, constrainedBehavior, (constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled)) FOREACH currConstraints SEPARATOR ","»
+«ELSE-»
+{ "class": "«getSecurityJavaPackage(model)».DummyUISecConstraint",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": «constrainedBehavior=="visible" ? this.defaultVisible : this.defaultEnabled»,
+  "nomeContainer": "«parentCPName»",
+  "nomeWidget": "«name»",
+  "fixedValue": true
+}
+«ENDIF-»
+
+  ]
+}
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE jsonSer(GUIModel model, String parentCPName, String widgetName, String contextPrefix, String constrainedBehavior, boolean defaultState) FOR UISecurityConstraint-»
+{ "class": "«this.getconstraintFQN(model)»",
+  "constrainedBehavior": «constrainedBehavior=="visible"? 2 : 1»,
+  "defaultState": «defaultState»,
+  "nomeContainer": "«parentCPName»",
+  "nomeWidget": "«widgetName»",
+ «EXPAND jsonSer_internal(model, parentCPName, contextPrefix) FOR this-»
+}
+«ENDDEFINE»
+
+
+«DEFINE jsonSer_internal(GUIModel model, String parentCPName, String contextPrefix) FOR UISecurityConstraint-»
+«ERROR "jsonSer_internal non implementato per "+this»
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, String parentCPName, String contextPrefix) FOR ActorBasedSecurityConstraint-»
+	"actorCode": "«this.actor.code»"
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, String parentCPName, String contextPrefix) FOR UCBasedSecurityConstraint-»
+	"useCaseCode": "«this.useCase.code»"
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, String parentCPName, String contextPrefix) FOR RoleBasedSecurityConstraint-»
+	"roleCode": "«this.role.code»",
+	"domainCode": "«this.role.domainCode»"
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, String parentCPName, String contextPrefix) FOR CustomSecurityConstraint-»
+	"methodNameSuffix": "«this.methodNameSuffix.toFirstUpper()»"
+«ENDDEFINE»
+«REM»
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR NOPCommand-»
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR JumpCommand-»,
+	"name": "«this.jumpTo.name»", 
+	"pushCurrent":«this.pushCurrentPage»
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR JumpExtCommand-»,
+	"locationCode":"«this.locationCode»",
+	"runtimeUrlProviderAppData":"«this.runtimeUrlProvider.name»",
+	"staticUrl":"«this.staticUrl»",
+	"binaryStream":«this.binaryStream» 
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR JumpBackCommand-»
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ShowDialogCommand-»,
+	"name":"«this.dialog.name»"
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR SequenceCommand-»,
+	"actions": [«EXPAND jsonSer(model, parentCP, contextPrefix) FOREACH this.commands SEPARATOR ","-»] 
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR RefreshViewCommand-»,
+	"targetPanels": [«FOREACH targetPanels AS tp SEPARATOR ","-»
+"«getFullID(tp,contextPrefix)»"«ENDFOREACH-»], 
+	"targetWidgets":[«FOREACH targetWidgets AS tw SEPARATOR ","-»
+"«getFullID(tw,contextPrefix)»"«ENDFOREACH-»],
+	"currentPanelName":«parentCP!=null ? "\""+parentCP.name+"\"" : "null"» 
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ExecCommand-»,
+	"azioni":[«EXPAND jsonSer(model, parentCP, contextPrefix) FOREACH this.results SEPARATOR ","-»],
+	"esiti":[«FOREACH this.results AS currRes SEPARATOR ","-»
+"«currRes.resultCode»"«ENDFOREACH-»],
+	"nomeMetodo":"«methodName»",
+	"appDataToStore":[«FOREACH this.postExecData AS currApp SEPARATOR ","-»
+"«currApp.getAppDataKey()»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR VisibilityCommand-»,
+	"show":«this.show»,
+	"targetsWidgets":[«FOREACH this.targetWidgets AS currWidg SEPARATOR ","-»
+"«getFullID(currWidg,contextPrefix)»"«ENDFOREACH-»],
+	"targetsMenuElements":[«FOREACH this.targetMenuElement AS currWidg SEPARATOR ","-»
+"«getFullID(currWidg,contextPrefix)»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ONOFFCommand-»,
+	"enable":«this.enable»,
+	"targetsWidgets":[«FOREACH this.targetWidgets AS currWidg SEPARATOR ","-»
+"«getFullID(currWidg,contextPrefix)»"«ENDFOREACH-»],
+	"targetsMenuElements":[«FOREACH this.targetMenuElement AS currWidg SEPARATOR ","-»
+"«getFullID(currWidg,contextPrefix)»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ScreenStateCommand-»,
+	"widgetsOn":[«FOREACH this.goTo.widgetsOn AS currWidgOn SEPARATOR ","-»
+"«getFullID(currWidgOn, contextPrefix)»"«ENDFOREACH-»],
+	"widgetsOff":[«FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+"«getFullID((Widget)currWidgOff,contextPrefix)»"«ENDFOREACH-»],
+	"widgetsShown":[«FOREACH this.goTo.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+"«getFullID(currWidgVisible, contextPrefix)»"«ENDFOREACH-»],
+	"widgetsHidden":[«FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+"«getFullID((Widget)currWidgHidden, contextPrefix)»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR PDefStateCommand-»,
+	"widgetsOn":[«FOREACH this.goTo.widgetsOn AS currWidgOn SEPARATOR ","-»
+"«getFullID(currWidgOn, contextPrefix)»"«ENDFOREACH-»],
+	"widgetsOff":[«FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+"«getFullID((Widget)currWidgOff,contextPrefix)»"«ENDFOREACH-»],
+	"widgetsShown":[«FOREACH this.goTo.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+"«getFullID(currWidgVisible, contextPrefix)»"«ENDFOREACH-»],
+	"widgetsHidden":[«FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+"«getFullID((Widget)currWidgHidden, contextPrefix)»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ClearAppdataCommand-»,
+	"attributesToBeRemovedFromSession":[«FOREACH this.appData AS tp SEPARATOR ","-»
+"«tp.name»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR BeginEditCommand-»,
+	"targetAppDataNames":[«FOREACH dataEdited AS ad SEPARATOR ","-»
+"«getAppDataKey(ad)»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR EndEditCommand-»,
+	"undo":«this.undo»,
+	"targetAppDataNames":[«FOREACH dataEdited AS ad SEPARATOR ","-»
+"«getAppDataKey(ad)»"«ENDFOREACH-»]
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ChkEditStatusCommand-»,
+	"checkAggr":"«this.checkAggregation»",
+	"checkedData":[«FOREACH dataChecked AS ad SEPARATOR ","-»
+"«getAppDataKey(ad)»"«ENDFOREACH-»],
+	"doIfChanged":«EXPAND jsonSer(model, parentCP, contextPrefix) FOR this.doIfChanged»,
+	"doIfNotChanged":«EXPAND jsonSer(model, parentCP, contextPrefix) FOR this.doIfChanged»
+«ENDDEFINE»
+
+«DEFINE jsonSer_internal(GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ActivateMultiPanelItemCommand-»,
+	"containerName":"«getFullID(this.multipanel, contextPrefix)»",
+	"contentPanelName":"«parentCP.name»",
+	"itemName": «IF activeItem!=null-»"«getFullID(this.activeItem, contextPrefix)»"«ELSE-»null«ENDIF-»
+«ENDDEFINE»
+«ENDREM»

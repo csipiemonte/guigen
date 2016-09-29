@@ -1,0 +1,542 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+«EXTENSION template::springmvc::security::securityCustom::SecurityProfileExtensions»
+
+«REM»Definizione e Mapping Authentication Filter da modellazione SecurityProfile«ENDREM»
+«DEFINE authenticationFilterSecurityProfile(GUIModel model) FOR SecurityProfile» 
+«IF this.intAuthGuard != null-»
+	«EXPAND internalAuthenticationFilter(model, this.idAdapter) FOR this.intAuthGuard-»
+«ENDIF-»
+«IF this.extAuthGuard != null-»
+	«EXPAND externalAuthenticationFilter(model, this.idAdapter) FOR this.extAuthGuard-»
+«ENDIF-»
+
+«ENDDEFINE»
+
+
+«DEFINE externalAuthenticationFilter(GUIModel model, IdentityAdapter idAdp) FOR ExternalAuthenticationGuard»
+
+	<filter>
+		<filter-name>ID Adapter Custom</filter-name>
+		<filter-class>«getIdAdapterCustomFilterFQN(model)»</filter-class>
+		«IF idAdp != null && idAdp.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
+    	<init-param>
+    		<param-name>remoteValidationUrl</param-name>    	
+      		<param-value>@idAdapter.remoteValidationUrl@</param-value>
+      	</init-param>
+      	«ENDIF-»
+	</filter>
+  
+	<!-- ################################################################
+	   il filter di autenticazione NON esiste 
+	   ################################################################
+	-->
+
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>ID Adapter Custom</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+
+«ENDDEFINE»
+
+
+«REM»Definizione InternalAuthenticationGuard«ENDREM»
+«DEFINE internalAuthenticationFilter(GUIModel model, IdentityAdapter idAdp) FOR InternalAuthenticationGuard» 
+
+	<!-- ############################################################### 
+         definizione filter per autenticazione interna
+         ###############################################################
+    -->
+	<filter>
+	    <filter-name>Internal Authentication Filter</filter-name>
+    	<filter-class>«getInternalAuthenticationFilterFQN(model)»</filter-class>
+    	«IF this.loginModule!=null-»
+    	<init-param>
+      		<param-name>loginPage</param-name>
+    		«IF this.loginModule.internal == true-»
+      		<param-value>/«model.codComponente»/secure/localLoginUI.do</param-value>
+	      	«ELSE»
+      		<param-value>@loginUi.external@</param-value>
+      		«ENDIF»      		
+    	</init-param>
+    	«ENDIF»
+    	
+    	«IF this.params!=null-»
+    	«LET this.params.params AS envConfigParams-»
+    	«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+    	«FOREACH envConfigParams AS envConfigParam-»
+    	<init-param>
+      		<param-name>«envConfigParam.name»</param-name>
+      		<param-value>@«envConfigParam.name»@</param-value>
+    	</init-param>
+    	«ENDFOREACH-»
+    	«ENDIF-»
+    	«ENDLET-»
+    	«ENDIF-» 
+    	   	
+	</filter>
+  
+	<filter>
+		<filter-name>ID Adapter Custom</filter-name>
+		<filter-class>«getIdAdapterCustomFilterFQN(model)»</filter-class>
+		«IF this.loginModule!=null-»
+    	<init-param>
+      		<param-name>loginPage</param-name>
+    		«IF this.loginModule.internal == true-»
+      		<param-value>/«model.codComponente»/secure/localLoginUI.do</param-value>
+	      	«ELSE-»
+      		<param-value>@loginUi.external@</param-value>
+      		«ENDIF-»
+    	</init-param>
+    	«IF idAdp != null && idAdp.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
+    	<init-param>
+    		<param-name>remoteValidationUrl</param-name>    	
+      		<param-value>@idAdapter.remoteValidationUrl@</param-value>
+      	</init-param>
+      	«ENDIF-»
+    	«ENDIF-»
+    	«IF idAdp.params!=null-»
+    	«LET idAdp.params.params AS envConfigParams-»
+    	«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+    	«FOREACH envConfigParams AS envConfigParam-»
+    	<init-param>
+      		<param-name>«envConfigParam.name»</param-name>
+      		<param-value>@«envConfigParam.name»@</param-value>
+    	</init-param>
+    	«ENDFOREACH-»
+    	«ENDIF-»
+    	«ENDLET-»
+    	«ENDIF-» 
+	</filter>
+  
+	<!-- ################################################################
+	   il filter di autenticazione e' il primo ad essere innescato
+	   ################################################################
+	-->
+	<filter-mapping>
+	    <filter-name>Internal Authentication Filter</filter-name>
+		<url-pattern>/secure/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>ID Adapter Custom</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+«ENDDEFINE»
+
+
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR SecurityProfile»
+	<!-- replace variabili di environment per security custom -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${logout.url}"/>
+	«IF this.intAuthGuard!=null»
+		«IF this.intAuthGuard.loginModule.internal == false»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@loginUi.external@"  
+		value="${loginUi.external}"/>
+		«ENDIF»
+		«IF this.idAdapter.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@idAdapter.remoteValidationUrl@"  
+		value="${idAdapter.remoteValidationUrl}"/>
+		«ENDIF-»
+		«IF this.intAuthGuard.params!=null-»
+			«LET this.intAuthGuard.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@«envConfigParam.name»@"  
+		value="${«envConfigParam.name»}"/>
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-» 
+		
+		«IF this.idAdapter.params!=null-»
+			«LET this.idAdapter.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@«envConfigParam.name»@"  
+		value="${«envConfigParam.name»}"/>
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-»
+		
+	«ELSE-»
+		<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@idAdapter.remoteValidationUrl@"  
+		value="${idAdapter.remoteValidationUrl}"/>
+	«ENDIF»
+	
+	«IF this.pepImpl !=null»
+	«LET this.pepImpl.params AS envConfigParams-»
+	«FOREACH envConfigParams AS envConfigParam-»
+	<!-- replace variabili di environment per pepImpl -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/applicationContext.xml" 
+		token="@pepImpl«envConfigParam.name.toFirstUpper()»@"  
+		value="${pepImpl«envConfigParam.name.toFirstUpper()»}"/>	
+	«ENDFOREACH-»
+	«ENDLET»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR SecurityProfile»
+#-[configurazioni generali custom security --------------------------------------
+	logout.url = 
+	«IF this.intAuthGuard!=null»
+#-[configurazione intAuthGuard]--------------------------------------------------
+		«IF this.intAuthGuard.loginModule.internal == false»
+	loginUi.external = 	
+		«ENDIF»
+		«IF this.idAdapter.ticketVerifyMethod == TicketVerifyMethod::REMOTE_HTTP-»
+	idAdapter.remoteValidationUrl =
+		«ENDIF-»
+		«IF this.intAuthGuard.params!=null-»
+			«LET this.intAuthGuard.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+	«envConfigParam.name» =  
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-» 
+---------------------------------------------------------------------------------
+	«ELSE»
+#-[configurazione extAuthGuard]--------------------------------------------------
+	idAdapter.remoteValidationUrl =
+---------------------------------------------------------------------------------	
+	«ENDIF»
+#-[configurazione id adapter]----------------------------------------------------
+	«IF this.idAdapter.params!=null-»
+			«LET this.idAdapter.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+	«envConfigParam.name» =  
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+	«ENDIF-»
+
+	«IF this.pepImpl !=null»
+	«LET this.pepImpl.params AS envConfigParams-»
+#-[configurazione pepImpl]--------------------------------------------------
+	«FOREACH envConfigParams AS envConfigParam-»
+	pepImpl«envConfigParam.name.toFirstUpper()» =  
+	«ENDFOREACH-»
+	«ENDLET»
+---------------------------------------------------------------------------------
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE idAdapterCustomFilter(GUIModel model) FOR SecurityProfile»
+
+«FILE getIdAdapterCustomFilterJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
+
+import org.apache.log4j.Logger;
+import it.csi.«model.codProdotto».«model.codComponente».util.*;
+
+«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+«ENDIF»
+/**
+ * Inserisce in sessione l'oggetto <code>currentUser</code>
+ * Funge da adapter tra il filter del metodo di autenticaizone previsto e la
+ * logica applicativa.
+ *
+ * @author CSIPiemonte
+ */
+ 
+public class «getIdAdapterCustomFilterClassName()» implements Filter{
+	
+	public static final String USERINFO_SESSIONATTR = "appDatacurrentUser";
+	public static final String TICKET = "«this.idAdapter.infoSourceName»";
+	public static final String SECURITY_SESSION_MARKER = "iride2_id";
+	
+	protected static final Logger log = Logger
+			.getLogger(Constants.APPLICATION_CODE + ".security");
+			
+	public static String loginPage;
+	«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»	
+	public static String remoteValidationUrl;
+	«ENDIF»
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		Object marker = getMarker(hreq);
+«IF this.intAuthGuard!=null && this.intAuthGuard.loginModule!=null && this.intAuthGuard.loginModule.internal-»
+		if (hreq.getRequestURI().indexOf(loginPage) > -1) {
+			fchn.doFilter(req, resp);
+			return;
+		}
+«ENDIF-»
+		if (marker != null)
+			fchn.doFilter(req, resp);
+		else {
+			validateTicket(hreq);
+			fchn.doFilter(req, resp);
+		}
+	}
+	
+	private Object getMarker(HttpServletRequest hreq) {
+		return hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
+	}
+	
+	«EXPAND template::springmvc::security::securityCustom::authenticationFilterJava::getTicketMethod FOR this»
+	
+	«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
+	public static Cookie getCookie(String cookieName, Cookie[] cookies) {
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					return cookie;
+				}
+			}
+		}
+		return null;
+	}
+	«ENDIF-»
+	
+	/**
+	 * Estrae dalla «this.idAdapter.sourceType» il ticket (nel parametro "«this.idAdapter.infoSourceName»") e lo valida
+	 * Se la validazione ha avuto successo allora da questo ricava l' identità digitale necessaria per il livello autorizzativo.
+	 * Inserisce in sessione l' identità digitale (nel paramentro "iride2_id")
+	 * Crea e inserisce in sessione il currentUser (nel paramentro "appDatacurrentUser")
+	 «IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»
+	 * La validazione viene fatta da un servizio Http remoto
+	 «ENDIF-»
+	 * @param hreq
+	 * @throws ServletException --> 
+	 */
+	private void validateTicket(HttpServletRequest hreq) throws ServletException {
+		Identita identita = null;
+		Object ticket = getTicket(hreq);
+		
+	«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»
+		String url = prepareTicketValidationCall(ticket);
+		byte[] response = callHTTPClient(url);
+		String encodedUserInfo = extractEncodedUserInfo(response);
+	«ELSE-»
+		String encodedUserInfo = extractEncodedUserInfo(ticket);
+	«ENDIF-»
+		String normalizedTicket = normalizeEncodedUserInfo(encodedUserInfo);
+		try {
+			identita = new Identita(normalizedTicket);
+		} catch (MalformedIdTokenException e) {
+			log.error("Si e' verificato un errore:", e);
+		}
+	
+		if (identita != null){
+			hreq.getSession().setAttribute(SECURITY_SESSION_MARKER,
+					identita);
+			createCurrentUser(hreq);
+		}
+		else
+			throw new ServletException(
+					"Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+
+	}
+
+	/**
+	 * Costruisce l' oggetto UserInfo per tenere traccia dell' utente loggato
+	 * @param hreq
+	 */
+	private void createCurrentUser(HttpServletRequest hreq) {
+		
+		Identita identita = (Identita) hreq.getSession().getAttribute(
+				SECURITY_SESSION_MARKER);
+		it.csi.«model.codProdotto».«model.codComponente».dto.common.UserInfo userInfo = new it.csi.«model.codProdotto».«model.codComponente».dto.common.UserInfo();
+		
+		userInfo.setNome(identita.getNome());
+		userInfo.setCognome(identita.getCognome());
+		userInfo.setCodFisc(identita.getCodFiscale());
+		userInfo.setIdIride(identita.toString());
+		«EXPAND template::springmvc::generalTemplate::inlineDef("body","createCurrentUser") FOR this.idAdapter-»
+		hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
+
+	}
+	
+	/**
+	 * Rielaborare (se necessario) la stringa encodedUserInfo per ottenerne una del tipo:
+	 * C.F./NOME/COGNOME/ID_PROVIDER/MAC/LIV_AUTENTICAZIONE/TIMESTAMP
+	 * @param encodedUserInfo
+	 * @return String token normalizzato
+	 */
+	private String normalizeEncodedUserInfo(String encodedUserInfo) {
+		String res = encodedUserInfo;
+		«EXPAND template::springmvc::generalTemplate::inlineDef("body","normalizeEncodedUserInfo") FOR this.idAdapter-»
+		return res;
+	}
+
+
+«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»
+
+	/**
+	 * Prepara l' url compresivo dei parametri per la chiamata verso il servizio di validazione
+	 * @param ticket
+	 * @return String url
+	 */
+	private String prepareTicketValidationCall(Object ticket) {
+		String res = remoteValidationUrl;
+		«EXPAND template::springmvc::generalTemplate::inlineDef("body","prepareTicketValidationCall") FOR this.idAdapter-»
+		return res;
+	}
+
+	private  byte[] callHTTPClient(String url){
+		byte[] responseBody = null;
+		HttpClient client = new HttpClient();
+
+		// Create a method instance.
+		GetMethod method = new GetMethod(url);
+
+		try {
+			// Execute the method.
+			int statusCode = client.executeMethod(method);
+			if (statusCode != HttpStatus.SC_OK) {
+				log.error("executeMethod failed: " + method.getStatusLine());
+			}
+			responseBody = method.getResponseBody();
+
+		} catch (HttpException e) {
+			log.error("HttpException" + e.getMessage(), e);			
+		} catch (IOException e) {
+			log.error("IOException" + e.getMessage(), e);
+		} finally {
+			method.releaseConnection();
+			return responseBody;
+		}  
+		    
+	}
+	
+	/**
+	 * Estrae dalla response del servizio di validazione le informazioni che servono a ricostruire l' identita' dell' utente
+	 * All' interno della regione protetta e' necessario inserire la logica per la verifica della validità della response e la logica per l' estrazione delle informazioni
+	 * @param response
+	 * @return
+	 */
+	private String extractEncodedUserInfo(byte[] response){
+		String res = null;
+		«EXPAND template::springmvc::generalTemplate::inlineDef("body","extractEncodedUserInfo") FOR this.idAdapter-»
+		return res;
+	}
+	
+«ELSE»
+
+	private String extractEncodedUserInfo(Object ticket){
+		String res = null;
+		«EXPAND template::springmvc::generalTemplate::inlineDef("body","extractEncodedUserInfo") FOR this.idAdapter-»
+		return res;
+	}
+«ENDIF»
+	
+	
+	public void destroy() {
+		// NOP
+	}
+
+	«IF this.idAdapter.params != null»
+	«FOREACH idAdapter.params.params AS currEnvParam»
+	/**
+	 * nome del parametro «currEnvParam.name». La costante puo' essere utilizzata come
+	 * parametro del metodo <code>getConfigParameter()</code>
+	 */
+	private static final String «currEnvParam.name.toUpperCase()»_PARAM_NAME = "«currEnvParam.name»";
+	«ENDFOREACH»
+	«ENDIF»
+	
+	/**
+	 * @param paramName il nome del parametro di configurazione da leggere
+	 * (i nomi dei parametri sono definiti da alcune costanti con suffisso "_PARAM_NAME").
+	 * @return il valore del parametro di configurazione specificato
+	 */
+	private String getConfigParameter(String paramName){
+		return config.getInitParameter(paramName);
+	}
+	
+	private FilterConfig config = null;
+	 
+	/**
+	 * inizializzazione del filter.
+	 * viene salvata la configurazione in modo che si possano 
+	 * utilizzare eventuali EnvConfigParam all'interno delle 
+	 * regioni protette, tramite il metodo privato getConfigParameter
+	 */
+	public void init(FilterConfig config) throws ServletException {
+		«IF this.intAuthGuard!=null && this.intAuthGuard.loginModule!=null && this.intAuthGuard.loginModule.internal-»
+		loginPage = config.getInitParameter("loginPage");
+		«ENDIF-»
+		«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»	
+		remoteValidationUrl = config.getInitParameter("remoteValidationUrl");
+		«ENDIF-»
+		this.config = config; 
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE loginUISecurityProfile(GUIModel model) FOR SecurityProfile»
+«IF this.intAuthGuard!=null -»
+	«IF this.intAuthGuard.loginModule!=null-»
+		«IF this.intAuthGuard.loginModule.internal == true-»
+		«EXPAND template::springmvc::security::securityCustom::loginUI::localLoginUIAction(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::springmvc::security::securityCustom::loginUI::localLoginUIActionProperties(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::springmvc::security::securityCustom::loginUI::localLoginUIJsp(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::springmvc::security::securityCustom::loginUI::errorAuthJsp(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::springmvc::security::securityCustom::loginUI::localLoginUIStrutsXml(model) FOR this»
+		«ENDIF-»
+	«ENDIF-»
+«ENDIF-»
+«ENDDEFINE»

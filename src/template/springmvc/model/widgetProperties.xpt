@@ -1,0 +1,229 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions »
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+«REM»
+	inserisce tutte le propeprty associate ai vari DataWidget contenuti nel content panel
+	a tutti i livelli
+	[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload 
+	[AM] STDMDD-360: aggiunta gestione dei widget indiretti (PanelDefUse)
+«ENDREM»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation) FOR ContentPanel»
+	«EXPAND widgetsProperties(model, widgetValidation, this, "") FOR this.panels»
+	«EXPAND widgetsProperties(model, widgetValidation, this, "") FOREACH this.dialogs»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Panel-»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.panels-»
+«ENDDEFINE»
+
+«REM»FileUpload non è un datawidget=>occorre trattarlo a parte«ENDREM»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«LET widgets.typeSelect(DataWidget).select(dw|dw.databinding==null) AS dataWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH dataWidgets-»
+	«ENDLET-»
+	«LET widgets.typeSelect(FileUpload) AS uplWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH uplWidgets-»
+	«ENDLET-»
+	«LET widgets.typeSelect(Captcha) AS captchaWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH captchaWidgets-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
+	«LET widgets.typeSelect(DataWidget) AS dataWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH dataWidgets-»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Widget-»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR DataWidget-»
+	«ERROR "tipo di data widget non gestito:"+this»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PlainText-»
+	«REM»Non facciamo niente. Implementare in futuro se servisse«ENDREM»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR HiddenValue-»
+	// HiddenValue «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation-» 
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextField-»
+	// TextField «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation-»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextArea-»
+	// TextArea «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation-»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Table»
+	// Table «name»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, "") FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR RadioButtons»
+	// RadioButtons «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR CheckBox»
+	// CheckBox «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, (String)widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR ComboBox»
+	// ComboBox «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, (String)widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Calendar»
+	// Calendar «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, (String)widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR Type»
+	private «toJavaType(this, model)» «removeUnderscoreFromWidgPrefix(name)»;
+	
+	«widgetValidation»
+	public void set«name.toFirstUpper()»(«toJavaType(this, model)» value){
+		«removeUnderscoreFromWidgPrefix(name)» = value;
+	}
+	
+	public «toJavaType(this, model)» get«name.toFirstUpper()»(){
+		return «removeUnderscoreFromWidgPrefix(name)»;
+	}
+«ENDDEFINE»
+
+
+«REM»[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload «ENDREM»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR FileUpload»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, null) FOR this»
+«ENDDEFINE»
+
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR FileUpload»
+«LET (multiple? "List<File>": "File") AS fileActualType-»
+«LET (multiple? "List<String>": "String") AS stringActualType-»
+	// FileUpload «name»
+	private «fileActualType» «removeUnderscoreFromWidgPrefix(name)»;               // The actual file(s)
+	private «stringActualType» «removeUnderscoreFromWidgPrefix(name)»ContentType;  // The content type of the file(s) 
+	private «stringActualType» «removeUnderscoreFromWidgPrefix(name)»FileName;     // The uploaded file(s) name and path 
+
+	public void set«name.toFirstUpper()»(«fileActualType» value) {
+		«removeUnderscoreFromWidgPrefix(name)» = value;
+	}
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+	«ENDIF-»
+	public «fileActualType» get«name.toFirstUpper()»() {
+		«IF model.targetPlatform.enableFatClient-»
+		if(«removeUnderscoreFromWidgPrefix(name)» == null){
+			String pathFile = (String) session.get("«name»_FileUpl");
+			if(pathFile != null){
+				«removeUnderscoreFromWidgPrefix(name)» = new File(pathFile);
+			}
+		}
+		«ENDIF-»
+		return «removeUnderscoreFromWidgPrefix(name)»;
+	}
+
+	public void set«name.toFirstUpper()»ContentType(«stringActualType» value) {
+		«removeUnderscoreFromWidgPrefix(name)»ContentType = value;
+	}
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+	«ENDIF-»
+	public «stringActualType» get«name.toFirstUpper()»ContentType() {
+		«IF model.targetPlatform.enableFatClient-»
+		if(«removeUnderscoreFromWidgPrefix(name)»ContentType == null){
+			return (String) session .get("«name»ContentType");
+		}
+		«ENDIF-»
+		return «removeUnderscoreFromWidgPrefix(name)»ContentType;
+	}
+
+	public void set«name.toFirstUpper()»FileName(«stringActualType» value) {
+		«removeUnderscoreFromWidgPrefix(name)»FileName = value;
+	}
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+	«ENDIF-»
+	public «stringActualType» get«name.toFirstUpper()»FileName() {
+		«IF model.targetPlatform.enableFatClient-»
+		if(«removeUnderscoreFromWidgPrefix(name)»FileName == null){
+			return (String) session.get("«name»FileName");
+		}
+		«ENDIF-»
+		return «removeUnderscoreFromWidgPrefix(name)»FileName;
+	}
+«ENDLET-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Captcha»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, null) FOR this»
+«ENDDEFINE»
+
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR Captcha»
+	// Captcha «name» (readonly)
+	public boolean validateAnswerFor«name.toFirstUpper()»(String answer) {
+		nl.captcha.Captcha captcha = (nl.captcha.Captcha)(this.getSession().get(«getUtilJavaPackage(model)».Constants.CAPTCHA_SESSION_NAME));
+		if (captcha != null){
+			return captcha.isCorrect(answer);
+		}
+		else{
+			return false; // no captcha, no answer
+		} 
+	}
+	
+«ENDDEFINE»

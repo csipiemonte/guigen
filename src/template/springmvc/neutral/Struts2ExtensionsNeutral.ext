@@ -1,0 +1,297 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout NEUTRALE                         //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+String getReminclResourceProviderNeutral(GUIModel model) :
+	"";
+
+//
+String getStrutsThemeByPortalNeutral(GUIModel model) :
+	"csi"; // definirne uno se serve
+
+//
+String getTablePortalStyleNeutral(GUIModel model, Table t) :
+	"class=\"dataTable\"";
+
+//
+String getRadioPortalStyleNeutral(GUIModel model) :
+	"cssClass=\"radio\"";
+
+// [DM] Restituisce lo stile dei Calendar
+String getCalendarStyleByLayoutNeutral(GUIModel model, Calendar c) :
+	"cssClass=\"calendar\"";
+
+// [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
+//      Qui non inseriamo un'immagine, ma un marcatore che possa essere utilizzato per vari scopi
+String getCalendarImageByLayoutNeutral(GUIModel model, Calendar c) :
+	"<div class=\"infoCalendar\"></div>";
+
+// [DM] Restituisce lo stile dei FileUpload
+String getFileUploadStyleByLayoutNeutral(GUIModel model, FileUpload f) :
+	"";
+
+// [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
+String getComboBoxValueChangedHandlerStyleNeutral(GUIModel model) :
+	"";
+
+// [DM] Restituisce il campo per l'editabilit� di una colonna della tabella
+String getColumnEditableFieldNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) :
+	let thm = isRemote() ? "csi-tableinput-rem" : "csi-tableinput-loc" :
+	getColumnEditableFieldWrapperNeutral(currCol, table, model, contextPrefix, pduConf, thm);
+
+// [DM] STDMDD-904 e STDMDD-905: conferma logout e modellazione scelta local/sso logout mode
+String getUserInfoPanelLogoutMethod(GUIModel model) :
+	if (model.extSecurityModel != null) then
+		(model.extSecurityModel.askForConfirmationOnLogout ? "confirmLogout" : getLogoutActionType(model))
+	else
+		"localLogout";
+
+// [DM] STDMDD-904: modellazione scelta local/sso logout mode
+String getLogoutActionType(GUIModel model) :
+	if (model.extSecurityModel != null) then
+		(model.extSecurityModel.userInfoLogoutAction == guigen::LogoutActionTypes::SSO_LOGOUT ? "ssoLogout" : "localLogout")
+	else
+		"localLogout";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+// [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
+String getComboBoxValueChangedHandlerJSNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		//"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " +
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" " + 
+		"onfocus=\"inFocus(this)\" " +
+		//"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','%{" + getWidgetName(cb, contextPrefix)+"urlComboBoxValueChange}" + "')\" ";
+
+// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
+//String getComboBoxValueChangedHandlerNoScriptNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+//	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
+String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		//"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onclick=\"onRBClick('%{" + getWidgetName(rb, contextPrefix)+"urlRadioButtonValueChange}" + "')\" ";
+		
+// [MB] genera il codice che gestise l'evento change sui checkbox con JavaScript abilitato
+String getCheckBoxesValueChangedHandlerJSNeutral(CheckBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		//"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+		"onclick=\"onCheckBoxClick('%{" + getWidgetName(cb, contextPrefix)+"urlCheckBoxValueChange}" + "')\" ";
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
+//String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+//	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni abilitanti al Web 2.0 (ridefinite solo qui)
+
+String getFragmentIdNeutral(Panel p) :
+	"p_"+p.name;
+
+String startFragmentNeutral(Panel p) :
+	"<div id=\""+getFragmentId(p)+"\"" + " class=\""+getPanelBlockCSS(p)+(p.scrollable ? " scroll" : "")+"\"" + "><!-- startFragment:"+getFragmentId(p)+" -->";
+
+
+String endFragmentNeutral(Panel p) :
+	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
+
+String pageIdMarkerNeutral(ContentPanel cp) :
+	"<!-- pageId:"+cp.name+" -->";
+
+// nota: non riesco a usare il metaType perche' mette anche il prefisso 'guigen::'
+String getPanelBlockCSS(Panel p) :
+	"panelBlock";
+String getPanelBlockCSS(FormPanel p) :
+	"formPanelBlock";
+String getPanelBlockCSS(WidgetsPanel p) :
+	"widgetsPanelBlock";
+String getPanelBlockCSS(TabSetPanel p) :
+	"tabSetPanelBlock";
+String getPanelBlockCSS(WizardPanel p) :
+	"wizardPanelBlock";
+String getPanelBlockCSS(StdMessagePanel p) :
+	"stdMessagePanelBlock";
+String getPanelBlockCSS(MsgBoxPanel p) :
+	"msgBoxPanelBlock";
+String getPanelBlockCSS(MenuPanel p) :
+	"menuPanelBlock";			
+String getPanelBlockCSS(CommandPanel p) :
+	"commandPanelBlock";
+String getPanelBlockCSS(UserInfoPanel p) :
+	"userInfoPanelBlock";	
+String getPanelBlockCSS(DialogPanel p) :
+	"dialogPanelBlock";
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+String getMenuNoChildCssNeutral(Menu menu, int level) :
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> id=\"current\" class=\"active\"</s:if>";
+
+//
+String getMenuNoChildLinkCssNeutral(Menu menu, int level) :
+	"";
+
+//
+String getMenuNoChildLabelNeutral(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+// attivazione del menu padre se uno dei sottomenu � cliccato
+String getMenuWithChildCssNeutral(Menu menu, int level) :
+	" class=\"parent<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? ' active' : ''}\" />\"" + 
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> id=\"current\"</s:if>";
+
+//
+String getMenuWithChildLinkCssNeutral(Menu menu, int level) :
+	"";
+
+//
+String getMenuWithChildLabelNeutral(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+
+// restituisce l'identificatore del wrapper dei pannelli West-Center-East di un FormPanel
+// di primo livello con UDLRCPanelLayout
+String getWestCenterEastWrapperId(Panel leftPanel, Panel rightPanel) :
+	(leftPanel != null ? "West" : "") +
+	"Center" +
+	(rightPanel != null ? "East" : "");
+
+// restituisce l'identificatore del wrapper dei pannelli West-Center-East di un FormPanel
+// di primo livello con UDLRCPanelLayout
+String getLeftCenterRightWrapperId(List leftPanels, List centerPanels, List rightPanels) :
+	( (leftPanels != null && leftPanels.size > 0) ? "left" : "" ) +
+	( (centerPanels != null && centerPanels.size > 0) ? "Center" : "" ) +
+	( (rightPanels != null && rightPanels.size > 0) ? "Right" : "");
+
+// restituisce la lista dei Buttons di un CommandPanel con UDLRC layout posizionati nel settore indicato
+List getButtonsByUDLRCPosition(CommandPanel cp, UDLRCSpecConstants quadrante) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getButtonsByUDLRCPosition(it.csi.mddtools.guigen.CommandPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+
+// restitisce l'orientamento di un MenuPanel (horizontal o vertical)
+String getMenuPanelOrientation(MenuPanel mp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getMenuPanelOrientation(it.csi.mddtools.guigen.MenuPanel);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Java Extensions for checks specifici per Layout NEUTRAL (XHTML UNIVERSALE)               //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] Un CommandPanel pu� avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
+boolean commandPanelLayoutCheckNeutral(CommandPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsChecksNeutral.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
+
+boolean formPanelLayoutCheckNeutral(FormPanel fp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsChecksNeutral.formPanelLayoutCheck(it.csi.mddtools.guigen.FormPanel);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Binding a metodi JAVA per layout NEUTRAL (XHTML UNIVERSALE) usate in AOP                 //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayoutNeutral(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce lo stile del <div> per i Button
+String getButtonDivStyleByLayoutNeutral(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei Button
+String getButtonStyleByLayoutNeutral(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei TextField
+String getTextFieldStyleByLayoutNeutral(GUIModel model, TextField t) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortalNeutral(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM]
+String getColumnStyleNeutral(Column col, Table t, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perch� viene utilizzato anche da Java
+String getCheckboxPortalStyleNeutral(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce la classe da applicare ad una cella nella CustomComponent sulla base del tipo di dato del Widget (PlainText).
+//      Utilizzato per allineare a destra i dati numerici.
+String getCustomComponentColumnStyleByPortalNeutral(GUIModel model, PlainText w) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
+
+// [DM] Restituisce la classe per un TextField in una Table.
+// nota: deve rimanere in Java perch� viene utilizzato anche da Java 
+String getColumnEditableTextfieldPortalStyleNeutral(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] restituisce l'attributo di obbligatoriet� del campo da settare nella custom Component widgetsPanelColumn
+String getCustomtagRequiredFieldNeutral(Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomtagRequiredField(it.csi.mddtools.guigen.Widget);
+
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+String getCustomtagHeaderColspanNeutral(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
+
+// [DM] Restituisce il campo per l'editabilit� di una colonna della tabella
+String getColumnEditableFieldWrapperNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig, java.lang.String);
+
+// [DM] STDMDD-823: WizardPanel: numerazione automatica degli step
+String getWizardPanelStepCompleteIndexNeutral(Panel currentPanel, String index) : 
+	let numbSchema = ((WizardPanel)currentPanel).numberingSchema :
+	let suffix = numbSchema != null && numbSchema != guigen::WizardNumberingTypes::NO_NUMBERING ? ". " : "" :
+	getWizardPanelStepCompleteIndexNeutralInternal(currentPanel, index) + suffix;
+
+String getWizardPanelStepCompleteIndexNeutralInternal(Panel currentPanel, String index) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getWizardPanelStepCompleteIndex(it.csi.mddtools.guigen.Panel, java.lang.String);
+
+String decodeWizardNumbering(Panel wiz, String index) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.decodeWizardNumbering(it.csi.mddtools.guigen.Panel, java.lang.String);
+	
+String getRbOrientationClass(RadioButtons rb): 
+	(rb.layout==null?"":(rb.layout.metaType==VerticalFlowPanelLayout?"vertical":(rb.layout.metaType==HorizontalFlowPanelLayout?"horizontal":"")));

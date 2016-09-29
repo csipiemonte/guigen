@@ -1,0 +1,1336 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR AutenticationMethod»
+	«ERROR "authentication method non supportato:" + this.metaType»»
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR SSOBARTSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR OPAUTHSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«REM»[DM] STDMDD-900: logout url MULTIPORTALE«ENDREM»
+«DEFINE securityRelatedContextParams(GUIModel model) FOR ShibbolethSSO»
+	«IF isMultiPortal(model)-»
+		«EXPAND securityRelatedContextParamsShibbolethMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND securityRelatedContextParamsShibbolethSP(model) FOR this-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParamsShibbolethSP(GUIModel model) FOR ShibbolethSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParamsShibbolethMP(GUIModel model) FOR ShibbolethSSO»
+	«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<context-param>
+		<param-name>logoutURL.«code»</param-name>
+		<param-value>@LOGOUT_URL.«code»@</param-value>
+	</context-param>
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
+
+«IF model.targetPlatform.securityProfile != null»
+	«IF isMultiPortal(model)-»
+		«EXPAND securityRelatedContextParamsCustomMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND securityRelatedContextParamsCustomSP(model) FOR this-»
+	«ENDIF-»
+«ELSE»
+	«ERROR "authentication method non supportato:" + this.metaType»»
+«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE securityRelatedContextParamsCustomSP(GUIModel model) FOR CustomAuthentication»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParamsCustomMP(GUIModel model) FOR CustomAuthentication»
+	«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<context-param>
+		<param-name>logoutURL.«code»</param-name>
+		<param-value>@LOGOUT_URL.«code»@</param-value>
+	</context-param>
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+
+
+
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethod»
+«ERROR "authentication method non supportato:" + this.metaType»»
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSO»
+<!-- ############################################################### 
+         definizione filter per autentication con OPAUTH (oracle portal) 
+         ###############################################################
+    -->
+	<filter>
+	    <filter-name>CAS Filter</filter-name>
+    	<filter-class>edu.yale.its.tp.cas.client.filter.CASFilter</filter-class>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.loginError</param-name>
+      		<param-value>/ssobart/errore.jsp</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.client.filter.validateUrl</param-name>
+      		<param-value>http://@SSOBART_VALIDATE_SERVER@/ssobartverify/serviceValidate</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>logger</param-name>
+      		<param-value>@APP_PREFIX@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
+      		<param-value>@DEFAULT_APP_SERVER@</param-value>
+    	</init-param>
+     	<init-param>
+      		<param-name>urlServerParacadute</param-name>
+      		<param-value>@SSOBART_URL_PARACADUTE@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.codServizio</param-name>
+      		<param-value>@SSOBART_CODSERVIZIO@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>pepauth.defpd</param-name>
+      		<param-value>/WEB-INF/SSOBARTPepAuthPD.xml</param-value>
+    	</init-param>
+  </filter>
+
+	
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     il filter di autenticazione e' il primo ad essere innescato
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/«getHomePageActionName()»«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR ShibbolethSSO-»
+	<!-- ############################################################### 
+         definizione filter per autentication con shibboleth 
+         ###############################################################
+    -->
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     con shibboleth il filter di autenticazione non esiste
+	     (sostituito dal modulo apache)
+	     ################################################################
+	-->
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+«ENDDEFINE»
+
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
+
+«IF model.targetPlatform.securityProfile != null»
+	«EXPAND template::springmvc::security::securityCustom::securityProfile::authenticationFilterSecurityProfile(model) FOR model.targetPlatform.securityProfile»
+	«EXPAND template::springmvc::security::securityCustom::securityProfile::loginUISecurityProfile(model) FOR model.targetPlatform.securityProfile»
+«ELSE»
+	«ERROR "authentication method custom richiede la modellazione del SecurityProfile" + this.metaType»
+«ENDIF»
+
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR OPAUTHSSO»
+	<!-- ############################################################### 
+         definizione filter per autentication con OPAUTH (oracle portal) 
+         ###############################################################
+    -->
+	<filter>
+		<filter-name>OP Filter</filter-name>
+		<filter-class>it.csi.opauth.filter.OPFilter</filter-class>
+		<init-param>
+			<param-name>it.csi.opauth.filter.loginAccessUrl</param-name>
+			<param-value>
+				http://@OP_SERVER@/portal/pls/portal/csi_custom.ext_login
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>it.csi.opauth.filter.minAuthLevel</param-name>
+			<param-value>«this.minAuthLevel»</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logger</param-name>
+			<param-value>@APP_PREFIX@.OPclient</param-value>
+		</init-param>
+		<init-param>
+			<param-name>it.csi.opauth.filter.serverName</param-name>
+			<param-value>@DEFAULT_APP_SERVER@</param-value>
+		</init-param>
+	</filter>
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     il filter di autenticazione e' il primo ad essere innescato
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>OP Filter</filter-name>
+		<url-pattern>/«getHomePageActionName()»«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+«ENDDEFINE»
+
+«DEFINE irideIdFilterDef(GUIModel model) FOR AutenticationMethod»
+	<filter>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<filter-class>«getIrideIdAdapterFilterFQN(model)»</filter-class>
+	</filter>
+«ENDDEFINE»
+
+«DEFINE irideIdFilterMap(GUIModel model) FOR AutenticationMethod»
+	
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR OPAUTHSSO»
+	<!-- replace variabili di environment per opauth -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@OP_SERVER@"  
+		value="${opauth.server.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@APP_PREFIX@"  
+		value="${componente}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@DEFAULT_APP_SERVER@"  
+		value="${opauth.default.appserver}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${opauth.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${opauth.logout.url}"/>	
+«ENDDEFINE»
+
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR ShibbolethSSO»
+	«IF isMultiPortal(model)-»
+		«EXPAND envConfigForAuthenticationShibbolethMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND envConfigForAuthenticationShibbolethSP(model) FOR this-»
+	«ENDIF-»	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthenticationShibbolethSP(GUIModel model) FOR ShibbolethSSO»
+	<!-- replace variabili di environment per shibboleth -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${shibboleth.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${shibboleth.logout.url}"/>	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthenticationShibbolethMP(GUIModel model) FOR ShibbolethSSO»
+	<!-- replace variabili di environment per shibboleth -->
+	«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL.«code»@"  
+		value="${shibboleth.logout.url.«code»}"/>
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
+	<!-- replace variabili di environment per SSOBART -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@APP_PREFIX@"  
+		value="${componente}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${ssobart.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_VALIDATE_SERVER@"  
+		value="${ssobart.validate.server}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@DEFAULT_APP_SERVER@"  
+		value="${ssobart.default.appserver}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_URL_PARACADUTE@"  
+		value="${ssobart.url.paracadute}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_CODSERVIZIO@"  
+		value="${ssobart.codservizio}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/SSOBARTPepAuthPD.xml" 
+		token="@SSOBART_PEPAUTH_URL@"  
+		value="${ssobart.pepauth.url}"/>
+				
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${ssobart.logout.url}"/>
+		
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthentication»
+
+«IF model.targetPlatform.securityProfile != null-»
+	«EXPAND template::springmvc::security::securityCustom::securityProfile::envConfigForAuthentication(model) FOR model.targetPlatform.securityProfile»
+«ELSE-»
+	«ERROR "authentication method custom richiede la modellazione del SecurityProfile" + this»
+«ENDIF»
+
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthorization(GUIModel model) FOR SecurityModel»
+	<!-- replace variabili di environment per iride2 -->
+	<replace file="${build}/temp/«getSpringIRIDE2PDEJBConfig(model)»" 
+		token="@IRIDE_PROVIDER_URL@"  
+		value="${iride2.pep.provider.url}"/>
+	<replace file="${build}/temp/«getSpringIRIDE2PDWSConfig(model)»" 
+		token="@IRIDE_WSFAD_URL@"  
+		value="${iride2.pep.wsfad.url}"/>
+	<replace file="${build}/temp/«getSpringWebConfigurationFile(model, true)»" 
+		token="@IRIDE_PD_PROTOCOL@"  
+		value="${iride2.pep.pd.protocol}"/>	
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR OPAUTHSSO»
+#-[configurazione opauth]--------------------------------------------------
+opauth.server.url = spintest.csi.it:7778
+opauth.default.appserver = localhost:8078
+opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
+«ENDDEFINE»
+
+«REM»[DM] STDMDD-900: logout url MULTIPORTALE«ENDREM»
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR ShibbolethSSO»
+	«IF isMultiPortal(model)-»
+		«EXPAND templatePropsForAuthenticationShibbolethMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND templatePropsForAuthenticationShibbolethSP(model) FOR this-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthenticationShibbolethSP(GUIModel model) FOR ShibbolethSSO»
+#-[configurazione shibboleth]--------------------------------------------------
+shibboleth.logout.url = http://<your_server_domain>/Shibboleth.sso/Logout
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthenticationShibbolethMP(GUIModel model) FOR ShibbolethSSO»
+#-[configurazione shibboleth]--------------------------------------------------
+«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+shibboleth.logout.url.«code» = http://<your_server_domain>/Shibboleth.sso/Logout
+«ENDFOREACH-»
+«ENDDEFINE»
+
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
+#-[configurazione ssobart]--------------------------------------------------
+ssobart.default.appserver = localhost:8078
+ssobart.validate.server = <server>:<port>
+ssobart.url.paracadute = <url>
+ssobart.codservizio = «getActualSecurityModel(model).securityAppID»
+ssobart.pepauth.url = t3://iridetest1wls1.csi.it:7111,iridetest1wls2.csi.it:7111
+ssobart.logout.url = https://<ssobartserver>/ssobart/logout
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
+«IF model.targetPlatform.securityProfile != null-»
+	«EXPAND template::springmvc::security::securityCustom::securityProfile::templatePropsForAuthentication(model) FOR model.targetPlatform.securityProfile»
+«ELSE-»
+	«ERROR "authentication method custom richiede la modellazione del SecurityProfile" + this»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModel»
+#-[configurazione iride2]--------------------------------------------------
+iride2.pep.provider.url = t3://tst-exp01wls1.csi.it,tst-exp02wls2.csi.it:7111
+iride2.pep.wsfad.url = http://tst-applogic-nmsf2e.csi.it/pep_wsfad_nmsf_policy/services/PolicyEnforcerBase
+
+#- protocollo di comunicazione: puo' valere EJB o WS (default=EJB) (@since 3.0.1)
+iride2.pep.pd.protocol = EJB
+
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR SSOBARTSSO»
+	<!-- ############################################################## -->
+    <!-- # SSOBART                                                     # -->
+    <!-- ############################################################## -->
+	<dependency org="csipiemonte" name="ssobart-client" rev="2.1.0" />
+	<dependency org="csipiemonte" name="ssobart-client-pepauth" rev="1.1.0" />
+    
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR OPAUTHSSO»
+	
+	<!-- ############################################################## -->
+    <!-- # OPAUTH                                                     # -->
+    <!-- ############################################################## -->
+	<dependency org="csipiemonte" name="opauth4j" rev="1.0.3" />
+    <!-- <dependency org="csipiemonte" name="iride-simulation" rev="1.1.0" /> -->
+    <!-- <dependency org="csipiemonte" name="simula" rev="1.1.0" /> -->    
+    <!-- ############################################################## -->
+    <!-- # IBM                                                        # -->
+    <!-- ############################################################## -->
+    <!--  -->
+    <dependency org="ibm" name="xml" rev="1.0.0" />
+    
+«ENDDEFINE»
+
+«REM»le librerie client weblogic sono da aggiungere solo se la target
+	 platform è JBOSS
+«ENDREM»
+«DEFINE ivyDependenciesForAuthorization(GUIModel model) FOR SecurityModel-»
+«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+	<!-- ############################################################## -->
+    <!-- # WEBLOGIC CLIENT (solo per JBoss)                           # -->
+    <!-- ############################################################## -->
+    <!--  -->
+    <dependency org="csipiemonte" name="weblogic-client" rev="3.0.0" />
+«ENDIF-»   
+«ENDDEFINE»
+
+«DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
+«EXPAND ApplSessGuardFilter FOR this»
+«IF getActualSecurityModel(this).autenticationMethod!=null»
+
+	«IF this.targetPlatform.securityProfile!=null»
+		«EXPAND template::springmvc::security::securityCustom::securityProfile::idAdapterCustomFilter(this) FOR this.targetPlatform.securityProfile»
+	«ELSE»
+		«EXPAND template::springmvc::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethod»
+	«ENDIF»
+
+«EXPAND template::springmvc::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)»
+«EXPAND template::springmvc::security::iride2PD::iride2PDFiles FOR this»
+«EXPAND extraConfigFiles(this) FOR getActualSecurityModel(this).autenticationMethod»
+
+	«IF this.targetPlatform.securityProfile != null»
+		«EXPAND template::springmvc::security::securityCustom::authenticationFilterJava::authenticationFilterJavaTemplate(this) FOR this.targetPlatform.securityProfile»
+	«ENDIF»
+
+	«IF this.targetPlatform.securityProfile!=null»
+		«EXPAND template::springmvc::security::securityCustom::pepProvider::pepProvider(this) FOR this.targetPlatform.securityProfile»
+	«ENDIF»
+«ENDIF»
+«EXPAND constraintJavaFiles FOR this»
+«EXPAND template::springmvc::security::securityHelper::springSecurityHelperClasses FOR this»
+«ENDDEFINE»
+
+«DEFINE extraConfigFiles(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE extraConfigFiles(GUIModel model) FOR SSOBARTSSO»
+	«EXPAND template::springmvc::security::irideIntegration::pepauthPDFile FOR model»
+«ENDDEFINE»
+
+«DEFINE constraintJavaFiles FOR GUIModel»
+«FILE getSecurityJavaSrcDir(this,true)+"/UISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage(this)+".business.*;"»
+
+/**
+ * Interfaccia dei security constraints
+ * @generated
+ */
+public interface UISecConstraint {
+
+	/**
+	 * 1=il comportamento vincolato e' l'abilitazione
+	 * @generated
+	 */
+	public static final int ONOFF_CONSTRAINED_BEHAVIOR = 1;
+	
+	/**
+	 * 1=il comportamento vincolato e' la visibilita'
+	 * @generated
+	 */
+	public static final int VISIB_CONSTRAINED_BEHAVIOR = 2;
+	
+	/**
+	 * metodo che deve essere implementato dalle classi dei constraint specifici.
+	 * @param session la sessione applicativa
+	 * @param checkedBehavior il comportamento vincolato (visibilita'/abilitazione)
+	 * @param sh il security helper a cui e' possibile delegare le richieste specifiche
+	 * @generated
+	 */
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException;
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/AbstractUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+/**
+ * Classe astratta superclasse di tutti i constraint di sicurezza
+ * @generated
+ */
+public abstract class AbstractUISecConstraint implements UISecConstraint{
+
+/**
+ * il comportamento oggetto di constraint (default = abilitazione)
+ * @generated
+ */
+protected int constrainedBehavior = UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR;
+
+/**
+ * Imposta il comportamento oggetto di constraint (visibilita' / abilitazione)
+ * @param value 
+ */
+public void setConstrainedBehavior(int value){
+	constrainedBehavior = value;
+}
+
+/**
+ * @return il comportamento oggetto di constraint
+ */
+public int getConstrainedBehavior(){
+	return constrainedBehavior;
+}
+
+/**
+ * lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ * @generated
+ */
+protected boolean defaultState;
+
+/**
+ * imposta lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ * @param value
+ */
+public void setDefaultState(boolean value){
+	defaultState = value;
+}
+
+/**
+ * @return lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ */
+public boolean getDefaultState(){
+	return defaultState;
+}
+
+/**
+ * nome del content panel che contiene il widget oggetto di constraint
+ * @param
+ */
+protected String nomeContainer;
+
+/**
+ * imposta il nome del content panel che contiene il widget oggetto di constraint
+ * @param value
+ */
+public void setNomeContainer(String value){
+	nomeContainer = value;
+}
+
+/**
+ * @return il nome del content panel che contiene il widget oggetto di constraint
+ */
+public String getNomeContainer(){
+	return nomeContainer;
+}
+
+/**
+ * nome del widget oggetto di constraint
+ * @generated
+ */
+protected String nomeWidget;
+
+/**
+ * imposta il nome del widget oggetto di constraint
+ * @param value
+ */
+public void setNomeWidget(String value){
+	nomeWidget = value;
+}
+
+/**
+ * @return il nome del widget oggetto di constraint
+ */
+public String getNomeWidget(){
+	return nomeWidget;
+}
+
+/**
+ * costruttore vuoto
+ */
+public AbstractUISecConstraint(){
+}
+
+/**
+ * costruttore
+ * @param nomeContainer il nome del content panel che contiene il widget oggetto di constraint
+ * @param nomeWidget il nome del widget oggetto di constraint
+ * @param constrainedBehavior il comportamento da vincolare (abilitazione/visibilita')
+ * @param default state lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+ * @generated
+ */
+public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int constrainedBehavior, boolean defaultState) {
+	if (nomeContainer==null||nomeWidget==null)
+		throw new IllegalArgumentException("Errore interno: nome container e nome widget obbligatori per constraint");
+	if (constrainedBehavior!=UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR && 
+		constrainedBehavior!=UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR)
+		throw new IllegalArgumentException("Errore interno: comportamento oggetto di constraint non gestibile:"+constrainedBehavior);
+	this.nomeContainer=nomeContainer;
+	this.nomeWidget=nomeWidget;
+	this.constrainedBehavior=constrainedBehavior;
+	this.defaultState=defaultState;
+}
+	/**
+	 * Combina adeguatamente:
+	 * <ul>
+	 * <li>l'esito della verifica specifica
+	 * <li>lo stato di default (relativo al comportamento oggetto di constraint - visibilit&agrave; o abilitazione)
+	 * <li>lo stato corrente  (relativo al comportamento oggetto di constraint - visibilit&agrave; o abilitazione)
+	 * </ul>
+	 * In sintesi il comportamento oggetto di constraint sar&agrave; cos&igrave; valutato:
+	 * <ul>
+	 * <li>se lo stato corrente non &egrave; specificato (il widget non &egrave; stato impostato esplicitamente
+	 *     ad invisibile o disabilitato) viene utilizzato come stato corrente lo stato di default
+	 * <li>se lo stato corrente combinato (corrente effettivo + default) &egrave; OFF (invisibile o disabilitato)
+	 *     lo stato finale o OFF
+	 * <li>se lo stato corrente combinato (corrente effettivo + default) &egrave; ON, viene eseguito
+	 *     il check specifico (che dipende dat tipo di constraint) e lo stato finale &egrave; 
+	 *     ON (visibile o abilitato) se il check specifico &egrave; verificato, OFF altrimenti.
+	 * </ul>
+	 * @param session mantiene lo stato corrente del widget
+	 * @param checkedBehavior il comportamento da vincolare (abilitazione/visibilita')
+	 * @param sh il security constraint
+	 * @return
+	 */
+	protected boolean combineAll(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+		if(checkedBehavior!=this.constrainedBehavior)
+			return false; // se il comportamento osservato e' un'altro passo oltre
+		else{
+			Boolean currentState = getCurrentState(session);
+			if (currentState == null)
+				currentState = Boolean.valueOf(defaultState);
+			if (currentState.booleanValue() == false)
+				return false;
+			else
+				return specificCheck(session, sh);
+		}
+	}
+
+	/**
+	 * Cerca in sessione lo stato corrente.
+	 * @param session la sessione applicativa
+	 * @return null se lo stato (per il comportamento in osservazione) non &egrave; impostato oppure
+	 * il valore effettivo se questo &egrave; impostato.
+	 */
+	protected Boolean getCurrentState(Map session){
+		String behaviorSuffix = "";
+		switch (constrainedBehavior) {
+		case UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR:
+			behaviorSuffix = "_enabled";
+			break;
+		case UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR:
+			behaviorSuffix = "_visible";
+			break;
+		default:
+			break;
+		} 
+		Map cpData = (Map) session.get(nomeContainer);
+		if (cpData != null) {
+			Boolean behaviorFlag = (Boolean) cpData.get(nomeWidget
+					+ behaviorSuffix);
+			if (behaviorFlag != null) {
+				return behaviorFlag.booleanValue();
+			} else
+				return null; // unspecified current state
+		} else
+			return null; // unspecified current state
+	}
+	
+	/**
+	 * implementazione specifica della verifica del constraint
+	 * @param session la sessione applicativa
+	 * @param checkedBehavior il comportamento da vincolare
+	 * @param sh il security helper a cui delegare parte delle verifiche
+	 * @generated
+	 */
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+		
+		return combineAll(session, checkedBehavior, sh);
+	}
+	
+	/**
+	 * Questo metodo &egrave;ridefinito nelle varie tipologie di constraint e implementa
+	 * i check specifici
+	 * @param session
+	 * @param sh il security helper
+	 * @return
+	 */
+	public abstract boolean specificCheck(Map session, SecurityHelper sh) throws BEException;
+	
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/CustomUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+/**
+ * Superclasse di tutti i custom security Constraints.
+ * @param
+ */
+public class CustomUISecConstraint extends AbstractUISecConstraint {
+
+	/**
+	 * costrutto vuoto
+	 */
+	public CustomUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+	
+	private String methodNameSuffix;
+	
+	/**
+	 * @param val il suffisso del metodo da richiamare per l'implementazione del 
+	 * custom constraint (il metodo si chiama customCheck{methodNameSuffix}() )
+	 */
+	public void setMethodNameSuffix(String val){
+		this.methodNameSuffix = val;
+	}
+	
+	/**
+	 * costruttore
+     * @param nomeContainer il nome del content panel che contiene il widget oggetto di constraint
+     * @param nomeWidget il nome del widget oggetto di constraint
+     * @param constraintedBehavior il comportamento vincolato (visibilita'/abilitazione)
+     * @param defaultState lo stato di default (relativamente al constrainedBehavior specificato) del widget oggetto di constraint
+	 * @generated
+	 */
+	public CustomUISecConstraint(String nomeContainer, String nomeWidget, int constrainedBehavior, boolean defaultState) {
+		super(nomeContainer,nomeWidget,constrainedBehavior,defaultState);
+	}
+	
+	/**
+	 * L'implementazione specifica del check e' delegata al SecurityHelper: viene invocato
+	 * il metodo dal nome customCheck{methodNamesuffix}.
+	 * @generated
+	 */
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		// richiama dinamicamente il metodo customCheck{methodNamesuffix} nel security helper
+		try{
+			java.lang.reflect.Method checkMethod = sh.getClass().getDeclaredMethod("customCheck"+methodNameSuffix, Map.class);
+			Object res = checkMethod.invoke(sh, session);
+			return (Boolean)res;
+		}
+		catch(NoSuchMethodException nsme){
+			throw new BEException("il metodo di check customCheck"+methodNameSuffix+"() non e' stato trovato nel SecurityHelper", nsme);
+		}
+		catch(java.lang.reflect.InvocationTargetException ite){
+			throw new BEException("errore nell'invocazione del check customCheck"+methodNameSuffix+"()", ite);
+		}
+		catch(IllegalAccessException iae){
+			throw new BEException("errore nell'invocazione del check customCheck"+methodNameSuffix+"()", iae);
+		}
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/ActorBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+/**
+ * Security constraint basato sull'impersonificazione dell'utente corrente 
+ * di uno specifico actor
+ * @generated
+ */
+public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
+
+	/**
+	 * il codice dell'actor di cui verificare l'impersonificazione
+	 * @generated
+	 */
+	private String actorCode;
+	
+	/**
+	 * @param val il codice dell'Actor
+	 */
+	public void setActorCode(String val){
+		this.actorCode = val;
+	}
+	
+	/**
+	 * costrutto vuoto
+	 */
+	public ActorBasedUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+	
+	/**
+	 * costruttore
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param actorCode il codice dell'actor di cui verificare l'impersonificazione
+	 * @generated
+	 */
+	public ActorBasedUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String actorCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.actorCode=actorCode;
+	}
+	
+	/**
+	 * realizza la verifica specifica (delegandola al security helper
+	 * @param session la sessione applicativa
+	 * @param sh il security helper
+	 * @generated
+	 */
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		return sh.verifyCurrentUserForActor(session, actorCode);
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/RoleBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+/**
+ * Security constraint basato sull'abilitazione dell'utente corrente 
+ * ad uno specifico ruolo (identificato dalla coppia codice ruolo / dominio)
+ * @generated
+ */
+public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
+
+	/**
+	 * il codice del ruolo da verificare
+	 * @generated
+	 */
+	private String roleCode;
+	
+	/**
+	 * @param val il codice del ruolo
+	 */
+	public void setRoleCode(String val){
+		this.roleCode = val;
+	}
+	
+	/**
+	 * il codice del dominio a cui appartiene il ruolo da verificare
+	 * @generated
+	 */
+	private String domainCode;
+	
+	/**
+	 * @param val il codice del dominio
+	 */
+	public void setDomainCode(String val){
+		this.domainCode = val;
+	}
+	
+	/**
+	 * costrutto vuoto
+	 */
+	public RoleBasedUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+	
+	/**
+	 * costruttore
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param roleCode il codice del ruolo da verificare
+	 * @param domainCode il codice del dominio di appartenenza del ruolo da verificare
+	 * @generated
+	 */
+	public RoleBasedUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String roleCode, String domainCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.roleCode=roleCode;
+		this.domainCode=domainCode;
+	}
+	
+	/**
+	 * realizza la verifica specifica
+	 * @generated
+	 */
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		return sh.verifyCurrentUserForRole(session, roleCode, domainCode);
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/UCBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+/**
+ * Security constraint basato sull'abilitazione dell'utente corrente 
+ * ad uno specifico use-case
+ * @generated
+ */
+public class UCBasedUISecConstraint extends AbstractUISecConstraint {
+
+	/**
+	 * il codice dello use case di cui verificare l'abilitazione
+	 * @generated
+	 */
+	private String useCaseCode;
+	
+	/**
+	 * @param il codice dello use case
+	 */
+	public void setUseCaseCode(String val){
+		this.useCaseCode = val;
+	}
+	
+	/**
+	 * costrutto vuoto
+	 */
+	public UCBasedUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+	
+	/**
+	 * costruttore.
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param useCaseCode codice dello use case di cui deve essere verificata l'abilitazione
+	 * @generated
+	 */
+	public UCBasedUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String useCaseCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.useCaseCode=useCaseCode;
+	}
+	
+	/**
+	 * implementazione della verifica specifica (delegata al security helper)
+	 * @param session la sessione applicativa
+	 * @param sh il security helper
+	 * @generated
+	 */
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		return sh.verifyCurrentUserForUC(session, useCaseCode);
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/ComplexUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import java.util.Arrays;
+import «getBaseJavaPackage()+".business.*;"»
+import «getDTOBaseJavaPackage()».DTOUtils;
+
+
+/**
+ * Security constraint composito. La composizione avviene in OR. 
+ * @generated
+ */
+public class ComplexUISecConstraint implements UISecConstraint {
+
+	/**
+	 * costrutto vuoto
+	 */
+	public ComplexUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+	 
+	/**
+	 * i constraint da verificare
+	 * @generated
+	 */
+	protected UISecConstraint [] constraints = null;
+	
+	/**
+	 * imposta l'elenco dei constraint da verificare
+	 * @param value
+	 */
+	public void setConstraints(UISecConstraint[] value){
+		constraints = (UISecConstraint[]) DTOUtils.arrayCopyOf(value, UISecConstraint.class);
+	}
+	
+	/**
+	 * @return l'elenco dei constraint da verificare
+	 */
+	public UISecConstraint[] getConstraints(){
+		return (UISecConstraint[])DTOUtils.arrayCopyOf(constraints, UISecConstraint.class);
+	}
+	
+	/**
+	 * costruttore
+	 * @param constraints i constraint da verificare
+	 * @generated
+	 */
+	public ComplexUISecConstraint(UISecConstraint [] p_constraints) {
+		this.constraints = (UISecConstraint[]) DTOUtils.arrayCopyOf(p_constraints, UISecConstraint.class);
+	}
+	
+	/**
+	 * Verifica se almeno uno dei constraints &egrave; soddisfatto.
+	 * @param session la sessioen applicativa
+	 * @param checkedBehavior il comportamento oggetto di vincolo (visibilita'/abilitazione)
+	 * @param sh il security helper
+	 * @generated
+	 */
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+		if (constraints!=null && constraints.length>0){
+			boolean verified = false;
+			for (int i = 0; i < constraints.length && !verified; i++) {
+				UISecConstraint currCtr = constraints[i];
+				verified |= currCtr.verifyConstraint(session, checkedBehavior, sh);
+			}
+			return verified;
+		}
+		else
+			return true;
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/DummyUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+/**
+ * Security constraint fittizio ad effetto null (always on/off a seconda del valore di inizializzazione)
+ * @generated
+ */
+public class DummyUISecConstraint extends AbstractUISecConstraint {
+
+
+	/**
+	 * @generated
+	 */
+	private boolean fixedValue;
+
+	/**
+	 * costrutto vuoto
+	 */
+	public DummyUISecConstraint(){
+	  // intenzionalment evuoto
+	} 
+
+	/**
+	 * costruttore
+	 * @param nomeContainer nome del content panel che contiene il constraint
+	 * @param nomeWidget nome del widget a cui e' associato il constraint
+	 * @param constrainedBehavior il constraint riguarda la visibilita' o l'abilitazione
+	 * @param stato di default del widget a cui e' asociato il constraint
+	 * @param fixedValue il valore fisso restituito dal constraint (true/false)
+	 * @generated
+	 */
+	public DummyUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, boolean fixedValue) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.fixedValue = fixedValue;
+	}
+
+	/**
+	 * @param val il valore che indica se il constraint ritorna sempre true o false 
+	 */
+	public void setFixedValue(boolean val){
+		this.fixedValue = val;
+	}
+	
+	/**
+	 * restituisce il valore fisso fornito nel costruttore
+	 * @generated
+	 */
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)
+			throws BEException {
+		return this.fixedValue;
+	}
+
+}
+«ENDFILE»
+
+«ENDDEFINE»
+
+
+«DEFINE ApplSessGuardFilter FOR GUIModel»
+«FILE getSessionGuardFilterJavaFile(this, true)»package «getFiltersJavaPackage(this)»;
+
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
+
+/**
+ * Gestisce la validit&agrave; della sessione applicativa. 
+ *
+ * @author CSIPiemonte
+ */
+public class «getSessionGuardFilterClassName()» implements Filter {
+
+	public static final String VALID_APP_SESSION_SESSIONATTR = "valid_app_session";
+
+	/**  */
+	protected static final Logger LOG = Logger.getLogger(Constants.APPLICATION_CODE
+			+ ".security");
+
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException{
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		String sessMark = (String)hreq.getSession().getAttribute(VALID_APP_SESSION_SESSIONATTR);
+		if (sessMark != null){
+			// sessione gia' valida: vai avanti
+			LOG.debug("[«getSessionGuardFilterClassName()»::doFilter] sessione applicativa valida. proseguo ");
+			fchn.doFilter(req, resp);
+			return;
+		}
+		else{
+			// se la sessione non e' valida si discrimina in base alla pagina richiesta:
+			// HomePage, error &co o altra pagina?
+			if (isHomePage(hreq.getRequestURI())){
+				LOG.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta home page a sessione applicativa non valida: proseguo e imposto la validita'");
+				hreq.getSession().setAttribute(VALID_APP_SESSION_SESSIONATTR, VALID_APP_SESSION_SESSIONATTR);
+				fchn.doFilter(req, resp);
+				return;
+			}
+			else{
+			    // siamo gia' nella pagina di sessione scaduta?
+			    if (!mustCheckPage(hreq.getRequestURI())){
+			    	fchn.doFilter(req, resp);
+					return;
+			    }
+			    else{ 
+					LOG.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta pagina differente dalla home a sessione applicativa non valida: redirezione alla pagina di sessione scaduta");
+					/// REDIRECT....
+					HttpServletResponse hresp = (HttpServletResponse)resp;
+					hresp.sendRedirect(hreq.getContextPath() + "«getBaseNamespace(false)»/sessionExpired«getStrutsActionCompleteExtension()»");
+					return;
+				}
+			}
+		}
+
+	}
+				
+	private boolean isHomePage(String requestURI) {
+		if (requestURI.indexOf("«getHomePageActionName()»«getStrutsActionCompleteExtension()»") > -1 || requestURI.endsWith("/") || requestURI.indexOf("index.jsp") > -1)
+			return true;
+		else
+			return false;
+	}
+	
+	private boolean mustCheckPage(String requestURI){
+		if (
+			requestURI.indexOf("«getHomePageActionName()»«getStrutsActionCompleteExtension()»")>-1 ||
+			requestURI.indexOf("sessionExpired«getStrutsActionCompleteExtension()»")>-1 ||
+			requestURI.indexOf("fatalError")>-1 ||
+			requestURI.indexOf("notFoundError")>-1 ||
+			requestURI.indexOf("sessionExpired.jsp")>-1 ||
+			requestURI.indexOf("Logout")>-1
+			«IF isMultiPortal(this)-»
+			|| requestURI.indexOf("unknownPortal") > -1
+			«ENDIF-»
+		   )
+		   return false;
+		else
+		   return true;
+	}
+	
+	public void destroy() {
+		// NOP
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// NOP
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE securedWidgetCheck FOR GUIModel»
+// ridefinizione dei metodi di verifica visibilita'/validazione
+// per supportare i security check
+	
+	/**
+	 * Restituisce true se il widget e' abilitato.
+	 * Il risultato e' condizionato da:
+	 * - stato di default
+	 * - stato comandato da OnOffCommand
+	 * - stato comandato da ScreenStateCommand
+	 * - security constraint
+	 * @param cpName nome del content panel
+	 * @param widgShortName nome del widget (se il nome termina con "_fictitious_" allora
+	 *        il widget non deve essere considerato => restituisco sempre false)
+	 */
+	public boolean isWidgetDisabled(String cpName, String widgShortName) {
+		// verifico se si tratta di un widget fittizio
+		if (widgShortName.endsWith("_fictitious_")){
+			return false;
+		}
+		// ELSE...
+		// recupero l'elenco del security constraint tramite l'apposita factory
+		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
+		UISecConstraint ctr = null;
+		try {
+			ctr = ctrFct.buildCtrStructure_internal((""+getCPNamespace()).toLowerCase(), cpName.toLowerCase(), widgShortName, "enabled");
+		} catch (CommandExecutionException e) {
+			LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetDisabled] errore durante verifica->disable", e);
+			return true; // forzo la DISABILITAZIONE
+		}
+		//UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
+		if (ctr!=null){
+			try{
+				// se sono presenti dei constraint, li eseguo per conoscere lo stato
+				// di abilitazione del widget
+				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetDisabled] errore durante verifica->disable", ex);
+				return true; // forzo la DISABILITAZIONE
+			}
+		}
+		else {
+			// se non sono presenti constraint vale l'implementazione di default
+			return super.isWidgetDisabled(cpName, widgShortName);
+		}
+	}
+	
+	
+	/**
+	 * Restituisce true se il widget e' visibile.
+	 * Il risultato e' condizionato da:
+	 * - stato di default
+	 * - stato comandato da VisibilityCommand
+	 * - stato comandato da ScreenStateCommand
+	 * - security constraint
+	 * @param cpName nome del content panel
+	 * @param widgShortName nome del widget (se il nome termina con "_fictitious_" allora
+	 *        il widget non deve essere considerato => restituisco sempre true)
+	 */
+	public boolean isWidgetVisible(String cpName, String widgShortName) {
+		// verifico se si tratta di un widget fittizio
+		if (widgShortName.endsWith("_fictitious_")){
+			return true;
+		}
+		// ELSE...
+		// recupero l'elenco del security constraint tramite la apposita factory
+		ConstraintFactory ctrFct = ConstraintFactory.getInstance();
+		UISecConstraint ctr = null;
+		try {
+			ctr = ctrFct.buildCtrStructure_internal((""+getCPNamespace()).toLowerCase(), cpName.toLowerCase(), widgShortName, "visible");
+		} catch (CommandExecutionException e) {
+			LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetVisible] errore durante verifica->hide", e);
+			return false; // forzo l'invisibilita'
+		}
+		//UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
+		if (ctr!=null){
+			try{
+				// se sono presenti dei constraint, li eseguo per conoscere lo stato
+				// di visibilita' del widget
+				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				LOG.error("[«getStrutsAbstractCPActionClassName()»::isWidgetVisible] errore durante verifica->hide", ex);
+				return false; // forzo l'invisibilita'
+			}
+		}
+		else {
+			// se non sono presenti constraint vale l'implementazione di default
+			return super.isWidgetVisible(cpName, widgShortName);
+		}
+	}
+
+«ENDDEFINE»
+
+
+«REM»#######«ENDREM»

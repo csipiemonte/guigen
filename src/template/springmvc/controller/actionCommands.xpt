@@ -1,0 +1,2152 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions »
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+«DEFINE actionImplClasses FOR GUIModel»
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/ICommand.java"»
+package «getCommandFactoryPkg()»;
+
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Interfaccia comune di tutte le azioni di presentation
+ *
+ */
+public interface ICommand extends java.io.Serializable {
+	/**
+	 * Esegue l'azione corrispondente
+	 * @return il codice del RESULT struts conseguente all'azione (se l'azione comporta)
+	 * una decisione sul result, null altrimenti
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction controller) throws CommandExecutionException;
+};
+«ENDFILE»
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/CommandExecutionException.java"»
+package «getCommandFactoryPkg()»;
+
+/**
+ * Eccezione rilanciatain caso di errori durante l'esecuzione della
+ * catena di comandi.
+ *
+ */
+public class CommandExecutionException extends Exception{
+	public CommandExecutionException(String msg, Throwable nested){
+		super(msg, nested);
+	}
+	
+	public CommandExecutionException(String msg){
+		super(msg);
+	}
+};
+«ENDFILE»
+
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/NOPCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione di NOPCommand. 
+ * Questo comando ha effetto nullo nella catena.
+ */
+public class NOPCommand implements ICommand {
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	public NOPCommand() {
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * @return null. In questo modo il NOPCommand ha effetto nullo sull'esecuzione 
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction controller) throws CommandExecutionException{
+		return null;
+	}
+};
+«ENDFILE»
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/JumpCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».*;
+
+/**
+ * Implementazione del comando JumpCommand
+ */
+public class JumpCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	
+	/**
+	 * namespace completo del ContentPanel target del salto
+	 */
+	String namespace;
+	
+	public void setNamespace(String namespace){
+		this.namespace = namespace;
+	}
+	
+	public String getNamespace(){
+		return this.namespace;
+	}
+	
+	
+	/**
+	 * nome del ContentPanel target del salto
+	 */
+	String name;
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+	
+	/**
+	 * se impostato a true, verra' inserita la pagina (content panel) corrente nello 
+	 * stack
+	 */
+	boolean pushCurrent;
+	
+	public void setPushCurrent(boolean pushCurrent){
+		this.pushCurrent = pushCurrent;
+	}
+	
+	public boolean isPushCurrent(){
+		return this.pushCurrent;
+	}
+	
+	/**
+	 * @param panelName il nome del contentPanel a cui saltare
+	 * @param currentPageName il nome del contentPanel di partenza (serve in 
+	 * caso di pushCurrentPage
+	 * @param pushCurrentPage se impostato a true viene inserito il nome del contentPanel
+     * corrente nello stack
+	 */
+	public JumpCommand(String panelName, String panelNamespace, boolean pushCurrent) {
+		name = panelName;
+		namespace = panelNamespace;
+		this.pushCurrent = pushCurrent;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public JumpCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Esecuzione del salto. L'esecuzione del jump command si concretizza con la restituzione
+	 * al workflow di struts del result corrispondente alla action associata al
+	 * ContentPanel target. 
+	 * Nel caso sia specificato pushCurrentPage=true, verra' inserito nello stack delle pagine
+	 * il nome del contentPanel di partenza, contenuto in currentPageName.
+	 * Inoltre viene eseguita la pulizia degli application data di scope SAME_PAGE.
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction strutsAction)
+			throws CommandExecutionException {
+		//se prevista modalità PUSH_PAGE_CURRENT --> inserisci in queque currentPage 
+		if (strutsAction instanceof AbstractCPAction) {
+			AbstractCPAction cpAction = (AbstractCPAction)strutsAction;
+			String currentPageName = cpAction.getCPFullNamespace()+"/"+cpAction.getCPName();
+			if (this.pushCurrent
+					&& (null != currentPageName && !""
+							.equalsIgnoreCase(currentPageName))) {
+				if (strutsAction.getAppDataNavigationQueue() == null)
+					strutsAction
+							.setAppDataNavigationQueue(new java.util.LinkedList());
+				strutsAction.getAppDataNavigationQueue().add(
+						currentPageName);
+			} else {
+				if (strutsAction.getAppDataNavigationQueue() != null)
+					strutsAction.getAppDataNavigationQueue().clear();
+			}
+		}
+		// clear page scoped appdata
+		strutsAction.clearPageScopedAppData(name);
+
+		return "forward:" + namespace+ "/"+ name +".do";
+	}
+};
+«ENDFILE»
+
+«REM»
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/JumpBackCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando JumpBackCommand
+ */
+public class JumpBackCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	
+	
+	/**
+	 * costruttore di default
+	 */
+	public JumpBackCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Esecuzione del comando JumpBackCommand. L'esecuzione di questo comando consiste nella restituzione
+	 * al workflow di struts del result GO_TO_BackPage, che tutte le action asosciate ai ContnetPanel
+	 * possiedono, e che a runtime ridirige il flusso al content panel sul top dello stack.
+	 * Il result GO_TO_BackPage prende le info circa namespace e action a cui saltare dalle property
+	 * backNamespace e backActionName contenute nella action. questo comando pertanto, oltre a restituire
+	 * il result GO_TO_BackPage, imposta anche tale coppia di proprieta'.
+	 * Nel caso in cui lo stack sia vuoto il comando resittuisce il result BACK_TO_HOME che fa ritornare il
+	 * flusso di esecuzione alla home page applicativa.
+	 */
+	public String doCommand(/* BaseAction strutsAction */)
+			throws CommandExecutionException {
+		// clear page scoped appdata
+		if (strutsAction instanceof AbstractCPAction){
+			strutsAction.clearPageScopedAppData(((AbstractCPAction)strutsAction).getCPName());
+		}
+		java.util.LinkedList<java.lang.String> navigationQueue = strutsAction
+				.getAppDataNavigationQueue();
+		if (navigationQueue != null && !navigationQueue.isEmpty()) {
+			String backPage = navigationQueue.getLast();
+			if (null != backPage && !"".equalsIgnoreCase(backPage)) {
+				String[] splitArray = backPage.split("/");
+				strutsAction.setBackActionName(splitArray[3]);
+				strutsAction.setBackNamespace("/" + splitArray[1] + "/"
+						+ splitArray[2]);
+				navigationQueue.removeLast();
+				return "GO_TO_BackPage";
+			}
+		}
+		return "BACK_TO_HOME";
+
+	}
+
+};
+«ENDFILE»
+«ENDREM»
+
+«REM»
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/RefreshViewCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando RefreshViewCommand.
+ */
+public class RefreshViewCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String currentPanelName = null;
+	
+	public void setCurrentPanelName(String name){
+		currentPanelName = name;
+	}
+	
+	public String getCurrentPanelName(){
+		return currentPanelName;
+	}
+	
+	String [] targetPanels=null;
+	
+	public void setTargetPanels(String [] tp){
+		this.targetPanels = (String[]) DTOUtils.arrayCopyOf(tp, String.class);
+	}
+	
+	public String[] getTargetPanels(){
+		return (String[]) DTOUtils.arrayCopyOf(this.targetPanels, String.class);
+	}
+	
+	String [] targetWidgets=null;
+	
+	public void setTargetWidgets(String [] tw){
+		this.targetWidgets = (String[]) DTOUtils.arrayCopyOf(tw, String.class);
+	}
+	
+	public String[] getTargetWidgets(){
+		return (String[]) DTOUtils.arrayCopyOf(this.targetWidgets, String.class);
+	}
+	
+	/**
+	 * @param currentPanelName il nome del ContentPanel su cui deve essere effettuato il refresh
+	 * @param targetPanelNames l'elenco dei nomi dei pannelli da rinfrescare
+	 * @param targetWidgetNames l'elenco dei nomi dei widget da rinfrescare
+	 */
+	public RefreshViewCommand(String currentPanelName, String [] targetPanelNames,
+			String  [] targetWidgetNames) {
+		this.currentPanelName = currentPanelName; 
+		this.setTargetPanels(targetPanelNames);
+		this.setTargetWidgets(targetWidgetNames);
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public RefreshViewCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Nell'implementazione struts l'esecuzione di questo comando e' completamente a carico dello 
+	 * strato javascript.
+	 * Pertanto l'unico effetto di questo comando e' quello di comandare al workflow di struts la
+	 * restituizione della pagina completa. La parte client ritagliera' le parti a seconda di 
+	 * quali pannelli target sono stati modellati. 
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException {
+		return null;
+	}
+};
+«ENDFILE»
+«ENDREM»
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/JumpExtCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando JumpExtCommnad.
+ */
+public class JumpExtCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	String locationCode;
+	
+	String staticUrl;
+	
+	String runtimeUrlProviderAppaData;
+	
+	boolean binaryStream;
+	
+	/**
+	 * @param locationCode codice univoco identificativo della location a cui saltare.
+	 * e' referenziato nel result di struts
+	 * @param staticUrl se il comandoprevede il salto ad un url fisso, questo e' contenuto
+	 * in tale parametro
+	 * @param runtimeUrlProviderAppData nome dell'ApplicationData che contiene il valore dell'url a cui
+	 * saltare (in caso di url dinamicamente determinato)
+	 * @param binaryStream se impostato a true indica che l'url a cui si comanda il salto produrra'
+	 * uno stream binario. Alcune cartuccie potrebbero sfruttare questa informazione per ottimizzare
+	 * il comportamento.
+	 */
+	public JumpExtCommand(String locationCode, String staticUrl, String runtimeUrlProviderAppaData, boolean binaryStream) {
+		this.locationCode = locationCode;
+		this.staticUrl = staticUrl;
+		this.runtimeUrlProviderAppaData = runtimeUrlProviderAppaData;
+		this.binaryStream = binaryStream;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public JumpExtCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	/**
+	 * Esecuzione del comando JumpExtCommand. L'esecuzione si concretizza con la restituzione
+	 * al workflow di struts del result GO_TO_EX_<codice della location>.
+	 * sara' poi il result (di tipo redirect) a ridirigere il flusso all'url corretto.
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction strutsAction) throws CommandExecutionException{
+		// clear page scoped appdata
+		strutsAction.clearPageScopedAppData(null);
+		/* TODO correggere */
+		return "GO_TO_EX_"+locationCode;
+	}
+	
+	/**
+	 * codice della location a cui saltare
+	 */
+	public String getLocationCode() {
+		return locationCode;
+	}
+	
+	/**
+	 * codice della location a cui saltare
+	 */
+	public void setLocationCode(String locationCode) {
+		this.locationCode = locationCode;
+	}
+	
+	/**
+	 * url statico a cui saltare
+	 */
+	public String getStaticUrl() {
+		return staticUrl;
+	}
+	
+	/**
+	 * url statico a cui saltare
+	 */
+	public void setStaticUrl(String staticUrl) {
+		this.staticUrl = staticUrl;
+	}
+	
+	/**
+	 * nome dell'appdata contnenente l'url a cui saltare
+	 */
+	public String getRuntimeUrlProviderAppaData() {
+		return runtimeUrlProviderAppaData;
+	}
+	
+	/**
+	 * nome dell'appdata contnenente l'url a cui saltare
+	 */
+	public void setRuntimeUrlProviderAppaData(String runtimeUrlProviderAppaData) {
+		this.runtimeUrlProviderAppaData = runtimeUrlProviderAppaData;
+	}
+	
+	/**
+	 * l'url a cui saltare produrra' uno stream binario?
+	 */
+	public boolean isBinaryStream() {
+		return binaryStream;
+	}
+	
+	/**
+	 * l'url a cui saltare produrra' uno stream binario?
+	 */
+	public void setBinaryStream(boolean binaryStream) {
+		this.binaryStream = binaryStream;
+	}
+};
+«ENDFILE»
+
+«REM»
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/ActivateMultiPanelItemCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comnado ActivateMultiPanelItemCommand
+ */
+public class ActivateMultiPanelItemCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String contentPanelName;
+	
+	public void setContentPanelName(String n){
+		this.contentPanelName = n;
+	}
+	
+	public String getContentPanelName(){
+		return this.contentPanelName;
+	}
+	
+	String containerName; 
+	
+	public void setContainerName(String n){
+		this.containerName = n;
+	}
+	
+	public String getContainerName(){
+		return this.containerName;
+	}
+	
+	String itemName;
+	
+	public void setItemName(String n){
+		this.itemName = n;
+	}
+	
+	public String getItemName(){
+		return this.itemName;
+	}
+	
+	/**
+	 * @param contentPanelName il nome del content panel
+	 * @param containerName il nome del multi-panel contenitore
+	 * @param itemName il nome dell'item da attivare (se null => non mostrare
+	 *  nessun pannello
+	 */
+	public ActivateMultiPanelItemCommand(String contentPanelName, String containerName, String itemName) {
+		assert contentPanelName!=null && contentPanelName.length()>0;
+		assert containerName!=null && containerName.length()>0;
+		// item name puo essere nullo => deselect
+		
+		this.contentPanelName = contentPanelName;
+		this.containerName = containerName;
+		this.itemName = itemName;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public ActivateMultiPanelItemCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Esecuzione del comando ActivateMultiPanelItem. L'indicazione del nome dell'item 
+	 * correntemente attivo e' mantenuta in sessione: 
+	 * - chiave: <contentPanelName>_<containerName>_selectedMultiPanel" 
+	 * - valore: <contentPanelName>_<containerName>_<itemName> oppure null per disattivare 
+	 * tutti gli item
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException{
+		if (itemName!=null){
+			strutsAction.getSession().put(
+				contentPanelName+"_"+containerName+"_selectedMultiPanel", 
+				contentPanelName+"_"+containerName+"_"+itemName);
+		}
+		else{
+			strutsAction.getSession().remove(contentPanelName+"_"+containerName+"_selectedMultiPanel");
+		}
+		return null;
+	}
+};
+«ENDFILE»
+«ENDREM»
+
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/ScreenStateCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».*;
+
+/**
+ * Implementazione del comando ScreenStateCommand
+ */
+public class ScreenStateCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String stateName = null;
+	
+	public void setStateName(String n){
+		this.stateName = n;
+	}
+	
+	public String getStateName(){
+		return this.stateName;
+	}
+	
+	String[] widgetsOn = null;
+	String[] widgetsOff = null;
+	String[] widgetsShown = null;
+	String[] widgetsHidden = null;
+
+	public String[] getWidgetsOn() {
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsOn, String.class);
+	}
+
+	public void setWidgetsOn(String[] p_widgetsOn) {
+		this.widgetsOn = (String[]) DTOUtils.arrayCopyOf(p_widgetsOn, String.class);
+	}
+
+	public String[] getWidgetsOff() {
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsOff, String.class); 
+	}
+
+	public void setWidgetsOff(String[] p_widgetsOff) {
+		this.widgetsOff = (String[]) DTOUtils.arrayCopyOf(p_widgetsOff, String.class);
+	}
+
+	public String[] getWidgetsShown() {
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsOn, String.class);
+	}
+
+	public void setWidgetsShown(String[] p_widgetsShown) {
+		this.widgetsShown = (String[]) DTOUtils.arrayCopyOf(p_widgetsShown, String.class); 
+	}
+
+	public String[] getWidgetsHidden() {
+		return (String[]) DTOUtils.arrayCopyOf(this.widgetsHidden, String.class);
+	}
+
+	public void setWidgetsHidden(String[] p_widgetsHidden) {
+		this.widgetsHidden = (String[]) DTOUtils.arrayCopyOf(p_widgetsHidden, String.class);
+	}
+
+	/**
+	 * @param containerName nome del content panel a cui fanno riferimento gli screen state
+	 * @param stateName nome dello ScreenState da attivare
+	 * @param widgetsOn elenco dei nomi dei widget da abilitare
+	 * @param widgetsOff elenco dei nomi dei widget da disabilitare
+	 * @param widgetsShown elenco dei nomi dei widget da mostrare
+	 * @param widgetsHidden elenco dei nomi dei widget da nascondere
+	 */
+	public ScreenStateCommand(
+			String stateName, 
+			String widgetsOn[],
+			String widgetsOff[],
+			String widgetsShown[],
+			String widgetsHidden[]
+			) {
+		this.stateName = stateName;
+		this.setWidgetsOn(widgetsOn);
+		this.setWidgetsOff(widgetsOff);
+		this.setWidgetsShown(widgetsShown);
+		this.setWidgetsHidden(widgetsHidden);
+	}
+
+	/**
+	 * costruttore di default
+	 */
+	public ScreenStateCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Esecuzione del comando ScreenStateCommand. L'esecuzione di questo comando e' concretizzata
+	 * tramite l'esecuzione di una serie di comnadi ONOFF e Visibility a seconda di quanto descritto
+	 * iun widgetsOn/Off, widgetShown/Hidden.  
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction strutsAction) throws CommandExecutionException {
+		if (strutsAction instanceof AbstractCPAction){
+			String containerName = ((AbstractCPAction)strutsAction).getCPName();
+			OnOffCommand turnOn = new OnOffCommand(this.widgetsOn, true);
+			OnOffCommand turnOff = new OnOffCommand(this.widgetsOff, false);
+			VisibilityCommand show = new VisibilityCommand(this.widgetsShown, true);
+			VisibilityCommand hide = new VisibilityCommand(this.widgetsHidden, false);
+			turnOn.doCommand(model, strutsAction);
+			turnOff.doCommand(model, strutsAction);
+			show.doCommand(model, strutsAction);
+			hide.doCommand(model, strutsAction);
+			if (this.stateName != null){
+				strutsAction.getSession().put(containerName+"_currentState",this.stateName);
+			}
+		}
+		return null;
+	}
+}
+«ENDFILE»
+
+«REM»
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/PDefStateCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import java.util.Map;
+import java.util.HashMap;
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+	/**
+	 * La logica &egrave; l astessa di ScreenStateCommand, poich&egrave; i nomi dei widget sono espansi
+	 * all'inizializzazione del comando.
+	 */
+public class PDefStateCommand extends ScreenStateCommand {
+
+	
+
+	public PDefStateCommand(
+			String stateName, 
+			String widgetsOn[],
+			String widgetsOff[],
+			String widgetsShown[],
+			String widgetsHidden[]
+			) {
+		super(stateName, widgetsOn, widgetsOff, widgetsShown, widgetsHidden);
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public PDefStateCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+}
+«ENDFILE»
+«ENDREM»
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/OnOffCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+import «getControllerJavaPackage()».AbstractCPAction;
+
+/**
+ * Implementazione del comando OnOffCommand 
+ */
+public class OnOffCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	private static final String SESSION_MENU_ONOFF = "menuOnOffMap";
+
+	String[] targetsWidgets = null;
+	String[] targetsMenuElement = null;
+	boolean enable = true;
+
+	
+	public String[] getTargetsWidgets() {
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsWidgets, String.class); 
+	}
+
+	public void setTargetsWidgets(String[] p_targetsWidgets) {
+		this.targetsWidgets = (String[]) DTOUtils.arrayCopyOf(p_targetsWidgets, String.class);
+	}
+
+	public String[] getTargetsMenuElement() {
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsMenuElement, String.class);
+	}
+
+	public void setTargetsMenuElement(String[] p_targetsMenuElement) {
+		this.targetsMenuElement = (String[]) DTOUtils.arrayCopyOf(p_targetsMenuElement, String.class);
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	/**
+	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
+	 * @param enable se vale true i widget saranno abilitati, altrimenti saranno disabilitati
+	 */
+	public OnOffCommand(String targetsWidgets[], boolean enable) {
+		this.setTargetsWidgets(targetsWidgets);
+		this.enable = enable;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public OnOffCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * @param targetWidgets nomi dei widget da abilitare/disabilitare
+	 * @param targetsMenuElement nomi dei menu da abilitare/disabilitare
+	 * @param enable se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
+	 */
+	public OnOffCommand(String targetsWidgets[], String targetsMenuElement[], boolean enable) {
+		this.setTargetsWidgets(targetsWidgets);
+		this.setTargetsMenuElement(targetsMenuElement);
+		this.enable = enable;
+	}
+	
+	/**
+	 * esecuzione del comando OnOffCommand. Lo stato di abilitazione dei widget/menu e' contenuto in
+	 * sessione.
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction strutsAction)
+			throws CommandExecutionException {
+			
+/* TODO ripristinare e correggere
+		if (strutsAction instanceof AbstractCPAction){
+			String containerName = ((AbstractCPAction)strutsAction).getCPName();
+			if (this.targetsWidgets != null) {
+				Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
+						.get(containerName);
+				if (cpWidgetsStatus == null) {
+					cpWidgetsStatus = new HashMap<String, Boolean>();
+					strutsAction.session.put(containerName, cpWidgetsStatus);
+				}
+				for (int i = 0; i < this.targetsWidgets.length; i++) {
+					cpWidgetsStatus.put(this.targetsWidgets[i] + "_enabled",
+							Boolean.valueOf(this.enable));
+				}
+			}
+		}
+*/
+
+/* TODO ripristinare e correggere		
+		if (this.targetsMenuElement != null) {
+			Map<String, Boolean> menuOnOffMap = (Map<String, Boolean>) strutsAction.session
+					.get(SESSION_MENU_ONOFF);
+			if (menuOnOffMap == null) {
+				menuOnOffMap = new HashMap<String, Boolean>();
+				strutsAction.session.put(SESSION_MENU_ONOFF, menuOnOffMap);
+			}
+			for (int i = 0; i < this.targetsMenuElement.length; i++) {
+				menuOnOffMap.put(this.targetsMenuElement[i] + "_enabled",
+						Boolean.valueOf(this.enable));
+			}
+		}
+*/
+		return null;
+	}
+}
+«ENDFILE»
+
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/VisibilityCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+import «getControllerJavaPackage()».AbstractCPAction;
+
+/**
+ * Implementazione dle comando VisibilityCommand
+ */
+public class VisibilityCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * nome dell'attributo in sessione che contiene la mappa di visibilita' dei menu
+	 */
+	private static final String SESSION_MENU_VISIBILITY = "menuVisibilityMap";
+
+	
+	/**
+	 * targetsWidgets
+	 */
+	String[] targetsWidgets = null;
+	
+	/**
+	 * targetsMenuElement
+	 */
+	String[] targetsMenuElement = null;
+	
+	/**
+	 * show?
+	 */
+	boolean show = true;
+
+
+	public String[] getTargetsWidgets() {
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsWidgets, String.class);
+	}
+
+	public void setTargetsWidgets(String[] p_targetsWidgets) {
+		this.targetsWidgets = (String[]) DTOUtils.arrayCopyOf(p_targetsWidgets, String.class);
+	}
+
+	public String[] getTargetsMenuElement() {
+		return (String[]) DTOUtils.arrayCopyOf(this.targetsMenuElement, String.class);
+	}
+
+	public void setTargetsMenuElement(String[] p_targetsMenuElement) {
+		this.targetsMenuElement = (String[]) DTOUtils.arrayCopyOf(p_targetsMenuElement, String.class); 
+	}
+
+	public boolean isShow() {
+		return show;
+	}
+
+	public void setShow(boolean show) {
+		this.show = show;
+	}
+	
+	/**
+	 * @param targetWidgets nomi dei widget da mostrare/nascondere
+	 * @param targetsMenuElement nomi dei menu da mostrare/nascondere
+	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
+	 */
+	public VisibilityCommand(String targetsWidgets[], String targetsMenuElement[],
+			boolean show) {
+		this.setTargetsWidgets(targetsWidgets);
+		this.setTargetsMenuElement(targetsMenuElement);
+		this.show = show;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public VisibilityCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * @param targetWidgets nomi dei widget da mostrare/nascondere
+	 * @param show se vale true i widget/menu saranno abilitati, altrimenti saranno disabilitati
+	 */
+	public VisibilityCommand(String targetsWidgets[], 
+			boolean show) {
+		this.setTargetsWidgets(targetsWidgets);
+		this.show = show;
+	}
+
+    /**
+	 * esecuzione del comando VisibilityCommand. Lo stato di visibilita' dei widget/menu e' contenuto in
+	 * sessione.
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction strutsAction)
+			throws CommandExecutionException {
+		//Definzione Visibility Widgets per ContentPanel
+/* TODO ripristinare e correggere		
+		if (strutsAction instanceof AbstractCPAction){
+			String containerName = ((AbstractCPAction)strutsAction).getCPName();
+			if (this.targetsWidgets != null) {
+				// lo stato di visibilita' dei widget e' mantenuto in sessione
+				// in una mappa a due livelli:
+				// - il primo livello contiene <nome cp, mappa per il cp>
+				// - il secondo livello contiene <[widget]_visible, true|false>
+				Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
+						.get(containerName);
+				if (cpWidgetsStatus == null) {
+					cpWidgetsStatus = new HashMap<String, Boolean>();
+					strutsAction.session.put(containerName, cpWidgetsStatus);
+				}
+				for (int i = 0; i < this.targetsWidgets.length; i++) {
+					cpWidgetsStatus.put(this.targetsWidgets[i] + "_visible",
+							Boolean.valueOf(this.show));
+				}
+				
+			
+			}
+		}
+*/
+		
+		//Definzione Visibility MenuElement 
+/* TODO ripristinare e correggere		
+
+		if(this.targetsMenuElement !=null){
+			// lo stato di visibilita' di una voce di menu e' contenuta in sessione
+			// in una mappa
+			Map<String, Boolean> menuVisibilityMap = (Map<String, Boolean>) strutsAction.session
+					.get(SESSION_MENU_VISIBILITY);
+
+			if (menuVisibilityMap == null) {
+				// se la mappa non esiste ancora la creo
+				menuVisibilityMap = new HashMap<String, Boolean>();
+				strutsAction.session
+						.put(SESSION_MENU_VISIBILITY, menuVisibilityMap);
+			}
+			// inserisco lo stato di visibilita' di tutti i target menu
+			// inserendo la coppia <[menu]_visible, true|false>
+			for (int i = 0; i < this.targetsMenuElement.length; i++) {
+				menuVisibilityMap.put(this.targetsMenuElement[i] + "_visible",
+						Boolean.valueOf(this.show));
+			}
+		}
+*/
+		return null;
+	}
+}
+«ENDFILE»
+
+
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/ExecCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import java.util.*;
+import «getDTOBaseJavaPackage()».*;
+import «getControllerJavaPackage()».BaseAction;
+import «getSpringBEFQN(this)»;
+import java.lang.reflect.Method;
+import «getSpringBEExcFQN(this)»;
+import java.lang.reflect.InvocationTargetException;
+
+
+
+/**
+ * Implementazione del comando ExecCommand.
+ */
+public class ExecCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * gli esiti possibili
+	 */
+	String esiti[] = null;
+	
+	/**
+	 * le azioni corrispondenti agli esiti possibili
+	 */
+	ICommand azioni[] = null;
+	
+	/**
+	 * il nome del metodo da eseguire
+	 */
+	String nomeMetodo = null;
+	
+	/**
+	 * gli appdata che la logica modifica
+	 */
+	String appDataToStore[] = null;
+	
+	
+	public String[] getEsiti() {
+		return (String[]) DTOUtils.arrayCopyOf(this.esiti, String.class);
+	}
+
+	public void setEsiti(String[] p_esiti) {
+		this.esiti = (String[]) DTOUtils.arrayCopyOf(p_esiti, String.class);
+	}
+
+	public ICommand[] getAzioni() {
+		return (ICommand[]) DTOUtils.arrayCopyOf(this.azioni, ICommand.class);
+	}
+
+	public void setAzioni(ICommand[] p_azioni) {
+		this.azioni = (ICommand[]) DTOUtils.arrayCopyOf(p_azioni, ICommand.class);
+	}
+
+	public String getNomeMetodo() {
+		return nomeMetodo;
+	}
+
+	public void setNomeMetodo(String nomeMetodo) {
+		this.nomeMetodo = nomeMetodo;
+	}
+
+	public String[] getAppDataToStore() {
+		return (String[]) DTOUtils.arrayCopyOf(this.appDataToStore, String.class);
+	}
+
+	public void setAppDataToStore(String[] p_appDataToStore) {
+		this.appDataToStore = (String[]) DTOUtils.arrayCopyOf(p_appDataToStore, String.class);
+	}
+	
+	/**
+	 * mappa <result,azione>
+	 */
+	java.util.Hashtable resultAzioni = new java.util.Hashtable();
+
+	/**
+	 * @param esiti elenco dei possibili esiti (restituiti dal metodo di business effettivo
+	 * @param azioni elenco degli oggeti ICommand da eseguire a fronte di ciascun esito
+	 * @param nomeMetodo nome del metodo del bean dello strato di business logic da eseguire
+	 * @param appDataToStore elenco dei nomi degli application data modificati dalla logica di business
+	 */
+	public ExecCommand(String esiti[], ICommand[] azioni, String nomeMetodo, String appDataToStore[]) {
+		this.setEsiti(esiti);
+		this.setAzioni(azioni);
+		this.nomeMetodo = nomeMetodo;
+		this.setAppDataToStore(appDataToStore);
+	}
+
+	/**
+	 * costruttore di default
+	 */
+	public ExecCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+
+	private void initCommand(){
+		if (this.esiti != null && this.resultAzioni.isEmpty()) {
+			// riempio la mappa <esiti,azioni>
+			for (int i = 0; i < this.esiti.length; i++)
+				this.resultAzioni.put(this.esiti[i], this.azioni[i]);
+		}
+	}	
+	
+	/**
+	 * Esecuzione della logica di business.
+	 * Il model su cui lavorera' il metodo di business e' estratto dalla action.
+	 * viene quindi invocato il metodo di business tramite introspection e viene
+	 * preparato il risultato da restituire al workflow di struts (aggiornando anche i
+	 * messaggi con quanto eventualmente contenuto nell'oggetto ExecResult restituito 
+	 * dal metodo di business.
+	 */
+	public String doCommand(BaseSessionAwareDTO model, BaseAction strutsAction) throws CommandExecutionException{
+		initCommand();
+		// action --> model
+		Object theModel = strutsAction.toModel();
+		// esecuzione azione
+		ExecResults execResults = doLogic(theModel, strutsAction.getSpringBackEnd()); 
+		String result = execResults.getResultCode();
+		BaseSessionAwareDTO outModel = (BaseSessionAwareDTO)execResults.getModel();
+		
+		// model --> action
+		strutsAction.fromModel(outModel);
+		// impostazione degli appData
+		storeAppData(execResults, strutsAction);
+		// impostazione degli eventuali messaggi
+		updateMessages(
+			execResults.getFldErrors(), 
+			execResults.getGlobalErrors(), 
+			execResults.getGlobalMessages(), 
+			strutsAction);
+		// determinazione esito e azione corrispondente
+		ICommand resultAction = null;
+		for (int i = 0; i<this.esiti.length; i++){
+			if (this.esiti[i].equals(result))
+				resultAction = this.azioni[i];
+		}
+		// esecuzione azione conseguente all'esito
+		if(resultAction!=null){
+			return resultAction.doCommand(model, strutsAction);
+		}
+		else
+			throw new IllegalStateException("Il result code "+result+" non e' tra quelli previsti ("+(this.esiti)+")");
+	}
+	
+	/**
+	 * inserisce negli appositi campi della action struts2 gli errori/messaggi provenienti dalla
+	 * business logic.
+	 */
+	public void updateMessages(Map<String,String> fieldErrors, Collection<String> globalErrors, Collection<String> globalMessages, BaseAction action){
+		if (fieldErrors!=null){
+			Iterator<String> fieldKey_it = fieldErrors.keySet().iterator();
+			while(fieldKey_it.hasNext()){
+				String currKey = fieldKey_it.next();
+				action.addFieldError(currKey, fieldErrors.get(currKey));
+			}
+		}
+		if (globalErrors!=null){
+			Iterator<String> it = globalErrors.iterator();
+			while(it.hasNext()){
+				action.addActionError(it.next());
+			}
+		}
+		if (globalMessages!=null){
+			Iterator<String> it = globalMessages.iterator();
+			while(it.hasNext()){
+				action.addActionMessage(it.next());
+			}
+		}
+	}
+	
+	/**
+	 * Imposta in sessione o action i valori
+	 * degli app data previsti dalla exec action
+	 */
+	public void storeAppData(ExecResults res, BaseAction strutsAction) throws CommandExecutionException {
+		for (int i = 0; i < this.appDataToStore.length; i++) {
+				storeSpecificAppData(this.appDataToStore[i], res.getModel(), strutsAction);
+			}
+	}
+	
+	/**
+	 * Imposta in sessione o action il valore
+	 * dell'app data previsto dalla exec action
+	 */
+	private void storeSpecificAppData(String nomeAppData, Object sourceModel, BaseAction targetAction) throws CommandExecutionException {
+		
+		try {
+				java.lang.reflect.Method srcReadMethod = targetAction.findReadMethod(nomeAppData, sourceModel.getClass());
+				if (srcReadMethod != null) {
+					Object srcVal = srcReadMethod.invoke(sourceModel, new Object[]{});
+					java.lang.reflect.Method currWriteMethod = targetAction.findWriteMethod(nomeAppData, targetAction.getClass());
+					if (currWriteMethod != null) {
+						currWriteMethod.invoke(targetAction, new Object[]{srcVal});
+					}
+				}
+			} catch (Exception ioe){
+				throw new CommandExecutionException(
+						"errore non gestito nell'esecuzione del metodo ["+ (this.nomeMetodo) + "]:"
+								+ ioe.getMessage(), ioe);
+		      } 
+	}
+		
+	/**	
+	 * Esegue la logica e restituisce il result_code corretto
+	 */ 
+	public  ExecResults doLogic(Object theModel, BackEndFacade backEnd )
+			throws CommandExecutionException {
+
+		
+		it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch(«getBaseJavaPackage(this)».util.Constants.APPLICATION_CODE);
+		ExecResults result = null;
+
+		try {
+		
+			watcher.start();
+			Class cl = backEnd.getClass();
+			Method m = cl.getMethod(this.nomeMetodo, new Class[]{theModel.getClass()});
+			result = (ExecResults) m.invoke(backEnd, new Object[]{theModel});
+			
+
+			watcher.stop();
+			watcher.dumpElapsed("ExecCommand", "readOne()",
+					"chiamata verso BackEnd", this.nomeMetodo);
+			return result;
+
+		} catch (NoSuchMethodException ensm){
+			throw new CommandExecutionException(
+					"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
+							+ ensm.getMessage(), ensm);
+		} catch (IllegalAccessException eiacc){
+			throw new CommandExecutionException(
+					"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
+							+ eiacc.getMessage(), eiacc);
+		} catch (IllegalArgumentException eiarg){
+			throw new CommandExecutionException(
+					"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
+							+ eiarg.getMessage(), eiarg);
+		} catch (InvocationTargetException einvoc){
+			if (einvoc.getTargetException() instanceof BEException ) {
+				throw new CommandExecutionException(
+						"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
+								+ einvoc.getMessage(), einvoc);
+			} else {
+				throw new CommandExecutionException(
+						"errore non gestito nell'esecuzione del metodo ["+ this.nomeMetodo + "]:"
+								+ einvoc.getMessage(), einvoc);
+			}
+		}
+	}
+}
+«ENDFILE»
+
+
+«REM»
+«FILE getCmdFactoryJavaSrcDir(this, true)+"/ClearAppDataCommand.java"»
+package «getCommandFactoryPkg()»;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getDTOBaseJavaPackage()».BaseSessionAwareDTO;
+import «getControllerJavaPackage()».BaseAction;
+
+
+/**
+ * Implementazione del comando ClearAppDataCommand.
+ */
+public class ClearAppDataCommand implements ICommand {
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	 
+	
+	private String[] attributesToBeRemovedFromSession = null;
+	
+	public String[] getAttributesToBeRemovedFromSession() {
+		return (String[]) DTOUtils.arrayCopyOf(this.attributesToBeRemovedFromSession, String.class);
+	}
+
+	public void setAttributesToBeRemovedFromSession(
+			String[] p_attributesToBeRemovedFromSession) {
+		this.attributesToBeRemovedFromSession = (String[]) DTOUtils.arrayCopyOf(p_attributesToBeRemovedFromSession, String.class);
+	}
+	
+	/**
+	 * @param nomi degli application data da cancellare
+	 */
+	public ClearAppDataCommand(String[] attributesToBeRemovedFromSession) {
+		this.setAttributesToBeRemovedFromSession(attributesToBeRemovedFromSession);
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public ClearAppDataCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Implementazione del comando clearAppdataCommand. 
+	 * Il comando rimuove dalla sessione gli attributi corrispondenti
+	 * agli application data elencati in attributesToBeRemovedFromSession
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException{
+		if (this.attributesToBeRemovedFromSession!=null && this.attributesToBeRemovedFromSession.length!=0){
+			for (int i = 0; i < this.attributesToBeRemovedFromSession.length; i++) {
+				clearAppDataFromModel(strutsAction.getModel(), "appData" + (this.attributesToBeRemovedFromSession[i]));				
+			}			 
+		}
+		return null;
+	}
+	
+	private void clearAppDataFromModel(Object model, String name){
+		Class modelClass = model.getClass();
+		try {
+			BeanInfo bi = Introspector.getBeanInfo(modelClass);
+			PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+			for (int i = 0; i < pds.length; i++) {
+				PropertyDescriptor currPD = pds[i];
+				if (currPD.getName().equals(name)){
+					Method writeMethod = currPD.getWriteMethod();
+					writeMethod.invoke(model, new Object[]{(Object)null});
+				}
+			}
+		} catch (IntrospectionException e) { «noSonarTag("dubbia classificazione severity")»
+			;; 
+		} catch (IllegalArgumentException e) { «noSonarTag("dubbia classificazione severity")»
+			;; 
+		} catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
+			;;
+		} catch (InvocationTargetException e) { «noSonarTag("dubbia classificazione severity")»
+			;;
+		}
+	}
+};
+«ENDFILE»
+«ENDREM»
+
+«FILE getDTOBaseSrcDir(this)+"/ExecResults.java"»
+package «getDTOBaseJavaPackage()»;
+
+import java.util.*;
+ 
+/**
+ * Contiene i risultati dell'esecuzione di un metodo di business
+ * @generated
+ */
+public class ExecResults {
+
+	/**
+	 * il codice di outcome
+	 * @generated
+	 */
+	private String resultCode;
+	
+	/**
+	 * l'elenco degli errori associati ai field della schermata eventualmente inseriti 
+	 * da business logic
+	 * @generated
+	 */
+	private Map<String, String> fldErrors = new HashMap<String, String>();
+	
+	/**
+	 * l'elenco degli errori globali eventualmente inseriti da business logic
+	 * @generated
+	 */
+	private Collection<String> globalErrors=new ArrayList<String>();
+	
+	/**
+	 * l'elenco dei messaggi globali eventualmente inseriti da business logic
+	 * @generated
+	 */
+	private Collection<String> globalMessages=new ArrayList<String>();
+	private Object model;
+	
+	/**
+	 * imposta il model del content panel
+	 * @param  model 
+	 * @generated
+	 */
+	public void setModel(Object model){
+		this.model=model;
+	}
+	
+	/**
+	 * restutuisce il model del content panel
+	 * @generated
+	 */
+	public Object getModel(){
+		return this.model;
+	}
+	
+	
+	/**
+	 * imposta il codice di outcome
+	 * @generated
+	 */
+	public void setResultCode(String code){
+		this.resultCode = code; 
+	}
+	
+	/** 
+	 * restutuisce il codice di outcome
+	 * @generated
+	 */
+	public String getResultCode(){
+		return this.resultCode;
+	}
+	
+	/**
+	 * restituisce l'elenco degli errori associati al campo eventualmente inseriti nella
+	 * business logic
+	 * @generated
+	 */
+	public Map<String, String> getFldErrors() {
+		return fldErrors;
+	}
+
+	public void setFldErrors(Map<String, String> fldErrors) {
+		this.fldErrors = fldErrors;
+	}
+
+	/**
+	 * restituisce l'elenco degli errori globali eventualmente inseriti nella
+	 * business logic
+	 * @generated
+	 */
+	public Collection<String> getGlobalErrors() {
+		return globalErrors;
+	}
+
+	public void setGlobalErrors(Collection<String> globalErrors) {
+		this.globalErrors = globalErrors;
+	}
+
+	/**
+	 * restituisce l'elenco dei messaggi globali eventualmente inseriti nella
+	 * business logic
+	 * @generated
+	 */
+	public Collection<String> getGlobalMessages() {
+		return globalMessages;
+	}
+
+	public void setGlobalMessages(Collection<String> globalMessages) {
+		this.globalMessages = globalMessages;
+	}
+}
+«ENDFILE»
+
+«REM»
+«FILE getPresentationJavaSrcDir(true)+"/SequenceCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando SequenceCommand.
+ */
+public class SequenceCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	ICommand[] actions;
+	
+	public ICommand[] getActions() {
+		return (ICommand[]) DTOUtils.arrayCopyOf(this.actions, ICommand.class);
+	}
+
+	public void setActions(ICommand[] p_actions) {
+		this.actions = (ICommand[]) DTOUtils.arrayCopyOf(p_actions, ICommand.class); 
+	}
+	
+	/** 
+	 * @param actions elenco degli ICommand da eseguire in sequenza
+	 */
+	public SequenceCommand(ICommand[] actions) {
+		this.setActions(actions);
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public SequenceCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * La sequence action esegue in sequenza tutte le azioni atomiche
+	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
+	 * dagli step (per determinare al termine quale debba essere la pagina successiva
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException{
+		String result=null;
+		if (this.actions != null) {
+			for (int i = 0; i < this.actions.length; i++) {
+				ICommand currAct = this.actions[i];
+				String currResult = currAct.doCommand(strutsAction);
+				if (currResult!=null)
+					result=currResult;
+			}
+		}
+		return result;
+	}
+};
+«ENDFILE»
+«ENDREM»
+
+«REM»
+«FILE getPresentationJavaSrcDir(true)+"/ShowDialogCommand.java"»
+package «getPresentationJavaPackage()»;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando ShowDialogCommnad
+ */
+public class ShowDialogCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String name;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * @param panelName il nome del DialogPanel da visualizzare
+	 */
+	public ShowDialogCommand(String panelName) {
+		name = panelName;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public ShowDialogCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Esecuzione del comando ShowDialogCommand. 
+	 * Si concretizza con la restituzione al workflow di struts del result SHOW_<nome dialog>.
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException {
+		return "SHOW_"+name;
+	}
+};
+«ENDFILE»
+«ENDREM»
+
+«REM»
+«FILE getPresentationJavaSrcDir(true)+"/BeginEditCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando BeginEditCommand.
+ */
+public class BeginEditCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String [] targetAppDataNames;
+	
+	public String[] getTargetAppDataNames() {
+		return (String[]) DTOUtils.arrayCopyOf(this.targetAppDataNames, String.class);
+	}
+
+	public void setTargetAppDataNames(String[] p_targetAppDataNames) {
+		this.targetAppDataNames = (String[]) DTOUtils.arrayCopyOf(p_targetAppDataNames, String.class);
+	}
+	
+	/**
+	 * @param targetAppDataNames i nomi degli applicaiton data da includere nella
+	 * sessione
+	 */
+	public BeginEditCommand(String [] targetAppDataNames) {
+		this.setTargetAppDataNames(targetAppDataNames);
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public BeginEditCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Esecuzione del comando BeginEditCommand. 
+	 * Salva un backup (deep copy) degli appdata specificati
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException {
+		if (targetAppDataNames != null){
+			for (int i = 0; i < targetAppDataNames.length; i++) {
+				String currADName = targetAppDataNames[i];
+				try{
+					storeBackup(currADName, strutsAction);
+				}
+				catch(CloneNotSupportedException cnse){ «noSonarTag("dubbia classificazione severity")»
+					throw new CommandExecutionException(
+						"Errore nella creazioene del backup dell'appdata ["+currADName+"]:"+cnse.getMessage(),cnse);
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Effettua il salvataggio di un backup del singolo applicationData
+	 * @param adName il nome dell'application data
+	 * @param strutsAction la action su cui si scatena il comando
+	 */
+	public static void storeBackup(String adName, BaseAction strutsAction) throws CloneNotSupportedException
+	{
+		Object currADVal = strutsAction.getSession().get(adName);
+		Object currADValClone = deepClone(currADVal);
+		if (currADVal != null) {
+			strutsAction.getSession().put(adName + "_bckp", currADValClone);
+		}
+	}
+	
+	/**
+	 * Effettua un clone ricorsivo delle strutture dati in input.
+	 * Il clone viene fatto tramite serializzazione in memory e successiva deserializzazione.
+	 */
+	public static Object deepClone(Object orig) throws CloneNotSupportedException{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(baos);
+			oos.writeObject(orig);
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			Object clone = ois.readObject();
+			return clone;
+		} catch (IOException e) { «noSonarTag("dubbia classificazione severity")»
+			throw new CloneNotSupportedException();
+		} catch (ClassNotFoundException e) { «noSonarTag("dubbia classificazione severity")»
+			throw new CloneNotSupportedException();
+		}
+	}
+};
+
+«ENDFILE»
+«ENDREM»
+
+«REM»
+«FILE getPresentationJavaSrcDir(true)+"/EndEditCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando EndEditSession.
+ */
+public class EndEditCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	String [] targetAppDataNames;
+	boolean undo;
+	
+	public String[] getTargetAppDataNames() {
+		return (String[]) DTOUtils.arrayCopyOf(this.targetAppDataNames, String.class);
+	}
+
+	public void setTargetAppDataNames(String[] p_targetAppDataNames) {
+		this.targetAppDataNames = (String[]) DTOUtils.arrayCopyOf(p_targetAppDataNames, String.class);
+	}
+
+	public boolean isUndo() {
+		return undo;
+	}
+
+	public void setUndo(boolean undo) {
+		this.undo = undo;
+	}
+	
+	
+	/**
+	 * @param targetAppDataNames i nomi degli application data da ripristinare (eventualmente)
+	 * @param undo se valorizzato a true, il valore degli appdata referenziati viene ripristinato a partire
+	 * dal valore di backup effettuato durante l'esecuzione del BeginEditCommand corrispondente
+	 */
+	public EndEditCommand(String [] targetAppDataNames, boolean undo) {
+		this.setTargetAppDataNames(targetAppDataNames);
+		this.undo=undo;
+	}
+	
+	/**
+	 * costruttore di default
+	 */
+	public EndEditCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Elimina i backup (deep copy) degli appdata specificati, ripristinando il
+	 * valore se undo==true; 
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException {
+		if (targetAppDataNames != null){
+			for (int i = 0; i < targetAppDataNames.length; i++) {
+				String currADName = targetAppDataNames[i];
+				endEditForAppdata(currADName, undo, strutsAction);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Rimuove i backup e se necessario effettua il restore del valore del singolo application data
+	 * @param adName
+	 * @param undo
+	 * @param strutsAction
+	 */
+	public static void endEditForAppdata(String adName, boolean undo,
+			BaseAction strutsAction) {
+		if (undo) {
+			// undo del dato
+			Object currADValBkp = strutsAction.getSession().get(
+					adName + "_bckp");
+			if (currADValBkp != null) {
+				strutsAction.getSession().put(adName, currADValBkp);
+			}
+		}
+		// rimuove il backup 
+		strutsAction.getSession().remove(adName + "_bckp");
+	}
+	
+};
+
+
+«ENDFILE»
+«ENDREM»
+
+«REM»
+«FILE getPresentationJavaSrcDir(true)+"/ChkEditStatusCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Arrays;
+import «getDTOBaseJavaPackage()».DTOUtils;
+import «getControllerJavaPackage()».BaseAction;
+
+/**
+ * Implementazione del comando ChkEditStatusCommand. Permette di esaminare se il valore
+ * di un ApplicationData coinvolto in una sessione di editing (tramite BeginEditSessionCommand)
+ * e' stato modificato.
+ */
+public class ChkEditStatusCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	ICommand doIfChanged;
+	ICommand doIfNotChanged;
+	String checkAggr;
+	String [] checkedData;
+	
+	public ICommand getDoIfChanged() {
+		return doIfChanged;
+	}
+
+	public void setDoIfChanged(ICommand doIfChanged) {
+		this.doIfChanged = doIfChanged;
+	}
+
+	public ICommand getDoIfNotChanged() {
+		return doIfNotChanged;
+	}
+
+	public void setDoIfNotChanged(ICommand doIfNotChanged) {
+		this.doIfNotChanged = doIfNotChanged;
+	}
+
+	public String getCheckAggr() {
+		return checkAggr;
+	}
+
+	public void setCheckAggr(String checkAggr) {
+		this.checkAggr = checkAggr;
+	}
+
+	public String[] getCheckedData() {
+		return (String[]) DTOUtils.arrayCopyOf(this.checkedData, String.class);
+	}
+
+	public void setCheckedData(String[] p_checkedData) {
+		this.checkedData = (String[]) DTOUtils.arrayCopyOf(p_checkedData, String.class);
+	}
+	
+	
+	/**
+	 * @param checkedData il nome deli application data da esaminare
+	 * @param checkAggregation modalita' di aggregazione dei risultati dei singoli check.
+	 * puo' valere "AND", "OR" o "XOR"
+	 * @param doIfChanged ICommand da eseguire se il check e' positivo (dati variati)
+	 * @param doIfNotChanged ICommand da eseguire se il check e' negativo (dati non variati) 
+	 */
+	public ChkEditStatusCommand(
+			String [] checkedData, 
+			String checkAggregation, 
+			ICommand doIfChanged,
+			ICommand doIfNotChanged) {
+		this.setCheckedData(checkedData);
+		this.checkAggr=checkAggregation;
+		this.doIfChanged=doIfChanged;
+		this.doIfNotChanged=doIfNotChanged;
+	}
+
+	/**
+	 * costruttore di default
+	 */
+	public ChkEditStatusCommand(){
+		/// costruttore intenzionalmente vuoto
+	}
+	
+	/**
+	 * Esecuzione del comando. 
+	 * A seconda del risultato del check (che tiene conto del tipo di aggregazione)
+	 * viene eseguito il comando contenuto in doIfChanged o doIfNotchanged
+	 */
+	public String doCommand(/* BaseAction strutsAction */) throws CommandExecutionException {
+		boolean changed = checkAppdata4Changes(this.checkedData, this.checkAggr, strutsAction);
+		if (changed)
+			return this.doIfChanged.doCommand(strutsAction);
+		else
+			return this.doIfNotChanged.doCommand(strutsAction);
+	}
+
+	/**
+	 * Verifica variazioni sugli appdata con la politica di aggregazione specificata
+	 * @param checkedData
+	 * @param checkAggr
+	 * @param strutsAction
+	 * @return
+	 */
+	boolean checkAppdata4Changes(String[] checkedData, String checkAggr, BaseAction strutsAction) {
+		if (checkedData==null || checkedData.length==0)
+			return false;
+		// else
+		boolean ris = "OR".equals(checkAggr) ? false : ("AND".equals(checkAggr) ? true : false);
+		for (int i = 0; i < checkedData.length; i++) {
+			String currADName = checkedData[i];
+			boolean currChanged = checkAppdata4Changes(currADName, strutsAction);
+			if (currChanged && "OR".equals(checkAggr))
+				return true; // al primo esco con true
+			else if (!currChanged && "AND".equals(checkAggr))
+				return false; // al primo falso esco con falso
+			else if ("XOR".equals(checkAggr)){
+				if (currChanged && ris)
+					return false; // secondo match: rompe lo xor
+			}
+		}
+		return ris;
+	}
+
+	/**
+	 * verifica se il singolo appdata e' variato
+	 * @param currADName
+	 * @param strutsAction
+	 * @return
+	 */
+	private boolean checkAppdata4Changes(String currADName,
+			BaseAction strutsAction) {
+		Object adVal = strutsAction.getSession().get(currADName);
+		Object adBkp = strutsAction.getSession().get(currADName+"_bckp");
+		if (adBkp != null){
+			«getDTOBaseJavaPackage()».DTOUtils dtoUtils = «getDTOBaseJavaPackage()».DTOUtils.getInstance();
+			return !(dtoUtils.deepEquals(adVal, adBkp));
+		}
+		else
+			return false;
+	}
+	
+	
+};
+
+«ENDFILE»
+«ENDREM»
+
+«EXPAND dtoUtilsFile FOR this»
+
+«ENDDEFINE»
+
+«REM»sarebbe da spostare in "model"«ENDREM»
+«DEFINE dtoUtilsFile FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/DTOUtils.java"»package «getDTOBaseJavaPackage()»;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+
+/**
+ * classe di utilita' varia per operare sugli oggetti DTO.
+ */
+public class DTOUtils {
+
+	/**
+	 * singleton
+	 */
+	private static DTOUtils instance;
+	
+	static{
+		// creazione del singleton
+		instance = new DTOUtils();
+	}
+	
+	/**
+	 * singleton instance
+	 */
+	public static DTOUtils getInstance(){
+		return instance;
+	}
+	
+	/**
+	 * Restituisce una copia dell'array passato in input (vengono 
+	 * mantenuti i riferimenti agli elementi originali.
+	 * @param srcArr l'array di input
+	 * @param compType la classe degli elementi (deve coincidere con 
+	 * il componenttype dell'array - viene passato esplicitamente per 
+	 * gestire il caso array di zero elementi).
+	 * @return
+	 */
+	public static Object [] arrayCopyOf(Object[] srcArr, Class compType){
+		if (srcArr == null){
+			return null;
+		}
+		else{
+			Object [] destArr = (Object[]) Array.newInstance(compType, srcArr.length);
+			System.arraycopy(srcArr, 0, destArr, 0, srcArr.length - 0);
+			return destArr;
+		}
+	}
+	
+	/**
+	 * Effettua una verifica di uguaglianza in profondita' tra i due
+	 * oggetti in input
+	 * @param o1
+	 * @param o2
+	 */
+	public boolean deepEquals(Object o1, Object o2){
+		if ((o1==null) != (o2==null)){
+			// se uno solo dei due oggetti e' nullo allora non 
+			// possono essere uguali
+			return false;
+		}else if (List.class.isAssignableFrom(o1.getClass())) {
+			// se sono array effettuo la verifica specifica
+			return deepEqualsArray(o1, o2);
+		}else if (!(o1.getClass().equals(o2.getClass()))){
+			// se i due oggetti non sono della stessa classe
+			// non possono essere uguali
+			return false;
+		// else: stesso tipo e nessuno dei due nullo
+		}
+		else if (isSimpleType(o1)) {
+			// se sono tipi semplici utilizzo la funzione equals prevista
+			// per quei tipi
+			return o1.equals(o2);
+		}
+		else {
+			// se sono oggetti complessi effettuo la verifica specifica
+			return deepEqualsBean(o1, o2);
+		}
+	}
+	
+	
+	/**
+	 * @param o l'oggetto di cui serve testare il tipo
+	 * @return true se l'oggetto in input e' un tipo smeplice
+	 * (Integer|Long|Float|Dlouble|String|Byte|Boolean)
+	 */
+	private boolean isSimpleType(Object o) {
+		return o instanceof Integer || o instanceof Long
+				|| o instanceof Float || o instanceof Double
+				|| o instanceof String || o instanceof Byte 
+				|| o instanceof Boolean;
+	}
+	
+	/**
+	 * verifica di uguaglianza specifica per bean
+	 * @param o1
+	 * @param o2
+	 */
+	private boolean deepEqualsBean(Object o1, Object o2) {
+		BeanInfo bi;
+		try {
+			// l'accesso agli oggetti avviene mediante introspection
+			bi = Introspector.getBeanInfo(o1.getClass());
+		} catch (IntrospectionException e) { «noSonarTag("dubbia classificazione severity")»
+			throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+		}
+		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPD = pds[i];
+			if (!deepEqualsPropertyVal(currPD, o1, o2))
+				return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * verifica se il valore di una property e' identico per due oggetti
+	 * @param pd il property descriptor della property in questione (o1 e o2
+	 * devono essere della stessa classe e pd deve essere un valiudo property 
+	 * descriptor di quella classe.
+	 * @param o1
+	 * @param o2
+	 * @return true se il valore e' identico o se la property e' read-only 
+	 * (logica mantenuta da versione precedente)  
+	 */
+	private boolean deepEqualsPropertyVal(PropertyDescriptor pd, Object o1, Object o2) {
+	// ottengo il metodo di lettura della property corrente dai metadati
+			Method getter = pd.getReadMethod();
+			// ottengo il metodo di scrittura della property corrente dai metadati
+			Method setter = pd.getWriteMethod();
+			if (getter != null && setter != null){
+				// se la property non e' read only..
+				try {
+					// valore della property nell'oggetto 1
+					Object v1 = getter.invoke(o1, new Object[]{});
+					// valore della property nell'oggetto 2
+					Object v2 = getter.invoke(o2, new Object[]{});
+					// richiamo ricorsivamente la verifica sui due valori
+					return deepEquals(v1, v2);
+				} 
+				catch (IllegalAccessException e) { «noSonarTag("dubbia classificazione severity")»
+					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+				}
+				catch (InvocationTargetException e) { «noSonarTag("dubbia classificazione severity")»
+					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+				}
+			}
+			else{
+				return true; // le property read only vengono ignorate nel computo => true fittizio
+			}
+	}
+	
+	/**
+	 * metodo di verifica di uguaglianza profonda, specifico per oggetti di
+	 * tipo array
+	 * @param o1
+	 * @param o2
+	 */
+	private boolean deepEqualsArray(Object o1, Object o2) {
+		List l1 = (List)o1;
+		List l2 = (List)o2;
+		if (l1.size() != l2.size()) {
+			// se le due collezioni non hanno lo stesso numero di elementi
+			// non possono essere uguali, percio' non proseguo la verifica
+			// sugli elementi
+			return false;
+		}
+		else{
+			// se le due collezioni hanno lo stesso numero di elementi proseguo
+			// la verifica sui singoli elementi
+			for (int i = 0; i < l1.size(); i++) {
+				// oggetto i-esimo della prima collezione
+				Object curr1 = l1.get(i);
+				// oggetto i-esimo della seconda collezione
+				Object curr2 = l2.get(i);
+				// effettuo la verifica sulla coppia di elementi, sempre tramite
+				// il metodo deepEquals
+				if (!deepEquals(curr1, curr2))
+					return false; // al primo diverso mi fermo
+			}
+			return true;
+		}
+	}
+	
+	
+	/**
+	 * Effettua un clone ricorsivo delle strutture dati in input.
+	 * Il clone viene fatto tramite serializzazione in memory e successiva deserializzazione.
+	 */
+	public static Object deepClone(Object orig)
+			throws CloneNotSupportedException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(baos);
+			oos.writeObject(orig);
+			ByteArrayInputStream bais = new ByteArrayInputStream(
+					baos.toByteArray());
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			Object clone = ois.readObject();
+			return clone;
+		} catch (IOException e) { «noSonarTag("dubbia classificazione severity")»
+			throw new CloneNotSupportedException(); 
+		} catch (ClassNotFoundException e) { «noSonarTag("dubbia classificazione severity")»
+			throw new CloneNotSupportedException();
+		}
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+

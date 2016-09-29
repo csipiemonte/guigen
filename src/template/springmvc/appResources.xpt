@@ -1,0 +1,309 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE daoSpringConfigurationFile(boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
+«IF !useExternalDaoBeans-»
+«FILE getSpringDaoConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("appResources")»
+	<!-- 
+		Esempio di configurazione di datasource, transaction manager, incrementer e dao 
+	-->
+	<!-- bean del datasource 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/GericaDS" />
+		<property name="proxyInterface" value="javax.sql.DataSource" />
+	</bean>
+	-->
+	
+	<!-- annotazione per utilizzare il transaction manager dell'app.server
+	<tx:annotation-driven transaction-manager="txManager"
+		proxy-target-class="true" />
+	-->
+	<!-- annotazione per utilizzare il transaction manager dell'app.server jboss
+	<bean id="txManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager" />
+	-->
+	
+	<!-- annotazione per utilizzare il transaction manager dell'app.server weblogic
+		transaction manager bea <bean id="txManager"
+		class="org.springframework.transaction.jta.WebLogicJtaTransactionManager"
+		/>
+	-->
+
+	<!-- jdbc template
+	<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+	-->
+
+	<!--  
+    <bean id="XYZ_ID_Incrementer"
+		class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer">
+		<constructor-arg>
+			<ref bean="datasource" />
+		</constructor-arg>
+		<constructor-arg>
+			<value>ID</value>
+		</constructor-arg>
+	</bean>
+	-->
+	
+	<!-- bean del singolo DAO
+	<bean id="XYZDao"
+		class="«getBaseJavaPackage()».business.dao.spring.XYZDaoImpl">
+		<property name="jdbcTemplate" ref="namedJdbcTemplate" />
+		<property name="incrementer" ref="XYZ_ID_Incrementer" />
+	</bean>
+	-->
+
+	«ENDPROTECT»
+</beans>
+«ENDFILE»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE gisMapSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getSpringGisMapPropertiesFile(this, skip_component_dir_creation)-»
+«LET (List[MapView])getMapsInModel() AS maps-»
+«FOREACH maps AS map-»
+#-------------credenziali di accesso per la mappa(nome: «map.name», id: «map.mapId»)
+«map.mapId».gisUser=@@@gisMap.«map.mapId».user@@@
+«map.mapId».gisPwd=@@@gisMap.«map.mapId».password@@@
+«ENDFOREACH»
+«ENDLET»
+«ENDFILE»
+«FILE getSpringGisMapConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>   
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+		     <value>/WEB-INF/classes/gisMapConf.properties</value> 
+		</property>
+	</bean>
+    
+    <!-- ========================== Inizio confugurazione mappe ============================= -->
+    «LET (List[MapView])getMapsInModel() AS maps-»
+	«FOREACH maps AS map-»
+	<!-- ========================== configurazione mappa (nome: «map.name», id: «map.mapId»)==========-->
+	<bean id="navigationMapping«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.util.jeegweb.navbeans.NavigationBeansManager">
+	</bean>
+	<!-- ********************************** -->
+	<!-- Integrazione e aggancio ai servizi per la mappa (nome: «map.name», id: «map.mapId»)-->
+	<!-- ********************************** -->
+
+	<bean id="integrationCastManager«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.util.serviceintegration.castutils.gosgisso.ServiceIntegrationCastingImpl">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+	</bean>
+
+	<bean id="profilingHelper«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.gosgisso.ProfilingHelper">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>«map.mapId»</value> <!-- codice componente per la mappa-->
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>${«map.mapId».gisUser}</value> <!-- username -->
+		</constructor-arg>
+		<constructor-arg index="3">
+			<value>${«map.mapId».gisPwd}</value> <!-- password -->
+		</constructor-arg>
+	</bean>
+
+	<bean id="serviceInfoHelper«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.gosgisso.ServiceInfoHelper">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<property name="castManager" ref="integrationCastManager«map.mapId.toFirstUpper()»" />
+		<property name="profilingHelper" ref="profilingHelper«map.mapId.toFirstUpper()»" />
+	</bean>
+
+	<bean id="aliasHelper«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.gosgisso.AliasHelper">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<property name="profilingHelper" ref="profilingHelper«map.mapId.toFirstUpper()»" />
+		<property name="castManager" ref="integrationCastManager«map.mapId.toFirstUpper()»" />
+	</bean>
+
+	<bean id="tocHelper«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.gosgisso.TocHelper">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<property name="profilingHelper" ref="profilingHelper«map.mapId.toFirstUpper()»" />
+		<property name="castManager" ref="integrationCastManager«map.mapId.toFirstUpper()»" />
+	</bean>
+
+	<bean id="mappeHelper«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.gosgisso.MapImageHelper">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<property name="profilingHelper" ref="profilingHelper«map.mapId.toFirstUpper()»" />
+		<property name="castManager" ref="integrationCastManager«map.mapId.toFirstUpper()»" />
+	</bean>
+	
+	<bean id="elencoServiziHelper«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.gosgisso.ElencoServiziHelper">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>«map.mapId»</value> <!-- codice componente per la mappa-->
+		</constructor-arg>
+		<property name="serviceInfoBean" ref="serviceInfoHelper«map.mapId.toFirstUpper()»" />
+	</bean>
+
+	<bean id="getFeaturesHelper«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.gosgisso.GetFeaturesHelper">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<property name="profilingHelper" ref="profilingHelper«map.mapId.toFirstUpper()»" />
+		<property name="castManager" ref="integrationCastManager«map.mapId.toFirstUpper()»" />
+	</bean>
+
+	<!-- ********************************** -->
+	<!-- Gestione Business per la mappa(nome: «map.name», id: «map.mapId») -->
+	<!-- ********************************** -->
+	<bean id="definizioneScalePredefinite«map.mapId.toFirstUpper()»"
+		class="«getBaseJavaPackage()».business.greaseutils.GisMapScaleDefinition">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>«map.numLevels»</value> <!-- numLivelli -->
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>«map.scaleEnvelopeSpec.southWest.x»</value> <!-- scaleEnvelopeSudOvestX -->
+		</constructor-arg>
+		<constructor-arg index="3">
+			<value>«map.scaleEnvelopeSpec.southWest.y»</value> <!-- scaleEnvelopeSudOvestY -->
+		</constructor-arg>
+		<constructor-arg index="4">
+			<value>«map.scaleEnvelopeSpec.northEast.x»</value> <!-- scaleEnvelopeNordEstX -->
+		</constructor-arg>
+		<constructor-arg index="5">
+			<value>«map.scaleEnvelopeSpec.northEast.y»</value> <!-- scaleEnvelopeNordEstY -->
+		</constructor-arg>
+	</bean>
+
+	<bean id="gisBusinessCasting«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.util.managers.castutils.ManagersConverterImpl">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+	</bean>
+
+	<bean id="helperFactory«map.mapId.toFirstUpper()»" class="it.csi.jeegia.jeegfw.util.managers.HelperFactoryImpl">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value></value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value></value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="imageManager«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.managers.helper.GetImageManager">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<property name="elencoServiziHelper" ref="elencoServiziHelper«map.mapId.toFirstUpper()»" />
+		<property name="mappeHelper" ref="mappeHelper«map.mapId.toFirstUpper()»" />
+		<property name="converter" ref="gisBusinessCasting«map.mapId.toFirstUpper()»" />
+		<property name="getImageHelperFactory" ref="helperFactory«map.mapId.toFirstUpper()»" />
+	</bean>
+
+	<bean id="mapManager«map.mapId.toFirstUpper()»" class="«getBaseJavaPackage()».business.greaseutils.GisMapManager">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+
+		<property name="startEnvelopeSudOvestX" value="«map.startEnvelopeSpec.southWest.x»" />
+		<property name="startEnvelopeSudOvestY" value="«map.startEnvelopeSpec.southWest.y»" />
+		<property name="startEnvelopeNordEstX" value="«map.startEnvelopeSpec.northEast.x»" />
+		<property name="startEnvelopeNordEstY" value="«map.startEnvelopeSpec.northEast.y»" />
+		<property name="maxEnvelopeSudOvestX" value="«map.maxEnvelopeSpec.southWest.x»" />
+		<property name="maxEnvelopeSudOvestY" value="«map.maxEnvelopeSpec.southWest.y»" />
+		<property name="maxEnvelopeNordEstX" value="«map.maxEnvelopeSpec.northEast.x»" />
+		<property name="maxEnvelopeNordEstY" value="«map.maxEnvelopeSpec.northEast.y»" />
+		
+		<property name="elencoServiziHelper" ref="elencoServiziHelper«map.mapId.toFirstUpper()»" />
+		<property name="mappeHelper" ref="mappeHelper«map.mapId.toFirstUpper()»" />
+		<property name="converter" ref="gisBusinessCasting«map.mapId.toFirstUpper()»" />
+		<property name="scalePredefiniteDefinition" ref="definizioneScalePredefinite«map.mapId.toFirstUpper()»" />
+	</bean>
+	
+	<bean id="mapAdapter«map.mapId.toFirstUpper()»" class="«getBaseJavaPackage()».presentation.uiutils.GreaseDTOMapper">
+		<property name="mapManager" ref="mapManager«map.mapId.toFirstUpper()»" />
+		<property name="imageManager" ref="imageManager«map.mapId.toFirstUpper()»" />
+	</bean>
+
+	<bean id="tocManager«map.mapId.toFirstUpper()»"
+		class="it.csi.jeegia.jeegfw.presentation.managers.helper.TocManager">
+		<constructor-arg index="0">
+			<value>«this.codComponente»</value> <!-- logger applicativo -->
+		</constructor-arg>
+		<property name="elencoServiziHelper" ref="elencoServiziHelper«map.mapId.toFirstUpper()»" />
+		<property name="converter" ref="gisBusinessCasting«map.mapId.toFirstUpper()»" />
+		<property name="tocHelper" ref="tocHelper«map.mapId.toFirstUpper()»" />
+	</bean>
+	
+	«REM»
+	**************da decommentare quando sarà attiva la funzione di identify
+	
+	<bean id="queryManager«map.mapId.toFirstUpper()»"
+		class="«getUIUtilsJavaPackage(this)».SpatialQueryExtJsManager">
+		<constructor-arg index="0" value="«this.codComponente»" />
+		<property name="elencoServiziHelper" ref="elencoServiziHelper«map.mapId.toFirstUpper()»" />
+		<property name="converter" ref="gisBusinessCasting«map.mapId.toFirstUpper()»" />
+		<property name="getFeaturesHelper" ref="getFeaturesHelper«map.mapId.toFirstUpper()»" />
+		<property name="aliasHelper" ref="aliasHelper«map.mapId.toFirstUpper()»" />
+		<property name="queryHelperFactory" ref="helperFactory«map.mapId.toFirstUpper()»" />
+	</bean>
+	«ENDREM»
+	
+	«ENDFOREACH-»
+	«ENDLET-»
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»

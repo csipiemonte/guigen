@@ -1,0 +1,1907 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM INTERCEPTOR CLASSES
+===========================================================================================================================
+«ENDREM»
+
+
+«REM»Genera le classi dei convertitori«ENDREM»
+«DEFINE uiutilsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND tableFilterStructFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDataFilterStructFile(skip_component_dir_creation) FOR this»
+	«EXPAND dataPositionStructFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableStatusStructFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDataArrangerFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDataArrangerExcFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDynComparatorFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDynComparatorExcFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableArrangedDataFile(skip_component_dir_creation) FOR this»
+	«EXPAND utilityFile(skip_component_dir_creation) FOR this»
+	«IF hasGisMap()»
+	«EXPAND greaseDTOMapperFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE tableFilterStructFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableFilter.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+public class TableFilter implements java.io.Serializable{
+	/**
+	 * Dati impostati nel filtro
+	 * @generated
+	 */
+	private DataFilter data;
+	
+	/**
+	 * campo oggetto del filtro
+	 */
+	private String field;
+	
+	public DataFilter getData() {
+		return data;
+	}
+	public void setData(DataFilter data) {
+		this.data = data;
+	}
+	public String getField() {
+		return field;
+	}
+	public void setField(String field) {
+		this.field = field;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE dataPositionStructFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/DataPosition.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+public class DataPosition implements java.io.Serializable{
+
+	//***id del record nella collection
+	private String id;
+	
+	//***posizione originale del record nella collection
+	private int position;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableDataFilterStructFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/DataFilter.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * Utilizzata per le funzioni di filtro del widget della cartuccia "fat"
+ * @generated
+ */
+ 
+public class DataFilter implements java.io.Serializable{
+
+	/**
+	 * type
+	 */
+	private String type;
+	
+	/**
+	 * value
+	 */
+	private String value;
+	
+	/**
+	 * comparison
+	 */
+	private String comparison;
+	
+	/**
+	 * type
+	 */
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * type
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	/**
+	 * value
+	 */
+	public String getValue() {
+		return value;
+	}
+	
+	/**
+	 * value
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+	/**
+	 * comparison
+	 */
+	public String getComparison() {
+		return comparison;
+	}
+	
+	/**
+	 * comparison
+	 */
+	public void setComparison(String comparison) {
+		this.comparison = comparison;
+	}
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE tableStatusStructFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableStatus.java"»package «getUIUtilsJavaPackage(this)»;
+
+
+/**
+ * Contiene lo stato della tabella dal punto di vista di:
+ * - porzione di dati da visualizzare nella viewport
+ * - ordinamento
+ * @generated
+ */
+public class TableStatus implements java.io.Serializable{
+
+
+	/**
+	 * callback
+	 */
+	private String callback;
+	
+	/**
+	 * start
+	 */
+	private String start;
+	
+	/**
+	 * limit
+	 */
+	private String limit;
+	
+	/**
+	 * sort
+	 */
+	private String sort;
+	
+	/**
+	 * dir
+	 */
+	private String dir;
+	/**
+	 * parametro che contiene il nome dell'id del record
+	 */
+	private String valueSelector;
+	/**
+	 * parametro che contiene lo stato della tabella
+	 * se impostato a true allora rimuove il relativo cookie dello stato.
+	 */
+	private boolean clearStatus;
+	
+	/**
+	 * callback
+	 */
+	public String getCallback() {
+		return callback;
+	}
+	
+	/**
+	 * callback
+	 */
+	public void setCallback(String callback) {
+		this.callback = callback;
+	}
+	
+	/**
+	 * start
+	 */
+	public String getStart() {
+		return start;
+	}
+	
+	/**
+	 * start
+	 */
+	public void setStart(String start) {
+		this.start = start;
+	}
+	
+	/**
+	 * limit
+	 */
+	public String getLimit() {
+		return limit;
+	}
+	
+	/**
+	 * limit
+	 */
+	public void setLimit(String limit) {
+		this.limit = limit;
+	}
+	
+	/**
+	 * sort
+	 */
+	public String getSort() {
+		return sort;
+	}
+	
+	/**
+	 * sort
+	 */
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	
+	/**
+	 * dir
+	 */
+	public String getDir() {
+		return dir;
+	}
+	
+	/**
+	 * dir
+	 */
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+	
+	/**
+	 * valueSelector
+	 */
+	public String getValueSelector() {
+		return valueSelector;
+	}
+	
+	/**
+	 * valueSelector
+	 */
+	public void setValueSelector(String valueSelector) {
+		this.valueSelector = valueSelector;
+	}
+	
+	/**
+	 * isClearStatus
+	 */
+	public boolean isClearStatus() {
+		return clearStatus;
+	}
+	
+	/**
+	 * setClearStatus
+	 */
+	public void setClearStatus(boolean clearStatus) {
+		this.clearStatus = clearStatus;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableDataArrangerFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableDataArranger.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+public class TableDataArranger{
+
+	/**
+	 * @param listaOggetti
+	 * @param tableStatus
+	 * @param filter
+	 */
+	@SuppressWarnings("unchecked")
+	public TableArrangedData arrange(List listaOggetti,
+			TableStatus tableStatus, List<TableFilter> filter) {
+
+		String callback = tableStatus.getCallback();
+		if (callback == null) {
+			callback = "";
+		}
+		// start=25&limit=25&sort=replycount&dir=ASC&_dc=1239896937456&callback=stcCallback1009
+		String start = tableStatus.getStart();
+		if (start == null) {
+			start = "0";
+		}
+
+		String limit = tableStatus.getLimit();
+		if (limit == null) {
+			limit = "5";
+		}
+		
+		String valueSelector = tableStatus.getValueSelector();
+		if(valueSelector == null){
+			valueSelector = "id";
+		}
+
+		String metodo = tableStatus.getSort();
+
+		String dir = tableStatus.getDir();
+
+		boolean sortAsc = true;
+		if (dir != null && dir.equalsIgnoreCase("DESC")) {
+			sortAsc = false;
+		}
+
+		List<Object> listaValori = new ArrayList<Object>();
+
+		if (filter != null && !filter.isEmpty()) {
+			for (Object oggetto : listaOggetti) {
+				boolean flagString = true;
+				boolean flagList = true;
+				boolean flagNumero = true;
+				boolean isGtLt = false;
+				boolean flagGtLt = false;
+				boolean isDateComparison = false;
+				boolean flagDateComparison = false;
+				boolean flagData = true;
+				boolean flagBoolean = true;
+				for (TableFilter filtro : filter) {
+
+					DataFilter dataFilter = filtro.getData();
+					String campo = filtro.getField();
+
+					Method method = null;
+
+					try {
+						method = Utility.convertiMetodo(campo, oggetto);
+					} catch (SecurityException e1) {
+						throw new TableDataArrangerException(
+								"Errore su griglia filtrata", e1);
+					}
+					/*filtro su campo di testo*/
+					if (dataFilter.getType().equalsIgnoreCase("string")) {
+						try {
+							String vv = (String) method.invoke(oggetto,
+									(Object[]) null);
+							flagString = false;
+							if (vv.toLowerCase().indexOf(
+									dataFilter.getValue().toLowerCase()) != -1) {
+								flagString = true;
+							}
+						} catch (Exception e) {
+							throw new TableDataArrangerException(
+									"Filtro campo testo non eseguito", e);
+						}
+
+					}
+					/*filtro su campo con lista di valori*/
+					if (dataFilter.getType().equalsIgnoreCase("list")) {
+						try {
+							String vv = (String) method.invoke(oggetto,
+									(Object[]) null);
+							flagList = false;
+							StringTokenizer tok = new StringTokenizer(
+									dataFilter.getValue(), ",");
+							String tmp = "";
+							while (tok.hasMoreTokens()) {
+								tmp = tok.nextToken().trim();
+								if (tmp.equalsIgnoreCase(vv)) {
+									flagList = true;
+									break;
+								}
+							}
+						} catch (Exception e) {
+							throw new TableDataArrangerException(
+									"Filtro lista valori check non eseguito", e);
+						}
+					}
+					/*filtro su campo numerico*/
+					if (dataFilter.getType().equalsIgnoreCase("numeric")) {
+						try {
+							String vv = String.valueOf(method.invoke(oggetto,
+									(Object[]) null));
+							Double v = Double.parseDouble(vv);
+							flagNumero = false;
+							Double numeroPassato = Double
+									.parseDouble(dataFilter.getValue());
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"eq")
+									&& v.compareTo(numeroPassato) == 0) {
+								flagNumero = true;
+							}
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"lt")) {
+								isGtLt = true;
+							}
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"lt")
+									&& v.compareTo(numeroPassato) < 0) {
+								flagNumero = true;
+								flagGtLt = true;
+							}
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"gt")
+									&& v.compareTo(numeroPassato) > 0
+									&& (!isGtLt || (isGtLt && flagGtLt))) {
+								flagNumero = true;
+							}
+						} catch (Exception e) {
+							throw new TableDataArrangerException(
+									"Filtro campo numerico non eseguito", e);
+						}
+					}
+					/*filtro su campo data*/
+					if (dataFilter.getType().equalsIgnoreCase("date")) {
+						try {
+							String vv = (String) method.invoke(oggetto,
+									(Object[]) null);
+							flagData = false;
+							Date dataOrigine = Utility.convertToDate(vv);
+							Date dataPassata = Utility.convertToDate(dataFilter
+									.getValue());
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"eq")
+									&& dataOrigine.equals(dataPassata)) {
+								flagData = true;
+							}
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"lt")) {
+								isDateComparison = true;
+							}
+
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"lt")
+									&& dataOrigine.before(dataPassata)) {
+								flagData = true;
+								flagDateComparison = true;
+							}
+							if (dataFilter.getComparison().equalsIgnoreCase(
+									"gt")
+									&& dataOrigine.after(dataPassata)
+									&& (!isDateComparison || (isDateComparison && flagDateComparison))) {
+								flagData = true;
+							}
+
+						} catch (Exception e) {
+							throw new TableDataArrangerException(
+									"Filtro campo data non eseguito", e);
+						}
+					}
+					/*filtro su campo boolean*/
+					if (dataFilter.getType().equalsIgnoreCase("boolean")) {
+						try {
+							flagBoolean = false;
+							boolean vv = (Boolean) method.invoke(oggetto,
+									(Object[]) null);
+							boolean valore = Boolean.parseBoolean(dataFilter
+									.getValue());
+							if (vv == valore) {
+								flagBoolean = true;
+							}
+						} catch (Exception e) {
+							throw new TableDataArrangerException(
+									"Filtro campo boolean non eseguito", e);
+						}
+					}
+
+				}
+
+				if (flagString && flagList && flagNumero && flagData
+						&& flagBoolean) {
+					listaValori.add(oggetto);
+				}
+			}
+		} else {
+			listaValori.addAll(listaOggetti);
+		}
+
+		/**ordino eventualmente la lista*/
+		if (metodo != null) {
+			DynamicComparator.sort(listaValori, metodo, sortAsc);
+		}
+		int i = Integer.parseInt(start);
+		int j = Integer.parseInt(limit);
+		int k = 0;
+
+		List<Object> l1 = new ArrayList<Object>();
+
+		//***se la tabella non e' paginata allora aggiungo tutto
+		if(j == 0 || j == -1){
+			l1.addAll(listaValori);
+		}else{
+			//***metto gli oggetti relativi al range di paginazione
+			for (Object oggetto : listaValori) {
+				k++;
+				if (k >= i && k <= i + j) {
+	
+					l1.add(oggetto);
+				}
+			}
+		}
+
+		TableArrangedData griglia = new TableArrangedData();
+		griglia.setNumtot(listaValori.size());
+		griglia.setElenco(l1);
+		griglia.setPositions(injectPosictions(l1, listaOggetti, valueSelector));
+		if(tableStatus.isClearStatus()){
+			griglia.setClearStatus(true);
+		}
+		
+		return griglia;
+
+	}
+	
+	/**
+	 * passa un vettore contenente l'id dell'oggetto
+	 * e la sua posizione originale nella lista
+	 * @param l1
+	 * @param listaOggetti
+	 * @param valueSelector
+	 * @return
+	 */
+	private List<DataPosition> injectPosictions(List<Object> l1, List<Object> listaOggetti, String valueSelector){
+		List<DataPosition> poss = new ArrayList<DataPosition>();
+		
+		for (Object oggetto : l1) {
+			try {
+				Method method = Utility.convertiMetodo(valueSelector, oggetto);
+				String id = String.valueOf(method.invoke(oggetto,
+						(Object[]) null));
+				DataPosition dataPos = new DataPosition();
+				dataPos.setId(id);
+				dataPos.setPosition(getElementPosition(id, listaOggetti, valueSelector));
+				poss.add(dataPos);
+			} catch (SecurityException e1) {
+				throw new TableDataArrangerException(
+						"Errore su metodo injectPosictions", e1);
+			} catch (IllegalArgumentException e2) {
+				throw new TableDataArrangerException(
+						"Errore su metodo injectPosictions", e2);
+			} catch (IllegalAccessException e3) {
+				throw new TableDataArrangerException(
+						"Errore su metodo injectPosictions", e3);
+			} catch (InvocationTargetException e4) {
+				throw new TableDataArrangerException(
+						"Errore su metodo injectPosictions", e4);
+			}
+		}
+		return poss;
+	}
+	
+	private int getElementPosition(String id, List<Object> listaOggetti, String valueSelector){
+		int pos = 0;
+		
+		for (Object oggetto : listaOggetti) {
+			
+			pos++;
+			Method method = Utility.convertiMetodo(valueSelector, oggetto);
+			String idS;
+			try {
+				idS = String.valueOf(method.invoke(oggetto,
+						(Object[]) null));
+			} catch (IllegalArgumentException e) {
+				throw new TableDataArrangerException(
+						"Errore su metodo getElementPosition", e);
+			} catch (IllegalAccessException e) {
+				throw new TableDataArrangerException(
+						"Errore su metodo getElementPosition", e);
+			} catch (InvocationTargetException e) {
+				throw new TableDataArrangerException(
+						"Errore su metodo getElementPosition", e);
+			}
+			
+			if(id.equalsIgnoreCase(idS)){
+				return pos;
+				
+			}
+		}
+		return pos;
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE tableDataArrangerExcFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableDataArrangerException.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+public class TableDataArrangerException  extends RuntimeException{
+
+	/**
+	 * serialveruid
+	 */
+	private static final long serialVersionUID = 1230490300627824754L;
+
+	/**
+	 * costruttore vuoto
+	 */
+	public TableDataArrangerException() {
+		super();
+	}
+
+	/**
+	 * @param message
+	 * @param cause
+	 */
+	public TableDataArrangerException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	/**
+	 * @param message
+	 */
+	public TableDataArrangerException(String message) {
+		super(message);
+	}
+
+	/**
+	 * @param cause
+	 */
+	public TableDataArrangerException(Throwable cause) {
+		super(cause);
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE tableDynComparatorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/DynamicComparator.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @generated
+ */
+@SuppressWarnings("unchecked")
+public final class DynamicComparator implements Comparator {
+	// Class Members
+	
+	/**
+	 * EQUAL
+	 */
+	public static final int EQUAL = 0;
+	
+	/**
+	 * LESS_THAN
+	 */
+	public static final int LESS_THAN = -1;
+	
+	/**
+	 * GREATER_THAN
+	 */
+	public static final int GREATER_THAN = 1;
+
+	/**
+	 * collection
+	 */
+	@SuppressWarnings("unused")
+	private Collection collection;
+	
+	/**
+	 * methodName
+	 */
+	private String methodName;
+	
+	/**
+	 * sortAsc
+	 */
+	private boolean sortAsc;
+
+	/**
+	 * @param collection
+	 * @param methodName
+	 * @param sortAsc
+	 */
+	private DynamicComparator(Collection collection, String methodName,
+			boolean sortAsc) {
+		this.collection = collection;
+		this.methodName = methodName;
+		this.sortAsc = sortAsc;
+	}
+
+	// Sort invocation starts here
+	public static void sort(List list, String methodName, boolean sortAsc) {
+		Collections
+				.sort(list, new DynamicComparator(list, methodName, sortAsc));
+	}
+
+	// Compare for Collections.sort here
+	
+	public int compare(Object o1, Object o2) {
+		int rv = 0;
+
+		try {
+			// Determine the return type
+			Method method = Utility.convertiMetodo(methodName, o1); // o1.getClass().getMethod(methodName, null);
+			Class c = method.getReturnType();
+
+			// Invoke method to gather two comparable objects
+			java.lang.Object result1 = method.invoke(o1, (Object[]) null);
+			java.lang.Object result2 = method.invoke(o2, (Object[]) null);
+			//***controllo se mi sta arrivando una data in formato String
+			if(result1 instanceof String && (Utility.convertToDate((String) result1) instanceof Date)){
+				result1 = Utility.convertToDate((String) result1);
+				result2 = Utility.convertToDate((String) result2);
+			}
+
+			if (c.isAssignableFrom(Class.forName("java.util.Comparator"))) {
+				java.util.Comparator c1 = (java.util.Comparator) result1;
+				java.util.Comparator c2 = (java.util.Comparator) result2;
+				rv = c1.compare(c1, c2);
+			} else if (Class.forName("java.lang.Comparable")
+					.isAssignableFrom(c)) {
+				java.lang.Comparable c1 = (java.lang.Comparable) result1;
+				java.lang.Comparable c2 = (java.lang.Comparable) result2;
+				rv = c1.compareTo(c2);
+			} else if (c.isPrimitive()) {
+				long f1 = ((Number) result1).longValue();
+				long f2 = ((Number) result2).longValue();
+				if (f1 == f2)
+					rv = EQUAL;
+				else if (f1 < f2)
+					rv = LESS_THAN;
+				else if (f1 > f2)
+					rv = GREATER_THAN;
+			} else {
+				throw new DynamicComparatorException(
+						"DynamicComparator does not currently support ''"
+								+ c.getName() + "''!");
+			}
+		} catch (Exception nsme) {
+			throw new DynamicComparatorException(
+			"Attenzione gli unici tipi primitivi supportati dal comparator sono i long e gli int", nsme);
+		}
+		return rv * getSortOrder();
+	}
+
+	/**
+	 * Not used for sorting. Only here to meet the requirements of the
+	 * Comparator interface.
+	 * 
+	 * @param o
+	 *            The object for comparison
+	 * @return boolean
+	 */
+	public boolean equals(Object o) {
+		return true;
+	}
+
+	/**
+	 * non utilizzato.
+	 */
+	public int hashCode() {
+		return super.hashCode();
+	}
+	
+	// Sort order getter
+	private int getSortOrder() {
+		return sortAsc ? 1 : -1;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableDynComparatorExcFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/DynamicComparatorException.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+public class DynamicComparatorException  extends RuntimeException{
+
+	/**
+	 *  serialveruid
+	 */
+	private static final long serialVersionUID = -2329268720665818420L;
+
+	/**
+	 * costruttore vuoto
+	 */
+	public DynamicComparatorException() {
+		super();
+	}
+
+	/**
+	 * @param message
+	 * @param cause
+	 */
+	public DynamicComparatorException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	/**
+	 * @param message
+	 */
+	public DynamicComparatorException(String message) {
+		super(message);
+	}
+
+	/**
+	 * @param cause
+	 */
+	public DynamicComparatorException(Throwable cause) {
+		super(cause);
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableArrangedDataFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableArrangedData.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.util.List;
+
+/**
+ * @generated
+ */
+public class TableArrangedData {
+	
+	//***numero totale dei record nella tabella
+	private int numtot;
+	//***elenco dei record della tabella
+	private List<Object> elenco;
+	//***elenco delle posizioni occupate dai record nella collection originale
+	private List<DataPosition> positions;
+	//***parametro che indica se deve essere resettato lo stato della tabella
+	private boolean clearStatus;
+	
+	/**
+	 * numTot
+	 */
+	public int getNumtot() {
+		return numtot;
+	}
+	
+	/**
+	 * numTot
+	 */
+	public void setNumtot(int numtot) {
+		this.numtot = numtot;
+	}
+	
+	/**
+	 * elenco
+	 */
+	public List<Object> getElenco() {
+		return elenco;
+	}
+	
+	/**
+	 * elenco
+	 */
+	public void setElenco(List<Object> elenco) {
+		this.elenco = elenco;
+	}
+	
+	/**
+	 * positions
+	 */
+	public List<DataPosition> getPositions() {
+		return positions;
+	}
+	
+	/**
+	 * positions
+	 */
+	public void setPositions(List<DataPosition> positions) {
+		this.positions = positions;
+	}
+	
+	/**
+	 * isClearStatus
+	 */
+	public boolean isClearStatus() {
+		return clearStatus;
+	}
+	
+	/**
+	 * setclearStatus
+	 */
+	public void setClearStatus(boolean clearStatus) {
+		this.clearStatus = clearStatus;
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE utilityFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/Utility.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+/**
+ * @generated
+ */
+public class Utility {
+
+	/**
+	 * Converte una stringa in una data nel formato italiano dd/mm/yyyy
+	 * 
+	 * @param from
+	 *            as String
+	 * @return Date
+	 */
+	public static Date getConvertDate(String from) {
+		Date date = new Date();
+		try {
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			// DateFormat formatter1 = new SimpleDateFormat()
+			date = (Date) formatter.parse(from);
+		} catch (Exception e) { «noSonarTag("dubbia classificazione severity")»
+			return null;
+		}
+		return date;
+	}
+
+	/**
+	 * Converte una data in una Stringa nel formato dd/mm/yyyy
+	 * 
+	 * @param from
+	 *            as Date
+	 * @return String
+	 */
+	public static String getConvertDate(Date from) {
+		String s = "";
+		try {
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			s = formatter.format(from);
+		} catch (Exception e) { «noSonarTag("dubbia classificazione severity")»
+			return s;
+		}
+		return s;
+	}
+	
+	public static String getConvertDate(Long from) {
+		String s = "";
+		try {
+			Date d = new Date(from); 
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			s = formatter.format(d);
+		} catch (Exception e) { «noSonarTag("dubbia classificazione severity")»
+			return s;
+		}
+		return s;
+	}
+
+	
+	/**
+	 * Converte una stringa in un float nel formato italiano cioe' separatore la
+	 * , e le cifre decimali passate
+	 * 
+	 * @param numero
+	 *            as String
+	 * @param cifre
+	 *            as int         
+	 * @return float
+	 */
+	public static float createFloat(String numero, int cifre) {
+		try {
+			Locale locale = Locale.ITALIAN;
+			NumberFormat format = NumberFormat.getNumberInstance(locale);
+			format.setMaximumFractionDigits(cifre); // what you seem to want
+			format.setMinimumFractionDigits(cifre); // cifre dopo la virgola
+
+			return Float.valueOf(format.parse(numero.trim()).toString())
+					.floatValue();
+		} catch (Exception e) { «noSonarTag("dubbia classificazione severity")»
+			return Float.parseFloat("0");
+		}
+
+	}
+
+	public static Date convertToDate(String date){
+		Date dateoutput = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			dateoutput = sdf.parse(date);
+		} catch (Exception e) { «noSonarTag("dubbia classificazione severity")»
+			return null;
+		}
+		return dateoutput;
+	}
+	
+	public static Method convertiMetodo(String metodo, Object oggetto) {
+		Method method = null;
+		try {
+			PropertyDescriptor nameDescriptor = new PropertyDescriptor(metodo, oggetto.getClass());
+			method = nameDescriptor.getReadMethod();
+		} catch (IntrospectionException e) { «noSonarTag("dubbia classificazione severity")»
+			throw new RuntimeException("Metodo non trovato", e);
+		}
+
+		return method;
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE greaseDTOMapperFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/GreaseDTOMapper.java"»package «getUIUtilsJavaPackage(this)»;
+
+import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwBaseException;
+import it.csi.jeegia.jeegfw.presentation.managers.helper.GetImageManager;
+import it.csi.jeegia.jeegfw.presentation.managers.helper.interfaces.MapInterface;
+import «getBaseJavaPackage(this)».dto.BeanMapping;
+import «getBaseJavaPackage(this)».dto.MappingException;
+
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+
+/**
+ * Effettua il mapping con i DTO del framework GREASE
+ */
+public class GreaseDTOMapper {	
+
+	/**
+	 * mapManager
+	 */
+	private MapInterface mapManager;
+
+	/**
+	 * mapManager
+	 */
+	public void setMapManager(MapInterface mapManager) {
+		this.mapManager = mapManager;
+	}
+
+	/**
+	 * imageManager
+	 */
+	private GetImageManager imageManager;
+
+	/**
+	 * imageManager
+	 */
+	public void setImageManager(GetImageManager imageManager) {
+		this.imageManager = imageManager;
+	}
+
+	/**
+	 * conversione oggetto mappa
+	 * 
+	 * @return
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 * @throws JeegfwBaseException
+	 */
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb getMap()
+			throws IntrospectionException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException, MappingException, JeegfwBaseException {
+
+		return fromGrease(mapManager.getMap());
+
+	}
+
+	/**
+	 * overwrite metodo originale su
+	 * it.csi.jeegia.jeegfw.util.jeegweb.BaseMapUtils
+	 * 
+	 * @param serviziServer
+	 * @param serviziClient
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<ServizioClientWeb> mergeServiziClient(
+			ArrayList<ServizioWeb> serviziServer,
+			ArrayList<ServizioClientWeb> serviziClient) throws Exception {
+
+		ArrayList<ServizioClientWeb> ret = new ArrayList<ServizioClientWeb>();
+		for (ServizioWeb curWeb : serviziServer) {
+			ServizioClientWeb newSrv = new ServizioClientWeb();
+			BeanUtilsBean.getInstance().copyProperties(newSrv, curWeb);
+			newSrv.setTipoMapservice("GREASE");
+			ret.add(newSrv);
+		}
+		for (ServizioClientWeb cur : serviziClient) {
+			ret.add(cur);
+		}
+
+		boolean scambio = true;
+		while (scambio) {
+			scambio = false;
+			for (int i = 0; i < ret.size() - 1; i++) {
+				if (((ServizioClientWeb) ret.get(i)).getOrdine() > ((ServizioClientWeb) ret
+						.get(i + 1)).getOrdine()) {
+					scambio = true;
+					ServizioClientWeb aa = (ServizioClientWeb) ret.get(i);
+					ret.set(i, ret.get(i + 1));
+					ret.set(i + 1, aa);
+				}
+			}
+		}
+
+		return ret;
+	}
+
+	/** 
+	 * @param mappa
+	 * @param toolbar
+	 * @throws JeegfwBaseException,
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException 
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 */
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb calcolaNavigazione(
+			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa,
+			ToolbarWeb toolbar) throws JeegfwBaseException,
+			IntrospectionException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException, MappingException {
+
+		MappaWeb map = mapManager.calcolaNavigazione(toGrease(mappa), toolbar);
+		return fromGrease(map);
+
+	}
+
+	/**
+	 * @param mappa
+	 * @throws JeegfwBaseException
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException 
+	 */
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb getRefreshIMages(
+			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa)
+			throws JeegfwBaseException, IntrospectionException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException, InvocationTargetException, MappingException {
+
+		MappaWeb map = imageManager.getRefreshIMages(toGrease(mappa));
+		return fromGrease(map);
+
+	}
+
+	/**
+	 * @param mappa
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 */
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb fromGrease(
+			MappaWeb mappa) throws IntrospectionException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException, InvocationTargetException, MappingException {
+		if (mappa == null) {
+			return null;
+		}
+
+		Properties properties = new Properties();
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb",
+				"«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb");
+
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb");
+
+		return («getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb) BeanMapping
+				.convert(properties, mappa);
+
+	}
+
+	/**
+	 * @param mappa 
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 */
+	public MappaWeb toGrease(
+			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa)
+			throws IntrospectionException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException, MappingException {
+		if (mappa == null) {
+			return null;
+		}
+
+		// *****aggiunta logica nelle proprieta'
+		for (int i = 0; mappa.getServizioMappa() != null
+				&& i < mappa.getServizioMappa().size(); i++) {
+			if (mappa.getElencoServiziId() == null) {
+				mappa.setElencoServiziId(mappa.getServizioMappa().get(i)
+						.getIdServizio());
+			} else {
+				mappa.setElencoServiziId(mappa.getElencoServiziId() + "|"
+						+ mappa.getServizioMappa().get(i).getIdServizio());
+			}
+		}
+
+		// ********fine aggiunta logica
+		Properties properties = new Properties();
+		properties.put("«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb");
+		
+		return (MappaWeb) BeanMapping.convert(properties, mappa);
+
+	}
+}
+«ENDFILE»
+
+
+«REM»
+
+************************da decommentare quando sarà attiva l'identificazione puntuale
+
+«FILE getUIUtilsJavaSrcDir(this, true)+"/SpatialQueryExtJsInterface.java"»package «getUIUtilsJavaPackage(this)»;
+import «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb;
+
+import it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwBaseException;
+import «getUIUtilsJavaPackage(this)».ResultsetExtJsWeb;
+
+public interface SpatialQueryExtJsInterface {
+
+  
+  /**
+   * Esegue un'interrogazione spaziale sul layer specificato da mappa.idLayerAttivo e mappa.idServizioAttivo;
+   * il filtro geometrico e' recuperato da mappa.xclick e mappa.yclick mentre il tipo di interrogazione dal comando della toolbar
+   * @param mappa - mappa corrente
+   * @param toolbar - toolbar
+   * @return
+   * @throws JeegfwBaseException
+   */
+  public ResultsetExtJsWeb interrogaExtJs(MappaWeb mappa,ToolbarWeb toolbar ) throws JeegfwBaseException;
+
+}
+«ENDFILE»
+
+«FILE getUIUtilsJavaSrcDir(this, true)+"/SpatialQueryExtJsManager.java"»package «getUIUtilsJavaPackage(this)»;
+import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
+import «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultSetCampoTableDesc;
+import it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.feature.FeatureRequest;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.feature.Filter;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.feature.ResultSet;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.layer.Layer;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.mapservice.Mapservice;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwAppException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwBaseException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwLayerFuoriScalaException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwLayerNonSelezionatoException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwSysException;
+import it.csi.jeegia.jeegfw.presentation.managers.helper.SpatialQueryManager;
+import it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.interfaces.GetFeaturesInterface;
+import it.csi.jeegia.jeegfw.util.jeegweb.BaseMapUtils;
+import it.csi.jeegia.jeegfw.util.managers.HelperFactoryInterface;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.ArrayUtils;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+
+public class SpatialQueryExtJsManager extends SpatialQueryManager implements
+		SpatialQueryExtJsInterface {
+
+	public SpatialQueryExtJsManager(String rootLogger) {
+		super(rootLogger);
+	}
+
+	public ResultsetExtJsWeb interrogaExtJs(MappaWeb mappa, ToolbarWeb toolbar)
+			throws JeegfwBaseException {
+		log.debug("[SpatialQueryManager::interroga] BEGIN");
+		try {
+
+			controllaLayerSelezionato(mappa);
+			controllaScala(mappa);
+
+			if (ToolbarWeb.CMD_IDENTIFY.equals(toolbar.getComando()))
+				return makeIdentifyExtJs(mappa);
+			else if (ToolbarWeb.CMD_IDENTIFY_POLYGON.equals(toolbar
+					.getComando()))
+				return makeIdentifypolygonExtJs(mappa);
+
+			throw new Exception("comando sconosciuto");
+
+		} catch (JeegfwSysException e) {
+			log.error("[SpatialQueryManager::interroga]", e);
+			throw e;
+		} catch (JeegfwAppException e) {
+			log.error("[SpatialQueryManager::interroga]", e);
+			throw e;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::interroga]", e);
+			throw new JeegfwSysException(e.getMessage());
+		} finally {
+			log.debug("[SpatialQueryManager::interroga] END");
+		}
+	}
+
+	private void controllaLayerSelezionato(MappaWeb mappa)
+			throws JeegfwBaseException {
+		if (mappa.getIdLayerAttivo() == null
+				|| mappa.getIdLayerAttivo().trim().equals("")
+				|| mappa.getIdServizioAttivo() == null
+				|| mappa.getIdServizioAttivo().trim().equals("")) {
+
+			throw new JeegfwLayerNonSelezionatoException(
+					"Selezionare un layer da interrogare.");
+
+		}
+	}
+
+	private void controllaScala(MappaWeb mappa) throws JeegfwBaseException {
+		Mapservice srv = elencoServiziHelper.getServizio(mappa
+				.getIdServizioAttivo(), true);
+		double scalaFactor = calcolaScaleFactor(mappa);
+		double scMin = 0;
+		double scMax = 0;
+		for (Layer curLay : srv.getElencoLayer()) {
+			if (curLay.getLayerId().equals(mappa.getIdLayerAttivo())) {
+				scMax = curLay.getMaxScaleFactor();
+				scMin = curLay.getMinScaleFactor();
+				break;
+			}
+		}
+		boolean inScala = false;
+		if (scalaFactor <= scMax && scalaFactor >= scMin)
+			inScala = true;
+		else if (scalaFactor <= scMax && scMin == 0)
+			inScala = true;
+		else if (0 == scMax && scalaFactor >= scMin)
+			inScala = true;
+		else if (0 == scMax && scMin == 0)
+			inScala = true;
+		else if (scalaFactor > scMax)
+			inScala = false;
+		else if (scalaFactor < scMin)
+			inScala = false;
+
+		if (inScala == false) {
+			throw new JeegfwLayerFuoriScalaException("layer non in scala");
+		}
+
+	}
+	
+	/**
+	 * Calcola lo scaleFactor (dimesioniUtm/dimensioniPixels)
+	 * 
+	 * @param mappa
+	 * @return
+	 */
+	private double calcolaScaleFactor(MappaWeb mappa) {
+		double scala = (mappa.getEnvelope().getNordest().getCoordX()
+				.doubleValue() - mappa.getEnvelope().getSudovest().getCoordX()
+				.doubleValue())
+				/ (new Double(mappa.getDimx()).doubleValue());
+		return scala;
+	}
+
+	protected GetFeaturesInterface getHelper(Mapservice srv) {
+		if (queryHelperFactory.getQueryInterface(srv) == null) {
+			return getFeaturesHelper;
+		} else {
+			return queryHelperFactory.getQueryInterface(srv);
+		}
+
+	}
+
+	protected PuntoWeb[] getUtmClics(PuntoWeb[] ptClick, MappaWeb mappa)
+			throws Exception {
+		return ptClick;
+	}
+
+	protected double calcolaTolleranza(MappaWeb mappa, int pixelTol) {
+		double scaelfactor = calcolaScaleFactor(mappa);
+		double ret = pixelTol * scaelfactor;
+		if (ret > 500)
+			ret = 500;
+		return ret;
+	}
+
+	protected ResultsetExtJsWeb makeIdentifyExtJs(MappaWeb mappa)
+			throws JeegfwBaseException {
+		log.debug("[SpatialQueryManager::makeIdentify] BEGIN");
+		try {
+
+			PuntoWeb[] ptClickUtm = getUtmClics(BaseMapUtils.getPuntiClik(mappa
+					.getXclick(), mappa.getYclick()), mappa);
+			PuntoWeb centro = ptClickUtm[0];
+
+			double toollerance = calcolaTolleranza(mappa, 2);
+			Coordinate[] points = new Coordinate[] {
+					new Coordinate(centro.getCoordX() - toollerance, centro
+							.getCoordY()
+							- toollerance),
+					new Coordinate(centro.getCoordX() - toollerance, centro
+							.getCoordY()
+							+ toollerance),
+					new Coordinate(centro.getCoordX() + toollerance, centro
+							.getCoordY()
+							+ toollerance),
+					new Coordinate(centro.getCoordX() + toollerance, centro
+							.getCoordY()
+							- toollerance),
+					new Coordinate(centro.getCoordX() - toollerance, centro
+							.getCoordY()
+							- toollerance), };
+			Geometry geom = new GeometryFactory().createPolygon(
+					new GeometryFactory().createLinearRing(points), null);
+
+			Filter filtro = makefiltro(geom);
+
+			Mapservice srv = elencoServiziHelper.getServizio(mappa
+					.getIdServizioAttivo(), true);
+			ResultSet result = eseguiQuery(srv, mappa.getIdServizioAttivo(),
+					mappa.getIdLayerAttivo(), filtro);
+
+			ResultsetExtJsWeb ret = castToResultsetExtJsWeb(result, srv, mappa
+					.getIdServizioAttivo(), mappa.getIdLayerAttivo(), true);
+			return ret;
+
+		} catch (JeegfwSysException e) {
+			log.error("[SpatialQueryManager::makeIdentify]", e);
+			throw e;
+		} catch (JeegfwAppException e) {
+			log.error("[SpatialQueryManager::makeIdentify]", e);
+			throw e;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::makeIdentify]", e);
+			throw new JeegfwSysException(e.getMessage());
+		} finally {
+			log.debug("[SpatialQueryManager::makeIdentify] END");
+		}
+	}
+
+	protected Filter makefiltro(Geometry geom) {
+		Filter filtro = new Filter();
+		filtro.setGeometria(geom);
+		filtro.setStartRecord(0);
+		filtro.setWhereExpression(null);
+		return filtro;
+
+	}
+
+	protected FeatureRequest makeFeatureRequest(Filter filtro,
+			String idServizioAttivo, String idLayer) throws Exception {
+		FeatureRequest fr = new FeatureRequest();
+		fr.setFiltro(filtro);
+		fr.setIdLayer(idLayer);
+		fr.setReturnGeometry(true);
+		fr.setTotalCount(false);
+		fr.setElencoServiziApplicativi(elencoServiziHelper.getLayer(
+				idServizioAttivo, idLayer, true).getElencoServiziApplicativi());
+		return fr;
+	}
+
+	protected ResultsetExtJsWeb makeIdentifypolygonExtJs(MappaWeb mappa)
+			throws JeegfwBaseException {
+		log.debug("[SpatialQueryManager::makeIdentifypolygon] BEGIN");
+		try {
+
+			PuntoWeb[] ptClickUtm = getUtmClics(BaseMapUtils.getPuntiClik(mappa
+					.getXclick(), mappa.getYclick()), mappa);
+
+			if (ptClickUtm.length < 3)
+				return makeIdentifyExtJs(mappa);
+
+			Coordinate[] points = null;
+			for (int i = 0; i < ptClickUtm.length; i++) {
+				points = (Coordinate[]) ArrayUtils.add(points, new Coordinate(
+						ptClickUtm[i].getCoordX(), ptClickUtm[i].getCoordY()));
+			}
+
+			Geometry geom = new GeometryFactory().createPolygon(
+					new GeometryFactory().createLinearRing(points), null);
+
+			Filter filtro = makefiltro(geom);
+
+			Mapservice srv = elencoServiziHelper.getServizio(mappa
+					.getIdServizioAttivo(), true);
+			ResultSet result = eseguiQuery(srv, mappa.getIdServizioAttivo(),
+					mappa.getIdLayerAttivo(), filtro);
+
+			ResultsetExtJsWeb ret = castToResultsetExtJsWeb(result, srv, mappa
+					.getIdServizioAttivo(), mappa.getIdLayerAttivo(), true);
+			return ret;
+
+		} catch (JeegfwSysException e) {
+			log.error("[SpatialQueryManager::makeIdentifypolygon]", e);
+			throw e;
+		} catch (JeegfwAppException e) {
+			log.error("[SpatialQueryManager::makeIdentifypolygon]", e);
+			throw e;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::makeIdentifypolygon]", e);
+			throw new JeegfwSysException(e.getMessage());
+		} finally {
+			log.debug("[SpatialQueryManager::makeIdentifypolygon] END");
+		}
+	}
+
+	protected ResultsetExtJsWeb castToResultsetExtJsWeb(ResultSet result,
+			Mapservice srv, String idServizioAttivo, String idLayerAttivo,
+			boolean soloAlias) throws Exception {
+		log.debug("[SpatialQueryManager::ResultsetWeb] BEGIN");
+		try {
+			Map<String, ResultSetCampoTableDesc> tableDesc = null;
+			List<ResultsetDataExtJsRow> tableRows = null;
+			List<String> columns = null;
+
+			tableDesc = new HashMap<String, ResultSetCampoTableDesc>();
+			columns = new ArrayList<String>();
+
+			columns.add("COL1");
+			tableDesc.put("COL1", new ResultSetCampoTableDesc("Num Rec"));
+
+			for (int i = 0; result != null && result.getCampi() != null
+					&& i < result.getCampi().length; i++) {
+				String valHCol = aliasHelper.getAliasPerCampo(srv,
+						idLayerAttivo, result.getCampi()[i].getNomeCompleto(),
+						soloAlias);
+				if (null != valHCol) {
+					columns.add("COL" + (i + 2));
+					tableDesc.put("COL" + (i + 2), new ResultSetCampoTableDesc(
+							valHCol));
+				}
+			}
+
+			tableRows = new ArrayList<ResultsetDataExtJsRow>();
+			for (int i = 0; result != null && result.getDati() != null
+					&& i < result.getDati().length; i++) {
+				Map<String, String> cur = new HashMap<String, String>();
+				cur.put("COL1", "" + i);
+				for (int j = 0; result.getDati()[i].getValori() != null
+						&& j < result.getDati()[i].getValori().length; j++) {
+					cur.put("COL" + (j + 2), result.getDati()[i].getValori()[j]
+							.toString());
+				}
+
+				ResultsetDataExtJsRow riga = new ResultsetDataExtJsRow(
+						(HashMap<String, String>) cur);
+				riga.setGeometria(result.getDati()[i].getGeometry());
+				riga.setEnvelope(result.getDati()[i].getEnvelope());
+
+				tableRows.add(riga);
+
+			}
+
+			ResultsetExtJsWeb ret = new ResultsetExtJsWeb();
+			ret.setColumns(columns);
+			ret.setTableDesc(tableDesc);
+			ret.setExtJsDataRows(tableRows);
+
+			return ret;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::ResultsetWeb] -  ", e);
+			throw e;
+		} finally {
+			log.debug("[SpatialQueryManager::ResultsetWeb] END");
+		}
+	}
+
+	public void setQueryHelperFactory(HelperFactoryInterface queryHelperFactory) {
+		this.queryHelperFactory = queryHelperFactory;
+	}
+
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/ResultsetExtJsWeb.java"»package «getUIUtilsJavaPackage(this)»;
+import java.util.List;
+import java.util.Map;
+import it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultsetWeb;
+
+
+public class ResultsetExtJsWeb extends ResultsetWeb {
+
+	private List<ExtJsColumnIdentify> columnModel=null;
+	private List<Map<String,String>> rows=null;
+	private List<ResultsetDataExtJsRow> extJsDataRows=null;
+	private List<Map<String,Object>> rowsobj=null;
+	
+	public List<ExtJsColumnIdentify> getColumnModel() {
+		return columnModel;
+	}
+
+	public void setColumnModel(List<ExtJsColumnIdentify> columnModel) {
+		this.columnModel = columnModel;
+	}
+
+	public List<Map<String, String>> getRows() {
+		return rows;
+	}
+
+	public void setRows(List<Map<String, String>> rows) {
+		this.rows = rows;
+	}
+
+	public List<ResultsetDataExtJsRow> getExtJsDataRows() {
+		return extJsDataRows;
+	}
+
+	public void setExtJsDataRows(List<ResultsetDataExtJsRow> extJsDataRows) {
+		this.extJsDataRows = extJsDataRows;
+	}
+
+	public List<Map<String, Object>> getRowsobj() {
+		return rowsobj;
+	}
+
+	public void setRowsobj(List<Map<String, Object>> rowsobj) {
+		this.rowsobj = rowsobj;
+	}
+	
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/ExtJsColumnIdentify.java"»package «getUIUtilsJavaPackage(this)»;
+public class ExtJsColumnIdentify {
+
+	private String header;
+	private String dataIndex;
+	private boolean sortable;
+	private boolean hidden;
+	private String mapping;
+
+	public String getHeader() {
+		return header;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	public boolean isSortable() {
+		return sortable;
+	}
+
+	public void setSortable(boolean sortable) {
+		this.sortable = sortable;
+	}
+
+	public String getDataIndex() {
+		return dataIndex;
+	}
+
+	public void setDataIndex(String dataIndex) {
+		this.dataIndex = dataIndex;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public String getMapping() {
+		return mapping;
+	}
+
+	public void setMapping(String mapping) {
+		this.mapping = mapping;
+	}
+
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/ResultsetDataExtJsRow.java"»package «getUIUtilsJavaPackage(this)»;
+import java.util.Map;
+import it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultSetDataRow;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.Envelope;
+
+public class ResultsetDataExtJsRow extends ResultSetDataRow {
+	private Envelope envelope = null;
+
+	public ResultsetDataExtJsRow() {
+		super();
+	}
+
+	public ResultsetDataExtJsRow(Map<String, String> valori) {
+		super(valori);
+	}
+
+	public Envelope getEnvelope() {
+		return envelope;
+	}
+
+	public void setEnvelope(Envelope envelope) {
+		this.envelope = envelope;
+	}
+
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/RispostaObj.java"»package «getUIUtilsJavaPackage(this)»;
+import java.io.Serializable;
+
+public class RispostaObj implements Serializable {
+
+	public static int ERROR_LEVEL_WARNING = 0;
+	public static int ERROR_LEVEL_ERROR = 1;
+	public static int ERROR_LEVEL_FATAL = 2;
+	public static int ERROR_LEVEL_NO_ERROR = -1;
+
+	private static String ERROR_TYPE_WARNING = "WARNING";
+	private static String ERROR_TYPE_ERROR = "ERROR";
+	private static String ERROR_TYPE_FATAL = "FATAL";
+
+	private String errorMsg = null;
+	private int errorLevel = RispostaObj.ERROR_LEVEL_NO_ERROR;
+	private String errorType = null;
+	private String customErrorType = null;
+	private Object dati = null;
+
+	public Object getDati() {
+		return dati;
+	}
+
+	public void setDati(Object dati) {
+		this.dati = dati;
+	}
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public String getErrorType() {
+		return errorType;
+	}
+
+	public String getCustomErrorType() {
+		return customErrorType;
+	}
+
+	public void setCustomErrorType(String customErrorType) {
+		this.customErrorType = customErrorType;
+	}
+
+	public int getErrorLevel() {
+		return errorLevel;
+	}
+
+	public void setErrorLevel(int errorLevel) {
+		switch (errorLevel) {
+		case 0:
+			this.errorType = RispostaObj.ERROR_TYPE_WARNING;
+			break;
+		case 1:
+			this.errorType = RispostaObj.ERROR_TYPE_ERROR;
+			break;
+		case 2:
+			this.errorType = RispostaObj.ERROR_TYPE_FATAL;
+			break;
+
+		default:
+			this.errorType = null;
+			break;
+		}
+		this.errorLevel = errorLevel;
+	}
+
+}
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»

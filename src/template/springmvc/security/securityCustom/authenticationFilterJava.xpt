@@ -1,0 +1,226 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+«EXTENSION template::springmvc::security::securityCustom::SecurityProfileExtensions»
+
+«DEFINE authenticationFilterJavaTemplate(GUIModel model) FOR SecurityProfile»
+«IF this.intAuthGuard != null-»
+	«EXPAND internalAuthenticationFilterJavaTemplate(model) FOR this-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE internalAuthenticationFilterJavaTemplate(GUIModel model) FOR SecurityProfile»
+«FILE getInternalAuthenticationFilterrJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
+/**
+ *
+ * @author CSIPiemonte
+ */
+public class «getInternalAuthenticationFilterClassName()» implements Filter{
+
+	public static final String TICKET = "«this.idAdapter.infoSourceName»";
+	public static final String SECURITY_SESSION_MARKER = "iride2_id";
+	
+	public static String loginPage;
+	
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+			
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		HttpServletResponse hresp = (HttpServletResponse) resp;
+		
+		if(hreq.getRequestURI().indexOf(loginPage) > -1){
+			fchn.doFilter(req, resp);
+		    return;
+		}
+		
+		Object marker = getMarker(hreq);
+
+		if(marker==null){
+			Object ticket = getTicket(hreq);
+
+			if (ticket != null) {
+				fchn.doFilter(req, resp);
+			} else
+				hresp.sendRedirect(loginPage);
+		}
+		else
+			fchn.doFilter(req, resp);
+		
+	}
+	
+	public void destroy() {
+
+	}
+	
+
+	private Object getMarker(HttpServletRequest hreq) {
+		return 	hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
+	}
+	
+	«EXPAND getTicketMethod FOR this»
+	
+	«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
+	public static Cookie getCookie(String cookieName, Cookie[] cookies) {
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					return cookie;
+				}
+			}
+		}
+		return null;
+	}
+	«ENDIF-»
+
+	public void init(FilterConfig config) throws ServletException {
+		loginPage = config.getInitParameter("loginPage");
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»getTicket()...«ENDREM»
+
+«DEFINE getTicketMethod FOR SecurityProfile»
+«LET this.idAdapter.getInfoSourceNames() AS sourceNames-»
+/**
+ * Restituisce il ticket. 
+ * Fonte: «this.idAdapter.infoSourceName» : «this.idAdapter.sourceType»
+ * @param hreq la request http da cui estrarre il ticket
+ «IF sourceNames.size==1-»
+ * @return una stringa contenente il valore del ticket se il ticket e' presente; null altrimenti
+ «ELSE-»
+ * @return una Map contenente coppie <"nomeTicket", valoreTicket> se almeno una delle componenti
+ * e' presente, null altrimenti
+ «ENDIF-»
+ */
+private Object getTicket(HttpServletRequest hreq){
+	«IF this.intAuthGuard.loginModule.internal == true-»
+		«EXPAND getTicketBodyForSESSION_ATTRIBUTE(this.idAdapter.getInfoSourceNames()) FOR this-»
+	«ELSE-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
+		«EXPAND getTicketBodyForREQUEST_PARAM(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_HEADER)==0-»
+		«EXPAND getTicketBodyForREQUEST_HEADER(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
+		«EXPAND getTicketBodyForREQUEST_COOKIE(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
+		«EXPAND getTicketBodyForSESSION_ATTRIBUTE(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
+		«EXPAND getTicketBodyForREQUEST_ATTRIBUTE(this.idAdapter.getInfoSourceNames()) FOR this-»
+		«ENDIF-»
+	«ENDIF-»
+	}
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_PARAM(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		return hreq.getParameter(TICKET);
+«ELSE-»
+		java.util.Map<String,String> ticketBag = new java.util.HashMap<String, String>();
+		«FOREACH infoSourceNames AS currSN»
+		if (hreq.getParameter("«currSN»")!=null) {
+			ticketBag.put("«currSN»", hreq.getParameter("«currSN»"));
+		}
+		«ENDFOREACH»
+		return ticketBag.size()>0 ? ticketBag : null;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_ATTRIBUTE(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		return hreq.getAttribute(TICKET);
+«ELSE-»
+		java.util.Map<String,Object> ticketBag = new java.util.HashMap<String, Object>();
+		«FOREACH infoSourceNames AS currSN»
+		if (hreq.getParameter("«currSN»")!=null) {
+			ticketBag.put("«currSN»",hreq.getAttribute("«currSN»"));
+		}
+		«ENDFOREACH»
+		return ticketBag.size()>0 ? ticketBag : null;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_HEADER(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		return hreq.getHeader(TICKET);
+«ELSE-»
+		java.util.Map<String,String> ticketBag = new java.util.HashMap<String, String>();
+		«FOREACH infoSourceNames AS currSN»
+		if (hreq.getParameter("«currSN»")!=null) {
+			ticketBag.put("«currSN»",hreq.getHeader("«currSN»"));
+		}
+		«ENDFOREACH»
+		return ticketBag.size()>0 ? ticketBag : null;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForREQUEST_COOKIE(List[String] infoSourceNames) FOR SecurityProfile-»
+«IF infoSourceNames.size==1-»
+		Cookie c = getCookie(TICKET, hreq.getCookies());
+		return c!=null ? c.getValue(): null;
+«ELSE-»
+		java.util.Map<String,Cookie> ticketBag = new java.util.HashMap<String, Cookie>();
+		«FOREACH infoSourceNames AS currSN»
+		Cookie c_«currSN» = getCookie("«currSN»", hreq.getCookies());
+		if (c_«currSN» != null){
+			ticketBag.put("«currSN»", c_«currSN»);
+		}
+		«ENDFOREACH»
+		return ticketBag.size()>0 ? ticketBag : null;
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getTicketBodyForSESSION_ATTRIBUTE(List[String] infoSourceNames) FOR SecurityProfile-»
+		HttpSession session = hreq.getSession();
+«IF infoSourceNames.size==1-»
+		
+		return session != null ? (String) session.getAttribute(TICKET)	: null;
+«ELSE-»
+		if (session == null){ return null; }
+		else {
+			java.util.Map<String,Object> ticketBag = new java.util.HashMap<String, Object>();
+		«FOREACH infoSourceNames AS currSN»
+			if (hreq.getParameter("«currSN»")!=null) {
+				ticketBag.put("«currSN»",session.getAttribute("«currSN»"));
+			}
+		«ENDFOREACH»
+			return ticketBag.size()>0 ? ticketBag : null;
+		}
+«ENDIF-»
+«ENDDEFINE»

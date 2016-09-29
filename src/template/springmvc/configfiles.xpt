@@ -1,0 +1,1308 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;
+
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+E' possibile ottenere una copia della Licenza al seguente indirizzo:
+
+http://www.eupl.it/opensource/eupl-1-1
+
+Salvo diversamente indicato dalla legge applicabile o concordato per
+iscritto, il software distribuito secondo i termini della Licenza e'
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+esplicite o implicite.
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+e le limitazioni secondo i termini della Licenza.
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+«EXTENSION template::springmvc::security::securityCustom::SecurityProfileExtensions»
+
+«DEFINE configFiles(boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
+	«REM»Generazione dei file standard«ENDREM»
+	«EXPAND applicationXmlFile(skip_component_dir_creation) FOR this»
+	«EXPAND earManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND ejbManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND ejbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+	«EXPAND jarManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND webManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND webXmlFile(skip_component_dir_creation) FOR this»
+
+	«REM»Generazione dei files di configurazione specifici degli application servers«ENDREM»
+	«EXPAND appServerConfigurationFiles(skip_component_dir_creation) FOR this»
+
+	«REM»Generazione dei files di Struts2
+	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsPackagesConfigFiles(skip_component_dir_creation) FOR this»
+	«EXPAND strutsValidationConfigFile(skip_component_dir_creation) FOR this»
+«ENDREM»
+
+	«REM»Generazione dei files di Spring«ENDREM»
+	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND webSpringMVCConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND template::springmvc::appResources::daoSpringConfigurationFile(skip_component_dir_creation, useExternalDaoBeans) FOR this»
+	«IF hasGisMap()»
+		«EXPAND template::springmvc::appResources::gisMapSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
+
+	«REM»Generazione dei files specifici per il CSI«ENDREM»
+	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
+	«EXPAND displayTagConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND typeConversion::conversionPropertyFile(skip_component_dir_creation) FOR this»
+	«IF hasGisMap()»
+		«EXPAND getMapPdConfigurationFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+«REM»Genera un file MANIFEST il cui nome e' passato come parametro «ENDREM»
+«DEFINE manifestFile(String fileName) FOR GUIModel»
+«FILE fileName»Manifest-Version: 1.0
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera il file di configurazione dell'applicazione«ENDREM»
+«DEFINE applicationXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getEarConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+  <display-name>«codComponente»-ear</display-name>
+
+  <!-- TEMPORANEAMENTE COMMENTATO
+  <module>
+    <ejb>«codComponente»-business.jar</ejb>
+  </module>
+  -->
+
+
+  <module>
+    <web>
+      <web-uri>«codComponente».war</web-uri>
+      <context-root>/«codComponente»</context-root>
+    </web>
+  </module>
+</application>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera il file MANIFEST del modulo EAR«ENDREM»
+«DEFINE earManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getEarManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il file MANIFEST del modulo EJB«ENDREM»
+«DEFINE ejbManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getEjbManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor per gli EJB«ENDREM»
+«DEFINE ejbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» Scommentare quando necessario
+«FILE getEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar id="ejb-jar_ID" version="2.1" 
+         xmlns="http://java.sun.com/xml/ns/j2ee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                             http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+	<description><![CDATA[No Description.]]></description>
+	<display-name><![CDATA[]]></display-name>
+
+	<enterprise-beans>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.enterprise-beans")»
+		<!-- Inserire qui le definizioni degli EJB -->
+		«ENDPROTECT»
+	</enterprise-beans>
+
+	<assembly-descriptor>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.assembly-descriptor")»
+		<!-- Inserire qui le definizioni degli EJB -->
+		«ENDPROTECT»
+	</assembly-descriptor>
+</ejb-jar>
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+«DEFINE reminclTldFile(boolean skip_component_dir_creation) FOR GUIModel»<?xml version="1.0" encoding="ISO-8859-1" ?>
+«FILE getReminclTldDescriptorFile(skip_component_dir_creation)»<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>Remote Include Tag Library</shortname>
+	<uri>http://www.csi.it/taglibs/remincl-1.0</uri>
+	<info>
+		This tag library contains functionality to include a remote
+		resource using an http request.
+	</info>
+	<tag>
+		<name>include</name>
+		<tagclass>it.csi.util.jsp.tag.remoteinclude.RemoteIncludeTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>
+			url - the url used the fetch the page to be cached.
+			resourceProvider - the provider of remote resoures
+		</info>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>resourceProvider</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>loggerConfigParameter</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»Genera il file MANIFEST del modulo JAR«ENDREM»
+«DEFINE jarManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getJarManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il file MANIFEST del modulo WEB«ENDREM»
+«DEFINE webManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getWebModuleManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor (web.xml) del modulo WEB«ENDREM»
+«DEFINE webXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml«IF hasGisMap()»,/WEB-INF/gis-beans.xml«ENDIF»</param-value>
+	</context-param>
+
+	<!-- true: abilita la modalita' di sviluppo -->
+	<context-param>
+		<param-name>devmode</param-name>
+		<param-value>@DEVMODE@</param-value>
+	</context-param>
+	
+«IF getActualSecurityModel(this).autenticationMethod!=null»
+	«EXPAND template::springmvc::security::security::securityRelatedContextParams(this) FOR getActualSecurityModel(this).autenticationMethod»
+«ENDIF»
+«IF isMultiPortal(this)»
+	«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<context-param>
+		<param-name>localLogoutURL.«code»</param-name>
+		<param-value>@LOCAL_LOGOUT_URL.«code»@</param-value>
+	</context-param>
+	«ENDFOREACH-»
+«ELSE»
+	<context-param>
+		<param-name>localLogoutURL</param-name>
+		<param-value>@LOCAL_LOGOUT_URL@</param-value>
+	</context-param>
+«ENDIF»
+
+<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>«getBaseJavaPackage() + ".util.SessionListener"»</listener-class>
+	</listener>
+	
+	<filter>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+	</filter>
+	
+	<!-- dispatcher SPRING MVC -->
+	<servlet>
+        <servlet-name>«this.codComponente»</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>«this.codComponente»</servlet-name>
+        <url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+    </servlet-mapping>
+	«REM»
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>«getMDDStrutsFilterFQN()»</filter-class>
+	</filter>
+«ENDREM»
+  	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+    <filter>
+	<filter-name>EncodingFixFilter</filter-name>
+		<filter-class>«getEncodingFixFilterFQN(this)»</filter-class>
+	</filter>
+	«ENDIF»
+	<filter>
+		<filter-name>Session Guard</filter-name>
+		<filter-class>«getSessionGuardFilterFQN(this)»</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Session Guard</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Session Guard</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+	<filter-mapping>
+		<filter-name>EncodingFixFilter</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	«ENDIF»
+	
+«IF getActualSecurityModel(this).autenticationMethod!=null»
+	«EXPAND template::springmvc::security::security::authenticationFilterDefAndMapping(this) FOR getActualSecurityModel(this).autenticationMethod»
+«ENDIF»
+«IF isMultiPortal(this)»
+	«EXPAND multiPortal::multiportalFiltersDefAndMapping FOR this-»
+«ENDIF»
+	<filter-mapping>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	«REM»
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/struts/*</url-pattern>
+	</filter-mapping>
+«ENDREM»
+
+	<!-- servlet per captcha -->
+	<servlet>
+      <servlet-name>
+        captcha
+          </servlet-name>
+          <servlet-class>
+        «getCaptchaServletFQN()»
+          </servlet-class>
+      </servlet>
+  
+    <servlet-mapping>
+      <servlet-name>
+        captcha
+          </servlet-name>
+          <url-pattern>
+        /base/captchaServlet
+          </url-pattern>
+    </servlet-mapping>
+	
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/error/notFound.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/jsp/error/fatalError.jsp</location>
+	</error-page>
+
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+
+	<distributable />
+
+	«IF isMultiPortal(this)-»
+	«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code»
+	<context-param>
+		<param-name>remincl.resource.provider.«code»</param-name>
+		<param-value>@@@remincl.resource.provider.«code»@@@</param-value>
+	</context-param>
+	«ENDFOREACH»
+	«ELSE-»
+	<context-param>
+		<param-name>remincl.resource.provider.sp</param-name>
+		<param-value>@@@remincl.resource.provider@@@</param-value>
+	</context-param>
+	«ENDIF»
+	<context-param>
+		<param-name>remincl.cache.time</param-name>
+		<param-value>@@@remincl.cache.time@@@</param-value>
+	</context-param>
+	«IF isMultiPortal(this)-»
+	«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code»
+	<context-param>
+		<param-name>portal.home.«code»</param-name>
+		<param-value>@@@portal.home.«code»@@@</param-value>
+	</context-param>
+	«ENDFOREACH»
+	«ELSE»
+	<context-param>
+		<param-name>portal.home</param-name>
+		<param-value>@@@portal.home@@@</param-value>
+	</context-param>
+	«ENDIF»
+
+</web-app>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera i files di configurazione specifici per gli application server «ENDREM»
+«DEFINE appServerConfigurationFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43»
+		«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+		«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+		«EXPAND jbossWebContextDescriptorFile(skip_component_dir_creation) FOR this»
+	«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92»
+		«EXPAND wlEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+		«EXPAND wlWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+«REM»************************************ JBoss ************************************«ENDREM»
+
+«REM»Genera il deployment descriptor per gli EJB specifico per JBOSS«ENDREM»
+«DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» Scommentare se equando necessario
+«FILE getJbossEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.2//EN"
+ "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
+<jboss>
+	<enterprise-beans>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
+		<!-- Inserire qui le definizioni degli EJB -->
+		«ENDPROTECT»
+	</enterprise-beans>
+</jboss>
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor WEB specifico per JBOSS«ENDREM»
+«DEFINE jbossWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM»Decommentare se necessario
+«FILE getJbossWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss-web PUBLIC "-//JBoss//DTD Web Application 2.3V2//EN" "http://www.jboss.org/j2ee/dtd/jboss-web_3_2.dtd">
+<jboss-web>
+    <replication-config>
+        <replication-trigger>SET</replication-trigger>
+        <replication-granularity>ATTRIBUTE</replication-granularity>
+    </replication-config>
+
+ 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss-web.jboss-web")»
+	<!-- Inserire qui quanto puo' essere necessario -->
+	«ENDPROTECT»   
+</jboss-web>
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+«DEFINE jbossWebContextDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getJbossWebContextDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    @@@@JBOSS_SESSIONCOOKIEVALVE@@@@
+</Context>
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»************************************ BEA WebLogic ************************************«ENDREM»
+
+«REM»Genera il deployment descriptor per gli EJB specifico per BEA WEBLOGIC«ENDREM»
+«DEFINE wlEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» Scommentare se equando necessario
+«FILE getWlEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+
+<weblogic-ejb-jar
+  xmlns="http://www.bea.com/ns/weblogic/90"
+  xmlns:j2ee="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.bea.com/ns/weblogic/90
+                      http://www.bea.com/ns/weblogic/90/weblogic-ejb-jar.xsd">
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
+	<!-- Inserire qui le definizioni degli EJB -->
+	«ENDPROTECT»
+
+</weblogic-ejb-jar>
+
+
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor WEB specifico per WEBLOGIC«ENDREM»
+«DEFINE wlWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWlWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("wl92.weblogic.xml")»
+	<!-- Inserire qui i parametri di configurazione -->
+	<session-descriptor>
+		<cookie-path>/«this.codComponente»/</cookie-path>
+		<persistent-store-type>replicated_if_clustered</persistent-store-type>
+	</session-descriptor>
+	«ENDPROTECT»
+</weblogic-web-app>
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+«REM»
+==========================================================================================================================
+FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
+===========================================================================================================================
+«ENDREM»
+
+«REM»************************************ STRUTS 2 ************************************«ENDREM»
+
+«REM»Genera conf\web\<componente>\WEB-INF\struts.xml
+«DEFINE strutsConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+  "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	«EXPAND template::common::includeStruts FOR this-»
+	<include file="struts-global.xml" />
+
+	<include file="struts-1-base.xml" />
+
+	«FOREACH this.getAllAppMudule() AS appModule-»
+	<include file="struts-«appModule.name».xml" />
+	«ENDFOREACH-»
+	
+	«IF this.targetPlatform.securityProfile != null-»
+	«LET this.targetPlatform.securityProfile AS sp-»
+	«IF sp.intAuthGuard!=null && sp.intAuthGuard.loginModule!=null-»
+	«IF sp.intAuthGuard.loginModule.internal -»
+	<include file="struts-LocalLogin.xml"></include>
+	«ENDIF-»
+	«ENDIF-»
+	«ENDLET-»
+	«ENDIF-»
+	
+</struts>
+«ENDFILE»
+«ENDDEFINE»
+«ENDREM»	
+	
+«REM»conf\web\<componente>\WEB-INF\struts-global.xml
+«DEFINE strutsGlobalConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsGlobalConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.ui.theme" value="«getStrutsThemeByPortal(this)»" />
+	«IF insertStrutsExt()-»
+	<constant name="struts.action.extension" value="do" />
+	«ENDIF»
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
+		«LET getPresentationJavaPath(this)+getAppModuleAsFolder(currCP, true, true)+getStrutsActionClassName(currCP) AS propertiesName-»
+			,«propertiesName.subString(1, propertiesName.length)»
+		«ENDLET-» 
+	«ENDFOREACH-»
+	" />
+	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
+	<!-- costanti per il fileUpload interceptor: settare solo se necessarie -->
+	«IF isNullOrEmpty(getProperty("guigen.fileUpload.totalMaximumFileSize"))-»
+	<constant name="struts.multipart.maxSize" value="4524288" />
+	«ELSE-»
+	<constant name="struts.multipart.maxSize" value="«getProperty("guigen.fileUpload.totalMaximumFileSize").asInteger()»" />
+	«ENDIF-»
+	<!--<constant name="struts.multipart.saveDir" value="/tmp" />-->
+
+
+	<!-- jsp-package: TUTTI I PACKAGE DEVONO DERIVARE DA QUESTO -->
+	<package name="jsp-package" extends="«getJspPackageExt(this)»">
+		<interceptors>
+			<interceptor name="tableSelection" class="«getInterceptorsJavaPackage(this)».TableSelectionInterceptor"/>
+			<interceptor name="methodProtection" class="«getInterceptorsJavaPackage(this)».MethodProtectionInterceptor">
+				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
+			</interceptor>
+			<interceptor name="paramsInterceptor" class="«getInterceptorsJavaPackage(this)».ParametersInterceptor"/>
+			«IF targetPlatform.enableFatClient-»
+			<interceptor name="preserveUpload" class="«getInterceptorsJavaPackage(this)».PreserveUploadInterceptor">
+				<param name="startMethod">execStartUploadFile</param>
+				<param name="endMethod">execEndUploadFile</param>
+			</interceptor>
+			<interceptor name="fatClientValidator" class="«getInterceptorsJavaPackage(this)».FatClientValidatorInterceptor"/>
+			«ENDIF-»
+
+			<interceptor-stack name="jsp-stack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="servletConfig" />
+			 	<interceptor-ref name="scopedModelDriven"/> 
+				<interceptor-ref name="modelDriven"/>
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="tableSelection" />
+				<interceptor-ref name="staticParams" />
+				«IF isNullOrEmpty(getProperty("guigen.fileUpload.maximumFileSize"))-»
+				<interceptor-ref name="fileUpload"/>
+				«ELSE-»
+				<interceptor-ref name="fileUpload">
+       				<param name="maximumSize">«getProperty("guigen.fileUpload.maximumFileSize").asInteger()»</param>
+  	    		</interceptor-ref>
+				«ENDIF-»
+				«IF targetPlatform.enableFatClient-»
+				<interceptor-ref name="preserveUpload"/>
+				«ENDIF-»
+				<!-- richiamare gli interceptor token e tokenSession dopo di questo -->
+				<interceptor-ref name="paramsInterceptor" />
+				<interceptor-ref name="conversionError"/>
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="validation" />
+				«IF targetPlatform.enableFatClient-»
+				<interceptor-ref name="fatClientValidator" />
+				«ENDIF-»
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="methodProtection" />
+			</interceptor-stack>
+			«EXPAND template::common::interceptorStackPortlet FOR this-»
+		</interceptors>
+
+		<default-interceptor-ref name="«getDefaultInterceptorRef(this)»"/>
+
+		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
+		<global-results>
+		
+			<result name="BACK_TO_HOME" type="chain">
+			   <param name="actionName">«getHomePageActionName()»</param>
+			    <param name="namespace">/«getSecureNamespace(true)»</param>
+			</result>
+		
+			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
+			«IF targetPlatform.enableRichUIBehavior-»
+			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
+			<result name="provideData" type="stream">
+  				<param name="contentType">text/plain;charset=UTF-8</param>
+  				<param name="inputName">dataProviderStream</param>
+  				<param name="bufferSize">1024</param>
+  				<param name="allowCaching">false</param>
+			</result>
+			«ENDIF-»
+			«IF targetPlatform.enableFatClient-»
+			<result name="provideHtml" type="stream">
+  				<param name="contentType">text/html;charset=iso-8859-1</param>
+  				<param name="inputName">dataProviderStream</param>
+  				<param name="bufferSize">1024</param>
+  				<param name="allowCaching">false</param>
+			</result>
+			«ENDIF-»
+			«IF !targetPlatform.enableRichUIBehavior-»
+			<result name="invalid.token">/jsp/error/invalidToken.jsp</result>
+			«ENDIF-»
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
+		</global-exception-mappings>
+
+	</package>
+
+
+	<!-- DEFAULT PACKAGE (ELEMENTI COMUNI A TUTTO L'APPLICATIVO) -->
+	<package name="default" extends="jsp-package" namespace="«getBaseNamespace(false)»">
+		<action name="notFoundError">
+			<result>/jsp/error/notFound.jsp</result>
+		</action>
+		<action name="fatalError">
+			<result>/jsp/error/fatalError.jsp</result>
+		</action>
+		<action name="sessionExpired">
+			<result>/jsp/error/sessionExpired.jsp</result>
+		</action>
+		«IF isMultiPortal(this)-»
+		<action name="unknownPortal">
+			<result>/jsp/error/unknownPortal.jsp</result>
+		</action>
+		«ENDIF-»
+		<action name="javascriptError">
+			<result>/jsp/error/javascriptError.jsp</result>
+		</action>
+	</package>
+
+
+	<!-- SECURE PACKAGE -->
+	<package name="secure" extends="jsp-package" namespace="«getSecureNamespace(false)»">
+		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction-»
+		<!-- HOME PAGE -->
+		<action name="«getHomePageActionName()»" class="«getStrutsHomeFQN(this)»">
+		«IF onInitAction != null-»
+		    «LET (List[ContentPanel])getAllPossibleJumps(onInitAction) AS allJumps-»
+			«FOREACH allJumps AS currJump-»
+			<result name="GO_TO_«currJump.name»" type="chain">
+			    <param name="actionName">«getStrutsActionConfigName(currJump)»</param>
+			    <param name="namespace">«getContentPanelNamespace(currJump, false)»</param>
+			</result>
+			«ENDFOREACH-»
+			«ENDLET-»
+			«LET (List[JumpExtCommand])getAllPossibleExtJumps(onInitAction) AS allExtJumps-»
+			«FOREACH allExtJumps AS currExtJump-»
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
+				<param name="location">«currExtJump.staticUrl»</param>
+			</result>
+			«ENDFOREACH-»
+			«ENDLET-»
+		    «LET (List[DialogPanel])getAllPossibleShowDialogs(onInitAction) AS allShowDialogs-»
+			«FOREACH allShowDialogs AS currShowDialog-»
+			<result name="GO_TO_«currShowDialog.name»">«getJspDialogPanelConfigName(currShowDialog)»</result>
+			«ENDFOREACH-»
+			«ENDLET-»
+		«ELSE-»
+			<result type="chain">
+			    <param name="actionName">«getStrutsActionConfigName(this.structure.appWindow.appArea.homePage)»</param>
+			    <param name="namespace">«getContentPanelNamespace(this.structure.appWindow.appArea.homePage, false)»</param>
+			</result>
+		«ENDIF-»
+		</action>
+		«ENDLET-»
+
+		«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-»
+		<!-- punto di accesso per FAT CLIENT JS -->
+		<action name="fatclient">
+			<result>/jsp/fatclient/main.jsp</result>
+		</action>
+		<!-- menu -->
+		<action name="«getStrutsMenuClassName(this)»" class="«getStrutsMenuFQN(this)»">
+			<result type="chain">
+				<param name="actionName">«getStrutsActionConfigName(this.structure.appWindow.appArea.homePage)»</param>
+				<param name="namespace">«getContentPanelNamespace(this.structure.appWindow.appArea.homePage, false)»</param>
+			</result>
+		</action>
+		«ENDIF-»
+
+		<!-- LOGOUT (LOCAL/SSO) -->
+		<action name="«getLogoutActionName()»" class="«getStrutsLogoutFQN(this)»">
+			<result name="confirmLogout">/jsp/error/confirmLogout.jsp</result>
+			<result name="SSO_LOGOUT" type="redirect">
+				<param name="location">«IF isMultiPortal(this)»${ssoLogoutUrl}«ELSE»@LOGOUT_URL@«ENDIF»</param>
+			</result>
+			<result name="LOCAL_LOGOUT" type="redirect">
+				<param name="location">«IF isMultiPortal(this)»${localLogoutUrl}«ELSE»@LOCAL_LOGOUT_URL@«ENDIF»</param>
+			</result>
+		</action>
+
+		<!-- MENU -->
+		«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu-»
+		«IF tlmenu.eventHandler.eventType == EventTypes::CLICKED-»
+		«LET tlmenu.eventHandler.command AS currAction-»
+		<action name="«getMenuItemActionName(tlmenu.name.toFirstUpper())»" class="«getStrutsMenuFQN(this)»" method="goTo«tlmenu.name.toFirstUpper()»">
+			«LET (List[ContentPanel])getAllPossibleJumps(tlmenu) AS allJumps-»
+			«FOREACH allJumps AS currJump-»
+			<result name="GO_TO_«currJump.name»" type="chain">
+				<param name="actionName">«getStrutsActionConfigName(currJump)»</param>
+				<param name="namespace">«getContentPanelNamespace(currJump, false)»</param>
+			</result>
+			«ENDFOREACH-»
+			«ENDLET-»
+			«LET (List[JumpExtCommand])getAllPossibleExtJumps(tlmenu) AS allExtJumps-»
+			«FOREACH allExtJumps AS currExtJump-»
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
+				<param name="location">«currExtJump.staticUrl»</param>
+			</result>
+			«ENDFOREACH-»
+			«ENDLET-»
+		</action>
+		«ENDLET-»
+		«ENDIF-»
+
+		«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu-»
+		«IF currMenu.eventHandler.eventType == EventTypes::CLICKED-»
+		«LET currMenu.eventHandler.command AS currAction-»
+		<action name="«getMenuItemActionName(currMenu.name.toFirstUpper())»" class="«getStrutsMenuFQN(this)»" method="goTo«currMenu.name.toFirstUpper()»">
+			«LET (List[ContentPanel])getAllPossibleJumps(currMenu) AS allJumps-»
+			«FOREACH allJumps AS currJump-»
+			<result name="GO_TO_«currJump.name»" type="chain">
+				<param name="actionName">«getStrutsActionConfigName(currJump)»</param>
+				<param name="namespace">«getContentPanelNamespace(currJump, false)»</param>
+			</result>
+			«ENDFOREACH-»
+			«ENDLET-»
+			«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenu) AS allExtJumps-»
+			«FOREACH allExtJumps AS currExtJump-»
+			<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
+				<param name="location">«currExtJump.staticUrl»</param>
+			</result>
+			«ENDFOREACH-»
+			«ENDLET-»
+		</action>
+		«ENDLET-»
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDFOREACH-»
+	</package>
+
+</struts>
+«ENDFILE»
+«ENDDEFINE»
+«ENDREM»
+
+«REM»[DM] STDMDD-1100: Crea i file di configurazione di Struts2
+«DEFINE strutsPackagesConfigFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND strutsBaseConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsAppModuleConfigFile(this, skip_component_dir_creation) FOREACH this.getAllAppMudule()»
+«ENDDEFINE»
+«ENDREM»
+
+«REM»[DM] STDMDD-1100: Crea il file di configurazione di Struts2 struts-1-base.xml
+«DEFINE strutsBaseConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsApplicationConfigFile(this, skip_component_dir_creation, "struts-1-base")»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="base" extends="jsp-package" namespace="«getBaseNamespace(false)»">
+		«IF this.structure.appWindow.appArea.contentPanels.size > 0-»
+		<!-- ACTION RELATIVE A CONTENT PANEL NELL'APPLICATION AREA (DEPRECATE) -->
+		«EXPAND contentPanelXmlConfig(this) FOREACH this.structure.appWindow.appArea.contentPanels-»
+		«ENDIF-»
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("strutsConfig.extraActionDeclarations")»
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		«ENDPROTECT»
+	</package>
+</struts>
+«ENDFILE»
+«ENDDEFINE»
+«ENDREM»
+
+«REM»[DM] STDMDD-1100: Crea un file di configurazione di Struts2 relativo ad un AppModule
+«DEFINE strutsAppModuleConfigFile(GUIModel model, boolean skip_component_dir_creation) FOR AppModule»
+«FILE getStrutsApplicationConfigFile(model, skip_component_dir_creation, "struts-"+this.name)»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="«this.name»" extends="jsp-package" namespace="«getAppModuleNamespace(this, false)»">
+
+		«EXPAND contentPanelXmlConfig(model) FOREACH this.contentPanels-»
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("strutsConfig." + this.name + ".extraActionDeclarations")»
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		«ENDPROTECT»
+
+	</package>
+</struts>
+«ENDFILE»
+«ENDDEFINE»
+«ENDREM»
+
+«REM»Genera la direttiva <action> per un ContentPanel
+«DEFINE contentPanelXmlConfig(GUIModel model) FOR ContentPanel»
+<action name="«getStrutsActionConfigName()»" class="«getStrutsActionFQN(this, model)»">
+	<result name="input">«getStrutsActionJspConfigName(this)»</result>
+	<result name="success">«getStrutsActionJspConfigName(this)»</result>
+	«LET (List[ContentPanel])getAllPossibleJumps(this) AS allJumps-»
+	«FOREACH allJumps AS currJump-»
+	<result name="GO_TO_«currJump.name»" type="chain">
+		<param name="actionName">«getStrutsActionConfigName(currJump)»</param>
+		<param name="namespace">«getContentPanelNamespace(currJump, false)»</param>
+	</result>
+	«ENDFOREACH-»
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	«ENDLET-»
+	«EXPAND jumpExtResults(model) FOR this-»
+	«LET (List[DialogPanel])getAllPossibleShowDialogs(this) AS allShowDialogs-»
+	«FOREACH allShowDialogs AS currShowDialog-»
+	<result name="SHOW_«currShowDialog.name»">«getJspDialogPanelConfigName(currShowDialog)»</result>
+	«ENDFOREACH-»
+	«ENDLET-»
+</action>
+«ENDDEFINE»
+«ENDREM»
+
+
+«REM»STDMDD-360: aggiunmta ricorsione per gestire i JumpExtCMD anche su PanelDef. Serve ad es. per 
+cose tipo la "todo list"
+«DEFINE jumpExtResults(GUIModel model) FOR ContentPanel-»
+	«EXPAND jumpExtResults(model, this, "") FOR this.panels-»
+	«EXPAND jumpExtResults(model, this, "") FOREACH this.dialogs-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH subpanels-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
+	«IF switcher!=null-»
+		«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.switcher-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR commands-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR panelDef.panel-»
+«ENDDEFINE»
+
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.eventHandlers-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR command-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Command-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
+	«LET getAdjustedJumpExtCommand(this) AS currExtJump-»
+	<result name="GO_TO_EX_«currExtJump.locationCode»" type="redirect">
+		<param name="location">«currExtJump.staticUrl»</param>
+	</result>
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.results-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandOutcome-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.command-»
+«ENDDEFINE»
+
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand-»
+		«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH commands-»
+«ENDDEFINE»
+«ENDREM»
+
+
+«REM»Genera il file di Struts per la registrazione dei validatori custom
+«DEFINE strutsValidationConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsValidationConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator Config 1.0//EN"
+        "http://struts.apache.org/dtds/xwork-validator-config-1.0.dtd">
+<validators>
+
+	<!-- Custom validators Definiti in GuiGen -->
+	«FOREACH (List[String])getGuigenCustomValidators() AS currValidator-»
+	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
+	«ENDFOREACH-»
+
+	<!-- Validators per Simple Types User Defined -->
+	«FOREACH (List[String])getGuigenUserDefinedTypesValidators() AS currValidator-»
+	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
+	«ENDFOREACH-»
+	
+
+	<!-- Custom validators modellati dall'utente nei widget -->
+	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator-»
+	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
+	«ENDFOREACH-»
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("struts.validators")»
+	<!-- Inserire qui i custom validators che verranno acceduti mediante XML notation -->
+	«ENDPROTECT»
+
+</validators>
+«ENDFILE»
+«ENDDEFINE»
+«ENDREM»
+
+«REM»************************************ SPRING MVC ************************************«ENDREM»
+
+
+«REM»************************************ SPRING ************************************«ENDREM»
+
+«REM»Genera il file di Spring per la parte EJB«ENDREM»
+«DEFINE ejbSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getSpringEjbConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean name="applicationContextManager" class="it.csi.util.beanlocatorfactory.SpringApplicationContextManager" />
+
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans")»
+	<!-- Insert here your Spring Beans -->
+	«ENDPROTECT»
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera i file di Spring per la parte Web«ENDREM»
+«DEFINE webSpringMVCConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getSpringWebMVCConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+         <property name="prefix" value="/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE webSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getSpringWebConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:jd="http://www.springframework.org/schema/jdbc"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://www.springframework.org/schema/jdbc
+       http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd"
+       context:default-autowire="«getSpringAutowire()»">
+<!--  How to include more then one base package -->
+ 
+	<context:annotation-config />
+	<context:component-scan base-package="«getControllerJavaPackage()»" />
+	<mvc:annotation-driven />
+
+
+	<!-- bean di business logic -->
+	
+	<!-- bean di facade -->
+	<bean id="springBackEnd" class="«getSpringBEFQN()»">
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
+		<property name="«getSpringCPBEClassName(currCP)»">
+			<ref bean="«getSpringCPBEClassName(currCP)»"/>
+		</property>
+	«ENDFOREACH-»
+	</bean>
+	
+	<!-- bean relativi ai singoli content panel -->
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
+	<bean id="«getSpringCPBEClassName(currCP)»" class="«getSpringCPBEFQN(this,currCP)»">
+	«IF hasGisMap(currCP)-»
+	«LET (List[MapView])getMapsInContentPanel(currCP) AS maps-»
+	«FOREACH maps AS map-»
+		<property name="mapAdapter«map.mapId.toFirstUpper()»" ref="mapAdapter«map.mapId.toFirstUpper()»"/>
+	«ENDFOREACH-»
+	«ENDLET-»
+	«ENDIF-»
+	</bean>
+	«ENDFOREACH»
+	
+	
+	<!-- helper per le funzioni di securizzazione -->
+	<bean id="springSecurityHelper" class="«getSpringSecurityHelperFQN()»">
+		<!-- protocollo di interazione con il PEP (EJB|WS) utilizzato solo se la security non e' custom --> 
+		<property name="PDProtocol" value="@IRIDE_PD_PROTOCOL@" />
+	</bean>
+	
+	
+	«IF this.targetPlatform.securityProfile!=null»
+	«IF this.targetPlatform.securityProfile.pepImpl.custom»
+	<bean id="pepProviderFacadeBeanId" class="«getPEPProviderJavaPackage(this)».PEPProviderFacade">
+	«IF this.targetPlatform.securityProfile.pepImpl !=null»
+	«LET this.targetPlatform.securityProfile.pepImpl.params AS envConfigParams-»
+	«FOREACH envConfigParams AS envConfigParam-»
+	<property name="pepImpl«envConfigParam.name.toFirstUpper()»" value="@pepImpl«envConfigParam.name.toFirstUpper()»@"/>
+	«ENDFOREACH-»
+	«ENDLET»
+	«ENDIF»
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans.pepProviderFacadeBeanId")»
+	«ENDPROTECT»
+	</bean>
+	«ENDIF»
+	«ENDIF»
+	
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("applicationContext.beans")»
+		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
+	«ENDPROTECT»
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»
+===========================================================================================================================
+CONFIGURAZIONE SERVIZIO MAPPE
+===========================================================================================================================
+«ENDREM»
+«REM»Genera il file di configurazione del servizio mappe«ENDREM»
+«DEFINE getMapPdConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getGisMapPdPropertiesFile(this, skip_component_dir_creation)»caller=«this.codComponente»
+gosgisso.delegate.classname=
+«ENDFILE»
+«FILE getGisMapPdConfigurationFile(this, skip_component_dir_creation)»<porta-delegata name="GosgisGosgissoPD">
+  <services>
+    <service name="gosgisso" public-interface-class="it.csi.gosgis.gosgisso.interfacecsi.gosgisgosgisso.GosgisGosgissoSrv" >
+      <operations>
+        <operation name="testResources" type="synch-call">
+            <param-list />
+            <ret-val type="boolean" />
+        </operation>
+        <operation name="getInfoFruitore" type="synch-call">
+          <param-list>
+            <param name="codiceProdotto" type="java.lang.String" />
+            <param name="userApp" type="java.lang.String" />
+            <param name="pwdApp" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+        </operation>
+        <operation name="getInfoServizio" type="synch-call">
+          <param-list>
+            <param name="mapService" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoServiceInfoVO" />
+        </operation>
+        <operation name="getInfoServizioPerFruitore" type="synch-call">
+          <param-list>
+            <param name="userInfo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+            <param name="mapService" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoServiceInfoVO" />
+        </operation>
+        <operation name="elencoServiziConfiguratiPerFruitore" type="synch-call">
+          <param-list>
+            <param name="codiceFruitore" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO[]" />
+        </operation>
+        <operation name="getImage" type="synch-call">
+          <param-list>
+            <param name="userInfo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+            <param name="service" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+            <param name="map" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.request.GosgissoMapRequestVO" />
+            <param name="layers" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoLayerVO[]" />
+            <param name="envelope" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoEnvelopeVO" />
+            <param name="acetates" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.render.acetate.BaseAcetateLayer[]" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapVO" />
+        </operation>
+        <operation name="getToc" type="synch-call">
+          <param-list>
+            <param name="applicativo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+        	<param name="servizio" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />            
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.toc.GosgissoArgomentoVO[]" />
+        </operation>
+        <operation name="getFeatures" type="synch-call">
+          <param-list>
+            <param name="userInfo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+            <param name="service" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+            <param name="featureRequest" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.request.GosgissoFeatureRequestVO" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoResultSetVO" />
+        </operation>
+	    <operation name="getCampiAliasPerLayerFruitore" type="synch-call">
+	      <param-list>
+	        <param name="userInfo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+	        <param name="service" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+	        <param name="idLayer" type="java.lang.String" />
+	      </param-list>
+	      <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoAliasVO[]" />
+	    </operation>
+      </operations>
+    </service>
+  </services>
+  <config>
+  <url-pa></url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd name="jeegiaquattro.PdD.gosgisso" class="it.csi.csi.porte.ejb20.PortaDelegataEJB" url-pa="gosgisso/ejb/GosgisGosgissoPA" >
+        <properties>
+          <property name="java.naming.provider.url" value="@@@gismap.provider.url@@@" />
+          <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+          <property name="csi.auth.jaas.client.class"
+               value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          <property name="csi.auth.basic"
+               value="" />     
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <queue-manager url=""/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»
+==========================================================================================================================
+FILES DI CONFIGURAZIONE DI ALTRE COMPONENTI
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera il file di configurazione della DisplayTag«ENDREM»
+«DEFINE displayTagConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWebModuleConfigDir(this, skip_component_dir_creation) + "/displaytag.properties"»############################################################################
+#DISPLAYTAG CONFIGURATION FILE
+############################################################################
+
+basic.empty.showtable=false
+basic.show.header=true
+
+# page | list
+sort.amount=list
+
+export.amount=list
+export.decorated=true
+
+paging.banner.group_size=5
+paging.banner.placement=both
+
+# factory classes for extensions
+factory.requestHelper=«getFactoryRequestHelper()»
+
+# factory class for decorators
+factory.decorator=org.displaytag.decorator.DefaultDecoratorFactory
+
+# locale provider (Jstl provider by default)
+locale.provider=org.displaytag.localization.I18nJstlAdapter
+
+# locale.resolver (nothing by default, simply use locale from request)
+#locale.resolver=
+
+
+############################################################################
+# PAGINATION PARAMETERS
+
+pagination.sort.param=sort
+pagination.sortdirection.param=dir
+pagination.pagenumber.param=page
+pagination.searchid.param=searchid
+pagination.sort.asc.value=asc
+pagination.sort.desc.value=desc
+pagination.sort.skippagenumber=true
+
+
+############################################################################
+# EXPORT PARAMETERS
+
+export.types=excel pdf
+
+export.excel.class=org.displaytag.export.excel.ExcelHssfView
+export.pdf.class=org.displaytag.export.PdfView
+export.rtf.class=org.displaytag.export.DefaultRtfExportView
+
+export.csv=false
+export.csv.include_header=false
+export.csv.filename=
+
+export.excel=true
+export.excel.include_header=true
+export.excel.filename=Export.xls
+
+export.xml=false
+export.xml.filename=
+
+export.pdf=true
+export.pdf.include_header=true
+export.pdf.filename=Export.pdf
+
+export.rtf=false
+export.rtf.include_header=true
+export.rtf.filename=Export.rtf
+
+# unused
+save.excel.filename=export.xls
+
+«REM»Proprieta' della DisplayTag che possono variare a seconda del portale (messaggi, stili, ecc)«ENDREM»
+«EXPAND template::springmvc::view::remoteResources::displayTagConfigurationFile FOR this-»
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»///////////////////DEFINIZIONI AOP ////////////////////////////////////////////////////////////«ENDREM»
+«DEFINE interceptorStackPortlet FOR GUIModel»
+«ENDDEFINE»
+
+«DEFINE includeStruts FOR GUIModel»
+«ENDDEFINE»

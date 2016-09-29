@@ -1,0 +1,71 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+
+
+«REM»MAIN: PUNTO DI INGRESSO DELLA GENERAZIONE STRUTS2«ENDREM»
+«DEFINE main(boolean skip_component_dir_creation, boolean useExternalDaoBeans, String portal) FOR GUIModel»
+	
+	«REM»[DM] STDMDD-1123: disabilitazione/rimozione delle cartucce differenti dalla neutral«ENDREM»
+	«IF !isValidPortal(portal)»
+		«ERROR "Attenzione: la cartuccia '" + portal + "' non esiste. Verificare la proprieta' portal del proprio file di workflow."»
+	«ELSE»
+		«EXPAND template::springmvc::build::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
+		«EXPAND template::springmvc::configfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
+		«EXPAND template::springmvc::view::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»
+«REM»		«EXPAND template::springmvc::i18n::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this» «ENDREM»
+		«EXPAND template::springmvc::javafiles::javaFiles(skip_component_dir_creation) FOR this»
+		«EXPAND contentPanelsFiles(skip_component_dir_creation) FOR this»
+		«EXPAND template::springmvc::controller::jsonCmds::jsonCmdsFiles(this) FOR this.structure.appWindow.appArea»
+«REM»
+		«EXPAND template::springmvc::security::jsonConstraints::jsonConstraintsFiles(this) FOR this.structure.appWindow.appArea»
+«ENDREM»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«REM»Genera le Actions Struts2 corrispondenti ai ContentPanels dell'applicazione«ENDREM»
+«DEFINE contentPanelsFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«REM»Espande ogni ContentPanels dell'applicazione come Action Struts2 + pagina JSP«ENDREM»
+	«LET (List[ContentPanel])getAllContentPanels(this).select(cp|mustGenerateContentPanel((ContentPanel)cp)) AS contentPanels»
+		«EXPAND contentPanelFiles(this, skip_component_dir_creation) FOREACH contentPanels»
+	«ENDLET»
+	«IF targetPlatform.enableRichUIBehavior-»
+		«EXPAND template::richxhtml::staticResourcesXML::staticResourcesXMLFile FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«REM»Genera le componenti di una Action Struts2 (classe Java, file JSP, definizione XML, resource bundle)«ENDREM»
+«DEFINE contentPanelFiles(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+	«EXPAND template::springmvc::controller::contentPanelAction::actionJavaFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::springmvc::controller::screenstates::ScreenStatesClass(model) FOR this»
+«REM»	«EXPAND template::springmvc::view::resourcefiles::actionJspFile(model, skip_component_dir_creation,false) FOR this»
+	«EXPAND template::springmvc::i18n::i18nfiles::actionPropertiesFile(model, skip_component_dir_creation) FOR this»
+	«IF model.targetPlatform.enableRichUIBehavior-»
+		«EXPAND template::richxhtml::enrichments::enrichmentDefs(model, skip_component_dir_creation) FOR this»
+	«ENDIF-»
+«ENDREM»
+	«EXPAND template::springmvc::controller::jsonCmds::jsonCmdsFiles(model) FOR this»
+«REM»
+	«EXPAND template::springmvc::security::jsonConstraints::jsonConstraintsFiles(model) FOR this»
+«ENDREM»
+«ENDDEFINE»
+

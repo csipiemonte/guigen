@@ -1,0 +1,134 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+
+«DEFINE ScreenStatesClass(GUIModel model) FOR ContentPanel»
+«FILE getScreenStatesClassPath(this, model)»package «getScreenStatesPkgAsPkg(this,model)»;
+
+import «getCommandFactoryPkg(model)».ScreenStateCommand;
+
+/**
+ * Questa classe contiene le informazioni relative agli ScreenStates del ContentPanel «this.name»
+ */
+public final class «getScreenStatesClassName()» {
+
+«IF this.defaultState!=null»
+	/**
+	 * Comando che pernmette di passare allo stato di default
+	 */
+	static final ScreenStateCommand DEFAULT_STATE_COMMAND = «getScreenStateInnerClassName(this.defaultState)».COMMAND;
+	
+	/**
+	 * Restituisce il comando che pernmette di passare allo stato di default
+	 */
+	public static ScreenStateCommand getDefaultState(){
+		return DEFAULT_STATE_COMMAND;
+	}
+	
+«ENDIF»
+	
+	/**
+	 * Costruttore privato (questa e' una utility class)
+	 */
+	private «getScreenStatesClassName()»(){
+		// costruttore intenzionalmente vuoto
+	}
+	
+«IF this.states!=null && !this.states.states.isEmpty»
+«EXPAND ScreenStateInnerClass(model) FOREACH this.states.states»
+«ENDIF»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE ScreenStateInnerClass(GUIModel model) FOR ScreenState»
+/**
+ * Questa classe rappresenta lo ScreenState «name».
+ * NOTA BENE: questa classe e' attualmente non utilizzata (i widget visibili/abilitati sono
+ * contenuti nel file JSON che contiene il comando ScreenStateCommand.
+ * La classe e' pero' mantenuta per future evoluzioni. 
+ */
+public static final class «getScreenStateInnerClassName(this)» {
+
+«LET (ContentPanel)((ScreenStates)this.eContainer).eContainer AS cp»
+
+«EXPAND widgetSets(cp, model, "") FOR this»
+«ENDLET»
+
+	/**
+	 * Costruttore privato (questa e' una utility class)
+	 */
+	private «getScreenStateInnerClassName(this)»(){
+		// costruttore intenzionalmente vuoto
+	}
+} 
+«ENDDEFINE»
+
+
+«DEFINE widgetSets(ContentPanel parentCP, GUIModel model, String contextPrefix) FOR ScreenState-»
+    /**
+     * widget abilitati nello stato
+     */
+    static final String[] WIDGETS_ON = new String[]{
+    «FOREACH this.widgetsOn AS currWidgOn SEPARATOR ","-»
+    "«getFullID(currWidgOn, contextPrefix)»"
+    «ENDFOREACH-»
+    };
+    
+    /**
+     * widget disabilitati nello stato
+     */
+    static final String[] WIDGETS_OFF = new String[]{
+    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+    "«getFullID((Widget)currWidgOff,contextPrefix)»"
+    «ENDFOREACH-»
+    };
+
+	/**
+     * widget visibili nello stato
+     */
+    static final String[] WIDGETS_SHOWN = new String[]{
+    «FOREACH this.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+    "«getFullID(currWidgVisible, contextPrefix)»"
+    «ENDFOREACH-»
+    };
+    
+    /**
+     * widget nascosti nello stato
+     */
+    static final String[] WIDGETS_HIDDEN = new String[]{
+    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+    "«getFullID((Widget)currWidgHidden, contextPrefix)»"
+    «ENDFOREACH-»
+    };
+    
+    /**
+     * Istanza del comando che permette di passare a questo stato
+     */
+	static final ScreenStateCommand COMMAND = new ScreenStateCommand(
+		"«name»", 
+		WIDGETS_ON,
+		WIDGETS_OFF,
+		WIDGETS_SHOWN,
+		WIDGETS_HIDDEN
+	);
+«ENDDEFINE»

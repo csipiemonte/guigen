@@ -1,0 +1,168 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::bootstrap::Struts2ExtensionsNeutral»
+
+
+«REM»
+**************************************************************************************************************************
+Markup HTML per Layout RESPONSIVE (HTML5+Bootstrap)
+Definizioni che puntano a risorse statiche in LOCALE
+**************************************************************************************************************************
+«ENDREM»
+
+«REM»
+==========================================================================================================================
+Definizioni generali: header, footer, ecc
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»«getHTMLDoctype()»
+<html «getHTMLTnsUriDecl()» lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		«EXPAND template::struts2::view::pageStructure::getMetaAttributes(model) FOR this»«REM»[DM] STDMDD-911«ENDREM»
+		<title>«this.title»</title>
+
+		«REM»[DM] STDMDD-670: Header markup«ENDREM»
+		«EXPAND template::struts2::view::pageStructure::getHeaderMarkup(model, skip_component_dir_creation, false) FOR this»
+		
+		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.struts")»
+				
+		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+		
+		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
+		«ENDPROTECT»
+		
+		«REM»«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»«ENDREM»
+		
+	</head>
+	<body>
+		«REM»[DM] STDMDD-1084: reindirizzamento pagina errore Javascript non abilitato«ENDREM»
+		<noscript>
+			<meta http-equiv="refresh" content="0;url=«getJavascriptErrorActionURL(true)»"  />
+		</noscript>
+
+		<!-- PAGE (OBBLIGATORIO) -->
+		<div id="page">
+
+			<!-- HEADER di PORTALE (facoltativo) -->
+			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.portalHeader.struts")»
+			<div id="portalHeader">
+				<!-- Inserire il codice della header di portale (se esiste) -->
+				<h1>HEADER DI PORTALE [h1]</h1>
+			</div>
+			«ENDPROTECT»
+			<!-- fine HEADER di PORTALE (facoltativo) -->
+
+			<!-- APPICATION AREA (OBBLIGATORIO) -->
+			<div id="applicationArea">
+
+				<!-- HEADER di APPLICATIVO (facoltativo) -->
+				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.applicationHeader.struts")»
+				<div id="applicationHeader">
+					<!-- Inserire il codice della header applicativa (se esiste) -->
+				</div>
+				«ENDPROTECT»
+				<!-- fine HEADER di APPLICATIVO (facoltativo) -->
+
+<!-- FINE HEADER -->
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»«getHTMLDoctype()»
+<html «getHTMLTnsUriDecl()» lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		«EXPAND template::struts2::view::pageStructure::getMetaAttributes(model) FOR this»«REM»[DM] STDMDD-911«ENDREM»
+		<title>«this.title»</title>
+
+		«REM»[DM] STDMDD-670: Header markup«ENDREM»
+		«EXPAND template::struts2::view::pageStructure::getHeaderMarkup(model, skip_component_dir_creation, false) FOR this»
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.noStruts")»
+
+
+		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
+		«ENDPROTECT»
+		
+		
+	</head>
+	<body>
+
+		<!-- PAGE (OBBLIGATORIO) -->
+		<div id="page">
+
+			<!-- HEADER di PORTALE (facoltativo) -->
+			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.portalHeader.noStruts")»
+			<div id="portalHeader">
+				<!-- Inserire il codice della header di portale (se esiste) -->
+				<h1>HEADER DI PORTALE [h1]</h1>
+			</div>
+			«ENDPROTECT»
+			<!-- fine HEADER di PORTALE (facoltativo) -->
+
+			<!-- APPICATION AREA (OBBLIGATORIO) -->
+			<div id="applicationArea">
+
+				<!-- HEADER di APPLICATIVO (facoltativo) -->
+				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.applicationHeader.noStruts")»
+				<div id="applicationHeader">
+					<!-- Inserire il codice della header applicativa (se esiste) -->
+				</div>
+				«ENDPROTECT»
+				<!-- fine HEADER di APPLICATIVO (facoltativo) -->
+
+<!-- FINE HEADER -->
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) dei LINK STATICI.
+TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("menu.staticLinks")»
+<!-- Link statici -->
+«ENDPROTECT»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+<!-- FOOTER -->
+
+			</div>
+			<!-- FINE APPICATION AREA (OBBLIGATORIO) -->
+
+			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("footer.portalFooter")»
+			<div id="portalFooter">
+				<!-- Inserire il codice del FOOTER di PORTALE (se esiste) -->
+			</div>
+			«ENDPROTECT»
+
+		</div>
+		<!-- FINE PAGE (OBBLIGATORIO) -->
+	</body>
+</html>
+«ENDDEFINE»

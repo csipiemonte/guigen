@@ -1,0 +1,234 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::springmvc::SpringMVCExtensions»
+
+«REM»Genera i files di properties di ant (generale e per i singoli ambienti)«ENDREM»
+«DEFINE buildPropertiesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPropertiesTemplateFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il file di property di ant (generale)«ENDREM»
+«DEFINE buildPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBuildPropertiesFileName(this, skip_component_dir_creation)»##############################################################################
+# Build.properties
+##############################################################################
+# - Generato da GUIGEN, versione «getPluginVersion()»
+
+# - [Definizione del Prodotto] -----------------------------------------------
+  prodotto    = «codProdotto»
+  contesto    = «codComponente»
+  componente  = «codComponente»
+  webapp      = ${contesto}
+  version     = «versioneComponente»
+
+# - [Definizione dei files di output] ----------------------------------------
+  ear-file-name  = ${componente}srv
+  dist-file-name = ${componente}srv-${version}
+  war-file-name  = ${contesto}
+
+# - [Cartelle di build] ------------------------------------------------------
+  integration = integration
+  lib         = ${basedir}/lib
+  build       = ${basedir}/build
+  src         = ${basedir}/src
+  srcweb      = ${src}/web/${webapp}
+  srcjaws     = ${src}/web/${jawsapp}
+  conf        = ${basedir}/conf
+  dist        = ${basedir}/dist
+  docs        = ${basedir}/docs
+  temp        = ${build}/temp
+
+# - [ear-libs-filter] --------------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
+# essere inclusi all'interno dell'EAR prodotto.
+# ----------------------------------------------------------------------------
+  ear-libs-filter = spring-asm-3.1.1.RELEASE.jar,                \
+                    spring-beans-3.1.1.RELEASE.jar,              \
+                    spring-context-3.1.1.RELEASE.jar,                 \
+                    spring-core-3.1.1.RELEASE.jar,                  \
+                    spring-expression-3.1.1.RELEASE.jar,                  \
+                    spring-jdbc-3.1.1.RELEASE.jar,                 \
+                    spring-tx-3.1.1.RELEASE.jar,                  \
+                    spring-aop-3.1.1.RELEASE.jar,                  \
+                    spring-web-3.1.1.RELEASE.jar,             \
+                    spring-webmvc-3.1.1.RELEASE.jar,             \
+                    aopalliance-1.0.jar,                   \
+                    util-beanlocatorfactory-1.0.1.jar,     \
+                    util-perf-1.0.1.jar,                   \
+                    commons-beanutils-1.7.0.jar,           \
+                    commons-collections-3.2.jar,           \
+                    commons-digester-1.8.jar,              \
+                    commons-logging-1.1.jar,               \
+                    commons-logging-api-1.1.jar,           \
+                    commons-lang-2.2.jar,                  \
+                    commons-httpclient-2.0.2.jar,          \
+                    csi-stadapter-1.4.5.jar                \
+                    csi-apachesoap-1.4.5.jar               \
+                    csi-core-1.4.5.jar                     \
+                    csi-rmi-1.4.5.jar                      \
+                    csi-ejb*-1.4.5.jar                     \
+                    iridev2*.jar                           \
+                    «IF getActualSecurityModel(this)!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-»
+                    weblogic-client*.jar                   \
+                    «ENDIF-»
+                    custom-component-attr-1.0.3.jar
+
+# - [ear-custom-libs-filter] -------------------------------------------------
+# Questo filter viene utilizzato per definire JAR aggiuntivi che devono 
+# essere inclusi all'interno dell'EAR prodotto.
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("ear-custom-libs-filter")»
+ear-custom-libs-filter =
+
+«ENDPROTECT»
+«EXPAND template::common::warExcludeLibsFilte FOR this-»
+# ----------------------------------------------------------------------------
+  package.prefix = «getOrganizationNamePkgPrefix()».${prodotto}.${componente}
+
+# default remincl cache time 24h (in millisecondi)
+remincl.cache.time.default=28800000
+
+#  target = dev
+ 
+ «REM»DIFFERENZIZIONE WEBLOGIC-JBOSS«ENDREM»
+ «EXPAND appServerConfigurationBuildProperties FOR this»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+«REM»Build properties: configurazione del server«ENDREM»
+«DEFINE appServerConfigurationBuildProperties FOR GUIModel»
+«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+# - [Configurazione del Server (JBoss)] --------------------------------------
+  server = jboss
+  earLib = lib
+«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+# - [Configurazione del Server (WebLogic)] -----------------------------------
+  server = weblogic
+  earLib = APP-INF/lib
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera il file di property di ant da usare come template per i files dei singoli ambienti«ENDREM»
+«DEFINE buildPropertiesTemplateFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBuildPropertiesTemplateFileName(this, skip_component_dir_creation)-»
+####################################################
+# «codProdotto» - «codComponente»                  #
+# ==========                                       #
+# Configurazione di ambiente: <ambiente>           #
+####################################################
+
+nome.ambiente=<ambiente>
+
+
+#-[Variabili create dal generatore]-------------------------------------------------
+
+«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+# impostare a true se il server prevede la session cookie valve
+jboss.sessioncookievalve = false
+«ENDIF-»
+
+# impostare a true per attivare la modalita' di sviluppo
+devmode=false
+
+# remincl cache time in millisecondi (default 24h)
+remincl.cache.time=28800000
+
+«IF isMultiPortal(this)-»
+«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code»
+# remincl resource provider portale «code»
+remincl.resource.provider.«code»=
+
+# home page del portale «code»
+portal.home.«code»=
+
+# local logout URL del portale «code»
+local.logout.url.«code» = <your_local_logout_url>
+«ENDFOREACH»
+«ELSE-»
+# remincl resource provider
+remincl.resource.provider=«getReminclResourceProvider(this)»
+
+# home page del portale
+portal.home=
+
+# local logout URL
+local.logout.url = <your_local_logout_url>
+«ENDIF-»
+
+«IF getActualSecurityModel(this).autenticationMethod!=null-»
+«EXPAND template::springmvc::security::security::templatePropsForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
+«EXPAND template::springmvc::security::security::templatePropsForAuthorization(this) FOR getActualSecurityModel(this)-»
+«ENDIF-»
+
+#-[Variabili dell'applicativo]-------------------------------------------------
+
+«IF hasGisMap(this)-»
+#-[Variabili servizio mappe]---------------------------------------------------
+#-ambiente dev
+gosgisso.java.naming.provider.url=t3://dev-wls9-02.csi.it:9107
+«LET (List[MapView])getMapsInModel() AS maps-»
+«FOREACH maps AS map-»
+gisMap.«map.mapId».user=
+gisMap.«map.mapId».password=
+«ENDFOREACH»
+«ENDLET»
+«ENDIF-»
+
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+
+«DEFINE warExcludeLibsFilte FOR GUIModel-»
+# - [war-exclude-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
+  war-exclude-libs-filter = servlet*.jar,                  \
+                            csi-tools*.jar,                \
+                            log4j*.jar,                    \
+                            xerces-*.jar,                \
+                            jaxp-*.jar,	                \
+                            «getAppServerLib(this)»*.jar«IF targetPlatform.code == TargetPlatformCodes::JBoss43-», \
+                            weblogic-7*.jar,                \
+                            weblogic-9*.jar                \
+                            «ENDIF-»
+
+# - [war-exclude-custom-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
+war-exclude-custom-libs-filter =
+«ENDPROTECT»
+«ENDDEFINE»
+

@@ -1,0 +1,54 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+«IMPORT guigen»
+
+«REM»
+**************************************************************************************************************************
+Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsistente)
+**************************************************************************************************************************
+«ENDREM»
+
+«AROUND template::common::interceptorStackPortlet FOR GUIModel»
+	«EXPAND template::struts2::configfiles::interceptorStackPortlet FOR this-»
+«ENDAROUND»
+«AROUND template::common::includeStruts FOR GUIModel»
+	«EXPAND template::struts2::configfiles::includeStruts FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::getHeaderMarkupAOP(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+	«EXPAND template::struts2::view::resourcefiles::getHeaderMarkup(model,skip_component_dir_creation) FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::getFooterMarkupAOP(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+	«EXPAND template::struts2::view::resourcefiles::getFooterMarkup(model,skip_component_dir_creation) FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::warExcludeLibsFilte FOR GUIModel»
+	«EXPAND template::struts2::build::buildProperties::warExcludeLibsFilte FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::getScriptJsFunction(GUIModel model) FOR ContentPanel»
+«EXPAND template::struts2::view::resourcefiles::getScriptJsFunction(model) FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::handleEventInternal(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
+«EXPAND template::struts2::controller::eventHandlers::handleEventInternal(model,currEventWidget,cp,contextPrefix) FOR this-»
+«ENDAROUND»
+
+«AROUND template::common::resourceStreamJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«EXPAND template::struts2::javafiles::resourceStreamJavaFile(skip_component_dir_creation) FOR this-»
+«ENDAROUND»
