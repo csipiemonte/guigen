@@ -138,14 +138,15 @@ e le limitazioni secondo i termini della Licenza.
           description="Compila tutti i sorgenti.">
 
     <echo message="===> Target: ${target}" />
-
+«LET getProperty("guigen.javac.encoding") AS javacEncoding-»
     <javac srcdir="${src}/java" destdir="${build}/classes"
            optimize="on" deprecation="on" compiler="modern"
            debug="on" debuglevel="lines,vars,source"
+           «javacEncoding.isNullOrEmpty() ? "" : "encoding=\""+ javacEncoding+"\""»
     >
       <classpath refid="library.ref" />
     </javac>
-
+«ENDLET-»
     <copy todir="${build}/classes">
       <fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*" />
     </copy>
