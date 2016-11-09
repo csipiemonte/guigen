@@ -1,0 +1,36 @@
+import guigen;
+extension template::GenericExtensions reexport;
+
+//// files & paths
+
+String getNodeConfigBasePath(GUIModel model) :
+ getProjectRootDir(model, true);
+ 
+String getWebpackConfigBasePath(GUIModel model) :
+	getProjectRootDir(model, true)+"/buildfiles"; 
+ 
+String getNodePackageFilePath(GUIModel model):
+getNodeConfigBasePath(model) + "/package.json";
+
+String getTsConfigFilePath(GUIModel model):
+getNodeConfigBasePath(model) + "/tsconfig.json";
+
+String getWebpackConfigFilePath(GUIModel model):
+getNodeConfigBasePath(model) + "/webpack.config.js";
+
+String getWebpackHelpersFilePath(GUIModel model):
+getWebpackConfigBasePath(model)+"/helpers.js";
+
+String getWebpackCommonConfigFilePath(GUIModel model):
+getWebpackConfigBasePath(model)+"/webpack.common.js";
+
+
+String getWebpackDevConfigFilePath(GUIModel model):
+getWebpackConfigBasePath(model)+"/webpack.dev.js";
+
+String getWebpackProdConfigFilePath(GUIModel model):
+getWebpackConfigBasePath(model)+"/webpack.prod.js";
+
+/// node modules versions
+
+String getAngularVersion() : "2.1.2";
