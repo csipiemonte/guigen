@@ -1,0 +1,79 @@
+import guigen;
+extension template::GenericExtensions reexport;
+
+/// string utils
+String toCamel(String s) :
+s;
+
+String removeSeparator(String s) :
+s;
+
+//// files & paths
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//// NAMING BEAN SPRING
+
+
+String springConfigurationFileName():
+	getDefaultCodServizio().toCamel()+"SpringMain.xml";
+	
+String springConfigurationFilePath():
+let actualFolderForPlatform =  "WEB-INF/classes" : 
+	getSpecificWarConfigRootDir(getDefaultCodBinding(), removeSeparator(getDefaultCodServizio().toLowerCase()))+"/"+actualFolderForPlatform+"/"+springConfigurationFileName();
+
+String springDaoBeansInternalFileName():
+	"dao-beans.xml";
+	
+String springDaoBeansInternalFilePath():
+let actualFolderForPlatform = "WEB-INF/classes" : 
+	getSpecificWarConfigRootDir(getDefaultCodBinding(), removeSeparator(getDefaultCodServizio().toLowerCase()))+"/"+actualFolderForPlatform+"/"+springDaoBeansInternalFileName();
+
+String springAppContextFileName():
+	"applicationContext.xml";
+	
+String springAppContextFilePath():
+let actualFolderForPlatform =  "WEB-INF"  :
+	getSpecificWarConfigRootDir(getDefaultCodBinding(), removeSeparator(getDefaultCodServizio().toLowerCase()))+"/"+actualFolderForPlatform+"/"+springAppContextFileName();
+
+
+String getConfigRootDir() :
+  "conf";
+
+String getDocsRootDir() :
+  "docs";
+
+String getTestDir() :
+  "test";
+  
+String getTestJavaDir() :
+  "test/java";
+
+String getWarConfigRootDir() :
+  getConfigRootDir()+"/web";
+  
+// conf/<tipobinding>/<codwar>
+String getSpecificWarConfigRootDir(String codBinding, String codWar) :
+  getWarConfigRootDir()+"/"+codBinding+"/"+codWar;
+  
+//// codici
+
+String getDefaultCodBinding() :
+"rest";
+
+String getDefaultCodServizio() :
+ "be";
+ 
+String getDefaultServiceType() :
+ "appl";
+ 
+ ///////////////////////////////////////////////////////////////////////////////////////////////
+/// NAMING PACCHETTI
+
+String getWSWarName(String codServ, String codBinding, String srvType, GUIModel model) :
+	srvType+"-"+codServ+"-"+codBinding.toLowerCase()+".war";
+
+String wsWebContext(String codServ, String codBinding, String serviceType, GUIModel model) :
+	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(codServ)+codBinding.toLowerCase().toFirstUpper();
+	
+	
+ 

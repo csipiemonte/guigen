@@ -1,0 +1,165 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::jaxrsbe::JaxrsBEExtensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+
+«REM»
+==========================================================================================================================
+Crea il descrittore di applicazione application.xml
+Crea i descrittori specifici per l'Application Server scelto (weblogic-application.xml o jboss-app.xml)
+==========================================================================================================================
+«ENDREM»
+«DEFINE applicationfiles FOR GUIModel»
+	«EXPAND applicationXmlFile FOR this»
+	«EXPAND jboss6eapApplicationXmlFile FOR this»
+«ENDDEFINE»
+
+«REM»Application descriptor per BEA WebLogic 9.2«ENDREM»
+«DEFINE applicationXmlFile FOR GUIModel»
+«FILE "conf/ear/application.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	version="1.4" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+
+	<display-name>«codComponente»</display-name>
+
+	
+  	<!-- web module relativo al web-service con codice=«getDefaultCodServizio()» e binding=«getDefaultCodBinding()» --> 
+  	<module>
+    	<web>
+      		<web-uri>«getWSWarName(getDefaultCodServizio(), getDefaultCodBinding(), getDefaultServiceType(), this)»</web-uri>
+     		<context-root>«wsWebContext(getDefaultCodServizio(), getDefaultCodBinding(), getDefaultServiceType(), this)»</context-root>
+    	</web>
+  	</module>
+ 
+ 
+
+</application>
+ «ENDFILE»
+«ENDDEFINE»
+
+«REM»Application descriptor per JBoss.6.eap«ENDREM»
+«DEFINE jboss6eapApplicationXmlFile FOR GUIModel»
+«FILE "conf/ear/jboss-deployment-structure.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+  <deployment>
+    <dependencies>
+      <module name="org.springframework.spring" export="true" meta-inf="export"/>
+    </dependencies>
+  </deployment>
+</jboss-deployment-structure>
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+«REM»
+==========================================================================================================================
+WS CXF
+Crea il deployment descriptor generico (web.xml) 
+Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml o jboss-web.xml) 
+==========================================================================================================================
+«ENDREM»
+
+«DEFINE wswebxml(GUIModel model ) FOR GUIModel»
+	«EXPAND webxmlFile(this) FOR this»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE webxmlFile(GUIModel model) FOR GUIModel»
+«FILE getSpecificWarConfigRootDir("rest", getDefaultCodServizio())+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+
+
+	<!-- <listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+    -->
+
+   <listener>
+      <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+   </listener>
+   
+	<listener>
+      <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+   </listener>
+
+   
+
+
+	«REM»	
+	«IF serviceDef.authLevel!=AuthLevelEnum::A0 && hasASAuthentication()-»
+	<!-- impostazioni di security -->
+	<security-constraint>
+		<!-- A collection of protected resources along with the access mechanism -->
+		<web-resource-collection>
+			<web-resource-name>Restricted to Secure role</web-resource-name>
+			<description>protezione «codBinding»</description>
+			<url-pattern>/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<!-- The list of roles that can access the resource. -->
+		<auth-constraint>
+			«FOREACH serviceDef.roles AS role-»
+			<role-name>«role.name»</role-name>
+			«ENDFOREACH-»
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>applications</realm-name>
+	</login-config>
+	«FOREACH serviceDef.roles AS role-»
+		<security-role>
+		<role-name>«role.name»</role-name>
+	</security-role>
+	«ENDFOREACH-»
+	«ENDIF-»
+«ENDREM»
+</web-app>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+«DEFINE jbossWebxmlFile(SOABEModel model, ServiceDef serviceDef) FOR WSBinding»
+«FILE getSpecificWarConfigRootDir("ws", removeSeparator(serviceDef.codServizio), model)+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+	«IF serviceDef.authLevel!=AuthLevelEnum::A0 && hasASAuthentication()-»
+	<security-domain>java:/jaas/services</security-domain>
+	«ELSE-»
+	<!-- NO SPECIFIC CONFIGURATION NEEDED -->
+	«ENDIF-»
+</jboss-web>
+«ENDFILE»
+«ENDDEFINE»
+«ENDREM»
+

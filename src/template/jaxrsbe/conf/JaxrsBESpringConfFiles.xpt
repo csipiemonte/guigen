@@ -1,0 +1,63 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::jaxrsbe::JaxrsBEExtensions»
+«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+
+«DEFINE springConfFiles(boolean useExternalDaoBeans) FOR GUIModel»
+«EXPAND applicationContextFile(useExternalDaoBeans) FOR this»
+«IF !useExternalDaoBeans»
+«EXPAND daoBeansFile FOR this»
+«ENDIF»
+«ENDDEFINE»
+
+«REM»Genera il file di configurazione«ENDREM»
+«DEFINE applicationContextFile(boolean useExternalDaoBeans) FOR GUIModel»
+«FILE springAppContextFilePath()»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+getDefaultCodServizio()+"beancontext")»
+	<!-- Insert here your custom Spring Beans -->				
+	«ENDPROTECT»
+	
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE daoBeansFile FOR GUIModel»
+«FILE springDaoBeansInternalFilePath()»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+getDefaultCodServizio()+"daobeans")»
+	<!-- Insert here your Spring Beans -->	
+	«ENDPROTECT»
+	
+</beans>
+«ENDFILE»
+«ENDDEFINE»

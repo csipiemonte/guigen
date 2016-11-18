@@ -1,0 +1,147 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::jaxrsbe::JaxrsBEExtensions»
+
+«REM»!!!!! andrebbero spostate in GenericExtensions!!!!«ENDREM»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+*******************************************************
+creazione del build.properties richiamato dal build ANT
+*******************************************************
+«ENDREM»
+«DEFINE buildPropertiesFiles  FOR GUIModel»
+	«EXPAND buildPropertiesFile FOR this»
+	«EXPAND buildPropertiesTemplateFile FOR this»
+«ENDDEFINE»
+
+«REM»«ENDREM»
+«DEFINE buildPropertiesFile FOR GUIModel»
+«FILE "buildfiles/build.properties"»##############################################################################
+# Build.properties
+##############################################################################
+# - Generato da SERVICEGEN.CXF, versione «getPluginVersion()»
+
+# - [Definizione del Prodotto] -----------------------------------------------
+  prodotto    = «codProdotto»
+  contesto    = «codComponente»
+  componente  = «codComponente»
+  webapp      = ${contesto}
+  version     = «versioneComponente»
+
+# - [Definizione dei files di output] ----------------------------------------
+  ear-file-name  = ${componente}srv
+  dist-file-name = ${componente}srv-${version}
+  war-file-name  = ${contesto}
+
+# - [Cartelle di build] ------------------------------------------------------
+  integration = integration
+  lib         = ${basedir}/lib
+  build       = ${basedir}/build
+  src         = ${basedir}/src
+  srcweb      = ${src}/web/${webapp}
+  srcjaws     = ${src}/web/${jawsapp}
+  conf        = ${basedir}/conf
+  dist        = ${basedir}/dist
+  docs        = ${basedir}/docs
+  temp        = ${build}/temp
+
+# - [ear-libs-filter] --------------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
+# essere inclusi all'interno dell'EAR prodotto.
+# ----------------------------------------------------------------------------
+ear-libs-filter = dummy.jar, \
+                   	util-perf-*.jar,                  \
+					cglib-*.jar,                   \
+                    commons-logging-1.1.1.jar
+                    
+
+
+
+# - [ear-custom-libs-filter] -------------------------------------------------
+# Questo filter viene utilizzato per definire JAR aggiuntivi che devono
+# essere inclusi all'interno dell'EAR prodotto.
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("ear-custom-libs-filter")»
+ear-custom-libs-filter =
+
+«ENDPROTECT»
+
+# - [war-exclude-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
+war-exclude-libs-filter = cxf*.jar,	                   \
+   							neethi*.jar,				   \
+   							util-perf-*.jar,                  \
+  							xmlschema-core*.jar,		   \
+  							wss4j-*.jar,					   \
+  							saaj-impl*.jar,				   \
+  							xmlsec-*.jar,				   \
+  							asm-*.jar,                   \
+							cglib-*.jar,                   \
+  							servlet*.jar,                  \
+                            csi-tools*.jar,                \
+                            log4j*.jar,                    \
+                            ejb*.jar,                      \
+                            spring*.jar,                   \
+                            aopalliance*.jar,              \
+                            geronimo*.jar,              \
+                            «getAppServerLib(this)»*.jar, \
+                            weblogic-7*.jar,               \
+                            weblogic-9*.jar
+                           
+
+# - [war-exclude-custom-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
+war-exclude-custom-libs-filter =
+
+«ENDPROTECT»
+
+
+# ----------------------------------------------------------------------------
+package.prefix = «getOrganizationNamePkgPrefix()».${prodotto}.${componente}
+
+ «REM»DIFFERENZIAZIONE WEBLOGIC-JBOSS«ENDREM»
+«EXPAND appServerConfigurationBuildProperties FOR this»
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE appServerConfigurationBuildProperties FOR GUIModel» 
+# - [Configurazione del Server (JBoss)] --------------------------------------
+  server = jboss
+  earLib = lib
+«ENDDEFINE»
+
+«REM»comment«ENDREM»
+«DEFINE buildPropertiesTemplateFile FOR GUIModel»
+«FILE "buildfiles/env_template.properties"»####################################################
+# «codProdotto» - «codComponente»                  #
+# ==========                                       #
+# Configurazione di ambiente: <ambiente>           #
+####################################################
+
+
+
+«ENDFILE»
+«ENDDEFINE»
