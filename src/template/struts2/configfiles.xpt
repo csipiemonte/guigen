@@ -557,7 +557,10 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			<interceptor name="methodProtection" class="«getInterceptorsJavaPackage(this)».MethodProtectionInterceptor">
 				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
 			</interceptor>
-			<interceptor name="paramsInterceptor" class="«getInterceptorsJavaPackage(this)».ParametersInterceptor"/>
+			<!-- l'esclusione dei parametri serve per evitare una XSS vulnerability -->
+			<interceptor name="paramsInterceptor" class="«getInterceptorsJavaPackage(this)».ParametersInterceptor">
+				<param name="excludeParams">actionMessages,actionErrors,fieldErrors</param>
+			</interceptor>
 			«IF targetPlatform.enableFatClient-»
 			<interceptor name="preserveUpload" class="«getInterceptorsJavaPackage(this)».PreserveUploadInterceptor">
 				<param name="startMethod">execStartUploadFile</param>
