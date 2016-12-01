@@ -18,14 +18,14 @@ String springConfigurationFileName():
 	getDefaultCodServizio().toCamel()+"SpringMain.xml";
 	
 String springConfigurationFilePath():
-let actualFolderForPlatform =  "WEB-INF/classes" : 
+let actualFolderForPlatform =  "WEB-INF" : 
 	getSpecificWarConfigRootDir(getDefaultCodBinding(), removeSeparator(getDefaultCodServizio().toLowerCase()))+"/"+actualFolderForPlatform+"/"+springConfigurationFileName();
 
 String springDaoBeansInternalFileName():
 	"dao-beans.xml";
 	
 String springDaoBeansInternalFilePath():
-let actualFolderForPlatform = "WEB-INF/classes" : 
+let actualFolderForPlatform = "WEB-INF" : 
 	getSpecificWarConfigRootDir(getDefaultCodBinding(), removeSeparator(getDefaultCodServizio().toLowerCase()))+"/"+actualFolderForPlatform+"/"+springDaoBeansInternalFileName();
 
 String springAppContextFileName():
@@ -53,7 +53,7 @@ String getWarConfigRootDir() :
   
 // conf/<tipobinding>/<codwar>
 String getSpecificWarConfigRootDir(String codBinding, String codWar) :
-  getWarConfigRootDir()+"/"+codBinding+"/"+codWar;
+  getWarConfigRootDir()+"/"+codWar+"/"+codBinding;
   
 //// codici
 
@@ -66,7 +66,29 @@ String getDefaultCodServizio() :
 String getDefaultServiceType() :
  "appl";
  
- ///////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// JAVA CLASSES
+
+String getFiltersJavaPackage(GUIModel model):
+getBaseJavaPackage(model)+".filter";
+
+String getFiltersJavaPath(GUIModel model):
+getBaseJavaSrcDir(model, true)+"/filter";
+
+String getXSRFFilterJavaClassName() :
+"XSRFProtectionFilter";
+
+String getXSRFFilterJavaClassFQN(GUIModel model) :
+getFiltersJavaPackage(model)+"."+getXSRFFilterJavaClassName();
+
+String getXSRFFilterFullPath(GUIModel model):
+getFiltersJavaPath(model)+"/"+getXSRFFilterJavaClassName()+".java";
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// NAMING PACCHETTI
 
 String getWSWarName(String codServ, String codBinding, String srvType, GUIModel model) :

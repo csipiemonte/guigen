@@ -111,7 +111,19 @@ Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml 
       <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
    </listener>
 
-   
+   <!-- filtro di protezione ad attacchi XSRF -->
+   <filter>
+		<filter-name>XSRFProtectionFilter</filter-name>
+		<filter-class>«getXSRFFilterJavaClassFQN()»</filter-class>
+		<init-param>
+    		<param-name>disabled</param-name>
+    		<param-value>false</param-value>
+  		</init-param>
+   </filter>
+   <filter-mapping>
+		<filter-name>XSRFProtectionFilter</filter-name>
+		<url-pattern>*</url-pattern>
+   </filter-mapping>
 
 
 	«REM»	

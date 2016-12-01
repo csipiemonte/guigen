@@ -291,9 +291,9 @@ e le limitazioni secondo i termini della Licenza.
 
         
 				<war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
-				     webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml"
+				     webxml="${conf}/web/${service.name}/${binding.code}/WEB-INF/web.xml"
 				     roundup="false">
-					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/">
+					<webinf dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/">
 						<include name="*.xml" />
 						<include name="*.properties" />
 						<include name="/classes/*.properties" />
@@ -303,13 +303,17 @@ e le limitazioni secondo i termini della Licenza.
 					    <include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/**"/>
 					</classes>
 					
-					<!-- in JB6.x i file di spring vanno in classes e non in WEB-INF -->
-					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes">
+		
+					<classes dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/classes">
 						<include name="*.xml"/>
 				    </classes>
 				    
 					<lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}" />
-					<lib dir="${build}/archives/${target}/" includes="«codComponente.toLowerCase()»-${service.name}-client-${service.ver}.0.jar" />
+				
+					<!-- se sono presenti risorse web statiche vengono inserite nel pacchetto
+					     es. distribuizone webpack gia' buildata della parte client di una 
+					     Single Page Application -->
+					<fileset dir="${src}/web/${service.name}/${binding.code}" includes="**"></fileset>
 				</war>
 
 	</target>
