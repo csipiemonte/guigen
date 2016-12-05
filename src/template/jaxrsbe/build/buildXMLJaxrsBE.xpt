@@ -214,6 +214,10 @@ e le limitazioni secondo i termini della Licenza.
 
 	  
 		<!-- Gestione replace delle variabile d'ambiente create dal generatore -->
+		<condition property="xsrffilter.disabled" value="false">
+		      <equals arg1="${xsrffilter.disabled}" arg2="$${xsrffilter.disabled}" />
+		</condition>
+		    <replace dir="${build}/temp/conf/web/" token="@@@XSRFFILTER.DISABLED@@@" value="${xsrffilter.disabled}"/>
 
 
 
@@ -291,7 +295,7 @@ e le limitazioni secondo i termini della Licenza.
 
         
 				<war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
-				     webxml="${conf}/web/${service.name}/${binding.code}/WEB-INF/web.xml"
+				     webxml="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/web.xml"
 				     roundup="false">
 					<webinf dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/">
 						<include name="*.xml" />
