@@ -184,7 +184,8 @@ public class «getXSRFFilterJavaClassName()» implements Filter{
 		String actualActiveToken = getActualActiveXSRFToken(session);
 		String actualRequestHeader = getActualXSRFHeader(hreq);
 		String actualRequestCookie = getActualXSRFCookie(hreq);
-		return actualRequestHeader != null && actualActiveToken != null && actualActiveToken.equals(actualRequestHeader) && actualActiveToken.contentEquals(actualRequestCookie);
+		return actualRequestHeader != null && actualActiveToken != null && 
+			actualActiveToken.equals(actualRequestHeader) && actualActiveToken.equals(actualRequestCookie);
 	}
 
 	/**
@@ -232,7 +233,7 @@ public class «getXSRFFilterJavaClassName()» implements Filter{
 	 * il meccanismo. Serve negli scenari di sviluppo in cui la parte client
 	 * non e' deployata nell'ear dei servizi
 	 */
-	private static String DISABLED_PARAM_NAME = "disabled";
+	private static final String DISABLED_PARAM_NAME = "disabled";
 	
 	@Override
 	public void init(FilterConfig cfg) throws ServletException {
