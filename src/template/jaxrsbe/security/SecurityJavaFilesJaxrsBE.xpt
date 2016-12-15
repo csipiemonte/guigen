@@ -39,6 +39,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
+import «getConstantsJavaClassFQN()»;
+
 /**
  * Il filtro agisce su tutte le richieste in input. Serve a prevenire attacchi di tipo 
  * XSRF.
@@ -52,7 +56,9 @@ import javax.servlet.http.HttpSession;
  * permette di evitare il richiamo dello strato rest al di fuori del contesto corretto.  
  */
 public class «getXSRFFilterJavaClassName()» implements Filter{
-
+	
+	final static Logger LOG = Logger.getLogger(Constants.COMPONENT_NAME);
+	
 	/**
 	 * nome dell'header XSRF che la componente client deve inserire ad ogni richiesta rest
 	 */
@@ -95,36 +101,59 @@ public class «getXSRFFilterJavaClassName()» implements Filter{
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest hreq = (HttpServletRequest)req;
-		HttpServletResponse hresp = (HttpServletResponse)resp;
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		HttpServletResponse hresp = (HttpServletResponse) resp;
 		// get current session or create a new one
 		HttpSession session = hreq.getSession();
-		if (!isDisabled){
-			if (!isRestRequest(hreq)){
-				try {
-					String newToken = createNewXSRFToken(session);
-					addXSRFCookie(hresp, newToken);
-				} catch (NoSuchAlgorithmException e) {
-					throw new ServletException(e);
-				}
-			}
-			else{ // rest request: token must be valid
-				if (isXSRFSessionAlive(session)){
-					if (validXSRFCookieAndHeader(hreq, session)){
-						//OK
-					}
-					else{
-						// ERRORE!!!
-						throw new ServletException("Invalid XSRF HEADER");
+		if (!isDisabled) {
+			LOG.debug("[XSRFProtectionFilter::dofilter() - START]");
+			if (!isRestRequest(hreq)) {
+				LOG.debug("[XSRFProtectionFilter::dofilter() - request is NOT a REST request");
+				if (!isXSRFSessionAlive(session)){
+					LOG.debug("[XSRFProtectionFilter::dofilter() - XSRF token NOT already initialized: creating new one]");
+					try {
+						String newToken = createNewXSRFToken(session);
+						addXSRFCookie(hresp, newToken);
+						LOG.debug("[XSRFProtectionFilter::dofilter() - new XSRF token created and added to session and response]");
+					} catch (NoSuchAlgorithmException e) {
+						throw new ServletException(e);
 					}
 				}
 				else{
+					LOG.debug("[XSRFProtectionFilter::dofilter() - XSRF token already initialized: nothing to do]");
+				}
+			} else { // rest request: token must be valid
+				LOG.debug("[XSRFProtectionFilter::dofilter() - request is a REST request]");
+				if (isXSRFSessionAlive(session)) {
+					LOG.debug("[XSRFProtectionFilter::dofilter() - XSRF token already initialized => must check request]");
+					if (validXSRFCookieAndHeader(hreq, session)) {
+						LOG.debug("[XSRFProtectionFilter::dofilter() - XSRF cookie&header matches in request => OK]");
+					} else {
+						LOG.error("[XSRFProtectionFilter::dofilter() - Invalid XSRF Header in request]");
+						throw new ServletException("Invalid XSRF HEADER");
+					}
+				} else {
+					LOG.error("[XSRFProtectionFilter::dofilter() - XSRF token not already initialized]");					
 					throw new ServletException("XSRF TOKEN not already initialized");
 				}
 			}
 		}
-		
+		setNoCache(hresp);
 		chain.doFilter(req, resp);
+	}
+
+	/**
+	 * E' necessario fare in modo che le risorse (pagine, etc) non siano mantenute nella
+	 * cache del browser per evitare che, ad un accesso in una sessione successiva, la fase
+	 * di ingresso (e quindi di ricreazione del token) venga bypassata. Se cio' accadesse
+	 * le richieste REST sarebbero le prime ad arrivare al server e si ricadrebbe nella 
+	 * casistica di token non ancora inizializzato.
+	 * @param response
+	 */
+	private void setNoCache(HttpServletResponse response){
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setHeader("Expires", "0"); // Proxies.
 	}
 
 	/**

@@ -70,6 +70,8 @@ String getDefaultServiceType() :
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // JAVA CLASSES
 
+//// FILTERS
+
 String getFiltersJavaPackage(GUIModel model):
 getBaseJavaPackage(model)+".filter";
 
@@ -86,6 +88,21 @@ String getXSRFFilterFullPath(GUIModel model):
 getFiltersJavaPath(model)+"/"+getXSRFFilterJavaClassName()+".java";
 
 
+//// UTIL
+String getUtilJavaPackage(GUIModel model):
+getBaseJavaPackage(model)+".util";
+
+String getUtilJavaPath(GUIModel model):
+getBaseJavaSrcDir(model, true)+"/util";
+
+String getConstantsJavaClassName() :
+"Constants";
+
+String getConstantsJavaClassFQN(GUIModel model) :
+getUtilJavaPackage(model)+"."+getConstantsJavaClassName();
+
+String getConstantsFullPath(GUIModel model):
+getUtilJavaPath(model)+"/"+getConstantsJavaClassName()+".java";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

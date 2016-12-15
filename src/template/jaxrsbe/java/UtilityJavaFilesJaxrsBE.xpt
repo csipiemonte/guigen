@@ -15,12 +15,17 @@ Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
 e le limitazioni secondo i termini della Licenza.                           
 «ENDREM»
 «IMPORT guigen»
+«EXTENSION template::jaxrsbe::JaxrsBEExtensions»
 
-«DEFINE main(boolean useExternalDaoBeans) FOR GUIModel»
-«EXPAND template::jaxrsbe::build::buildfilesJaxrsBE::buildFiles (true) FOR this»
-«EXPAND template::jaxrsbe::conf::JaxrsBEJeeConfFiles::applicationfiles FOR this»
-«EXPAND template::jaxrsbe::conf::JaxrsBEJeeConfFiles::wswebxml(this) FOR this»
-«EXPAND template::jaxrsbe::conf::JaxrsBESpringConfFiles::springConfFiles(useExternalDaoBeans) FOR this»
-«EXPAND template::jaxrsbe::security::SecurityJavaFilesJaxrsBE::securityJavaFiles FOR this»
-«EXPAND template::jaxrsbe::java::UtilityJavaFilesJaxrsBE::utilityJavaFiles FOR this»
+«DEFINE utilityJavaFiles FOR GUIModel»
+«EXPAND ConstantsJavaFile FOR this»
+«ENDDEFINE»
+
+«DEFINE ConstantsJavaFile FOR GUIModel»
+«FILE getConstantsFullPath()»package «getUtilJavaPackage()»;
+
+public class «getConstantsJavaClassName()» {
+	public final static String COMPONENT_NAME = "«this.codComponente»";
+}
+«ENDFILE»
 «ENDDEFINE»
