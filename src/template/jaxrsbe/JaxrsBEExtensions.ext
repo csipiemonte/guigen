@@ -70,6 +70,24 @@ String getDefaultServiceType() :
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // JAVA CLASSES
 
+//// BUSINESS
+String getBusinessJavaPackage(GUIModel model):
+getBaseJavaPackage(model)+".business";
+
+String getBusinessJavaPath(GUIModel model):
+getBaseJavaSrcDir(model, true)+"/business";
+
+String getSpringHelperJavaClassName() :
+"SpringApplicationContextHelper";
+
+String getSpringHelperJavaClassFQN(GUIModel model) :
+getBusinessJavaPackage(model)+"."+getSpringHelperJavaClassName();
+
+String getSpringHelperFullPath(GUIModel model):
+getBusinessJavaPath(model)+"/"+getSpringHelperJavaClassName()+".java";
+
+
+
 //// FILTERS
 
 String getFiltersJavaPackage(GUIModel model):

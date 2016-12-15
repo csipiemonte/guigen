@@ -19,6 +19,7 @@ e le limitazioni secondo i termini della Licenza.
 
 «DEFINE utilityJavaFiles FOR GUIModel»
 «EXPAND ConstantsJavaFile FOR this»
+«EXPAND SpringHelperJavaFile FOR this»
 «ENDDEFINE»
 
 «DEFINE ConstantsJavaFile FOR GUIModel»
@@ -26,6 +27,35 @@ e le limitazioni secondo i termini della Licenza.
 
 public class «getConstantsJavaClassName()» {
 	public final static String COMPONENT_NAME = "«this.codComponente»";
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE SpringHelperJavaFile FOR GUIModel»
+«FILE getSpringHelperFullPath()»package «getBusinessJavaPackage()»;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+public class «getSpringHelperJavaClassName()» implements ApplicationContextAware {
+
+	private static ApplicationContext appContext;
+
+	// Private constructor prevents instantiation from other classes
+        private SpringApplicationContextHelper() {}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		appContext = applicationContext;
+
+	}
+
+	public static Object getBean(String beanName) {
+		return appContext.getBean(beanName);
+	}
+
 }
 «ENDFILE»
 «ENDDEFINE»
