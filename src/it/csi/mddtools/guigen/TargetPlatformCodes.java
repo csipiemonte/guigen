@@ -57,7 +57,15 @@ public enum TargetPlatformCodes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JBOSS43(1, "JBoss43", "JBoss43");
+	JBOSS43(1, "JBoss43", "JBoss43"), /**
+	 * The '<em><b>JBoss EAP64</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #JBOSS_EAP64_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	JBOSS_EAP64(2, "JBossEAP64", "JBossEAP64");
 
 	/**
 	 * The '<em><b>WLS92</b></em>' literal value.
@@ -90,6 +98,21 @@ public enum TargetPlatformCodes implements Enumerator {
 	public static final int JBOSS43_VALUE = 1;
 
 	/**
+	 * The '<em><b>JBoss EAP64</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>JBoss EAP64</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #JBOSS_EAP64
+	 * @model name="JBossEAP64"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int JBOSS_EAP64_VALUE = 2;
+
+	/**
 	 * An array of all the '<em><b>Target Platform Codes</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -99,6 +122,7 @@ public enum TargetPlatformCodes implements Enumerator {
 		new TargetPlatformCodes[] {
 			WLS92,
 			JBOSS43,
+			JBOSS_EAP64,
 		};
 
 	/**
@@ -157,6 +181,7 @@ public enum TargetPlatformCodes implements Enumerator {
 		switch (value) {
 			case WLS92_VALUE: return WLS92;
 			case JBOSS43_VALUE: return JBOSS43;
+			case JBOSS_EAP64_VALUE: return JBOSS_EAP64;
 		}
 		return null;
 	}

@@ -23,6 +23,24 @@ import guigen;
 import ecore;
 
 ////////////////////////////////////////////////////////////
+/// individuazione della target platform
+////////////////////////////////////////////////////////////
+boolean isJBossPlatform(GUIModel model) :
+model.targetPlatform != null && 
+(model.targetPlatform.code == TargetPlatformCodes::JBoss43 || 
+ model.targetPlatform.code == TargetPlatformCodes::JBossEAP64);
+ 
+boolean isJBoss43Platform(GUIModel model) : 
+model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes::JBoss43;
+
+boolean isJBossEAP64Platform(GUIModel model) : 
+model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes::JBossEAP64;
+
+ 
+ boolean isWeblogicPlatform(GUIModel model) :
+ model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes::WLS92;
+
+////////////////////////////////////////////////////////////
 /// Estensioni java indipendenti dalla piattaforma target //
 ////////////////////////////////////////////////////////////
 
@@ -76,9 +94,9 @@ String getIvyConfFileName(GUIModel model, boolean omit_root) :
 	getBuildfilesDir(model, omit_root) + "/ivyconf.xml";
 
 String getAppServerLib(GUIModel model) :
-	if ( model.targetPlatform.code == TargetPlatformCodes::JBoss43 ) then
+	if (isJBossPlatform(model) ) then
 		"jboss"
-	else if ( model.targetPlatform.code == TargetPlatformCodes::WLS92 ) then
+	else if ( isWeblogicPlatform(model) ) then
 		"weblogic";
 
 
@@ -88,9 +106,9 @@ String getConfigRootDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/conf";
 
 String getAppServerConfigFile(GUIModel model) :
-	if ( model.targetPlatform.code == TargetPlatformCodes::JBoss43 ) then
+	if (isJBossPlatform(model)) then
 		"jboss-web"
-	else if ( model.targetPlatform.code == TargetPlatformCodes::WLS92 ) then
+	else if ( isWeblogicPlatform(model)) then
 		"weblogic";
 
 

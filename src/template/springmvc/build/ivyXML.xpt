@@ -250,11 +250,11 @@ IVY FILES (gestione delle dipendenze)
 
 «REM»Import delle librerie specifiche dell'Application Server (JBoss o WebLogic)«ENDREM»
 «DEFINE appServerLibsIvy FOR GUIModel»
-«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+«IF isJBossPlatform() -»
 <dependency org="others" name="jboss" rev="4.3.0">
 	<artifact name="jboss-j2ee-4.3.0" type="jar" />
 </dependency>
-«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+«ELSEIF isWeblogicPlatform() -»
 <dependency org="sun" name="ejb" rev="2.1"/>
 <dependency org="sun" name="jms" rev="1.1"/>		
 <dependency org="sun" name="jta" rev="1.0.1"/>

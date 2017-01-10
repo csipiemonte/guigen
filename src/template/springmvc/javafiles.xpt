@@ -66,7 +66,7 @@ e le limitazioni secondo i termini della Licenza.
 	«IF isMultiPortal(this)»
 		«EXPAND multiPortal::multiPortalClassesFiles(skip_component_dir_creation) FOR this»
 	«ENDIF»
-	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+	«IF isJBossPlatform()»
 		«EXPAND EncodingFixFilter FOR this»
 	«ENDIF»
 	

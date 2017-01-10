@@ -88,7 +88,7 @@ e le limitazioni secondo i termini della Licenza.
                     csi-rmi-1.4.5.jar                      \
                     csi-ejb*-1.4.5.jar                     \
                     iridev2*.jar                           \
-                    «IF getActualSecurityModel(this)!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-»
+                    «IF getActualSecurityModel(this)!=null && isJBossPlatform()-»
                     weblogic-client*.jar                   \
                     «ENDIF-»
                     custom-component-attr-1.0.3.jar
@@ -120,11 +120,11 @@ remincl.cache.time.default=28800000
 
 «REM»Build properties: configurazione del server«ENDREM»
 «DEFINE appServerConfigurationBuildProperties FOR GUIModel»
-«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+«IF isJBossPlatform() -»
 # - [Configurazione del Server (JBoss)] --------------------------------------
   server = jboss
   earLib = lib
-«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+«ELSEIF isWeblogicPlatform() -»
 # - [Configurazione del Server (WebLogic)] -----------------------------------
   server = weblogic
   earLib = APP-INF/lib
@@ -146,7 +146,7 @@ nome.ambiente=<ambiente>
 
 #-[Variabili create dal generatore]-------------------------------------------------
 
-«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«IF isJBossPlatform()-»
 # impostare a true se il server prevede la session cookie valve
 jboss.sessioncookievalve = false
 «ENDIF-»
@@ -218,7 +218,7 @@ gisMap.«map.mapId».password=
                             log4j*.jar,                    \
                             xerces-*.jar,                \
                             jaxp-*.jar,	                \
-                            «getAppServerLib(this)»*.jar«IF targetPlatform.code == TargetPlatformCodes::JBoss43-», \
+                            «getAppServerLib(this)»*.jar«IF isJBossPlatform()-», \
                             weblogic-7*.jar,                \
                             weblogic-9*.jar                \
                             «ENDIF-»

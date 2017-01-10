@@ -8649,6 +8649,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(targetPlatformCodesEEnum, TargetPlatformCodes.class, "TargetPlatformCodes");
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WLS92);
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS43);
+		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS_EAP64);
 
 		initEEnum(messageSeverityEEnum, MessageSeverity.class, "MessageSeverity");
 		addEEnumLiteral(messageSeverityEEnum, MessageSeverity.INFO);

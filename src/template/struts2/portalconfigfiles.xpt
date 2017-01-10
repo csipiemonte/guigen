@@ -318,11 +318,11 @@ FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
 
 «REM»Genera i files di configurazione specifici per gli application server «ENDREM»
 «DEFINE appServerConfigurationFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43»
+	«IF isJBossPlatform(this)»
 		«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND jbossWebContextDescriptorFile(skip_component_dir_creation) FOR this»
-	«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92»
+	«ELSEIF isWeblogicPlatform(this)»
 		«EXPAND wlEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND wlWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 	«ENDIF»
