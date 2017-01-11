@@ -213,14 +213,18 @@ gisMap.«map.mapId».password=
 # venire inclusi all'interno del WAR.
 # ----------------------------------------------------------------------------
 «REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
-  war-exclude-libs-filter = servlet*.jar,                  \
+ war-exclude-libs-filter = servlet*.jar,                  \
                             csi-tools*.jar,                \
                             log4j*.jar,                    \
                             xerces-*.jar,                \
                             jaxp-*.jar,	                \
-                            «getAppServerLib(this)»*.jar«IF isJBossPlatform()-», \
+                            «getAppServerLib(this)»*.jar«IF isJBoss43Platform(this)-», \
                             weblogic-7*.jar,                \
                             weblogic-9*.jar                \
+                            «ENDIF-»«IF isJBossEAP64Platform(this)-», \
+                            weblogic-7*.jar,                \
+                            weblogic-9*.jar                \
+                            activation-1.0.2.jar
                             «ENDIF-»
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------

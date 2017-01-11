@@ -217,10 +217,15 @@ gisMap.«map.mapId».password=
                             log4j*.jar,                    \
                             xerces-*.jar,                \
                             jaxp-*.jar,	                \
-                            «getAppServerLib(this)»*.jar«IF isJBossPlatform(this)-», \
+                            «getAppServerLib(this)»*.jar«IF isJBoss43Platform(this)-», \
                             weblogic-7*.jar,                \
                             weblogic-9*.jar                \
+                            «ENDIF-»«IF isJBossEAP64Platform(this)-», \
+                            weblogic-7*.jar,                \
+                            weblogic-9*.jar                \
+                            activation-1.0.2.jar
                             «ENDIF-»
+                            
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
