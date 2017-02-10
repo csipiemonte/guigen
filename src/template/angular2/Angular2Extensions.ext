@@ -1,7 +1,10 @@
 import guigen;
 extension template::GenericExtensions reexport;
+extension template::angular2::SymbolExtensions reexport;
 
+//////////////////////////////////////////////////
 //// files & paths
+//////////////////////////////////////////////////
 
 String getNodeConfigBasePath(GUIModel model) :
  getProjectRootDir(model, true);
@@ -31,7 +34,190 @@ getWebpackConfigBasePath(model)+"/webpack.dev.js";
 String getWebpackProdConfigFilePath(GUIModel model):
 getWebpackConfigBasePath(model)+"/webpack.prod.js";
 
+
+String getSrcBasePath(GUIModel model) :
+	"src/web";
+	
+String getSrcAppPath(GUIModel model) :
+	getSrcBasePath(model)+"/app";
+			
+
+String getDTOBaseSrcDir(GUIModel model) :
+	getSrcAppPath(model)+"/model";
+
+String getDTOClassName(ComplexType ct) :
+	ct.name.toFirstUpper();
+
+//String getFQNDTOClassName(ComplexType ct, GUIModel model) :
+//	getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg(ct,false,true)+getDTOClassName(ct);
+	
+String getFullDTOClassFile(ComplexType ct, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(ct,false,true)+getDTOClassName(ct).camelCase2KebabCase()+".ts";	
+
+
+String getModelDTOClassName(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
+    ( forMenu? "GlobalMenuModel":
+    	(forHome? "GlobalHomeModel": cp.name.toFirstUpper()+"Model") 
+    );
+
+//String getModelDTOFQN(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
+//	getDTOBaseJavaPackage(model) + "." +getAppModuleAsPkg(cp,false,true) + getModelDTOClassName(cp, forMenu, forHome, model);
+
+String getFullModelDTOClassFile(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getAppModuleAsFolder(cp,false, true)+getModelDTOClassName(cp, forMenu, forHome, model).camelCase2KebabCase()+".ts";
+
+String getUDTClassName(SimpleType t) : 
+	if (t.userDefined)then 
+		"UDT"+t.name 
+	else
+		"<<errore getUDT ClassName: "+t.name+" non � userDefined!>>";
+
+// !!! per or amantenuto perche' serve in ID reg.protetta 
+String getUDTFQN(SimpleType t, GUIModel model) :
+		getTypeNSAsPkg(t,false,true)+getUDTClassName(t);
+		
+String getFullUDTClassFile(SimpleType t, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(t,false,true)+getUDTClassName(t)+".java";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Type Mapping
+
+String getTypeNSAsPkg(Type ct, boolean prependDot, boolean appendDot) : 
+	let parent = ct.eContainer :
+		(parent.metaType==TypeNamespace ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );		
+
+String getTypeNSAsFolder(Type ct, boolean prependDot, boolean appendDot) : 
+	let parent = ct.eContainer :
+		(parent.metaType==TypeNamespace ? (prependDot ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "/" :"") : "" );		
+
+String getAppModuleAsPkg(ContentPanel cp, boolean prependDot, boolean appendDot) : 
+	let parent = cp.eContainer :
+		(parent.metaType==AppModule ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );
+		
+String getAppModuleAsFolder(ContentPanel cp, boolean prependSlash, boolean appendSlash) : 
+	let parent = cp.eContainer :
+		(parent.metaType==AppModule ? (prependSlash ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendSlash? "/": "") : "" );
+
+
+/// mapping di tipi model -> js
+String toJsSimpleType(Type type) :
+	let code = ((SimpleType)type).code :
+	let nillable =  ((SimpleType)type).nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  		(nillable ? "number" : "number")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  		(nillable ? "string" : "string")
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  		(nillable ? "number" : "number")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  		(nillable ? "number" : "number")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  		(nillable ? "number" : "number")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  		(nillable ? "boolean" : "boolean")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  		(nillable ? "string" : "string")
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  		(nillable ? "string" : "string")
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  		(nillable ? "string" : "string")
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  		(nillable ? "byte" : "byte")
+  	else if (code == guigen::SimpleTypeCodes::TREE_NODE) then
+  		"it.csi.custom.component.tree.base.TreeNode"
+	else 
+  		"???";
+
+String toJsSimpleUDType(SimpleType t, GUIModel model) :
+	getUDTClassName(t);
+
+String toJsType(Type type, GUIModel model) :
+	if (type==null) then
+		"void"
+	else if (type.metaType==SimpleType && !((SimpleType)type).userDefined) then
+		toJsSimpleType(type)
+	else if (type.metaType==SimpleType && ((SimpleType)type).userDefined) then
+		toJsSimpleUDType((SimpleType)type, model)		
+	else if (type.metaType==ComplexType && ((ComplexType)type).typeAnnotation != null && ((ComplexType)type).typeAnnotation.size > 0) then
+		((ComplexType)type).typeAnnotation.get(0).fqn
+	else if (type.metaType==ComplexType) then
+//		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg((ComplexType)type,false,true)+type.name.toFirstUpper()
+		type.name.toFirstUpper() 
+	else 
+		"Array<"+toJsType(((TypedArray)type).componentType, model)+">";
+
+String defaultInitVal(Type type, GUIModel model) :
+	if(type==null) then
+	  "null"
+	else if(type.metaType==SimpleType && !((SimpleType)type).userDefined) then
+	  defaultSimpleInitVal(type)
+	else if(type.metaType==SimpleType && ((SimpleType)type).userDefined) then
+	  "null"
+	else if(type.metaType==TypedArray) then
+	  "null"
+	else
+	  "null";
+
+String defaultSimpleInitVal(Type type) :
+	let code = ((SimpleType)type).code :
+	let nillable =  ((SimpleType)type).nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  		(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  		(nillable ? "null" : "null")
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  		(nillable ? "null" : "0")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  		(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  		(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  		(nillable ? "null" : "false")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  		(nillable ? "null" : "null")
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  		(nillable ? "null" : "null")
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  		(nillable ? "null" : "null")
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  		(nillable ? "0" : "0")
+	else 
+  		"???";
+
+
+SimpleType getWrappedTypeFromSimpleType(SimpleType s) :
+	let tw = new SimpleType :
+	tw.setCode(s.code) ->
+	tw.setNillable(true) ->
+	tw;
+
+boolean typeHandleNullValue(SimpleType type) :
+	let code = ((SimpleType)type).code :
+	let nillable = ((SimpleType)type).nillable :
+	nillable || (code == guigen::SimpleTypeCodes::STRING)   ||
+  				(code == guigen::SimpleTypeCodes::DATE)     ||
+  				(code == guigen::SimpleTypeCodes::DATETIME) ||
+  				(code == guigen::SimpleTypeCodes::HOURS)    ||
+  				(code == guigen::SimpleTypeCodes::TREE_NODE);
+
+boolean jsonBasedType(Type type) :
+	false;
+	
+boolean jsonBasedType(ComplexType type) :
+	let ct = (ComplexType)type :
+	let fqnAnnotation = ct.typeAnnotation.selectFirst(ta|ta.language=="java").fqn :
+		(fqnAnnotation != null && fqnAnnotation == "it.csi.jeegia.jeegfw.dto.jeegweb.query.BaseResultDatarow")  
+	;
+
+boolean jsonBasedType(TypedArray type) :
+	jsonBasedType(type.componentType);
+
+
+/////////////////////////////////////////
 /// node modules versions
+/////////////////////////////////////////
 
 String getAngularVersion() : "~2.3.0";
 String getTypeScriptVersion() : "~2.0.10";
