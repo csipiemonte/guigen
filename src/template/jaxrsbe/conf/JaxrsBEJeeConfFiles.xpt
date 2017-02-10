@@ -125,7 +125,9 @@ Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml 
 		<url-pattern>*</url-pattern>
    </filter-mapping>
 
-
+  «IF getActualSecurityModel() != null && getActualSecurityModel().autenticationMethod != null»
+  «EXPAND template::jaxrsbe::security::IrideAdapterFilterJaxrsBE::authenticationFilterConfig(this) FOR getActualSecurityModel().autenticationMethod» 
+  «ENDIF»
 	«REM»	
 	«IF serviceDef.authLevel!=AuthLevelEnum::A0 && hasASAuthentication()-»
 	<!-- impostazioni di security -->

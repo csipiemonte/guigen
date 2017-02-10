@@ -214,11 +214,20 @@ e le limitazioni secondo i termini della Licenza.
 
 	  
 		<!-- Gestione replace delle variabile d'ambiente create dal generatore -->
+		
+		<!-- disabilitazione del filtro di XSRF -->
 		<condition property="xsrffilter.disabled" value="false">
 		      <equals arg1="${xsrffilter.disabled}" arg2="$${xsrffilter.disabled}" />
 		</condition>
 		    <replace dir="${build}/temp/conf/web/" token="@@@XSRFFILTER.DISABLED@@@" value="${xsrffilter.disabled}"/>
 
+«IF this.getActualSecurityModel()!= null && getActualSecurityModel().autenticationMethod != null-»
+		<!-- modalita' di sviluppo del filtro IDAdapter -->
+		<condition property="idadapterfilter.devmode" value="false">
+		      <equals arg1="${idadapterfilter.devmode}" arg2="$${idadapterfilter.devmode}" />
+		</condition>
+		    <replace dir="${build}/temp/conf/web/" token="@@@IDADAPTERFILTER.DEVMODE@@@" value="${idadapterfilter.devmode}"/>
+«ENDIF-»
 
 
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»

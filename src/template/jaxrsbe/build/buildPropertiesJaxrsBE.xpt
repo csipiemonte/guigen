@@ -92,6 +92,7 @@ war-exclude-libs-filter = cxf*.jar,	                   \
    							neethi*.jar,				   \
    							util-perf-*.jar,                  \
   							xmlschema-core*.jar,		   \
+  							jaxp*, \
   							wss4j-*.jar,					   \
   							saaj-impl*.jar,				   \
   							xmlsec-*.jar,				   \
@@ -101,13 +102,18 @@ war-exclude-libs-filter = cxf*.jar,	                   \
                             csi-tools*.jar,                \
                             log4j*.jar,                    \
                             ejb*.jar,                      \
+                            jms*.jar, \
+                            jndi*.jar, \
+                            jaas*.jar, \
                             spring*.jar,                   \
                             aopalliance*.jar,              \
+                            activation*.jar, \
                             geronimo*.jar,              \
-                            «getAppServerLib(this)»*.jar, \
-                            weblogic-7*.jar,               \
-                            weblogic-9*.jar
-                           
+                            jboss*.jar, \
+                            weblogic-7*.jar,            \
+                            weblogic-9*.jar, \
+                            weblogic-client-3.0.0.jar, \
+                            xerces-*.jar \
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
@@ -144,6 +150,13 @@ package.prefix = «getOrganizationNamePkgPrefix()».${prodotto}.${componente}
 # impostare a true nel caso in cui si debba disabilitare 
 # la protezione XSRF
 xsrffilter.disabled=false
+
+«IF this.getActualSecurityModel()!= null && getActualSecurityModel().autenticationMethod != null-»
+# impostare a true per permettere il passaggio di un finto header shibboleth
+# tramite request parameter (modalita' di sviluppo in assenza di configurazione
+# effettiva)
+idadapterfilter.devmode=false
+«ENDIF»
 
 «ENDFILE»
 «ENDDEFINE»

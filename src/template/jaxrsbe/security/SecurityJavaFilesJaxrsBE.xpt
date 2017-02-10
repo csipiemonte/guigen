@@ -19,6 +19,11 @@ e le limitazioni secondo i termini della Licenza.
 
 «DEFINE securityJavaFiles FOR GUIModel»
 «EXPAND XSRFFilterJavaFile FOR this»
+«LET getActualSecurityModel().autenticationMethod AS currAuth»
+«IF currAuth != null»
+«EXPAND template::jaxrsbe::security::IrideAdapterFilterJaxrsBE::IrideIdMaterializerFilter(this) FOR currAuth»
+«ENDIF»
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE XSRFFilterJavaFile FOR GUIModel»
