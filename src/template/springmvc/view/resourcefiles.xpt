@@ -986,6 +986,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «ENDIF-»
 <s:submit name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»"
 	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)»
+	«IF !this.tooltip.isNullOrEmpty()-»title="«this.tooltip»"«ENDIF-»
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
@@ -1003,6 +1004,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «ENDIF-»
 <s:submit name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»"
 	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)»
+	«IF !this.tooltip.isNullOrEmpty()-»title="«this.tooltip»"«ENDIF-»
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
