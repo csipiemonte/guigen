@@ -50,6 +50,9 @@ String getDTOClassName(ComplexType ct) :
 
 //String getFQNDTOClassName(ComplexType ct, GUIModel model) :
 //	getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg(ct,false,true)+getDTOClassName(ct);
+
+String getTypeNamespaceIndexFile(TypeNamespace tns, GUIModel model):
+	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(tns,false,true)+"/index.ts";
 	
 String getFullDTOClassFile(ComplexType ct, GUIModel model) :
 	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(ct,false,true)+getDTOClassName(ct).camelCase2KebabCase()+".ts";	
@@ -90,7 +93,10 @@ String getTypeNSAsPkg(Type ct, boolean prependDot, boolean appendDot) :
 
 String getTypeNSAsFolder(Type ct, boolean prependDot, boolean appendDot) : 
 	let parent = ct.eContainer :
-		(parent.metaType==TypeNamespace ? (prependDot ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "/" :"") : "" );		
+		(parent.metaType==TypeNamespace ? (prependDot ? "/" :"")+((TypeNamespace)parent).name.toLowerCase()+(appendDot ? "/" :"") : "" );		
+
+String getTypeNSAsFolder(TypeNamespace tns, boolean prependDot, boolean appendDot) : 
+		(prependDot ? "/" :"")+tns.name.toLowerCase()+(appendDot ? "/" :"")  ;		
 
 String getAppModuleAsPkg(ContentPanel cp, boolean prependDot, boolean appendDot) : 
 	let parent = cp.eContainer :

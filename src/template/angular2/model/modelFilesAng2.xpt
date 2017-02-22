@@ -40,8 +40,26 @@ e le limitazioni secondo i termini della Licenza.
 «ENDREM»
 «ENDDEFINE»
 
+
+«REM»file di index per classi«ENDREM»
+«DEFINE modelIndexFile(GUIModel model) FOR TypeNamespace»
+«FILE getTypeNamespaceIndexFile(model)»
+«LET types.typeSelect(ComplexType) AS complexTypes-»
+«FOREACH complexTypes AS currComplexType-»
+export * from './«currComplexType.name.camelCase2KebabCase()»';
+«ENDFOREACH-»
+«ENDLET-»
+«LET types.typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-»
+«FOREACH udtTypes AS currUDTType-»
+export * from './«currUDTType.name.camelCase2KebabCase()»';
+«ENDFOREACH-»
+«ENDLET-»
+«ENDFILE»
+«ENDDEFINE»
+
 «REM»un file con un namespace per pogni TypeNamespace«ENDREM»
 «DEFINE modelClasses(GUIModel model) FOR TypeNamespace»
+«EXPAND modelIndexFile(model) FOR this»
 «LET types.typeSelect(ComplexType) AS complexType-»
 «EXPAND modelClass(model) FOREACH complexType-»
 «ENDLET-»
@@ -202,7 +220,7 @@ import {«((ComplexType)currType).getDTOClassName()»} from '../«currTNS.name»
 «REM»comment«ENDREM»
 «DEFINE modelClass(GUIModel model) FOR ComplexType»
 «REM»genero il dto solo se non ho annotazioni«ENDREM»
-«IF this.typeAnnotation == null || this.typeAnnotation.size == 0»
+«REM»«IF this.typeAnnotation == null || this.typeAnnotation.size == 0»«ENDREM»
 «FILE getFullDTOClassFile(model)»
 /**
  * DTO relativo al ComplexType «name».
@@ -215,7 +233,7 @@ export class «getDTOClassName(this)» «IF extends!=null» extends «extends.to
 «EXPAND property(model) FOREACH this.fields-»		
 }
 «ENDFILE»
-«ENDIF»
+«REM»«ENDIF»«ENDREM»
 «ENDDEFINE»
 
 
