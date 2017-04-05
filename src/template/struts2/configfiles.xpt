@@ -232,6 +232,15 @@ e le limitazioni secondo i termini della Licenza.
 		<listener-class>«getBaseJavaPackage() + ".util.SessionListener"»</listener-class>
 	</listener>
 	
+	«IF isJBoss43Platform() || isWeblogicPlatform()-»
+	<!-- necessario per proteggere l'applicazione da vulnerabilita' del content-type
+	     su struts2 2.3.24 (per Java5) -->
+	<filter>
+		<filter-name>ContentTypeValidatorFilter</filter-name>
+		<filter-class>«getContentTypeValidatorFilterFQN()»</filter-class>
+	</filter>
+	«ENDIF-»
+	
 	<filter>
 		<filter-name>ResponseOverrideFilter</filter-name>
 		<filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
@@ -259,6 +268,15 @@ e le limitazioni secondo i termini della Licenza.
 		<filter-name>Session Guard</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
+	
+	«IF isJBoss43Platform() || isWeblogicPlatform()»
+	<!-- solo per Java5 -->
+	<filter-mapping>
+		<filter-name>ContentTypeValidatorFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	«ENDIF»
+	
 	«IF isJBossPlatform(this)»
 	<filter-mapping>
 		<filter-name>EncodingFixFilter</filter-name>

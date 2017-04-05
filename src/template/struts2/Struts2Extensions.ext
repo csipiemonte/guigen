@@ -416,7 +416,17 @@ String getStrutsAbstractCPActionFQN(GUIModel model) :
 
 String getStrutsAbstractCPActionJavaFile(GUIModel model, boolean omit_root) :
 	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsAbstractCPActionClassName(model) + ".java";
+
  
+String getContentTypeValidatorFilterClassName() :
+	"ContentTypeValidatorFilter";
+
+String getContentTypeValidatorFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getContentTypeValidatorFilterClassName();
+	
+String getContentTypeValidatorFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getContentTypeValidatorFilterClassName() + ".java";
+
 
 
 String getIrideIdAdapterFilterClassName() :
