@@ -43,7 +43,12 @@ e le limitazioni secondo i termini della Licenza.
 
 # - [Definizione dei files di output] ----------------------------------------
   ear-file-name  = ${componente}srv
-  dist-file-name = ${componente}srv-${version}
+  «LET getProperty("guigen.overridden.tar.filename.prefix").isNullOrEmpty() ? "${componente}srv" : getProperty("guigen.overridden.tar.filename.prefix") AS actualDistFilePrefix-»
+  «IF !getProperty("guigen.overridden.tar.filename.prefix").isNullOrEmpty()-»
+  # il nome del tar e' forzato
+  «ENDIF-»
+  dist-file-name = «actualDistFilePrefix»-${version}
+  «ENDLET-»
   war-file-name  = ${contesto}
 
 # - [Cartelle di build] ------------------------------------------------------
