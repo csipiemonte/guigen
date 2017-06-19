@@ -172,9 +172,17 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 «ENDDEFINE»
 
 «DEFINE getSecurityToken FOR ShibbolethSSO»
-	public String getToken(HttpServletRequest httpreq){
-		String marker = (String)httpreq.getHeader(AUTH_ID_MARKER);
-		return marker;
+	public String getToken(HttpServletRequest httpreq) {
+		String marker = (String) httpreq.getHeader(AUTH_ID_MARKER);
+		try {
+			// gestione dell'encoding
+			String decodedMarker = new String(marker.getBytes("ISO-8859-1"),"UTF-8");
+			return decodedMarker;
+		} catch (java.io.UnsupportedEncodingException e) {
+			// se la decodifica non funziona comunque sempre meglio restituire 
+			// il marker originale non decodificato
+			return marker;
+		}
 	}
 «ENDDEFINE»
 

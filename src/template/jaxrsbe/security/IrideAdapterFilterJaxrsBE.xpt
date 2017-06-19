@@ -189,7 +189,15 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 			return getTokenDevMode(httpreq);
 		}
 		else{
-			return marker;
+			try {
+				// gestione dell'encoding
+				String decodedMarker = new String(marker.getBytes("ISO-8859-1"),"UTF-8");
+				return decodedMarker;
+			} catch (java.io.UnsupportedEncodingException e) {
+				// se la decodifica non funziona comunque sempre meglio restituire 
+				// il marker originale non decodificato
+				return marker;
+			}
 		}
 	}
 	
