@@ -32,44 +32,80 @@ e le limitazioni secondo i termini della Licenza.
   "licenses": [
   ],
     "dependencies": {
+    "@angular/animations": "«getAngularVersion()»",
     "@angular/common": "«getAngularVersion()»",
     "@angular/compiler": "«getAngularVersion()»",
+    "@angular/compiler-cli": "«getAngularVersion()»",
     "@angular/core": "«getAngularVersion()»",
     "@angular/forms": "«getAngularVersion()»",
     "@angular/http": "«getAngularVersion()»",
     "@angular/platform-browser": "«getAngularVersion()»",
     "@angular/platform-browser-dynamic": "«getAngularVersion()»",
-    "@angular/router": "~3.4.0",
+    "@angular/platform-server": "«getAngularVersion()»",
+    "@angular/router": "«getAngularVersion()»",
+    "@angular/tsc-wrapped": "«getAngularVersion()»",
+    "@angular/upgrade": "«getAngularVersion()»",
+    "angular-in-memory-web-api": "~0.3.2",
     "core-js": "^2.4.1",
-    "rxjs": "5.0.1",
-    "zone.js": "^0.7.4"
+    "rxjs": "^5.1.0",
+    "systemjs": "0.19.39",
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@types/node": "^6.0.46",
+    "@types/angular": "^1.5.16",
+    "@types/angular-animate": "^1.5.5",
+    "@types/angular-cookies": "^1.4.2",
+    "@types/angular-mocks": "^1.5.5",
+    "@types/angular-resource": "^1.5.6",
+    "@types/angular-route": "^1.3.2",
+    "@types/angular-sanitize": "^1.3.3",
     "@types/jasmine": "2.5.36",
-    "angular2-template-loader": "^0.4.0",
-    "awesome-typescript-loader": "^2.2.4",
-    "css-loader": "^0.23.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.15.0",
-    "jasmine-core": "^2.4.1",
-    "karma": "^1.2.0",
+    "@types/node": "^6.0.45",
+    "babel-cli": "^6.16.0",
+    "babel-preset-angular2": "^0.0.2",
+    "babel-preset-es2015": "^6.16.0",
+    "canonical-path": "0.0.2",
+    "concurrently": "^3.0.0",
+    "http-server": "^0.9.0",
+    "jasmine": "~2.4.1",
+    "jasmine-core": "~2.4.1",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
+    "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.2",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.8.0",
-    "null-loader": "^0.1.1",
+    "lite-server": "^2.2.2",
+    "lodash": "^4.16.2",
     "phantomjs-prebuilt": "^2.1.7",
-    "raw-loader": "^0.5.1",
-    "rimraf": "^2.5.2",
-    "style-loader": "^0.13.1",
+    "protractor": "~5.1.0",
+    "rollup": "^0.41.6",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "2.0.0",
+    "rollup-plugin-uglify": "^1.0.1",
+    "source-map-explorer": "^1.3.2",
+    "tslint": "^3.15.1",
     "typescript": "«getTypeScriptVersion()»",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.0"
-  }
+    "@angular/cli": "^1.2.0",
+    "ts-node": "~3.0.4",
+    "angular2-template-loader": "^0.6.0",
+    "awesome-typescript-loader": "^3.0.4",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "2.0.0-beta.5",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.16.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.1",
+    "null-loader": "^0.1.1",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.4",
+    "style-loader": "^0.13.1",
+    "webpack": "2.2.1",
+    "webpack-dev-server": "2.4.1",
+    "webpack-merge": "^3.0.0"
+  },
+  "repository": {}
 }
 «ENDFILE»
 
@@ -81,11 +117,20 @@ e le limitazioni secondo i termini della Licenza.
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es2015", "dom"],
+    "lib": [ "es2015", "dom" ],
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
-  }
+    "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": [
+      "./node_modules/@types/"
+    ]
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules/*",
+    "**/*-aot.ts"
+  ]
 }
+
 «ENDFILE»
 
 «FILE getWebpackConfigFilePath()»
@@ -162,37 +207,50 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.ts']
+    extensions: ['.js', '.ts']
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
-        loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+        loaders: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: { configFileName: helpers.root('', 'tsconfig.json') }
+          } , 'angular2-template-loader'
+        ]
       },
       {
         test: /\.html$/,
-        loader: 'html'
+        loader: 'html-loader'
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file?name=/assets/[name].[hash].[ext]'
+        loader: 'file-loader?name=assets/[name].[hash].[ext]'
       },
       {
         test: /\.css$/,
         exclude: helpers.root('src', 'web/app'),
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+        loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap' })
       },
       {
         test: /\.css$/,
         include: helpers.root('src', 'web/app'),
-        loader: 'raw'
+        loader: 'raw-loader'
       }
     ]
   },
 
   plugins: [
+     // Workaround for angular/angular#11580
+    new webpack.ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)@angular/,
+      helpers.root('./src/web'), // location of your src
+      {} // a map of your routes
+    ),
+    
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
     }),
@@ -224,13 +282,9 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].[hash].chunk.js'
   },
 
-  htmlLoader: {
-    minimize: false // workaround for ng2
-  },
-
+ 
   plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.DedupePlugin() ,
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
       mangle: {
         keep_fnames: true
@@ -241,6 +295,11 @@ module.exports = webpackMerge(commonConfig, {
       'process.env': {
         'ENV': JSON.stringify(ENV),
         'ENV_PARAMS': JSON.stringify(ENV_PARAMS)
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      htmlLoader: {
+        minimize: false // workaround for ng2
       }
     })
   ]
