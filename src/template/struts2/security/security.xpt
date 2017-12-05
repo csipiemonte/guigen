@@ -1168,13 +1168,19 @@ public class ComplexUISecConstraint implements UISecConstraint {
 			}
 			// poi, se ancora necessario, valuto i security constraints
 			if (declarativeConstraintResult) {
+				boolean almostOneSecCtr = false;
 				for (int i = 0; i < constraints.length && !verified; i++) {
 					UISecConstraint currCtr = constraints[i];
-					if (currCtr instanceof DeclarativeUIConstraint) {
-						verified &= currCtr.verifyConstraint(model, session, checkedBehavior, sh);
-					} else {
+					if (!(currCtr instanceof DeclarativeUIConstraint)) {
+						almostOneSecCtr=true;
 						verified |= currCtr.verifyConstraint(model, session, checkedBehavior, sh);
 					}
+				}
+				if(!almostOneSecCtr) {
+					// se nessun sec. constraint allora vale il risultato dei declarative, che in questo
+					// punto e' sempre TRUE; in caso contrario vale il risultato combinato dei security
+					// constraints
+					verified = true;
 				}
 			}
 			else{
