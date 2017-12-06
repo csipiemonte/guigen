@@ -625,7 +625,7 @@ Gestione dei PANNELLI
 				<s:submit name="«getFullID(switcher, contextPrefix)»"
 				          id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»"
 				          method="«getTabItemHandlerMethodName(cp,this,currTab, contextPrefix)»"
-				          «IF !label.isNullOrEmpty()»title="«label»"«ENDIF»
+				          «IF !currTab.label.isNullOrEmpty()»title="«currTab.label»"«ENDIF»
 				          key="«cp.name».«getFullID(currTab, contextPrefix)».label" />
 				«IF model.targetPlatform.enableRichUIBehavior-»
 					«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this.switcher-»
