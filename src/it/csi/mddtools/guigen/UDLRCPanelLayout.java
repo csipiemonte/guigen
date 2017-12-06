@@ -33,7 +33,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUDLRCPanelLayout()
- * @model annotation="uilayoutdoc description='<p>\r\nL\' <b>UDLRCPanelLayout</b> (layout a cinque quadranti Up, Down, Left,\r\nRight, Center)  prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati in uno dei quadranti. realizzando in questo modo\r\nstutture di posizionamento relativo molto flessibili.\r\nTipicamente questo layout &egrave; utilizzato nella disposizione di sotto-pannelli.\r\nIl layout pu&ograve; anche essere utilizzato per la disposizione di pulsanti all\'interno\r\ndi un <b>CommandPanel</b>.\r\n</p>'"
+ * @model annotation="uilayoutdoc description='&lt;p&gt;\r\nL\' &lt;b&gt;UDLRCPanelLayout&lt;/b&gt; (layout a cinque quadranti Up, Down, Left,\r\nRight, Center)  prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati in uno dei quadranti. realizzando in questo modo\r\nstutture di posizionamento relativo molto flessibili.\r\nTipicamente questo layout &amp;egrave; utilizzato nella disposizione di sotto-pannelli.\r\nIl layout pu&amp;ograve; anche essere utilizzato per la disposizione di pulsanti all\'interno\r\ndi un &lt;b&gt;CommandPanel&lt;/b&gt;.\r\n&lt;/p&gt;'"
  *        annotation="logicpkg pkg='ui.layout'"
  * @generated
  */

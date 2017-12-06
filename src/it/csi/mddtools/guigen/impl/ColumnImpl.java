@@ -56,6 +56,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getFieldMaxLength <em>Field Max Length</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isCustomDecorator <em>Custom Decorator</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getCustomSortPropertySelector <em>Custom Sort Property Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getFieldLength <em>Field Length</em>}</li>
  * </ul>
  *
  * @generated
@@ -350,6 +351,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected String customSortPropertySelector = CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFieldLength() <em>Field Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int FIELD_LENGTH_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getFieldLength() <em>Field Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected int fieldLength = FIELD_LENGTH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -712,6 +733,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getFieldLength() {
+		return fieldLength;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFieldLength(int newFieldLength) {
+		int oldFieldLength = fieldLength;
+		fieldLength = newFieldLength;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__FIELD_LENGTH, oldFieldLength, fieldLength));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -759,6 +801,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return isCustomDecorator();
 			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
 				return getCustomSortPropertySelector();
+			case GuigenPackage.COLUMN__FIELD_LENGTH:
+				return getFieldLength();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -815,6 +859,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
 				setCustomSortPropertySelector((String)newValue);
+				return;
+			case GuigenPackage.COLUMN__FIELD_LENGTH:
+				setFieldLength((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -873,6 +920,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
 				setCustomSortPropertySelector(CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__FIELD_LENGTH:
+				setFieldLength(FIELD_LENGTH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -915,6 +965,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return customDecorator != CUSTOM_DECORATOR_EDEFAULT;
 			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
 				return CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT == null ? customSortPropertySelector != null : !CUSTOM_SORT_PROPERTY_SELECTOR_EDEFAULT.equals(customSortPropertySelector);
+			case GuigenPackage.COLUMN__FIELD_LENGTH:
+				return fieldLength != FIELD_LENGTH_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -957,6 +1009,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(customDecorator);
 		result.append(", customSortPropertySelector: ");
 		result.append(customSortPropertySelector);
+		result.append(", fieldLength: ");
+		result.append(fieldLength);
 		result.append(')');
 		return result.toString();
 	}

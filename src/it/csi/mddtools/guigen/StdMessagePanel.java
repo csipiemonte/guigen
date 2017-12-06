@@ -46,7 +46,7 @@ package it.csi.mddtools.guigen;
  * </ul>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getStdMessagePanel()
- * @model annotation="uipaneldoc description='<p>\r\nLo <b>stdMessagePanel</b> &egrave; un pannello di tipo informativo utilizzato per mostrare \r\nall\'utente eventuali messaggi di errore o informativi.\r\nSe, durante l\'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi\r\ninformativi il pannello mostra tali messaggi.\r\nSe invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza\r\ngrafica.\r\nLe tipologie di messaggio visualizzabili sono:\r\n<ul>\r\n<li>messaggi informativi</li>\r\n<li>messaggi di errore globali</li>\r\n<li>messaggi di errore relativi a campi specifici</li>\r\n</ul>\r\n<br/>\r\n</p>'"
+ * @model annotation="uipaneldoc description='&lt;p&gt;\r\nLo &lt;b&gt;stdMessagePanel&lt;/b&gt; &amp;egrave; un pannello di tipo informativo utilizzato per mostrare \r\nall\'utente eventuali messaggi di errore o informativi.\r\nSe, durante l\'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi\r\ninformativi il pannello mostra tali messaggi.\r\nSe invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza\r\ngrafica.\r\nLe tipologie di messaggio visualizzabili sono:\r\n&lt;ul&gt;\r\n&lt;li&gt;messaggi informativi&lt;/li&gt;\r\n&lt;li&gt;messaggi di errore globali&lt;/li&gt;\r\n&lt;li&gt;messaggi di errore relativi a campi specifici&lt;/li&gt;\r\n&lt;/ul&gt;\r\n&lt;br/&gt;\r\n&lt;/p&gt;'"
  *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */

@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMenuPanel()
- * @model annotation="uipaneldoc description='<p>\r\nIl <b>MenuPanel</b> &egrave; un pannello privo di visualizzazione grafica propria, da utilizzarsi\r\nesclusivamente per contenere il widget <b>MenuView</b>.\r\n</p>'"
+ * @model annotation="uipaneldoc description='&lt;p&gt;\r\nIl &lt;b&gt;MenuPanel&lt;/b&gt; &amp;egrave; un pannello privo di visualizzazione grafica propria, da utilizzarsi\r\nesclusivamente per contenere il widget &lt;b&gt;MenuView&lt;/b&gt;.\r\n&lt;/p&gt;'"
  *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */

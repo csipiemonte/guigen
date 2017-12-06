@@ -91,6 +91,7 @@ public class ColumnItemProvider
 			addFieldMaxLengthPropertyDescriptor(object);
 			addCustomDecoratorPropertyDescriptor(object);
 			addCustomSortPropertySelectorPropertyDescriptor(object);
+			addFieldLengthPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -404,6 +405,28 @@ public class ColumnItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Field Length feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFieldLengthPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Column_fieldLength_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_fieldLength_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__FIELD_LENGTH,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -484,6 +507,7 @@ public class ColumnItemProvider
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
 			case GuigenPackage.COLUMN__CUSTOM_DECORATOR:
 			case GuigenPackage.COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR:
+			case GuigenPackage.COLUMN__FIELD_LENGTH:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:

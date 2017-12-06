@@ -37,7 +37,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMsgBoxPanel()
- * @model annotation="uipaneldoc description='<p>\r\nIl <b>MsgBoxPanel</b> &egrave; un pannello utilizzabile per mostrare all\'utente\r\ndel testo in sola lettura, eventualmente formattato. Il testo pu&ograve; essere statico\r\n(definito a tempo di modellazione) o dinamico (calcolato a runtime).\r\nE\' il meccanismo preferenziale da utilizzare in tutti quei casi in cui non sia sufficiente\r\nutilizzare lo <b>StdMessagePanel</b>, che &egrave; orientato principalmente a brevi\r\nmessaggi testuali.\r\n<br/>\r\nData la natura del pannello, &egrave; possibile inserire esclusivamente dei widget di\r\nvisualizzazione di testo (<b>PlainText</b>).\r\n</p>'"
+ * @model annotation="uipaneldoc description='&lt;p&gt;\r\nIl &lt;b&gt;MsgBoxPanel&lt;/b&gt; &amp;egrave; un pannello utilizzabile per mostrare all\'utente\r\ndel testo in sola lettura, eventualmente formattato. Il testo pu&amp;ograve; essere statico\r\n(definito a tempo di modellazione) o dinamico (calcolato a runtime).\r\nE\' il meccanismo preferenziale da utilizzare in tutti quei casi in cui non sia sufficiente\r\nutilizzare lo &lt;b&gt;StdMessagePanel&lt;/b&gt;, che &amp;egrave; orientato principalmente a brevi\r\nmessaggi testuali.\r\n&lt;br/&gt;\r\nData la natura del pannello, &amp;egrave; possibile inserire esclusivamente dei widget di\r\nvisualizzazione di testo (&lt;b&gt;PlainText&lt;/b&gt;).\r\n&lt;/p&gt;'"
  *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */

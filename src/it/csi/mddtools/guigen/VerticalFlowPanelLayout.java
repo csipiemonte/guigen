@@ -36,7 +36,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getVerticalFlowPanelLayout()
- * @model annotation="uilayoutdoc description='<p>\r\nIl <b>VerticalFlowPanelLayout</b> (layout sequenziale a sviluppo\r\nverticale) prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati uno dopo l\'altro in una sequenza \r\nverticale, all\'interno dell\'area disponibile per il pannello contenitore.\r\nDi fatto rappresenta un layout ad una colonna logica (un solo widget) e\r\ndue colonne fisiche (una per la label ed una per il campo effettivo).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget. Le percentuali sono relative allo spazio a\r\ndisposizione dell\'interno pannello.\r\n</p>'"
+ * @model annotation="uilayoutdoc description='&lt;p&gt;\r\nIl &lt;b&gt;VerticalFlowPanelLayout&lt;/b&gt; (layout sequenziale a sviluppo\r\nverticale) prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati uno dopo l\'altro in una sequenza \r\nverticale, all\'interno dell\'area disponibile per il pannello contenitore.\r\nDi fatto rappresenta un layout ad una colonna logica (un solo widget) e\r\ndue colonne fisiche (una per la label ed una per il campo effettivo).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget. Le percentuali sono relative allo spazio a\r\ndisposizione dell\'interno pannello.\r\n&lt;/p&gt;'"
  *        annotation="logicpkg pkg='ui.layout'"
  * @generated
  */

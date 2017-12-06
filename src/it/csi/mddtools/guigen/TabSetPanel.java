@@ -50,7 +50,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTabSetPanel()
- * @model annotation="uipaneldoc description='<p>\r\nIl <b>TabSetPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate\r\na <i>tab</i>. Prevede due sezioni visibili:\r\n<ol>\r\n<li>la lista di &quot; linguette &quot; che servono per attivare i vari <i>tab</i> \r\n(con evidenza visiva del tab correntemente selezionato)</li>\r\n<li>la sezione in cui viene visualizzato il contenuto del <i>tab</i> correntemente selezionato.</li>\r\n</ol>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n</p>'"
+ * @model annotation="uipaneldoc description='&lt;p&gt;\r\nIl &lt;b&gt;TabSetPanel&lt;/b&gt; &amp;egrave; un pannello utilizzato realizzare strutture organizzate\r\na &lt;i&gt;tab&lt;/i&gt;. Prevede due sezioni visibili:\r\n&lt;ol&gt;\r\n&lt;li&gt;la lista di &amp;quot; linguette &amp;quot; che servono per attivare i vari &lt;i&gt;tab&lt;/i&gt; \r\n(con evidenza visiva del tab correntemente selezionato)&lt;/li&gt;\r\n&lt;li&gt;la sezione in cui viene visualizzato il contenuto del &lt;i&gt;tab&lt;/i&gt; correntemente selezionato.&lt;/li&gt;\r\n&lt;/ol&gt;\r\nAll\'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n&lt;/p&gt;'"
  *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */

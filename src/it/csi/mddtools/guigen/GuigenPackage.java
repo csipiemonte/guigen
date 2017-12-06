@@ -3792,13 +3792,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR = 14;
 
 	/**
+	 * The feature id for the '<em><b>Field Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__FIELD_LENGTH = 15;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 15;
+	int COLUMN_FEATURE_COUNT = 16;
 
 	/**
 	 * The number of structural features of the '<em>Command</em>' class.
@@ -8596,6 +8605,15 @@ public interface GuigenPackage extends EPackage {
 	int EXTRA_COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR = COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR;
 
 	/**
+	 * The feature id for the '<em><b>Field Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__FIELD_LENGTH = COLUMN__FIELD_LENGTH;
+
+	/**
 	 * The feature id for the '<em><b>Insert After</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12369,6 +12387,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_CustomSortPropertySelector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getFieldLength <em>Field Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Field Length</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getFieldLength()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_FieldLength();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
@@ -18284,6 +18313,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__CUSTOM_SORT_PROPERTY_SELECTOR = eINSTANCE.getColumn_CustomSortPropertySelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Field Length</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__FIELD_LENGTH = eINSTANCE.getColumn_FieldLength();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

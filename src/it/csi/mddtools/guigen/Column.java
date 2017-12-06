@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getFieldMaxLength <em>Field Max Length</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#isCustomDecorator <em>Custom Decorator</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getCustomSortPropertySelector <em>Custom Sort Property Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getFieldLength <em>Field Length</em>}</li>
  * </ul>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getColumn()
@@ -436,6 +437,7 @@ public interface Column extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Field Max Length</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -445,7 +447,7 @@ public interface Column extends EObject {
 	 * @return the value of the '<em>Field Max Length</em>' attribute.
 	 * @see #setFieldMaxLength(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_FieldMaxLength()
-	 * @model
+	 * @model default="0"
 	 * @generated
 	 */
 	int getFieldMaxLength();
@@ -513,5 +515,31 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setCustomSortPropertySelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Field Length</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * In caso di colonna editabile se specificato rappresenta la dimensione in caratteri del campo. Se il valore specificato &egrave; zero viene utilizzato il default del browser.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Field Length</em>' attribute.
+	 * @see #setFieldLength(int)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_FieldLength()
+	 * @model default="0"
+	 * @generated
+	 */
+	int getFieldLength();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getFieldLength <em>Field Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field Length</em>' attribute.
+	 * @see #getFieldLength()
+	 * @generated
+	 */
+	void setFieldLength(int value);
 
 } // Column

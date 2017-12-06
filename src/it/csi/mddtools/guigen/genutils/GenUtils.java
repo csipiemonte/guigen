@@ -2725,6 +2725,7 @@ public class GenUtils {
 						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+
 						(!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
 						(currCol.getFieldMaxLength() > 0 ? " maxlength=\"" + currCol.getFieldMaxLength() + "\"" : "") +
+						(currCol.getFieldLength() > 0 ? " size=\"" + currCol.getFieldLength() + "\"" : "") +
 						" />";
 					}
 				}
