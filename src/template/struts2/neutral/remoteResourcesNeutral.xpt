@@ -614,7 +614,10 @@ Gestione dei PANNELLI
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab, cp, contextPrefix)»'}" />
 		</s:url>
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currTab, cp, contextPrefix)»'«stepExtraCondition»}">
-			<li class="item-«i.counter1» active"><span class="activeItem"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></span></li>
+			<li class="item-«i.counter1» active"
+			«IF !currTab.label.isNullOrEmpty()»title="«currTab.label»"«ENDIF»
+			>
+			<span class="activeItem"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></span></li>
 		</s:if>
 		«IF switchHnd != null-»
 		<s:else>
@@ -634,7 +637,7 @@ Gestione dei PANNELLI
 		</s:else>
 		«ELSE-»
 		<s:else>
-			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
+			<li class="item-«i.counter1»" «IF !currTab.label.isNullOrEmpty()»title="«currTab.label»"«ENDIF» ><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
 		</s:else>
 		«ENDIF-»
 		«ENDLET-»
