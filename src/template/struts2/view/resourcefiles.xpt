@@ -1072,6 +1072,7 @@ come target di refresh.
 			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
 				«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
 				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
+				disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 				«ENDLET-»
 			«ENDIF-»
 			/>
@@ -1080,6 +1081,7 @@ come target di refresh.
 			«IF (eventHandlers.exists(eh|eh.eventType==EventTypes::VALUE_CHANGED)) -»
 			«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED ).first() AS vcHandler-»
 				onclick="onRBClick('«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»')"
+				disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 			«ENDLET-» 
 			«ENDIF-»
 			/>
