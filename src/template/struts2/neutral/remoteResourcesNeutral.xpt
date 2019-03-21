@@ -839,7 +839,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 «IF !this.widgets.isEmpty -»
-«IF !isNullOrEmpty(this.label)»<h4 class="wpLabel">«this.label» «getToggleHandleHtml(this,contextPrefix)»</h4>«ENDIF»
+«IF !isNullOrEmpty(this.label)»<h4 class="wpLabel"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /> «getToggleHandleHtml(this,contextPrefix)»</h4>«ENDIF»
 <div class="widgetsPanel" id="«getFullID(this, contextPrefix)»">
 	«IF this.widgets.select(e|e.metaType == Table).size == 0 && this.widgets.select(e|e.metaType == MapView).size == 0»
 	<customtag:widgetsPanel id="«getFullID(this, contextPrefix)»Tbl" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable"
