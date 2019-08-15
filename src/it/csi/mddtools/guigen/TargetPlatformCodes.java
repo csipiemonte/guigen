@@ -65,7 +65,15 @@ public enum TargetPlatformCodes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JBOSS_EAP64(2, "JBossEAP64", "JBossEAP64");
+	JBOSS_EAP64(2, "JBossEAP64", "JBossEAP64"), /**
+	 * The '<em><b>Wildfly17</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WILDFLY17_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	WILDFLY17(3, "Wildfly17", "Wildfly17");
 
 	/**
 	 * The '<em><b>WLS92</b></em>' literal value.
@@ -113,6 +121,17 @@ public enum TargetPlatformCodes implements Enumerator {
 	public static final int JBOSS_EAP64_VALUE = 2;
 
 	/**
+	 * The '<em><b>Wildfly17</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WILDFLY17
+	 * @model name="Wildfly17"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int WILDFLY17_VALUE = 3;
+
+	/**
 	 * An array of all the '<em><b>Target Platform Codes</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -123,6 +142,7 @@ public enum TargetPlatformCodes implements Enumerator {
 			WLS92,
 			JBOSS43,
 			JBOSS_EAP64,
+			WILDFLY17,
 		};
 
 	/**
@@ -182,6 +202,7 @@ public enum TargetPlatformCodes implements Enumerator {
 			case WLS92_VALUE: return WLS92;
 			case JBOSS43_VALUE: return JBOSS43;
 			case JBOSS_EAP64_VALUE: return JBOSS_EAP64;
+			case WILDFLY17_VALUE: return WILDFLY17;
 		}
 		return null;
 	}

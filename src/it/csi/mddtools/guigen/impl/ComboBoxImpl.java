@@ -487,7 +487,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (keySelector: ");
 		result.append(keySelector);
 		result.append(", valueSelector: ");

@@ -587,7 +587,7 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (layerSwitcher: ");
 		result.append(layerSwitcher);
 		result.append(", backgroundMapMapServiceName: ");

@@ -274,7 +274,7 @@ public class StdMessagePanelImpl extends PanelImpl implements StdMessagePanel {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (showGlobalMessages: ");
 		result.append(showGlobalMessages);
 		result.append(", showFieldErrorDetails: ");

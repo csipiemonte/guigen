@@ -336,7 +336,7 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (fieldLength: ");
 		result.append(fieldLength);
 		result.append(", fieldMaxLength: ");

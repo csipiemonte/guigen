@@ -26,6 +26,10 @@ public enum CPCommandExecutionTypes implements Enumerator {
 	 * The '<em><b>ON INIT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il comando viene eseguito al primo ingresso nel content panel. Serve pertanto
+	 * per l'inizializzazione del ContentPanel
+	 * <!-- end-model-doc -->
 	 * @see #ON_INIT_VALUE
 	 * @generated
 	 * @ordered
@@ -36,6 +40,12 @@ public enum CPCommandExecutionTypes implements Enumerator {
 	 * The '<em><b>ON ENTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il comando viene eseguito ad ogni ingresso nel content panel (proveniente da
+	 * un a differente schermata). Serve pertanto per quei casi in cui sia
+	 * necessaria una inizializzazione del ContentPanel che non possa essere effettuata
+	 * una tantum, ma debba essere ripetuta ad ogni ingresso.
+	 * <!-- end-model-doc -->
 	 * @see #ON_ENTER_VALUE
 	 * @generated
 	 * @ordered
@@ -46,6 +56,10 @@ public enum CPCommandExecutionTypes implements Enumerator {
 	 * The '<em><b>BEFORE EVENTS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il comando viene eseguito prima dell'esecuzione di ogni evento esplicito su uno dei
+	 * widget della schermata. 
+	 * <!-- end-model-doc -->
 	 * @see #BEFORE_EVENTS_VALUE
 	 * @generated
 	 * @ordered
@@ -56,6 +70,10 @@ public enum CPCommandExecutionTypes implements Enumerator {
 	 * The '<em><b>AFTER EVENTS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il comando viene eseguito al termine dell'esecuzione di ogni evento esplicito su uno dei
+	 * widget della schermata (prima dell'eventuale cambio di schermata)
+	 * <!-- end-model-doc -->
 	 * @see #AFTER_EVENTS_VALUE
 	 * @generated
 	 * @ordered
@@ -66,6 +84,11 @@ public enum CPCommandExecutionTypes implements Enumerator {
 	 * The '<em><b>ON REFRESH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il comando viene eseguito ad ogni refresh della schermata; se il refresh &egrave;
+	 * scatenato da un evento su un widget, il comando viene eseguito prima dell'
+	 * esecuzione ddell'evento. 
+	 * <!-- end-model-doc -->
 	 * @see #ON_REFRESH_VALUE
 	 * @generated
 	 * @ordered

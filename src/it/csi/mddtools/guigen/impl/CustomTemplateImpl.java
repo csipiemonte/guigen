@@ -282,7 +282,7 @@ public class CustomTemplateImpl extends EObjectImpl implements CustomTemplate {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (tplID: ");
 		result.append(tplID);
 		result.append(", name: ");

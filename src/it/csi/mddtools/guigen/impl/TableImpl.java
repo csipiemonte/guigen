@@ -502,7 +502,7 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (pageSize: ");
 		result.append(pageSize);
 		result.append(", enableExport: ");

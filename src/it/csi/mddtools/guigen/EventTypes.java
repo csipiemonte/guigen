@@ -43,6 +43,14 @@ public enum EventTypes implements Enumerator {
 	 * The '<em><b>CLICKED</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Evento di click su un controllo. Esempi:
+	 * <ul>
+	 * <li>la pressione di un <b>ConfirmButton</b></li>
+	 * <li>il click su una voce di <b>Menu</b></li>
+	 * <li>il click su una cella in una <b>Table</b></li>
+	 * </ul>
+	 * <!-- end-model-doc -->
 	 * @see #CLICKED_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +61,13 @@ public enum EventTypes implements Enumerator {
 	 * The '<em><b>VALUE CHANGED</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Evento che modifica il vlaore di un controllo. Esempi:
+	 * <ul>
+	 * <li>la selezione di una voce d una <b>ComboBox</b></li>
+	 * <li>il click su un <b>RadioButton</b></li>
+	 * </ul>
+	 * <!-- end-model-doc -->
 	 * @see #VALUE_CHANGED_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +78,10 @@ public enum EventTypes implements Enumerator {
 	 * The '<em><b>FOCUS GAINED</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta l'acquisizione del focus d aparte di un controllo.
+	 * PER FUTURE EVOLUZIONI.
+	 * <!-- end-model-doc -->
 	 * @see #FOCUS_GAINED_VALUE
 	 * @generated
 	 * @ordered
@@ -73,6 +92,10 @@ public enum EventTypes implements Enumerator {
 	 * The '<em><b>FOCUS LOST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta la perdita del focus d aparte di un controllo.
+	 * PER FUTURE EVOLUZIONI.
+	 * <!-- end-model-doc -->
 	 * @see #FOCUS_LOST_VALUE
 	 * @generated
 	 * @ordered
@@ -89,6 +112,10 @@ public enum EventTypes implements Enumerator {
 	 * The '<em><b>NODE EXPANDED</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta l'evento di apertura di un nodo in un Tree (applicabile solo a
+	 * <b>TreeView</b>)
+	 * <!-- end-model-doc -->
 	 * @see #NODE_EXPANDED_VALUE
 	 * @generated
 	 * @ordered
@@ -97,6 +124,11 @@ public enum EventTypes implements Enumerator {
 	 * The '<em><b>EDIT COMMITTED</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta l'evento di conferma di un'attivit&agrave; di editing complesso.
+	 * Valido solo per <b>MapView</b>: serve per recepire le modifiche effettuate
+	 * sulla mappa.
+	 * <!-- end-model-doc -->
 	 * @see #EDIT_COMMITTED_VALUE
 	 * @generated
 	 * @ordered

@@ -398,7 +398,7 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (methodName: ");
 		result.append(methodName);
 		result.append(')');

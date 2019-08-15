@@ -252,7 +252,7 @@ public class CommandOutcomeImpl extends EObjectImpl implements CommandOutcome {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (resultCode: ");
 		result.append(resultCode);
 		result.append(')');

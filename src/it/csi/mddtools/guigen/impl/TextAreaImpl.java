@@ -222,7 +222,7 @@ public class TextAreaImpl extends DataWidgetImpl implements TextArea {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (rows: ");
 		result.append(rows);
 		result.append(", columns: ");

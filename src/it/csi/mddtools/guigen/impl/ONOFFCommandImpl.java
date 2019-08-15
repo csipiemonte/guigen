@@ -282,7 +282,7 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (enable: ");
 		result.append(enable);
 		result.append(')');

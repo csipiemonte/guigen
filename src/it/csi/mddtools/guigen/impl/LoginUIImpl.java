@@ -158,7 +158,7 @@ public class LoginUIImpl extends EObjectImpl implements LoginUI {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (uiType: ");
 		result.append(uiType);
 		result.append(')');

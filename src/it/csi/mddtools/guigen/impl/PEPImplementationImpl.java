@@ -252,7 +252,7 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (custom: ");
 		result.append(custom);
 		result.append(')');

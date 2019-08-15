@@ -282,7 +282,7 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (show: ");
 		result.append(show);
 		result.append(')');

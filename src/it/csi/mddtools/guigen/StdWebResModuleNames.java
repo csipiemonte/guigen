@@ -43,6 +43,11 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Ext all</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Libreria Javascript <i>ExtJs</i>, utilizzata per la realizzazione delle funzioni 
+	 * &quot;ricche&quot;.
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #EXT_ALL_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +58,11 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Openlayers</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Libreria Javascript <i>OpenLayers</i>, utilizzata per la realizzazione 
+	 * delle funzionalit&agrave; GIS (widget <b>MapView</b>).
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #OPENLAYERS_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +73,12 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Extjscsicore</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Libreria Javascript <i>extjscsicore</i> (estensione di ExtJS per la
+	 * realizzazione di widget/funzioni ricche utilizzate dalla modalit&agrave;
+	 * <i>arricchita</i> di guigen).
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #EXTJSCSICORE_VALUE
 	 * @generated
 	 * @ordered
@@ -73,6 +89,11 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Extjscsienricher</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Libreria Javascript <i>extjscsienricher</i> (estensione di ExtJS per la
+	 * realizzazione del meccanismo di <i>arricchimento</i> disponibile in guigen).
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #EXTJSCSIENRICHER_VALUE
 	 * @generated
 	 * @ordered
@@ -83,6 +104,12 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Extjscsimdd</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Libreria Javascript <i>extjscsimdd</i> (estensione di ExtJS per la
+	 * realizzazione dello strato completo di presentation in modalit&agrave;
+	 * <i>FAT</i> di guigen).
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #EXTJSCSIMDD_VALUE
 	 * @generated
 	 * @ordered
@@ -93,6 +120,12 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Extlibstheme</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Stilizzazione di base delle estensioni alla user interface fornite dalla libreria
+	 * <i>ExtJS</i>.
+	 * E' specifica di ogni portale.
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #EXTLIBSTHEME_VALUE
 	 * @generated
 	 * @ordered
@@ -101,6 +134,12 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Xstructure</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Impostazione della struttura portante necessaria per realizzare
+	 * i vari tipi di layout per XHTML universale.
+	 * E' specifica di ogni portale.
+	 * Tipologia: stili CSS.
+	 * <!-- end-model-doc -->
 	 * @see #XSTRUCTURE_VALUE
 	 * @generated
 	 * @ordered
@@ -111,6 +150,14 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Areabrand</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Stilizzazione specifica della singola area tematica atta a realizzarne il
+	 * <i>brand></i>.
+	 * Agisce come specializzazione di <i>xstructure</i>.
+	 * E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica
+	 * di default (general) deve essere stilizzata in questo modo.
+	 * Tipologia: stili CSS.
+	 * <!-- end-model-doc -->
 	 * @see #AREABRAND_VALUE
 	 * @generated
 	 * @ordered
@@ -121,6 +168,14 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Extlibsareabrand</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Stilizzazione specifica della singola area tematica atta a realizzarne il
+	 * <i>brand></i>.
+	 * Agisce come specializzazione di quanto definito in <i>xtheme</i>.
+	 * E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica
+	 * di default (general) deve essere stilizzata in questo modo.
+	 * Tipologia: stili css
+	 * <!-- end-model-doc -->
 	 * @see #EXTLIBSAREABRAND_VALUE
 	 * @generated
 	 * @ordered
@@ -129,6 +184,12 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Openlayerstheme</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Stilizzazione di base delle estensioni alla user interface fornite dalla libreria
+	 * <i>OPENLAYERS</i>.
+	 * E' specifica di ogni portale.
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #OPENLAYERSTHEME_VALUE
 	 * @generated
 	 * @ordered
@@ -137,6 +198,14 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Openlayersareabrand</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Stilizzazione specifica della singola area tematica atta a realizzarne il
+	 * <i>brand></i>.
+	 * Agisce come specializzazione di quanto definito in <i>openlayerstheme</i>.
+	 * E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica
+	 * di default (general) deve essere stilizzata in questo modo.
+	 * Tipologia: stili css
+	 * <!-- end-model-doc -->
 	 * @see #OPENLAYERSAREABRAND_VALUE
 	 * @generated
 	 * @ordered
@@ -145,6 +214,10 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Enrichments</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Arricchimenti specifici della singola applicazione.
+	 * Tipologia: javascript
+	 * <!-- end-model-doc -->
 	 * @see #ENRICHMENTS_VALUE
 	 * @generated
 	 * @ordered
@@ -155,6 +228,10 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * The '<em><b>Globalinclusions</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Frammenti html inclusi globalmente.
+	 * Tipologia: risorse web di varia natura (tipicamente html)
+	 * <!-- end-model-doc -->
 	 * @see #GLOBALINCLUSIONS_VALUE
 	 * @generated
 	 * @ordered

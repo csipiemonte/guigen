@@ -360,7 +360,7 @@ public class ChkEditStatusCommandImpl extends CommandImpl implements ChkEditStat
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (checkAggregation: ");
 		result.append(checkAggregation);
 		result.append(')');

@@ -476,7 +476,7 @@ public class HeaderImpl extends EObjectImpl implements Header {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (codCanale: ");
 		result.append(codCanale);
 		result.append(", codApplicativo: ");

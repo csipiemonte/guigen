@@ -43,6 +43,10 @@ public enum WebResModuleDeployTypes implements Enumerator {
 	 * The '<em><b>APPSERVER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gli artefatti relativi al modulo sono contenuti nel pacchetto applicativo
+	 * che sarà installato nell'application server (es. nell'EAR)
+	 * <!-- end-model-doc -->
 	 * @see #APPSERVER_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +57,11 @@ public enum WebResModuleDeployTypes implements Enumerator {
 	 * The '<em><b>WEBSERVER GLOBAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gli artefatti relativi al modulo sono referenziati in una cartella del 
+	 * <i>web server</i> che espone l'applicazione che è disponibile con ciclo
+	 * di vita indipendente dall'applicazione (cartella globale)
+	 * <!-- end-model-doc -->
 	 * @see #WEBSERVER_GLOBAL_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +72,13 @@ public enum WebResModuleDeployTypes implements Enumerator {
 	 * The '<em><b>WEBSERVER LOCAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gli artefatti relativi al modulo sono installati e in una cartella del 
+	 * <i>web server</i> che espone l'applicazione. La cartella segue il
+	 * ciclo di vita dell'applicazione (cartella locale). Le risorse sono poi 
+	 * referenziate dalle componenti applicative puntando a quella
+	 * cartella
+	 * <!-- end-model-doc -->
 	 * @see #WEBSERVER_LOCAL_VALUE
 	 * @generated
 	 * @ordered

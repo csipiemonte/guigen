@@ -980,7 +980,7 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (selector: ");
 		result.append(selector);
 		result.append(", label: ");

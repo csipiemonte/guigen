@@ -64,6 +64,8 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//TargetPlatformCodes">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TargetPlatformCodes/WLS92"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TargetPlatformCodes/JBoss43"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TargetPlatformCodes/JBossEAP64"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TargetPlatformCodes/Wildfly17"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//MessageSeverity">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//MessageSeverity/INFO"/>
@@ -181,6 +183,10 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TreeSelectionTypes/LEAF_NODES_ONLY"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TreeSelectionTypes/NON_LEAF_NODES_ONLY"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//SliderCollectionValuesUsageTypes">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//SliderCollectionValuesUsageTypes/RANGE_BOUNDS"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//SliderCollectionValuesUsageTypes/DISCRETE_VALUES"/>
+    </genEnums>
     <genClasses ecoreClass="guigen.ecore#//ApplicationArea">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/menubar"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/titlebar"/>
@@ -258,7 +264,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TextArea/rows"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TextArea/columns"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//Calendar"/>
+    <genClasses ecoreClass="guigen.ecore#//Calendar">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Calendar/selectYear"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Calendar/selectMonth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Calendar/selectYearRange"/>
+    </genClasses>
     <genClasses ecoreClass="guigen.ecore#//ComboBox">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComboBox/keySelector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComboBox/valueSelector"/>
@@ -350,6 +360,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/fieldMaxLength"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/customDecorator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/customSortPropertySelector"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/fieldLength"/>
     </genClasses>
     <genClasses image="false" ecoreClass="guigen.ecore#//Command"/>
     <genClasses ecoreClass="guigen.ecore#//CommandEvent"/>
@@ -886,5 +897,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//AnnotationDetail/value"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Captcha"/>
+    <genClasses ecoreClass="guigen.ecore#//Slider">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Slider/useCollectionDataAs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Slider/staticLowerBound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Slider/staticUpperBound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Slider/staticStep"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

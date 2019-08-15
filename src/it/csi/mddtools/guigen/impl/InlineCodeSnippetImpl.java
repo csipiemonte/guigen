@@ -313,7 +313,7 @@ public class InlineCodeSnippetImpl extends EObjectImpl implements InlineCodeSnip
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (snippetPosition: ");
 		result.append(snippetPosition);
 		result.append(", snippetName: ");

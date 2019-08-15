@@ -137,6 +137,9 @@ public enum SimpleTypeCodes implements Enumerator {
 	 * The '<em><b>TREE NODE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta il tipo degli elementi di una struttura a tree
+	 * <!-- end-model-doc -->
 	 * @see #TREE_NODE_VALUE
 	 * @generated
 	 * @ordered

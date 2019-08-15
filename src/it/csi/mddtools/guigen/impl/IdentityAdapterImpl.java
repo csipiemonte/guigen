@@ -386,7 +386,7 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (sourceType: ");
 		result.append(sourceType);
 		result.append(", infoSourceName: ");

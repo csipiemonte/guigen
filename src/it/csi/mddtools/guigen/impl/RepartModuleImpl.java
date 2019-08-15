@@ -387,7 +387,7 @@ public class RepartModuleImpl extends EObjectImpl implements RepartModule {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (organization: ");
 		result.append(organization);
 		result.append(", name: ");

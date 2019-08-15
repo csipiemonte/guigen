@@ -168,7 +168,7 @@ public class CommandWidgetImpl extends WidgetImpl implements CommandWidget {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (functionSpecifier: ");
 		result.append(functionSpecifier);
 		result.append(')');

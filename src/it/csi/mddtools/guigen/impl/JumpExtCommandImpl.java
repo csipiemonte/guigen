@@ -336,7 +336,7 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (staticUrl: ");
 		result.append(staticUrl);
 		result.append(", locationCode: ");

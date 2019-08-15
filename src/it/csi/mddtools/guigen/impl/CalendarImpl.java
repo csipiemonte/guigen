@@ -267,7 +267,7 @@ public class CalendarImpl extends DataWidgetImpl implements Calendar {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (selectYear: ");
 		result.append(selectYear);
 		result.append(", selectMonth: ");

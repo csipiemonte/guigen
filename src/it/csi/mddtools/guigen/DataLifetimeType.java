@@ -43,6 +43,9 @@ public enum DataLifetimeType implements Enumerator {
 	 * The '<em><b>USER ACTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il valore &egrave; disponibile solo fino al termine dell'azione utente corrente.
+	 * <!-- end-model-doc -->
 	 * @see #USER_ACTION_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +56,9 @@ public enum DataLifetimeType implements Enumerator {
 	 * The '<em><b>USER SESSION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il valore &egrave; disponibile per tutta la durata della sessioen utente, a meno che non venga esplicitamente rimosso.
+	 * <!-- end-model-doc -->
 	 * @see #USER_SESSION_VALUE
 	 * @generated
 	 * @ordered
@@ -61,6 +67,9 @@ public enum DataLifetimeType implements Enumerator {
 	 * The '<em><b>SAME PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il valore &egrave; disponibile finch&egrave; il flusso non passa a dun content panel differente, tramite un <b>JumpCommand</b>.
+	 * <!-- end-model-doc -->
 	 * @see #SAME_PAGE_VALUE
 	 * @generated
 	 * @ordered
