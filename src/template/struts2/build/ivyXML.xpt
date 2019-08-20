@@ -53,18 +53,6 @@ IVY FILES (gestione delle dipendenze)
     	<!-- librerie per il widget captcha -->
     	<dependency org="csipiemonte" name="captcha" rev="1.1.1"/>
     	
-    <dependency org="others" name="spring" rev="3.1.1.RELEASE" transitive="false" >
-	      <artifact name="spring-aop-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-asm-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-beans-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-context-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-core-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-expression-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-jdbc-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-tx-3.1.1.RELEASE" type="jar" />
-	      <artifact name="spring-web-3.1.1.RELEASE" type="jar" />
-	    </dependency>
-
 		«REM»DIFFERENZIAZIONE LIBRERIE WEBLOGIC-JBOSS«ENDREM»
 		«EXPAND appServerLibsIvy FOR this»
 
@@ -266,12 +254,13 @@ IVY FILES (gestione delle dipendenze)
 		<dependency org="opensymphony" name="ognl" rev="3.0.21"/>
 «ENDDEFINE»
 
+
 «REM»
 JDK 1.5 -> struts2 v. 2.3.24
 JDK 1.8 -> struts2 v. 2.3.35
 «ENDREM»
 «DEFINE struts2Dependencies FOR GUIModel -»
-«IF isJBossEAP64Platform()-»
+«IF isJBossEAP64Platform() || isWildfly17Platform()-»
 «EXPAND struts2DependenciesForJDK18 FOR this-»
 «ELSE-»
 «EXPAND struts2DependenciesForJDK15 FOR this-»
@@ -293,7 +282,9 @@ JDK 1.8 -> struts2 v. 2.3.35
     		<artifact name="token-retry-2.0.0" type="jar"/>
     		<artifact name="token-retry-plugin-axis1.4-2.0.0" type="jar"/>
     	</dependency>
+    	«IF !this.isWildfly17Platform()&&!this.isJBossEAP64Platform()-»
     	<dependency org="others" name="wsdl4j" rev="1.5.1" />
+    	«ENDIF-»
     	<dependency org="apache" name="commons-discovery" rev="0.2" />
     	
 «ENDDEFINE»
@@ -301,11 +292,39 @@ JDK 1.8 -> struts2 v. 2.3.35
 «REM»Import delle librerie specifiche dell'Application Server (JBoss o WebLogic)«ENDREM»
 «DEFINE appServerLibsIvy FOR GUIModel»
 «IF isJBoss43Platform() -»
+<!-- spring 3.1.1 -->
+<dependency org="others" name="spring" rev="3.1.1.RELEASE" transitive="false" >
+	      <artifact name="spring-aop-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-asm-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-beans-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-context-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-core-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-expression-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-jdbc-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-tx-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-web-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-webmvc-3.1.1.RELEASE" type="jar" />
+</dependency>
+
 <!-- librerie specifiche di JBoss43 -->
 <dependency org="others" name="jboss" rev="4.3.0">
 	<artifact name="jboss-j2ee-4.3.0" type="jar" />
 </dependency>
 «ELSEIF isJBossEAP64Platform() -»
+<!-- spring 3.1.1 -->
+<dependency org="others" name="spring" rev="3.1.1.RELEASE" transitive="false" >
+	      <artifact name="spring-aop-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-asm-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-beans-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-context-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-core-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-expression-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-jdbc-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-tx-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-web-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-webmvc-3.1.1.RELEASE" type="jar" />
+</dependency>
+
 <!-- librerie specifiche di JBoss EAP 64 -->
 	<!-- # javax\activation\api\main\activation-1.1.1.redhat-4.jar -->
 	<dependency org="redhat" name="activation" rev="1.1.1.redhat-4" />
@@ -381,6 +400,69 @@ JDK 1.8 -> struts2 v. 2.3.35
 	<dependency org="redhat" name="resteasy-multipart-provider" rev="2.3.10.Final-redhat-1" />
 	<!-- # org\jboss\ejb3\main\jboss-ejb3-ext-api-2.1.0.redhat-1.jar    -->
 	<dependency org="redhat" name="jboss-ejb3-ext-api" rev="2.1.0.redhat-1" />
+«ELSEIF isWildfly17Platform() -»
+<!-- spring 4.3.24 --> 
+<dependency org="others" name="spring" rev="4.3.24.RELEASE" transitive="false" >
+</dependency>
+
+<!-- librerie specifiche di Wildfly17 -->
+	<!-- # javax\activation\api\main\activation-1.1.1.redhat-4.jar -->
+	<dependency org="redhat" name="activation" rev="1.1.1.redhat-4" />
+<!-- # javax\annotation\api\main\jboss-annotations-api_1.3_spec-1.0.1.Final.jar -->
+	<dependency org="redhat" name="jboss-annotations-api_1.3_spec" rev="1.0.1.Final" />
+<!-- # javax\ejb\api\main\jboss-ejb-api_3.2_spec-1.0.2.Final.jar -->
+	<dependency org="redhat" name="jboss-ejb-api_3.2_spec" rev="1.0.2.Final" />
+<!-- # javax\el\api\main\jboss-el-api_3.0_spec-1.0.13.Final.jar -->
+	<dependency org="redhat" name="jboss-el-api_3.0_spec" rev="1.0.13.Final" />
+<!-- # javax\enterprise\api\main\cdi-api-2.0.SP1.jar -->
+	<!-- # javax\inject\api\main\javax.inject-1.0.0.redhat-5.jar -->
+	<dependency org="redhat" name="javax.inject" rev="1.0.0.redhat-5" />
+<!-- # javax\jms\api\main\jboss-jms-api_2.0_spec-1.0.2.Final.jar -->
+	<dependency org="redhat" name="jboss-jms-api_2.0_spec" rev="1.0.2.Final" />
+	<!-- # javax\jws\api\main\jsr181-api-1.0.0.MR1-redhat-7.jar -->
+	<dependency org="redhat" name="jsr181-api" rev="1.0.0.MR1-redhat-7" />
+<!-- # javax\mail\api\main\javax.mail-1.6.2.jar -->
+	<dependency org="redhat" name="javax.mail" rev="1.6.2" />
+<!-- # javax\persistence\api\main\javax.persistence-api-2.2.jar -->
+	<dependency org="redhat" name="javax.persistence-api" rev="2.2" />
+<!-- # javax\resource\api\main\jboss-connector-api_1.7_spec-1.0.1.Final.jar -->
+	<dependency org="redhat" name="jboss-connector-api_1.7_spec" rev="1.0.1.Final" />
+<!-- # javax\security\auth\message\api\main\jboss-jaspi-api_1.1_spec-1.0.2.Final.jar -->
+	<dependency org="redhat" name="jboss-jaspi-api_1.1_spec" rev="1.0.2.Final" />
+<!-- # javax\security\jacc\api\main\jboss-jacc-api_1.5_spec-1.0.2.Final.jar -->
+	<dependency org="redhat" name="jboss-jacc-api_1.5_spec" rev="1.0.2.Final" />
+<!-- # javax\servlet\api\main\jboss-servlet-api_4.0_spec-1.0.0.Final.jar -->
+	<dependency org="redhat" name="jboss-servlet-api_4.0_spec" rev="1.0.0.Final" />
+<!-- # javax\servlet\jsp\api\main\jboss-jsp-api_2.3_spec-1.0.3.Final.jar -->
+	<dependency org="redhat" name="jboss-jsp-api_2.3_spec" rev="1.0.3.Final" />
+	<!-- # javax\servlet\jstl\api\main\jboss-jstl-api_1.2_spec-1.0.6.Final-redhat-1.jar -->
+	<dependency org="redhat" name="jboss-jstl-api_1.2_spec" rev="1.0.6.Final-redhat-1" />
+<!-- # javax\transaction\api\main\jboss-transaction-api_1.2_spec-1.1.1.Final.jar -->
+	<dependency org="redhat" name="jboss-transaction-api_1.2_spec" rev="1.1.1.Final" />
+<!-- # javax\validation\api\main\validation-api-2.0.1.Final.jar -->
+	<dependency org="redhat" name="validation-api" rev="2.0.1.Final" />
+<!-- # javax\ws\rs\api\main\jboss-jaxrs-api_2.1_spec-1.0.2.Final.jar -->
+	<dependency org="redhat" name="jboss-jaxrs-api_2.1_spec" rev="1.0.2.Final" />
+	<!-- # javax\wsdl4j\api\main\wsdl4j-1.6.3.redhat-1.jar -->
+	<dependency org="redhat" name="wsdl4j" rev="1.6.3.redhat-1" />
+<!-- # javax\xml\bind\api\main\jboss-jaxb-api_2.3_spec-1.0.1.Final.jar -->
+	<dependency org="redhat" name="jboss-jaxb-api_2.3_spec" rev="1.0.1.Final" />
+	<!-- # javax\xml\rpc\api\main\jboss-jaxrpc-api_1.1_spec-1.0.1.Final-redhat-4.jar -->
+	<dependency org="redhat" name="jboss-jaxrpc-api_1.1_spec" rev="1.0.1.Final-redhat-4" />
+	<!-- # javax\xml\soap\api\main\jboss-saaj-api_1.3_spec-1.0.3.Final-redhat-1.jar -->
+	<dependency org="redhat" name="jboss-saaj-api_1.3_spec" rev="1.0.3.Final-redhat-1" />
+<!-- # javax\xml\ws\api\main\jboss-jaxws-api_2.3_spec-1.0.0.Final.jar -->
+	<dependency org="redhat" name="jboss-jaxws-api_2.3_spec" rev="1.0.0.Final" />
+	<!-- # org\jboss\logging\main\jboss-logging-3.1.4.GA-redhat-2.jar -->
+	<dependency org="redhat" name="jboss-logging" rev="3.1.4.GA-redhat-2" />
+<!-- # org\jboss\resteasy\resteasy-jaxb-provider\main\resteasy-jaxb-provider-3.7.0.Final.jar -->
+	<dependency org="redhat" name="resteasy-jaxb-provider" rev="3.7.0.Final" />
+<!-- # org\jboss\resteasy\resteasy-jaxrs\main\resteasy-jaxrs-3.7.0.Final.jar -->
+	<dependency org="redhat" name="resteasy-jaxrs" rev="3.7.0.Final" />
+<!-- # org\jboss\resteasy\resteasy-multipart-provider\main\resteasy-multipart-provider-3.7.0.Final.jar -->
+	<dependency org="redhat" name="resteasy-multipart-provider" rev="3.7.0.Final" />
+<!-- # org\jboss\ejb3\main\jboss-ejb3-ext-api-2.3.0.Final.jar    -->
+	<dependency org="redhat" name="jboss-ejb3-ext-api" rev="2.3.0.Final" />
 «ELSEIF isWeblogicPlatform() -»
 <!-- librerie specifiche di weblogic -->
 <dependency org="sun" name="ejb" rev="2.1"/>
