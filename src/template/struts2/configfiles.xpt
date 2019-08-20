@@ -397,15 +397,32 @@ FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
 		«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND jbossWebContextDescriptorFile(skip_component_dir_creation) FOR this»
+		«IF isWildfly17Platform()»
+			«EXPAND jbossDeploymentStructureFile(skip_component_dir_creation) FOR this»
+		«ENDIF»
 	«ELSEIF isWeblogicPlatform(this)»
 		«EXPAND wlEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND wlWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 	«ENDIF»
 «ENDDEFINE»
 
-
+«DEFINE jbossDeploymentStructureFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getJBossDeploymentStructureFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+  <deployment>
+    <dependencies>
+      <module name="org.springframework.spring" export="true" meta-inf="export"/>
+      <module name="org.apache.cxf" export="true" meta-inf="export"/>
+      <module name="org.apache.cxf.impl" export="true" meta-inf="export"/>
+      <module name="org.apache.ws.security" export="true" meta-inf="export"/>
+    </dependencies>
+  </deployment>
+</jboss-deployment-structure>
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»************************************ JBoss ************************************«ENDREM»
+
 
 «REM»Genera il deployment descriptor per gli EJB specifico per JBOSS«ENDREM»
 «DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
