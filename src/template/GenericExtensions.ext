@@ -28,7 +28,8 @@ import ecore;
 boolean isJBossPlatform(GUIModel model) :
 model.targetPlatform != null && 
 (model.targetPlatform.code == TargetPlatformCodes::JBoss43 || 
- model.targetPlatform.code == TargetPlatformCodes::JBossEAP64);
+ model.targetPlatform.code == TargetPlatformCodes::JBossEAP64 ||
+ model.targetPlatform.code == TargetPlatformCodes::Wildfly17);
  
 boolean isJBoss43Platform(GUIModel model) : 
 model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes::JBoss43;
@@ -36,7 +37,10 @@ model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes
 boolean isJBossEAP64Platform(GUIModel model) : 
 model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes::JBossEAP64;
 
- 
+boolean isWildfly17Platform(GUIModel model) : 
+model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes::Wildfly17;
+
+
  boolean isWeblogicPlatform(GUIModel model) :
  model.targetPlatform != null && model.targetPlatform.code == TargetPlatformCodes::WLS92;
 
@@ -125,6 +129,8 @@ String getEarConfigFile(GUIModel model, boolean omit_root) :
 String getEarManifestFile(GUIModel model, boolean omit_root) :
 	getEarConfigDir(model, omit_root) + "/MANIFEST.MF";
 
+String getJBossDeploymentStructureFile(GUIModel model, boolean omit_root) :
+	getEarConfigDir(model, omit_root) + "/jboss-deployment-structure.xml";
 
 /// parte EJB
 String getEjbConfigRootDir(GUIModel model, boolean omit_root) :
