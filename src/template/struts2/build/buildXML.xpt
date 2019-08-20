@@ -349,6 +349,9 @@ e le limitazioni secondo i termini della Licenza.
       <fileset dir="${temp}/${target}">
         <include name="**/*" />
       </fileset>
+      «IF isWildfly17Platform(this)-»
+      <metainf dir="${temp}/conf/ear/web1/META-INF" includes="jboss-deployment-structure.xml" />
+      «ENDIF-»
       <manifest>
         <attribute name="Built-By" value="${user.name}" />
         <attribute name="Built-Date" value="${DSTAMP}" />
